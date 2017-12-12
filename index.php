@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 header("Content-type: text/html; charset=utf-8");
 //require_once('360_safe3.php');
@@ -22,3 +23,9 @@ define('APP_PATH','./LightpenCms/');
 define('CORE','./LightpenCms/_Core');
 require(CORE.'/LightpenCms.php');
 ?>
+=======
+<?php 
+  echo '你好这是我的GitHub';
+  echo '1234';
+?>
+>>>>>>> 14a8cdd41ac31fb1b57291d31ca4d7e506c57277

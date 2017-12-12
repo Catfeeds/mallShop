@@ -1,0 +1,1205 @@
+<?php
+/**
+ * 我的订单
+ * Enter description here ...
+ * @author zhaoyongfei
+ */
+class MemberMallOrderAction extends WapBaseAction{
+	
+	private $mid;
+	
+	private $companyid;
+	
+	public function __construct(){
+		parent::__construct();
+		$this->mid = session('mid'.session('wapcid'));
+		$this->companyid = session('wapcid');
+		$this->checkMemberLogin();
+	}
+	/**
+	 * 我的订单
+	 */
+	public function index(){
+		$this->setPageTitle(array('title'=>'我的订单'));
+		$memberDeliveryVoucherModel =M('member_delivery_voucher');
+		$where['companyid'] = $this->companyid;
+		$where['mid'] = $this->mid;
+		$list['allorderscount'] = M('mall_order_info')->where($where)->count();
+		$limit = 10;
+		$list['allordersmaxpage'] = ceil($list['allorderscount']/$limit);
+		$list['allorders'] = M('mall_order_info')->where($where)->field('id,orderid,ordertype,orderstatus,orderprice,orderint')->order('id DESC')->limit($limit)->select();
+		if($list['allorders']){
+			foreach($list['allorders'] as $aoKey=>$aoVal){
+				if($aoVal['ordertype'] == 1){
+					$list['allorders'][$aoKey]['mall'] = M('mall_order_goods')->where(array('companyid'=>$this->companyid,'orderid'=>$aoVal['orderid']))->field('goodtype,vouchersid,pricetype,goodid,goodname,goodpic,goodprice,goodint,goodnum,goodweight')->select();
+					if($list['allorders'][$aoKey]['mall']){
+						foreach($list['allorders'][$aoKey]['mall'] as $aomkey=>$aomval){
+							if($aomval['goodtype'] == 2){
+								$list['allorders'][$aoKey]['mall'][$aomkey]['voucherimgurl']=M('mall_goods')->where(array('companyid'=>$this->companyid,'id'=>$aomval['goodid']))->getField('voucherimgurl');
+							}
+						}
+					}
+				}elseif($aoVal['ordertype'] == 2){
+					$list['allorders'][$aoKey]['mall'] = $memberDeliveryVoucherModel->where(array('companyid'=>$this->companyid,'orderid'=>$aoVal['orderid']))->field('name')->select();
+				}
+			}
+		}
+		$where['orderstatus'] = '1';
+		$list['unpaidorderscount'] = M('mall_order_info')->where($where)->count();
+		$list['unpaidordersmaxpage'] = ceil($list['unpaidorderscount']/$limit);
+		$list['unpaidorders'] = M('mall_order_info')->where($where)->field('id,orderid,ordertype,orderstatus,orderprice,orderint')->order('id DESC')->limit($limit)->select();
+		if($list['unpaidorders']){
+			foreach($list['unpaidorders'] as $uoKey=>$uoVal){
+				if($uoVal['ordertype'] == 1){
+					$list['unpaidorders'][$uoKey]['mall'] = M('mall_order_goods')->where(array('companyid'=>$this->companyid,'orderid'=>$uoVal['orderid']))->field('goodtype,vouchersid,pricetype,goodid,goodname,goodpic,goodprice,goodint,goodnum,goodweight')->select();
+					if($list['unpaidorders'][$uoKey]['mall']){
+						foreach($list['unpaidorders'][$uoKey]['mall'] as $uomkey=>$uomval){
+							if($uomval['goodtype'] == 2){
+								$list['unpaidorders'][$uoKey]['mall'][$uomkey]['voucherimgurl']=M('mall_goods')->where(array('companyid'=>$this->companyid,'id'=>$uomval['goodid']))->getField('voucherimgurl');
+							}
+						}
+					}
+				}elseif($uoVal['ordertype'] == 2){
+					$list['unpaidorders'][$uoKey]['mall'] = $memberDeliveryVoucherModel->where(array('companyid'=>$this->companyid,'orderid'=>$uoVal['orderid']))->field('name')->select();
+				}
+			}
+		}
+		$where['orderstatus'] = '2';
+		$list['unshippedorderscount'] = M('mall_order_info')->where($where)->count();
+		$list['unshippedordersmaxpage'] = ceil($list['unshippedorderscount']/$limit);
+		$list['unshippedorders'] = M('mall_order_info')->where($where)->field('id,orderid,ordertype,orderstatus,orderprice,orderint')->order('id DESC')->limit($limit)->select();
+		if($list['unshippedorders']){
+			foreach ($list['unshippedorders'] as $upoKey=>$upoVal){
+				if($upoVal['ordertype'] == 1){
+					$list['unshippedorders'][$upoKey]['mall'] = M('mall_order_goods')->where(array('companyid'=>$this->companyid,'orderid'=>$upoVal['orderid']))->field('goodtype,vouchersid,pricetype,goodid,goodname,goodpic,goodprice,goodint,goodnum,goodweight')->select();
+					if($list['unshippedorders'][$upoKey]['mall']){
+						foreach($list['unshippedorders'][$upoKey]['mall'] as $upomkey=>$upomval){
+							if($upomval['goodtype'] == 2){
+								$list['unshippedorders'][$upoKey]['mall'][$upomkey]['voucherimgurl']=M('mall_goods')->where(array('companyid'=>$this->companyid,'id'=>$uomval['goodid']))->getField('voucherimgurl');
+							}
+						}
+					}
+				}elseif ($upoVal['ordertype'] == 2){
+					$list['unshippedorders'][$upoKey]['mall'] = $memberDeliveryVoucherModel->where(array('companyid'=>$this->companyid,'orderid'=>$upoVal['orderid']))->field('name')->select();
+				}
+			}
+		}
+		$where['orderstatus'] = '3';
+		$list['deliveryorderscount'] = M('mall_order_info')->where($where)->count();
+		$list['deliveryordersmaxpage'] = ceil($list['deliveryorderscount']/$limit);
+		$list['deliveryorders'] = M('mall_order_info')->where($where)->field('id,orderid,ordertype,orderstatus,orderprice,orderint')->order('id DESC')->limit($limit)->select();
+		if($list['deliveryorders']){
+			foreach ($list['deliveryorders'] as $doKey=>$doVal){
+				if($doVal['ordertype'] == 1){
+					$list['deliveryorders'][$doKey]['mall'] = M('mall_order_goods')->where(array('companyid'=>$this->companyid,'orderid'=>$doVal['orderid']))->field('goodtype,vouchersid,pricetype,goodid,goodname,goodpic,goodprice,goodint,goodnum,goodweight')->select();
+					if($list['deliveryorders'][$doKey]['mall']){
+						foreach($list['deliveryorders'][$doKey]['mall'] as $domkey=>$domval){
+							if($domval['goodtype'] == 2){
+								$list['deliveryorders'][$doKey]['mall'][$domkey]['voucherimgurl']=M('mall_goods')->where(array('companyid'=>$this->companyid,'id'=>$uomval['goodid']))->getField('voucherimgurl');
+							}
+						}
+					}
+				}elseif ($doVal['ordertype'] == 2){
+					$list['deliveryorders'][$doKey]['mall'] = $memberDeliveryVoucherModel->where(array('companyid'=>$this->companyid,'orderid'=>$doVal['orderid']))->field('name')->select();
+				}
+			}
+		}
+		$this->assign('list',$list);
+		$this->display();
+	}
+	/**
+	 * ajax获得我的订单
+	 */
+	public function ajaxgetorderlist(){
+		$ajaxReturn['code'] = 300;
+		$ajaxReturn['html'] = '';
+		$ajaxReturn['page'] = '1';
+		$ajaxReturn['isend'] = '2';
+		$orderstatus = $this->_post('orderstatus');
+		$page = $this->_post('page')+1;
+		$maxpage = $this->_post('maxpage');
+		$memberDeliveryVoucherModel =M('member_delivery_voucher');
+		$limit = 10;
+		$where['companyid'] = $this->companyid;
+		$where['mid'] = $this->mid;
+		if($page && $maxpage && $page <= $maxpage ){
+			if($orderstatus>0){
+				$where['orderstatus'] = $orderstatus;
+			}
+			$list = M('mall_order_info')->where($where)->field('id,orderid,ordertype,orderstatus,orderprice,orderint')->order('id DESC')->limit($limit)->page($page)->select();
+			if($list){
+				foreach ($list as $lKey=>$lVal){
+					$ajaxReturn['html'] .='<li><div class="head"><a class="arrow" href="'.U('MemberMallOrder/info',array('id'=>$lVal['id'],'companyid'=>$this->companyid)).'">订单号 <i class="english c2">Order no.</i>：'.$lVal['orderid'].'<p><strong class="red">￥'.$lVal['orderprice'].'+'.$lVal['orderint'].'积分</strong></p></a></div>';
+					if($lVal['ordertype'] == 1){
+						$list[$lKey]['mall'] = M('mall_order_goods')->where(array('companyid'=>$this->companyid,'orderid'=>$lVal['orderid']))->field('goodtype,vouchersid,pricetype,goodid,goodname,goodpic,goodprice,goodint,goodnum,goodweight')->select();
+						if($list[$lKey]['mall']){
+							foreach($list[$lKey]['mall'] as $mgkey=>$mgval){
+								$ajaxReturn['html'] .='<div class="cart-item"><a href="'.U('MallGoods/goodInfo',array('id'=>$mgval['goodid'],'companyid'=>$this->companyid)).'" class="link"><aside class="image">';
+								if($mgval['goodtype'] == 1){
+									$ajaxReturn['html'] .='<img src="'.$mgval['goodpic'].'" width="100" height="100">';
+								}elseif ($mgval['goodtype'] == 2){
+									$voucherimgurl=M('mall_goods')->where(array('companyid'=>$this->companyid,'id'=>$mgval['goodid']))->getField('voucherimgurl');
+									$ajaxReturn['html'] .='<img width="100px" src="'.$voucherimgurl?$voucherimgurl:'./Tpl/User/default/common/images/xuni/moren.jpg'.'" />';
+								}
+								$ajaxReturn['html'] .='</aside><div class="content"><h3 class="name">'.$mgval['name'].'</h3>';
+								if($mgval['pricetype'] == 1){
+				                    $ajaxReturn['html'] .='<p class="price red"><strong>¥'.$mgval['goodprice'] ? $mgval['goodprice'] : '0.00'.'</strong></p>';
+				                }elseif($mgval['pricetype'] == 2){
+									$ajaxReturn['html'] .='<p class="price red"><strong>'.$mgval['goodint'] ? $mgval['goodint'] : '0.00'.'积分</strong></p>';
+				                }
+				                $ajaxReturn['html'] .='<p class="c2">X'.$mgval['goodnum'] ? $mgval['goodnum'] : '0'.' '.$mgval['goodweight'] ? $mgval['goodweight'] : '0.00'.'kg</p></div></a></div>';
+							}                          
+						}
+					}elseif ($lVal['ordertype'] == 2){
+						$mall = $memberDeliveryVoucherModel->where(array('companyid'=>$this->companyid,'orderid'=>$lVal['orderid']))->field('name')->select();
+						if($mall){
+							foreach ($mall as $mKey=>$mVal){
+								$ajaxReturn['html'] .='<div class="cart-item"><a href="javascript:void(0);" class="link"><aside class="image"><div class="stamp"></div></aside><div class="content"><h3 class="name">'.$mVal['name'].'</h3><p class="price red"><strong>¥0.00</strong></p><p class="c2">X1 0.00kg</p></div></a></div>';
+							}
+						}
+					}
+					$ajaxReturn['html'] .='<div class="ft">订单状态 <i class="english c2">Order status</i>：';
+					if($lVal['orderstatus']==1){ 
+						$ajaxReturn['html'] .= '<strong class="red">待付款<i class="english">Unpaid</i></strong>';
+					}elseif($lVal['orderstatus']==2){ 
+						$ajaxReturn['html'] .= '<strong class="red">待发货<i class="english">Unshipped</i></strong>';
+					}elseif($lVal['orderstatus']==3){ 
+						$ajaxReturn['html'] .= '<strong class="red">配送中<i class="english">Delivery</i></strong>';
+					}elseif($lVal['orderstatus']==4){ 
+						$ajaxReturn['html'] .= '<strong class="red">已签收<i class="english">Received</i></strong>';
+					}elseif($lVal['orderstatus']==5){ 
+						$ajaxReturn['html'] .='<strong class="red">已取消<i class="english">Cancelled</i></strong>';
+					}elseif($lVal['orderstatus']==6){ 
+						$ajaxReturn['html'] .='<strong class="red">电子券已发送</strong>';
+					}elseif($lVal['orderstatus']==7){ 
+						$ajaxReturn['html'] .='<strong class="red">确认到账中</strong>';
+					}
+				    $ajaxReturn['html'] .='</div></li>';
+				}
+			}
+		}
+		if($ajaxReturn['html']){
+			$ajaxReturn['code'] = 200;
+			$ajaxReturn['page'] = $page;
+		}
+		if($maxpage<=$page){
+			$ajaxReturn['isend'] = '1';
+		}
+		echo json_encode($ajaxReturn);
+	}
+	/**
+	 * 订单详情
+	 */
+	public function info(){
+		$this->setPageTitle(array('title'=>'订单详情'));
+		$id = $this->_get('id');
+		if($id){
+			$where['id'] = $id;
+			$where['companyid'] = $this->companyid;
+			$info = M('mall_order_info')->where($where)->find();
+			if($info){
+				if($info['ordertype'] == 1){
+					$info['mall'] = M('mall_order_goods')->where(array('companyid'=>$this->companyid,'orderid'=>$info['orderid']))->field('goodtype,vouchersid,pricetype,goodid,goodname,goodpic,goodprice,goodint,goodnum,goodweight')->select();
+					if($info['mall']){
+						foreach($info['mall'] as $key=>$val){
+							if($val['goodtype'] == 2){
+								$info['mall'][$key]['voucherimgurl']=M('mall_goods')->where(array('companyid'=>$this->companyid,'id'=>$val['goodid']))->getField('voucherimgurl');
+								$info['mall'][$key]['voucher'] = M('member_marketing_activities_voucher_info')->where(array('companyid'=>$this->companyid,'id'=>$val['vouchersid']))->field('vouchertype,parvalue,minparvalue,maxparvalue,israndom,usetimetype,usestarttime,useendtime,usetimedeferred,useisrestrict,userestrictvalue')->find();
+							}
+						}
+					}
+				}elseif ($info['ordertype'] == 2){
+					$info['mall'] = M('member_delivery_voucher')->where(array('companyid'=>$this->companyid,'orderid'=>$info['orderid']))->field('name')->select();
+				}
+				$this->assign('info',$info);
+				$this->display();
+			}else{
+				$this->redirect(U('System/notFound',array('companyid'=>$this->companyid)));
+			}
+		}else{
+			$this->redirect(U('System/notFound',array('companyid'=>$this->companyid)));
+		}
+	}
+	/**
+	 * 非微信支付 订单的支付
+	 */
+	public function orderPay(){
+		$this->setPageTitle(array('title'=>'订单详情'));
+		$id = $this->_get('id');
+		$where['id'] = $id;
+		$where['companyid'] = $this->companyid;
+		$where['ordertype'] = 1;
+		$info = M('mall_order_info')->where($where)->field('id,mid,orderid,borderid,ordertype,orderstatus,paytime,createtime,orderprice,orderint,orderpaymethod')->find();
+		if($info){
+			$info['goodslist'] = M('mall_order_goods')->where(array('companyid'=>$this->companyid,'orderid'=>$info['orderid']))->field('companyid,orderid,goodname,goodnum,goodprice,goodint,pricetype')->select();
+			$info['mallorderautoset'] = M('company')->where(array('id'=>$this->companyid))->getField('mallorderautoset');
+			if($info['orderpaymethod'] == 5 && $this->mid){
+				$info['totalintegration'] = M('member_register_info')->where(array('companyid'=>$this->companyid,'id'=>$this->mid))->getField('totalintegration');
+			}
+			$this->assign('info',$info);
+			$this->display();
+		}else{
+			$this->redirect(U('System/notFound',array('companyid'=>$this->companyid)));
+		}
+	}
+	/**
+	 * 非微信支付 订单的支付
+	 */
+	public function orderPayIntegral(){
+		$this->setPageTitle(array('title'=>'订单详情'));
+		$id = $this->_get('id');
+		$where['id'] = $id;
+		$where['companyid'] = $this->companyid;
+		$where['ordertype'] = 1;
+		$info = M('mall_order_info')->where($where)->field('id,mid,orderid,borderid,ordertype,orderstatus,paytime,createtime,orderprice,orderint,orderpaymethod')->find();
+		if($info){
+			$info['goodslist'] = M('mall_order_goods')->where(array('companyid'=>$this->companyid,'orderid'=>$info['orderid']))->field('companyid,orderid,goodname,goodnum,goodprice,goodint,pricetype')->select();
+			$info['mallorderautoset'] = M('company')->where(array('id'=>$this->companyid))->getField('mallorderautoset');
+			if($info['orderpaymethod'] == 5 && $this->mid){
+				$info['totalintegration'] = M('member_register_info')->where(array('companyid'=>$this->companyid,'id'=>$this->mid))->getField('totalintegration');
+			}
+			$this->assign('info',$info);
+			$this->display();
+		}else{
+			$this->redirect(U('System/notFound',array('companyid'=>$this->companyid)));
+		}
+	}
+	/**
+	 * 异步支付订单
+	 */
+	public function ajaxPayOrder(){
+		$id = $this->_post('id');
+		$paytype = $this->_post('paytype');
+		$return = $this->mallOrderPay($id, $paytype,$this->mid, $this->companyid);
+		$return['id'] = $id;
+		echo json_encode($return);
+	}
+	/**
+	 * 立即购买 确认订单
+	 */
+	public function createBuyNowOrder(){
+		$this->setPageTitle(array('title'=>'确认订单'));
+        $addressid = $this->_get('addressid');
+        $this->assign('addressid', $addressid);
+        $goodsid = $this->_get('goodsid');
+		$this->assign('goodsid',$goodsid);
+		$goodsskuid = $this->_get('goodsskuid');
+		$this->assign('goodsskuid',$goodsskuid);
+		$goodsnum = $this->_get('goodsnum');
+		$this->assign('goodsnum',$goodsnum);
+		$goodtype = $this->_get('goodtype');
+		$this->assign('goodtype',$goodtype);
+		$orderinvoice = $this->_get('orderinvoice');//订单发票：1：需要；2：不需要；
+		$this->assign('orderinvoice',$orderinvoice);
+		$orderinvoicetitle = $this->_get('orderinvoicetitle');//发票抬头
+		$this->assign('orderinvoicetitle',$orderinvoicetitle);
+		$totalintegral = M('member_register_info')->where(array('id'=>$this->mid,'companyid'=>$this->companyid))->getField('totalintegration');
+		$this->assign('totalintegral',$totalintegral);
+		if($goodtype&&$goodsid&&$goodsnum){
+			$isDispatching = 1;
+			$orderInfo['allPrice'] = '0.00';
+			$orderInfo['allIntegral'] = '0.00';
+			$orderInfo['allGoodsNum'] = '0';
+			$orderInfo['allFreight'] = '0.00';
+			$orderInfo['allWeight'] = '0.00';
+			$unifyfreight = M('company')->where(array('id'=>$this->companyid))->getField('unifyfreight');//统一运费
+			$good = M('mall_goods')->where(array('companyid'=>$this->companyid,'id'=>$goodsid,'isoffshelves'=>2))->field('id,goodtype,title,pricetype,saleprice,isopenvipprice,intprice,canbuynum,vouchertype,voucherimgurl,vouchersid,freighttype,freighttplid,weight')->find();
+			if(!$good){
+				$this->redirect(U('System/notFound'),array('companyid'=>$this->companyid));
+			}
+			$good['goodnum'] = $goodsnum;
+			if($goodtype == 1){
+				$mallgoodssku = M('mall_goods_sku')->where(array('companyid'=>$this->companyid,'goodid'=>$goodsid,'id'=>$goodsskuid))->field('name,saleprice,intprice,imgurl')->find();
+				$good['pic'] = $mallgoodssku['imgurl'];
+				$good['title'] .= '&nbsp;&nbsp;&nbsp;'.$mallgoodssku['name'];
+				$good['saleprice'] = $mallgoodssku['saleprice'];
+				$good['intprice'] = $mallgoodssku['intprice'];
+			}
+			if($goodtype==2 && $good['isopenvipprice']==1){
+				$vipdis = M()->table('tp_member_card_info AS info')->join(array('LEFT JOIN tp_mall_goods_rank_discount AS dis ON dis.rankid=info.rankid'))->where(array('info.companyid'=>$this->companyid,'info.mid'=>$this->mid,'dis.goodsid'=>$good['id']))->getField('vipdiscount');
+				if(0< $vipdis && $vipdis <= 1){
+					//会员几个覆盖优惠价
+					$good['saleprice'] = format_number($good['saleprice']*$vipdis);
+					$good['intprice'] = format_number($good['intprice']*$vipdis);
+				}
+			}
+			if($good['pricetype'] == 1){
+				$orderInfo['allPrice'] = format_number($good['goodnum']*$good['saleprice']);
+			}elseif ($good['pricetype'] == 2){
+				$orderInfo['allIntegral'] = format_number($good['goodnum']*$good['intprice']);
+			}
+			if($good['freighttype'] == 1){
+				$orderInfo['allFreight'] = format_number($good['goodnum']*$unifyfreight);
+			}elseif ($good['freighttype'] == 2){
+				//免运费
+			}
+			$orderInfo['allWeight'] = format_number($good['goodnum']*$good['weight']);
+			$orderInfo['allGoodsNum'] = $good['goodnum'];
+			if($goodtype == 1){
+				$addressid = $this->_get('addressid');
+				if($addressid){
+					$addressInfo = M('member_shop_address')->where(array('companyid'=>$this->companyid,'mid'=>$this->mid,'id'=>$addressid))->field('id,name,mobile,country,province,city,address')->find();
+					//$address = $addressInfo['name'].' '.$addressInfo['mobile'].' '.$addressInfo['country'].$addressInfo['province'].$addressInfo['city'].$addressInfo['address'];
+					$address = $addressInfo['country'].$addressInfo['province'].$addressInfo['city'].$addressInfo['address'];
+				}else{
+					$addressInfo = M('member_shop_address')->where(array('companyid'=>$this->companyid,'mid'=>$this->mid,'isdefault'=>1))->field('id,name,mobile,country,province,city,address')->find();
+					if($addressInfo){
+						//$address = $addressInfo['name'].' '.$addressInfo['mobile'].' '.$addressInfo['country'].$addressInfo['province'].$addressInfo['city'].$addressInfo['address'];
+						$address = $addressInfo['country'].$addressInfo['province'].$addressInfo['city'].$addressInfo['address'];
+						$addressid = $addressInfo['id'];
+					}else{
+						$address = '';
+						$addressid = 0;
+					}
+				}
+				if($addressid&&$good['freighttype'] == 3){
+					$areaid = M('area')->where(array('name'=>$addressInfo['city']))->getField('id');
+					//运费模版
+					if($good['freighttplid']&&$areaid){
+						$tplInfo = M('mall_freight_tpl_child')->where(array('companyid'=>$this->companyid,'tplid'=>$good['freighttplid'],'areaids'=>array('like','%,'.$areaid.',%')))->field('firstheavy,continuedheavy')->find();
+						if($tplInfo){
+							$orderInfo['allFreight'] = $tplInfo['firstheavy']+(ceil($orderInfo['allWeight'])-1)*$tplInfo['continuedheavy'];
+						}else{
+							$isDispatching = 2;
+						}
+					}else{
+						$countryareaid = M('area')->where(array('name'=>$addressInfo['country']))->getField('areaid');
+						if($countryareaid == 9){
+							$tplInfo = M('mall_freight_tpl_child')->where(array('companyid'=>$this->companyid,'tplid'=>$good['freighttplid'],'areaids'=>array('like','%,-11,%')))->field('firstheavy,continuedheavy')->find();
+							if($tplInfo){
+								$orderInfo['allFreight'] = $tplInfo['firstheavy']+(ceil($orderInfo['allWeight'])-1)*$tplInfo['continuedheavy'];
+							}else{
+								$isDispatching = 2;
+							}
+						}else{
+							$isDispatching = 2;
+						}
+					}
+				}
+				$this->assign('address',$address);
+				$this->assign('addressid',$addressid);
+				$this->assign('addressInfo',$addressInfo);
+			}
+			$orderInfo['allFreight'] = format_number($orderInfo['allFreight']);
+            $orderPrice = $orderInfo['allPrice'];//用于读取可用优惠券数量
+            $this->assign('orderPrice', $orderPrice);
+            $vouchersid = $this->_get('vouchersid');
+            $this->assign('vouchersid', $vouchersid);
+            $orderInfo['deratePrice'] = '0.00';//减免价格
+            if($vouchersid){
+                $vouchersInfoWhere['vouchers.id'] = $vouchersid;
+                $vouchersInfoWhere['vouchers.companyid'] = $this->companyid;
+                $vouchersInfoWhere['vouchers.mid'] = $this->mid;
+                $vouchersInfoWhere['vouchers.isused'] = '2';
+                $vouchersInfoWhere['vouchers.issend'] = '2';
+                $vouchersInfoWhere['_string'] = "(info.vouchertype=1 AND vouchers.useendtime>" . time() . ") AND (info.useissite like '%2%')";
+                if ($orderPrice) {
+                    $vouchersInfoWhere['_string'] .= " AND (info.shopcanuserspend <= " . $orderPrice . " || info.shopcanuserspend = '0.00')";
+                }
+                $vouchersInfo = M()->table('tp_member_vouchers AS vouchers')->join(array('LEFT JOIN tp_member_marketing_activities_voucher_info AS info on info.id = vouchers.voucherinfoid'))->where($vouchersInfoWhere)
+                    ->field('vouchers.id,vouchers.parvalue as vparvalue')->find();
+                $orderInfo['deratePrice'] = $vouchersInfo['vparvalue'];
+            }
+            $orderInfo['ordersubtotal'] = $orderInfo['allPrice'] + $orderInfo['allFreight'];
+            $orderInfo['allPrice'] = $orderInfo['ordersubtotal'] - $orderInfo['deratePrice'];
+			if($orderInfo['allPrice']<=0){
+				if($vouchersid){
+					$orderInfo['allPrice'] = '0.01';
+				}else{
+					$orderInfo['allPrice'] = '0.00';
+				}
+			}
+			$orderInfo['allPrice'] = format_number($orderInfo['allPrice']);
+            $orderInfo['deratePrice'] = format_number($orderInfo['deratePrice']);
+            $totalintegration = M('member_register_info')->where(array('companyid'=>$this->companyid,'id'=>$this->mid))->getField('totalintegration');
+            if($totalintegration < 0){
+                $totalintegration = '0.00';   
+            }
+            $this->assign('totalintegration',$totalintegration);
+            $this->assign('orderInfo',$orderInfo);
+			$this->assign('good',$good);
+			$this->assign('isshowsystemdiymen','2');//隐藏自定义菜单
+			$this->assign('isDispatching',$isDispatching);//是否可以配送，1可以，2不可以
+            $canUseVouchersCount = 0;
+            if($orderPrice>0){
+                ///读取优惠券
+                unset($where);
+                $where['vouchers.companyid'] = $this->companyid;
+                $where['vouchers.mid'] = $this->mid;
+                $where['vouchers.isused'] = '2';
+                $where['vouchers.issend'] = '2';
+                $where['_string'] = "(info.vouchertype=1 AND vouchers.useendtime>" . time() . ") AND (info.useissite like '%2%')";
+                if ($orderPrice) {
+                    $where['_string'] .= " AND (info.shopcanuserspend <= ".$orderPrice." || info.shopcanuserspend = '')";
+                }
+                //可使用
+                $canUseVouchersCount = M()->table('tp_member_vouchers AS vouchers')->join(array('LEFT JOIN tp_member_marketing_activities_voucher_info AS info on info.id = vouchers.voucherinfoid'))->where($where)->count();
+            }
+            $this->assign('canUseVouchersCount', $canUseVouchersCount);
+            $this->display();
+		}else{
+			$this->redirect(U('System/notFound'),array('companyid'=>$this->companyid));
+		}
+	}
+	/**
+	 * ajax 提交立即购买订单
+	 */
+	public function ajaxCreateBuyNowOrder(){
+		$ajaxReturn['code'] = 300;
+		$ajaxReturn['msg'] = '订单提交失败，请您稍后重试';
+		
+		$time = time();
+		$goodsid = $this->_post('goodsid');
+		$good = M('mall_goods')->where(array('companyid'=>$this->companyid,'id'=>$goodsid,'isoffshelves'=>2,'issoldout'=>2))->field('id,goodtype,title,pricetype,saleprice,stockamount,isopenvipprice,intprice,canbuynum,vouchertype,voucherimgurl,vouchersid,prefix,freighttype,freighttplid,weight')->find();
+		if(!$good){
+			$ajaxReturn['code'] = 300;
+			$ajaxReturn['msg'] = '该商品已售罄（或下架）';
+		}else{
+			$goodskuid = $this->_post('goodsskuid');
+			$goodnum = $this->_post('goodsnum');
+			if($good['goodtype'] == 1){
+    			$mallgoodssku = M('mall_goods_sku')->where(array('companyid'=>$this->companyid,'id'=>$goodskuid))->field('name,saleprice,intprice,imgurl,stockamount')->find();
+    			$stockamount = $mallgoodssku['stockamount'];
+    			$good['pic'] = $mallgoodssku['imgurl'];
+    			$good['title'] .= ' '. $mallgoodssku['name'];
+    			$good['saleprice'] = $mallgoodssku['saleprice'];
+    			$good['intprice'] = $mallgoodssku['intprice'];
+			}elseif($good['goodtype'] == 2){
+			    $stockamount = $good['stockamount'];
+			    $good['pic'] = $good['voucherimgurl'];
+			}
+			if($goodnum > $stockamount){
+				$ajaxReturn['code'] = 300;
+				$ajaxReturn['msg'] = '商品库存不足';
+			}else{
+				$addressid = $this->_post('addressid');
+				if($good['goodtype'] == 1){
+				    $defaultAddress = M('member_shop_address')->where(array('companyid'=>$this->companyid,'mid'=>$this->mid,'id'=>$addressid))->field('name,mobile,country,province,city,address')->find();
+				    if(!$defaultAddress){
+				        $ajaxReturn['msg'] = '请选择您的收货地址';
+				        echo json_encode($ajaxReturn);
+				        exit();
+				    }else{
+				        $orderInfo['consigneename'] = $defaultAddress['name'];
+				        $orderInfo['consigneephone'] = $defaultAddress['mobile'];
+				        $orderInfo['consigneeaddress'] = $defaultAddress['country'].$defaultAddress['province'].$defaultAddress['city'].$defaultAddress['address'];
+				    }  
+				}
+				
+				//订单表主表
+				$orderpaymethod = $this->_post('orderpaymethod');  //付款方式
+				$orderprice = $this->_post('orderprice'); //订单金额
+				$orderid = get_order_id();
+    			$orderInfo['companyid'] = $this->companyid;
+    			$orderInfo['mid'] = $this->mid;
+    			$orderInfo['orderid'] = $orderInfo['borderid'] = $orderid;
+    			$orderInfo['ordertitle'] = $good['title'];
+    			$orderInfo['goodtype'] = $good['goodtype'];
+    			$orderInfo['ordertype'] = '1';
+    			$orderInfo['orderstatus'] = '1';
+    			$orderInfo['temporderstatus'] = '1';
+    			$orderInfo['orderprice'] = $orderprice;
+    			$orderInfo['orderderateprice'] = $this->_post('orderderateprice'); //订单减免优惠
+    			$orderInfo['ordersubtotal'] = $this->_post('ordersubtotal'); //订单小计（没优惠）
+    			$orderInfo['orderint'] = $this->_post('orderint') ? $this->_post('orderint') : '0.00'; //积分
+    			$orderInfo['orderfreight'] = $this->_post('orderfreight'); //订单运费
+    			$orderInfo['orderweight'] = $this->_post('orderweight'); //订单重量
+    			$orderInfo['orderpaymethod'] = $orderpaymethod;
+    			$orderInfo['orderinvoice'] = $this->_post('orderinvoice');
+    			$orderInfo['orderinvoicetitle'] = $this->_post('orderinvoicetitle');
+    			$orderInfo['membernote'] = $this->_post('membernote')?$this->_post('membernote'):'';
+    			$orderInfo['updatetime'] = $orderInfo['createtime'] = $time;
+    			$orderInfoReturn = M('mall_order_info')->add($orderInfo);
+    			
+    			//订单商品表
+    			$orderGoodsDate['companyid'] = $this->companyid;
+    			$orderGoodsDate['mid'] = $this->mid;
+    			$orderGoodsDate['orderid'] = $orderid;
+    			$orderGoodsDate['goodtype'] = $good['goodtype'];
+    			$orderGoodsDate['vouchersid'] = $good['vouchersid'];
+    			$orderGoodsDate['prefix'] = $good['prefix']; //虚拟券前缀
+    			$orderGoodsDate['pricetype'] = $good['pricetype']; //定价策略
+    			$orderGoodsDate['goodid'] = $goodsid;
+    			$orderGoodsDate['goodname'] = $good['title'];
+    			$orderGoodsDate['goodpic'] = $good['pic'];
+    			$orderGoodsDate['goodprice'] = $good['saleprice'];
+    			$orderGoodsDate['goodint'] = $good['intprice'];
+    			$orderGoodsDate['goodnum'] = $goodnum;
+    			$orderGoodsDate['goodskuid'] = $goodskuid;
+    			$orderGoodsDate['goodweight'] = $good['weight'];
+    			$orderGoodsDate['updatetime'] = $orderGoodsDate['createtime'] = time();
+    			$orderGoodsReturn = M('mall_order_goods')->add($orderGoodsDate);
+    			
+    			//从库存减掉商品购买数量
+    			if($good['goodtype'] == 1){
+    			    M('mall_goods_sku')->where(array('companyid'=>$this->companyid,'id'=>$goodskuid))->setDec('stockamount',$goodnum);
+    			}
+    			$stockamountReturn = M('mall_goods')->where(array('companyid'=>$this->companyid,'id'=>$goodsid))->setDec('stockamount',$goodnum);
+    			
+    			//已售罄：当商品库存为：0时，改变商品状态为：已售罄
+    			$issoldout = 1;
+		        $stockamount = M('mall_goods')->where(array('companyid'=>$this->companyid,'id'=>$goodsid))->getField('stockamount');
+    			if($stockamount < 1){
+    				$issoldout = M('mall_goods')->where(array('companyid'=>$this->companyid,'id'=>$goodsid))->save(array('issoldout'=>1));
+    			}
+    			
+    			//我的电子券
+    			$vouchersiduse = 1;
+    			$vouchersid = $this->_post('vouchersid');
+    			if($vouchersid){
+	    			$vouchersiduse = M('member_vouchers')->where(array('companyid'=>$this->companyid,'mid'=>$this->mid,'id'=>$vouchersid))->save(array('isused'=>1,'usetime'=>$time,'updatetime'=>$time));
+    			}
+    			
+    			//优惠口令
+    			$dmsOrderInfoReturn = 1;
+    			$dmsCustomerSuc = 1;
+    			$dmsDiscoukeyId = $this->_post('dmsDiscoukeyId');
+    			if($dmsDiscoukeyId){
+    				$discoukeyInfo = M('dms_discoukey')->where(array('id'=>$dmsDiscoukeyId,'endtime'=>array('gt',$time)))->field('id,discoukey,discoutype,discoumoney2,startdiscoumoney3,discoumoney3,discouratio4,startdiscoumoney5,discouratio5,giftname6,startdiscoumoney7,giftname7,startdiscoumoney8,discoumoney8,wageratio')->find();
+    				if($discoukeyInfo){
+    					//DMS订单表
+    					$dmsOrderInfo['id'] = guidNow();
+    					$dmsOrderInfo['companyid'] = $this->companyid;
+    					$dmsOrderInfo['mid'] = $this->mid;
+    					$dmsOrderInfo['keyid'] = $dmsDiscoukeyId;
+    					$dmsOrderInfo['orderid'] = $orderid;
+    					$dmsOrderInfo['ordermoney'] = $dmsOrderInfo['paymoney'] = $orderprice;
+    					$dmsOrderInfo['wagesmoney'] = $orderprice*($discoukeyInfo['wageratio']/100);
+    					$dmsOrderInfo['wagesprop'] = $discoukeyInfo['wageratio'];
+    					$dmsOrderInfo['discoukey'] = $discoukeyInfo['discoukey'];
+    					$dmsOrderInfo['discoutype'] = $discoukeyInfo['discoutype'];
+    					if($discoukeyInfo['discoutype'] == 2){
+    						$dmsOrderInfo['discoumoney'] = $discoukeyInfo['discoumoney2'];//优惠金额
+    					}elseif($discoukeyInfo['discoutype'] == 3){
+    						$dmsOrderInfo['startdiscoumoney'] = $discoukeyInfo['startdiscoumoney3'];//开始优惠
+    						$dmsOrderInfo['discoumoney'] = $discoukeyInfo['discoumoney3'];//优惠金额
+    					}elseif($discoukeyInfo['discoutype'] == 4){
+    						$dmsOrderInfo['discoumoney'] = $orderprice/(1-$discoukeyInfo['discouratio4']/100)*($discoukeyInfo['discouratio4']/100);//优惠金额
+    						$dmsOrderInfo['discouratio'] = $discoukeyInfo['discouratio4'];//优惠比例
+    					}elseif($discoukeyInfo['discoutype'] == 5){
+    						$dmsOrderInfo['startdiscoumoney'] = $discoukeyInfo['startdiscoumoney5'];//开始优惠
+    						$dmsOrderInfo['discoumoney'] = $orderprice/(1-$discoukeyInfo['discouratio5']/100)*($discoukeyInfo['discouratio5']/100);//优惠金额
+    						$dmsOrderInfo['discouratio'] = $discoukeyInfo['discouratio5'];//优惠比例
+    					}elseif($discoukeyInfo['discoutype'] == 6){
+    						$dmsOrderInfo['giftname'] = $discoukeyInfo['giftname6'];//礼品名称
+    					}elseif($discoukeyInfo['discoutype'] == 7){
+    						$dmsOrderInfo['startdiscoumoney'] = $discoukeyInfo['startdiscoumoney7'];//开始优惠
+    						$dmsOrderInfo['giftname'] = $discoukeyInfo['giftname7'];//礼品名称
+    					}elseif($discoukeyInfo['discoutype'] == 8){ // 每满减优惠
+    						$dmsOrderInfo['startdiscoumoney'] = $discoukeyInfo['startdiscoumoney8'];//开始优惠
+    						if($orderprice >= $discoukeyInfo['startdiscoumoney8']){
+    							$dmsOrderInfo['discoumoney'] = '0.00';
+    							$dmsOrderInfo['discoumoney'] = (floor($orderprice/$discoukeyInfo['startdiscoumoney8']))*$discoukeyInfo['discoumoney8'];
+    						}else{
+    							$dmsOrderInfo['discoumoney'] = 0.00;//优惠金额
+    						}
+    					}
+    					$dmsOrderInfo['orderstatus'] = 1;
+    					$dmsOrderInfo['ordertype'] = 1;
+    					$dmsOrderInfo['updatetime'] = $dmsOrderInfo['createtime'] = $time;
+    					$dmsOrderInfoReturn = M('dms_order')->add($dmsOrderInfo);
+    					
+    					//增加客户
+    					$customerCou = M('dms_customer')->where(array('companyid'=>$this->companyid,'mid'=>$this->mid,'keyid'=>$dmsDiscoukeyId))->count();
+    					if(!$customerCou){
+    						$customerData['id'] = guidNow();
+    						$customerData['companyid'] = $this->companyid;
+    						$customerData['mid'] = $this->mid;
+    						$customerData['keyid'] = $dmsDiscoukeyId;
+    						$customerData['createtime'] = $customerData['updatetime'] = $time;
+    						$customerSuc = M('dms_customer')->add($customerData);
+    						//累计客户数
+    						$discoukeySuc = M('dms_discoukey')->where(array('companyid'=>$this->companyid,'id'=>$dmsDiscoukeyId))->setInc('totalpeoplesum');
+    						M('dms_discoukey')->where(array('companyid'=>$this->companyid,'id'=>$dmsDiscoukeyId))->setInc('thismonthpeoplesum');
+    						if(!$customerSuc || !$discoukeySuc){
+    							$dmsCustomerSuc = 0;
+    						}
+    					}
+    				}
+    			}
+    			
+    			$isDispatching = $this->_post('isDispatching');
+    			if($orderInfoReturn && $orderGoodsReturn && $vouchersiduse && $dmsOrderInfoReturn && $dmsCustomerSuc){
+    				M()->commit();
+    				if($orderpaymethod == '5'){  // 积分支付
+    					$this->mallOrderPay($orderInfoReturn, $orderpaymethod,$this->mid, $this->companyid);   // 订单信息id , 支付类型（1.微信支付 4.货到付款 5.积分支付），mid，companyid
+    				}
+    				$ajaxReturn['code'] = 200;
+    				$ajaxReturn['msg'] = '订单提交成功';
+    				$ajaxReturn['id'] = $orderInfoReturn;
+    				$ajaxReturn['orderid'] = $orderid;
+    			}else{
+    				M()->rollback();
+    				$ajaxReturn['msg'] = '订单提交失败，请稍候重试';
+    				if($isDispatching == 2){
+    					$ajaxReturn['msg'] = '该地区暂时不支持配送';
+    				}
+    			}
+			}
+		}
+		echo json_encode($ajaxReturn);
+	}
+	/**
+	 * 购物车提交 确认订单
+	 */
+	public function createOrder(){
+		$this->setPageTitle(array('title'=>'确认订单'));
+		$goodsid = $this->_get('goodsid');
+		$this->assign('goodsid',$goodsid);
+		if($goodsid){
+			$orderInfo['allPrice'] = '0.00';
+			$orderInfo['allIntegral'] = '0.00';
+			$orderInfo['allGoodsNum'] = '0';
+			$orderInfo['allFreight'] = '0.00';
+			$orderInfo['allWeight'] = '0.00';
+			$addressid = $this->_get('addressid');  
+			if($addressid){
+				$addressInfo = M('member_shop_address')->where(array('companyid'=>$this->companyid,'mid'=>$this->mid,'id'=>$addressid))->field('id,name,mobile,country,province,city,address')->find();
+				$address = $addressInfo['name'].' '.$addressInfo['mobile'].' '.$addressInfo['country'].$addressInfo['province'].$addressInfo['city'].$addressInfo['address'];
+			}else{
+				$addressInfo = M('member_shop_address')->where(array('companyid'=>$this->companyid,'mid'=>$this->mid,'isdefault'=>1))->field('id,name,mobile,country,province,city,address')->find();
+				if($addressInfo){
+					$address = $addressInfo['name'].' '.$addressInfo['mobile'].' '.$addressInfo['country'].$addressInfo['province'].$addressInfo['city'].$addressInfo['address'];
+					$addressid = $addressInfo['id'];
+				}else{
+					$address = '';
+					$addressid = 0;
+				}
+			}
+			$this->assign('address',$address);
+			$this->assign('addressid',$addressid);
+			$goodsid = explode(',', substr($goodsid, 1,-1));
+			$unifyfreight = M('company')->where(array('id'=>$this->companyid))->getField('unifyfreight');//统一运费
+			$isDispatching = 1;
+			foreach($goodsid as $key=>$val){
+				$goodsidInfo = explode('|', $val);
+				$shoppingCardInfo = M('mall_shopping_cart')->where(array('companyid'=>$this->companyid,'mid'=>$this->mid,'goodid'=>$goodsidInfo[0],'goodskuid'=>$goodsidInfo[1]))->field('id,goodid,goodskuid,goodnum')->find();
+				if($shoppingCardInfo){
+					$mallgoodssku = M('mall_goods_sku')->where(array('companyid'=>$this->companyid,'goodid'=>$shoppingCardInfo['goodid'],'id'=>$shoppingCardInfo['goodskuid']))->field('name,saleprice,imgurl')->find();
+					$list[$key]['good'] = M('mall_goods')->where(array('companyid'=>$this->companyid,'id'=>$shoppingCardInfo['goodid'],'isoffshelves'=>2,'issoldout'=>2))->field('id,title,weight,freighttype,freighttplid')->find();
+					$list[$key]['good']['goodnum'] = $shoppingCardInfo['goodnum'];
+					$list[$key]['good']['pic'] = $mallgoodssku['imgurl'];
+					$list[$key]['good']['title'] .= ' '.$mallgoodssku['name'];
+					$list[$key]['good']['saleprice'] = format_number($mallgoodssku['saleprice']);
+					$orderInfo['allPrice'] +=$list[$key]['good']['goodnum']*$list[$key]['good']['saleprice'];
+					//限购
+					/* if($shoppingCardInfo['goodnum'] > $list[$key]['good']['canbuynum'] && $list[$key]['good']['canbuynum']){
+						$list[$key]['good']['goodnum'] = $list[$key]['good']['canbuynum'];
+					}else{
+						$list[$key]['good']['goodnum'] = $shoppingCardInfo['goodnum'];
+					} */
+					/* if($list[$key]['good']['goodtype'] == 1){
+						$list[$key]['good']['pic'] = M('mall_goods_pics')->where(array('companyid'=>$this->companyid,'goodid'=>$shoppingCardInfo['goodid']))->order('sort ASC')->getField('pic');
+						$list[$key]['good']['title'] .= '&nbsp;&nbsp;&nbsp;'.M('mall_goods_sku')->where(array('companyid'=>$this->companyid,'goodid'=>$shoppingCardInfo['goodid'],'id'=>$shoppingCardInfo['goodskuid']))->getField('name');//连接sku
+					}elseif ($list[$key]['good']['goodtype'] == 2){
+						//$list[$key]['good']['voucher'] = M('member_marketing_activities_voucher_info')->where(array('companyid'=>$this->companyid,'id'=>$list[$key]['good']['vouchersid']))->field('parvalue,minparvalue,maxparvalue,israndom,usetimetype,usestarttime,useendtime,usetimedeferred,useisrestrict,userestrictvalue')->find();
+						//$list[$key]['good']['pic'] = 
+					} */
+					/* if($list[$key]['good']['isopenvipprice'] == 1){
+						$vipdis = M()->table('tp_member_card_info AS info')->join(array('LEFT JOIN tp_mall_goods_rank_discount AS dis ON dis.rankid=info.rankid'))->where(array('info.companyid'=>$this->companyid,'info.mid'=>$this->mid,'dis.goodsid'=>$list[$key]['good']['id']))->getField('vipdiscount');
+						if(0< $vipdis && $vipdis <= 1){
+							//会员几个覆盖优惠价
+							$list[$key]['good']['saleprice'] = format_number($list[$key]['good']['saleprice']*$vipdis);
+							$list[$key]['good']['intprice'] = format_number($list[$key]['good']['intprice']*$vipdis);
+						}
+					} */
+					/* if($list[$key]['good']['pricetype'] == 1){
+						$orderInfo['allPrice'] +=$list[$key]['good']['goodnum']*$list[$key]['good']['saleprice'];
+					}elseif ($list[$key]['good']['pricetype'] == 2){
+						$orderInfo['allIntegral'] +=$list[$key]['good']['goodnum']*$list[$key]['good']['intprice'];
+					} */
+					if($list[$key]['good']['freighttype'] == 1){
+					 	$orderInfo['allFreight'] += $list[$key]['good']['goodnum']*$unifyfreight;
+					}elseif ($list[$key]['good']['freighttype'] == 2){
+						//免运费
+					}
+					if($addressid&&$list[$key]['good']['freighttype'] == 3){
+						$areaid = M('area')->where(array('name'=>$addressInfo['city']))->getField('id');
+						//运费模版
+						if($list[$key]['good']['freighttplid']&&$areaid){
+							$tplInfo = M('mall_freight_tpl_child')->where(array('companyid'=>$this->companyid,'tplid'=>$list[$key]['good']['freighttplid'],'areaids'=>array('like','%,'.$areaid.',%')))->field('firstheavy,continuedheavy')->find();
+							if($tplInfo){
+								$orderInfo['allFreight'] += $tplInfo['firstheavy']+(ceil($list[$key]['good']['goodnum']*$list[$key]['good']['weight'])-1)*$tplInfo['continuedheavy'];
+							}else{
+								$isDispatching = 2;
+							}
+						}else{
+							$countryareaid = M('area')->where(array('name'=>$addressInfo['country']))->getField('areaid');
+							if($countryareaid == 9){
+								$tplInfo = M('mall_freight_tpl_child')->where(array('companyid'=>$this->companyid,'tplid'=>$list[$key]['good']['freighttplid'],'areaids'=>array('like','%,-11,%')))->field('firstheavy,continuedheavy')->find();
+								if($tplInfo){
+									$orderInfo['allFreight'] += $tplInfo['firstheavy']+(ceil($list[$key]['good']['goodnum']*$list[$key]['good']['weight'])-1)*$tplInfo['continuedheavy'];
+								}else{
+									$isDispatching = 2;
+								}
+							}else{
+								$isDispatching = 2;
+							}
+						}
+					}
+					$orderInfo['allWeight'] +=$list[$key]['good']['goodnum']*$list[$key]['good']['weight'];
+					$orderInfo['allGoodsNum'] +=$list[$key]['good']['goodnum'];
+				}
+			}
+		}
+        $orderPrice = $orderInfo['allPrice'];//用于读取可用优惠券数量
+        $this->assign('orderPrice', $orderPrice);
+        $vouchersid = $this->_get('vouchersid');
+        $this->assign('vouchersid', $vouchersid);
+        $orderInfo['deratePrice'] = '0.00';//减免价格
+        if ($vouchersid) {
+            $vouchersInfoWhere['vouchers.id'] = $vouchersid;
+            $vouchersInfoWhere['vouchers.companyid'] = $this->companyid;
+            $vouchersInfoWhere['vouchers.mid'] = $this->mid;
+            $vouchersInfoWhere['vouchers.isused'] = '2';
+            $vouchersInfoWhere['vouchers.issend'] = '2';
+            $vouchersInfoWhere['_string'] = "(info.vouchertype=1 AND vouchers.useendtime>" . time() . ") AND (info.useissite like '%2%')";
+            if ($orderPrice) {
+                $vouchersInfoWhere['_string'] .= " AND (info.shopcanuserspend <= " . $orderPrice . " || info.shopcanuserspend = '')";
+            }
+            $vouchersInfo = M()->table('tp_member_vouchers AS vouchers')->join(array('LEFT JOIN tp_member_marketing_activities_voucher_info AS info on info.id = vouchers.voucherinfoid'))->where($vouchersInfoWhere)
+                ->field('vouchers.id,vouchers.parvalue as vparvalue')->find();
+            $orderInfo['deratePrice'] = $vouchersInfo['vparvalue'];
+        }
+        $canUseVouchersCount = 0;
+        if ($orderPrice > 0) {
+            ///读取优惠券
+            unset($where);
+            $where['vouchers.companyid'] = $this->companyid;
+            $where['vouchers.mid'] = $this->mid;
+            $where['vouchers.isused'] = '2';
+            $where['vouchers.issend'] = '2';
+            $where['_string'] = "(info.vouchertype=1 AND vouchers.useendtime>" . time() . ") AND (info.useissite like '%2%')";
+            if ($orderPrice) {
+                $where['_string'] .= " AND (info.shopcanuserspend <= " . $orderPrice . " || info.shopcanuserspend = '')";
+            }
+            //可使用
+            $canUseVouchersCount = M()->table('tp_member_vouchers AS vouchers')->join(array('LEFT JOIN tp_member_marketing_activities_voucher_info AS info on info.id = vouchers.voucherinfoid'))->where($where)->count();
+        }
+        $this->assign('canUseVouchersCount', $canUseVouchersCount);
+		$orderInfo['allFreight'] = format_number($orderInfo['allFreight']);
+		$orderInfo['allPrice'] = format_number($orderInfo['allPrice']+$orderInfo['allFreight']- $orderInfo['deratePrice']);
+		if($orderInfo['allPrice']<=0){
+			if($vouchersid){
+				$orderInfo['allPrice'] = '0.01';
+			}else{
+				$orderInfo['allPrice'] = '0.00';
+			}
+		}
+		$orderInfo['allIntegral'] = format_number($orderInfo['allIntegral']);
+		$orderInfo['allWeight'] = format_number($orderInfo['allWeight']);
+		$this->assign('orderInfo',$orderInfo);
+		$this->assign('list',$list);
+		$this->assign('isshowsystemdiymen','2');//隐藏自定义菜单
+		$this->assign('isDispatching',$isDispatching);//是否可配送
+		$orderinvoice = $this->_get('orderinvoice');//订单发票：1：需要；2：不需要；
+		$this->assign('orderinvoice',$orderinvoice);
+		$orderinvoicetitle = $this->_get('orderinvoicetitle');//发票抬头
+		$this->assign('orderinvoicetitle',$orderinvoicetitle);
+		$this->display();
+	}
+	/**
+	 * ajax 提交订单
+	 */
+	public function ajaxCreateOrder(){
+		$ajaxReturn['code'] = 300;
+		$ajaxReturn['msg'] = '订单提交失败，请您稍后重试';
+		
+		$nowtime = time();
+		$addressid = $this->_post('addressid');
+		$defaultAddress = M('member_shop_address')->where(array('companyid'=>$this->companyid,'mid'=>$this->mid,'id'=>$addressid))->field('name,mobile,country,province,city,address')->find();
+		if(!$defaultAddress){
+			$ajaxReturn['msg'] = '请选择您的收货地址';
+			echo json_encode($ajaxReturn);
+			exit();
+		}else{
+			$orderInfo['consigneename'] = $defaultAddress['name'];
+			$orderInfo['consigneephone'] =$defaultAddress['mobile'];
+			$orderInfo['consigneeaddress'] =$defaultAddress['country'].$defaultAddress['province'].$defaultAddress['city'].$defaultAddress['address'];
+		}
+		$goodsid = $this->_post('goodsid');
+		$goodsid = explode(',', substr($goodsid, 1,-1));
+		M()->startTrans();
+		$orderid = get_order_id();
+		$goodsCount = count($goodsid);
+		$orderGoodsCount = 0;
+		$isDispatching = 1;
+		foreach($goodsid as $key=>$val){
+			$goodsidInfo = explode('|', $val);
+			$shoppingCardInfo = M('mall_shopping_cart')->where(array('companyid'=>$this->companyid,'mid'=>$this->mid,'goodid'=>$goodsidInfo[0],'goodskuid'=>$goodsidInfo[1]))->field('id,goodid,goodskuid,goodnum')->find();
+			if($shoppingCardInfo){
+				$mallgoodssku = M('mall_goods_sku')->where(array('companyid'=>$this->companyid,'goodid'=>$shoppingCardInfo['goodid'],'id'=>$shoppingCardInfo['goodskuid']))->field('name,saleprice,imgurl')->find();
+				$list[$key]['good'] = M('mall_goods')->where(array('companyid'=>$this->companyid,'id'=>$shoppingCardInfo['goodid'],'isoffshelves'=>2,'issoldout'=>2))->field('id,title,weight,freighttype,freighttplid')->find();
+				$list[$key]['good']['pic'] = $mallgoodssku['imgurl'];
+				$list[$key]['good']['title'] .= ' '.$mallgoodssku['name'];
+				$list[$key]['good']['saleprice'] = format_number($mallgoodssku['saleprice']);
+				$list[$key]['good']['goodnum'] = $shoppingCardInfo['goodnum'];
+				$orderInfo['ordersubtotal'] += $list[$key]['good']['goodnum']*$list[$key]['good']['saleprice'];
+				//商品图片
+				/* if($list[$key]['good']['goodtype'] == 1){
+					$list[$key]['good']['pic'] = M('mall_goods_pics')->where(array('companyid'=>$this->companyid,'goodid'=>$shoppingCardInfo['goodid']))->order('sort ASC')->getField('pic');
+					$list[$key]['good']['title'] .= ' '.M('mall_goods_sku')->where(array('companyid'=>$this->companyid,'goodid'=>$shoppingCardInfo['goodid'],'id'=>$shoppingCardInfo['goodskuid']))->getField('name');//连接sku
+				}elseif($list[$key]['good']['goodtype'] == 2){
+					$list[$key]['good']['pic'] = $list[$key]['good']['voucherimgurl'];
+				} */
+				//是否开启会员价
+				/* if($list[$key]['good']['isopenvipprice'] == 1){
+					$vipdis = M()->table('tp_member_card_info AS info')->join(array('LEFT JOIN tp_mall_goods_rank_discount AS dis ON dis.rankid=info.rankid'))->where(array('info.companyid'=>$this->companyid,'info.mid'=>$this->mid,'dis.goodsid'=>$list[$key]['good']['id']))->getField('vipdiscount');
+					if(0< $vipdis && $vipdis <= 1){
+						//会员几个覆盖优惠价
+						$list[$key]['good']['saleprice'] = format_number($list[$key]['good']['saleprice']*$vipdis);
+						//$list[$key]['good']['intprice'] = format_number($list[$key]['good']['intprice']*$vipdis);
+					}
+				} */
+				//$list[$key]['good']['goodnum'] = $shoppingCardInfo['goodnum'];
+				//$orderInfo['ordersubtotal'] += $list[$key]['good']['goodnum']*$list[$key]['good']['saleprice'];
+				/* if($list[$key]['good']['pricetype'] == 1){
+					$orderInfo['ordersubtotal'] += $list[$key]['good']['goodnum']*$list[$key]['good']['saleprice'];
+				}elseif ($list[$key]['good']['pricetype'] == 2){
+					$orderInfo['orderint'] += $list[$key]['good']['goodnum']*$list[$key]['good']['intprice'];
+				} */
+				//运费 2：包邮；3：运费模板；
+				if($list[$key]['good']['freighttype'] == 2){
+					$orderInfo['orderfreight'] += '0.00';
+				}elseif($addressid&&$list[$key]['good']['freighttype'] == 3){
+					$areaid = M('area')->where(array('name'=>$defaultAddress['city']))->getField('id');
+					if($list[$key]['good']['freighttplid']&&$areaid){
+						$tplInfo = M('mall_freight_tpl_child')->where(array('companyid'=>$this->companyid,'tplid'=>$list[$key]['good']['freighttplid'],'areaids'=>array('like','%,'.$areaid.',%')))->field('firstheavy,continuedheavy')->find();
+						if($tplInfo){
+							$orderInfo['orderfreight'] += $tplInfo['firstheavy']+(ceil($list[$key]['good']['goodnum']*$list[$key]['good']['weight'])-1)*$tplInfo['continuedheavy'];
+						}else{
+							$isDispatching = 2;
+						}
+					}else{
+						$countryareaid = M('area')->where(array('name'=>$defaultAddress['country']))->getField('areaid');
+						if($countryareaid == 9){
+							$tplInfo = M('mall_freight_tpl_child')->where(array('companyid'=>$this->companyid,'tplid'=>$list[$key]['good']['freighttplid'],'areaids'=>array('like','%,-11,%')))->field('firstheavy,continuedheavy')->find();
+							if($tplInfo){
+								$orderInfo['orderfreight'] += $tplInfo['firstheavy']+(ceil($list[$key]['good']['goodnum']*$list[$key]['good']['weight'])-1)*$tplInfo['continuedheavy'];
+							}else{
+								$isDispatching = 2;
+							}
+						}else{
+							$isDispatching = 2;
+						}
+					}
+				}
+				$orderInfo['orderweight'] += $list[$key]['good']['goodnum']*$list[$key]['good']['weight'];
+				//商品订单详情
+				$orderGoodsDate['companyid'] = $this->companyid;
+				$orderGoodsDate['mid'] = $this->mid;
+				$orderGoodsDate['orderid'] = $orderid;
+				$orderGoodsDate['goodtype'] = '1';
+				$orderGoodsDate['vouchersid'] = '';
+				$orderGoodsDate['prefix'] = '';
+				$orderGoodsDate['pricetype'] = '1';
+				$orderGoodsDate['goodid'] = $goodsidInfo[0];
+				$orderGoodsDate['goodname'] = $list[$key]['good']['title'] ? $list[$key]['good']['title'] : '';
+				$orderGoodsDate['goodpic'] = $list[$key]['good']['pic'] ? $list[$key]['good']['pic'] : '';
+				$orderGoodsDate['goodprice'] = $list[$key]['good']['saleprice'];
+				$orderGoodsDate['goodint'] = '';
+				$orderGoodsDate['goodnum'] = $list[$key]['good']['goodnum'];
+				$orderGoodsDate['goodskuid'] = $goodsidInfo[1];
+				$orderGoodsDate['goodweight'] = $list[$key]['good']['weight'];
+				$orderGoodsDate['updatetime'] = $orderGoodsDate['createtime'] = $nowtime;
+				$orderGoodsReturn = M('mall_order_goods')->add($orderGoodsDate);
+				//从库存减掉商品购买数量
+				$skustockamountReturn = M('mall_goods_sku')->where(array('companyid'=>$this->companyid,'id'=>$goodsidInfo[1]))->setDec('stockamount',$list[$key]['good']['goodnum']);
+				$stockamountReturn = M('mall_goods')->where(array('companyid'=>$this->companyid,'id'=>$goodsidInfo[0]))->setDec('stockamount',$list[$key]['good']['goodnum']);
+				//已售罄：当商品库存为：0时，改变商品状态为：已售罄
+				$issoldout = 1;
+				$stockamount = M('mall_goods_sku')->where(array('companyid'=>$this->companyid,'goodid'=>$goodsidInfo[0]))->sum('stockamount');
+				if($stockamount < 1){
+					$issoldout = M('mall_goods')->where(array('companyid'=>$this->companyid,'id'=>$goodsidInfo[0]))->save(array('issoldout'=>1));
+				}
+				$shoppingCardDelete = M('mall_shopping_cart')->where(array('companyid'=>$this->companyid,'mid'=>$this->mid,'goodid'=>$goodsidInfo[0],'goodskuid'=>$goodsidInfo[1]))->delete();
+				if($orderGoodsReturn && $stockamountReturn && $issoldout && $shoppingCardDelete){
+					$orderGoodsCount++;
+				}
+				$ordertitle .= ' '.$list[$key]['good']['title'];
+			}
+		}
+		$orderPrice = $orderInfo['ordersubtotal'];//用于读取可用优惠券数量
+		$vouchersid = $this->_post('vouchersid');
+		$orderInfo['orderderateprice'] = '0.00';//减免价格
+		$vouchersiduse = 1;
+		if($vouchersid){
+			$vouchersInfoWhere['vouchers.id'] = $vouchersid;
+			$vouchersInfoWhere['vouchers.companyid'] = $this->companyid;
+			$vouchersInfoWhere['vouchers.mid'] = $this->mid;
+			$vouchersInfoWhere['vouchers.isused'] = '2';
+			$vouchersInfoWhere['vouchers.issend'] = '2';
+			$vouchersInfoWhere['_string'] = "(info.vouchertype=1 AND vouchers.useendtime>" . $nowtime . ") AND (info.useissite like '%2%')";
+			if($orderPrice){
+				$vouchersInfoWhere['_string'] .= " AND (info.shopcanuserspend <= " . $orderPrice . " || info.shopcanuserspend = '')";
+			}
+			$vouchersInfo = M()->table('tp_member_vouchers AS vouchers')->join(array('LEFT JOIN tp_member_marketing_activities_voucher_info AS info on info.id = vouchers.voucherinfoid'))->where($vouchersInfoWhere)
+			->field('vouchers.id,vouchers.parvalue as vparvalue')->find();
+			$orderInfo['orderderateprice'] = $vouchersInfo['vparvalue'];
+			
+			$vouchersiduse = M('member_vouchers')->where(array('companyid'=>$this->companyid,'mid'=>$this->mid,'id'=>$vouchersid))->save(array('isused'=>1,'usetime'=>$nowtime,'updatetime'=>$nowtime));
+		}
+		$orderInfo['orderprice'] = $orderInfo['ordersubtotal']+$orderInfo['orderfreight']-$orderInfo['orderderateprice'];
+		if($orderInfo['orderprice']<=0){
+			if($vouchersid){
+				$orderInfo['orderprice'] = '0.01';
+			}else{
+				$orderInfo['orderprice'] = '0.00';
+			}
+		}
+		//优惠口令
+		$dmsOrderInfoReturn = 1;
+		$dmsCustomerSuc = 1;
+		$dmsDiscoukeyId = $this->_post('dmsDiscoukeyId');
+		if($dmsDiscoukeyId){
+			$discoukeyInfo = M('dms_discoukey')->where(array('id'=>$dmsDiscoukeyId,'endtime'=>array('gt',$nowtime)))->field('id,discoukey,discoutype,discoumoney2,startdiscoumoney3,discoumoney3,discouratio4,startdiscoumoney5,discouratio5,giftname6,startdiscoumoney7,giftname7,startdiscoumoney8,discoumoney8,wageratio')->find();
+			if($discoukeyInfo){
+				//DMS订单表
+				$orderprice = $orderInfo['orderprice'];
+				if($discoukeyInfo['discoutype'] == 2){
+					$dmsOrderInfo['discoumoney'] = $discoukeyInfo['discoumoney2'];//优惠金额
+				}elseif($discoukeyInfo['discoutype'] == 3){
+					$dmsOrderInfo['startdiscoumoney'] = $discoukeyInfo['startdiscoumoney3'];//开始优惠
+					$dmsOrderInfo['discoumoney'] = $discoukeyInfo['discoumoney3'];//优惠金额
+				}elseif($discoukeyInfo['discoutype'] == 4){
+					$dmsOrderInfo['discoumoney'] = $orderprice/(1-$discoukeyInfo['discouratio4']/100)*($discoukeyInfo['discouratio4']/100);//优惠金额
+					$dmsOrderInfo['discouratio'] = $discoukeyInfo['discouratio4'];//优惠比例
+				}elseif($discoukeyInfo['discoutype'] == 5){
+					$dmsOrderInfo['startdiscoumoney'] = $discoukeyInfo['startdiscoumoney5'];//开始优惠
+					$dmsOrderInfo['discoumoney'] = $orderprice/(1-$discoukeyInfo['discouratio5']/100)*($discoukeyInfo['discouratio5']/100);//优惠金额
+					$dmsOrderInfo['discouratio'] = $discoukeyInfo['discouratio5'];//优惠比例
+				}elseif($discoukeyInfo['discoutype'] == 6){
+					$dmsOrderInfo['giftname'] = $discoukeyInfo['giftname6'];//礼品名称
+				}elseif($discoukeyInfo['discoutype'] == 7){
+					$dmsOrderInfo['startdiscoumoney'] = $discoukeyInfo['startdiscoumoney7'];//开始优惠
+					$dmsOrderInfo['giftname'] = $discoukeyInfo['giftname7'];//礼品名称
+				}elseif($discoukeyInfo['discoutype'] == 8){ // 每满减优惠
+					$dmsOrderInfo['startdiscoumoney'] = $discoukeyInfo['startdiscoumoney8'];//开始优惠
+					if($orderprice >= $discoukeyInfo['startdiscoumoney8']){
+						$dmsOrderInfo['discoumoney'] = '0.00';
+						$dmsOrderInfo['discoumoney'] = (floor($orderprice/$discoukeyInfo['startdiscoumoney8']))*$discoukeyInfo['discoumoney8'];
+					}else{
+						$dmsOrderInfo['discoumoney'] = 0.00;//优惠金额
+					}
+				}
+				$orderInfo['orderprice'] = $orderprice-$dmsOrderInfo['discoumoney'];
+				$dmsOrderInfo['id'] = guidNow();
+				$dmsOrderInfo['companyid'] = $this->companyid;
+				$dmsOrderInfo['mid'] = $this->mid;
+				$dmsOrderInfo['keyid'] = $dmsDiscoukeyId;
+				$dmsOrderInfo['orderid'] = $orderid;
+				$dmsOrderInfo['ordermoney'] = $dmsOrderInfo['paymoney'] = $orderInfo['orderprice'];
+				$dmsOrderInfo['wagesmoney'] = $orderInfo['orderprice']*($discoukeyInfo['wageratio']/100);
+				$dmsOrderInfo['wagesprop'] = $discoukeyInfo['wageratio'];
+				$dmsOrderInfo['discoukey'] = $discoukeyInfo['discoukey'];
+				$dmsOrderInfo['discoutype'] = $discoukeyInfo['discoutype'];
+				$dmsOrderInfo['orderstatus'] = 1;
+				$dmsOrderInfo['ordertype'] = 1;
+				$dmsOrderInfo['updatetime'] = $dmsOrderInfo['createtime'] = $nowtime;
+				$dmsOrderInfoReturn = M('dms_order')->add($dmsOrderInfo);
+					
+				//增加客户
+				$customerCou = M('dms_customer')->where(array('companyid'=>$this->companyid,'mid'=>$this->mid,'keyid'=>$dmsDiscoukeyId))->count();
+				if(!$customerCou){
+					$customerData['id'] = guidNow();
+					$customerData['companyid'] = $this->companyid;
+					$customerData['mid'] = $this->mid;
+					$customerData['keyid'] = $dmsDiscoukeyId;
+					$customerData['createtime'] = $customerData['updatetime'] = $nowtime;
+					$customerSuc = M('dms_customer')->add($customerData);
+					//累计客户数
+					$discoukeySuc = M('dms_discoukey')->where(array('companyid'=>$this->companyid,'id'=>$dmsDiscoukeyId))->setInc('totalpeoplesum');
+					M('dms_discoukey')->where(array('companyid'=>$this->companyid,'id'=>$dmsDiscoukeyId))->setInc('thismonthpeoplesum');
+					if(!$customerSuc || !$discoukeySuc){
+						$dmsCustomerSuc = 0;
+					}
+				}
+			}
+		}
+		
+		//订单详情主表
+		$orderInfo['companyid'] = $this->companyid;
+		$orderInfo['mid'] = $this->mid;
+		$orderInfo['orderid'] = $orderInfo['borderid'] = $orderid;
+		$orderInfo['ordertitle'] = $ordertitle ? $ordertitle : '';
+		$orderInfo['ordertype'] = 1;
+		$orderInfo['ordertype'] = 1;
+		$orderInfo['orderstatus'] = 1;
+		$orderInfo['temporderstatus'] = 1;
+		$orderInfo['orderpaymethod'] = $this->_post('orderpaymethod');
+		$orderInfo['orderinvoice'] = $this->_post('orderinvoice');
+		$orderInfo['orderinvoicetitle'] = $this->_post('orderinvoicetitle');
+		$orderInfo['membernote'] = $this->_post('membernote');
+		$orderInfo['updatetime'] = $orderInfo['createtime'] = $nowtime;
+		$orderInfoReturn = M('mall_order_info')->add($orderInfo);
+		if($isDispatching==1 && $orderInfoReturn && $orderGoodsCount==$goodsCount && $vouchersiduse){
+			M()->commit();
+			$ajaxReturn['code'] = 200;
+			$ajaxReturn['msg'] = '订单提交成功';
+			$ajaxReturn['id'] = $orderInfoReturn;
+			$ajaxReturn['orderid'] = $orderid;
+		}else{
+			M()->rollback();
+			$ajaxReturn['msg'] = '订单提交失败，请稍候重试';
+			if($isDispatching == 2){
+				$ajaxReturn['msg'] = '该地区暂时不支持配送';
+			}
+		}
+		echo json_encode($ajaxReturn);
+	}
+    /**
+     * 我的优惠券
+     */
+    public function myVouchers(){
+        $this->setPageTitle(array('title' => '可用优惠券'));
+        $goodsid = $this->_get('goodsid');
+        $this->assign('goodsid', $goodsid);
+        $goodsskuid = $this->_get('goodsskuid');
+        $this->assign('goodsskuid', $goodsskuid);
+        $goodsnum = $this->_get('goodsnum');
+        $this->assign('goodsnum', $goodsnum);
+        $addressid = $this->_get('addressid');
+        $this->assign('addressid', $addressid);
+        $ordertype = $this->_get('ordertype');
+        $this->assign('ordertype', $ordertype);
+        $goodtype = $this->_get('goodtype');
+        $this->assign('goodtype', $goodtype);
+        $vouchersid = $this->_get('vouchersid');
+        $this->assign('vouchersid', $vouchersid);
+        $orderPrice = $this->_get('orderPrice');
+        $where['vouchers.companyid'] = $this->companyid;
+        $where['vouchers.mid'] = $this->mid;
+        $where['vouchers.isused'] = '2';
+        $where['vouchers.issend'] = '2';
+        $where['_string'] = "(info.vouchertype=1 AND vouchers.useendtime>" . time() . ") AND (info.useissite like '%2%')";
+        if ($orderPrice) {
+            $where['_string'] .= " AND (info.shopcanuserspend <= " . $orderPrice . " || info.shopcanuserspend = '')";
+        }
+        //未使用
+        $vouchers['count'] = M()->table('tp_member_vouchers AS vouchers')->join(array('LEFT JOIN tp_member_marketing_activities_voucher_info AS info on info.id = vouchers.voucherinfoid'))->where($where)->count();
+        $vouchers['list'] = M()->table('tp_member_vouchers AS vouchers')->join(array('LEFT JOIN tp_member_marketing_activities_voucher_info AS info on info.id = vouchers.voucherinfoid'))->where($where)
+            ->field('vouchers.id,sn,vouchers.parvalue as vparvalue,info.vouchertype,info.title,info.parvalue,info.israndom,vouchers.usestarttime,vouchers.useendtime,info.useissite,info.useisrestrict,info.userestrictvalue,info.voucherdesc')->order('vouchers.id DESC')->select();
+        $this->assign('vouchers', $vouchers);
+        $this->display();
+    }
+    /**
+     * 发票
+     * @author 姚成凯<kevin@renlaifeng.cn>
+     * @since  2016-7-25
+     */
+    public function orderinvoice(){
+    	$this->setPageTitle(array('title' => '发票'));
+    	$goodsid = $this->_get('goodsid');
+    	$this->assign('goodsid', $goodsid);
+    	$goodsskuid = $this->_get('goodsskuid');
+    	$this->assign('goodsskuid', $goodsskuid);
+    	$goodsnum = $this->_get('goodsnum');
+    	$this->assign('goodsnum', $goodsnum);
+    	$ordertype = $this->_get('ordertype');//1：购物车结算；2：立即购买；
+    	$this->assign('ordertype', $ordertype);
+    	$goodtype = $this->_get('goodtype');
+    	$this->assign('goodtype', $goodtype);
+    	$addressid = $this->_get('addressid');
+    	$this->assign('addressid', $addressid);
+    	$vouchersid = $this->_get('vouchersid');
+    	$this->assign('vouchersid', $vouchersid);
+    	$orderinvoice = $this->_get('orderinvoice');//订单发票：1：需要；2：不需要；
+    	$this->assign('orderinvoice', $orderinvoice);
+    	$orderinvoicetitle = $this->_get('orderinvoicetitle');//发票抬头
+    	$this->assign('orderinvoicetitle', $orderinvoicetitle);
+    	$this->display();
+    }
+    /**
+     * 优惠口令
+     * @author 姚成凯<kevin@renlaifeng.cn>
+     * @since  2016-2-26
+     */
+    public function ajaxPreferentialPassword(){
+    	$allPrice = $this->_post('allPrice'); 
+    	$discoukey = $this->_post('discoukey');
+    	
+    	$info = M('dms_discoukey')->where(array('companyid'=>$this->companyid,'appscene'=>array('like','%,1,%'),'discoukey'=>$discoukey,'endtime'=>array('gt',time())))->field('id,discoukey,discoutype,discoumoney2,startdiscoumoney3,discoumoney3,discouratio4,startdiscoumoney5,discouratio5,giftname6,startdiscoumoney7,giftname7,startdiscoumoney8,discoumoney8')->find();
+    	if($info){
+    		$isshow = 1; //是否显示$return['html']
+    		if($info['discoutype'] == 1){
+    			//无优惠
+    			$isshow = 2;
+    			$return['tips'] = "本优惠口令无优惠";
+    			$amount = $allPrice;
+    		}elseif($info['discoutype'] == 2){
+    			//立减优惠
+    			$discount = "立减".$info['discoumoney2'];
+    			$utility = "-".$info['discoumoney2'];
+    			$amount = $allPrice - $info['discoumoney2'];
+    		}elseif($info['discoutype'] == 3){
+    			//满减优惠
+    			$discount = "满".$info['startdiscoumoney3']."立减".$info['discoumoney3'];
+    			if($allPrice >= $info['startdiscoumoney3']){
+    				$utility = "-".$info['discoumoney3'];
+    				$amount = $allPrice - $info['discoumoney3'];
+    			}else{
+    				$utility = "-0.00";
+    				$amount = $allPrice;
+    			}
+    		}elseif($info['discoutype'] == 4){
+    			//立折优惠
+    			$discount = "立折优惠".$info['discouratio4']."%";
+    			$utility = "-".$allPrice*($info['discouratio4']/100);
+    			$amount = $allPrice - $allPrice*($info['discouratio4']/100);
+    		}elseif($info['discoutype'] == 5){
+    			//满折优惠
+    			$discount = "满".$info['startdiscoumoney5']."立折".$info['discouratio5']."%";
+    			if($allPrice >= $info['startdiscoumoney5']){
+    				$utility = "-".$allPrice*($info['discouratio5']/100);
+    				$amount = $allPrice - $allPrice*($info['discouratio5']/100);
+    			}else{
+    				$utility = "-0.00";
+    				$amount = $allPrice;
+    			}
+    		}elseif($info['discoutype'] == 6){
+    			//礼品赠送
+    			$discount = $info['giftname6'];
+    			$utility = $info['giftname6'];
+    			$amount = $allPrice;
+    		}elseif($info['discoutype'] == 7){
+    			//礼品满赠
+    			$discount = "满".$info['startdiscoumoney7']."赠送".$info['giftname7'];
+    			if($allPrice >= $info['startdiscoumoney7']){
+    				$utility = $info['giftname7'];
+    			}else{
+    				$utility = "-0.00";
+    			}
+    			$amount = $allPrice;
+    		}elseif($info['discoutype'] == 8){
+    			//每满减优惠
+    			$discount = "每满".$info['startdiscoumoney8']."立减".$info['discoumoney8'];
+    			if($allPrice >= $info['startdiscoumoney8']){
+    				$xy = '0.00';
+    				$xy = (floor($allPrice/$info['startdiscoumoney8']))*$info['discoumoney8'];
+    				$utility = "-".$xy;
+    				$amount = $allPrice-$xy;
+    			}else{
+    				$utility = "-0.00";
+    				$amount = $allPrice;
+    			}
+    		}
+    		if($amount > 0){
+    			$return['code'] = 200;
+    			$return['amount'] = format_number($amount);
+    			if($isshow == 1){
+    				$return['html'] = '<div class="beizhu-kl" data-id="'.$info[id].'"><p class="yhkl-4p">优惠口令：<span class="dms-keyname">'.$info['discoukey'].'</span></p><p class="yhkl-4p">立享优惠：<span class="dms-discou">'.$discount.'</span></p><p class="yhkl-4p">口令效用：<span class="dms-xy hon-sp">'.$utility.'</span></p></div>';
+    			}
+    		}else{
+    			$return['code'] = 300;
+    			$return['tips'] = '抱歉 优惠金额不可高于订单金额';
+    			$return['amount'] = $allPrice;
+    		}
+    	}else{
+    		$return['code'] = 300;
+    		$return['tips'] = '本优惠口令不存在';
+    		$return['amount'] = $allPrice;
+    	}
+    	echo json_encode($return);
+    }
+}
+?>
