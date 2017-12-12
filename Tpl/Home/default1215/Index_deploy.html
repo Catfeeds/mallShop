@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="keywords" content="<?php if($_SERVER['SERVER_NAME']=='www.mobiwind.cn'){ if($keywords){ echo $keywords;}else{ echo C('site_keywords');} } ?>">
+	<meta name="description" content="<?php if($_SERVER['SERVER_NAME']=='www.mobiwind.cn'){if($description){ echo $description;}else{ echo C('site_description');} } ?>">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title><?php if($_SERVER['SERVER_NAME']=='www.mobiwind.cn'){ if($title){ echo $title;}else{ echo C('site_title');} }?></title>
+	<link rel="shortcut icon" href="./Tpl/Home/default1215/common/img/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="./Tpl/Home/default1215/common/css/index_base1215.css?<?php echo C('site_system_file_version'); ?>">
+	<link rel="stylesheet" type="text/css" href="./Tpl/Home/default1215/common/css/index_style1215.css?<?php echo C('site_system_file_version'); ?>">
+	<link rel="stylesheet" type="text/css" href="./Tpl/Home/default1215/common/fonts/font-awesome-4.6.3/css/font-awesome.min.css"><!-- 图标字体库 -->
+	<script type="text/javascript" src="./Tpl/Home/default1215/common/js/jquery-1.12.0.min.js"></script>
+	<script type="text/javascript" src="./Tpl/Home/default1215/common/js/common.js?<?php echo C('site_system_file_version'); ?>"></script>
+</head>
+<body>
+<script type="text/javascript">  
+	// 判断浏览器类型 pc or mobile
+	if(/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent))){ 
+	    if(window.location.href.indexOf("?mobile")<0){ 
+	        try{ 
+	            if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)){ 
+	                window.location.href="http://www.mobiwind.cn/index.php?&g=Wap&m=ScrmWap&a=index&companyid=1"; 
+	            }else if(/iPad/i.test(navigator.userAgent)){ 
+	            }else{ 
+	                window.location.href="http://www.mobiwind.cn/" 
+	            } 
+	        }catch(e){} 
+	    } 
+	} 
+</script> 
+<script type="text/javascript">
+	/* idnex 导航滑动跟随 @John 2016-12-18 21:00 */
+	$(function(){
+		var time = 150;
+		var ul = $("#js-nav-list");
+		var li = ul.find("li");
+		var bg = ul.find("li.navbg");
+
+		//初始化
+		var on = ul.find(".on");
+		var on_index = on.index();
+
+		function start(){
+			bg.stop().animate({width:li.eq(on_index).outerWidth(),left:li.eq(on_index).offset().left-ul.offset().left},time);
+		}
+		start();
+		
+		//li绑定mouseover事件
+		li.mouseover(function(){
+			bg.css("background-Color","rgba(0,0,0,.2)");
+			var w = $(this).outerWidth();
+			var l = $(this).offset().left-ul.offset().left;
+			bg.stop().animate({width:w,left:l},time);
+		})
+		//ul移出，恢复初始化
+		ul.mouseleave(function(){
+			bg.css("background-Color","transparent");
+			start();
+		});
+	})
+</script>
+	<div class="common-header index-header">
+		<include file="Public:headerCommon" />
+	</div>
+
+
+
+	<div class="index-wrap wrap-default part-of-seven">
+		<div class="part-header">
+			<div class="banner-bd">
+				<img class="index-banner-img-default" src="./Tpl/Home/default1215/common/img/index-banner-img-default2.png">
+			</div>
+			<ul class="banner-hd">
+				<li>
+					<a href="<?php echo U('Index/missionComplete',array('isScroll'=>'1'));?>">
+						<i class="icon-index btn1"></i>
+						<h3>为价值而生</h3>
+					</a>
+				</li>
+				<li>
+					<a href="<?php echo U('Index/CRM',array('isScroll'=>'1'));?>">
+						<i class="icon-index btn2"></i>
+						<h3>会员制<em class="font-Hel">CRM</em></h3>
+					</a>
+				</li>
+				<li>
+					<a href="<?php echo U('Index/eshop',array('isScroll'=>'1'));?>">
+						<i class="icon-index btn3"></i>
+						<h3><em class="font-Hel">Eshop</em>微商城</h3>
+					</a>
+				</li>
+				<li>
+					<a href="<?php echo U('Index/O2O',array('isScroll'=>'1'));?>">
+						<i class="icon-index btn4"></i>
+						<h3><em class="font-Hel">O2O</em>场景</h3>
+					</a>
+				</li>
+				<li>
+					<a href="<?php echo U('Index/Session',array('isScroll'=>'1'));?>">
+						<i class="icon-index btn5"></i>
+						<h3>专场活动</h3>
+					</a>
+				</li>
+				<li>
+					<a href="<?php echo U('Index/S5activity',array('isScroll'=>'1'));?>">
+						<i class="icon-index btn6"></i>
+						<h3>开放平台接入</h3>
+					</a>
+				</li>
+				<li class="on">
+					<a href="<?php echo U('Index/deploy',array('isScroll'=>'1'));?>">
+						<i class="icon-index btn7"></i>
+						<h3>部署服务</h3>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="part-body">
+			<div class="part-hero">
+				<img src="./Tpl/Home/default1215/common/img/index_banner_img12.jpg" draggable="false">
+			</div>
+			<ul class="deploy-part-middle clearfix">
+				<li class="fl">
+					<img src="./Tpl/Home/default1215/common/img/icon_business47.png" draggable="false">
+					<h3><em class="font-Hel">0-1</em>部署</h3>
+					<h5>携手完成<em class="font-Hel">0-1</em>部署</h5>
+				</li>
+				<li class="fl">
+					<img src="./Tpl/Home/default1215/common/img/icon_business48.png" draggable="false">
+					<h3><em class="font-Hel">AE</em>巡店</h3>
+					<h5>落地执行效果监督</h5>
+				</li>
+				<li class="fl">
+					<img src="./Tpl/Home/default1215/common/img/icon_business49.png" draggable="false">
+					<h3><em class="font-Hel">7*12</em></h3>
+					<h5>一对一<em class="font-Hel">AE</em>售后响应</h5>
+				</li>
+			</ul>
+			<ul class="deploy-part-list">
+				<h1>1. 账号及微信部署</h1>
+				<h3><b class="font-Hel">·</b> 公司门店部署：在<em class="font-Hel">SCRM5</em>和微信公众平台上完成公司、门店信息录入</h3>
+				<h3><b class="font-Hel">·</b> 帐号部署：管理员、店员等各职能帐号部署（<em class="font-Hel">SCRM5</em>平台/风助手/拉卡拉<em class="font-Hel">pos</em>的用户权限）</h3>
+				<h3><b class="font-Hel">·</b> 微信服务号申请认证及相关功能申请</h3>
+				<p>
+					微信卡券功能代开通 <br>
+					微信连<em class="font-Hel">WIFI</em>代开通 <br>
+					消息模板代配置  <br>
+					设计微信自定义菜单，并根据公众号最新活动和内容更改 <br>
+					设计微信关注时回复，并根据公众号最新的活动和内容更改
+				</p>
+				<h3><b class="font-Hel">·</b> 支付接口部署</h3>
+				<p>
+					代申请微信支付、并完成接口配置 <br>
+					完成支付宝接口配置
+				</p>
+
+				<h1>2. <em class="font-Hel">CRM</em>会员制部署</h1>
+				<h3><b class="font-Hel">·</b> 会员等级及会员等级权益部署培训</h3>
+				<h3><b class="font-Hel">·</b> 电子会员卡卡面部署培训</h3>
+				<h3><b class="font-Hel">·</b> 积分规则设计和积分商城的部署培训</h3>
+				<p>
+					累计积分获取规则 <br>
+					可用积分到期清零规则 <br>
+					积分商城部署培训
+				</p>
+				<h3><b class="font-Hel">·</b> 储值卡充值商品部署培训</h3>
+				<h3><b class="font-Hel">·</b> 电子卡券部署培训</h3>
+				<p>
+					电子卡券种类制定和创建 <br>
+					电子卡券投放 <br>
+					电子卡券关联活动配 <br>
+					电子卡券关联的虚拟商品
+				</p>
+				<h3><b class="font-Hel">·</b> CRM活动规则部署培训</h3>
+				<!-- <p>
+					首次微信关注奖励活动（首次微信关注后可获得相应积分、<em class="font-Hel">N</em>张电子券奖励） <br>
+					新会员注册奖励活动(新会员首次注册后可获得相应积分、<em class="font-Hel">N</em>张电子券奖励)  <br>
+					完善会员资料<em class="font-Hel">100%</em>立赠活动（在修改个人资料中<em class="font-Hel">100%</em>完善资料可获得相应积分、N张电子券奖励） <br>
+					生日关怀活动（生日前几天系统自动投放相应电子券/单张） <br>
+					定时直赠奖励活动（系统定时投放电子券/单张） <br>
+					领券活动
+				</p> -->
+				<p>
+					定时直赠奖励活动（系统定时投放<em class="font-Hel">N</em>张卡券）<br>
+					生日送券活动（生日前几天系统自动投放相应<em class="font-Hel">N</em>张卡券）<br>
+					首次微信关注奖励活动（首次微信关注后可获得<em class="font-Hel">N</em>张卡券奖励）<br>
+					完善会员资料<em class="font-Hel">100%</em>立赠活动（在修改个人资料中<em class="font-Hel">100%</em>完善资料可获得N张卡券奖励）<br>
+					新会员注册奖励活动(新会员首次注册后可获得相应积分、<em class="font-Hel">N</em>张卡券奖励) <br>
+					领券活动（点击进入活动页面输入手机号码可获得<em class="font-Hel">N</em>张卡券）<br>
+					首次消费赠券（首次消费后可获得<em class="font-Hel">N</em>张卡券奖励）<br>
+					裂变卡券活动（会员消费后可获得<em class="font-Hel">N</em>张卡券，自己领取<em class="font-Hel">1</em>张后，剩余的卡券可分享给好友）<br>
+					裂变红包活动（会员消费后可获得<em class="font-Hel">N</em>个红包，自己领取<em class="font-Hel">1</em>个后，剩余的红包可分享给好友）
+				</p>
+
+				<h1>3. <em class="font-Hel">O2O</em>场景部署</h1>
+				<h3><b class="font-Hel">·</b> 场景部署培训</h3>
+				<p>
+					微页面（移动官网） <br>
+					<em class="font-Hel">Eshop</em>微商城 <br>
+					风助手门店收银 <br>
+					拉粉码 <br>
+					手机预订 <br>
+					线上调研 <br>
+					互动点评 <br>
+					咨询表单 <br>
+					抽奖码活动 <br>
+					百宝箱<em class="font-Hel">2</em>代 <br>
+					摇摇乐 <br>
+					微信提货
+				</p>
+				<h3><b class="font-Hel">·</b> <em class="font-Hel">CRM</em>活动规则部署培训</h3>
+
+				<h1>4. 平台配套增值产品</h1>
+				<h3><b class="font-Hel">·</b> 拉卡拉<em class="font-Hel">POS+</em>部署培训</h3>
+				<h3><b class="font-Hel">·</b> <em class="font-Hel">SMS</em>短信通部署培训</h3>
+				<h3><b class="font-Hel">·</b> 摇摇魔石部署培训</h3>
+			</ul>
+			<div class="part-hero">
+				<img src="./Tpl/Home/default1215/common/img/index_banner_img13.jpg" draggable="false">
+				<a class="btn btn-login banner-btn dyy" href="<?php echo U('Index/activity') ?>"> <i class="fa fa-angle-right icon-arrow-right"></i> 了解详情</a>
+			</div>
+		</div>
+	</div>
+<include file="Public:footer" />

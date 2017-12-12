@@ -1,0 +1,95 @@
+<include file="Public:head" /> 
+<include file="Public:smallmaterial" />
+<?php echo $makeTopUrl;?>
+<div class="group inline-btn-group mb-10">
+    <a href="<?php echo U('MallGoods/index',array('isoffshelves'=>2,'issoldout'=>2));?>" class="btn-small btn-white">商品管理</a>
+    <a href="<?php echo U('MallGoods/indexSlide');?>" class="btn-small btn-white">商城首页banner</a>
+    <a href="<?php echo U('Remind/index');?>" class="btn-small  btn-purple">产品使用提醒设置</a>
+    <!-- <a href="<?php echo U('EshopTag/index');?>" class="btn-small btn-white">商品标签管理</a> -->
+</div>
+<!-- 创建商品 -->
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>产品使用提醒设置</h4></div>
+    <div class="mod-body ">
+        <div class="content">
+            <div class="group-line pb-10">
+                <h6 class="w150 fl">推荐商品小图：</h6>
+                <div class="group-right ml-150">
+                    <img class="shareimg" src="<?php echo $info['image'] ? $info['image'] : 'http://www.mobiwind.cn/Tpl/Wap/default/common/img/common.jpg';?>">
+                    <input type="hidden" class="form-control span2" name="image" value="<?php echo $info['image'];?>" readonly="readonly">
+                    <a class="btn-middle btn-white shareimg-btn imageselect" data-type="shareimg">选择图片</a>
+                    <h6 class="text-gray">建议图片尺寸：宽120像素*高120像素，建议图片大小：小于50k</h6>
+                </div>
+            </div>
+            <div class="group mb-30">
+                <h6 class="inline w150 text-left">推荐商品名称：</h6>
+                <input class="inline w300" type="text" name="title" value="<?php echo $info['title'];?>" data-rule-maxlength="76">
+                <div class="group">
+                    <h5 class="inline w150 text-left"><!-- Null --></h5>
+                    <h6 class="inline text-gray">仅限38个汉字，76个字节，多余文字将显示"..."</h6>
+                </div>
+            </div>
+            <div class="group mb-30">
+                <h6 class="inline w150 text-left">推荐商品价格：</h6>
+                <input class="inline w300" type="text" name="price" value="<?php echo $info['price'];?>" data-rule-maxlength="76">
+            </div>
+            <div class="group mb-30">
+                <h6 class="inline w150 text-left">推荐商品链接：</h6>
+                <input class="inline w300" type="text" name="url" value="<?php echo $info['url'];?>" data-rule-maxlength="76">
+                <div class="group">
+                    <h5 class="inline w150 text-left"><!-- Null --></h5>
+                    <h6 class="inline text-gray">外部链接需要以http://开头</h6>
+                </div>
+            </div>
+            <div class="group mb-30">
+                <h6 class="inline w150 text-left text-top">产品使用提醒：</h6>
+                <textarea class="inline w300 js-sharedes" cols="30" rows="5" name="info" data-rule-maxlength="130"><?php echo $info['info'];?></textarea>
+            </div>
+        </div>
+
+        <div class="Wechat-msg-bottom text-center">
+            <button type="submit" class="btn-middle btn-purple w100 pointer js-sub">保 存</button>
+        </div>
+    </div>
+</div>
+<script>
+    $(function(){
+        $(".js-sub").click(function(){
+            var id = "<?php echo $info['id']; ?>";
+            var title = $("input[name='title']").val();
+            var image = $("input[name='image']").val();
+            var url = $("input[name='url']").val();
+            var price = $("input[name='price']").val();
+            var info = $("textarea[name='info']").val();
+            $.post(window.location.href,{
+                id:id,
+                title:title,image:image,url:url,price:price,info:info
+            },function(data){
+                alertTan(data.msg);
+                if(data.code==200){
+                    setTimeout("window.location.href=location.href",1500);
+                }
+            },"json")
+        });
+        $(document).on("click","#clickimgok",function(){
+            var type = $(this).attr("data-type");
+            var img = $(this).attr("data-imgsrc");
+            if(type == 'shareimg'){
+                $(".shareimg").attr("src",img);
+                $("input[name=image]").attr("value",img);
+            }
+        });
+    })
+//计算两个日期天数差的函数，通用
+function DateDiff(sDate1, sDate2){  //sDate1和sDate2是yyyy-MM-dd格式
+	var aDate, oDate1, oDate2, iDays;
+	aDate = sDate1.split("-");
+	oDate1 = new Date(aDate[1] + '-' + aDate[2] + '-' + aDate[0]);  //转换为yyyy-MM-dd格式
+	aDate = sDate2.split("-");
+	oDate2 = new Date(aDate[1] + '-' + aDate[2] + '-' + aDate[0]);
+	iDays = parseInt(Math.abs(oDate1 - oDate2) / 1000 / 60 / 60 / 24); //把相差的毫秒数转换为天数
+	return iDays;  //返回相差天数
+}
+</script>
+<include file="Public:CountLength" />
+<include file="Public:footer" />

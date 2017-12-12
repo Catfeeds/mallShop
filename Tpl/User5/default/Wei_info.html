@@ -1,0 +1,510 @@
+<include file="Public:head"/>
+<include file="Public:smallmaterial"/>
+<include file="Public:UEditorJS" />
+<include file="Public:UEditorBig" />
+<include file="Public:loading" />
+<style>
+.weiSelect-asa,.weiFind-asa{float:none;}
+.FuWenBen p img{width:100%}
+</style>
+<input name="id" type="hidden" value="<?php echo $info['id']; ?>" />
+<input name="pagetype-asa" type="hidden" value="1" />
+<!-- 页面的类型：1：微页面；2：自定义 -->
+<?php echo $makeTopUrl;?>
+<div class="mod mb-15 WeiPage-build">
+    <div class="mod-header radius-top clearfix"><h4><?php if($info['id']!=''){echo '编辑';}else{echo '新建';} ?>微页面</h4>
+        <div class="fr">
+            <a href="javascript:void(0);" class="tips QR-code-down js-QR-code-hide"><i class="icon-build-WeiPage preview-wap"></i>手机预览
+            <div class="QR-code-box-down has-border-img">
+	            <img data-src="<?php echo U('Wei/erweima',array('link'=>base64_encode(C('site_url').'/index.php?g=Wap&m=Wei&a=index&id='.$info['id'].'&companyid='.$companyid)));?>">
+	            <h6>微信扫码<br>手机预览</h6>
+	            <span id="triangle-up-b"></span>
+	            <span id="triangle-up-a"></span>
+	        </div>
+            </a>
+            <a href="javascript:void(0);" class="tips js-clip-btn" data-url="<?php echo C('site_url').'/index.php?g=Wap&m=Wei&a=index&id='.$info['id'].'&companyid='.$companyid;?>"><i class="icon-build-WeiPage cpoy-url"></i>复制链接</a>
+        </div>
+    </div>
+    <div class="mod-body">
+        <div class="content clearfix WeiPage-setting-area">	
+            <!-- 显示区 -->
+            <div class="WeiPage-preview-area fl">
+                <div class="WeiPage-preview">
+                    <div class="WeiPage-preview-hd title-html-asa"><?php echo $info['title']?$info['title']:'页面标题'; ?></div>
+                    <div class="WeiPage-preview-bd" style="background-color:#<?php echo $info['bgcolor']?$info['bgcolor']:'eaeaea'; ?>;">
+                    	<include file="Wei:infoShow"/>
+                    </div>
+                </div>
+            </div>
+            <script>
+                jQuery(".demo-slideBox").slide({
+                    mainCell: ".bd ul",
+                    effect: "leftLoop",
+                    autoPlay: true,
+                    trigger: "click"
+                });
+            </script>
+            <!-- 编辑区 -->
+            <div class="WeiPage-build-form-area">
+                <div class="portable-editor">
+                    <div class="editor-inner">
+                        <div class="tab-box type-1 js-tab-box">
+                            <div class="hd">
+                                <ul>
+                                    <li>网页信息</li>
+                                    <li>组件</li>
+                                    <li>自定义模块</li>
+                                    <li>风格</li>
+                                </ul>
+                            </div>
+                            <div class="bd">
+                                <!-- 网页信息 -->
+                                <div class="inner-box">
+                                    <div class="js-scroll">
+                                        <div class="group mb-30">
+                                            <h5 class="inline w100 text-left">网页标题</h5>
+                                            <input class="inline w300" type="text" placeholder="请输入网页标题" name="title" value="<?php echo $info['title'];?>">
+                                        </div>
+                                        <div class="group mb-30">
+                                            <h5 class="inline w100">微页面分类</h5>
+                                            <select class="w100 js-add-new-class-option">
+                                                <option value="">全部</option>
+                                               	<?php if($group){ foreach($group as $gkey=>$gval){?>
+	                                                <option value="<?php echo $gval['id'];?>" <?php if($info['gid'] == $gval['id']){echo 'selected="selected"';}?>><?php echo $gval['title'];?></option>
+                                                <?php }}?>
+                                            </select>
+                                            <a class="btn-small btn-white text-middle js-add-new-class">新增分类</a>
+                                        </div>
+                                        <div class="group mb-30">
+                                            <h5 class="inline w100">网页底色：</h5>
+                                            <div class="inline">
+                                                <input class="w50 color" name="bgcolor" type="text" placeholder="" autocomplete="off" value="<?php echo $info['bgcolor']?$info['bgcolor']:'eaeaea';?>">
+                                            </div>
+                                            <div class="group">
+                                                <h5 class="inline w100 text-left"><!-- Null --></h5>
+                                                <h6 class="inline text-gray">点击色块修改网页底色</h6>
+                                            </div>
+                                        </div>
+                                        <div class="group mb-30">
+                                            <h5 class="inline w100 text-left">加密浏览</h5>
+                                            <div class="inline pb-10">
+                                                <label class=" radio inline js-has-password-no">
+                                                <input type="radio" name="isencrypt" <?php if($info['isencrypt']!=2){ echo 'checked="checked" ';} ?> value="1">否</label>
+                                                &nbsp; &nbsp; &nbsp; &nbsp;
+                                                <label class=" radio inline js-has-password-yes">
+                                                <input type="radio" name="isencrypt" <?php if($info['isencrypt']==2){ echo 'checked="checked" ';} ?> value="2">是</label>
+                                            </div>
+                                            <div class="group">
+                                                <h5 class="inline w100 text-left"><!-- Null --></h5>
+                                                <input class="inline w300 js-has-password" name="encryptinfo" value="<?php echo $info['encryptinfo']; ?>"  type="text" placeholder="请输入四位数数字密码"<?php if($info['isencrypt']!=2){ echo 'disabled="disabled" ';} ?>>
+                                            </div>
+                                            <div class="group">
+                                                <h5 class="inline w100 text-left"><!-- Null --></h5>
+                                                <h6 class="inline text-gray">加密浏览适用于付费浏览或内部浏览</h6>
+                                            </div>
+                                        </div>
+                                        <div class="group mb-30">
+                                            <h5 class="inline w100 text-left">屏蔽微信分享</h5>
+                                            <div class="inline">
+                                                <label class=" radio inline">
+                                                <input type="radio" name="iswechat" <?php if($info['iswechat']!=2){ echo 'checked="checked" ';} ?> value="1">关闭</label>
+                                                &nbsp; &nbsp; &nbsp; &nbsp;
+                                                <label class=" radio inline">
+                                                <input type="radio" name="iswechat" <?php if($info['iswechat']==2){ echo 'checked="checked" ';} ?> value="2">开启</label>
+                                            </div>
+                                        </div>
+                                        <div class="group mb-30">
+                                            <h5 class="inline w100 text-left">微信分享小图</h5>
+                                            <i class="WeiChat-share-small-img" style="<?php echo $info['shareimg']?'background-image:url(\''.$info['shareimg'].'\');':'' ?>"></i>
+                                            <input type="hidden" name="shareimg" value="<?php echo $info['shareimg'];?>" />
+                                            <a href="javascript:void(0)" data-type="wechatimg" class="btn-middle btn-white inline js-pic-click imageselect">选择图片</a>
+                                            <div class="group">
+                                                <h5 class="inline w100 text-left"><!-- Null --></h5>
+                                                <h6 class="inline text-gray">建议图片尺寸：宽120像素*高120像素，建议图片大小：小于50k</h6>
+                                            </div>
+                                        </div>
+                                        <div class="group mb-30">
+                                            <h5 class="inline w100 text-left">微信分享标题</h5>
+                                            <input class="inline w300" type="text" placeholder="请输入微信分享标题" name="sharefriendstitle" value="<?php echo $info['sharefriendstitle'];?>">
+                                            <div class="group">
+                                                <h5 class="inline w100 text-left"><!-- Null --></h5>
+                                                <h6 class="inline text-gray">仅限38个汉字，76个字节，多余文字将显示"..."</h6>
+                                            </div>
+                                        </div>
+                                        <div class="group mb-30">
+                                            <h5 class="inline w100 text-left text-top">微信分享描述</h5>
+                                            <textarea class="inline w300 sharedes" cols="30" rows="5" placeholder="请输入微信分享描述" name="sharedes"><?php echo htmlspecialchars_decode($info['sharedes']);?></textarea>
+                                            <div class="group">
+                                                <h5 class="inline w100 text-left"><!-- Null --></h5>
+                                                <h6 class="inline w300 text-gray">
+                                                    仅限65个汉字，130个字节，多余文字将显示"..."，受微信限制，分享描述不支持回车换行，否则，分享时可能会出现乱码等情况。</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 组件 -->
+                                <div class="inner-box mod">
+                                    <div class="js-scroll">
+                                        <div class="group mb-15">
+                                            <div class="mod-header radius-top">通头与通底</div>
+                                            <div class="mod-body">
+                                                <div class="content clearfix">
+                                                    <div class="con-box WeiPage-crose-header header-asa" data-id="">
+                                                        <i class="icon-con-box"></i>
+                                                        <h5>通头</h5>
+                                                    </div>
+                                                    <div class="con-box WeiPage-crose-footer footer-asa" data-id="">
+                                                        <i class="icon-con-box"></i>
+                                                        <h5>通底</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="group mb-15">
+                                            <div class="mod-header radius-top">基础</div>
+                                            <div class="mod-body">
+                                                <div class="content clearfix">
+                                                    <div class="con-box WeiPage-base-img photo-asa">
+                                                        <i class="icon-con-box"></i>
+                                                        <h5>图片</h5>
+                                                    </div>
+                                                    <div class="con-box WeiPage-Banner banner-asa">
+                                                        <i class="icon-con-box"></i>
+                                                        <h5>Banner</h5>
+                                                    </div>
+                                                    <div class="con-box WeiPage-base-slide slide-asa">
+                                                        <i class="icon-con-box"></i>
+                                                        <h5>幻灯片</h5>
+                                                    </div>
+                                                    <div class="con-box WeiPage-base-bigtext bigtext-asa">
+                                                        <i class="icon-con-box"></i>
+                                                        <h5>富文本</h5>
+                                                    </div>
+                                                    <div class="con-box WeiPage-base-blank blank-asa">
+                                                        <i class="icon-con-box"></i>
+                                                        <h5>辅助空白</h5>
+                                                    </div>
+                                                    <div class="con-box WeiPage-base-goods goods-asa">
+                                                        <i class="icon-con-box"></i>
+                                                        <h5>商品</h5>
+                                                    </div>
+                                                    <div class="con-box WeiPage-Page-list article-asa">
+                                                        <i class="icon-con-box"></i>
+                                                        <h5>文章列表</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="group mb-15">
+                                            <div class="mod-header radius-top">高级</div>
+                                            <div class="mod-body">
+                                                <div class="content clearfix">
+                                                    <div class="con-box WeiPage-base-img js-groupon-goods">
+                                                        <i class="icon-con-box"></i>
+                                                        <h5>拼团商品</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- 自定义模块 -->
+                                <div class="inner-box">
+                                    <div class="js-scroll">
+                                        <div class="group mb-15">
+                                            <a href="<?php echo U('Wei/definePage'); ?>" class="btn-small btn-purple">新建自定义模块</a>
+                                            <h6 class="text-gray pt-5">*新建自定义模块后，点击【保存并发布】并刷新页面，新建的自定义模块才会显示在自定义模块列表中</h6>
+                                        </div>
+                                        <table class="table type-1 w-auto mb-15">
+                                            <thead>
+                                            <tr>
+                                                <th>模块名称</th>
+                                                <th>操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="js-assinfo-asa">
+                                            <?php if($asslist){ ?>
+	                                            <?php foreach($asslist as $val){ ?>
+	                                            <tr id="ass<?php echo $val['id']; ?>">
+	                                                <td><?php echo $val['title']; ?></td>
+	                                                <td>
+	                                                    <a href="javascript:void(0);" class="tips js-asschecked-asa" data-id="<?php echo $val['id']; ?>">选用</a>
+	                                                    <a href="<?php echo U('Wei/definePage',array('id'=>$val['id'])); ?>" class="tips" data-id="">编辑</a>
+	                                                    <a href="javascript:void(0);" class="tips copy-asa" data-id="<?php echo $val['id']; ?>">复制模块</a>
+	                                                    <a href="javascript:void(0);" class="tips del-ass-click-asa" data-id="<?php echo $val['id']; ?>">删除</a>
+	                                                </td>
+	                                            </tr>
+	                                            <?php } ?>
+                                            <?php }else{ ?>
+                                            <tr class="text-center">
+                                                <td colspan="2">暂无</td>
+                                            </tr>
+                                            <?php } ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <!-- 风格 -->
+                                <div class="inner-box WeiPage-style">
+                                    <div class="js-scroll">
+                                        <div class="con-box WeiPage-style-type-1">
+                                            <i class="img-WeiPage-style"></i>
+                                        </div>
+                                        <!-- <div class="con-box WeiPage-style-type-2">
+                                            <i class="img-WeiPage-style"></i>
+                                        </div>
+                                        <div class="con-box WeiPage-style-type-2">
+                                            <i class="img-WeiPage-style"></i>
+                                        </div>
+                                        <div class="con-box WeiPage-style-type-2">
+                                            <i class="img-WeiPage-style"></i>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="Wechat-msg-bottom text-center">
+            <a class="btn-middle btn-white sub-asa">保存并发布</a>
+        </div>
+    </div>
+</div>
+<!-- 组件弹窗 -->
+<include file="Public:WeiTan" />
+<!-- 相关的JS -->
+<include file="Public:WeiTanJS" />
+<!-- ==============================    删除弹窗    ============================== -->
+<div class="popup-wrap wrap-middle-2 del-ass-tan-asa" style="display: none;">
+    <div class="mod middle-popup type-2">
+        <div class="mod-header">
+            <h4 class="fl">删除自定义组件</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+            <div class="content">
+                <h5 class="pb-20">确认删除当前自定义组件么？</h5>
+                <p class="text-center">
+                    <a class="btn-small btn-purple js-ok del-ass-asa" data-id=''>确 认</a> &nbsp;
+                    <a class="btn-small btn-white js-cancel quxiao">取 消</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<script language="javascript">   
+/* function closeIt() {
+	id=$("input[name='id']").val();
+	return "新建的页面重新加载后会出现空白，但是数据不会丢失，可以到列表页重新进行编辑操作。";
+}
+<?php if($_GET['id']==''){ ?>
+if("<?php echo $_GET['id']; ?>"==''){
+	window.onbeforeunload = closeIt;
+}
+<?php } ?> */
+</script>
+<script>
+var pagetypeasa = $("input[name='pagetype-asa']").val();
+/* ==========      总的提交在这       ========== */
+$(function(){
+$(".sub-asa").click(function(){
+	id=$("input[name='id']").val();
+	/* 页面信息  */
+	var title = $('input[name=title]').val();
+	var isencrypt = $('input[name=isencrypt]:checked').val();
+	var encryptinfo = $('input[name=encryptinfo]').val();
+	var gid = $('.js-add-new-class-option').val();
+	var bgcolor = $('input[name=bgcolor]').val();
+	/* 微信分享信息  */
+	var shareimg = $('input[name=shareimg]').val();
+	var sharefriendstitle = $('input[name=sharefriendstitle]').val();
+	var sharedes = $('.sharedes').val();
+	var iswechat = $('input[name="iswechat"]:checked').val();
+	if(!title){
+		alertTan('请填写网页标题',"warn");$('input[name=title]').focus();
+		return false;
+	}
+	if(isencrypt==2){
+		if(encryptinfo.length!=4){
+			alertTan('请输入四位数字',"warn");$('input[name=encryptinfo]').focus();
+			return false;
+		}
+	}
+	$.post("<?php echo U('Wei/addInfo',array('companyid'=>$companyid)); ?>",{
+		/* 页面信息  */
+		id:id,title:title,isencrypt:isencrypt,encryptinfo:encryptinfo,gid:gid,
+		/* 微信分享信息  */
+		iswechat:iswechat,shareimg:shareimg,sharefriendstitle:sharefriendstitle,sharedes:sharedes,
+		pagetypeasa:pagetypeasa,bgcolor:bgcolor
+	},function(data){
+		/* 写返回结果的  */
+		alertTan(data.msg);
+		$(".title-html-asa").html(title);
+		if(id==''){
+			$("input[name='id']").val(data.id);
+		}else{
+		}
+		<?php if($_GET['id']==''){ ?>
+		//"函数名("+参数+")"
+		setTimeout(function(){
+		  window.location.href=location.href+"&id="+data.id	
+		},2000);
+		<?php }else{ ?>
+		setTimeout("window.location.href=window.location.href",3000);
+		<?php } ?>
+	},'json');
+});
+//选用自定义
+$(".js-asschecked-asa").click(function(){
+	var id=$("input[name='id']").val();
+	var assid=$(this).attr("data-id");
+	//$(".loadding").show();
+	if(id==''){
+		/* 页面信息  */
+		var title = $('input[name=title]').val();
+		var isencrypt = $('input[name=isencrypt]:checked').val();
+		var encryptinfo = $('input[name=encryptinfo]').val();
+		var gid = $('.js-add-new-class-option').val();
+		/* 微信分享信息  */
+		var shareimg = $('input[name=shareimg]').val();
+		var sharefriendstitle = $('input[name=sharefriendstitle]').val();
+		var sharedes = $('.sharedes').val();
+		var iswechat = $('input[name="iswechat"]:checked').val();
+		if(isencrypt==2){
+			if(encryptinfo.length!=4){
+				alertTan('请输入四位数字密码',"warn");$('input[name=encryptinfo]').focus();
+				return false;
+			}
+		}
+		if(title==''){
+			title = '网页标题';
+			$('input[name=title]').val('网页标题');
+		}else{
+			$(".title-html-asa").html(title);
+		}
+		$.post("<?php echo U('Wei/addInfo',array('companyid'=>$companyid)); ?>",{
+			/* 页面信息  */
+			id:id,title:title,isencrypt:isencrypt,encryptinfo:encryptinfo,gid:gid,
+			/* 微信分享信息  */
+			iswechat:iswechat,shareimg:shareimg,sharefriendstitle:sharefriendstitle,sharedes:sharedes,
+			/* 页面类型 */
+			pagetypeasa:pagetypeasa
+		},function(data){
+			if(data.code==200){
+				$("input[name='id']").val(data.id);
+				$.post("<?php echo U('Wei/ishaveHF2').'&time=';?>"+Math.random(),{
+					weiid:data.id,assid:assid
+				},function(data3){
+					if(data3.code==300){
+						alertTan(data.msg,"error");
+						//$(".loadding").hide();
+					}else{
+						$.post("<?php echo U('Wei/assInfo').'&time=';?>"+Math.random(),{
+							parentid:data.id,assid:assid
+						},function(data2){
+							if(data2.type==1){
+								$("#info-html-asa").append(data2.html);
+							}
+							if(data2.typeh==11){
+								if(!$("#info-html-asa").hasClass("has-mod-top")){
+									$("#info-html-asa").addClass("has-mod-top");
+								}
+								$("#info-html-asa").before(data2.htmlh);
+							}
+							if(data2.typef==12){
+								if(!$("#info-html-asa").hasClass("has-mod-footer")){
+									$("#info-html-asa").addClass("has-mod-footer");
+								}
+								$("#info-html-asa").after(data2.htmlf);
+							}
+							//$(".loadding").hide();
+						},'json');
+					}
+				},'json')
+			}
+			
+		},'json');
+	}else{
+		$.post("<?php echo U('Wei/ishaveHF2').'&time=';?>"+Math.random(),{
+			weiid:id,assid:assid
+		},function(data){
+			if(data.code==300){
+				alertTan(data.msg,"error");
+				//$(".loadding").hide();
+			}else{
+				$.post("<?php echo U('Wei/assInfo').'&time=';?>"+Math.random(),{
+					parentid:id,assid:assid
+				},function(data2){
+					if(data2.type==1){
+						$("#info-html-asa").append(data2.html);
+					}
+					if(data2.typeh==11){
+						if(!$("#info-html-asa").hasClass("has-mod-top")){
+							$("#info-html-asa").addClass("has-mod-top");
+						}
+						$("#info-html-asa").before(data2.htmlh);
+					}
+					if(data2.typef==12){
+						if(!$("#info-html-asa").hasClass("has-mod-footer")){
+							$("#info-html-asa").addClass("has-mod-footer");
+						}
+						$("#info-html-asa").after(data2.htmlf);
+					}
+					//$(".loadding").hide();
+				},'json');
+			}
+		},'json')
+	}
+});
+//复制页面  copy-asa
+$(document).on("click",".copy-asa",function(){
+	var id=$(this).attr('data-id');
+	var html = '';
+	$.post("<?php echo U('Wei/clonePage').'&time=';?>"+Math.random(),{id:id},function(data){
+		if(data.code == 200){
+			alertTan("复制自定义模块");
+			html += '<tr id="ass'+data.id+'">';
+			html += '<td>'+data.title+'</td>';
+			html += '<td>';
+			html += '<a href="javascript:void(0);" class="tips js-asschecked-asa" data-id="'+data.id+'">选用</a> ';
+			html += '<a href="<?php echo U("Wei/definePage",array("id"=>"'+data.id+'")); ?>" class="tips" data-id="">编辑</a> ';
+			html += '<a href="javascript:void(0);" class="tips copy-asa" data-id="'+data.id+'">复制模块</a> ';
+			html += '<a href="javascript:void(0);" class="tips del-ass-click-asa" data-id="'+data.id+'">删除</a> ';
+			html += '</td>';
+			html += '</tr>';
+			$(".js-assinfo-asa").prepend(html);
+		}
+	},'json');
+});
+//删除自定义模块
+$(document).on("click",".del-ass-click-asa",function(){
+	var id = $(this).attr('data-id');
+	$('.del-ass-asa').attr('data-id',id);
+	$(".del-ass-tan-asa").show();
+});
+$(".del-ass-asa").click(function(){
+	var id = $(this).attr('data-id');
+	var $this = $(this);
+	$.post("<?php echo U('Wei/ajaxDel').'&time=';?>"+Math.random(),{id:id},function(data){
+		if(data.code == 200){
+			alertTan(data.msg);
+			$("#ass"+id).remove();
+		}else{
+			alertTan(data.msg,'error');
+		}
+	},'json');
+});
+
+
+})
+
+//js-slide-img-group
+//to-left 
+//to-right
+</script>
+<include file="Public:footer"/>

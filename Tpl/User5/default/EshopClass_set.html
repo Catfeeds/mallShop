@@ -1,0 +1,394 @@
+<include file="Public:head" />
+<include file="Public:smallmaterial" />
+<?php echo $makeTopUrl;?>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4><?php echo $info['id'] ? '编辑' : '创建';?>商品品类</h4></div>
+    <div class="mod-body">
+    	<div class="inner-header"><h5>网页信息</h5></div>
+        <div class="content">
+            <div class="group">
+                <h5 class="inline w150 text-left">*网页标题：</h5>
+                <input class="group inline w350" type="text" name="title" value="<?php echo $info['title'];?>" data-rule-required="true" data-rule-maxlength="64">
+            </div>
+            <div class="group pb-10">
+                <h5 class="inline w150 text-left"></h5>
+                <h6 class="inline">*仅限32个汉字，64个字节</h6>
+            </div>
+        </div>
+        <div class="inner-header"><h5>商品品类信息</h5></div>
+        <div class="content">
+            <div class="group">
+                <h5 class="inline w150">*商品品类名称：</h5>
+                <input class="group inline w350" type="text" name="name" value="<?php echo $info['name'];?>" data-rule-required="true" data-rule-maxlength="12">
+            </div>
+            <div class="group pb-10">
+                <h5 class="inline w150"></h5>
+                <h6 class="inline">*仅限6个汉字，12个字节</h6>
+            </div>
+            <div class="group pb-10">
+				<h5 class="inline w150">所属一级商品品类：</h5>
+				<select class="inline w350 selectParentTagButton" name="ptid">
+					<option value="">请选择所属一级商品品类</option>
+					<?php if($info['class']){ foreach($info['class'] as $kev=>$val){?>
+					<option value="<?php echo $val['id'];?>" <?php if($val['id'] == $info['ptid']){ echo 'selected="selected"';}?>><?php echo $val['name'];?></option>
+					<?php }}?>
+				</select>
+				<div class="inner-group">
+					<span class="inline w150"><!-- Null --></span>
+					<h6 class="inline">如不选择，此菜单将默认成为一级商品品类</h6>
+				</div>
+			</div>
+            <div class="group pb-10">
+                <h5 class="inline w150">关联商品标签：</h5>
+				<input type="hidden" name="tags" value="<?php echo $info['tags'];?>" />
+                <a class="stickTagButton btn-small btn-purple inline" data-tags="<?php echo $info['tags'];?>">关联商品标签</a>
+                <a class="foundTagButton btn-small btn-purple inline">创建商品标签</a>
+				<div class="inline add-good-tag">
+					<?php foreach($info['tag'] as $val){?>
+						<?php if(strstr($pInfo, ','.$val['id'].',')!==false){?>
+						<div class="group-tag mt-3"><span class="func"><?php echo $val['title'];?><a href="javascript:void(0)" data-id="<?php echo $info['id'];?>" data-tagsid="<?php echo $val['id'];?>"></a></span></div>
+						<?php }else{?>
+						<div class="group-tag mt-3"><span class="func"><?php echo $val['title'];?><a href="javascript:void(0)" class="del-member-tags-button icon-close" data-id="<?php echo $info['id'];?>" data-tagsid="<?php echo $val['id'];?>"></a></span></div>
+						<?php }?>
+					<?php }?>
+				</div>
+            </div>
+            <div class="group-line pb-10">
+                <h6 class="w150 fl">商品排序设置</h6>
+                <div class="group-right ml-150">
+                    <div class="pb-10 choice-lb">
+                        <label class="radio inline mr-6"><input type="radio" name="ordertype" value="1" <?php if($info['ordertype'] == 1){ echo 'checked="checked"';}?>>最新排序：按商品更新时间动态排序</label>
+                        <label class="radio inline mr-6"><input type="radio" name="ordertype" value="2" <?php if($info['ordertype'] == 2){ echo 'checked="checked"';}?>>最热排序：按商品详情页阅读数动态排序</label>
+                        <label class="radio inline mr-6"><input type="radio" name="ordertype" value="3" <?php if($info['ordertype'] == 3){ echo 'checked="checked"';}?>>最旺排序：按商品销量动态排序</label>
+                        <label class="radio inline custom-lb"><input type="radio" name="ordertype" value="4" <?php if($info['ordertype'] == 4){ echo 'checked="checked"';}?>>自定义排序</label>
+                    </div>
+                    <table class="table type-1 w-auto mb-15 custom-tb">
+                        <thead>
+                        <tr>
+                            <th>自定义序号</th>
+                            <th>商品标题</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody id="user-defined-good" data-num="<?php echo count($goodList);?>">
+	                        <?php if($goodList){ foreach($goodList as $key=>$val){?>
+	                        <tr>
+	                            <td id="sort<?php echo $key;?>"><?php echo $val['sort'];?></td>
+	                            <td><?php echo $val['title'];?></td>
+	                            <td>
+	                                <a href="javascript:void(0);" class="good-edit-button tips" data-gid="<?php echo $val['id'];?>" data-key="<?php echo $key;?>">编辑排序</a>
+	                            </td>
+	                        </tr>
+	                        <?php }}?>
+                        </tbody>
+                        <tfoot class="noContent not-goods"><tr><td colspan="3"><p class="seek"><i class="seek-icon"></i>暂无</p></td></tr></tfoot>
+                    </table>
+                    <script>
+                    $(".choice-lb>label").click(function(){
+                        if($(this).hasClass("custom-lb")){
+                            $(".custom-tb").show();
+                        }else{
+                            $(".custom-tb").hide();
+                        }
+                    });
+                    </script>
+                </div>
+            </div>
+            <div class="group">
+                <h5 class="inline w150">排序：</h5>
+                <input class="group inline w350" type="text" name="sort" value="<?php echo $info['sort'];?>">
+            </div>
+        </div>
+        <include file="Public:weixinShareSetNull" />
+        <div class="Wechat-msg-bottom text-center">
+            <button type="submit" class="btn-middle btn-white js-keepButton">保存</button>
+        </div>
+    </div>
+</div>
+<!-- 创建标签的弹窗 -->
+<div class="foundTagBox popup-wrap wrap-small-1">
+    <div class="mod small-popup type-1 popup-width400">
+        <div class="mod-header">
+            <h4 class="fl">创建商品标签</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+            <div class="content">
+                <div class="group pb-30">
+                    <h6 class="inline w100">商品标签名称：</h6>
+                    <input type="text" class="inline w150 tagtitle">
+                    <div class="group">
+                        <span class="inline w100"></span>
+                        <h6 class="inline text-gray">*仅限6个汉字，12个字节</h6>
+                    </div>
+                </div>
+                <p class="text-center pb-10">
+                    <a class="btn-big btn-purple keepFoundTagButton"> &nbsp; &nbsp; 保存&nbsp; &nbsp;</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+$(function(){
+	//-------------------- 创建标签 --------------------------------------------------------------------------------
+	$(".foundTagButton").click(function(){
+		$('.foundTagBox').fadeIn(120);
+	});
+	$(".keepFoundTagButton").click(function(){
+		var title = $('.tagtitle').val();
+		if(zfl.GetLength(title)<1 || zfl.GetLength(title)>12){
+			alertTan('仅限6个汉字，12个字节','warn');
+			return false;
+		}
+		$(".loading").show();
+		$.post("<?php echo U('EshopTag/ajaxSetTag').'&time=';?>"+Math.random(),{title:title},function(data){
+			$(".loading").hide();
+			alertTan(data.tips,data.code);
+			$('.foundTagBox').hide();
+		},'json');
+	});
+});
+</script>
+<!-- 选择品类标签的弹窗 -->
+<div class="popup-wrap wrap-middle-2 stickTagBox">
+    <div class="mod middle-popup type-2">
+        <div class="mod-header">
+            <h4 class="fl">选择商品标签</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body ">
+            <div class="content mb-15 pop-label-height">
+                <div class="group clearfix pb-10">
+                    <div class="input-search fr clearfix">
+                        <input type="text" class="span2 inline fl">
+                        <button type="submit" class="btn fl searchTagButton" data-id="<?php echo $info['id'];?>" data-tags="<?php echo $info['tags'];?>">Search</button>
+                    </div>
+                </div>
+                <table class="table type-1 w-auto mb-30">
+                    <thead>
+                    <tr>
+                        <th>商品标签名称</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody class="getTagsList"></tbody>
+                    <tfoot class="noContent not-tags-list" style="display: none;">
+                    	<tr>
+                    		<td colspan="2"><p class="seek"><i class="seek-icon"></i>暂无数据</p></td>
+                    	</tr>
+                    </tfoot>
+                </table>
+               
+            </div>
+             <p class="text-center mb-15">
+					<a class="btn-middle btn-purple js-icon-close keepSelectTagsButton">保 &nbsp;&nbsp; 存</a>
+                    <a class="btn-middle btn-white js-icon-close">取&nbsp;&nbsp; 消</a>
+                </p>
+        </div>
+    </div>
+</div>
+<script>
+$(function(){
+	//-------------------- 给品类贴标签 --------------------------------------------------------------------------------
+	//获取标签列表
+	$(".stickTagButton").click(function(){
+		var tags = $(this).attr('data-tags');
+		var ptags = "<?php echo $pInfo;?>";
+		getTageList(ptags,tags);
+	});
+	$(document).on("click",".searchTagButton",function(){
+		var tags = $(this).attr('data-tags');
+		var ptags = "<?php echo $pInfo;?>";
+		var title = $(this).prev().val();
+		getTageList(ptags,tags,title);
+	});
+	function getTageList(ptags,tags,title){
+		$.post("<?php echo U('EshopClass/ajaxGetTags').'&time=';?>"+Math.random(),{tags:tags,title:title,ptags:ptags},function(data){
+            if(data.html.length > 0){
+	            $('.getTagsList').html(data.html);
+	            $('.not-tags-list').hide();
+            }else{
+            	$('.not-tags-list').show();
+            }
+			$('.stickTagBox').fadeIn(120);
+		},"json");
+	}
+	//选择、取消标签
+	$(document).on("click",".onTageButton",function(){
+		$(this).hide();
+		$(this).next().show().addClass('selectTags');
+	});
+	$(document).on("click",".offTageButton",function(){
+		$(this).hide().removeClass('selectTags');
+		$(this).prev().show();
+	});
+	//保存选取标签
+	$(document).on("click",".keepSelectTagsButton",function(){
+		var id = "<?php echo $info['id'];?>";
+		var tid = '';
+		var title = '';
+		var tagsTringId = '';
+		var tagsTringHtml = '';
+		var pInto = "<?php echo $pInfo;?>";
+		$('.selectTags').each(function(){
+			tid = $(this).attr('data-id');
+			title = $(this).attr('data-title');
+			tagsTringId += tid+',';
+			if(pInto.indexOf(tid) > -1){
+				tagsTringHtml += ' <div class="group-tag mt-3"><span class="func">'+title+'<a href="javascript:void(0)" data-id="'+id+'" data-tagsid="'+tid+'"></a></span></div>';
+			}else{
+				tagsTringHtml += ' <div class="group-tag mt-3"><span class="func">'+title+'<a href="javascript:void(0)" class="del-member-tags-button icon-close" data-id="'+id+'" data-tagsid="'+tid+'"></a></span></div>';
+			}
+		});
+		$('.add-good-tag').html(tagsTringHtml);
+		$('input[name=tags]').val(','+tagsTringId);
+		$('.stickTagButton').attr('data-tags',','+tagsTringId);
+		$('.searchTagButton').attr('data-tags',','+tagsTringId);
+	});
+	//删除标签
+	$(document).on("click",".del-member-tags-button",function(){
+		var id = $(this).attr('data-tagsid');
+		var tagString = $('input[name=tags]').val();
+		$('input[name=tags]').val(tagString.replace(','+id,''));
+		$('.stickTagButton').attr('data-tags',tagString.replace(','+id,''));
+		$('.searchTagButton').attr('data-tags',tagString.replace(','+id,''));
+		$(this).parent().parent().hide();
+	});
+});
+</script>
+<!-- 自定义排序编辑排序弹窗 -->
+<div class="good-edit-box popup-wrap wrap-small-1">
+    <div class="mod small-popup type-1 popup-width400">
+        <div class="mod-header">
+            <h4 class="fl">编辑排序</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+            <div class="content">
+                <div class="group pb-30">
+                    <h6 class="inline w100">*排序：</h6>
+                    <input class="inline w150" type="text" name="sort">
+                </div>
+                <p class="text-center mb-15">
+                    <a class="btn-middle btn-purple js-icon-close good-edit-hold">保 &nbsp;&nbsp; 存</a>
+                    <a class="btn-middle btn-white js-icon-close">取&nbsp;&nbsp; 消</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(function(){
+	//-------------------- 选择父级贴标签 --------------------------------------------------------------------------------
+	$('.selectParentTagButton').change(function(){
+		var id = "<?php echo $info['id'];?>";
+		var cid = $(this).val();
+		$.post("<?php echo U('EshopClass/ajaxParentTag').'&time=';?>"+Math.random(),{id:id,cid:cid},function(data){
+			$('.add-good-tag').html(data.html);
+			$('input[name=tags]').val(','+data.tagsTringId);
+			$('.stickTagButton').attr('data-tags',','+data.tagsTringId);
+			$('.searchTagButton').attr('data-tags',','+data.tagsTringId);
+		},'json');
+	});
+	//-------------------- 自定义排序 --------------------------------------------------------------------------------
+	var goodzw = "<?php echo count($goodList);?>";
+	if(goodzw > 0){
+		$('.not-goods').hide();
+	}
+	var ordertype = "<?php echo $info['ordertype'];?>";
+	if(ordertype == 4){
+		$('.custom-tb').show();
+	}else{
+		$('.custom-tb').hide();
+	}
+	/* $('.user-defined-open').click(function(){
+		$('.user-defined').show();
+	});
+	$('.user-defined-close').click(function(){
+		$('.user-defined').hide();
+	}); */
+	//自定义排序--点击编辑
+	$('.good-edit-button').on('click', function(){
+	    $('input[name="sort"]').val($(this).parent().prev().prev().text());
+	    $('.good-edit-hold').attr('data-gid', $(this).attr('data-gid'));
+	    $('.good-edit-hold').attr('data-key', $(this).attr('data-key'));
+	    $('.good-edit-box').fadeIn(120);
+	});
+	//自定义排序--点击保存
+	$('.good-edit-hold').on('click', function(){
+		var sort = $('input[name="sort"]').val();
+		var sortyz = /^[0-9]*[1-9][0-9]*$/;
+		if(sort.length < 1 || !sortyz.test(sort)){
+		      alertTan('请填写数值且值为正整数','warn');
+		      return false;
+		}
+		$('#sort' + $(this).attr('data-key')).text(sort);
+		var gid = $(this).attr('data-gid');
+		$.post("<?php echo U('EshopClass/ajaxgoodedit').'&time=';?>"+Math.random(),{gid:gid,sort:sort},function(data){
+			alertTan(data.tips,data.code);
+		},"json");
+	});
+	//自定义排序--点击取消
+	/* $('.good-edit-close').on('click',function(){
+		$('input[name="sort"]').parent().next().hide();
+	}); */
+	//自定义排序--点击删除
+	/* $('.good-del-button').on('click', function(){
+	      $(this).parent().parent().remove();
+	      var num = $('#user-defined-good').attr('data-num');
+	      $('#user-defined-good').attr('data-num', (parseInt(num) - 1));
+	      if ((parseInt(num) - 1) == 0) {
+	            $('.not-goods').show();
+	      }
+	      var id = $(this).attr('data-id');
+	      var gid = $(this).attr('data-gid');
+	      $.post("<?php echo U('MallTags/ajaxgooddel').'&time=';?>" + Math.random(), {
+	            id: id,
+	            gid: gid
+	      }, function (data) {
+	      }, "json");
+	}); */
+	$(".js-keepButton").click(function(){
+		var id = "<?php echo $info['id'];?>";
+		var title = jQuery.trim($('input[name=title]').val());
+		if(zfl.GetLength(title)<1 || zfl.GetLength(title)>64){
+			alertTan('仅限32个汉字，64个字节','warn');
+			return false;
+		}
+		var name = jQuery.trim($('input[name=name]').val());
+		if(zfl.GetLength(name)<1 || zfl.GetLength(name)>12){
+			alertTan('仅限6个汉字，12个字节','warn');
+			return false;
+		}
+		var ptid = $('.selectParentTagButton :selected').val();
+		var tags = $('input[name=tags]').val();
+		var ordertype = $('input[name=ordertype]:checked').val();
+		var sort = $('input[name=sort]').val();
+		var shareimg = $('input[name=shareimg]').val();
+		var sharefriendstitle = $('input[name=sharefriendstitle]').val();
+		var sharedes = $('.js-sharedes').val();
+		$(".loading").show();
+		$.post("<?php echo U('EshopClass/set').'&time=';?>"+Math.random(),{
+            id: id,
+            title: title,
+            name: name,
+            ptid: ptid,
+            tags: tags,
+            ordertype: ordertype,
+            sort: sort,
+            shareimg: shareimg,
+            sharefriendstitle: sharefriendstitle,
+            sharedes: sharedes
+      	}, function(data){
+      		$(".loading").hide();
+      		alertTan(data.tips,data.code);
+      		if(data.code == 'success'){
+      			setTimeout('window.location.href="<?php echo U('EshopClass/index');?>"',2000);
+      		}
+      	}, "json");
+	});
+});
+</script>
+<include file="Public:CountLength" />
+<include file="Public:footer" />

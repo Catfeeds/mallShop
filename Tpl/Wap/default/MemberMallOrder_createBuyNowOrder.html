@@ -1,0 +1,206 @@
+<include file="Public:S5NewHead" />
+<!-- 首页 -->
+<div class="page address">
+	<!-- 商品信息框 -->
+	<div class="product-wrap">
+		<dl class="product-box">
+			<dt>
+				<img src="<?php echo $good['pic'];?>" title="产品">
+			</dt>
+			<dd>
+				<p class="name"><?php echo $good['title'];?></p>
+				<p class="other">
+					<strong><?php echo $good['saleprice'];?></strong>
+					<span><?php echo $good['mallgoodsskuname'];?> x <?php echo $good['goodnum'] ? $good['goodnum'] : 0;  ?></span>
+				</p>
+			</dd>
+		</dl>
+	</div>
+	<!-- 配送地址 -->
+	<div class="distribution">
+		<h3>配送地址：</h3>
+		<div class="address-inf-wrap">
+			<div class="address-inf-box">
+				<div class="address-inf">
+					<?php if($addressInfo['address']){ ?>
+					<p class="detailed-address"><?php echo $addressInfo['address'];?></p>
+					<p class="detailed-contacts">
+						<strong>收件人:  <?php echo $addressInfo['name']?> <?php echo $addressInfo['mobile'];?></strong>
+						<span>邮编: <?php echo $addressInfo['postid']?></span>
+					</p>
+					<b class="selected" data-id="<?php echo $addressInfo['id'];?>"></b>
+					<?php } ?>
+				</div>
+				<?php if($list){foreach($list as $key=>$val){?>
+				<div class="address-inf">
+					<p class="detailed-address"><?php echo $val['address'];?></p>
+					<p class="detailed-contacts">
+						<strong>收件人:  <?php echo $val['name']?> <?php echo $val['mobile'];?></strong>
+						<span>邮编: <?php echo $val['postid']?></span>
+					</p>
+					<b class="" data-id="<?php echo $val['id'];?>"></b>
+				</div>
+				<?php }}?>
+			</div>
+			<div class="change-address">
+				<div class="add-address">
+					<a href="<?php echo U('MemberShopAddress/set');?>" title="添加地址">+ 添加地址</a>
+					<b class="more-address"></b>
+				</div>
+				<div class="return-hide">
+				</div>
+			</div>
+		</div>
+		<div class="other-inf">
+			<ul>
+				<li>
+					<div class="other-inf-l">配送方式:</div>
+					<div class="other-inf-r">
+						<strong>商家配送并上门安装</strong>
+					</div>
+				</li>
+				<li>
+					<div class="other-inf-l">小计:</div>
+					<div class="other-inf-r">
+						<strong class="money"><?php echo $orderInfo['ordersubtotal'];?></strong>
+					</div>
+				</li>
+				<li>
+					<div class="other-inf-l">优惠:</div>
+					<div class="other-inf-r">
+						<?php if($voucherInfo){ ?>
+						<a  href="<?php echo U('MemberMallOrder/myVouchers',array('goodsid'=>$_GET['goodsid'],'goodsskuid'=>$_GET['goodsskuid'],'goodsnum'=>$_GET['goodsnum'],'goodtype'=>$_GET['goodtype']))?>"><strong style="margin-right: 8%"><?php if($voucherInfo['type'] == 2){echo '满'.$voucherInfo['full'].'减'.$voucherInfo['reduce'].'元';}elseif($voucherInfo['type'] == 1){echo '立减'.$voucherInfo['reduce'].'元';}?></strong></a>
+						<?php }else{ ?>
+						<a href="<?php echo U('MemberMallOrder/myVouchers',array('goodsid'=>$_GET['goodsid'],'goodsskuid'=>$_GET['goodsskuid'],'goodsnum'=>$_GET['goodsnum'],'goodtype'=>$_GET['goodtype']))?>"><strong style="margin-right: 8%"><?php echo $vouchers['count']?$vouchers['count']:'0';?> 张可用</strong></a>
+						<?php } ?>
+						<b></b>
+					</div>
+				</li>
+				<li>
+					<div class="other-inf-l">备注:</div>
+					<label for="">
+						<input type="text" name="membernote" value="" placeholder="给商家留言">
+					</label>
+				</li>
+			</ul>
+			<div class="total-box">
+				<a title="开局发票" style="top:0.8rem;" class="js-invoice-information">开局发票 <b>
+					>> 请填写
+				</b></a>
+				<p class="total-money"><span>合计：<strong><?php echo $orderInfo['allPrice'];?></strong></span></p>
+				<?php if($voucherInfo){ ?><p class="total-discount"><span>已优惠<strong><?php echo $voucherInfo['reduce']; ?>元</strong></span></p><?php } ?>
+			</div>
+		</div>
+	</div>
+	<div class="btn js-order-pay">
+		<a href="javascript:;" title="支付">支付</a>
+	</div>
+</div>
+
+<div class="page application-agency invoice-information" style="position: fixed; top:0;display: none;">
+	<div class="title-h1">
+		<h1><span>开票信息:</span></h1>
+	</div>
+	<div class="invoice-box">
+		<ul>
+			<li class="personal"><b class="choice" data-type="2"></b><span>个人</span></li>
+			<li class="company"><b data-type="1"></b><span>公司</span></li>
+			<li>
+				<label for="">
+					<input class="company-name" type="text" name="orderinvoicetitle" value="" placeholder="请填写公司抬头">
+				</label>
+			</li>
+			<li>
+				<label for="">
+					<input class="identification-number" type="text" name="orderinvoicenumber" value="" placeholder="请填写纳税人识别号">
+				</label>
+			</li>
+		</ul>
+	</div>
+	<div class="apply-set">
+		<a class="cancel-btn js-close" href="javascript:;" title="取消">取消</a>
+		<a class="preservation-btn js-ok" href="javascript:;" title="保存">保存</a>
+	</div>
+</div>
+
+<script>
+$(function(){
+    $(".js-invoice-information").click(function(){
+        $(".invoice-information").fadeIn();
+	});
+    $(".js-close").click(function(){
+        $(".invoice-information").fadeOut();
+	});
+    $(".js-ok").click(function(){
+        var type = $(".invoice-box ul li b.choice").attr("data-type");
+        var typename = $(".invoice-box ul li b.choice").next().html();
+        var title = $("input[name='orderinvoicetitle']").val();
+        var number = $("input[name='orderinvoicenumber']").val();
+        $(".js-invoice-information b").html(" >> "+ typename);
+        $(".js-invoice-information b").attr('data-type',type);
+        $(".js-invoice-information b").attr('data-title',title);
+        $(".js-invoice-information b").attr('data-number',number);
+        $(".invoice-information").fadeOut();
+	})
+	//-------------------- 提交订单 ------------------------------//
+	$('.js-order-pay').click(function(){
+		var goodtype = "<?php echo $goodtype;?>";
+		//收货地址ID
+		var addressid = '';
+		if(goodtype == 1){
+			addressid = $('.selected').attr("data-id");
+			if(!addressid){
+				alert('请选择您的收货地址');
+				return false;
+			}
+		}
+		// 商品ID
+		var goodsid = "<?php echo $goodsid;?>";
+		if(!goodsid || goodsid.length<1){
+			alert('请选择您需要购买的商品');
+			return false;
+		}
+		// 商品SKU的ID
+		var goodsskuid = "<?php echo $goodsskuid;?>";
+		var goodsnum = "<?php echo $goodsnum;?>";
+		if(!goodsnum || goodsnum.length<1){
+			alert('请选择您需要购买的商品数量');
+			return false;
+		}
+		//选中的商品
+		var membernote = $('input[name="membernote"]').val(); 						// 买家留言
+        var vouchersid = "<?php echo $voucherInfo['id']; ?>";						// 优惠券ID
+        var invoicetype =  $(".js-invoice-information b").attr('data-type');						// 优惠券ID
+        var invoicetitle =  $(".js-invoice-information b").attr('data-title');						// 优惠券ID
+        var invoicenumber =  $(".js-invoice-information b").attr('data-number');						// 优惠券ID
+        invoicetype = invoicetype?invoicetype:'';
+        invoicetitle = invoicetitle?invoicetitle:'';
+        invoicenumber = invoicenumber?invoicenumber:'';
+		$('.loading').show();
+		$.post("<?php echo U('MemberMallOrder/ajaxCreateBuyNowOrder',array('companyid'=>$companyid)).'&time='; ?>"+Math.random(),{
+				'goodsid':goodsid,
+				'addressid':addressid,
+				'goodsskuid':goodsskuid,
+				'goodsnum':goodsnum,
+				'membernote':membernote,
+				'vouchersid':vouchersid,
+				'orderinvoicetype':invoicetype,
+				'orderinvoicetitle':invoicetitle,
+				'orderinvoicemailingaddress':invoicenumber
+			},function(data){
+			if(data.code == 200){
+				//window.location.href="<?php echo C('site_url');?>/Payapi/Wxpay/payAct/jsapi.php?orderid="+data.orderid;
+				window.location.href="<?php echo U('MemberMallOrder/selectPayType',array('orderid'=>'"+data.orderid+"'));?>";
+			}else if(data.code == 300){
+				$('.loading').hide();
+				alert(data.msg);
+			}
+		},"json");
+	});
+});
+</script>
+<script src="{lanrain::RES}/weixinfeng/js/layer.js"></script>
+<script src="{lanrain::RES}/weixinfeng/js/swiper-3.3.1.jquery.min.js"></script>
+<script src="{lanrain::RES}/weixinfeng/js/public2.js"></script>
+<include file="Public:weiXinNotShareSet" />
+<include file="Public:footer"/>

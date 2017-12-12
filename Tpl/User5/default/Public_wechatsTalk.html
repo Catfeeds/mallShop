@@ -1,0 +1,117 @@
+    <!-- 微信查看对话弹窗 -->
+<div class="popup-wrap wrap-middle-1 js-Wecaht-msg-popups">
+    <div class="mod middle-popup type-1">
+        <div class="mod-header">
+            <h4 class="fl">查看对话</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+            <div class="Wechat-msg-record-scroll-wrap-v2">
+                <div class="Wechat-msg-record-scroll-v2">
+                    <h5 class="text-center pb-20"><a href="javascript:void(0);" class="tips" id="wechatNextPage">更多历史记录</a></h5>
+                    <ul class="Wechat-msg-record"  id="wechat-message-list">
+                        <a name="last-list"></a>
+                    </ul>
+                </div>
+            </div>
+            <div class="Wechat-msg-text-wrap-v2 send-message-txtarea js-emoji-into">
+                <textarea id="Hfcontent" class="Wechat-msg-text"></textarea>
+                <div class="Wechat-msg-tools-wrap-v2 clearfix">
+                    <include file="Public:emojiUP"/>
+                    <!-- emoji end -->
+                    <a class="btn-small btn-white w50 text-center fr " id="wechatsTalk">提 交</a>
+                    <h5 class="fr pt-5 mr-10">仅限200个汉字，400个字节</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(".wechatsTalkButton").on("click", function () {
+            $(".js-Wecaht-msg-popups").fadeIn(120);
+        });
+        $(".js-sub-ok-close").on("click", function () {
+            $(".js-Wecaht-msg-popups").fadeOut(120);
+        })
+    </script>
+</div>
+<script type="text/javascript">
+/************微信 24 小时 互动***************/
+$(".wechatsTalkButton").on("click",function(evt){
+	$('.nickname').html($(this).attr('data-nickname'));
+	var send = $(this).attr('data-send');
+	$('.send-message-txtarea').hide();
+	if(send == '1'){
+		$('.send-message-txtarea').show();
+	}
+	var mid = $(this).attr('data-mid');
+	$('input[name="mid"]').attr('value',mid);
+	$('input[name="openid"]').attr('value',$(this).attr('data-openid'));
+	$('#wechat-message-list').html('');
+	//$('#wechatAllCount').text(0);
+	/* $('#wechatPrevPage').parent().attr({'class':'no-active hide'});
+	$('#wechatNextPage').parent().attr({'class':'no-active hide'}); */
+	/* $('#wechatPrevPage').attr({'data-page':0,'data-mid':mid});*/
+	$('#wechatNextPage').attr({'data-page':1,'data-mid':mid}); 
+	getWechatTalkList(1,mid);
+}); 
+//分页
+$("#wechatNextPage").click(function(){
+	var page = $(this).attr('data-page');
+	var mid = $(this).attr('data-mid');
+	getWechatTalkList(page,mid);
+});
+//公用函数
+function getWechatTalkList(page,mid){
+	$('.loading').show();
+	$.post("<?php echo U('MessageWechats/getWechatTalkList').'&time='; ?>"+Math.random(),
+		{page:page,mid:mid},
+		function(data) {
+			$('.loading').hide();
+			if(data.code == 200){
+				$('#wechat-message-list').prepend(data.html);
+				if((data.allPage <=1)||(data.allPage<=page)){
+					$('#wechatNextPage').hide();
+				}else{
+					$('#wechatNextPage').show().attr('data-page',data.nextPage);
+				}
+			}else if(data.code == 300){
+				$('#wechat-message-list').html('');
+			}
+		},"json");	
+}
+$("#wechatsTalk").click(function(){
+	var info = $('.Wechat-msg-text').val();
+	var mid = $('input[name="mid"]').val();
+	var openid = $('input[name="openid"]').val();
+	$('.loading').show();
+	$.post("<?php echo U('MessageWechats/wechatTalk').'&time='; ?>"+Math.random(),
+			{mid:mid,openid:openid,info:info},
+			function(data) {
+				$('.loading').hide();
+				if(data.code == 200){
+					setTimeout("$('.wechatsTalkBox').hide();",1000);
+					setTimeout("window.location.href=location.href;",1000);
+				}
+				/* $(".wechatsTalkBox").modal({
+					backdrop:true
+				}); */
+			},"json");
+	/* var options = {
+			   target: '#wechatsTalkTips',          //把服务器返回的内容放入id为output的元素中      
+			   beforeSubmit: function(formData, jqForm, options){  
+				   return $("#wechatsTalk").valid();  //只要不返回false，表单都会提交,在这里可以对表单元素进行验证  
+				},  //提交前的回调函数 
+			   success: function(responseText, statusText){
+				   $('#wechatsTalkTips').text(responseText['info']).show();
+				   setTimeout("$('.wechatsTalkBox').modal('hide');$('#wechatsTalkTips').text('').hide();",1000);
+				   setTimeout("$('#wechatsTalk')[0].reset();",1000);
+				   //setTimeout("window.location.href=location.href;",1000);
+				},      //提交后的回调函数  
+			   dataType: 'json',           //html(默认), xml, script, json...接受服务端返回的类型  
+			   timeout: 3000               //限制请求的时间，当请求大于3秒后，跳出请求  
+			}; */
+ /*   $(this).ajaxSubmit(options);  
+   return false;   //阻止表单默认提交   */
+});
+</script>
+<!--{end:微信24小时发送信息弹框-->

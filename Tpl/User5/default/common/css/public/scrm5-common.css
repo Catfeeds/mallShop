@@ -1,0 +1,324 @@
+/* common begin
+john@renlaifeng.cn
+2016/06/14 12:30 */
+
+/* header begin */
+.scrm5-wrap{width:100%;min-height:100%;margin-bottom:-137px;position:relative}
+.scrm5-header{font-size:12px;line-height:30px;width:auto;padding-right:14px;background-color:#008cd6;position:relative;z-index:1}
+.scrm5-header .nav-left{float:left}
+.scrm5-header .nav-left a{color:#fff;display:block;float:left}
+.scrm5-header .nav-left .logo-scrm5{background-color:#008cd6;height:30px}
+.scrm5-header .nav-left .logo-scrm5 img{width:146px;height:22px;margin-top:4px;margin-left:14px;margin-right:14px}
+.scrm5-header .nav-left .logo-company{margin-left:17px;cursor:default}
+.scrm5-header .nav-left .logo-company-img{background-repeat:no-repeat;background-size:cover;height:22px;float:left;margin-top:4px}
+.scrm5-header .nav-left .logo-company-name{display:block;float:left;padding-left:10px}
+.scrm5-header .nav-right{float:right}
+.scrm5-header .nav-right>div{float:left;text-align:center;cursor:pointer;color:#c0a8d4}
+.scrm5-header .nav-right>div a{color:#c0a8d4}
+.scrm5-header .nav-right>div:hover,.scrm5-header .nav-right>div a:hover{color:#dedede;background-color:#4a1871}
+.scrm5-header .nav-right .fengzhushou{width:100px;position:relative}
+.scrm5-header .nav-right .fengzhushou .p-list{position:absolute;left:0;top:30px;width:100%;background-color:#4a1871;display:none}
+.scrm5-header .nav-right .fengzhushou .p-list .weichat-code{width:80px;display:block;margin:8px auto;background-color:#fff}
+.scrm5-header .nav-right .fengzhushou .p-list span{display:block;line-height:16px;padding-bottom:8px}
+.scrm5-header .nav-right .fengzhushou:hover .p-list{display:block}
+.scrm5-header .nav-right .scrm2-into{width:110px}
+.scrm5-header .nav-right .scrm2-into a{color:#c0a8d4}
+.scrm5-header .nav-right div:hover a{color:#dedede}
+.scrm5-header .nav-right .help-center{width:100px}
+.scrm5-header .nav-right .user-name{width:146px;position:relative;text-align:left}
+.scrm5-header .nav-right .user-name #userName{padding-left:32px}
+.scrm5-header .nav-right .user-name .p-list{position:absolute;left:0;top:30px;width:146px;color:#c0a8d4;background-color:#4a1871;display:none}
+.scrm5-header .nav-right .user-name .p-list p{padding-left:10px;padding-right:10px}
+.scrm5-header .nav-right .user-name .p-list p:hover{color:#dedede;background-color:#5c228a}
+.scrm5-header .nav-right .user-name:hover .p-list{display:block}
+.scrm5-header .nav-right .user-name .p-list p i{display:inline-block;background:url("../../img/icons-menu.png") 0 0 no-repeat;width:11px;height:11px;float:right;margin-top:9px}
+.scrm5-header .nav-right .user-name .p-list p i.account-icon{background-position:-10px -10px}
+.scrm5-header .nav-right .user-name .p-list p:hover i.account-icon{background-position:-31px -10px}
+.scrm5-header .nav-right .user-name .p-list p i.message-icon{background-position:-10px -31px}
+.scrm5-header .nav-right .user-name .p-list p:hover i.message-icon{background-position:-31px -31px}
+.scrm5-header .nav-right .user-name .p-list p i.mission-icon{background-position:-10px -52px}
+.scrm5-header .nav-right .user-name .p-list p:hover i.mission-icon{background-position:-31px -52px}
+.scrm5-header .nav-right .user-name .p-list p i.exit-icon{background-position:-10px -73px}
+.scrm5-header .nav-right .user-name .p-list p:hover i.exit-icon{background-position:-31px -73px}
+.scrm5-header .nav-right .user-name .p-list p span.message-num,.scrm5-header .nav-right .user-name .p-list p span.mission-num{float:right;font-size:10px;line-height:15px;text-align:center;width:14px;height:14px;margin-top:8px;margin-right:4px;color:#fff;background-color:#e00b38;border-radius:50%}
+.scrm5-header .nav-right .user-name .noti-icon{position:absolute;top:8px;left:10px;background:url("../../img/msg-coming.png") 0 0 no-repeat;width:11px;height:12px}
+.scrm5-header .nav-right .user-name .noti-dot{position:relative;top:0;left:2px}
+.scrm5-header .nav-right .user-name .dot{border:3px solid #e00b38;background:transparent;-webkit-border-radius:60px;-moz-border-radius:60px;border-radius:60px;height:20px;width:20px;-webkit-animation:pulse 2s ease-out;-moz-animation:pulse 2s ease-out;animation:pulse 2s ease-out;-webkit-animation-iteration-count:infinite;-moz-animation-iteration-count:infinite;animation-iteration-count:infinite;position:absolute;top:-11px;left:-7px;z-index:1;opacity:0}
+.scrm5-header .nav-right .user-name .pulse{border:2px solid #e00b38;-webkit-border-radius:30px;-moz-border-radius:30px;border-radius:30px;background-color:#e00b38;z-index:10;position:absolute;right:3px}@-moz-keyframes pulse{0%{-moz-transform:scale(0);opacity:.0}25%{-moz-transform:scale(0);opacity:.1}50%{-moz-transform:scale(0.1);opacity:.3}75%{-moz-transform:scale(0.5);opacity:.5}100%{-moz-transform:scale(1);opacity:.0}}@-webkit-keyframes pulse{0%{-webkit-transform:scale(0);opacity:.0}25%{-webkit-transform:scale(0);opacity:.1}50%{-webkit-transform:scale(0.1);opacity:.3}75%{-webkit-transform:scale(0.5);opacity:.5}100%{-webkit-transform:scale(1);opacity:.0}}
+.scrm5-header .nav-right .user-name .top-icon{position:absolute;top:11px;right:8px;background:url("../../img/icon-arrow.png") 0 -12px no-repeat;width:12px;height:6px}
+.scrm5-header .nav-right .user-name:hover .top-icon{background-position:-14px 0}
+.scrm5-wrap .global-nav{padding-left:12px;padding-right:12px;background-color:#c2bfc4;height:60px;line-height:60px}
+.scrm5-wrap .global-nav .left-select-row{font-size:12px;float:left;display:inline;width:196px;margin-top:14px;background-color:#fff;position:relative;border:1px solid #fff;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}
+.scrm5-wrap .global-nav .select-hd{text-align:right;height:28px;line-height:28px;padding:0 7px 0 10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px;cursor:pointer;border:1px solid #adadad;-moz-box-shadow:inset 2px 2px 5px #eaeaea;-webkit-box-shadow:inset 2px 2px 5px #eaeaea;box-shadow:inset 2px 2px 5px #eaeaea}
+.scrm5-wrap .global-nav .select-hd span{float:left;max-width:136px;overflow:hidden;white-space:nowrap}
+.scrm5-wrap .global-nav .select-hd b.icon-pull-down{background:url("../../img/icon.png") no-repeat 0 -577px transparent;display:inline-block;height:24px;overflow:hidden;vertical-align:middle;width:24px;line-height:24px;text-indent:-9999px}
+.scrm5-wrap .global-nav .select-bd{position:absolute;width:100%;top:33px;border:1px solid #ccc;background-color:#fff;max-height:300px;min-height:24px;border-radius:8px;overflow-x:hidden;overflow-y:auto;z-index:10;display:none}
+.scrm5-wrap .global-nav .select-bd li{height:30px;line-height:30px;margin:0 2px;padding:0 7px;cursor:pointer;overflow:hidden}
+.scrm5-wrap .global-nav .select-bd li:hover{background-color:#e6e6e6}
+.scrm5-wrap .global-nav .content-col{margin-left:228px;margin-right:228px;text-align:center}
+.scrm5-wrap .global-nav .item-col{display:inline-block;zoom:1;margin-right:60px;vertical-align:middle;overflow:hidden}
+.scrm5-wrap .global-nav .item-col:last-child{margin-right:0}
+.scrm5-wrap .global-nav .content-col .icon{background:url("../../img/icons-menu.png") no-repeat 0 0 transparent;display:block;height:24px;overflow:hidden;vertical-align:middle;width:24px;line-height:24px;text-indent:-9999px;margin-left:auto;margin-right:auto}
+.scrm5-wrap .global-nav .content-col .icons-1{background-position:-39px -90px}
+.scrm5-wrap .global-nav .content-col .icons-2{background-position:-44px -116px}
+.scrm5-wrap .global-nav .content-col .icons-3{background-position:-39px -140px}
+.scrm5-wrap .global-nav .content-col .icons-4{background-position:-40px -166px}
+.scrm5-wrap .global-nav .item-col:hover .icons-1,.scrm5-wrap .global-nav .item-col.item-active .icons-1{background-position:-5px -90px}
+.scrm5-wrap .global-nav .item-col:hover .icons-2,.scrm5-wrap .global-nav .item-col.item-active .icons-2{background-position:-10px -116px}
+.scrm5-wrap .global-nav .item-col:hover .icons-3,.scrm5-wrap .global-nav .item-col.item-active .icons-3{background-position:-5px -140px}
+.scrm5-wrap .global-nav .item-col:hover .icons-4,.scrm5-wrap .global-nav .item-col.item-active .icons-4{background-position:-6px -166px}
+.scrm5-wrap .global-nav .content-col span{display:block;font-size:16px;line-height:16px;color:#333;padding-bottom:4px;border-bottom:5px solid transparent}
+.scrm5-wrap .global-nav .item-col:hover span,.scrm5-wrap .global-nav .content-col .item-active span{border-bottom:5px solid #5c228a}
+/* header end */
+
+/* scrm5-body begin */
+.scrm5-wrap .scrm5-body{margin:0 12px;padding:15px 0 20px 228px;min-height:100%}
+.scrm5-body .sidebar-row{float:left;display:inline;margin-left:-228px;padding-bottom:50px;width:198px}
+.scrm5-body .sidebar-box{border:1px solid #b4b4b4;border-radius:8px}
+.scrm5-body .sidebar-class-1{position:relative;background-color:#eaeaea;border-top:1px solid #fff;border-bottom:1px solid #c9c9c9}
+.scrm5-body .sidebar-class-1:first-child{border-top-left-radius:8px;border-top-right-radius:8px;border-bottom:1px solid #b4b4b4;zoom:1}
+.scrm5-body .sidebar-class-1:last-child,.scrm5-body .sidebar-class-1:last-child .sidebar-class-2{border-bottom:0;border-bottom-left-radius:8px;border-bottom-right-radius:8px}
+.scrm5-body .sidebar-class-1 span{display:block;height:47px;line-height:47px}
+.scrm5-body .sidebar-class-1 span a{font-size:16px;color:#555;height:47px;line-height:47px;display:block;padding-left:23px;vertical-align:middle;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;padding-right: 23px;}
+.scrm5-body .sidebar-class-1.item-active span a{color:#5c228a}
+.scrm5-body .sidebar-class-2 li.item-active a,.scrm5-body .sidebar-class-2 li.item-active a{color:#5c228a}
+.scrm5-body .sidebar-class-1 .icon{background:url("../../img/icons-menu.png") no-repeat 0 0 transparent;display:inline-block;width:24px;height:24px;margin-right:4px;overflow:hidden;vertical-align:middle;line-height:24px;text-indent:-9999px}
+.scrm5-body .sidebar-class-1 .icon.item-1{background-position:-38px -191px}
+.scrm5-body .sidebar-class-1 .icon.item-2{background-position:-39px -218px}
+.scrm5-body .sidebar-class-1 .icon.item-3{background-position:-39px -243px}
+.scrm5-body .sidebar-class-1 .icon.item-4{background-position:-39px -270px}
+.scrm5-body .sidebar-class-1 .icon.item-5{background-position:-39px -373px}
+.scrm5-body .sidebar-class-1 .icon.item-6{background-position:-39px -295px}
+.scrm5-body .sidebar-class-1 .icon.item-7{background-position:-39px -321px}
+.scrm5-body .sidebar-class-1 .icon.item-8{background-position:-39px -347px}
+.scrm5-body .sidebar-class-1 .icon.item-9{background-position:-38px -399px}
+.scrm5-body .sidebar-class-1.item-active .icon.item-1{background-position:-4px -191px}
+.scrm5-body .sidebar-class-1.item-active .icon.item-2{background-position:-5px -218px}
+.scrm5-body .sidebar-class-1.item-active .icon.item-3{background-position:-5px -243px}
+.scrm5-body .sidebar-class-1.item-active .icon.item-4{background-position:-5px -270px}
+.scrm5-body .sidebar-class-1.item-active .icon.item-5{background-position:-5px -373px}
+.scrm5-body .sidebar-class-1.item-active .icon.item-6{background-position:-5px -295px}
+.scrm5-body .sidebar-class-1.item-active .icon.item-7{background-position:-5px -321px}
+.scrm5-body .sidebar-class-1.item-active .icon.item-8{background-position:-5px -347px}
+.scrm5-body .sidebar-class-1.item-active .icon.item-9{background-position:-4px -399px}
+.scrm5-body .sidebar-class-2{border-top:1px solid #b4b4b4;background-color:#fff;display:none}
+.scrm5-body .sidebar-class-2 li{height:40px;line-height:40px}
+.scrm5-body .sidebar-class-2 a{font-size:13px;color:#444;display:block;padding:0 0 0 48px}
+/* content start!!! */
+.scrm5-body .main-container{float:left;width:100%}
+/* scrm5-body end */
+
+
+/* scrm5-footer v4 begin */
+.scrm5-wrap {margin-bottom: -60px;}
+.scrm5-wrap .hiddenft{height:60px;width: 100%;display: block;}
+.common-footer{border-top:1px solid #e0e0e0;background-color:#fff;position: relative;z-index: 1;}
+.common-footer .inner-cover{width:1200px;margin-left:auto;margin:auto;padding-top:50px;padding-bottom:70px}
+.common-footer .copyright-cover{height:60px;line-height:60px;font-size:12px;color:#999;background-color:#fafafa;text-align:center}
+.common-footer .inner-left li{line-height:1}
+.common-footer .inner-left li h3{font-size:16px;color:#333;margin-bottom:20px}
+.common-footer .inner-left li a{display:inline-block;font-size:14px;color:#888;margin-bottom:15px}
+.common-footer .inner-left li a:hover{color:#4c0d8b}
+.common-footer .inner-left li:last-child a{margin-bottom:0}
+.common-footer .inner-left .ft-about{width:200px;float:left}
+.common-footer .inner-left .ft-produce{width:130px;float:left}
+.common-footer .inner-middle{width:350px;text-align:center;border-left:1px solid #e0e0e0;border-right:1px solid #e0e0e0;padding-top:15px;padding-bottom:8px}
+.common-footer .inner-middle h3{font-size:30px;line-height:1;color:#4c0d8b}
+.common-footer .inner-middle .open-time{font-size:14px;line-height:1;color:#888;padding-top:15px;padding-bottom:20px}
+.common-footer .inner-middle .btn.btn-register{color:#4c0d8b;background-color:transparent;border:1px solid #4c0d8b;padding:10px 20px;border-radius: 4px;display: inline-block;    line-height: 1;    font-size: 14px;}
+.common-footer .inner-middle .btn.btn-register:hover{color:#fff;background-color:#4c0d8b;border:1px solid #4c0d8b}
+.common-footer .inner-right .qecode-cover{float:left;padding-left:65px;text-align:center}
+.common-footer .inner-right .qecode-cover img{width:108px;height:108px}
+.common-footer .inner-right .qecode-cover p{font-size:14px;line-height:1;color:#888;padding-top:10px}
+/* scrm5-footer v3 end */
+
+/* common end 2016/06/16 12:30 */
+/* 请勿轻易修改通用 scrm-common.css
+   仅供公共 头、左侧菜单、尾部使用
+   如需添加新建表或在 scrm5-style.css 追加*/
+
+/* 框架完成之后添加的左侧栏图标 begin 2016-08-17 10:45 */
+.scrm5-body .sidebar-class-1 i.icon{background:url("../../img/icons-icon.png?211") no-repeat 0 0 transparent;display:inline-block;width:24px;height:24px;margin-right:4px;overflow:hidden;vertical-align:middle;line-height:24px;text-indent:-9999px}
+
+/* 管理-Icons */
+/* 管理控制台 */
+.scrm5-body .sidebar-class-1 .icon.manage-icon{background-position:-5px -5px}
+.scrm5-body .sidebar-class-1.item-active .icon.manage-icon{background-position:-35px -5px}
+
+
+/* H5链接 */
+.scrm5-body .sidebar-class-1 .icon.h5-icon{background-position:-5px -35px}
+.scrm5-body .sidebar-class-1.item-active .icon.h5-icon{background-position:-35px -35px}
+
+/* 二维码 */
+.scrm5-body .sidebar-class-1 .icon.QR-code-icon{background-position:-5px -65px}
+.scrm5-body .sidebar-class-1.item-active .icon.QR-code-icon{background-position:-35px -65px}
+
+/* 导出任务 */
+.scrm5-body .sidebar-class-1 .icon.Export-task-icon{background-position:-5px -845px}
+.scrm5-body .sidebar-class-1.item-active .icon.Export-task-icon{background-position:-35px -845px}
+
+/* API接入 */
+.scrm5-body .sidebar-class-1 .icon.API-icon{background-position:-5px -95px}
+.scrm5-body .sidebar-class-1.item-active .icon.API-icon{background-position:-35px -95px}
+
+/* 系统设置 */
+.scrm5-body .sidebar-class-1 .icon.system-icon{background-position:-5px -125px}
+.scrm5-body .sidebar-class-1.item-active .icon.system-icon{background-position:-35px -125px}
+
+/* 微页面 */
+.scrm5-body .sidebar-class-1 .icon.WeiPage-icon{background-position:-5px -695px}
+.scrm5-body .sidebar-class-1.item-active .icon.WeiPage-icon{background-position:-35px -695px}
+
+/* 素材库 */
+.scrm5-body .sidebar-class-1 .icon.fodder-icon{background-position:-5px -665px}
+.scrm5-body .sidebar-class-1.item-active .icon.fodder-icon{background-position:-35px -665px}
+
+/* CRM_Icons */
+/* 我的会员 */
+.scrm5-body .sidebar-class-1 .icon.myVIP-icon{background-position:-5px -155px}
+.scrm5-body .sidebar-class-1.item-active .icon.myVIP-icon{background-position:-35px -155px}
+
+/* 交易记录 */
+.scrm5-body .sidebar-class-1 .icon.deal-record-icon{background-position:-5px -1025px}
+.scrm5-body .sidebar-class-1.item-active .icon.deal-record-icon{background-position:-35px -1025px}
+
+/* 外卖 */
+.scrm5-body .sidebar-class-1 .icon.take-out-icon{background-position:-5px -1055px}
+.scrm5-body .sidebar-class-1.item-active .icon.take-out-icon{background-position:-35px -1055px}
+
+/* CRM活动 */
+.scrm5-body .sidebar-class-1 .icon.crm-msg-icon{background-position:-5px -1085px}
+.scrm5-body .sidebar-class-1.item-active .icon.crm-msg-icon{background-position:-35px -1085px}
+
+/* 卡券中心 */
+.scrm5-body .sidebar-class-1 .icon.ticket-center-icon{background-position:-5px -995px}
+.scrm5-body .sidebar-class-1.item-active .icon.ticket-center-icon{background-position:-35px -995px}
+
+/* 短信 */
+.scrm5-body .sidebar-class-1 .icon.phone-msg-icon{background-position:-5px -965px}
+.scrm5-body .sidebar-class-1.item-active .icon.phone-msg-icon{background-position:-35px -965px}
+
+/* 会员制 */
+.scrm5-body .sidebar-class-1 .icon.VIP-sys-icon{background-position:-5px -185px}
+.scrm5-body .sidebar-class-1.item-active .icon.VIP-sys-icon{background-position:-35px -185px}
+
+/* 积分制 */
+.scrm5-body .sidebar-class-1 .icon.integral-sys-icon{background-position:-5px -215px}
+.scrm5-body .sidebar-class-1.item-active .icon.integral-sys-icon{background-position:-35px -215px}
+
+/* 储值系统 */
+.scrm5-body .sidebar-class-1 .icon.storage-sys-icon{background-position:-5px -245px}
+.scrm5-body .sidebar-class-1.item-active .icon.storage-sys-icon{background-position:-35px -245px}
+
+/* 我的电子券 */
+.scrm5-body .sidebar-class-1 .icon.ticket-icon{background-position:-5px -275px}
+.scrm5-body .sidebar-class-1.item-active .icon.ticket-icon{background-position:-35px -275px}
+
+/* CRM活动 */
+.scrm5-body .sidebar-class-1 .icon.CRM-activity-icon{background-position:-5px -305px}
+.scrm5-body .sidebar-class-1.item-active .icon.CRM-activity-icon{background-position:-35px -305px}
+
+/* DMS优惠口令 */
+.scrm5-body .sidebar-class-1 .icon.DMS-token-icon{background-position:-5px -724px}
+.scrm5-body .sidebar-class-1.item-active .icon.DMS-token-icon{background-position:-35px -724px}
+
+/* 场景-Icons */
+/* 展示交互类场景 */
+.scrm5-body .sidebar-class-1 .icon.mutual-icon{background-position:-5px -335px}
+.scrm5-body .sidebar-class-1.item-active .icon.mutual-icon{background-position:-35px -335px}
+
+/* 通用业务类场景 */
+.scrm5-body .sidebar-class-1 .icon.common-icon{background-position:-5px -365px}
+.scrm5-body .sidebar-class-1.item-active .icon.common-icon{background-position:-35px -365px}
+
+/* 智慧餐厅业务类场景 */
+.scrm5-body .sidebar-class-1 .icon.restaurant-icon{background-position:-5px -395px}
+.scrm5-body .sidebar-class-1.item-active .icon.restaurant-icon{background-position:-35px -395px}
+
+/* 智慧酒店业务类场景 */
+.scrm5-body .sidebar-class-1 .icon.hotels-icon{background-position:-5px -425px}
+.scrm5-body .sidebar-class-1.item-active .icon.hotels-icon{background-position:-35px -425px}
+
+/* 智慧酒吧业务类场景 */
+.scrm5-body .sidebar-class-1 .icon.bar-icon{background-position:-5px -455px}
+.scrm5-body .sidebar-class-1.item-active .icon.bar-icon{background-position:-35px -455px}
+
+/* eshop */
+.scrm5-body .sidebar-class-1 .icon.E-shop-icon{background-position:-5px -485px}
+.scrm5-body .sidebar-class-1.item-active .icon.E-shop-icon{background-position:-35px -485px}
+
+/* 展业伙伴 */
+.scrm5-body .sidebar-class-1 .icon.exhibition-partner-icon{background-position:-5px -1327px}
+.scrm5-body .sidebar-class-1.item-active .icon.exhibition-partner-icon{background-position:-35px -1327px}
+
+/* 声悦传情 */
+.scrm5-body .sidebar-class-1 .icon.voice-msg-icon{background-position:-5px -1354px}
+.scrm5-body .sidebar-class-1.item-active .icon.voice-msg-icon{background-position:-35px -1354px}
+
+/* 活动类场景 */
+.scrm5-body .sidebar-class-1 .icon.activity-icon{background-position:-5px -515px}
+.scrm5-body .sidebar-class-1.item-active .icon.activity-icon{background-position:-35px -515px}
+
+/* 活动类场景 */
+.scrm5-body .sidebar-class-1 .icon.mobile-book-icon{background-position:-5px -815px}
+.scrm5-body .sidebar-class-1.item-active .icon.mobile-book-icon{background-position:-35px -815px}
+
+/* 闪惠 */
+.scrm5-body .sidebar-class-1 .icon.quick-privilege-icon{background-position:-5px -935px}
+.scrm5-body .sidebar-class-1.item-active .icon.quick-privilege-icon{background-position:-35px -935px}
+
+/* 咨询表单 */
+.scrm5-body .sidebar-class-1 .icon.consult-form-icon{background-position:-5px -1145px}
+.scrm5-body .sidebar-class-1.item-active .icon.consult-form-icon{background-position:-35px -1145px}
+
+/* 付费内容商店 */
+.scrm5-body .sidebar-class-1 .icon.paid-store-icon{background-position:-5px -1265px}
+.scrm5-body .sidebar-class-1.item-active .icon.paid-store-icon{background-position:-35px -1265px}
+
+/* 订阅闹钟*/
+.scrm5-body .sidebar-class-1 .icon.subscribe-alarm-icon{background-position:-5px -1297px}
+.scrm5-body .sidebar-class-1.item-active .icon.subscribe-alarm-icon{background-position:-35px -1297px}
+
+/* 增值-Icons */
+/* AE定制服务 */
+.scrm5-body .sidebar-class-1 .icon.AE-customize-icon{background-position:-5px -545px}
+.scrm5-body .sidebar-class-1.item-active .icon.AE-customize-icon{background-position:-35px -545px}
+
+/* 720°全景 */
+.scrm5-body .sidebar-class-1 .icon.panoramic720-icon{background-position:-5px -575px}
+.scrm5-body .sidebar-class-1.item-active .icon.panoramic720-icon{background-position:-35px -575px}
+
+/* 媒介快采 */
+.scrm5-body .sidebar-class-1 .icon.medium-icon{background-position:-5px -605px}
+.scrm5-body .sidebar-class-1.item-active .icon.medium-icon{background-position:-35px -605px}
+
+/* SMS短信通道 */
+.scrm5-body .sidebar-class-1 .icon.SMS-msg-icon{background-position:-5px -635px}
+.scrm5-body .sidebar-class-1.item-active .icon.SMS-msg-icon{background-position:-35px -635px}
+
+/* 其他-Icons */
+/* 线上调研 */
+.scrm5-body .sidebar-class-1 .icon.online-research-icon{background-position:-5px -785px}
+.scrm5-body .sidebar-class-1.item-active .icon.online-research-icon{background-position:-35px -785px}
+
+/* 门店收银 */
+.scrm5-body .sidebar-class-1 .icon.cashier-icon{background-position:-5px -756px}
+.scrm5-body .sidebar-class-1.item-active .icon.cashier-icon{background-position:-35px -756px}
+
+/* 今日头条通 */
+.scrm5-body .sidebar-class-1 .icon.top-msg-icon{background-position:-5px -1115px}
+.scrm5-body .sidebar-class-1.item-active .icon.top-msg-icon{background-position:-35px -1115px}
+
+/* 数据通 */
+.scrm5-body .sidebar-class-1 .icon.data-icon{background-position:-5px -1177px}
+.scrm5-body .sidebar-class-1.item-active .icon.data-icon{background-position:-35px -1177px}
+
+/* 中控台 */
+.scrm5-body .sidebar-class-1 .icon.console-icon{background-position:-5px -1206px}
+.scrm5-body .sidebar-class-1.item-active .icon.console-icon{background-position:-35px -1206px}
+
+/* 会员画像 */
+.scrm5-body .sidebar-class-1 .icon.pic-icon{background-position:-5px -1237px}
+.scrm5-body .sidebar-class-1.item-active .icon.pic-icon{background-position:-35px -1237px}
+/* Icon end

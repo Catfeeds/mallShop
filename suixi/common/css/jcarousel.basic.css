@@ -1,0 +1,19 @@
+.jcarousel-wrapper{margin: 20px auto;position: relative;}
+.jcarousel-wrapper .photo-credits{position: absolute;right: 15px;bottom: 0;font-size: 13px;color: #fff;text-shadow: 0 0 1px rgba(0, 0, 0, 0.85);opacity: .66;}
+.jcarousel-wrapper .photo-credits a{color: #fff;}
+/** Carousel **/
+.jcarousel{position: relative;overflow: hidden;width: 955px;height: 765px;}
+.jcarousel ul{width: 20000em;position: relative;list-style: none;margin: 0;padding: 0;}
+.jcarousel li{float: left;}
+.jcarousel li  img{margin-bottom:15px;}
+.jcarousel li p{background:#993333;text-align:center;font-size:20px;padding:15px;color:#fff;}
+/** Carousel Controls **/
+.jcarousel-control-prev, .jcarousel-control-next{position: absolute;top: 295px;width: 44px;height: 75px;text-align: center;}
+.jcarousel-control-prev{background:url("../images/prev.png") no-repeat;left: -20px;}
+.jcarousel-control-next{background:url("../images/next.png") no-repeat;right: -20px;}
+.jcarousel-control-prev:hover span, .jcarousel-control-next:hover span{display: block;}
+.jcarousel-control-prev.inactive, .jcarousel-control-next.inactive{opacity: .5;cursor: default;}
+/** Carousel Pagination **/
+.jcarousel-pagination{position: absolute;bottom: 0;left: 15px;}
+.jcarousel-pagination a{text-decoration: none;display: inline-block;font-size: 11px;line-height: 14px;min-width: 14px;background: #fff;color: #4E443C;border-radius: 14px;padding: 3px;text-align: center;margin-right: 2px;opacity: .75;}
+.jcarousel-pagination a.active{background: #4E443C;color: #fff;opacity: 1;text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.75);}

@@ -1,0 +1,116 @@
+<include file="Public:head"/>
+<?php echo $makeTopUrl;?>
+<div class="group inline-btn-group mb-10">
+    <a href="<?php echo U('MallGoods/index',array('isoffshelves'=>2,'issoldout'=>2));?>" class="btn-small btn-purple">券管理</a>
+    <!--<a href="<?php echo U('EshopTag/index');?>" class="btn-small btn-white">商品标签管理</a>-->
+</div>
+<div class="group clearfix pb-10">
+    <a href="<?php echo U('Vouchers/set');?>" class="btn-small btn-purple">创建券</a>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>筛选条件</h4></div>
+    <form class="mod-body shop-pay" action="<?php echo U('Vouchers/lists');?>" method="post">
+        <div class="content clearfix">
+            <div class="child-sum-3 fl">
+                <div class="group pb-10">
+                    <h6 class="inline w100">券名称：</h6>
+                    <input class="inline w150" type="text" name="title" value="<?php echo $where['title'];?>">
+                </div>
+            </div>
+            <div class="child-sum-3 fl">
+                <div class="group pb-10">
+                    <h6 class="inline w100">券号：</h6>
+                    <input class="inline w150" type="text" name="sn" value="<?php echo $where['sn'];?>">
+                </div>
+            </div>
+            <div class="child-sum-3 fl">
+                <div class="group pb-10">
+                   	<h6 class="inline w100  ">券类型：</h6>
+                   	<select name="goodtype" class="inline w150">
+                       	<option value="">全部</option>
+                        <option value="1" <?php if($where['type'] == '1'){ echo ' selected="selected"';}?>>满减券</option>
+                        <option value="2" <?php if($where['type'] == '2'){ echo ' selected="selected"';}?>>立减券</option>
+                   	</select>
+               	</div>
+            </div>
+        </div>
+        <div class="group form-footer text-center">
+            <input class="btn-middle btn-purple w100" type="submit" value="筛选">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input class="btn-middle btn-white w100" type="reset" value="重置">
+        </div>
+    </form>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>券管理<!--<?php if($issoldout == 2){ echo '售卖中';}elseif($issoldout == 1){ echo '已售罄';}elseif($isoffshelves == 1){ echo '仓库';};?>  --></h4></div>
+    <div class="mod-body WeChat-auto-reply-set">
+        <div class="content">
+            <div class="mb-15">
+                <table class="table type-1 w-auto">
+                    <thead>
+                    <tr>
+                        <th>券名称</th>
+                        <!-- <th>商品编码</th>
+                        <th>售价</th> -->
+                        <th>券类型</th>
+                        <th>券号</th>
+                        <th>券权益</th>
+                        <th>到期时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <?php if($list){?>
+                    <tbody>
+                    	<?php foreach($list as $key=>$val){?>
+	                    <tr>
+	                        <td><?php echo $val['title'];?></td>
+	                         <td><?php if($val['type'] == 2){echo '满减券';}elseif($val['type'] == 1){echo '立减券';}?></td>
+	                        <td><?php echo $val['sn'];?></td>
+	                        <td><?php if($val['type'] == 2){echo '满'.$val['full'].'减'.$val['reduce'].'元';}elseif($val['type'] == 1){echo '立减'.$val['reduce'].'元';}?></td>
+	                        <td><?php echo $val['end_time'];?></td>
+	                        <td>
+                                <a href="<?php echo U('Vouchers/set',array('id'=>$val['id']));?>" class="tips">编辑</a>
+                                <a class="tips js-status" data-id="<?php echo $val['id'];?>" data-status="<?php echo $val['is_index'];?>"><?php if($val['is_index']==1){echo '取消设置为新会员欢迎券';}else{echo '设置为新会员欢迎券';} ?></a>
+	                            <a href="javascript:void(0);" class="public-button tips js-del" data-id="<?php echo $val['id'];?>" data-type="1" data-title="删除商品" data-content="您确定要删除该商品吗？">删除</a>
+	                        </td>
+	                    </tr>
+                    	<?php }?>
+                    </tbody>
+                    <?php }?>
+                </table>
+                <?php if(!$list){?>
+                <h5 class="text-center table-footer-h5">暂无数据</h5>
+                <?php }?>
+            </div>
+        </div>
+        <?php if($list){?>
+        <div class="Wechat-msg-bottom">
+            <div class="group pagination fr"><?php echo $page;?></div>
+        </div>
+        <?php }?>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function(){
+    	$(".js-del").click(function(){
+    	    var id = $(this).attr("data-id");
+    	    $.post("<?php echo U('Vouchers/ajaxDel'); ?>",{id:id},function(data){
+                window.location.href=window.location.href;
+            },"json")
+        })
+        $(".js-status").click(function(){
+            var id = $(this).attr("data-id");
+            var status = $(this).attr("data-status");
+            if(status==1){
+                status =2;
+            }else{
+                status = 1;
+            }
+            $.post("<?php echo U('Vouchers/ajaxSetIndex');?>",{id:id,is_index:status},function(data){
+                window.location.href=window.location.href;
+            },"json")
+        })
+    });
+</script>
+<include file="Public:footer"/>

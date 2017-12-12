@@ -1,0 +1,58 @@
+<include file="Public:scrm5Head"/>
+<link href="{lanrain::RES}/activity_wap/css/wap.css?1215<?php echo C('site_system_file_version'); ?>" rel="stylesheet" type="text/css" />
+<style>
+	.eshopv_fotter_logo{bottom: 1.1rem;}
+</style>
+<!-- =================== 计次卡消费扣次成功与失败 ===================== -->
+<section class="content_app  ifoot_padding">
+	<div class="success_fail">
+		<!-- 成功 -->
+		<?php if($type == 2){?>
+		<div class="success_fsu_icon">
+			<b class="success_fsu_ping"></b>
+			<p class="success_fsu_pcont">扣次成功</p>
+		</div>
+		<?php }else{?>
+		<!-- 失败 -->
+		<div class="success_fsu_icon" >
+			<b class="success_fsu_ping2"></b>
+			<p class="success_fsu_pcont2">扣次失败</p>
+		</div>
+		<?php }?>
+	</div>
+	<div class="success_fail_btn">
+		<a href="javascript:void(0)" class="success_fail_batn close">关闭窗口</a>
+	</div>
+<!-- ========公共底部======== -->
+    <div class="eshopv_fotter_logo">
+        <include file="Public:navFooter" />
+    </div>
+	<div style="height: 1.1rem;"></div>
+</section>
+<script src="../../Tpl/Wap/default/common/js/jweixin-1.0.0.js"></script>
+<script>
+	wx.config({
+		  debug: false,
+		  appId: "<?php echo $signPackage['appId'];?>",
+		  timestamp: "<?php echo $signPackage['timestamp'];?>",
+		  nonceStr: "<?php echo $signPackage['nonceStr'];?>",
+		  signature: "<?php echo $signPackage['signature'];?>",
+		  jsApiList: [
+		'onMenuShareTimeline',    
+		'onMenuShareAppMessage',    
+		'onMenuShareQQ',    
+		'onMenuShareWeibo',    
+		'hideMenuItems',    
+		'showMenuItems'
+		  ]
+		});
+		wx.ready(function(){
+			//显示右上角菜单接口
+			wx.hideOptionMenu();
+			$('.close').click(function(){
+				wx.closeWindow();
+			});
+		});
+</script>
+<include file="Public:loading"/>
+<include file="Public:scrm5Foot"/>

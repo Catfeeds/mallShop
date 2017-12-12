@@ -1,0 +1,24 @@
+<!-- <div class="copyright copyright-white">
+  <ul class="ft-links">
+    <?php if($companyid == 1){?>
+    <li><a href="<?php echo U('Index/wapIndex',array('companyid'=>1));?>">首页</a></li>
+    <?php }else{?>
+    <?php if(session('wapcid')){ ?>
+    <li><a href="<?php echo U('Wei/index',array('companyid'=>session('wapcid'),'ishomepage'=>2));?>">首页</a></li>
+    <?php }?>
+    <?php }?>
+    <?php if(in_array(2,session('permissions'))){  ?>
+    <li><a href="<?php echo U('Member/center',array('companyid'=>session('wapcid')));?>">会员中心</a></li>
+    <?php } ?>
+    <?php if($wechatfollowlink){ ?>
+    <li><a href="<?php echo $wechatfollowlink; ?>">关注我们</a></li>
+    <?php } ?>
+    <?php if(session('wapcid')){ ?>
+    <li><a href="<?php echo U('MemberDining/shops',array('companyid'=>session('wapcid')));?>">线下门店</a></li>
+    <?php } ?>
+  </ul>
+  <p>© <?php if(session('copyright')){ echo session('copyright');}else{ echo C('copyright');}?></p>
+  <?php if(session('isshowpoweredby') == '1'){ ?>
+  <p class="f10">powered by <a class="red" href="<?php echo U('Index/wapIndex',array('companyid'=>1)); ?>">人来风</a></p>
+  <?php } ?>
+</div>-->

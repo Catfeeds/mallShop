@@ -1,0 +1,111 @@
+<include file="Public:scrm5Head"/>
+<link href="{lanrain::RES}/activity_wap/css/wap.css?1215<?php echo C('site_system_file_version'); ?>" rel="stylesheet" type="text/css" />
+<link href="{lanrain::RES}/Member_Center/css/wap.css?<?php echo C('site_system_file_version'); ?>" rel="stylesheet" type="text/css" />
+<!-- =================== 历史 卡券包  ===================== -->
+<section class="content_app  ifoot_padding <?php if(!$list){echo 'content_app_cttbox';}?>">
+	<?php if($list){?>
+	<div class="voucher_package_title">
+		<!-- <div class="voucher_package_tdot">
+			<span class="place_middle voucher_package_num">2张可用卡券</span>
+		</div> -->
+	</div>
+	<div class="voucher_package">
+		<ul class="voucher_package_ul js-ajax-myHistoryvouchers">
+			<!-- 门票 -->
+			<?php foreach($list as $key=>$val){?>
+			<li>
+				<a href="<?php if($val['vouchertype'] == 10){echo 'javascript:void(0);';}else{echo U('MemberVouchers/vouchersInfo',array('companyid'=>$companyid,'id'=>$val['id']));}?>">
+					<img src="{lanrain::RES}/activity_wap/img/part_bg.png" />
+					<div class="voucher_package_cont">
+						<div class="voucher_package_conts">
+							<?php if($val['vouchertype'] == 3){?>
+								<p class="meter_card_c0p">计次卡<span class="">门店使用</span></p>
+							<?php }elseif($val['vouchertype'] == 4){?>
+								<p class="meter_card_c0p">团购<span class="">门店使用</span></p>
+							<?php }elseif($val['vouchertype'] == 5){?>
+								<p class="meter_card_c0p">门票<span class="">门店使用</span></p>
+							<?php }elseif($val['vouchertype'] == 6){?>
+								<p class="meter_card_c0p">权益卡<span class="">门店使用</span></p>
+							<?php }elseif($val['vouchertype'] == 7){?>
+								<p class="meter_card_c0p">优惠券<span class="">eshop使用</span></p>
+							<?php }elseif($val['vouchertype'] == 8){?>
+								<p class="meter_card_c0p">优惠券<span class="">门店使用</span></p>
+							<?php }elseif($val['vouchertype'] == 9){?>
+								<p class="meter_card_c0p">兑换券<span class="">门店使用</span></p>
+							<?php }elseif($val['vouchertype'] == 10){?>
+								<p class="meter_card_c0p">红包<span class=""></span></p>
+							<?php }elseif($val['vouchertype'] == 40){?>
+								<p class="meter_card_c0p">优惠券<span class="">通用券</span></p>
+							<?php }?>
+							<?php if($val['vouchertype'] == 10){?>
+								<h3 class="masterY_middle"><?php echo $val['parvalue'];?> 元</h3>
+								<p class="meter_card_c1p"><?php echo $val['vouchername'];?></p>
+							<?php }else{?>
+								<h3 class="masterY_middle"><?php echo $val['vouchername'];?></h3>
+								<p class="meter_card_c1p"><?php echo format_time($val['usestarttime'],'ymdhi');?> 至 <?php echo format_time($val['useendtime'],'ymdhi');?></p>
+							<?php }?>
+						</div>
+					</div>
+				</a>
+			</li>
+			<?php }?>
+		</ul>
+		<div class="voucher_package_btn"><span>没有更多历史卡券了</span><i class="voucher_package_btsd"></i><span class="voucher_package_btip"><a href="<?php echo U('MemberVouchers/myVouchers',array('companyid'=>$companyid))?>">查看有效卡券</a></span></div>
+	</div>
+	<?php }else{?>
+	<div class="voucher_package-No-box">
+		<img class="voucher_package-No" src="{lanrain::RES}/activity_wap/img/quan_zw1.png" alt="">
+		<div class="voucher_package_btn"><span>没有更多历史卡券了</span><i class="voucher_package_btsd"></i><span class="voucher_package_btip"><a href="<?php echo U('MemberVouchers/myVouchers',array('companyid'=>$companyid))?>">查看有效卡券</a></span></div>
+	</div>
+	<script>
+		$(".voucher_package-No-box").height($(window).height());
+	</script>
+	<?php }?>
+<script type="text/javascript" charset="utf-8">
+/*设置最小高度*/
+$(window).load(function(){
+	var tbg=$(".voucher_package_title").innerHeight();
+	$(".voucher_package").css("min-height",$(window).height()-tbg);
+});
+$(function(){
+    //滑动加载
+    var lengthnum = 15; //每次加载的数目
+    var totalnum = "<?php echo $count;?>"; //库里面的总数目
+    var totalpage; //一共要加载多少页
+    var currentpage = 0; //当前页
+    totalpage = Math.ceil(totalnum / lengthnum);  //计算总页数
+    $(window).scroll(function () {
+    	var h2 = $(window).height();
+        h1 = $(document).height();
+        
+        scollTop = $(document).scrollTop();
+        if ((h1 - h2) <= scollTop) {   //滚动条滚到浏览器底部执行的事假
+            if (currentpage == totalpage) {   // 等于总页数
+                currentpage = totalpage;
+            } else if (currentpage < totalpage) {  // 小于总页数
+                currentpage++;
+                var startNumber = currentpage * lengthnum;
+               	if(currentpage >= totalpage){
+	                return false;
+                }
+                $(".loading").show();
+                $.post("<?php echo U('MemberVouchers/ajaxMyHistoryVouchers',array('companyid'=>$companyid)).'&time=time()'; ?>" + Math.random(), {'startNumber':startNumber}, function (data) {
+                	$(".loading").hide();
+                	if (data.code == 200) {
+                 		$('.js-ajax-myHistoryvouchers').append(data.string);
+                 	}
+                 }, "json");
+            }
+        }
+    });
+});
+</script>
+<!-- ========公共底部======== -->
+    <div class="eshopv_fotter_logo">
+        <include file="Public:navFooter" />
+    </div>
+</section>
+<include file="Public:loginBox" />
+<include file="Public:loading"/>
+<include file="Public:weiXinNotShareSet" />
+<include file="Public:scrm5Foot"/>

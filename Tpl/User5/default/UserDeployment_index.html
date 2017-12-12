@@ -1,0 +1,85 @@
+<include file="Public:head"/>
+<?php echo $makeTopUrl;?>
+<div class="mod mb-15">
+<!-- 账号部署的公共头部 -->
+<include file="UserDeployment:head" />
+	
+	<!-- 这里写内容 -->
+	<div class="mod-header radius-top"><h4>账号信息</h4></div>
+	<div class="account-information mod-body clearfix">
+		<div class="size1of2 tit-cover borderbox">
+			<h5 class="tit1">SCRM5开通状态</h5>
+			<h1 class="tit2">
+			<?php if($companyInfo['status']==4){ ?>
+				首次开通审核中
+			<?php }elseif($companyInfo['viptime']<time()){ ?>
+				续约已到期
+			<?php }elseif(($companyInfo['viptime']-time())/(3600*24)<=30){ ?>
+				即将到期
+			<?php }elseif($companyInfo['status']==3){ ?>
+				履约中
+			<?php }elseif($companyInfo['status']==1){ ?>
+				试用开通
+			<?php }elseif($companyInfo['status']==0){ ?>
+				试用申请中
+			<?php } ?>
+			</h1>
+			<h5 class="tit1">&nbsp;
+			<?php if($companyInfo['status']==3&&($companyInfo['viptime']-time())/(3600*24)<=30){ ?>
+				还有<?php echo ($companyInfo['viptime']-time())/(3600*24); ?>天到期
+				<a class="tips">立即续费</a>
+			<?php } ?>
+			</h5>
+			
+		</div>
+		<div class="size1of2 tit-cover borderbox">
+			<h5 class="tit1">入驻累计时长</h5>
+			<h1 class="tit2"><?php echo $companyInfo['entertimelength']; ?>天</h1>
+			<h5 class="tit1">首次开通时间：<?php echo format_time($vipInfoOne,'ymd') ?></h5>
+		</div>
+		<div class="size1of3 tit2-cover borderbox">
+			<h5>粉丝增长</h5>
+			<h1 class="tit1"><?php echo $fansNum; ?></h1>
+			<h6>首次接入粉丝数：0</h6>
+		</div>
+		<div class="size1of3 tit2-cover borderbox">
+			<h5>注册会员</h5>
+			<h1 class="tit1"><?php echo $consoleInfo['membernum']; ?></h1>
+		</div>
+		<div class="size1of3 tit2-cover borderbox">
+			<h5>SCRM销售额</h5><!-- <?php echo $companyInfo['cumulativesales']; ?>元 -->
+			<h1 class="tit1"><?php echo $consoleInfo['nowsalesnum']; ?></h1>
+		</div>
+	</div>
+</div>
+
+<div class="alert mb-15 alert-font-14">数据更新时间：<?php echo $consoleInfo['updatetimech']; ?></div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>账户日志</h4></div>
+    <div class="mod-body mb-15 WeChat-auto-reply-set">
+        <table class="table type-1 w-auto">
+            <thead>
+            <tr>
+                <th>开通/续约时间</th>
+                <th>到期时间</th>
+                <th>粉丝增长</th>
+                <th>注册会员</th>
+                <th>SCRM销售额</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach($vipInfo as $val){ ?>
+            <tr>
+                <td><?php echo date("Y-m-d",$val['starttime']); ?></td>
+                <td><?php echo date("Y-m-d",$val['endtime']); ?></td>
+                <td><?php echo $val['fansnum']; ?></td>
+                <td><?php echo $val['membernum']; ?></td>
+                <td>0</td>
+                <!-- <?php echo $val['scrmsell']; ?>元 -->
+            </tr>
+            <?php } ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+<include file="Public:footer" />

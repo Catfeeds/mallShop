@@ -1,0 +1,134 @@
+<include file="Public:head" />
+<?php echo $makeTopUrl;?>
+<div class="group inline-btn-group mb-10">
+    <a href="<?php echo U('MallGoods/index',array('isoffshelves'=>2,'issoldout'=>2));?>" class="btn-small btn-white">商品管理</a>
+    <a href="<?php echo U('EshopClass/index');?>" class="btn-small btn-white">商品品类管理</a>
+    <a href="<?php echo U('EshopTag/index');?>" class="btn-small btn-purple">商品标签管理</a>
+</div>
+<div class="group clearfix pb-10">
+    <a class="btn-small btn-purple eshopTagButton" data-id="" data-title="">创建商品标签</a>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>商品标签管理</h4></div>
+    <div class="mod-body mb-15 WeChat-auto-reply-set">
+        <table class="table type-1 w-auto">
+            <thead>
+            <tr>
+                <th>标签名称</th>
+                <th>商品数<a href="javascript:void(0);" class="sort-icon <?php if($sortclass1==1){ echo 'sort-icon-ascending';}elseif($sortclass1==2){ echo 'sort-icon-descending';}?>" data-sorttype="1" data-sortclass="<?php echo $sortclass1;?>"></th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <?php if($list){?>
+            <tbody>
+            	<?php foreach($list as $key=>$val){?>
+	            <tr>
+	                <td><?php echo $val['title'];?></td>
+	                <td><?php echo $val['num'];?></td>
+	                <td>
+	                    <a href="javascript:void(0);" class="tips eshopTagButton" data-id="<?php echo $val['id'];?>" data-title="<?php echo $val['title'];?>">编辑</a>
+	                    <a href="javascript:void(0);" class="tips delSubmitButton" data-id="<?php echo $val['id'];?>">删除</a>
+	                </td>
+	            </tr>
+            	<?php }?>
+            </tbody>
+            <?php }?>
+        </table>
+        <?php if($list){ echo $page;}else{?>
+        <h5 class="text-center table-footer-h5">暂无数据</h5>
+        <?php }?>
+    </div>
+</div>
+<!--商品标签弹窗-->
+<div class="popup-wrap wrap-small-1 eshopTagBox">
+    <div class="mod small-popup type-1 popup-width400">
+        <div class="mod-header">
+            <h4 class="fl tagtitle"></h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+            <div class="content">
+                <div class="group pb-30">
+                    <h6 class="inline w100">商品标签名称：</h6>
+                    <input type="text" class="inline w150" name="title">
+                    <div class="group">
+                        <span class="inline w100"></span>
+                        <h6 class="inline text-gray">*仅限6个汉字，12个字节</h6>
+                    </div>
+                </div>
+                <p class="text-center pb-10">
+                    <a class="btn-big btn-purple keepSubmitButton"> &nbsp; &nbsp; 保存&nbsp; &nbsp;</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+$(function(){
+	//排序功能
+	$('.sort-icon').click(function(){
+		var sorttype = $(this).attr('data-sorttype');
+		var sortclass = $(this).attr('data-sortclass');
+		window.location.href = "<?php echo U('EshopTag/index',array('sorttype'=>'"+sorttype+"','sortclass'=>'"+sortclass+"'));?>";
+	});
+	$(".eshopTagButton").on("click", function(){
+		var id = $(this).attr('data-id');
+		var tagtitle = id ? '编辑标签' : '创建标签';
+		$('.tagtitle').text(tagtitle);
+		$('.keepSubmitButton').attr('data-id',id);
+		$('input[name=title]').attr('value',$(this).attr('data-title'));
+	    $(".eshopTagBox").fadeIn(120);
+	});
+	$(".keepSubmitButton").click(function(){
+		var id = $(this).attr('data-id');
+		var title = jQuery.trim($('input[name=title]').val());
+		if(zfl.GetLength(title)<1 || zfl.GetLength(title)>12){
+			alertTan('仅限6个汉字，12个字节','warn');
+			return false;
+		}
+		$.post("<?php echo U('EshopTag/ajaxSetTag').'&time=';?>"+Math.random(),{id:id,title:title},function(data){
+			alertTan(data.tips,data.code);
+			if(data.code == 'success'){
+				setTimeout('window.location.href=location.href',2000);
+			}
+		},'json');
+	});
+});
+</script>
+<!-- 删除弹框 -->
+<div class="popup-wrap wrap-small-1 delSubmitBox">
+    <div class="mod small-popup type-1" style="width: 378px;">
+        <div class="mod-header"><h4 class="fl">删除</h4><i class="quxiao fr icon-close-dark js-icon-close"></i></div>
+        <div class="mod-body">
+            <div class="content">
+                <h5 class="mb-15">数据删除后不能恢复，你确认删除么？</h5>
+                <p class="text-center">
+                    <a class="btn-small btn-purple delButton">确 认</a> &nbsp;
+                    <a class="btn-small btn-white js-cancel">取 消</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+$(function(){
+	$(".delSubmitButton").click(function(){
+		var id = $(this).attr('data-id');
+		$('.delButton').attr('data-id',id);
+		$('.delSubmitBox').fadeIn(120);
+    });
+	$(".delButton").click(function(){
+		$(".loading").show();
+		var id = $(this).attr('data-id');
+		$.post("<?php echo U('EshopTag/ajaxDelTag').'&time=';?>"+Math.random(),{id:id},function(data){
+			$(".loading").hide();
+			alertTan(data.tips,data.code);
+			if(data.code == 'success'){
+				setTimeout('window.location.href=location.href',2000);
+			}
+		},'json');
+	});
+});
+</script>
+<include file="Public:CountLength" />
+<include file="Public:footer" />

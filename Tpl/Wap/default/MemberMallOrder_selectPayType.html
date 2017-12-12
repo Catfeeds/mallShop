@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<title>选择支付方式</title>
+<link rel="stylesheet" href="{lanrain::RES}/weixinfeng/css/base.css" type="text/css" />
+<link rel="stylesheet" href="{lanrain::RES}/weixinfeng/css/style2.css" type="text/css" />
+<link rel="stylesheet" href="{lanrain::RES}/weixinfeng/css/idangerous.swiper.css">
+<script>
+	var browser={versions:function(){var u=navigator.userAgent,app=navigator.appVersion;return{ios:!!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),android:u.indexOf("Android")>-1||u.indexOf("Linux")>-1,iPhone:u.indexOf("iPhone")>-1,iPad:u.indexOf("iPad")>-1,}}(),};var phoneWidth=parseInt(window.screen.width);var phoneScale=phoneWidth/750;var ua=navigator.userAgent;if(/Android (\d+\.\d+)/.test(ua)){var version=parseFloat(RegExp.$1);if(version>2.3){document.write('<meta name="viewport" content="width=750, minimum-scale = '+phoneScale+", maximum-scale = "+phoneScale+', target-densitydpi=device-dpi">')}else{document.write('<meta name="viewport" content="width=750, target-densitydpi=device-dpi">')}}else{document.write('<meta name="viewport" content="width=750, user-scalable=no, target-densitydpi=device-dpi">')};
+</script>
+<script src="{lanrain::RES}/weixinfeng/js/jquery-2.1.4.min.js"></script>
+<script src="{lanrain::RES}/weixinfeng/js/idangerous.swiper.min.js"></script>
+<script type="text/javascript" src="{lanrain::RES}/weixinfeng/js/qrcode.js"></script>
+<script src="{lanrain::RES}/weixinfeng/js/public.js"></script>
+<script src="{lanrain::RES}/weixinfeng/js/layer.js"></script>
+    </head>
+<body>
+<div class="title_top">请选择付款方式</div>
+<div class="dl_subnavbg">
+    <a class="takeout_wechat_pay" data-orderid="<?php echo $orderid; ?>"><div class="dl_subnav">
+    <img src="{lanrain::RES}/weixinfeng/images/wechatpay.png" >
+    微信支付
+    <div class="line"></div>
+    </div></a>
+    
+    <a href="#"><div class="dl_subnav">
+    <img src="{lanrain::RES}/weixinfeng/images/alipay.png" >
+    支付宝
+    </div></a>
+</div>
+<script>
+    $(function(){
+        $('.takeout_wechat_pay').on("click", function(){
+            var orderid = $(this).attr("data-orderid");
+            if(orderid.length > 0){
+                $('.takeout_pay_box').hide();
+                $(".loading").show();
+                $.post("/Payapi/Wxpay/payAct/MallJsapiAjax.php?orderid="+orderid+"&openid=<?php echo session('openid'.$companyid); ?>",{},function(datas){
+                    if(datas.code==200){
+                        $(".loading").hide();
+                        if (typeof WeixinJSBridge == "undefined"){
+                            if( document.addEventListener ){
+                                document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+                            }else if (document.attachEvent){
+                                document.attachEvent('WeixinJSBridgeReady', jsApiCall);
+                                document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+                            }
+                        }else{
+                            jsApiCall();
+                        }
+                        function jsApiCall(){
+                            WeixinJSBridge.invoke(
+                                'getBrandWCPayRequest',
+                                {"appId":datas.appId,"nonceStr":datas.nonceStr,"package":datas.package,"signType":datas.signType,"timeStamp":datas.timeStamp,"paySign":datas.paySign},
+                                function(res){
+                                    if(res.err_msg == "get_brand_wcpay_request:ok" ) {
+                                        $('.js-payment-box').hide();
+                                        $('.js-penment-true-loading').show();
+                                        for(var i = 0;i<10;i++){
+                                            setTimeout(function() {
+                                                $.post("<?php echo U('MemberMallOrder/ajaxOrderStatus',array('companyid'=>$companyid)); ?>",{orderid:orderid},function(data){
+                                                    if(data.code == 200){
+                                                        window.location.href="<?php echo U('Member/center'); ?>";
+                                                    }
+                                                },"json");
+                                            },2000*i);
+                                        }
+                                    }
+                                }
+                            );
+                        }
+                    }else{
+                        alert(datas.msg);
+                    }
+                },"json")
+                //window.location.href="<?php echo C('site_url'); ?>/Payapi/Wxpay/payAct/MallJsapiAjax.php?orderid="+orderid;
+            }else{
+                alert('抱歉，服务器繁忙，请稍后重试');
+            }
+        });
+    })
+
+</script>
+<include file="Public:weiXinNotShareSet" />
+<include file="Public:footer" />

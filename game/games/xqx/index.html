@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+  <title>性倾向测试题</title>
+  <link type="text/css" href="css/common.css" rel="stylesheet" />
+  <script src="js/zepto.min.js"></script>
+  <script src="../../js/config.js"></script>
+  <script src="../../js/offline.js"></script>
+  <script src="js/html.js"></script>
+  <script src="js/common.js"></script>
+  <script>
+    var qikeContentPreSet = {
+      shareContent: {
+        'imgUrl': siteurl + '/games/xqx/images/icon.png',
+        'link': siteurl + '/games/xqx/',
+        'desc': '你是直男还是gay？是纯直女还是蕾丝边？专业性向测试帮你发现你心中的断背山！',
+        'title': '性向测试题'
+      }
+    };
+
+
+    var onBridgeReady = function () {
+
+      WeixinJSBridge.on('menu:share:appmessage', function (argv) {
+        WeixinJSBridge.invoke('sendAppMessage', {
+          "appid": "",
+          "img_url": qikeContentPreSet.shareContent.imgUrl,
+          "img_width": "120",
+          "img_height": "120",
+          "link": qikeContentPreSet.shareContent.link,
+          "title": document.title,
+          "desc": qikeContentPreSet.shareContent.desc
+        },function (res) {
+          setTimeout(function () { onShareComplete() }, 2000);
+        });
+      });
+      WeixinJSBridge.on('menu:share:timeline', function (argv) {
+
+        WeixinJSBridge.invoke('shareTimeline', {
+          "appid": "",
+          "img_url": qikeContentPreSet.shareContent.imgUrl,
+          "img_width": "120",
+          "img_height": "120",
+          "link": qikeContentPreSet.shareContent.link,
+          "title": document.title,
+          "desc": qikeContentPreSet.shareContent.desc
+        }, function (res) {
+          setTimeout(function () { onShareComplete() }, 500);
+        });
+      });
+    };
+    if (document.addEventListener) {
+      document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+    } else if (document.attachEvent) {
+      document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+      document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+    }
+
+    function onShareComplete() {
+      //if (confirm("快关注我了解更多好玩的测试游戏~不许点取消哦^_^！")) {
+      //    gzh();
+      //}
+      home_test();
+    }
+  </script>
+  <link type="text/css" href="css/index.css" rel="stylesheet" />
+</head>
+
+<body>
+<div id="main" class="animate">
+  <div id="start" class="page animate">
+    <h1 class="title">性倾向测试</h1>
+    <p class="desc"> 你是直男还是gay？是纯直女还是蕾丝边？专业性向测试帮你发现你心中的断背山！ </p>
+    <a href="javascript:void(0);" class="boy btn animate" data-sex="boy">男生入口</a> <a href="javascript:void(0);" class="girl btn animate" data-sex="girl">女生入口</a>
+    <!--<p class="logo"><a href="javascript:gzh()">关注天天游戏，史上最全测试基地</a></p>-->
+  </div>
+  <div id="play" class="page animate hide">
+    <div class="question">
+
+      <!-- 测试进度 -->
+      <div id="progress">
+        <div class="wraper"> <span class="count">测试进度: 1/10</span> <a href="javascript:void(0);" class="again animate">重新测试</a> </div>
+        <div class="bar">
+          <div class="in animate"></div>
+        </div>
+      </div>
+      <!-- END 测试进度 -->
+      <div id="container">
+        <p class="title"> 1、街头，你见到许久未见的童年密友，你会有什么意见？ </p>
+        <p class="answer">A、看看他的召唤兽</p>
+        <p class="answer">B、热情拥抱</p>
+        <p class="answer">C、先来个过肩摔</p>
+        <p class="answer">D、勾引TA老婆</p>
+      </div>
+    </div>
+    <!--<div class="logo"><a href="javascript:gzh()">关注天天游戏，史上最全测试基地</a></div>-->
+  </div>
+  <div id="end" class="page animate hide">
+    <div class="wraper">
+      <p class="tip">经鉴定，你是:</p>
+      <div class="result">
+        <p class="title">高度同性恋倾向者</p>
+        <div class="desc"> 很奇怪，你对女性不敢兴趣，所以也无法想他们表达自己的感情。平时在生活中接触较多的也都是同性，你常常会不自觉的被英俊而潇洒的男性所吸引。 </div>
+      </div>
+      <a href="javascript:void(0);" data-response="share" class="share animate btn">太准了！分享给朋友</a> <a href="javascript:void(0);" data-response="again" class="again animate btn">不准，再试一次</a> <a href="javascript:void(0);" data-response="more" class="more animate btn">我要玩别的</a> </div>
+    <!--<div class="logo"><a href="javascript:gzh()">关注天天游戏，史上最全测试基地</a></div>-->
+  </div>
+</div>
+<input id="bt-game-id" type="hidden" value="6-sextest">
+<script type="text/html" id="template_answer">
+  <p class="title"><span class="yel">Q${num}:</span>${title}</p>
+  <a class="answer animate" data-score="${answer1.score}">A、${answer1.word}</a>
+  <a class="answer animate" data-score="${answer2.score}">B、${answer2.word}</a>
+  <a class="answer animate" data-score="${answer3.score}">C、${answer3.word}</a>
+  <a class="answer animate" data-score="${answer4.score}">D、${answer4.word}</a>
+</script>
+</body>
+<script src="js/index.js"></script>
+<script>
+  btGame.scalePlayArea("#main", Game.width, Game.height); // 屏幕自适应
+</script>
+<script src="../../js/ad-pic.js"></script>
+</div>
+</html>

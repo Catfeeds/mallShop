@@ -1,0 +1,292 @@
+<include file="Public:head"/>
+<!-- 消费流水 -->
+<?php echo $makeTopUrl;?>
+<div class="mod mb-15">
+	<div class="group inline-btn-group mb-10">
+	    <a class="btn-small <?php if($type == '1'){ echo ' btn-purple';}else{ echo ' btn-white';} ?>" href="<?php echo U('Dms/CustomerInfo',array('mid'=>$mid, 'keyid'=>$keyid, 'type'=>'1'));?>">ecshop订单</a>
+	    <a class="btn-small <?php if($type == '2'){ echo ' btn-purple';}else{ echo ' btn-white';} ?>" href="<?php echo U('Dms/CustomerInfo',array('mid'=>$mid, 'keyid'=>$keyid, 'type'=>'2'));?>">门店收银订单</a>
+	    <a class="btn-small <?php if($type == '4'){ echo ' btn-purple';}else{ echo ' btn-white';} ?>" href="<?php echo U('Dms/CustomerInfo',array('mid'=>$mid, 'keyid'=>$keyid, 'type'=>'4'));?>">闪惠订单</a>
+	</div>
+    <div class="mod-header radius-top"><h4>消费流水</h4></div>
+    <div class="mod-body">
+    	<?php if($type == '1'){ ?>
+    	
+    	<?php if($list){?>
+        <table class="table type-1 w-auto">
+            <thead>
+            <tr>
+                <th>订单号</th>
+                <th>商品名称</th>
+                <th>售价/数量</th>
+                <th>买家信息</th>
+                <th>下单时间</th>
+                <th>订单状态</th>
+                <th>订单金额</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach($list as $key=>$val){?>
+            	<?php if($val['ordertype'] == '1'){?>
+	            <tr>
+	                <td><?php echo $val['orderid'];?></td>
+	                <td>
+	                <?php foreach($val['mall'] as $mKey=>$mVal){?>
+	                    <div class="table-line">
+	                        <div class="table-line-img"><img src="<?php echo $mVal['goodpic'];?>" alt="">
+	                        </div>
+	                        <div class="table-line-right">
+	                            <p class="commodity-name pb-10"><?php echo $mVal['chinagoodname'];?></p>
+	                            <p class="commodity-code"><?php echo $mVal['skuname'];?></p>
+	                        </div>
+	                    </div>
+	                <?php }?>
+	                </td>
+	                <td>
+	                	<?php foreach($val['mall'] as $mKey=>$mVal){?>
+	                    	<div class="table-line-height"><?php echo $mVal['goodprice']?$mVal['goodprice']:'0.00';?>/<?php echo $mVal['goodnum']?$mVal['goodnum']:'0'?></div>
+	                	<?php }?>
+	                </td>
+	                <td><p class="table-line-p"><?php echo $info['name']?$info['name']:$info['nickname']; ?></p>
+	                    <p class="table-line-p"><?php echo $info['moblie']?$info['moblie']:'-'; ?></p>
+	                </td>
+	                <td><?php echo format_time($val['createtime'],'ymdhis');?></td>
+	                <td>
+		                <?php if($val['orderstatus'] == '4'){
+							echo '已签收';
+						}elseif($val['orderstatus'] == '5'){
+							echo '已取消';
+						}else{
+							echo '-';
+						}?>
+					</td>
+	                <td>
+	                   	<p class="table-line-p">￥<?php echo $val['ordermoney']?$val['ordermoney']:'0.00';?></p>
+	                    <!--  <p class="table-line-p">积分：<?php echo $val['orderint'];?></p>
+	                    <p class="table-line-p">总重：<?php echo $lVal['orderweight'];?>kg</p>
+	                    <p class="table-line-p">(含运费<?php echo $val['orderfreight'];?>)</p>-->
+	                    <div class="booking-info">
+	                        <!-- <p class="table-line-p">积分：0.00</p>
+	                        <p class="table-line-p">(含运费0.00）</p> -->
+	                        <p class="table-line-p">优惠口令：<?php echo $val['discoukey'];?></p>
+	                       	<p class="table-line-p">
+	                       	<?php
+							if($val['discoutype'] == '2'){
+	                        	echo '立减';echo $val['discoumoney'];
+	                        }elseif($val['discoutype'] == '3'){
+	                        	echo '满';echo $val['startdiscoumoney'];echo '减';echo $val['discoumoney'];
+	                        }elseif($val['discoutype'] == '4'){
+	                        	echo '立折';echo $val['discouratio'];echo '%';
+	                        }elseif($val['discoutype'] == '5'){
+	                            echo '满';echo $val['startdiscoumoney'];echo '折';echo $val['discouratio'];echo '%';
+	                        }elseif($val['discoutype'] == '6'){
+	                            echo '赠送';echo $val['giftname'];
+	                        }elseif($val['discoutype'] == '7'){
+	                            echo '满';echo $val['startdiscoumoney'];echo '赠送';echo $val['giftname'];
+	                        }elseif($val['discoutype'] == '8'){
+								echo '每满';
+								echo $val['startdiscoumoney8'];
+								echo '减';
+								echo $val['discoumoney8']?$val['discoumoney8']:'0.00';
+							}else{
+	                            echo '无优惠';
+	                        }		
+							?>
+							</p>
+	                    	<p class="table-line-p">口令效用：<?php if($val['discoutype']=='6' || $val['discoutype']=='7'){ echo $val['giftname'];}else{ echo '-'; echo $val['discoumoney']?$val['discoumoney']:'0.00';}?></p>
+	                    </div>
+	                </td>
+	            </tr>
+				<?php }elseif($val['ordertype'] == '2'){?>
+	            <tr>
+	                <td><?php echo $val['orderid'];?></td>
+	                <td>
+	                    <div class="table-line">
+	                        <div class="table-line-right">
+	                            <p class="commodity-name pb-10">风助手手机收款</p>
+	                        </div>
+	                    </div>
+	                </td>
+	                <td>
+	                    <div class="table-line-height">-</div>
+	                </td>
+	                <td>
+	                	<p class="table-line-p"><?php echo $info['name']?$info['name']:$info['nickname']; ?></p>
+	                    <p class="table-line-p"><?php echo $info['moblie']?$info['moblie']:'-'; ?></p>
+	                </td>
+	                <td><?php echo format_time($val['createtime'],'ymdhis');?></td>
+	                <td>
+		                <?php if($val['orderstatus'] == '4'){
+							echo '已签收';
+						}elseif($val['orderstatus'] == '5'){
+							echo '已取消';
+						}else{
+							echo '-';
+						}?>
+					</td>
+	                <td>
+	                   	<p class="table-line-p">￥<?php echo $val['ordermoney']?$val['ordermoney']:'0.00';?></p>
+	                    <div class="booking-info">
+	                        <p class="table-line-p">优惠口令：<?php echo $val['discoukey'];?></p>
+	                       	<p class="table-line-p">
+	                       	<?php
+							if($val['discoutype'] == '2'){
+	                        	echo '立减';echo $val['discoumoney'];
+	                        }elseif($val['discoutype'] == '3'){
+	                        	echo '满';echo $val['startdiscoumoney'];echo '减';echo $val['discoumoney'];
+	                        }elseif($val['discoutype'] == '4'){
+	                        	echo '立折';echo $val['discouratio'];echo '%';
+	                        }elseif($val['discoutype'] == '5'){
+	                            echo '满';echo $val['startdiscoumoney'];echo '折';echo $val['discouratio'];echo '%';
+	                        }elseif($val['discoutype'] == '6'){
+	                            echo '赠送';echo $val['giftname'];
+	                        }elseif($val['discoutype'] == '7'){
+	                            echo '满';echo $val['startdiscoumoney'];echo '赠送';echo $val['giftname'];
+	                        }elseif($val['discoutype'] == '8'){
+								echo '每满';
+								echo $val['startdiscoumoney8'];
+								echo '减';
+								echo $val['discoumoney8']?$val['discoumoney8']:'0.00';
+							}else{
+	                            echo '无优惠';
+	                        }		
+							?>
+							</p>
+	                    	<p class="table-line-p">口令效用：<?php if($val['discoutype']=='6' || $val['discoutype']=='7'){ echo $val['giftname'];}else{ echo '-'; echo $val['discoumoney']?$val['discoumoney']:'0.00';}?></p>
+	                    </div>
+	                </td>
+	            </tr>
+				<?php }elseif($val['ordertype'] == '3'){?>
+	            <tr>
+	                <td><?php echo $val['orderid'];?></td>
+	                <td>
+	                    <div class="table-line">
+	                        <div class="table-line-right">
+	                            <p class="commodity-name pb-10">风助手储值收款</p>
+	                        </div>
+	                    </div>
+	                </td>
+	                <td>
+	                    <div class="table-line-height">-</div>
+	                </td>
+	                <td>
+	                	<p class="table-line-p"><?php echo $info['name']?$info['name']:$info['nickname']; ?></p>
+	                    <p class="table-line-p"><?php echo $info['moblie']?$info['moblie']:'-'; ?></p>
+	                </td>
+	                <td><?php echo format_time($val['createtime'],'ymdhis');?></td>
+	                <td>
+		                <?php if($val['orderstatus'] == '4'){
+							echo '已签收';
+						}elseif($val['orderstatus'] == '5'){
+							echo '已取消';
+						}else{
+							echo '-';
+						}?>
+					</td>
+	                <td>
+	                   	<p class="table-line-p">￥<?php echo $val['ordermoney']?$val['ordermoney']:'0.00';?></p>
+	                    <div class="booking-info">
+	                        <p class="table-line-p">优惠口令：<?php echo $val['discoukey'];?></p>
+	                       	<p class="table-line-p">
+	                       	<?php
+							if($val['discoutype'] == '2'){
+	                        	echo '立减';echo $val['discoumoney'];
+	                        }elseif($val['discoutype'] == '3'){
+	                        	echo '满';echo $val['startdiscoumoney'];echo '减';echo $val['discoumoney'];
+	                        }elseif($val['discoutype'] == '4'){
+	                        	echo '立折';echo $val['discouratio'];echo '%';
+	                        }elseif($val['discoutype'] == '5'){
+	                            echo '满';echo $val['startdiscoumoney'];echo '折';echo $val['discouratio'];echo '%';
+	                        }elseif($val['discoutype'] == '6'){
+	                            echo '赠送';echo $val['giftname'];
+	                        }elseif($val['discoutype'] == '7'){
+	                            echo '满';echo $val['startdiscoumoney'];echo '赠送';echo $val['giftname'];
+	                        }elseif($val['discoutype'] == '8'){
+								echo '每满';
+								echo $val['startdiscoumoney8'];
+								echo '减';
+								echo $val['discoumoney8']?$val['discoumoney8']:'0.00';
+							}else{
+	                            echo '无优惠';
+	                        }		
+							?>
+							</p>
+	                    	<p class="table-line-p">口令效用：<?php if($val['discoutype']=='6' || $val['discoutype']=='7'){ echo $val['giftname'];}else{ echo '-'; echo $val['discoumoney']?$val['discoumoney']:'0.00';}?></p>
+	                    </div>
+	                </td>
+	            </tr>
+				<?php }?>
+			<?php }?>
+            </tbody>
+        </table>
+        <?php }else{?>
+        	<h5 class="text-center table-footer-h5">暂无</h5>
+        <?php }?>
+        
+        <?php }elseif($type == '4'){?>
+	        <?php if($list){?>
+		    	<table class="table type-1 w-auto">
+		            <thead>
+			            <tr>
+			                <th>订单号</th>
+			                <th>消费金额</th>
+			                <th>实付金额</th>
+			                <th>闪惠活动优惠金额</th>
+			                <th>DMS优惠金额</th>
+			                <th>付款人信息</th>
+			                <th>付款时间</th>
+			            </tr>
+		            </thead>
+		            <tbody>
+		            	<?php foreach($list as $key=>$val){?>
+				            <tr>
+				                <td><?php echo $val['orderid'];?></td>
+				                <td><?php echo $val['receivables']?$val['receivables']:'0.00';?></td>
+				                <td><?php echo $val['actualamount']?$val['actualamount']:'0.00';?></td>
+				                <td><?php echo $val['shanhuidiscount']?$val['shanhuidiscount']:'0.00';?></td>
+				                <td><?php echo $val['dmsdiscount']?$val['dmsdiscount']:'0.00';?></td>
+				                <td><?php if($val['name'] || $val['moblie']){ echo $val['name'].'<br/>'.$val['moblie'];}else{ echo '未注册会员';}?></td>
+				                <td><?php echo format_time($val['paydonetime'], 'ymdhis');?></td>
+				            </tr>
+			            <?php }?>
+		            </tbody>
+	        	</table>
+	        <?php }else{?>
+	        	<h5 class="text-center table-footer-h5">暂无</h5>
+	        <?php }?>
+        <?php }elseif($type == 2){?>
+        	<?php if($list){?>
+		    	<table class="table type-1 w-auto">
+		            <thead>
+			            <tr>
+			                <th>订单号</th>
+			                <th>消费金额</th>
+			                <th>实付金额</th>
+			                <th>优惠券优惠金额</th>
+			                <th>DMS优惠金额</th>
+			                <th>收银时间</th>
+			                <th>会员信息</th>
+			            </tr>
+		            </thead>
+		            <tbody>
+		            	<?php foreach($list as $key=>$val){?>
+				            <tr>
+				                <td><?php echo $val['orderid'];?></td>
+				                <td><?php echo $val['receivables'];?></td>
+				                <td><?php echo $val['payprice'];?></td>
+				                <td><?php echo format_number($val['discountprice']-$val['rednmoney']);?></td>
+				                <td><?php echo $val['rednmoney'];?></td>
+				                <td><?php echo format_time($val['doneprocesstime'], 'ymdhi');?></td>
+				                <td><?php echo $val['membername'].'<br/>'.$val['membermobile'];?></td>
+				            </tr>
+			            <?php }?>
+		            </tbody>
+	        	</table>
+		    	
+	        <?php }else{?>
+	        	<h5 class="text-center table-footer-h5">暂无</h5>
+	        <?php }?>
+        <?php }?>
+        
+    </div>
+</div>
+<include file="Public:footer"/>

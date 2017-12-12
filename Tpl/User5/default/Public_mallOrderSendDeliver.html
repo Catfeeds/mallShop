@@ -1,0 +1,70 @@
+<!-- 修改物流信息 -->
+<div class="update-order-info-logistics-box popup-wrap wrap-small-1">
+    <div class="mod small-popup type-1 popup-width400">
+        <div class="mod-header">
+            <h4 class="fl">物流信息</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+		</div>
+        <div class="mod-body">
+            <div class="content">
+                <div class="group pb-10">
+                    <h6 class="inline w100">物流公司：</h6>
+                    <select class="inline w150" id="logisticsid" name="logisticsid">
+                        <option value="">全部</option>
+                        <option value="1">顺丰速运</option>
+                        <option value="2">韵达货运</option>
+                        <option value="3">圆通速递</option>
+                        <option value="4">申通快递</option>
+                        <option value="5">天天快递</option>
+                        <option value="6">中通速递</option>
+                        <option value="7">汇通快运</option>
+                        <option value="8">全峰快递</option>
+                        <option value="9">EMS</option>
+                        <option value="10">宅急送快运</option>
+                        <option value="11">中国邮政</option>
+                        <option value="12">黑猫宅急便</option>
+                    </select>
+                </div>
+                <div class="group pb-30">
+                    <h6 class="inline w100">运单编号：</h6>
+                    <input class="inline w150" type="text" name="logisticsnum">
+                </div>
+                <input type="hidden" name="id" value=""/>
+                <input type="hidden" name="orderstatus" value="3"/>
+                <p class="text-center pb-10">
+                    <a class="btn-big btn-purple js-keepTrueButton"> &nbsp; &nbsp; 保存&nbsp; &nbsp;  </a>
+                </p>
+            </div>
+        </div>
+    </div>
+	<script>
+	$(function(){
+		$(".update-order-info-orderstatus-send-deliver-button").click(function(){
+			$('input[name="id"]').val($(this).attr('data-id'));
+			$('.update-order-info-logistics-box').fadeIn(120);		
+		});
+		$(".js-keepTrueButton").click(function(){
+			var id = $('input[name="id"]').val();
+			var orderstatus = '3';
+			var logisticsid = $('#logisticsid :selected').val();
+			if(!logisticsid){
+				alertTan("请选择物流公司","warn");
+				return false;
+			}
+			var logisticsnum = $('input[name="logisticsnum"]').val();
+			if(!logisticsnum){
+				alertTan("请填写运单编号","warn");
+				return false;
+			}
+			$(".loading").show();
+			$.post("<?php echo U('MallOrder/saveOrderInfo').'&time=';?>"+Math.random(),{id:id,orderstatus:orderstatus,logisticsid:logisticsid,logisticsnum:logisticsnum,send:1},function(data){
+				$(".loading").hide();
+				alertTan(data.tips,data.code);
+				if(data.code == 'success'){
+					setTimeout('window.location.href=location.href',2000);
+				}
+			},'json');	
+		});
+	});
+	</script>
+</div>

@@ -1,0 +1,275 @@
+@charset "utf-8";
+html {overflow-y:scroll;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;}
+html * {outline:0;-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}
+/*这个属性可以使页面上的字体抗锯齿,使用后字体看起来会更清晰舒服。*/
+body{ -webkit-tap-highlight-color:rgba(0,0,0,0); }
+* {-webkit-tap-highlight-color: transparent;-webkit-appearance: none;  }
+/*解决蓝色边框*/
+* {-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box; }
+*:before, *:after {-webkit-box-sizing: border-box; -moz-box-sizing: border-box;box-sizing: border-box;}
+html{ font-size: 62.5%;height: 100%; width: 100%;}
+body{margin:0rem;padding: 0rem;
+	font: 0.22rem/1.5 "Microsoft YaHei",Tahoma, Arial, Geneva, HELVETICA;
+	font: 14px/1.5 "Microsoft YaHei",Tahoma, Arial, Geneva, HELVETICA;
+	min-height: 100%;height:100%;
+	-webkit-font-smoothing: antialiased;
+	-webkit-backface-visibility:hidden;
+	-moz-backface-visibility:hidden;
+	-ms-backface-visibility:hidden;
+	backface-visibility: hidden;
+}
+body {font-family: Arial,"Microsoft Yahei", "微软雅黑",  STHeiti, Tahoma, Helvetica; }
+body>div{margin:0 auto;}
+
+
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del,
+dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table,
+caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav,
+section, summary, time, mark, audio, video{
+	margin: 0;padding: 0;outline: 0;border: 0;
+	background: transparent;
+	vertical-align: baseline;
+	font-style: inherit;}
+/*我们通过指定文字标签的-webkit-user-select属性为none便可以禁止iOS用户选中文字。*/
+.user-select-none {
+	-webkit-user-select: none;  /* Chrome all / Safari all */
+	-moz-user-select: none;     /* Firefox all （移动端不需要） */
+	-ms-user-select: none;      /* IE 10+ */
+}
+ol,ul,li{list-style:none; font-style: normal; }
+del{text-decoration:line-through}
+address,caption,cite,code,dfn,em,th,var,i{font-style:normal;font-weight:500}
+ol,ul{list-style:none}
+h1,h2,h3,h4,h5,h6 { font-size:100%; font-weight:500;}
+header, nav, menu, article, aside, dialog, footer, section, footer, figure{display: block;}
+/* ==== */
+fieldset,img{border:0}
+abbr,acronym{border:0;font-variant:normal}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+/* 设置显示和隐藏，通常用来与 js 配合 */
+.hide {display:none;}
+.block {display:block;  }
+/* =================浮动==================== */
+.clearfix:before,.clearfix:after {content:"";display:table;}
+.clearfix:after {clear:both;overflow:hidden;}
+.clearfix { zoom:1; /* for ie6 & ie7 */ }
+.clear { clear:both; display:block; font-size:0; height:0; line-height:0; overflow:hidden; }
+/* 设置浮动，减少浮动带来的 bug */
+.fl,.fr {display:inline;}
+.fl {float:left;}
+.fr { float:right;}
+.cf:before, .cf:after{content: "";display: table;}
+q:before,q:after{content:''}
+/* =================a，img==================== */
+img{display:block;border: 0;vertical-align:middle;}
+a img,img{border: 0;}
+img{vertical-align:middle;}
+/*禁止用户保存图片、复制图片*/
+img { -webkit-touch-callout: none; }
+ins,a {text-decoration:none;  }
+a:focus,*:focus { outline:none;  }
+a{ cursor: pointer; -webkit-tap-highlight-color: rgba(0,0,0,0); utline-style:none;color:#535353;text-decoration:none}
+a:hover { text-decoration:none; }
+/* =================input/button/select/textarea==================== */
+input, label { display: inline-block;vertical-align: middle;}
+input,select,textarea{font-size:100%}
+/*去掉number属性上下箭头*/
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button{-webkit-appearance: none;margin: 0;}
+/*添加input placeholder属性默认颜色*/
+::-webkit-input-placeholder {color: #cccccc; }
+:-ms-input-placeholder { color: #cccccc;}
+::-moz-placeholder { color: #cccccc;}
+input[type=number]{text-transform:uppercase}
+select,textarea,input[type=text],
+input[type=password],
+input[type=datetime],
+input[type=datetime-local],
+input[type=date],
+input[type=month],
+input[type=time],
+input[type=week],
+input[type=number],
+input[type=email],
+input[type=url],
+input[type=search],
+input[type=tel],
+input[type=color]{background-color: #fff;background-image: none;border:1px solid #CCC;border-radius:0;display: block;width: 100%;vertical-align: middle;-webkit-appearance: none;-webkit-transition: border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;}
+input:focus{outline: 0 none;-webkit-user-modify: read-write-plaintext-only;-webkit-tap-highlight-color: rgba(0,0,0,0);}
+button,input, textarea, select{background:rgb(255,255,255);outline: none;vertical-align: middle;resize: none;-webkit-tap-highlight-color:rgba(0,0,0,0);font: 14px/1.5 "Microsoft YaHei",Tahoma, Arial, Geneva, HELVETICA;}
+select{-webkit-appearance:none;appearance:none;border-radius:0;}
+textarea{resize: none;}
+form,button[type="button"],
+button[type="submit"],
+input[type="submit"],
+input[type="button"]{cursor: pointer;-webkit-tap-highlight-color:rgba(0,0,0,0);}
+input[type=search] {-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;webkit-appearance: textfield}
+button,html input[type=button],input[type=reset],input[type=submit] {cursor: pointer;-webkit-appearance: button;}
+input[type=search]::-webkit-search-cancel-button,
+input[type=search]::-webkit-search-decoration {-webkit-appearance: none;}
+input::-ms-clear {display: none;}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {  margin: 0;-webkit-appearance: none;}
+input:focus::-webkit-input-placeholder {color: transparent;}
+input:focus:-ms-input-placeholder {color: transparent;}
+input:focus::-moz-placeholder { color: transparent;}
+input[type="checkbox"] + label {  margin-left: 5px;}
+
+textarea { resize: vertical;}
+textarea, input[type=text],input[type=password] {width: 100%;}
+input, textarea, select {color: #555;}
+button, input, select, textarea {-webkit-appearance: none;-moz-appearance: none;appearance: none;}
+input[type=checkbox] {-webkit-appearance: checkbox;-moz-appearance: checkbox;appearance: checkbox;}
+input[type=radio] {-webkit-appearance: radio;-moz-appearance: radio; appearance: radio;}
+input[type=radio],input[type=checkbox]{cursor: pointer;}
+
+input[type="checkbox"], input[type="radio"] {
+	-webkit-appearance: none;
+	appearance: none;
+	background: #FFF;
+	border: 1px solid #bbb;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	position: relative;
+	outline: 0 none;
+}
+
+input[type="checkbox"]:active, input[type="radio"]:active {
+	border-color: #86618F;
+	background-color: #ebebeb;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffffffff', GradientType=0);
+}
+
+input[type="checkbox"]:checked, input[type="radio"]:checked {
+	background: #fff;
+}
+
+input[type="checkbox"]:checked::after {
+	display: block;
+	position: absolute;
+}
+input[type="radio"]:checked::after {
+	content: "";
+	display: block;
+	position: relative;
+}
+input[type="checkbox"]:focus, input[type="radio"]:focus {
+	outline: none;
+	border-color: #86618F;
+}
+input[disabled], select[disabled], textarea[disabled], input[readonly], select[readonly], textarea[readonly] {
+	border: 1px solid #CCC;
+	cursor: not-allowed;
+	background-color: #FAFAFA;
+}
+input, textarea, select, .uneditable-input {
+	border-radius: 0;
+}
+/* Buttons */
+button, [role=button], [type=button], [type=submit], .button {
+	display: inline-block;
+	position: relative;
+	background: transparent;
+	cursor: pointer;
+	font-weight: normal;
+	vertical-align: middle;
+	white-space: nowrap;
+	text-align: center;
+	text-decoration: none;
+	outline: none;
+}
+input[type=submit][disabled] {
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+	/* IE 8 */
+	opacity: 0.4;
+}
+a[role="button"]:hover {
+	text-decoration: none;
+}
+/* ==========
+    button
+ ============*/
+.button {
+	display: inline-block;
+	zoom: 1;
+	*display: inline;
+	vertical-align: baseline;
+	margin: 0 2px;
+	outline: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	font: 14px/100% Arial, Helvetica, sans-serif;
+}
+
+
+/* ==========
+    font-size / padding / margin / border-radius
+ ============*/
+
+/* =================颜色==================== */
+.red{color: #e91010!important;}
+.blue{color: #0A8CD2!important;}
+.orange{color: #f60!important;}
+/* =================table==================== */
+table{border-collapse:collapse;border-spacing:0;width: 100%; border: 1px solid #DDD;}
+caption,th{text-align:left}
+table th, table td {  border: 1px solid #DDD;text-align: left;white-space: pre-wrap;}
+
+/* =================距离==================== */
+.mt0{  margin-top: 0rem;  }
+.mt5{  margin-top: 0.08rem;  }
+.mt10{  margin-top: 0.16rem;  }
+.mt15{  margin-top: 0.24rem;  }
+.mt20{  margin-top: 0.30rem;  }
+.mt25{  margin-top: 0.36rem;  }
+.mb0{ margin-bottom: 0rem;}
+.mb5{ margin-bottom: 0.08rem;}
+.mb10{ margin-bottom: 0.16rem;}
+.mb15{ margin-bottom: 0.24rem;}
+.mb20{ margin-bottom: 0.30rem;}
+.mb25{ margin-bottom: 0.36rem;}
+.pt0{ padding-top: 0rem;}
+.pt5{ padding-top: 0.08rem;}
+.pt10{ padding-top: 0.16rem;}
+.pt15{ padding-top: 0.24rem;}
+.pt20{ padding-top: 0.30rem;}
+.pt25{ padding-top: 0.36rem;}
+.pb0{ padding-bottom: 0rem;}
+.pb5{ padding-bottom: 0.08rem;}
+.pb10{ padding-bottom: 0.16rem;}
+.pb15{ padding-bottom: 0.24rem;}
+.pb20{ padding-bottom: 0.30rem;}
+.pb25{ padding-bottom: 0.36rem;}
+.bor_radius5{border-radius: 5rem;}
+.bor_radius10{border-radius: 10rem;}
+
+.width-pull-5{width: 50%;}
+@media only screen and (min-width:500px) and (max-width: 756px) {
+	.width-pull-5{width: 33.3333333%;}
+}
+@media only screen and (min-width:757px) and (max-width: 992px) {
+	.width-pull-5{width: 25%;}
+}
+@media only screen and (min-width: 993px) and (max-width:1300px) {
+	.width-pull-5{width: 20%;}
+}
+@media only screen and (min-width: 1301px) {
+	.width-pull-5{width: 16.666666666%;}
+}
+.width-pull-10{width: 100%; float: left;}
+@media only screen and (min-width:500px) and (max-width: 756px) {
+	.width-pull-10{width: 50%;}
+}
+@media only screen and (min-width:757px) and (max-width: 992px) {
+	.width-pull-10{width: 33.3333333%;}
+}
+@media only screen and (min-width: 993px) and (max-width:1300px) {
+	.width-pull-10{width: 25%;}
+}
+@media only screen and (min-width: 1301px) {
+	.width-pull-10{width: 20%;}
+}

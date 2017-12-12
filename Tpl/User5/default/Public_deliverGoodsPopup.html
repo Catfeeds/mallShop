@@ -1,0 +1,119 @@
+<!-- 发货弹窗 -->
+<div class="popup-wrap wrap-small-1 js-deliverGoodsBox">
+    <div class="mod small-popup type-1">
+        <div class="mod-header"><h4 class="fl">发货信息</h4><i class="fr icon-close-dark js-icon-close"></i></div>
+        <div class="mod-body">
+            <div class="content">
+                <div class="group pb-10">
+                    <h6 class="inline w80">物流公司：</h6>
+                    <select class="inline w150" id="logisticsid">
+                        <option value="">全部</option>
+                        <option value="1">顺丰速运</option>
+                        <option value="2">韵达货运</option>
+                        <option value="3">圆通速递</option>
+                        <option value="4">申通快递</option>
+                        <option value="5">天天快递</option>
+                        <option value="6">中通速递</option>
+                        <option value="7">汇通快运</option>
+                        <option value="8">全峰快递</option>
+                        <option value="9">EMS</option>
+                        <option value="10">宅急送快运</option>
+                        <option value="11">中国邮政</option>
+                        <option value="12">黑猫宅急便</option>
+                    </select>
+                </div>
+                <div class="group pb-10">
+                    <h6 class="inline w80">运单编号：</h6>
+                    <input class="inline w150" type="text" name="logisticsnum">
+                </div>
+                <div class="text-center">
+                    <a class="btn-small btn-white w60 js-icon-close">取消</a>&nbsp;&nbsp;
+                    <a class="btn-small btn-purple w60 js-deliverGoodsKeepTrueButton">确定</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+$(function(){
+	$(".js-deliverGoodsKeepTrueButton").click(function(){
+		var id = $('.js-deliverGoodsBox').attr("data-id");
+		var logisticsid = $('#logisticsid :selected').val();
+		if(!logisticsid){
+			alertTan("请选择物流公司","warn");
+			return false;
+		}
+		var logisticsnum = $('input[name="logisticsnum"]').val();
+		if(!logisticsnum){
+			alertTan("请填写运单编号","warn");
+			return false;
+		}
+		$.post("<?php echo U('MallIntegralOrder/saveOrderInfo').'&time=';?>"+Math.random(),{id:id,orderstatus:2,logisticsid:logisticsid,logisticsnum:logisticsnum},function(data){
+			alertTan(data.tips,data.code);
+			if(data.code == 'success'){
+				setTimeout('window.location.href=location.href',2000);
+			}
+		},'json');	
+	});
+});
+</script>
+<!-- 关闭订单弹窗 -->
+<div class="popup-wrap wrap-small-1 js-colseOrderBox">
+    <div class="mod small-popup type-1">
+        <div class="mod-header"><h4 class="fl">关闭订单</h4><i class="fr icon-close-dark js-icon-close"></i></div>
+        <div class="mod-body">
+            <div class="content">
+                <div class="group pb-20">
+                    <h6 class="text-center">关闭订单状态不可逆，相应礼品库存及积分将返还，请谨慎操作</h6>
+                </div>
+                <div class="text-center">
+                    <a class="btn-small btn-white w60 js-icon-close">取消</a>&nbsp;&nbsp;
+                    <a class="btn-small btn-purple w60 js-colseKeepTrueButton">确定</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+$(function(){
+	$(".js-colseKeepTrueButton").click(function(){
+		var id = $('.js-colseOrderBox').attr("data-id");
+		$.post("<?php echo U('MallIntegralOrder/saveOrderInfo').'&time=';?>"+Math.random(),{id:id,orderstatus:4},function(data){
+			alertTan(data.tips,data.code);
+			if(data.code == 'success'){
+				setTimeout('window.location.href=location.href',2000);
+			}
+		},'json');	
+	});
+});
+</script>
+<script>
+$(function(){
+	// 修改订单状态
+	$(document).on('click','.update-order-info-orderstatus-button',function(){
+		var id = $(this).attr('data-id');
+		var orderstatus = $(this).attr('data-orderstatus');
+		if(orderstatus == 2){
+			$("#logisticsid option[value="+$(this).attr('data-logisticsid')+"]").attr("selected","selected");
+			$("input[name=logisticsnum]").val($(this).attr('data-logisticsnum'));
+			$(".js-deliverGoodsBox").show().attr("data-id",id);
+			return false;
+		}
+		if(orderstatus == 4){
+			$(".js-colseOrderBox").show().attr("data-id",id);
+			return false;
+		}
+		var $this = $(this);
+		if(id && orderstatus){
+			$(".loading").show();
+			$.post("<?php echo U('MallIntegralOrder/saveOrderInfo').'&time=';?>"+Math.random(),{id:id,orderstatus:orderstatus},function(data){
+				$(".loading").hide();
+				alertTan(data.tips,data.code);
+				if(data.code == 'success'){
+					setTimeout('window.location.href=location.href',2000);
+				}
+			},"json");
+		} 
+	});
+});
+</script>

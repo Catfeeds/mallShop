@@ -1,0 +1,14 @@
+<include file="Public:memberCenterHeader"/>
+<link href="{lanrain::RES}/css/app.css?<?php echo C('site_system_file_version'); ?>" rel="stylesheet">
+<div class="app-content">
+  <!-- {Start:提示模块 -->
+  <div class="user-points-hd p10">
+    <div class="user-points-price">
+      <p>会员积分 <i class="english">Points</i></p><p><?php echo $info['totalintegration'];?></p>
+    </div>
+  </div>
+  <div class="user-points p10">积分获取规则 <i>Member points guide</i></div>
+  <div class="user-points-info p10"><?php echo htmlspecialchars_decode($info['integralSet']['integralgetinfo']);?></div>
+</div>
+<include file="Public:weiXinShareSet" />
+<include file="Public:memberCenterFooter"/>

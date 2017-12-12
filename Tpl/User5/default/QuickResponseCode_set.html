@@ -1,0 +1,65 @@
+<include file="Public:head"/>
+<include file="Public:smallmaterial" />
+<!-- 我的拉粉码 2016-10-28 17:40 -->
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>设置风助手出示模板</h4></div>
+    <div class="mod-body new-pic-msg js-new-pic-msg">
+        <div class="content clearfix">
+            <!-- 显示区 -->
+            <div class="menu-preview-area fl">
+                <div class="mobile-menu-preview">
+                    <div class="mobile-hd">我的拉粉码</div>
+                    <div class="mobile-card-bd">
+                        <div class="mobile-card-con" tabindex="5000" style="overflow: hidden; outline: none;">
+                            <div class="qr-bgi js-qr-bgi" style="background-image:url(<?php echo $Info['background']?$Info['background']:"./Tpl/User5/default/common/img/wap_view_bgi.jpg";?>">
+								<img class="qr-code-img" src="<?php echo $Info['picurl'];?>">
+                                <p class="qr-tips">长按图片识别二维码</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 编辑区 -->
+            <div class="menu-form-area">
+                <div class="vipcard-portable-editor">
+                    <ul class="vipcard-editor-inner" tabindex="5001" style="overflow: hidden; outline: none;">
+                        <li class="group pb-20">
+                            <h5 class="inline w80 text-top">背景图：</h5>
+                            <div class="inner-group inline">
+                                <a class="btn-small btn-white imageselect">选择图片</a>
+                                <h6 class="text-gray w400 pt-5">最适宜手机尺寸宽高比例为640px*1000px,图片大小小于200K。实际效果会因为手机尺寸差异存在差异！</h6>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="group form-footer text-center">
+            <input class="btn-small btn-purple w100" type="submit" id="button-qr" value="保存">
+        </div>
+    </div>
+</div>
+<script>
+	//确定图片
+	$(document).on("click","#clickimgok",function(){
+		var img = $(this).attr("data-imgsrc");
+		$(".js-qr-bgi").css("background-image","url("+img+")").attr('data-img',img);
+	});
+	$('#button-qr').on("click",function(){
+    	var img = $(".js-qr-bgi").attr('data-img');
+    	$('.loading').show();
+        $.post("<?php echo U('QuickResponseCode/ajaxSaveimg');?>",{img:img},
+				function(data){
+        		$('.loading').hide();
+        			if(data.code == '200'){
+        				alertTan(data.msg);
+        			}else{
+        				alertTan(data.msg,'error');
+        			}
+				},"json"
+		);
+    });
+</script>
+<include file="Public:footer"/>

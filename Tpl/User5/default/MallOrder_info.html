@@ -1,0 +1,331 @@
+<include file="Public:head"/> 
+<?php echo $makeTopUrl;?>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>订单信息</h4></div>
+    <div class="mod-body">
+        <table class="table type-1 w-auto">
+            <tbody>
+            <tr class="not-hover">
+                <td colspan="2">订单号：<?php echo $info['orderid'];?></td>
+                <td colspan="2" class="order-info-orderstatus-box">订单状态：
+                <?php if($info['orderstatus'] == 1){ 
+					echo '待付款 <a class="tips update-order-info-orderstatus-button" data-orderstatus="5" data-id="'.$info['id'].'" href="javascript:void(0);">关闭订单</a>';
+				}elseif($info['orderstatus'] == 2){
+					echo '待发货 <a class="tips update-order-info-orderstatus-send-deliver-button" data-orderstatus="3" data-id="'.$info['id'].'" href="javascript:void(0);">发货</a>';
+				}elseif($info['orderstatus'] == 3){
+					echo '已发货 <a class="tips update-order-info-orderstatus-button" data-orderstatus="4" data-id="'.$info['id'].'" href="javascript:void(0);">确认安装</a>';
+				}elseif($info['orderstatus'] == 4){ 
+					echo '已安装';
+				}elseif($info['orderstatus'] == 5){ 
+					echo '已关闭';
+				}elseif($info['orderstatus'] == 7){ 
+					echo '确认到账中 <a class="tips update-order-info-orderstatus-button" data-orderstatus="3" data-id="'.$info['id'].'" href="javascript:void(0);">发货</a> <a class="tips update-order-info-orderstatus-button" data-orderstatus="5" data-id="'.$info['id'].'" href="javascript:void(0);">关闭订单</a>';
+				}elseif($info['orderstatus']==8){ 
+					echo '退货/退款';
+				}elseif($info['orderstatus']==11){ 
+					echo '待成团';
+				};?>
+				</td>
+				<td colspan="2">实付金额：<?php echo $info['orderprice'];?></td>
+            </tr>
+            <tr class="not-hover">
+                <td colspan="2">交易号：<?php echo $info['borderid'] ? $info['borderid'] : '';?></td>
+                <td colspan="2">商户订单号：<?php echo $info['out_trade_no'] ? $info['out_trade_no'] : '';?></td>
+                <td colspan="2"></td>
+            </tr>
+            <tr class="not-hover">
+                <td colspan="2">下单时间：<?php echo format_time($info['createtime'],'ymdhi');?></td>
+                <td colspan="2">付款时间：<?php echo format_time($info['paytime'],'ymdhi');?></td>
+                <td colspan="2">发货时间：<?php echo format_time($info['shippingtime'],'ymdhi');?></td>
+            </tr>
+            <tr class="not-hover">
+                <td colspan="2">安装时间：<?php echo format_time($info['receivaltime'],'ymdhi');?></td>
+                <td colspan="2">退货/退款时间：<?php echo format_time($info['returntime'],'ymdhi');?></td>
+                <td colspan="2">关闭订单时间：<?php echo format_time($info['offtime'],'ymdhi');?></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>会员信息&收货人信息</h4>&nbsp;<h6 class="inline"><a class="tips js-user-alter" data-consigneeid="<?php echo $info['id'];?>" data-consigneename="<?php echo $info['consigneename'];?>" data-consigneephone="<?php echo $info['consigneephone'];?>" data-consigneeaddress="<?php echo $info['consigneeaddress'];?>">修改</a></h6></div>
+    <div class="mod-body">
+        <table class="table type-1 w-auto">
+            <tbody>
+            <tr class="not-hover">
+                <td>会员姓名：<?php echo $info['mname'];?></td>
+                <td>会员手机号：<a href="<?php echo U('Member/memberInfo',array('id'=>$info['mid']));?>" class="tips"><?php echo $info['mmoblie'];?></a></td>
+                <td>留言：<?php echo $info['membernote'];?></td>
+                <!-- <td>会员ID：<?php echo $info['mid'];?></td> -->
+            </tr>
+            <tr class="not-hover">
+                <td>收货人姓名：<?php echo $info['consigneename'];?></td>
+                <td>收货人手机号：<?php echo $info['consigneephone'];?></td>
+                <td>收货地址：<?php echo $info['consigneeaddress'];?></td>
+            </tr>
+            <tr class="not-hover">
+                <td colspan="3">发票：<?php echo $info['orderinvoice']==1 ? '需要' : '不需要';?> <?php echo $info['orderinvoicetitle'];?></td>
+            </tr>
+           <!-- <tr class="not-hover">
+                <td colspan="3">留言：<?php echo $info['membernote'];?></td>
+            </tr>  -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>物流信息</h4>&nbsp;<h6 class="inline"><a href="javascript:void(0);" class="tips update-order-info-logistics-button" data-id="<?php echo $info['id'];?>" data-logisticsid="<?php echo $info['logisticsid'];?>" data-logisticsnum="<?php echo $info['logisticsnum'] ? $info['logisticsnum'] : '';?>">修改</a></h6></div>
+    <div class="mod-body">
+        <table class="table type-1 w-auto">
+            <tbody>
+            <tr class="not-hover">
+                <td>物流公司：<?php if($info['logisticsid'] == 1){ echo '顺丰速运';}elseif($info['logisticsid'] == 2){ echo '韵达货运';}elseif($info['logisticsid'] == 3){ echo '圆通速递';}elseif($info['logisticsid'] == 4){ echo '申通快递';}elseif($info['logisticsid'] == 5){ echo '天天快递';}elseif($info['logisticsid'] == 6){ echo '中通速递';}elseif($info['logisticsid'] == 7){ echo '汇通快运';}elseif($info['logisticsid'] == 8){ echo '全峰快递';}elseif($info['logisticsid'] == 9){ echo 'EMS';}elseif($info['logisticsid'] == 10){ echo '宅急送快运';}elseif($info['logisticsid'] == 11){ echo '中国邮政';}elseif($info['logisticsid'] == 12){ echo '黑猫宅急便';}?></td>
+                <td>运单编号：<?php echo $info['logisticsnum'];?></td>
+                <td>运费：<?php echo $info['orderfreight'] ? $info['orderfreight'] : '0.00';?></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>商品信息</h4></div>
+    <div class="mod-body mb-15 WeChat-auto-reply-set">
+    	<?php if($info['mall']){ ?>
+    	<div class="inner-header"><h5>实物商品</h5></div>
+    	<div class="content">
+	        <table class="table type-1 w-auto">
+	            <thead>
+	            <tr>
+	                <th>商品名称</th>
+	                <th>售价</th>
+	                <th>数量</th>
+	                <th>小计</th>
+	            </tr>
+	            </thead>
+	            <tbody>
+		            <?php if($info['mall']){ if($info['ordertype']==1 && $info['truegoodtype']==2){ foreach($info['mall'] as $imVal){?>
+		            <tr>
+		                <td>
+		                    <div class="table-line">
+		                        <div class="table-line-img"><img src="./Tpl/User/default/common/images/default-ticket.jpg"></div>
+		                        <div class="table-line-right">
+		                            <p class="commodity-name mb-10"><?php echo $imVal['name'];?></p>
+		                            <p class="commodity-code"><?php echo $imVal['sn'];?></p>
+		                        </div>
+		                    </div>
+		                </td>
+		                <td>￥0.00</td>
+		                <td>1</td>
+		                <td>￥0.00</td>
+		            </tr>
+		            <?php }}else{ foreach($info['mall'] as $imKey=>$imVal){?>
+		            <tr>
+		                <td>
+		                    <div class="table-line">
+		                        <div class="table-line-img">
+		                        	<img src="<?php echo $imVal['goodpic'];?>">
+		                        </div>
+		                        <div class="table-line-right">
+		                            <p class="commodity-name mb-10"><?php echo $imVal['goodname'];echo $imVal['goodskuname']?'（'.$imVal['goodskuname'].'）':'';?></p>
+		                        </div>
+		                    </div>
+		                </td>
+		                <td><?php echo $imVal['goodprice'] ? $imVal['goodprice'] : '0.00';?></td>
+		                <td><?php echo $imVal['goodnum'] ? $imVal['goodnum'] : '0';?></td>
+		                <td>￥<?php echo $imVal['goodprice']*$imVal['goodnum'] ? $imVal['goodprice']*$imVal['goodnum'] : '0.00';?></td>
+		            </tr>
+		            <?php }}}else{?>
+		            <tr class="text-center not-hover">
+	                    <td colspan="4">暂无</td>
+	                </tr>
+		            <?php }?>
+	            </tbody>
+	        </table>
+        </div>
+        <?php }?>
+    	<div class="group form-footer text-center">
+          	<dl>
+            	<dt class="clearfix mb-5">
+            		<div class="fr w214 text-left h6-font14">
+	              		<h6>订单金额：<?php echo $info['ordersubtotal'] ? $info['ordersubtotal'] : '0.00';?></h6>
+	              		<h6>优惠金额：-<?php echo $info['orderderateprice'] ? $info['orderderateprice'] : '0.00';?></h6>
+	              		<h6>实付金额：<?php echo $info['orderprice'] ? $info['orderprice'] : '0.00';?></h6>
+	              	</div>
+            	</dt>
+            	<!--  优惠券 -->
+            	<dt class="clearfix mb-5">
+              	<?php if($info['vouchertitle']){?>
+		            <div class="text-left fr w200" style="color: #D64541;padding: 5px; border-left:4px solid #D64541;">
+		            	<h6>优惠券名称：<?php echo $info['vouchertitle'];?></h6>
+		                <h6>优惠效用：-<?php echo $info['vouchermoney'];?></h6>
+		            </div>
+				<?php }?>
+            	</dt>
+           	</dl>
+        </div>
+    </div>
+</div>
+<include file="Public:mallOrderSendDeliver" />
+<!-- 修改会员信息/收货人信息 弹窗 -->
+<div class="js-user-alter-wrap popup-wrap rd-consigneen-box">
+    <div class="mod small-popup type-1 popup-width400">
+        <div class="mod-header">
+            <h4 class="fl">收货人信息</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+		</div>
+        <div class="mod-body">
+            <div class="content">
+                <div class="group pb-10">
+                    <h6 class="inline w100">收货人姓名：</h6>
+                    <input class="inline w200" type="text" name="consigneename" value="">
+                </div>
+                <div class="group pb-10">
+                    <h6 class="inline w100">收货人手机号：</h6>
+                    <input class="inline w200" type="text" name="consigneephone" value="">
+                </div>
+                <div class="group">
+                    <h6 class="inline w100 text-top">收货人地址：</h6>
+                    <textarea class="inline w200 no-resize" rows="3" name="consigneeaddress"></textarea>
+                </div>
+            </div>
+            <input type="hidden" name="consigneeid" value=""/>
+            <div class="text-center pb-10">
+                <a class="btn-middle btn-purple w50 js-keepConsignee">保 存</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 修改物流信息 弹窗 -->
+<div class="update-order-info-logistics-boxs popup-wrap">
+    <div class="mod small-popup type-1 popup-width400">
+        <div class="mod-header">
+            <h4 class="fl">物流信息</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+		</div>
+        <div class="mod-body">
+            <div class="content">
+                <div class="group pb-10">
+                    <h6 class="inline w100">物流公司：</h6>
+                    <select class="inline w150" id="logisticsids" name="logisticsids">
+                        <option value="">全部</option>
+                        <option value="1">顺丰速运</option>
+                        <option value="2">韵达货运</option>
+                        <option value="3">圆通速递</option>
+                        <option value="4">申通快递</option>
+                        <option value="5">天天快递</option>
+                        <option value="6">中通速递</option>
+                        <option value="7">汇通快运</option>
+                        <option value="8">全峰快递</option>
+                        <option value="9">EMS</option>
+                        <option value="10">宅急送快运</option>
+                        <option value="11">中国邮政</option>
+                        <option value="12">黑猫宅急便</option>
+                    </select>
+                </div>
+                <div class="group">
+                    <h6 class="inline w100">运单编号：</h6>
+                    <input class="inline w150" type="text" name="logisticsnums">
+                </div>
+            </div>
+            <input type="hidden" name="ids" value=""/>
+            <div class="text-center pb-10">
+                <a class="btn-middle btn-purple w50 js-keepTrueButtons">保 存</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+	$(function(){
+		// -------------------- 修改收货人信息 --------------------
+		$(".js-user-alter").click(function(){
+			$('input[name="consigneeid"]').val($(this).attr('data-consigneeid'));
+			$('input[name="consigneename"]').val($(this).attr('data-consigneename'));
+			$('input[name="consigneephone"]').val($(this).attr('data-consigneephone'));
+			$('[name="consigneeaddress"]').val($(this).attr('data-consigneeaddress'));
+			$(".rd-consigneen-box").fadeIn(120);		
+		});
+		$(".js-keepConsignee").click(function(){
+			var consigneeid = $('input[name="consigneeid"]').val();
+			var consigneename = $('input[name="consigneename"]').val();
+			if(consigneename.trim() == ''){
+				alertTan("请填写收货人姓名","warn");
+				return false;
+			}
+			var consigneephone = $('input[name="consigneephone"]').val();
+			var yz = /^(((13[0-9]{1})|(14[579]{1})|(15[012356789]{1})|(17[0135678]{1})|(18[0-9]{1}))+\d{8})$/;
+			if((consigneephone.length<1) || (consigneephone.length>0 && !yz.test(consigneephone))){
+				alertTan("请填写正确的收货人手机号","warn");
+				return false;
+			}
+			var consigneeaddress = $('[name="consigneeaddress"]').val();
+			if(consigneeaddress.trim() == ''){
+				alertTan("请填写收货人地址","warn");
+				return false;
+			}
+			$(".loading").show();
+			$.post("<?php echo U('MallOrder/saveConsigneeInfo').'&time=';?>"+Math.random(),{consigneeid:consigneeid,consigneename:consigneename,consigneephone:consigneephone,consigneeaddress:consigneeaddress},function(data){
+				$(".loading").hide();
+				alertTan(data.tips,data.code);
+				if(data.code == 'success'){
+					setTimeout('window.location.href=location.href',2000);
+				}
+			},'json');	
+		});
+		// -------------------- 修改物流信息 --------------------
+		$(".update-order-info-logistics-button").click(function(){
+			$('input[name="ids"]').val($(this).attr('data-id'));
+			$('#logisticsids option[value='+$(this).attr('data-logisticsid')+']').attr("selected","selected");
+			$('input[name="logisticsnums"]').val($(this).attr('data-logisticsnum'));
+			$('.update-order-info-logistics-boxs').fadeIn(120);		
+		});
+		$(".js-keepTrueButtons").click(function(){
+			var id = $('input[name="ids"]').val();
+			var logisticsid = $('#logisticsids :selected').val();
+			if(!logisticsid){
+				alertTan("请选择物流公司","warn");
+				return false;
+			}
+			var logisticsnum = $('input[name="logisticsnums"]').val();
+			if(!logisticsnum){
+				alertTan("请填写运单编号","warn");
+				return false;
+			}
+			$(".loading").show();
+			$.post("<?php echo U('MallOrder/saveOrderInfo').'&time=';?>"+Math.random(),{id:id,logisticsid:logisticsid,logisticsnum:logisticsnum},function(data){
+				$(".loading").hide();
+				alertTan(data.tips,data.code);
+				if(data.code == 'success'){
+					setTimeout('window.location.href=location.href',2000);
+				}
+			},'json');	
+		});
+	});
+</script>
+<script>
+	//修改订单状态
+	$(document).on('click','.update-order-info-orderstatus-button',function(){
+		var id = $(this).attr('data-id');
+		var orderstatus = $(this).attr('data-orderstatus');
+		var $this = $(this);
+		if(id && orderstatus){
+			$(".loading").show();
+			$.post("<?php echo U('MallOrder/ajaxCloseOrder').'&time=';?>"+Math.random(),{id:id,orderstatus:orderstatus},function(data){
+				$(".loading").hide();
+				if(data.code == 200){
+				  	if(orderstatus == 5){
+				  		$('.order-info-orderstatus-box').html('订单状态：已关闭');
+				  	}else if(orderstatus == 4){
+				  		$('.order-info-orderstatus-box').html('订单状态：已安装');
+				  		$('.order-info-receivaltime').text('安装时间：'+data.receivaltime);
+				  	}else if(orderstatus == 3){
+				  		$('.order-info-orderstatus-box').html('订单状态：已发货 <a class="tips update-order-info-orderstatus-button" data-orderstatus="4" data-id="'+id+'" href="javascript:void(0);">确认安装</a> <a class="tips update-order-info-orderstatus-button" data-orderstatus="5" data-id="'+id+'" href="javascript:void(0);">关闭订单</a>');
+				  		$('.order-info-shippingtime').text('发货时间：'+data.shippingtime);
+				  	}
+				  	setTimeout('window.location.href=location.href',2000);
+			    }
+			},"json");
+		} 
+	});
+</script>
+<include file="Public:footer"/>

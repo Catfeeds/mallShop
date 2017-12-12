@@ -1,0 +1,166 @@
+<meta name="format-detection"content="telephone=no, email=no" />
+<link rel="stylesheet" type="text/css" href="{lanrain::RES}/S5_css/s5wap_base.css">
+<link rel="stylesheet" type="text/css" href="{lanrain::RES}/Coupons_index/Coupons_index.css?515<?php echo C('site_system_file_version'); ?>">
+<script src="common/js/zepto.min.js"></script>
+<?php
+
+
+//memberFission(1217, 200, 1,"1001010110", 1107);
+
+/**
+ * 
+ * 
+ * @param int $companyid
+ * @param deciaml $money
+ * @param int $type 1:eshop；2：闪惠；3：微信外卖
+ * @param int $mid
+ * @author Asa<asa@renlaifeng.cn>
+ * @since  2016-12-22
+ */
+function memberFission($option){
+	$where['companyid'] = $option['companyid'];
+	$where['type'] = array("in",array(8,9));
+	$where['starttime'] = array("elt",time());
+	$where['endtime'] = array("egt",time());
+	$where['issuspend'] = array("neq",1);
+	if($option['type']==1){
+		$where['iseshop'] = 1;
+		$where['eshopmoney'] = array("elt",$option['money']);
+	}elseif($option['type']==2){
+		$where['isshanhui'] = 1;
+		$where['shanhuimoney'] = array("elt",$option['money']);
+	}elseif($option['type']==3){
+		$where['iswechat'] = 1;
+		$where['wechatmoney'] = array("elt",$option['money']);
+	}
+	$info = M('member_marketing_activities_scrm')->where($where)->order("createtime desc")->find();
+//echo M()->getLastSql();
+	if($info){
+		$html ='<div class="coupons-Popup js-tan-asa-P" style="display: block;z-index:10000000000">';
+		$html .='<div class="coupons-Popup-box">';
+		$html .='<img class="coupons-Popup-bj" src="./Tpl/Wap/default/common/S5_img/Coupons_img/fission-tcbj.png" alt="">';
+		$html .='<h6 class="fission-Congratulations">恭喜您</h6>';
+		if($info['type']==8) $text = '张卡券';
+		if($info['type']==9) $text = '个红包';
+		$html .='<p class="fission-Number-red">获得'.$info['zlimitnum'].$text.'<br><span>可以分享</span></p>';
+		$html .='<button class="btn Receive-immediately-btn" data-type="'.$option['type'].'" data-companyid="'.$option['companyid'].'" data-orderid="'.$option['orderid'].'" data-mid="'.$option['mid'].'" data-parentid="'.$info['id'].'">立即领取</button>';
+		$html .='<img class="coupons-Popup-close" src="./Tpl/Wap/default/common/S5_img/Coupons_img/coupons-clicon.png" alt="">';
+		$html .='</div></div>';
+		$html .='<a href="javascript:void (0);" class="js-open-tan-asa" style="position: fixed;z-index: 9;right:10px;bottom:22%;width: 35px;"><img style="width: 35px;" src="./Tpl/Wap/default/common/S5_img/Coupons_img/fission-lbicon.png" alt=""></a>';
+	}
+	echo $html;
+}
+/**
+ * 这是进订单详情的产生券的方法
+ * 
+ * @param int $companyid
+ * @param deciaml $money
+ * @param int $type 1:eshop；2：闪惠；3：微信外卖
+ * @param int $mid
+ * @author Asa<asa@renlaifeng.cn>
+ * @since  2016-12-22
+ */
+function memberFissionA($option){
+//echo $option['paytime'];
+	if(($option['paytime']+3600*48)>time()){
+		$where['companyid'] = $option['companyid'];
+		$where['type'] = array("in",array(8,9));
+		$where['starttime'] = array("elt",time());
+		$where['endtime'] = array("egt",time());
+		$where['issuspend'] = array("neq",1);
+		if($option['type']==1){
+			$where['iseshop'] = 1;
+			$where['eshopmoney'] = array("elt",$option['money']);
+		}elseif($option['type']==2){
+			$where['isshanhui'] = 1;
+			$where['shanhuimoney'] = array("elt",$option['money']);
+		}elseif($option['type']==3){
+			$where['iswechat'] = 1;
+			$where['wechatmoney'] = array("elt",$option['money']);
+		}
+		$info = M('member_marketing_activities_scrm')->where($where)->order("createtime desc")->find();
+		//echo M()->getLastSql();
+		if($info){
+			$html ='<div class="coupons-Popup js-tan-asa-P" style="display: none;z-index:10000000000">';
+			$html .='<div class="coupons-Popup-box">';
+			$html .='<img class="coupons-Popup-bj" src="./Tpl/Wap/default/common/S5_img/Coupons_img/fission-tcbj.png" alt="">';
+			$html .='<h6 class="fission-Congratulations">恭喜您</h6>';
+			if($info['type']==8) $text = '张卡券';
+			if($info['type']==9) $text = '个红包';
+			$html .='<p class="fission-Number-red">获得'.$info['zlimitnum'].$text.'<br><span>可以分享</span></p>';
+			$html .='<button class="btn Receive-immediately-btn" data-type="'.$option['type'].'" data-companyid="'.$option['companyid'].'" data-orderid="'.$option['orderid'].'" data-mid="'.$option['mid'].'" data-parentid="'.$info['id'].'">立即领取</button>';
+			$html .='<img class="coupons-Popup-close" src="./Tpl/Wap/default/common/S5_img/Coupons_img/coupons-clicon.png" alt="">';
+			$html .='</div></div>';
+			$html .='<a href="javascript:void (0);" class="js-open-tan-asa" style="position: fixed;z-index: 9;right:10px;bottom:22%;width: 35px;"><img style="width: 35px;" src="./Tpl/Wap/default/common/S5_img/Coupons_img/fission-lbicon.png" alt=""></a>';
+		}
+		echo $html;
+	}
+}
+/**
+ * 这是进订单详情的产生券的方法
+ * 
+ * @param int $companyid
+ * @param deciaml $money
+ * @param int $type 1:eshop；2：闪惠；3：微信外卖
+ * @param int $mid
+ * @author Asa<asa@renlaifeng.cn>
+ * @since  2016-12-22
+ */
+function memberFissionB($option){
+//echo $option['paytime'];
+	if(($option['paytime']+3600*48)>time()){
+		$where['companyid'] = $option['companyid'];
+		$where['type'] = array("in",array(8,9));
+		$where['starttime'] = array("elt",time());
+		$where['endtime'] = array("egt",time());
+		$where['issuspend'] = array("neq",1);
+		if($option['type']==1){
+			$where['iseshop'] = 1;
+			$where['eshopmoney'] = array("elt",$option['money']);
+		}elseif($option['type']==2){
+			$where['isshanhui'] = 1;
+			$where['shanhuimoney'] = array("elt",$option['money']);
+		}elseif($option['type']==3){
+			$where['iswechat'] = 1;
+			$where['wechatmoney'] = array("elt",$option['money']);
+		}
+		$info = M('member_marketing_activities_scrm')->where($where)->order("createtime desc")->find();
+		//echo M()->getLastSql();
+		if($info){
+			$html ='<div class="coupons-Popup js-tan-asa-P" style="display: none;z-index:10000000000">';
+			$html .='<div class="coupons-Popup-box">';
+			$html .='<img class="coupons-Popup-bj" src="./Tpl/Wap/default/common/S5_img/Coupons_img/fission-tcbj.png" alt="">';
+			$html .='<h6 class="fission-Congratulations">恭喜您</h6>';
+			if($info['type']==8) $text = '张卡券';
+			if($info['type']==9) $text = '个红包';
+			$html .='<p class="fission-Number-red">获得'.$info['zlimitnum'].$text.'<br><span>可以分享</span></p>';
+			$html .='<button class="btn Receive-immediately-btn" data-type="'.$option['type'].'" data-companyid="'.$option['companyid'].'" data-orderid="'.$option['orderid'].'" data-mid="'.$option['mid'].'" data-parentid="'.$info['id'].'">立即领取</button>';
+			$html .='<img class="coupons-Popup-close" src="./Tpl/Wap/default/common/S5_img/Coupons_img/coupons-clicon.png" alt="">';
+			$html .='</div></div>';
+			$html .='<a href="javascript:void (0);" class="js-open-tan-asa" style="position: absolute;right:0.3rem;top:50%;-webkit-transform:translateY(-50%);translateY(-50%);"><img style="width:0.52rem;" src="./Tpl/Wap/default/common/S5_img/Coupons_img/fission-lbicon.png" alt=""></a>';
+		}
+		echo $html;
+	}
+}
+
+?>
+<script>
+	$(document).on("click",".coupons-Popup-close",function(){
+		$(this).parents(".js-tan-asa-P").hide();
+	});
+	$(document).on("click",".js-open-tan-asa",function(){
+		$(this).prev(".js-tan-asa-P").show();
+	});
+	$(document).on("click",".Receive-immediately-btn",function(){
+		$(".loading").show();
+		var $this = $(this);
+		$.post("<?php echo U('MemberGiveawayVoucher/memberFissionAjax') ?>&companyid="+$(this).attr("data-companyid"),{
+			orderid:$(this).attr("data-orderid"),mid:$(this).attr("data-mid"),type:$(this).attr("data-type"),
+			parentid:$(this).attr("data-parentid"),companyid:$(this).attr("data-companyid")
+		},function(data){
+			if(data.code==200){
+				window.location.href= "<?php echo U('MemberGiveawayVoucher/wechatIndex'); ?>"+"&companyid="+$this.attr("data-companyid")+"&id="+data.id;
+			}
+		},"json")
+	})
+</script>

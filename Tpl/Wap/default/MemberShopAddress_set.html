@@ -1,0 +1,215 @@
+<include file="Public:S5NewHead" />
+<!-- 首页 -->
+<div class="page address-fillin">
+	<div class="title-h1">
+		<h1>新增配送地址:</h1>
+	</div>
+	<div class="fillin-inf">
+		<ul id="demo1">
+			<li>
+				<span>收件人</span>
+				<label for="">
+					<input class="addressee-input" type="text" name="name" value="<?php echo $addressInfo['name'];?>" maxlength="12" placeholder="请输入收件人">
+				</label>
+			</li>
+			<li>
+				<span>联系电话</span>
+				<label for="">
+					<input class="telephone-input" type="text" name="moblie" value="<?php echo $addressInfo['mobile'];?>" maxlength="11" placeholder="请输入您的手机">
+				</label>
+			</li>
+			<li id="select_contact">
+				<span>地址</span>
+				<label for="">
+					<select class="form-control" id="province" name="province"></select>
+					<select class="form-control" id="city" name="city"></select>
+					<select class="form-control" id="district" name="area"></select>
+					<b class="style-tb-01"></b>
+					<b class="style-tb-02"></b>
+					<b class="style-tb-03"></b>
+				</label>
+			</li>
+			<li>
+				<span>街道</span>
+				<label for="">
+					<select class="town" name="town" id="town"></select>
+					<b class="style-tb-04"></b>
+				</label>
+			</li>
+			<li>
+				<span>详细地址</span>
+				<label for="">
+					<input class="address-input" type="text" name="address" id="address" value="<?php echo $addressInfo['address'];?>">
+				</label>
+			</li>
+			<li>
+				<span>邮编</span>
+				<label for="">
+					<input class="address-input" type="text" name="postid" value="<?php echo $addressInfo['postid'];?>" maxlength="6" placeholder="选填">
+				</label>
+			</li>
+		</ul>
+	</div>
+	<div class="preservation-set">
+		<a class="cancel-btn" href="javascript:;" title="取消">取消</a>
+		<a class="preservation-btn" href="javascript:;" title="保存" id="submit">保存</a>
+	</div>
+</div>
+<script>
+$(function(){
+	$("#submit").click(function(){
+		var id = "<?php echo $addressInfo['id'];?>";
+		var name = jQuery.trim($('input[name="name"]').val());
+		if(!name){
+			alert('请填写收货人姓名');
+			return false;
+		}
+		var moblie = $('input[name="moblie"]').val();
+		var yzp = /^(((13[0-9]{1})|(14[579]{1})|(15[012356789]{1})|(17[0135678]{1})|(18[0-9]{1}))+\d{8})$/;
+		if(moblie.length<1 || !yzp.test(moblie)){
+			alert('请填写正确的手机号');
+			return false;
+		}
+		<!-- var addre = $('#show_contact').text(); -->
+		<!-- var areacode = $('#show_contact').attr('data-province-code')+','+$('#show_contact').attr('data-city-code')+','+$('#show_contact').attr('data-district-code'); -->
+		<!-- if(areacode == ',,'){ -->
+			<!-- alert('请选择所在地区'); -->
+			<!-- return false; -->
+		<!-- } -->
+		var province = $('#province').find("option:selected").html();
+		var city = $('#city').find("option:selected").html();
+		var district = $('#district').find("option:selected").html();
+		var town = $('#town').find("option:selected").html();
+		var address = jQuery.trim($('#address').val());
+		if(!address){
+			alert('请填写详细地址');
+			return false;
+		}
+		var postid = $('input[name="postid"]').val();
+		//$('.loading').show();
+		var index = layer.load(2, {shade: [0.1,'#fff']});
+	   	$.post("<?php echo U('MemberShopAddress/set',array('companyid'=>$companyid)).'&time='; ?>"+Math.random(),{
+			id:id,
+			name:name,
+			mobile:moblie,
+			province:province,
+			city:city,
+			district:district,
+			town:town,
+			address:address,
+			postid:postid
+		},function(result){
+			//$('.loading').hide();
+			layer.close(index);
+			alert(result.tips,1000);
+			if(result.code==200){
+				window.location.href="<?php echo session('historyUrl');?>";
+			}
+		},'json');
+	});
+    $('#province').blur(function() {
+        var province = $('#province').find("option:selected").html();
+        if (province == '北京市' || province == '天津市' || province == '上海市' || province == '重庆市') {
+            $('.style-tb-03').fadeOut();
+        } else {
+            $('.style-tb-03').fadeIn();
+        }
+    })
+	// 设置默认地址
+	$(".mui-switcha1").click(function(){
+		if($(this).hasClass("mui-active")){
+			$(this).removeClass("mui-active");
+			$(this).attr("data-open",2);
+		}else {
+			$(this).addClass("mui-active");
+			$(this).attr("data-open",1);
+		}
+   });
+});
+</script>
+<script src="{lanrain::RES}/weixinfeng/js/layer.js"></script>
+<script src="{lanrain::RES}/weixinfeng/js/swiper-3.3.1.jquery.min.js"></script>
+<script src="{lanrain::RES}/weixinfeng/js/public2.js"></script>
+<script type="text/javascript">
+	var $town = $('#demo1 select[name="town"]');
+	var townFormat = function(info){
+		$town.hide().empty();
+		if(info['code']%1e4&&info['code']<7e5){	//是否为“区”且不是港澳台地区
+			$.ajax({
+				url:'http://passer-by.com/data_location/town/'+info['code']+'.json',
+				dataType:'json',
+				success:function(town){
+					$town.show();
+					for(i in town){
+							$town.append('<option value="'+i+'">'+town[i]+'</option>');
+					}
+				}
+			});
+		}
+	};
+	 $('#demo1').citys({
+		province:'',
+		city:'',
+		area:'',
+		town:'',
+		required:false,
+		nodata:'disabled',
+		onChange:function(info){
+			townFormat(info);
+		}
+	},function(api){
+		var info = api.getInfo();
+		townFormat(info);
+	});
+</script>
+<!-- 增加选择地区的插件  js -->
+<script src="{lanrain::RES}/fangIOS/js/zepto.js" type="text/javascript" charset="utf-8"></script>
+<script src="{lanrain::RES}/fangIOS/js/iscroll.js" type="text/javascript" charset="utf-8"></script>
+<script src="{lanrain::RES}/fangIOS/js/areaData_v2.js" type="text/javascript" charset="utf-8"></script>
+<script src="{lanrain::RES}/fangIOS/js/iosSelect.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+/* *
+* 增加选择地区的插件
+* owen
+* */
+var selectContactDom = $('#select_contact');
+var showContactDom = $('#show_contact');
+
+var provinceContactDom = $('#province');
+var cityContactDom = $('#city');
+var districtContactDom = $('#district');
+var townContactDom = $('#town');
+
+var contactProvinceCodeDom = $('#contact_province_code');
+var contactCityCodeDom = $('#contact_city_code');
+selectContactDom.bind('click', function () {
+	var sccode = cityContactDom.attr('data-code');
+	var scname = cityContactDom.html();
+	var oneLevelId = provinceContactDom.attr('data-code');
+	var twoLevelId = cityContactDom.attr('data-code');
+	var threeLevelId = districtContactDom.attr('data-code');
+	var iosSelect = new IosSelect(3,
+		[iosProvinces, iosCitys, iosCountys],
+		{
+		title: '地址选择',
+		itemHeight: 35,
+		oneTwoRelation: 1,
+		twoThreeRelation: 1,
+		oneLevelId: oneLevelId,
+		twoLevelId: twoLevelId,
+		threeLevelId: threeLevelId,
+		callback: function (selectOneObj, selectTwoObj, selectThreeObj) {
+		//contactProvinceCodeDom.val(selectOneObj.id);
+		//contactProvinceCodeDom.attr('data-province-name', selectOneObj.value);
+		//contactCityCodeDom.val(selectTwoObj.id);
+		//contactCityCodeDom.attr('data-city-name', selectTwoObj.value);
+		provinceContactDom.attr('data-province-code', selectOneObj.id);
+		cityContactDom.attr('data-city-code', selectTwoObj.id);
+		districtContactDom.attr('data-district-code', selectThreeObj.id);
+		showContactDom.html(selectOneObj.value + ' ' + selectTwoObj.value + ' ' + selectThreeObj.value);
+		}
+	});
+});
+</script>
+<include file="Public:weiXinNotShareSet" />
+<include file="Public:footer" />

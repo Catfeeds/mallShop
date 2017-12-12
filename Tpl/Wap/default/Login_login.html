@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>登陆</title>
+	<meta name="format-detection" content="telephone=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" href="./Tpl/Wap/default/common/weixinfeng/css/reset.css">
+	<link rel="stylesheet" href="./Tpl/Wap/default/common/weixinfeng/css/swiper-3.2.7.min.css">
+	<link rel="stylesheet" href="./Tpl/Wap/default/common/weixinfeng/css/style.css">
+	<script src="./Tpl/Wap/default/common/weixinfeng/js/jquery-2.1.4.min.js"></script>
+	<script src="./Tpl/Wap/default/common/weixinfeng/js/zepto.js"></script>
+	<script src="./Tpl/Wap/default/common/weixinfeng/js/common.js"></script>
+	<script src="./Tpl/Wap/default/common/weixinfeng/js/jquery.citys.js"></script>
+</head>
+<body>
+<!-- 登陆 -->
+<div class="page phone-modification">
+
+	<div class="title-h1">
+		<h1>
+			<span>登陆</span>
+		</h1>
+	</div>
+
+	<div class="modification-box">
+		<form action="">
+			<div class="phone-label">
+				<label for="">
+					<input class="phone-inp" type="text" name="" maxlength="11" value="" placeholder="请输入手机号码">
+				</label>
+			</div>
+			<div class="code-label">
+				<label for="">
+					<input class="code-inp" type="text" name="" maxlength="6" value="" placeholder="请输入验证码">
+				</label>
+				<a href="javascript:;" title="获取验证码">获取验证码</a>
+
+			</div>
+		</form>
+	</div>
+
+	<div class="submit-set submit-set2">
+
+		<a class="submit-btn js-login" href="javascript:;" title="提交">提交</a>
+	</div>
+
+</div>
+<script src="./Tpl/Wap/default/common/weixinfeng/js/layer.js"></script>
+
+<script src="./Tpl/Wap/default/common/weixinfeng/js/swiper-3.3.1.jquery.min.js"></script>
+<script src="./Tpl/Wap/default/common/weixinfeng/js/distpicker.data.js"></script>
+<script src="./Tpl/Wap/default/common/weixinfeng/js/distpicker.js"></script>
+<script src="./Tpl/Wap/default/common/weixinfeng/js/public2.js?1"></script>
+<script>
+    //登录
+    $(".js-login").on("click", function(){
+        var phone = $('.phone-inp').val();
+        var code  = $('.code-inp').val();;
+        if(phone.length>0 && /^(((13[0-9]{1})|(14[579]{1})|(15[012356789]{1})|(17[0135678]{1})|(18[0-9]{1}))+\d{8})$/.test(phone) && code.length == 6){
+            var index = layer.load(2, {shade: [0.1,'#fff']});
+            $.post("<?php echo U('Login/login',array('companyid'=>$companyid)).'&time=';?>"+Math.random(),{moblie: phone,password: code},function(data){
+                layer.close(index);
+                layer.msg(data.tips, {time:1000});
+                if(data.code == 200){
+                    window.location.href="<?php if(session('historyUrl') && (strpos(session('historyUrl'),'login') ===FALSE) && !(strpos(session('historyUrl'),'companyid='.$companyid) ===FALSE)){ echo session('historyUrl'); }else{ echo U('Member/center',array('companyid'=>$companyid)); } ?>";
+                }
+            },"json");
+        }else{
+            alert('请填写正确的手机号和验证码',3000);
+        }
+    });
+
+
+    // 手机验证码获取
+    $('.code-label').on('click','a',function() {
+
+        var phoneVal = $('.phone-inp').val();
+        var codeVal  = $('.code-inp').val();
+        var mobileReg  = /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9]|17[0|1|2|3|5|6|7|8|9])\d{8}$/;
+        if (phoneVal == '') {
+            layer.msg('手机号码不能为空！', {time:1000});
+            return
+        }
+        if (!mobileReg.test(phoneVal)) {
+            layer.msg('您的手机格式错误！<br/>请输入11位数移动电话号码', {time:1000});
+            return
+        }
+        if (phoneVal !== '' && mobileReg.test(phoneVal)) {
+            // ajax后台\
+
+            var index = layer.load(2, {shade: [0.1,'#fff']});
+            $.post("<?php echo U('Login/getCode',array('companyid'=>$companyid)); ?>",{mobile:phoneVal},function(data){
+                layer.close(index);
+                if(data.code==200){
+                    layer.msg('验证码已通过短信发送<br/>发送到您的手机<br/>请稍后注意查收。', {time:1000});
+                    $('.code-label a').remove();
+                    $('.code-label').append('<span><b>60s</b>后重新获取</span>');
+                    var intDiff = 60;
+                    timer(intDiff);
+                }else{
+                    layer.msg('系统错误，请稍后再试！', {time:1000});
+                }
+            },"json");
+        }
+    });
+
+    // 倒计时60s
+    function timer(intDiff){
+        objTimer = window.setInterval(function(){
+            var day=0,
+                hour=0,
+                minute=0,
+                second=0;//时间默认值
+            if(intDiff > 0){
+                day = Math.floor(intDiff / (60 * 60 * 24));
+                hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
+                minute = Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60);
+                second = Math.floor(intDiff) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+            }else {
+                window.clearInterval(objTimer);
+                second = 60;
+                $('.code-label').append('<a href="javascript:;" title="获取验证码">获取验证码</a>');
+                $('.code-label span').remove();
+            }
+
+            $('.code-label b').html(''+second+'s');
+            intDiff--;
+        }, 1000);
+    }
+</script>
+</body>
+</html>

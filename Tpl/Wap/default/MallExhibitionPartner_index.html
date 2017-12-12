@@ -1,0 +1,139 @@
+<include file="Public:S5NewHead" />
+<?php if($info['salestype'] == 3){?>
+	<div class="title_top">申请成为营销伙伴</div>
+	<div class="pt_btn" id="yjsq_btn">一键申请区域代理</div>
+	<div class="dl_subnavbg">
+		<a href="<?php echo U('MallExhibitionPartner/apply',array('applyType'=>1,'partneropenid'=>$partneropenid))?>">
+			<div class="dl_subnav js-apply-area-daili">
+				<img src="{lanrain::RES}/weixinfeng/images/jx_ico1.png" >
+				自助申请区域代理<span class="fs24">（填写资料）</span>
+				<div class="line"></div>
+			</div>
+		</a>
+		<a href="<?php echo U('MallExhibitionPartner/apply',array('applyType'=>2))?>">
+			<div class="dl_subnav">
+				<img src="{lanrain::RES}/weixinfeng/images/jx_ico3.png" >
+				申请成为经销
+			</div>
+		</a>
+	</div>
+	<p class="pt_tel">咨询电话: <a href="tel:40088886666">400-8888-6666</a></p>
+	<!--提交成功浮层-->
+	<div class="sqcg_box">
+		<div class="sqcg_centent"><span class="js-close-box"></span></div>
+		<div class="sqcg_black_opacity"></div>
+	</div>
+	<script>
+	$(function(){
+		$('#yjsq_btn').click(function(){
+			var partneropenid = "<?php echo $partneropenid;?>";
+			$.post("<?php echo U('MallExhibitionPartner/ajaxApply',array('type'=>1))?>",{'partneropenid':partneropenid},function(data){
+				if(data.code == 200){
+					$(".sqcg_box").fadeIn(); 
+				}else{
+					alert(data.tips);
+				}
+			},'json');
+		});
+		$('.sqcg_centent span').click(function () {
+			$(".sqcg_box").fadeOut();
+		});
+	});
+	</script>
+<?php }elseif($info['salestype'] == 2){?>
+	<div class=" title_colortop">
+		<div class="title_lv">营销等级</div>
+		<div class="title_ico">经销</div>
+	</div>
+	<div class="dl_subnavbg">
+		<a href="<?php echo U('MallExhibitionPartner/salesLink')?>">
+			<div class="dl_subnav">
+				<img src="{lanrain::RES}/weixinfeng/images/dl_ico1.png" >专属销售链接
+				<div class="line"></div>
+			</div>
+		</a>
+		<a href="<?php echo U('MallExhibitionPartner/salesLinkPoster')?>">
+			<div class="dl_subnav">
+				<img src="{lanrain::RES}/weixinfeng/images/dl_ico2.png" >专属销售海报
+				<div class="line"></div>
+			</div>
+		</a>
+		<a href="<?php echo U('MallExhibitionPartner/mySalesOrder')?>">
+			<div class="dl_subnav">
+				<img src="{lanrain::RES}/weixinfeng/images/dl_ico3.png" >我的销售订单及返利
+			</div>
+		</a>
+	</div>
+	<div class="jx_apply">
+		<div class="jx_btn" id="yjsq_btn">一键申请区域代理</div>
+		<div class="dl_subnavbg">
+			<a href="<?php echo U('MallExhibitionPartner/apply',array('applyType'=>1))?>">
+				<div class="dl_subnav">
+					<img src="{lanrain::RES}/weixinfeng/images/jx_ico1.png" >
+					自助申请区域代理<span class="fs24">（填写资料）</span>
+					<div class="line"></div>
+				</div>
+			</a>
+		</div>
+	</div>
+	<!--提交成功浮层-->
+	<div class="sqcg_box">
+			<div class="sqcg_centent"><span></span></div>
+		 <div class="sqcg_black_opacity"></div>
+	</div>
+	<script>
+	$(function(){
+		$('#yjsq_btn').click(function(){
+			$.post("<?php echo U('MallExhibitionPartner/ajaxApply',array('type'=>1))?>",{},function(data){
+				if(data.code == 200){
+					$(".sqcg_box").fadeIn(); 
+				}else{
+					alert(data.tips);
+				}
+			},'json');
+		});
+		$('.sqcg_centent span').click(function () {
+			$(".sqcg_box").fadeOut();
+		});
+	});
+	</script>
+<?php }elseif($info['salestype'] == 1){?>
+	<div class=" title_colortop">
+		<div class="title_lv">营销等级</div>
+		<div class="title_ico">代理</div>
+		<a href="<?php echo U('MallExhibitionPartner/partnerCheck')?>"><div class="title_more">查看</div></a>
+	</div>
+	<div class="dl_subnavbg">
+		<a href="<?php echo U('MallExhibitionPartner/salesLink')?>">
+			<div class="dl_subnav">
+				<img src="{lanrain::RES}/weixinfeng/images/dl_ico1.png" >专属销售链接
+				<div class="line"></div>
+			</div>
+		</a>
+		<a href="<?php echo U('MallExhibitionPartner/salesLinkPoster')?>">
+			<div class="dl_subnav">
+				<img src="{lanrain::RES}/weixinfeng/images/dl_ico2.png" >专属销售海报
+				<div class="line"></div>
+			</div>
+		</a>
+		<a href="<?php echo U('MallExhibitionPartner/mySalesOrder')?>">
+			<div class="dl_subnav">
+				<img src="{lanrain::RES}/weixinfeng/images/dl_ico3.png" >我的销售订单及返利
+				<div class="line"></div>
+			</div>
+		</a>
+		<a href="<?php echo U('MallExhibitionPartner/mySalesCustomer')?>">
+			<div class="dl_subnav">
+				<img src="{lanrain::RES}/weixinfeng/images/dl_ico4.png" >我的经销用户
+				<div class="line"></div>
+			</div>
+		</a>
+		<a href="<?php echo U('MallExhibitionPartner/mySellPoster')?>">
+			<div class="dl_subnav">
+				<img src="{lanrain::RES}/weixinfeng/images/dl_ico5.png" >渠道招募海报
+			</div>
+		</a>
+	</div>
+<?php }?>
+<include file="Public:weiXinNotShareSet"/>
+<include file="Public:footer"/>

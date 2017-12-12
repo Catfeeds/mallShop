@@ -1,0 +1,645 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="viewport" content="width=device-width initial-scale=1.0 maximum-scale=1.0 user-scalable=yes" />
+  <title>抑郁症测试</title>
+  <script src="../../js/config.js"></script>
+  <link href="../../css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/style.css?m=0711" />
+  <style type="text/css">
+    /*    body {
+    background: #000 url(res/bg.jpg) top center no-repeat !important;
+    background-size:100% 100% !important;
+}*/
+    .bg {
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: #000 url(res/bg.png) top center no-repeat !important;
+      background-size: 100% 100% !important;
+    }
+
+    .addthumb {
+      padding-left: 0;
+      padding-right: 0;
+      height: 50px;
+      overflow: hidden;
+    }
+
+    .btn-danger {
+      background-color: #f08c86;
+      border-color: #f08c86;
+      color: #fff;
+    }
+
+    .btn-danger:hover, .btn-danger:focus, .btn-danger:active, .btn-danger.active, .open > .dropdown-toggle.btn-danger {
+      background-color: #f08c86;
+      border-color: #f08c86;
+      color: #fff;
+    }
+
+    .btn-danger2 {
+      background-color: #5a4c4b;
+      border-color: #5a4c4b;
+      color: #fff;
+    }
+
+    .buttons2 {
+      padding-top: 5px;
+    }
+
+    .btn-danger2:hover, .btn-danger2:focus, .btn-danger2:active, .btn-danger2.active, .open > .dropdown-toggle.btn-danger2 {
+      background-color: #5a4c4b;
+      border-color: #5a4c4b;
+      color: #fff;
+    }
+
+    .btn-danger1 {
+      font-size: 22px;
+      padding: 10px;
+    }
+
+    .btn-success {
+      background-color: #2d892d;
+      border-color: #4cae4c;
+      color: #fff;
+    }
+
+    .panel {
+      background-color: #fff;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+<!--****************菜单***************-->
+
+<div class="bg"></div>
+
+<div id="ad0">
+  <script type="text/javascript">
+    /*20:3 创建于 2014-08-06*/
+    var cpro_id = "u1646897";
+  </script>
+</div>
+<script>
+  function play(url) {
+
+    var audio = document.createElement('audio');
+    var source = document.createElement('source');
+    source.type = "audio/mpeg";
+    source.type = "audio/mpeg";
+    source.src = url;
+    source.autoplay = "autoplay";
+    source.controls = "controls";
+    audio.appendChild(source);
+    audio.play();
+    $('.btn').hide();
+    $('.stop').show();
+  }
+</script>
+
+
+<div class="container">
+<div class="text-center header">
+  <h1 class="bold">抑郁症测试</h1>
+  <p>已有1549101人参考</p>
+  <div class="avatar1 text-center">
+    <div class="img-circle" id="sicon">
+      <span class="glyphicon glyphicon-pencil"></span>
+    </div>
+  </div>
+</div>
+<div id="bd" class="panel">
+<div id="panel1" class="panel-body">
+  <dl>
+    <dd style="font-size: 18px;">你有抑郁症么？快来测试一下吧~应根据过去一周内自身的情况做答，40分以下正常，40-49分提示轻度抑郁，50-59分提示中度抑郁，超过60分基本属于重度抑郁了~指数越高，越严重，必要时需要就医治疗~				</dd>
+  </dl>
+  <div class="buttons">
+    <a href="#result" class="btn btn-danger btn-danger1 btn-block" onclick="return next(0);">开始测试</a>
+  </div>
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block">一键关注</a>
+  </div>
+</div>
+<div id="panel2" class="panel-body js_answer"
+     data-type="1" style="display: none;">
+  <dl>
+
+    <dd>
+      <p>1.我觉得一天中早晨最好</p>
+    </dd>
+  </dl>
+  <ul class="list-group js_group">
+    <li class="list-group-item" data-score="4" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>A 没有</li>
+    <li class="list-group-item" data-score="3" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>B 有时</li>
+    <li class="list-group-item" data-score="2" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>C 经常</li>
+    <li class="list-group-item" data-score="1" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>D 总是</li>
+  </ul>
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block">一键关注</a>
+  </div>
+</div>
+<div id="Div1" class="panel-body js_answer"
+     data-type="1" style="display: none;">
+  <dl>
+
+    <dd>
+      <p>2.我吃得跟平时一样多</p>
+    </dd>
+  </dl>
+  <ul class="list-group js_group">
+    <li class="list-group-item" data-score="4" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>A 没有</li>
+    <li class="list-group-item" data-score="3" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>B 有时</li>
+    <li class="list-group-item" data-score="2" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>C 经常</li>
+    <li class="list-group-item" data-score="1" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>D 总是</li>
+  </ul>
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block">一键关注</a>
+  </div>
+</div>
+<div id="Div2" class="panel-body js_answer"
+     data-type="1" style="display: none;">
+  <dl>
+
+    <dd>
+      <p>3.我有便秘的苦恼</p>
+    </dd>
+  </dl>
+  <ul class="list-group js_group">
+    <li class="list-group-item" data-score="1" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>A 没有</li>
+    <li class="list-group-item" data-score="2" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>B 有时</li>
+    <li class="list-group-item" data-score="3" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>C 经常</li>
+    <li class="list-group-item" data-score="4" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>D 总是</li>
+  </ul>
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block">一键关注</a>
+  </div>
+</div>
+<div id="Div3" class="panel-body js_answer"
+     data-type="1" style="display: none;">
+  <dl>
+
+    <dd>
+      <p>4.我心跳比平时快</p>
+    </dd>
+  </dl>
+  <ul class="list-group js_group">
+    <li class="list-group-item" data-score="1" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>A 没有</li>
+    <li class="list-group-item" data-score="2" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>B 有时</li>
+    <li class="list-group-item" data-score="3" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>C 经常</li>
+    <li class="list-group-item" data-score="4" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>D 总是</li>
+  </ul>
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block">一键关注</a>
+  </div>
+</div>
+<div id="Div4" class="panel-body js_answer"
+     data-type="1" style="display: none;">
+  <dl>
+
+    <dd>
+      <p>5.我无缘无故的感到疲乏</p>
+    </dd>
+  </dl>
+  <ul class="list-group js_group">
+    <li class="list-group-item" data-score="1" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>A 没有</li>
+    <li class="list-group-item" data-score="2" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>B 有时</li>
+    <li class="list-group-item" data-score="3" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>C 经常</li>
+    <li class="list-group-item" data-score="4" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>D 总是</li>
+  </ul>
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block">一键关注</a>
+  </div>
+</div>
+<div id="Div5" class="panel-body js_answer"
+     data-type="1" style="display: none;">
+  <dl>
+
+    <dd>
+      <p>6.我觉得经常做的事情并没有困难</p>
+    </dd>
+  </dl>
+  <ul class="list-group js_group">
+    <li class="list-group-item" data-score="4" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>A 没有</li>
+    <li class="list-group-item" data-score="3" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>B 有时</li>
+    <li class="list-group-item" data-score="2" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>C 经常</li>
+    <li class="list-group-item" data-score="1" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>D 总是</li>
+  </ul>
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block">一键关注</a>
+  </div>
+</div>
+<div id="Div6" class="panel-body js_answer"
+     data-type="1" style="display: none;">
+  <dl>
+
+    <dd>
+      <p>7.我觉得不安和平静不下来</p>
+    </dd>
+  </dl>
+  <ul class="list-group js_group">
+    <li class="list-group-item" data-score="1" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>A 没有</li>
+    <li class="list-group-item" data-score="2" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>B 有时</li>
+    <li class="list-group-item" data-score="3" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>C 经常</li>
+    <li class="list-group-item" data-score="4" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>D 总是</li>
+  </ul>
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block">一键关注</a>
+  </div>
+</div>
+<div id="Div7" class="panel-body js_answer"
+     data-type="1" style="display: none;">
+  <dl>
+
+    <dd>
+      <p>8.我对将来抱有希望</p>
+    </dd>
+  </dl>
+  <ul class="list-group js_group">
+    <li class="list-group-item" data-score="4" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>A 没有</li>
+    <li class="list-group-item" data-score="3" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>B 有时</li>
+    <li class="list-group-item" data-score="2" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>C 经常</li>
+    <li class="list-group-item" data-score="1" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>D 总是</li>
+  </ul>
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block">一键关注</a>
+  </div>
+</div>
+<div id="Div8" class="panel-body js_answer"
+     data-type="1" style="display: none;">
+  <dl>
+
+    <dd>
+      <p>9.我认为如果我死了，别人会生活得好些</p>
+    </dd>
+  </dl>
+  <ul class="list-group js_group">
+    <li class="list-group-item" data-score="1" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>A 没有</li>
+    <li class="list-group-item" data-score="2" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>B 有时</li>
+    <li class="list-group-item" data-score="3" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>C 经常</li>
+    <li class="list-group-item" data-score="4" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>D 总是</li>
+  </ul>
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block">一键关注</a>
+  </div>
+</div>
+<div id="Div9" class="panel-body js_answer"
+     data-type="1" style="display: none;">
+  <dl>
+
+    <dd>
+      <p>10.平常感兴趣的事我仍然照样感兴趣</p>
+    </dd>
+  </dl>
+  <ul class="list-group js_group">
+    <li class="list-group-item" data-score="4" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>A 没有</li>
+    <li class="list-group-item" data-score="3" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>B 有时</li>
+    <li class="list-group-item" data-score="2" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>C 经常</li>
+    <li class="list-group-item" data-score="1" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>D 总是</li>
+  </ul>
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block">一键关注</a>
+  </div>
+</div>
+<div id="panel3" class="panel-body js_result" data-id="1" style="display: none;">
+  <h1 class="bold text-danger">没到10分</h1>
+  <hr>
+  <dl>
+    <dt>详细分析:</dt>
+    <dd>
+      <p>你是个无忧无虑的孩纸，你的心理很健康，没有任何抑郁倾向，继续保持，并且愉快的生活吧</p>
+    </dd>
+  </dl>
+  <div class="buttons">
+    <a href="javascript:void(0)" class="btn btn-success btn-block" onclick="$('#mcover').show()">分享给朋友(圈)</a>
+  </div>
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block">一键关注</a>
+  </div>
+</div>
+<div id="Div10" class="panel-body js_result" data-id="2" style="display: none;">
+  <h1 class="bold text-danger">没到20分</h1>
+  <hr>
+  <dl>
+    <dt>详细分析:</dt>
+    <dd>
+      <p>你是个无忧无虑的孩纸，你的心理很健康，没有任何抑郁倾向，继续保持，并且愉快的生活吧</p>
+    </dd>
+  </dl>
+  <div class="buttons">
+    <a href="javascript:void(0)" class="btn btn-success btn-block" onclick="$('#mcover').show()">分享给朋友(圈)</a>
+  </div>
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block">一键关注</a>
+  </div>
+</div>
+<div id="Div11" class="panel-body js_result" data-id="3" style="display: none;">
+  <h1 class="bold text-danger">没到30分</h1>
+  <hr>
+  <dl>
+    <dt>详细分析:</dt>
+    <dd>
+      <p>你的抑郁指数极低，看来一定是生活的非常悠哉哦，继续保持这样的心态，有利身心健康哦~</p>
+    </dd>
+  </dl>
+  <div class="buttons">
+    <a href="javascript:void(0)" class="btn btn-success btn-block" onclick="$('#mcover').show()">分享给朋友(圈)</a>
+  </div>
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block">一键关注</a>
+  </div>
+</div>
+<div id="Div12" class="panel-body js_result" data-id="4" style="display: none;">
+  <h1 class="bold text-danger">没到40分</h1>
+  <hr>
+  <dl>
+    <dt>详细分析:</dt>
+    <dd>
+      <p>你的抑郁指数未超过40，虽然生活有一定压力，但是你还是能乐观的面对，属于正常范围，多想点开心的事，生活其实很美好</p>
+    </dd>
+  </dl>
+  <div class="buttons">
+    <a href="javascript:void(0)" class="btn btn-success btn-block" onclick="$('#mcover').show()">分享给朋友(圈)</a>
+  </div>
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block">一键关注</a>
+  </div>
+</div>
+<div id="Div13" class="panel-body js_result" data-id="5" style="display: none;">
+  <h1 class="bold text-danger">没到50分</h1>
+  <hr>
+  <dl>
+    <dt>详细分析:</dt>
+    <dd>
+      <p>你的抑郁指数未超过50，说明你有轻度抑郁症哦，建议多休息，及时调整心态，有必要的可以咨询下心理医生，避免症状加重</p>
+    </dd>
+  </dl>
+  <div class="buttons">
+    <a href="javascript:void(0)" class="btn btn-success btn-block" onclick="$('#mcover').show()">分享给朋友(圈)</a>
+  </div>
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block">一键关注</a>
+  </div>
+</div>
+<div id="Div14" class="panel-body js_result" data-id="6" style="display: none;">
+  <h1 class="bold text-danger">没到60分</h1>
+  <hr>
+  <dl>
+    <dt>详细分析:</dt>
+    <dd>
+      <p>你有中度抑郁症哦，需要及时调整了，建议您前往医生处咨询，抑郁症可不是个好东西~</p>
+    </dd>
+  </dl>
+  <div class="buttons">
+    <a href="javascript:void(0)" class="btn btn-success btn-block" onclick="$('#mcover').show()">分享给朋友(圈)</a>
+  </div>
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block">一键关注</a>
+  </div>
+</div>
+<div id="Div15" class="panel-body js_result" data-id="7" style="display: none;">
+  <h1 class="bold text-danger">没到70分</h1>
+  <hr>
+  <dl>
+    <dt>详细分析:</dt>
+    <dd>
+      <p>你有中度抑郁症哦，需要及时调整了，建议您前往医生处咨询，抑郁症可不是个好东西~</p>
+    </dd>
+  </dl>
+  <div class="buttons">
+    <a href="javascript:void(0)" class="btn btn-success btn-block" onclick="$('#mcover').show()">分享给朋友(圈)</a>
+  </div>
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block">一键关注</a>
+  </div>
+</div>
+<div id="Div16" class="panel-body js_result" data-id="8" style="display: none;">
+  <h1 class="bold text-danger">没到80分</h1>
+  <hr>
+  <dl>
+    <dt>详细分析:</dt>
+    <dd>
+      <p>你有中度抑郁症哦，需要及时调整了，建议您前往医生处咨询，抑郁症可不是个好东西~</p>
+    </dd>
+  </dl>
+  <div class="buttons">
+    <a href="javascript:void(0)" class="btn btn-success btn-block" onclick="$('#mcover').show()">分享给朋友(圈)</a>
+  </div>
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block">一键关注</a>
+  </div>
+</div>
+<div id="Div17" class="panel-body js_result" data-id="9" style="display: none;">
+  <h1 class="bold text-danger">没到90分</h1>
+  <hr>
+  <dl>
+    <dt>详细分析:</dt>
+    <dd>
+      <p>你有重度抑郁症！属于高危人群，建议马上前往医生处咨询，其实生活没什么过不去的坎，要懂得放下，必要时需要在医生叮嘱下服药治疗！</p>
+    </dd>
+  </dl>
+  <div class="buttons">
+    <a href="javascript:void(0)" class="btn btn-success btn-block" onclick="$('#mcover').show()">分享给朋友(圈)</a>
+  </div>
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block">一键关注</a>
+  </div>
+</div>
+<div id="Div18" class="panel-body js_result" data-id="10" style="display: none;">
+  <h1 class="bold text-danger">哇噻，高分！</h1>
+  <hr>
+  <dl>
+    <dt>详细分析:</dt>
+    <dd>
+      <p>亲，如果你达到这个级别，病情已经很严重了，是重度抑郁症中的最高级，应当立即前往医生处就诊、咨询。</p>
+    </dd>
+  </dl>
+  <div class="buttons">
+    <a href="javascript:void(0)" class="btn btn-success btn-block" onclick="$('#mcover').show()">分享给朋友(圈)</a>
+  </div>
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block">一键关注</a>
+  </div>
+</div>
+</div>
+</div>
+
+
+
+
+<div id="mcover" onclick="$(this).hide()">
+  <img src="../../img/guide.png">
+</div>
+<div class="loads" style="display: bolck"><i></i></div>
+<script type="text/javascript" src="../../js/jquery-1.11.1.min.js"></script>
+<script src="../../js/zepto.min.js"></script>
+<script src="../..js/WeixinApi.min.js"></script>
+<script type="text/javascript">
+  // var audio = new Audio();
+  var total = '10';
+  var tScore = 0;
+  var scoreArr = new Array();
+  scoreArr[0] = 0;
+  scoreArr[1] = 10;
+  scoreArr[2] = 20;
+  scoreArr[3] = 30;
+  scoreArr[4] = 40;
+  scoreArr[5] = 50;
+  scoreArr[6] = 60;
+  scoreArr[7] = 70;
+  scoreArr[8] = 80;
+  scoreArr[9] = 90;
+  function next(t) {
+    //console.log(t);
+    $(".panel-body").hide();
+    var $_this = $(".js_answer").eq(t);
+    $_this.show();
+    var type = $_this.attr('data-type');
+    if (type == 2) {
+      // audio.src = $_this.find('audio').attr('src');
+      // audio.load();
+      // audio.play();
+      $('#sicon').html('<span class="glyphicon glyphicon-headphones"></span>');
+    }
+    else if (type == 1) {
+      // stop = true;
+      // audio.pause();
+      $('#sicon').html('<span class="glyphicon glyphicon-picture"></span>');
+    }
+    else {
+      // stop = true;
+      // audio.pause();
+      $('#sicon').html('<span class="glyphicon glyphicon-pencil"></span>');
+    }
+  }
+
+  function result(t) {
+    console.log("得分" + tScore);
+    $(".panel-body").hide();
+    for (var i = scoreArr.length - 1; i >= 0; i--) {
+      if (parseInt(t) >= parseInt(scoreArr[i])) {
+        console.log("应该弹" + i);
+        $(".js_result").eq(i).show();
+        $("#guangzhu").show();
+        if (i > (10 / 2)) {
+          $('#sicon').html('<span class="glyphicon glyphicon-thumbs-up"></span>');
+        }
+        else {
+          $('#sicon').html('<span class="glyphicon glyphicon-thumbs-down"></span>');
+        }
+        //$.get("/Fy/up/", {
+        //    wid: 6178,
+        //    id: 127,
+        //    score: tScore
+        //});
+        return false;
+      }
+      else {
+        continue;
+      }
+    };
+  }
+
+  function toggle(t) {
+    $(".list-group-item").removeClass('active')
+    var score = $(t).attr("data-score");
+    tScore = parseInt(tScore) + parseInt(score);
+    $(t).find('i').removeClass('glyphicon-unchecked').addClass('glyphicon-ok');
+    var t = $(".js_answer").index($(t).parents(".js_answer")) + 1;
+    //音乐播放beg
+    $('.btn').show();
+    $('.stop').hide();
+    //音乐播放end
+    if (t == total) {
+      result(tScore);
+    }
+    else {
+      setTimeout(function () { next(t); }, 300);
+    }
+  }
+  Zepto(function ($) {
+    $('.loads').hide();
+  })
+  WeixinApi.ready(function (Api) {
+    Api.showOptionMenu();
+    var wxData = {
+      "appId": "wx6987e3e535ea35fe",
+      "imgUrl": siteurl + '/ceshi/TestYYZ/bg.png',
+      "link": siteurl + '/ceshi/TestYYZ/',
+      "desc": '我刚参加了抑郁症测试，我的抑郁指数[n]分，你们也来测测吧',
+      "title": '我刚参加了抑郁症测试，我的抑郁指数[n]分，你们也来测测吧'
+    };
+    // 分享的回调
+    var wxCallbacks = {
+      // 分享操作开始之前
+      ready: function () {
+        wxData['title'] = wxData['title'].replace('[n]', tScore);
+        wxData['desc'] = wxData['desc'].replace('[n]', tScore);
+      },
+      // 分享被用户自动取消
+      cancel: function (resp) {
+        alert("别这样的啦，好东西要和朋友分享的嘛！分享后我告诉你一个秘密。");
+      },
+      // 分享失败了
+      fail: function (resp) {
+        alert("分享失败，可能是网络问题，一会儿再试试？");
+      },
+      // 分享成功
+      confirm: function (resp) {
+        onShareComplete();
+        //$.get("mobile.php?act=module&name=dialect&do=detail&weid=6", {id: "7",op:'share'});
+        //$.get("/Fy/up_share/", {
+        //    wid: 6178,
+        //    id: 127,
+        //    score: tScore
+        //});
+
+      },
+    };
+    Api.shareToFriend(wxData, wxCallbacks);
+    Api.shareToTimeline(wxData, wxCallbacks);
+    Api.shareToWeibo(wxData, wxCallbacks);
+  });
+
+  function onShareComplete() {
+    if (confirm("主人，别抛下我哦~关注我了解更多精彩的测试游戏~！")) {
+      gzh();
+    }
+  }
+</script>
+<script>
+  $("#content img").each(function () {
+    $(this).removeAttr('height');
+    if (($(this).width() + 20) > $('#content').innerWidth()) {
+
+      $(this).removeAttr('style').removeAttr('width');
+      $(this).removeAttr('style').attr('width', ($('#content').innerWidth() - 20));
+    } else {
+      $(this).removeAttr('style').attr('max-width', '100%');
+    }
+
+  });
+  $("#content2 img").each(function () {
+    $(this).removeAttr('height');
+    if (($(this).width() + 20) > $('#content2').innerWidth()) {
+
+      $(this).removeAttr('style').removeAttr('width');
+      $(this).removeAttr('style').attr('width', ($('#content2').innerWidth() - 20));
+    } else {
+      $(this).removeAttr('style').attr('max-width', '100%');
+    }
+
+  });
+</script>
+<script src="../../js/ad-pic.js"></script>
+</body>
+</html>

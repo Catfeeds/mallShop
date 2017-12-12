@@ -1,0 +1,98 @@
+<include file="Public:head"/>
+<!-- 页面内容 begin -->
+<?php echo $makeTopUrl;?>
+<include file="Public:wechatsManage"/>
+<!-- 微信自动回复设置 微信关键词回复-->
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>微信自动回复设置</h4></div>
+    <div class="mod-body WeChat-auto-reply-set">
+        <div class="content">
+            <div class="tab-box type-2">
+                <div class="hd">
+                    <ul>
+                        <li class="Areply"><h5>微信关注时回复</h5></li>
+                        <li class="Other"><h5>微信无匹配回复</h5></li>
+                        <li class="on"><h5>微信关键词回复</h5></li>
+                    </ul>
+                </div>
+                <div class="search-group clearfix">
+                    <a class="btn-small btn-purple fl" href="<?php echo U('Text/set',array('wechatid'=>$wechatid))?>"><b>+</b> 添加关键词</a>
+
+                    <div class="group fr select-input-search">
+                        <div class="input-box clearfix js-input-box">
+                            <div class="selector fl js-selector">
+                                <h6 class="item-selected js-item-selected"><span class="searchtype" data-searchval="<?php echo $searchval;?>"><?php if($searchval == '1'){echo '文字回复';}elseif($searchval == '2'){echo '图文回复';}elseif($searchval == '3'){echo '图片回复';}elseif($searchval == '4'){echo '语音回复';}elseif($searchval == '5'){echo '视频回复';}else{echo '全部';}?></span><i class="icon-arrow"></i>
+                                </h6>
+                                <ul>
+                                	<li value="">全部</li>
+                                    <li value="1">文字回复</li>
+                                    <li value="2">图文回复</li>
+                                    <li value="3">图片回复</li>
+                                    <li value="4">语音回复</li>
+                                    <li value="5">视频回复</li>
+                                </ul>
+                            </div>
+                            <input class="fl searchkeyword" type="text" value="<?php echo $searchkeyword;?>">
+                        </div>
+                        <button type="submit" class="btn btn-middle btn-purple" id="searchkey">查询</button>
+                    </div>
+                </div>
+            </div>
+            <table class="table type-1 w-auto mb-15">
+                <thead>
+	                <tr>
+	                    <th class="w400">触发关键词</th>
+	                    <th>回复类型</th>
+	                    <th>被触发次数</th>
+	                    <th>操作</th>
+	                </tr>
+                </thead>
+                <?php if($list){ ?>
+                <tbody>
+                	<?php foreach($list as $lKey=>$info){ ?>
+	                <tr>
+	                    <td><?php echo emoji_decode($info['keyword']);?></td>
+						<td><?php if($info['module'] == 'News'){echo '图文回复类';}elseif($info['module'] == 'Image'){echo '图片回复类';}elseif($info['module'] == 'Voice'){echo '音频回复类';}elseif($info['module'] == 'Video'){echo '视频回复类';}else{echo '文字回复类';}?></td>
+						<td><?php echo $info['clicknum'];?></td>
+	                    <td>
+	                        <a href="<?php echo U('Text/set',array('token'=>$info['token'],id=>$info['id'],'wechatid'=>$wechatid,'module'=>$info['module'])); ?>" class="tips">编辑</a>
+	                        <a href="javascript:void(0);" data-id="<?php echo $info['id'];?>" class="tips js-del-key">删除</a>
+	                    </td>
+	                </tr>
+	                <?php }?>
+                </tbody>
+                <?php }?>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+$(function(){
+	//搜索
+	$ ('#searchkey').click(function(){
+		var searchkeyword = $('.searchkeyword').val();
+		var searchtype = $('.searchtype').attr('data-searchval');
+    	window.location.href='<?php echo U("Keyword/lists",array("wechatid"=>$wechatid,"searchkeyword"=>"'+searchkeyword+'","searchtype"=>"'+searchtype+'"));?>';
+	});
+	/* 新建图文 */
+	$('.Other').click(function(){
+		window.location.href = "<?php echo U('Other/set',array('wechatid'=>$wechatid));?>";
+	});
+	/* 新建图文 */
+	$('.Areply').click(function(){
+		window.location.href = "<?php echo U('Areply/set',array('wechatid'=>$wechatid));?>";
+	});
+	$(".js-del-key").click(function(){
+		 var id = $(this).attr('data-id');
+		 $.post("<?php echo U('Keyword/Del',array('companyid'=>$companyid)).'&time='?>"+Math.random(),{id:id},function(data){
+ 			if(data.code == '200'){
+ 				alertTan(data.message);
+ 				window.location.reload();
+ 			}else if(data.code == '300'){
+ 				alertTan(data.message,'error');
+ 			}	
+ 		},'json');
+	    });
+});
+</script>
+<include file="Public:footer"/>

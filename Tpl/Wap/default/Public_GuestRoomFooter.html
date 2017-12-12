@@ -1,0 +1,63 @@
+<!-- 未选择商品 -->
+<div class="room-choice-goods-box guest-meal-tc" style="display: none;">
+    <div class="guest-meal-zt">
+        <!-- <img class="room-order-overtime-box-hide guest-close-icon" src="{lanrain::RES}/sjdd-img/guest-close.png"> -->
+        <div class="guest-popup-title">
+            <img src="{lanrain::RES}/sjdd-img/guest-wxts.png">
+        </div>
+        <p class="room-order-overtime-box-tips guest-prompt-p">您暂未选择任何商品，请选择后再下单<br/>You have not select any goods temporarily.</p>
+        <div class="guest-prompt-colse">
+            <button class="room-boox-hide">关闭</button>
+        </div>
+    </div>
+</div>
+<!-- 未在供应时间段 -->
+<div class="room-supply-time-box guest-meal-tc" style="display: none;">
+    <div class="guest-meal-zt">
+        <!-- <img class="room-order-overtime-box-hide guest-close-icon" src="{lanrain::RES}/sjdd-img/guest-close.png"> -->
+        <div class="guest-popup-title">
+            <img src="{lanrain::RES}/sjdd-img/guest-wxts.png">
+        </div>
+        <p class="room-order-overtime-box-tips guest-prompt-p">该商品不在供应时段，暂不能加入点单，请重新选择你所需的商品<br/>The product you select is not available in this period, please select other items.</p>
+        <div class="guest-prompt-colse">
+            <button class="room-boox-hide">关闭</button>
+        </div>
+    </div>
+</div>
+<script>
+$(function(){
+	// 未选择商品
+	$(document).on("click",'.room-choice-goods',function(){
+		$('.room-choice-goods-box').show();	
+	});
+	// 未在供应时间段
+	$(document).on("click",'.room-supply-time',function(){
+		$('.room-supply-time-box').show();	
+	});
+	// 关闭
+	$('.room-boox-hide').on("click",function(){
+		$('.room-supply-time-box').hide();
+		$('.room-choice-goods-box').hide();
+	});
+});
+</script>
+
+<script>
+    var height = $(window).height();
+    $("body").height(height);
+</script>
+<script type="text/javascript"  src="{lanrain::RES}/js/preventoverscroll.min.js"></script>
+<script type="text/javascript">
+var ua = navigator.userAgent.toLowerCase();	
+if (/iphone|ipad|ipod/.test(ua)) {
+	var u = navigator.userAgent;
+    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1;
+    var outer = (isAndroid?'wrapper': 'container' );
+    var list = [outer];
+    var prevent = new PreventOverScroll({
+        list: list
+    });
+}
+</script>
+</body>
+</html>

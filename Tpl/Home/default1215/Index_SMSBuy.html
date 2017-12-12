@@ -1,0 +1,183 @@
+<include file="Public:header" />
+<style type="text/css">
+	.common-header.header-default{border-bottom: 1px solid #e0e0e0}
+</style>
+	<div class="index-wrap wrap-default">
+		<div class="scrm5-buy-wrap">
+			<div class="inner">
+				<?php if(session('uid') == ''){ ?>
+				<div class="alert-cover">
+					<i class="icon-alert"></i>
+					<b>您尚未登录！</b>
+					<p>未登录状态不能正常购买！</p>
+					<a class="login-btn fr" href="<?php echo U('Index/login')?>">立即登录</a>
+				</div>
+				<?php } ?>
+				<ul class="choose-versions-cover">
+					<li class="clearfix">
+						<h5 class="tit">选择版本</h5>
+						<div class="con clearfix">
+							<div class="versions-box type2 js-versions-box on" data-money="9600">
+								<img src="./Tpl/Home/default1215/common/img/img_SMS.png" draggable="false">
+								<div class="con-inner">
+									<h4>SMS短信充值</h4>
+									<p>1000.00元</p>
+								</div>
+							</div>
+						</div>
+						<div class="count-cover">
+							<h5 class="tit">充值金额</h5>
+							<div class="con">
+								<ul class="add_sub">
+									<li class="icon_add" id="buynum_1_down"></li>
+									<li class="add_sub_numb" id="item_num">1000</li>
+									<li class="icon_sub" id="buynum_1_up"></li>
+								</ul>
+								<p class="sms_tips">＊SMS短信资费为0.08元/条 <br>&nbsp; 以1000元为单位充值。</p>
+							</div>
+						</div>
+					</li>
+					<li class="clearfix">
+						<h5 class="tit">收货信息</h5>
+						<div class="con">
+							<div class="clearfix">
+								<p class="info fl w320 mr50">公司名称：<?php echo $list['companyname'];?></p>
+								<p class="info fl w320">品牌名称：<?php echo $list['brandname']; ?></p>
+							</div>
+						</div>
+					</li>
+					<li class="clearfix">
+						<h5 class="tit">支付方式</h5>
+						<div class="con">
+							<label class="check-label"><input type="radio" name="paytype" value="1" checked="checked"><img src="./Tpl/Home/default1215/common/img/icon_WeChat.png"></i>微信支付</label>
+							<label class="check-label"><input type="radio" name="paytype" value="2"><img src="./Tpl/Home/default1215/common/img/icon_Ali.png"></i>支付宝支付</label>
+						</div>
+					</li>
+					<li class="clearfix">
+						<h5 class="tit">售后服务</h5>
+						<div class="con">
+							<ul class="disc info">
+								<li>下单后您的专属AE会同您取得联系，确认订单。</li>
+								<li>订单确认后，您可以在"SCRM5后台-增值-SMS短信管理"查看您的SMS短信余额。</li>
+								<li>短信充值后将会在1~2天后生效</li>
+							</ul>
+						</div>
+					</li>
+					<li class="clearfix">
+						<h5 class="tit">服务协议</h5>
+						<div class="con">
+							<ul class="disc info">
+								<li>支持通知类及营销类短信通服务（营销类短信受中国法律限制，每次发布前需通过国家内容审核）</li>
+								<li><label class="font_14"><input style="vertical-align:-1px" type="checkbox" name="isagree" value="1"> 我已阅读并同意<a class="color-blue js_clause_list">《人来风短信通道服务协议》</a></label></li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+				<div class="pay-now-cover">
+					<p>应付金额<span class="js-zmoney-asa"><span class="rd-pay-prize">1000</span>.00</span>元</p>
+					<!-- 判断如果登录就去掉 .unlogin -->
+					<a class="pay-now-btn <?php if(session('uid')){ echo 'rd-pay';}else{echo 'unlogin';}?>">立即支付</a>
+				</div>
+
+			</div>
+		</div>
+	</div>
+<script type="text/javascript">
+	$(function(){
+		var buyNum = $("#item_num").text();
+	    $("#buynum_1_down").click(function () {
+	        if (buyNum <= 1000) {
+	            return;
+	        }else{
+	        	buyNum = parseInt(buyNum) - 1000;
+	            $("#item_num").text(buyNum);
+	            //paySum = buyNum * 58;
+				//console.log(paySum);
+	            $(".rd-pay-prize").html(buyNum);
+	            $("#rd-should-pay").html(buyNum);
+	        }
+	    });
+	    $("#buynum_1_up").click(function () {
+	    	buyNum = parseInt(buyNum) + 1000;
+	        $("#item_num").text(buyNum);
+	        //paySum = buyNum * 58;
+			//console.log(paySum);
+	        $(".rd-pay-prize").html(buyNum);
+	        $("#rd-should-pay").html(buyNum);
+	    });
+		$(".rd-pay").click(function () {
+			var ordersum = $("#rd-should-pay").text();
+			//var ordersum='0.01';
+			var goodnum = $('#item_num').text();
+			if(goodnum < 1000){
+				alert('购买数量不能小于1000');
+        		return false;
+			}
+			var isagree = $('input[name="isagree"]:checked').val();
+			if(!isagree){
+				alert('请勾选是否同意协议');
+				return false;
+			}
+			var goodtype = 3; //短信充值
+			var paytype = $('input[name="paytype"]:checked').val();
+			if(paytype == 1){  // 微信支付
+	        	$(".loading").show();
+	            $.post("<?php echo U('Order/ajaxBuy'); ?>",{ordersum,ordersum,goodnum,goodnum,goodtype,goodtype,paytype:paytype,isagree:isagree},function (data) {
+	            	if (data.code == 200) {
+	                	$('.orderid').val(data.orderid);
+	                    $.post('./Payapi/Wxpay/payAct/OrderStone.php',{'orderid':data.orderid},function(datas){
+	                    if(datas.code == '200'){
+	                    	$(".loading").hide();
+	                    	if(datas.url.length>0){
+		                    	var urls = "<?php echo U('Order/getScanQRcode',array('url'=>'"+datas.url+"'));?>";
+		                        	$('.pay_WeChat').attr('src',urls);
+		                        	$('.tit').text('微信支付');
+		                        	$('.pay_WeChat_tips').attr("src",'./Tpl/Home/default1215/common/img/WeChat_tips.png');
+		                        	$('#popup_wechat_login').show();
+		                        	window.iCount = setInterval("OrderStatus()", 1000);   // 1秒刷新一次
+		                        	window.iQRcode = setInterval("OrderPayQRcode()", 120000);   // 2分钟刷新一次
+	                     		}else{
+	                     			alert('支付链接错误，请稍后重试');
+	                     		}
+	                     	}else{
+	                     		alert(datas.tips);
+	                        }
+	                    },"json");
+	                 } else {
+	                	$(".loading").hide();
+	                    alert(data.msg);
+	                }
+	            },'json');
+        	}else if(paytype == 2){  // 支付宝支付
+        		$(".loading").show();
+	            $.post("<?php echo U('Order/ajaxBuy'); ?>",{ordersum,ordersum,goodnum,goodnum,goodtype,goodtype,paytype:paytype,isagree:isagree},function (data) {
+	            	if (data.code == 200) {
+	                	$('.orderid').val(data.orderid);
+	                	$.post("<?php echo U('Order/ajaxAliPayQRcode');?>",{'orderid':data.orderid},function(datas){
+							if(datas.code == '200'){
+								$('.loading').hide();
+								var urls = "<?php echo U('Order/getScanQRcode',array('url'=>'"+datas.url+"'))?>";
+								$('.pay_WeChat').attr('src',urls);
+								$('.tit').text('支付宝支付');
+								$('.pay_WeChat_tips').attr("src",'./Tpl/Home/default1215/common/img/Ali_tips.png');
+	                        	$('#popup_wechat_login').show();
+	                        	window.iCount = setInterval("OrderStatus()", 1000);   // 1秒刷新一次
+				        		window.AliQRcode = setInterval("RefreshAliQRcode()", 120000);   // 2分钟刷新一次二维码
+							}else{
+								$('.loading').hide();
+								alert(datas.tips);
+				    		}
+						},"json");
+	                 } else {
+	                	$(".loading").hide();
+	                    alert(data.msg);
+	                }
+	            },'json');
+        	}else{
+        		alert('请选择支付方式');
+        	}
+		});
+	});
+</script>
+<include file="Public:payinfo" />
+<include file="Public:footer" />

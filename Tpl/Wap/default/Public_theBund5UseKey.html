@@ -1,0 +1,43 @@
+<!--使用钥匙弹窗-->
+<div class="tanchuan-1 tanchuan-sy" style="display: none">
+    <div class="tc-img1">
+        <img src="{lanrain::RES}/bundimg/tanchuan-5.jpg">
+        <div class="yaoshi-div1">
+            <img src="{lanrain::RES}/bundimg/yaoshi-1.png">
+            <span>× 1</span>
+        </div>
+        <div class="sfsy-div">
+            <div class="sfsy-ipt">
+                <img class="bt-1" src="{lanrain::RES}/bundimg/zz-sy.png">
+                <img class="bt-2" src="{lanrain::RES}/bundimg/zz-sh.png">
+                <!--<button class="bt-1">使用</button>
+                <button class="bt-2">稍后再说</button>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--获取钥匙弹窗-->
+<div class="tanchuan-1 tanchuan-hc" style="display: none;">
+    <div class="tc-img1">
+        <img src="{lanrain::RES}/bundimg/tanchuan-3.jpg">
+        <div class="hqys-div">
+            <div class="hqys-ipt">
+                <img class="hq-btn" src="{lanrain::RES}/bundimg/zz-hq.png">
+                <!--<button class="hq-btn">获取钥匙</button>-->
+            </div>
+        </div>
+        <img class="guanb-x" src="{lanrain::RES}/bundimg/xx.png">
+    </div>
+</div>
+<script>
+    var gbx=document.getElementsByClassName("guanb-x")[0];
+    gbx.onclick=function(){
+        hq.style.display="none";
+    }
+    var hqbtn=document.getElementsByClassName("hq-btn")[0];
+    var fxtc=document.getElementsByClassName("fxtc-gg")[0];
+    hqbtn.onclick=function(){
+        window.location.href="<?php echo U('TheBund5Activity/prizeuse',array('companyid'=>$companyid,'openid'=>'"+sessionStorage.openid+"'));?>";
+    }
+</script>

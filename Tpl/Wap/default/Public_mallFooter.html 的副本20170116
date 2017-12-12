@@ -1,0 +1,19 @@
+			<div class="eshopv_fotter_logo eshop_old_footer">
+				<include file="Public:navFooter" />
+			</div>
+			<?php if($isshow != 2){?>
+			<div class="eshopv_footer_menu">
+				<ul class="eshopv_footer_menul">
+					<li><a href="<?php echo $homeIndex['url'];?>"><i class="eshopv_footer_imga1 <?php if(!$setype){echo 'eshopv_footer_iactive';};?>"></i></a></li>
+					<li><a href="<?php echo U('MallNotices/customer',array('companyid'=>$companyid,'setype'=>'2'));?>"><i class="eshopv_footer_imga2 <?php if($setype == 2){echo 'eshopv_footer_iactive';}?>"></i><?php if($eshopServiceCount>0){ echo '<span class="eshopv_footer_imtip"></span>';};?></a></li>
+					<li><a href="<?php echo U('MallShoppingCart/index',array('companyid'=>$companyid,'setype'=>'3'));?>"><i class="eshopv_footer_imga3 <?php if($setype == 3){echo 'eshopv_footer_iactive';}?>"></i><?php if($shoppingcartgoodsnum>0){?><span class="eshopv_footer_imti2p"><?php echo $shoppingcartgoodsnum;?></span><?php }?></a></li>
+					<li><a href="<?php echo U('MemberMallOrder/index',array('companyid'=>$companyid,'setype'=>'4'));?>"><i class="eshopv_footer_imga4 <?php if($setype == 4){echo 'eshopv_footer_iactive';}?>"></i></a></li>
+				</ul>
+			</div>
+			<?php }?>
+			<div style="height: 50px;"></div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

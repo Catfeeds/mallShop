@@ -1,0 +1,71 @@
+@charset "utf-8";
+/* CSS Document */
+html, body{font: 12px/1.5 "Microsoft YaHei", Tahoma, Arial, Geneva, HELVETICA;color: #555;-webkit-text-size-adjust: none;}
+html, body{-webkit-text-size-adjust: none;}
+body, h1, h2, h3, h4, h5, h6, dl, dd, p, ul, ol, input, button, textarea, select, menu{margin: 0;font-weight: normal;}
+ul, ol, input, textarea, select, menu{padding: 0;}
+table{border-collapse: collapse;border-spacing: 0;}
+li{list-style-type: none;}
+em, i, var{font-style: normal;}
+h1{font-size: 20px;}
+h2, h3{font-size: 14px;}
+h4, h5, h6{font-size: 12px;}
+h1, h2, h3, h4, h5, h6{font-family: "Microsoft YaHei";color: #342D47;font-size: 14px;font-weight: bold;}
+input, textarea, select,img{outline: none;vertical-align: middle;}
+textarea{resize: none;}
+a img{border: 0;}
+header, nav, menu, article, aside, footer, section, footer, figure{display: block;}
+/*a:link*/
+a{color: #342D47;text-decoration: none;-webkit-tap-highlight-color:rgba(0,0,0,0);}
+a:hover, a:active, a:focus{text-decoration: none;}
+a:hover, a:active, a:focus{color: #DD4952;outline: none;}
+/*clearfloat*/
+.cf:before, .cf:after{content: "";display: table;}
+.cf:after{clear: both;}
+.cf{zoom: 1;}
+.clear{clear: both;height: 0;line-height: 0;overflow: hidden;visibility: hidden;font-size: 0;}
+/*float*/
+.fl, .fr{display: inline;}
+.fl{float: left;}
+.fr{float: right;}
+body{background-color: #EEE;-webkit-appearance:none;appearance:none;}
+.head{background:#241f31;padding: 5px 10px;}
+.head h2{padding: 4px 0;}
+.collect{background-color: #2db14b;border-radius: 3px;padding: 4px 10px 4px 25px;position: relative;}
+.collect:before{content: '+';display: block;position: absolute;top: 1px;left: 8px;color: #fff;font-size: 20px;}
+.collect p{line-height: 12px;color: #fff;font-size: 10px;}
+.collect p:last-child{font-size: 9px;line-height: 10px;}
+.nav-tabs {background-color: #FFF;border-bottom: 1px solid #dad3e7;display: -webkit-box;padding-top: 5px;}
+.nav-tabs > li {margin-bottom: -1px;-webkit-box-flex: 1;text-align: center;font-size: 14px;}
+.nav-tabs > li > a {color: #000;padding: 5px 15px;display: inline-block;}
+.nav-tabs > .active > a,
+.nav-tabs > .active > a:hover {color: #dd4952;background-color: #ffffff;border-bottom: 2px solid #dd4952;cursor: default;}
+.nav-tabs > li > a > p{line-height: 14px;}
+.nav-tabs > li > a > p:last-child{font-size: 12px;}
+/*.tab-content > .tab-pane{display: none;}
+.tab-content > .active{display: block;}*/
+.tab-pane .hd{line-height: 30px;font-size:14px;font-weight: normal;color: #999;padding: 10px;}
+.iq-test li{padding-left: 10px!important;}
+.game-section{}
+.game-list{background-color: #FFF;}
+.game-list li{padding: 10px 115px 10px 55px;height: 35px;position: relative;border-bottom: 1px solid #EEE;zoom: 1;z-index: 1;}
+.game-list li img{float: left;margin-left: -45px;width: 35px;height: 35px;}
+.game-list li .title{display:table;height: 35px;}
+.game-list li .title h3{font-weight: 100;vertical-align:middle;display:table-cell;font-size: 14px; font-family:"FontAwesome"}
+.game-list li .title .tag{margin-top: 8px;}
+.game-list li .title .tag span{border-radius: 10px;color: #fff;padding: 1px 3px;font-size: 9px;margin-left: 5px;/*background: url(../images/icons.png) no-repeat;background-size: 165px 20px;*/}
+.game-list li .title .hot{background-color: #FF9125;}
+.game-list li .title .new{background-color: #dd4952;}
+.game-list li a{display: inline-block;color: #dd4952;border-radius: 50px;border: 1px solid #dd4952;padding: 3px 15px;position: absolute;right: 10px;top: 11px;}
+.game-list li a p{line-height: 12px;}
+.game-list li a p:last-child{font-size: 9px;}
+
+.isStuck{left:0;width:100%;z-index: 99999;}
+
+.copyright{padding: 10px 0 60px;;line-height: 18px;/*max-width: 640px;*/margin: auto;}
+.copyright p{font-size: 12px;text-align: center;color: rgb(153, 153, 153);}
+.copyright p:last-child{margin-bottom: 0;}
+.copyright p a{color: #dd4952;}
+.ft-links{text-align: center;margin-bottom: 5px;}
+.ft-links li{display: inline-block;line-height: 14px;font-size:12px;margin: 0 10px;}
+.ft-links li a{color: #0A8CD2;display: block;text-align: center;}

@@ -1,0 +1,38 @@
+<include file="Public:head"/>
+<include file="Public:uploads"/>
+<link rel="stylesheet" type="text/css" href="{lanrain::STATICS}/SCRM5-PlugIn/html5file/css/jquery.filer.css">
+<script src="{lanrain::STATICS}/SCRM5-PlugIn/html5file/js/jquery.filer.min.js" type="text/javascript"></script>
+<script src="{lanrain::STATICS}/SCRM5-PlugIn/html5file/js/prettify.js" type="text/javascript"></script>
+<script src="{lanrain::STATICS}/SCRM5-PlugIn/html5file/js/scripts.js" type="text/javascript"></script>
+<script src="{lanrain::STATICS}/SCRM5-PlugIn/html5file/js/custom.js" type="text/javascript"></script>
+<?php echo $makeTopUrl;?>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>会员注册验证码</h4></div>
+    <form class="mod-body">
+        <ul class="content">
+            <li class="group pb-15">
+                <h6 class="inline w100">注册成功通知：</h6>
+                <div class="lcs_wrap"><input class="ios-btn" type="checkbox"><div class="lcs_switch  lcs_on lcs_checkbox_switch"><div class="lcs_cursor"></div><div class="lcs_label lcs_label_on">ON</div><div class="lcs_label lcs_label_off">OFF</div></div></div>
+            </li>
+            <li class="group pb-15">
+                <h6 class="inline w100">发送时间点：</h6>
+                <h6 class="inline">会员注册后立即发送</h6>
+            </li>
+            <li class="group">
+                <h6 class="inline w100 text-top">短信内容：</h6>
+                <textarea style="padding: 10px;font-size: 12px;" class="inline w250 no-resize" cols="30" rows="3" readonly="readonly">【品牌名称】<验证码> 为您的会员注册验证码，30分钟内有效。</textarea>
+            </li>
+        </ul>
+        <div class="group form-footer text-center">
+            <input class="btn-small btn-purple w100 js-sub-asa" type="button" value="保存">
+        </div>
+    </form>
+</div>
+<script>
+$(function(){
+	$(".js-sub-asa").click(function(){
+		alertTan("此功能暂时不可修改","warn");
+	})
+})
+</script>
+<include file="Public:footerV5" />

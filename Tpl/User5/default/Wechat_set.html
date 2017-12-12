@@ -1,0 +1,179 @@
+<include file="Public:head"/> 
+<include file="Public:upload"/>
+<div class="content">
+	<div class="cLineB"><h4>接入微信公众号</h4><label class="fr"><a href="javascript:history.go(-1);" class="btn btn-small btn-gray"><?php echo L('Back');?></a></label></div>
+	<div class="inner-content">
+		<div class="row-fluid">
+			<div class="span12">
+				<form class="addFrm form-horizontal widget-body form-asa" method="post" action="javascript:void(0)" enctype="multipart/form-data">
+					<input type="hidden" value="<?php echo $info['id']; ?>" name="id">
+					<div class="control-group">
+						<label class="control-label"><i class="red">*</i>公众号原始id：</label>
+						<div class="controls">
+							<input class="form-control span3" type="text" name="wxid" value="<?php echo $info['wxid']; ?>" tabindex="1" size="25" <?php if($info['wxid']){ echo 'disabled';} ?> >
+							<p class="help-block">提示：一经填写不可修改！请谨慎填写！请从您的微信公众号后台<a class="btn-link" href="https://mp.weixin.qq.com">https://mp.weixin.qq.com</a>
+								获取！<br />
+								请登录微信公众平台后台-“设置”-“公众号设置”-原始ID，将原始ID填入此栏。</p>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label"><i class="red">*</i><?php echo L('CTAcctType');?>：</label>
+						<div class="controls">
+							<label class="radio inline">
+								<input type="radio" name="wechattype" <?php if($info['wechattype'] == 1){ echo 'checked';} ?> value="1">
+								<?php echo L('CTSubscriptionAcct');?></label>
+							<label class="radio inline">
+								<input type="radio" name="wechattype" <?php if($info['wechattype'] == 2){ echo 'checked';} ?> value="2">
+								<?php echo L('CTOfficiallyRecognizedSubscriptionAcct');?></label>
+							<label class="radio inline">
+								<input type="radio" name="wechattype" <?php if($info['wechattype'] == 3){ echo 'checked';} ?> value="3">
+								<?php echo L('CTServiceAcct');?></label>
+							<label class="radio inline">
+								<input type="radio" name="wechattype" <?php if($info['wechattype'] == 4){ echo 'checked';} ?> value="4">
+								<?php echo L('CTOfficiallyRecognizedServiceAcct');?></label>
+							<p class="help-block">提示：请认真选择公众号类型，与实际类型相背的选择会严重影响到您的正常使用。</p>
+						</div>
+					</div>
+					<div id="appidarea">
+						<div class="control-group">
+							<label class="control-label"><i class="red">*</i>AppId：</label>
+							<div class="controls">
+								<input class="form-control span3" type="text" value="<?php echo $info['appid'];?>" data-rule-maxlength="18" name="appid" size="18">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label"><i class="red">*</i>AppSecret：</label>
+							<div class="controls">
+								<input class="form-control span3" type="text" value="<?php echo $info['appsecret'];?>" data-rule-maxlength="32" name="appsecret" size="32">
+								<p class="help-block">提示：登录您的微信公众平台<a href="https://mp.weixin.qq.com" class="btn-link" target="_blank">mp.weixin.qq.com</a>-”开发者中心“-开发者ID，将对应的2个值填入此栏。
+								</p>
+							</div>
+						</div>
+                        <div class="control-group">
+                            <label class="control-label"><i class="red">*</i>EncodingAESKey：</label>
+                            <div class="controls">
+                                <input class="form-control span3" type="text" value="<?php echo $info['encodingaeskey'];?>"
+                                       data-rule-maxlength="43" name="encodingaeskey" size="43">
+                                <p class="help-block">提示：登录您的微信公众平台<a href="https://mp.weixin.qq.com" class="btn-link" target="_blank">mp.weixin.qq.com</a>-”开发者中心“-服务器配置
+                                    ，将对应的EncodingAESKey值填入此栏 
+                                </p>
+                            </div>
+                        </div>
+					</div>
+					<div class="control-group">
+						<label class="control-label"><i class="red">*</i>微信号：</label>
+						<div class="controls">
+							<input class="form-control span3" type="text" data-rule-required="true" data-rule-minlength="2" data-rule-maxlength="20" value="<?php echo $info['weixin']; ?>" name="weixin" tabindex="1" size="25">
+							<p class="help-block">提示：登录您的微信公众平台<a href="https://mp.weixin.qq.com" class="btn-link" target="_blank">mp.weixin.qq.com</a>-"设置"-"公众号设置"-微信号，将对应的微信号填入此栏。</p>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label"><i class="red">*</i>公众号名称：</label>
+						<div class="controls">
+							<input class="form-control span3" type="text" data-rule-required="true" data-rule-minlength="2" data-rule-maxlength="30"  value="<?php echo $info['wxname']; ?>" name="wxname" tabindex="1" size="25">
+							<p class="help-block">提示：登录您的微信公众平台<a href="https://mp.weixin.qq.com" class="btn-link" target="_blank">mp.weixin.qq.com</a>-"设置"-"公众号设置"-名称，将对应的名称填入此栏。</p>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label"><i class="red">*</i>微信公众号头像：</label>
+						<div class="controls"> <img id="logoView" src="<?php echo $info['headerpic']; ?>" width="80" height="80" />
+							<input type="hidden" class="form-control" id="pic" name="headerpic" value="<?php echo $info['headerpic']; ?>"  data-rule-required="true">
+							<button id="upload" type="button" class="btn btn-small btn-gray"><?php echo L('SelectImgBtn');?></button>
+							<p class="help-block">提示：头像尺寸80像素*80像素，图片文件小于100k。</p>
+						</div>
+					</div>
+					<div class="form-actions">
+						<button type="button" class="btn btn-primary sub-asa"><?php echo L('Save');?></button>
+						<div class="alert alert-info mt10"><a class="close" data-dismiss="alert">×</a><span class="alert-icons"></span><p>保存成功后，返回上一级“API接入管理”，将“开发者凭据”中的URL及token2个值填入微信公众平台<a href="https://mp.weixin.qq.com" class="btn-link" target="_blank">mp.weixin.qq.com</a>-“开发者中心”-“服务器配置”-“修改配置”<br/>
+						1、将对应的2个值填入，<br/>
+						2、“EncodingAESKey”点击“随机生成”，<br/>
+						3、“消息加解密方式”-选择“明文模式”，<br/>
+						4、启用 （大功告成）</p>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+$(function(){
+	$(".sub-asa").click(function(){
+		$('.loading').show();
+		$.post("<?php echo U('Wechat/set'); ?>",{
+				id:$("input[name='id']").val(),
+				wxid:$("input[name='wxid']").val(),
+				appid:$("input[name='appid']").val(),
+				appsecret:$("input[name='appsecret']").val(),
+				encodingaeskey:$("input[name='encodingaeskey']").val(),
+				weixin:$("input[name='weixin']").val(),
+				wxname:$("input[name='wxname']").val(),
+				headerpic:$("input[name='headerpic']").val(),
+				wechattype:$("input[type='radio']:checked").val()
+			},function(data){
+				$('.loading').hide();
+				if(data.code=200||data.code==400){
+					alertTan(data.msg);
+					setTimeout("window.location.href='<?php echo U('Wechat/lists'); ?>'",1500);
+				}else{
+					alertTan(data.msg,'error');
+				}
+		},'json');
+	})
+	
+})
+</script>
+
+
+
+<!--底部--> 
+<script type="text/javascript">
+$(function(){
+	/* $("form").validate(); */
+	<?php if ($info['wechattype'] == 1 ){?>
+		$('#appidarea').hide();
+	<?php }else if($info['wechattype'] == 0){ ?>
+		$("input[type='radio']:eq(0)").attr('checked',true);
+		$('#appidarea').hide();
+	<?php }　?>
+	$('input[name="wechattype"]').click(function(){
+		var wechattype = $(this).val();
+		if (wechattype == 2 || wechattype == 3 || wechattype == 4) {
+			$('#appidarea').show();
+			//$('input[name="appid"]').attr('data-rule-required','true');
+			//$('input[name="appsecret"]').attr('data-rule-required','true');
+		}else{
+			$('#appidarea').hide();
+			$('input[name="appid"]').attr('data-rule-required','');
+			$('input[name="appid"]').val('');
+			$('input[name="appsecret"]').attr('data-rule-required','');
+			$('input[name="appsecret"]').val('');
+		}
+	});
+});
+
+KindEditor.ready(function (K) {
+    var editor = K.editor({
+        themeType: "simple",
+        allowFileManager: true
+    });
+    K('#upload').click(function () {
+        editor.loadPlugin('smimage', function () {
+            editor.plugin.imageDialog({
+                imageUrl: K('#pic').val(),
+                clickFn: function (url, title, width, height, border, align) {
+                    K('#pic').val('<?php echo C('site_url');?>'+url);
+                    if (K('#logoView')) {
+                        K('#pic').hide();
+                        K('#logoView').attr('src', '<?php echo C('site_url');?>'+url);
+                        K('#logoView').show();
+                    }
+                    editor.hideDialog();
+                }
+            });
+        });
+    });
+});
+
+</script> 
+<include file="Public:footer"/> 

@@ -1,0 +1,121 @@
+<include file="Public:memberCenterHeader"/>
+<include file="Public:memberMallhead"/>
+<style>
+.eshopv_ordera_btnm {
+    bottom: 50px;
+}
+.content-pdbt {
+    padding-bottom: 130px;
+    padding-top: 0px;
+}
+</style>
+<section class="app-content">
+<?php if($info['orderstatus'] == 1 && $info['orderpaymethod'] == 5){ ?>
+   <section class="body-gray">
+    <article class="order-data">
+      <div class="hd">
+        <h3><strong>您的订单已生成!</strong></h3>
+        <?php if($info['mallorderautoset']){ ?>
+        <p>本商品订单<?php echo $info['mallorderautoset']; ?>小时内未成功支付将自动取消，</p>
+        <?php } ?>
+        <p class="mb10">请尽快完成支付。</p>
+        <p class="mb10 red">目前账户剩余积分为<?php echo $info['totalintegration']; ?>分。</p>
+        <p>Your order has been generated!</p>
+         <?php if($info['mallorderautoset']){ ?>
+        <p class="english">If payment is not made within <?php echo $info['mallorderautoset']; ?> hours the order will automatically cancel,</p>
+        <?php } ?>
+        <p class="english">please complete payment as soon as possible.</p>
+      </div>
+      <div class="bd">
+        <p>订单状态 Order status：<strong class="red">待付款</strong></p>
+        <p>订单号 Order no.：<?php echo $info['orderid']; ?></p>
+        <p>下单时间 Order time：<?php echo format_time($info['createtime'],'ymdhis'); ?></p>
+      </div>
+    </article>
+    <section class="form-cent">
+      <ul>
+        <li><button type="button" class="btn btn-primary order-pay-button" data-paytype="5" data-id="<?php echo $info['id']; ?>">积分支付 <i class="english">Points pay</i></button></li>
+        <li><a href="<?php echo U('MemberMallOrder/index',array('companyid'=>$companyid));?>" class="btn btn-blue">稍后支付 <i class="english">Pay later</i></a></li>
+      </ul>
+    </section>
+  </section>
+  <?php if($info['goodslist']){?>
+  <section class="order-goods">
+    <ul>
+    <?php foreach ($info['goodslist'] as $gkey=>$gVal){?>
+      <li>
+        <h3 class="title"><?php echo $gVal['goodname'];?></h3>
+        <p class="quantity"><span class="c2">×<?php echo $gVal['goodnum'];?></span> <strong class="red"><?php if($gVal['pricetype']==1){ echo '￥'.$gVal['goodprice'];}elseif ($gVal['pricetype']==2){ echo $gVal['goodint'].'积分';}?></strong></p>
+      </li>
+    <?php }?>
+    </ul>
+    <p class="out-of-pocket">实付 <i class="english c2">Total：</i><strong class="red">￥<?php echo $info['orderprice'];?>+<?php echo $info['orderint'];?>积分</strong></p>
+  </section>
+  <?php } ?>
+<?php }elseif(($info['orderstatus'] == 2 || $info['orderstatus'] == 6)&& $info['orderpaymethod'] == 5){ ?>
+<div class="eshop-content  content-pdbt">
+	<div class="eshopv_ordera">
+		<label class="eshopv_orderlbr"><input type="checkbox" value="" checked="checked"/></label>
+		<div class="eshopv_ordernm">
+			<span>兑换成功</span>
+		</div>
+		<p class="f14 mb5">您的积分已被扣除</p>
+	</div>
+	<div class="eshopv_ordera_bxo">
+		<ul class="eshopv_ordera_bxoul">
+	    	<li><label>订单状态：</label><?php if($info['orderstatus'] == 2){ echo '待发货';}elseif ($info['orderstatus'] == 6){ echo '电子券已发送';}?></li>
+	        <li><label>订单编号：</label><?php echo $info['orderid'];?></li>
+	        <?php if ($info['borderid']){?>
+	        <li><label>交易编号：</label><?php echo $info['borderid'];?></li>
+	        <?php } ?>
+	        <li><label>下单时间：</label><?php echo date('Y-m-d H:i:s',$info['createtime']);?></li>
+	        <li><label>付款时间：</label><?php echo date('Y-m-d H:i:s',$info['paytime']);?></li>
+	     </ul>
+	</div>
+	<div class="eshopv_spdetail_standard">
+		<a class="eshopv_spdetail_standp" href="<?php echo U('MemberMallOrder/index',array('companyid'=>$companyid));?>">我的订单</a>
+	</div>
+	<div class="eshopv_ordera_btnm">
+		<a class="eshopv_ordera_btnp" href="<?php echo $homeIndex['url'];?>">返回首页</a>
+	</div>
+</div>
+<?php } ?>
+</section> 
+<script>
+$('.order-pay-button').click(function(){
+	var id = $(this).attr('data-id');
+	if(!id || id < 1){
+		alert('对不起，订单编号有误');
+		return false;
+	}
+	var paytype = $(this).attr('data-paytype');
+	if(!paytype || paytype > 6 || paytype < 1){
+		alert('对不起，订单支付类型有误');
+		return false;
+	}
+	$('.loading').show();
+	$.post("<?php echo U('MemberMallOrder/ajaxPayOrder',array('companyid'=>$companyid)).'&time=';?>"+Math.random(),{paytype:paytype,id:id},function(data){
+		  if(data['code'] == 200){
+	        //alert('支付成功',2000);
+	        window.location.href="<?php echo C('site_url').U('MemberMallOrder/orderPay',array('companyid'=>$companyid));?>&id="+data.id;
+	      }else if(data['code'] == 201){
+	    	$('.loading').hide(); 
+	        alert('恭喜您，订单已支付成功',2000);
+	      }else if(data['code'] == 303){
+	    	$('.loading').hide(); 
+	        alert('对不起，您的积分不足',2000);
+	      }else if(data['code'] == 300){
+	    	$('.loading').hide(); 
+	        alert('对不起，网络异常请稍后重试',2000);
+	      }
+	    },"json");
+});
+</script>
+<include file="Public:weiXinNotShareSet" />
+<include file="Public:loading"/>
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F4e9f0b9e0dafddcb1d8ae2528867b1f3' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>

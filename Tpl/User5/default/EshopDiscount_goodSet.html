@@ -1,0 +1,93 @@
+<include file="Public:head"/>
+<include file="Public:upload"/>
+<?php echo $makeTopUrl;?>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>编辑整单优惠活动</h4></div>
+    <div class="mod-body">
+        <div class="content">
+            <div class="group">
+                <h6 class="inline">选择类型：</h6>
+                <label class="radio inline"><input type="radio" name="isopen" value="1" <?php if($info['isopen'] == 1){ echo 'checked="checked"';};?>>全部商品参与</label> &nbsp; &nbsp;
+                <label class="radio inline"><input type="radio" name="isopen" value="2" <?php if($info['isopen'] == 2){ echo 'checked="checked"';};?>>禁止商品参与</label> &nbsp; &nbsp;
+                <label class="radio inline"><input type="radio" name="isopen" value="3" <?php if($info['isopen'] == 3){ echo 'checked="checked"';};?>>仅限商品参与</label>
+            </div>
+        </div>
+        <div class="inner-header clearfix">
+            <h5 class="fl">禁止以下商品参与当前整单优惠活动</h5>
+        </div>
+        <div class="content">
+            <div class="group pb-10 file-lx-ipt">
+            	<input type="file" class="js-demo-fileInput-file" name="files[]" multiple="multiple">
+            </div>
+            <div class="group" data-type="1">
+                <form class="bs-docs-example form-inline">
+                    <textarea class="text-width-100" name="codingno" id="coding" rows="3"><?php echo $info['codingno'];?></textarea>
+                </form>
+            </div>
+        </div>
+        <div class="inner-header clearfix">
+            <h5 class="fl">仅限以下商品参与当前整单优惠活动</h5>
+        </div>
+        <div class="content">
+            <div class="group pb-10 file-lx-ipt">
+                <input type="file" class="js-demo-fileInput-file" name="files[]" multiple="multiple">
+            </div>
+            <div class="group" data-type="2">
+                <form class="bs-docs-example form-inline">
+                    <textarea class="text-width-100" name="codingok" id="coding2" rows="3"><?php echo $info['codingok'];?></textarea>
+                </form>
+            </div>
+        </div>
+        <div class="Wechat-msg-bottom text-center">
+            <a href="<?php echo U('EshopDiscount/set',array('id'=>$info['id']));?>" class="btn-middle btn-white">上一步</a> &nbsp; &nbsp; &nbsp;
+            <a class="btn-middle btn-white DiscouEdit">保 &nbsp;&nbsp; 存</a>
+        </div>
+    </div>
+</div>
+<script>
+$(function(){
+	//---------- 保存 --------------------
+    $('.DiscouEdit').click(function(){
+    	$(".loading").show();
+    	var id = "<?php echo $info['id'];?>";
+        var isopen = $('input[name=isopen]:checked').val();
+        var codingno = $('[name=codingno]').val();
+        var codingok = $('[name=codingok]').val();
+        $.post("<?php echo U('EshopDiscount/goodSet').'&time=';?>"+Math.random(),{id:id,isopen:isopen,codingno:codingno,codingok:codingok},function(data){
+        	$(".loading").hide();
+        	alertTan(data.tips,data.code);
+           	if(data.code == 'success'){
+				setTimeout('window.location.href="<?php echo U('EshopDiscount/index');?>"',2000);
+            }
+        },"json");
+    });
+	//---------- 下载模板 --------------------
+	$(document).on('click','.excel-export-button',function(){
+		window.location.href="<?php echo U('EshopDiscount/dowlondExcel');?>";
+	});
+	//---------- 导入数据 --------------------
+	$(document).on('click','.excel-import-in-button',function(){
+		var $this = $(this).prev().prev();
+		var file = $this.attr('data-url');
+		var type = $(this).parents().next().attr('data-type');
+		if(file){
+			$.post("<?php echo U('EshopDiscount/importGoods').'&time=';?>"+Math.random(),{file:file},function(data){
+				alertTan(data.tips,data.code);
+				if(data.code == 'success'){
+					if(type == 1){
+						$('#coding').text(data.spdm);
+					}else{
+						$('#coding2').text(data.spdm);
+					}
+					$('.js-demo-fileInput-file').attr('data-url','');
+				}
+			},"json");
+		}else{
+			alertTan('请上传需要导入的csv','warn');
+		}
+	});
+	//---------- 导入数据按钮 --------------------\\
+	$('.jFiler-theme-dragdropbox').append(' <a class="btn-small btn-white excel-import-in-button">导入csv</a> <a class="excel-export-button tips"> 下载商品导入模板</a>');
+});
+</script>
+<include file="Public:footer"/>

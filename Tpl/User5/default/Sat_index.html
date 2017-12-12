@@ -1,0 +1,222 @@
+<ul class="sat-tips-wrap">
+	<li class="sat-tips item-1"><a class="js-sat-tips-1" href="<?php echo U('Sat/list')?>" target="_blank"><i class="icon-sat-tips"></i>满意调查<i class="icon-sat-arrows"></i></a></li>
+	<li class="sat-tips item-2"><a class="js-sat-tips-2" href="javascript:void(0);"><i class="icon-sat-tips"></i>服务评价<i class="icon-sat-arrows"></i></a></li>
+	<li class="sat-tips item-3"><a class="js-sat-tips-3" href="javascript:void(0);"><i class="icon-sat-tips"></i>BUG反馈<i class="icon-sat-arrows"></i></a></li>
+	<li class="sat-tips-border"></li>
+</ul>
+<!-- 服务评价弹窗 -->
+<div class="popup-wrap js-service-appraise" style="display: none;">
+    <div class="mod bigger-popup">
+        <div class="mod-header"><h4 class="fl">联系人来风</h4><i class="fr icon-close-dark js-icon-close"></i></div>
+        <div class="mod-body">
+            <div class="sat-content clearfix">
+                <ul class="size1of2 fl borderbox service-appraise-l">
+                	<li class="pb-15" style="line-height: 1"><h6 class="inline mr-20">有问题联系AE执行</h6><a class="btn-small btn-white" href="javascript:void(0);">了解AE职责？</a></li>
+                	<li class="pb-15">
+                	<input type="hidden" name="aeuser" value="<?php echo $list_sat['aeuser']; ?>"/>
+                	<?php if($list_sat['aeuser'] && $list_sat['aeuser']!='未分配'){ ?>
+	                	<h2 class="inline text-purple mr-20"><?php echo $list_sat['aeuser']; ?></h2><i class="icon-sat-tel"></i>
+	                	<h3 class="inline"><?php echo $aemobile; ?></h3>
+	                <?php }else{ ?>
+	                	<h2 class="inline text-purple mr-20">暂未分配AE</h2>
+	                	<h3 class="inline">您可以致电<?php echo C('servicenumber'); ?>催促分配</h3>
+	                <?php }?>
+                	</li>
+                	<li class="pb-15"><h6 class="inline">AE服务评价：您的评价不会以任何方式公开给您的业务人员。<br>您的客观评价是我们持续改进服务的动力。</h6></li>
+                	<li class="pb-15">
+                		<label class="radio inline mr-10"><input type="radio" name="mark" value="3">好评，服务周到</label>
+                		<label class="radio inline mr-10"><input type="radio" name="mark" value="1">一般，基本合格</label>
+                		<label class="radio inline mr-10"><input type="radio" name="mark" value="0">差评</label>
+            		</li>
+            		<li><textarea class="w300 no-resize" name="remark" rows="4" placeholder="写下对该业务人员的评价吧！"></textarea></li>
+                </ul>
+                <ul class="size1of2 fl borderbox service-appraise-r">
+                	<li class="pb-15"><h6 class="inline mr-20">联系AM客户经理</h6></li>
+                	<li class="pb-15">
+             		<input type="hidden" name="amuser" value="<?php echo $list_sat['amuser']; ?>"/>
+               		<?php if($list_sat['amuser'] && $list_sat['amuser']!='未分配'){ ?>
+               			<h2 class="inline text-purple mr-20"><?php echo $list_sat['amuser']; ?></h2><i class="icon-sat-tel"></i>
+            			<h3 class="inline"><?php echo $ammobile; ?></h3>
+            		<?php }else{ ?>
+            			<h2 class="inline text-purple mr-20">暂未分配AM</h2>
+            			<h3 class="inline">您可以致电<?php echo C('servicenumber'); ?>催促分配</h3>
+            		<?php }?>
+                	</li>
+                	<li class="pb-15"><h6 class="inline">AM服务评价：您的评价不会以任何方式公开给您的业务人员。<br>您的客观评价是我们持续改进服务的动力。</h6></li>
+                	<li class="pb-15">
+                		<label class="radio inline mr-10"><input type="radio" name="mark1" value="3">好评，服务周到</label>
+                		<label class="radio inline mr-10"><input type="radio" name="mark1" value="1">一般，基本合格</label>
+                		<label class="radio inline mr-10"><input type="radio" name="mark1" value="0">差评</label>
+            		</li>
+            		<li><textarea class="w300 no-resize" name="remark1" rows="4" placeholder="写下对该业务人员的评价吧！"></textarea></li>
+                </ul>
+                <h5 class="clear ml-30 pb-10">业务咨询：<?php echo C('servicenumber'); ?> （服务时间： 法定工作日9:00-18:00）</h5>
+                <h5 class="clear ml-30 pb-15">客诉邮箱：fg@mobiwind.cn （这是我家CEO的邮箱，已绑定他的手机，如发送邮件1秒就能看到）</h5>
+            </div>
+
+            <div class="group form-footer text-center">
+                <input class="btn-middle btn-purple pointer w100 dunn-sub-serve" type="submit" value="提交评价">
+                <input class="btn-middle btn-white pointer w100 ml-80 js-icon-close" type="reset" value="取 消">
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    	$(".js-sat-tips-2").click(function(){
+    		$("input[name='mark']:checked").prop(false)
+    		$(".js-service-appraise").fadeIn(120);
+    	});
+    	$(".dunn-sub-serve").click(function () {
+            var aeuser = $("input[name='aeuser']").val();
+            var mark = $("input[name='mark']:checked").val();
+            var remark = $("textarea[name='remark']").val();
+            var amuser = $("input[name='amuser']").val();
+            var mark1 = $("input[name='mark1']:checked").val();
+            var remark1 = $("textarea[name='remark1']").val();
+            if(aeuser == false || aeuser == '未分配' || amuser == false || amuser == '未分配'){
+	            if (aeuser == false || aeuser == '未分配') {
+	            	alertTan('暂未分配AE','warn');
+	            	return false;
+	            }
+	            if(amuser == false || amuser == '未分配'){
+	            	alertTan('暂未分配AM','warn');
+	            	return false;
+	            }
+            }else{
+                if (mark == null) {
+                    alertTan('请选择您对AE的满意度','warn');
+                    return false;
+                }
+                if (mark1 == null) {
+                	alertTan('请选择您对AM的满意度','warn');
+                    return false;
+                }
+            }
+            $('.loading').show();
+            $.post("<?php echo U('Sat/ajaxServe',array('companyid'=>$companyid)) ?>", {
+                'aeuser': aeuser,
+                'mark': mark,
+                'remark': remark,
+                'amuser': amuser,
+                'mark1': mark1,
+                'remark1': remark1
+            }, function (data) {
+            	$('.loading').hide();
+                if (data.code == 200) {
+                    alertTan(data.msg);
+                    setTimeout("$('.js-service-appraise').fadeOut(120);",1500);
+                } else {
+                    alertTan(data.msg,'error');
+                }
+            }, 'json');
+        });
+    </script>
+</div>
+
+<!-- BUG反馈弹窗 -->
+<div class="popup-wrap js-bug-feedback" style="display: none;">
+    <div class="mod bigger-popup">
+        <div class="mod-header"><h4 class="fl">BUG反馈</h4><i class="fr icon-close-dark js-icon-close"></i></div>
+        <div class="mod-body">
+            <ul class="content">
+                <li class="pb-15"><h5 class="inline">请留下宝贵的建议，以帮助我们做的更好：</h5></li>
+                <li class="pb-15"><textarea class="borderbox w-auto no-resize message" rows="5" placeholder="请简要描述您遇到的问题，我们会尽快为您解决（最少5个字）"></textarea></li>
+                <li class="group slide-img-group js-slide-img-group-only" style="border: 0;padding: 0;">
+                    <input type="file" name="files[]" class="js-add-img-asa3" data-type="img-asa6" multiple="multiple">
+                    <h6 class="text-gray">*上传图片，最多上传3张</h6>
+                </li>
+            </ul>
+            <div class="group form-footer text-center">
+                <input class="btn-middle btn-purple pointer w100 dunn-sub-back" type="submit" value="提 交">
+            </div>
+        </div>
+    </div>
+    <script src="{lanrain::RES}/js/json2.js"></script>
+    <script type="text/javascript">
+    	$(".js-sat-tips-3").click(function(){
+    		$(".js-bug-feedback").fadeIn(120);
+    	})
+    	    // 点击上传幻灯片图片
+	    $(function(){
+	        $('.js-add-img-asa3').filer({
+	    		limit: 40,
+	    		maxSize: 3,  //文件大小
+	            extensions: ['bmp','png','jpeg','jpg','gif'],   //限制类型
+	    		changeInput: ' <i class="uploading WeiPage2-img-add" style="height: 102px;width: 102px;"></i> ',   //绑定上传样式
+	    		showThumbs: false,    //是否显示templates
+	    		theme: "dragdropbox",
+	    		templates: filer_default_opts.templates,
+	    		dragDrop: filer_default_opts.dragDrop,
+	    		uploadFile: {
+	    			url: "./Tpl/static/SCRM5-PlugIn/html5file/php/upload.php",
+	    			data: null,
+	    			type: 'POST',
+	    			enctype: 'multipart/form-data',
+	    			beforeSend: function(){},
+	    			success: function(data, el){
+	    				var files = JSON.parse(data);
+	    				if(files['error']){
+	    					$('.jFiler-items').delay(1000).hide(0);
+	    					alertTan(files['error'],'error',3000);
+	    				}else{
+	    					//获取链接
+	    					var url = files.files;
+	    					var imgLen = $(".js-slide-img-group-only").find("i.uploading").length;
+   				      		$(".js-add-img-asa3").before('<i class="uploading slideinfo js-to-move-cover js-remove-slideinfo" data-img="'+"{lanrain::C('site_url')}"+url+'" style="background:url('+"{lanrain::C('site_url')}"+url+');background-size:98px 98px;"> <ul class="edit-group-wrap clearfix js-edit-group-wrap"> <li><i class="icon-edit to-left js-to-left js-up"></i> </li> <li><i class="icon-edit to-right js-to-right js-down"></i> </li> <li><i class="icon-edit be-remove js-be-remove"></i> </li> </ul> </i> ');
+   				      		$(".js-add-img-asa3").prev().addClass("on").siblings().removeClass("on");
+    				      	if (imgLen < 3) {
+    				        } else if (imgLen == 3) {
+    				        	$(".WeiPage2-img-add").hide();
+    				        }
+	    				}
+	    			},
+	    		},
+	    	});
+	    });
+    // 幻灯片删除图片
+    $(document).on("click", ".js-be-remove", function () {
+        $(this).parents(".uploading").remove();
+        var imgLen = $(".js-slide-img-group-only").find("i.uploading").length;
+      	if (imgLen <= 3) {
+      		$(".WeiPage2-img-add").show();
+        } else {
+        	$(".WeiPage2-img-add").hide();
+        }
+        $(".js-slide-img-group i.uploading.js-WeiPage-img-add").show();
+    });
+    $(document).on('click','.js-remove-slideinfo',function(){
+    	$(this).addClass('on');
+    	$(this).children().show();
+    	$(this).siblings('.js-remove-slideinfo').removeClass('on');
+    	$(this).siblings('.js-remove-slideinfo').children().hide();
+    });
+    $('.dunn-sub-back').on("click", function () {
+        var message = $('.message').val();
+        var url = "<?php echo 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']; ?>";
+        if (message.length >= 5 && message.length <= 1000 && url.length > 0) {
+        	var imgSrc={};
+            $('.js-to-move-cover').each(function(index){
+            	imgSrc[index] = $(this).attr('data-img');
+            });
+            $('.loading').show();
+            $.post("<?php echo U('Sat/ajaxBack',array('companyid'=>$companyid));?>" + Math.random(), {
+                'message': message,
+                'url': url,
+                'imgSrc': JSON.stringify(imgSrc)
+            }, function (data) {
+            	$('.loading').hide();
+                if (data.code == 200) {
+                    alertTan(data.tips);
+                    $('.message').val('');
+                    $('.js-remove-slideinfo').remove();
+                    $(".WeiPage2-img-add").show();
+                    setTimeout("$('.js-bug-feedback').fadeOut(120);",1500);
+                } else {
+                    alertTan(data.tips,'error');
+                }
+            }, "json");
+        } else {
+            alertTan('您的建议不符合提交条件','warn');
+        }
+    });
+    </script>
+</div>

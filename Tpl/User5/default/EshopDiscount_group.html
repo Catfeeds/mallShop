@@ -1,0 +1,133 @@
+<include file="Public:head"/>
+<!--eshop活动-拼团活动 2016-10-10 19:00-->
+<?php echo $makeTopUrl;?>
+<div class="group inline-btn-group mb-10">
+	<a class="btn-small btn-white" href="<?php echo U('EshopDiscount/index');?>">整单优惠活动</a>
+	<a class="btn-small btn-purple" href="<?php echo U('EshopDiscount/group');?>">拼团活动</a>
+</div>
+<div class="group clearfix pb-10">
+    <a class="btn-small btn-purple" href="<?php echo U('EshopDiscount/groupSet');?>">创建拼团活动</a>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>拼团活动管理</h4></div>
+    <div class="mod-body mb-15 WeChat-auto-reply-set">
+        <table class="table type-1 w-auto">
+            <thead>
+            <tr>
+                <th>商品名称</th>
+                <th>开始时间</th>
+                <th>结束时间</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <?php if($list){?>
+            <tbody>
+            	<?php foreach($list as $key=>$val){?>
+	            <tr>
+	                <td><?php echo $val['title'];?></td>
+	                <td><?php echo format_time($val['starttime'],'ymdhis');?></td>
+	                <td><?php echo format_time($val['endtime'],'ymdhis');?></td>
+	                <td><?php if($val['status'] == 1){echo '未开始';}elseif($val['status'] == 2){ echo '进行中';}elseif($val['status'] == 3){ echo '已结束';}elseif($val['status'] == 4){ echo '已终止';}?></td>
+	                <td>
+	                	<a href="<?php echo U('EshopDiscount/groupSet',array('id'=>$val['id']));?>" class="tips"><?php if($val['status'] == 1 || $val['status'] == 2){echo '编辑';}else{echo '查看详情';}?></a>
+                    	<a class="tips QR-code-cover js-QR-code-hide" href="javascript:void(0);">手机预览
+                        <div class="QR-code-box-down">
+                            <img data-src="<?php echo U('EshopDiscount/erweima',array('link'=>base64_encode(C('site_url').U('Wap/MallGoods/goodInfo',array('companyid'=>$companyid,'id'=>$val['goodid'])))));?>">
+                            <h6>微信扫码<br>关注人来风</h6>
+                            <span id="triangle-up-b"></span>
+                            <span id="triangle-up-a"></span>
+                        </div>
+	                    </a>
+	                    <a href="javascript:void(0);" class="tips js-clip-btn" data-url="<?php echo C('site_url').U('Wap/MallGoods/goodInfo',array('companyid'=>$companyid,'id'=>$val['goodid']));?>">复制链接</a>
+	                    <?php if($val['status'] == 2){?>
+	                    <a href="javascript:void(0);" class="tips js-shutDownButton" data-id="<?php echo $val['id'];?>">终止活动</a>
+	                    <?php }else{?>
+	                    <a href="javascript:void(0);" class="tips js-delButton" data-id="<?php echo $val['id'];?>">删除</a>
+	                    <?php }?>
+	                </td>
+	            </tr>
+	            <?php }?>
+            </tbody>
+            <?php }?>
+        </table>
+        <?php if($page){?>
+        <div class="group form-footer clearfix">
+            <?php echo $page;?>
+        </div>
+        <?php }?>
+    </div>
+</div>
+<!--删除弹窗-->
+<div class="popup-wrap wrap-small-1 js-delBox">
+    <div class="mod small-popup type-1">
+        <div class="mod-header">
+            <h4 class="fl">删除</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+		</div>
+        <div class="mod-body">
+            <div class="content">
+                <h5 class="pb-30">您确定删除该数据吗？</h5>
+                <p class="text-center pb-10">
+                    <a class="btn-big btn-purple js-confirmDelButton">确定</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script>
+    $(".js-delButton").click(function(){
+    	$(".js-confirmDelButton").attr('data-id',$(this).attr('data-id'));
+        $(".js-delBox").fadeIn(120);
+    });
+    $(".js-confirmDelButton").click(function(){
+    	$(".loading").show();
+    	var id = $(this).attr('data-id');
+    	$.post("<?php echo U('EshopDiscount/ajaxDelGroup').'&time=';?>"+Math.random(),{id:id},function(data){
+    		$(".loading").hide();
+    		if(data.code == 200){
+	    		alertTan(data.tips);
+    			setTimeout('window.location.href=location.href',1500);
+    		}else{
+    			alertTan(data.tips,'error');
+    		}
+    	},"json");
+    });
+    </script>
+</div>
+<!--终止弹窗-->
+<div class="popup-wrap wrap-small-1 js-shutdownBox">
+    <div class="mod small-popup type-1">
+        <div class="mod-header">
+            <h4 class="fl">终止</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+		</div>
+        <div class="mod-body">
+            <div class="content">
+                <h5 class="pb-30">您确定终止该活动吗？</h5>
+                <p class="text-center pb-10">
+                    <a class="btn-big btn-purple js-confirmShutDownButton">确定</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script>
+    $(".js-shutDownButton").click(function(){
+    	$(".js-confirmShutDownButton").attr('data-id',$(this).attr('data-id'));
+        $(".js-shutdownBox").fadeIn(120);
+    });
+    $(".js-confirmShutDownButton").click(function(){
+    	$(".loading").show();
+    	var id = $(this).attr('data-id');
+    	$.post("<?php echo U('EshopDiscount/ajaxShutDownGroup').'&time=';?>"+Math.random(),{id:id},function(data){
+    		$(".loading").hide();
+    		if(data.code == 200){
+	    		alertTan(data.tips);
+    			setTimeout('window.location.href=location.href',1500);
+    		}else{
+    			alertTan(data.tips,'error');
+    		}
+    	},"json");
+    });
+    </script>
+</div>
+<include file="Public:footer"/>

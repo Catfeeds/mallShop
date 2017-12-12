@@ -1,0 +1,171 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,minimal-ui">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+  <meta http-equiv="expires" content="-1">
+  <title>看你有多色</title>
+  <link rel="stylesheet" type="text/css" href="css/m.css">
+  <script src="../../js/jquery-1.11.1.min.js"></script>
+  <script src="../../js/config.js"></script>
+</head>
+<body>
+<div class="grid">
+  <div class="page hide" id="loading">
+    loading...
+  </div>
+  <div class="page hide" id="index">
+    <h1>
+      看你有多色
+    </h1>
+    <div id="help">
+      找出所有色块里颜色不同的一个
+    </div>
+    <div class="btns">
+      <button data-type="color" class="btn play-btn">
+        开始游戏
+      </button>
+      <button onclick="clickMore()" class="btn">
+        更多游戏
+      </button>
+    </div>
+  </div>
+  <div class="page hide" id="room">
+    <header>
+				<span class="lv">得分： <em>1</em>
+				</span>
+      <span class="time"></span>
+      <!-- <span class="btn btn-pause">暂停</span> -->
+    </header>
+    <div id="box" class="lv1"></div>
+  </div>
+  <div class="page hide" id="dialog">
+    <div class="inner">
+      <div class="content gameover">
+        <div class="inner-content">
+          <h3></h3>
+          <div class="btn-wrap">
+            <button class="btn btn-restart">
+              再来一次
+            </button>
+            <a
+              href="javascript:void(0);" onclick="clickMore();"
+              target="_blank" class="btn btn-boyaa">更多游戏...</a>
+          </div>
+        </div>
+      </div>
+      <div class="content pause">
+        <div class="inner-content">
+          <h3>
+            游戏暂停
+          </h3>
+          <div class="btn-wrap">
+            <button class="btn btn-resume">
+              继续游戏
+            </button>
+            <a href="javascript:void(0);" onclick="goHome();" class="btn btn-boyaa">更多游戏...</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="js/libs.min.js"></script>
+<script src="js/main.min.js"></script>
+<script language=javascript>
+
+
+  function clickMore() {
+
+    goHome();
+
+  }
+
+  var mebtnopenurl = siteurl;
+  window.shareData = {
+    "imgUrl": ""+siteurl+"/games/se/icon.png",
+    'link': siteurl + '/games/se/',
+    "tTitle": "看你有多色",
+    "tContent": "看你有多色，敢来试试吗？"
+  };
+
+
+
+  function goHome() {
+    window.location = mebtnopenurl;
+  }
+  function dp_share() {
+    document.title = "原来我是【" + myData.scoreName + "】，色色闯过" + myData.score + "关，来试试你有多色吧！";
+    document.getElementById("share").style.display = "";
+    window.shareData.tTitle = document.title;
+  }
+  function dp_Ranking() {
+    //alert("到更多");
+    window.location = mebtnopenurl;
+  }
+
+  function showAd() {
+  }
+  function hideAd() {
+  }
+  document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+
+    WeixinJSBridge.on('menu:share:appmessage', function (argv) {
+      WeixinJSBridge.invoke('sendAppMessage', {
+        "img_url": window.shareData.imgUrl,
+        "link": window.shareData.timeLineLink,
+        "desc": window.shareData.tContent,
+        "title": window.shareData.tTitle
+      }, onShareComplete);
+    });
+
+    WeixinJSBridge.on('menu:share:timeline', function (argv) {
+      WeixinJSBridge.invoke('shareTimeline', {
+        "img_url": window.shareData.imgUrl,
+        "img_width": "640",
+        "img_height": "640",
+        "link": window.shareData.timeLineLink,
+        "desc": window.shareData.tContent,
+        "title": window.shareData.tTitle
+      }, onShareComplete);
+    });
+  }, false);
+</script>
+<div id=share style="display: none">
+  <img width=100% src="../../img/share.png"
+       style="position: fixed; z-index: 9999; top: 0; left: 0; display: "
+       ontouchstart="document.getElementById('share').style.display='none';">
+</div>
+
+
+<script type="text/javascript">
+  var myData = { gameid: "ssss" };
+  window.shareData.timeLineLink = ""+siteurl+"/se/";
+  function dp_submitScore(score, lv) {
+    myscore = score;
+    myData.score = score;
+    myData.scoreName = lv;
+    if (score > 5) {
+      if (confirm("鉴定结果，你是【" + lv + "】，色色指数：" + score + "分！\n要不要通知下小伙伴们呢？")) {
+        dp_share();
+      }
+    }
+  }
+  function onShareComplete(res) {
+    if (localStorage.myuid && myData.score != undefined) {
+      setTimeout(function () {
+
+        document.location.href = mebtnopenurl;
+
+      }, 500);
+    }
+    else {
+      document.location.href = mebtnopenurl;
+    }
+  }
+</script>
+<script src="../../js/ad-pic.js"></script>
+</body>
+</html>

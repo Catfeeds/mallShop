@@ -1,0 +1,9 @@
+<include file="Public:PublicHeader"/>
+	<link rel="stylesheet" href="{lanrain::RES}/fonts/font-awesome-4.6.3/css/font-awesome.min.css">
+	<include file="Public:CommonHeaders"/>
+    <script>
+  	$('#js-logOut').click(function(){
+  		alertTan('已安全退出','success',20000);
+  		setTimeout("window.location.href = '<?php echo U('Home/Index/logOut');?>';",2000);
+  	});
+    </script>

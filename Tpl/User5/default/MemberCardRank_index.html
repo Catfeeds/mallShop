@@ -1,0 +1,695 @@
+<include file="Public:head"/>
+<include file="Public:UEditorJS" />
+<include file="Public:UEditorSuperBig" />
+<include file="Public:smallmaterial" />
+<?php echo $makeTopUrl;?>
+<div class="group inline-btn-group mb-10">
+    <a class="btn-small btn-purple">会员制规则</a>
+    <a href="<?php echo U('MallIntegral/base');?>" class="btn-small btn-white">积分商城</a>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>会员等级</h4></div>
+    <div class="mod-body">
+        <form action="javascript:void(0);">
+            <div class="content">
+                <table class="table type-1 w-auto">
+                    <thead>
+                    <tr>
+                        <th>等级序列</th>
+                        <th>会员等级名称</th>
+                        <th>累计积分区间</th>
+                        <th>会员数量</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="id-tbody">
+                    <?php if($list){ foreach($list as $key=>$val){?>
+                    <tr data-id="<?php echo $val['id'];?>">
+                        <td>V<?php echo $val['number'];?></td>
+                        <td><input class="inline w100 js-rankname_<?php echo $key;?>" type="text" name="rankname" value="<?php echo $val['name']?$val['name']:'-';?>" ></td>
+                        <?php if($key == '0'){?>
+                        <td>0 - <input class="inline w50 js-endscore_<?php echo $key;?>" type="text" onchange="this.value=this.value.replace(/[^\d]/ig,'')" name="endscore" value="<?php echo $val['endscore']?$val['endscore']:'';?>" placeholder="0"></td>
+                        <?php }elseif($key == '3'){?>
+                        <td><input class="inline w50 js-beginscore_<?php echo $key;?>" type="text" onchange="this.value=this.value.replace(/[^\d]/ig,'')" name="beginscore" value="<?php echo $val['beginscore']?$val['beginscore']:'';?>" placeholder="0"> - 无限</td>
+                        <?php }else{?>
+                        <td><input class="inline w50 js-beginscore_<?php echo $key;?>" type="text" onchange="this.value=this.value.replace(/[^\d]/ig,'')" name="beginscore" value="<?php echo $val['beginscore']?$val['beginscore']:'';?>" placeholder="0"> - <input class="inline w50 js-endscore_<?php echo $key;?>" type="text" onchange="this.value=this.value.replace(/[^\d]/ig,'')" name="endscore" value="<?php echo $val['endscore']?$val['endscore']:'';?>" placeholder="0"></td>
+                        <?php }?>
+                        <td><?php echo $val['reportnumber']?$val['reportnumber']:'0';?></td>
+                        <td>
+                        	<a class="tips" href="<?php echo U('MemberCardRank/set',array('id'=>$val['id']));?>">V<?php echo $val['number'];?>卡面设计</a>
+                        	<a class="tips QR-code-cover">手机预览
+                                <div class="QR-code-box-down">
+                                    <img src="<?php echo U('MemberCardRank/mcode',array('link'=>base64_encode(C('site_url').'/index.php?g=Wap&m=Member&a=cardRank&companyid='.$companyid.'&rid='.$val['id'])));?>">
+                                    <h6>微信扫码<br>
+                                        查看效果</h6>
+                                    <span id="triangle-up-b"></span>
+                                    <span id="triangle-up-a"></span>
+                                </div>
+                            </a>
+                        	<a class="tips" href="<?php echo U('MemberCardRank/equity',array('id'=>$val['id']));?>">设置V<?php echo $val['number'];?>等级权益</a>
+                        </td>
+                    </tr>
+                    <?php }}?>
+                    </tbody>
+                </table>
+            </div>
+            <div class="group form-footer text-center">
+                <input class="btn-small btn-purple w100" type="submit" id="id-ajax-button" value="保存">
+            </div>
+        </form>
+    </div>
+</div>
+<script src="{lanrain::RES}/js/json2.js"></script>
+<script>
+$('input[name="endscore"]').bind("input",function(){
+	$(this).parent().parent().next().children("td:eq(2)").children('input[name="beginscore"]').val(Number($(this).val())+1);
+});
+$('#id-ajax-button').on('click',function(){
+	var myArray = {};
+	var istrue = false;
+	var a = 0;
+	var text = '';
+	$('#id-tbody tr').each(function(index){
+		myArray[index] = {};
+		myArray[index]['id'] = $(this).attr('data-id');
+		myArray[index]['rankname'] = $(this).children("td:eq(1)").children('input[name="rankname"]').val();
+		myArray[index]['beginscore'] = Number($(this).children("td:eq(2)").children('input[name="beginscore"]').val());
+		myArray[index]['endscore'] = Number($(this).children("td:eq(2)").children('input[name="endscore"]').val());
+		if(myArray[index]['rankname'] == false){
+			text = '请填写V'+(index+1)+'等级名称';
+			istrue = true;
+			return false;
+		}else{
+			if(index == 0){
+				 if(0>=myArray[index]['endscore']){
+					 text = '结束积分需大于起始积分';
+					 istrue = true;
+					 return false;
+				 }else{
+					 a = myArray[index]['endscore'];
+				 }
+			}else if(index == 3){
+				if(myArray[index]['beginscore']!=(Number(a)+1)){
+					text = '本级起始积分应比上级结束积分多1';
+					istrue = true;
+					return false;
+				}
+			}else{
+				if(myArray[index]['beginscore']!=(Number(a)+1)){
+					//text = a+1;
+					text = '本级起始积分应比上级结束积分多1';
+					istrue = true;
+					return false;
+				}else if(myArray[index]['beginscore']>=myArray[index]['endscore']){
+					//text = myArray[index]['endscore'];
+					text = '结束积分需大于起始积分';
+					istrue = true;
+					return false;
+				}else{
+					a = myArray[index]['endscore'];
+				}
+			}
+		}
+	});
+	if(istrue == true){
+		alertTan(text,'warn',3000);
+		return false;
+	}else{
+		$.post("<?php echo U('MemberCardRank/ajaxSaveRank').'&time='; ?>"+Math.random(),
+				{data:JSON.stringify(myArray)},
+				function(data){
+				if(data.code == 200){
+					alertTan(data.msg);
+					setTimeout(function(){
+					    window.location.href = location.href;
+					},1500);
+				}else{
+					alertTan(data.msg,'error');
+				}
+			},"json");
+	}
+});
+</script>
+<!-- 累计积分获取规则 2016-10-25 12:10 -->
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>积分获取规则</h4></div>
+    <div class="mod-body">
+        <form action="javascript:void(0);">
+            <div class="content">
+                <table class="table type-1 w-auto">
+                    <thead>
+                    <tr>
+                        <th>积分获取类型</th>
+                        <th>描述</th>
+                        <th>获取积分规则</th>
+                        <th>状态</th>
+                        <th>场景展示</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>等级消费倍数积分</td>
+                        <td>不同等级的会员消费后，在原有积分基础上可获得相应倍数的积分</td>
+                        <td><a class="tips js-vip-details">设置</a></td>
+                        <td><select class="js-integralmultipleisopen"><option value="2" <?php if($integralInfo['integralmultipleisopen'] == '2' || !$integralInfo['integralmultipleisopen']){echo 'selected="selected"';}?>>禁用</option><option value="1" <?php if($integralInfo['integralmultipleisopen'] == '1'){echo 'selected="selected"';}?>>启用</option></select></td>
+                        <td><a class="tips">场景展示</a></td>
+                    </tr>
+                    <tr>
+                        <td>微信关注</td>
+                        <td>首次微信关注后可获得相应积分</td>
+                        <td><input class="inline w50" type="text" onchange="this.value=this.value.replace(/[^\d]/ig,'')" name="wechatsubscribeint" value="<?php echo $integralInfo['wechatsubscribeint']?$integralInfo['wechatsubscribeint']:'';?>" placeholder="0"> 分</td>
+                        <td><select class="js-wechatsubscribeisopen"><option value="2" <?php if($integralInfo['wechatsubscribeisopen'] == '2' || !$integralInfo['wechatsubscribeisopen']){echo 'selected="selected"';}?>>禁用</option><option value="1" <?php if($integralInfo['wechatsubscribeisopen'] == '1'){echo 'selected="selected"';}?>>启用</option></select></td>
+                        <td><a class="tips">场景展示</a></td>
+                    </tr>
+                    <tr>
+                        <td>注册</td>
+                        <td>新会员首次注册后可获得相应积分</td>
+                        <td><input class="inline w50" type="text" onchange="this.value=this.value.replace(/[^\d]/ig,'')" name="createcardint" value="<?php echo $integralInfo['createcardint']?$integralInfo['createcardint']:'';?>" placeholder="0"> 分</td>
+                        <td><select class="js-createcardisopen"><option value="2" <?php if($integralInfo['createcardisopen'] == '2' || !$integralInfo['createcardisopen']){echo 'selected="selected"';}?>>禁用</option><option value="1" <?php if($integralInfo['createcardisopen'] == '1'){echo 'selected="selected"';}?>>启用</option></select></td>
+                        <td><a class="tips">场景展示</a></td>
+                    </tr>
+                    <tr>
+                        <td>完善会员资料</td>
+                        <td>在会员中心-个人资料中100%完善资料可获得相应积分</td>
+                        <td><input class="inline w50" type="text" onchange="this.value=this.value.replace(/[^\d]/ig,'')" name="perfectreginfoint" value="<?php echo $integralInfo['perfectreginfoint']?$integralInfo['perfectreginfoint']:'';?>" placeholder="0"> 分</td>
+                        <td><select class="js-perfectreginfoisopen"><option value="2" <?php if($integralInfo['perfectreginfoisopen'] == '2' || !$integralInfo['perfectreginfoisopen']){echo 'selected="selected"';}?>>禁用</option><option value="1" <?php if($integralInfo['perfectreginfoisopen'] == '1'){echo 'selected="selected"';}?>>启用</option></select></td>
+                        <td><a class="tips">场景展示</a></td>
+                    </tr>
+                    <tr>
+                        <td>摇摇签到</td>
+                        <td>通过摇摇魔石签到，摇出网页，获得相应积分</td>
+                        <td><input class="inline w50" type="text" onchange="this.value=this.value.replace(/[^\d]/ig,'')" name="yaoqiandaoint" value="<?php echo $integralInfo['yaoqiandaoint']?$integralInfo['yaoqiandaoint']:'';?>" placeholder="0"> 分</td>
+                        <!-- <td><select class="js-yaoqiandaoisopen"><option value="2" <?php if($integralInfo['yaoqiandaoisopen'] == '2' || !$integralInfo['yaoqiandaoisopen']){echo 'selected="selected"';}?>>禁用</option><option value="1" <?php if($integralInfo['yaoqiandaoisopen'] == '1'){echo 'selected="selected"';}?>>启用</option></select></td> -->
+                        <td><select disabled class="js-yaoqiandaoisopen"><option value="2" selected="selected">禁用</option><option value="1" >启用</option></select></td>
+                        <td><a class="tips">场景展示</a></td>
+                    </tr>
+                    <tr>
+                        <td>点评奖励</td>
+                        <td>门店现场完成大众点评或完成其他指定网页指定行为，赠送相应积分(需店员确认)</td>
+                        <td><input class="inline w50" type="text" onchange="this.value=this.value.replace(/[^\d]/ig,'')" name="dianpingint" value="<?php echo $integralInfo['dianpingint']?$integralInfo['dianpingint']:'';?>" placeholder="0"> 分</td>
+                        <td><select class="js-dianpingisopen"><option value="2" <?php if($integralInfo['dianpingisopen'] == '2' || !$integralInfo['dianpingisopen']){echo 'selected="selected"';}?>>禁用</option><option value="1" <?php if($integralInfo['dianpingisopen'] == '1'){echo 'selected="selected"';}?>>启用</option></select></td>
+                        <td><a class="tips">场景展示</a></td>
+                    </tr>
+                    <tr>
+                        <td>首次消费</td>
+                        <td>新会员首次消费获得额外积分(消费积分奖励仍然赠送)</td>
+                        <td><input class="inline w50" type="text" onchange="this.value=this.value.replace(/[^\d]/ig,'')" name="firstconsumptionint" value="<?php echo $integralInfo['firstconsumptionint']?$integralInfo['firstconsumptionint']:'';?>" placeholder="0"> 分</td>
+                        <td><select class="js-firstconsumptionisopen"><option value="2" <?php if($integralInfo['firstconsumptionisopen'] == '2' || !$integralInfo['firstconsumptionisopen']){echo 'selected="selected"';}?>>禁用</option><option value="1" <?php if($integralInfo['firstconsumptionisopen'] == '1'){echo 'selected="selected"';}?>>启用</option></select></td>
+                        <td><a class="tips">场景展示</a></td>
+                    </tr>
+                    <tr>
+                        <td>eshop支付</td>
+                        <td>eshop支付获得相应积分，如随时退、过期退产品退后积分需手动扣除</td>
+                        <td><input class="inline w50" type="text" onchange="clearNoNum(this)" name="eshoppayconversion" value="<?php echo $integralInfo['eshoppayconversion']?$integralInfo['eshoppayconversion']:'';?>" placeholder="0.00"> 元=1积分</td>
+                        <td><select class="js-eshoppayisopen"><option value="2" <?php if($integralInfo['eshoppayisopen'] == '2' || !$integralInfo['eshoppayisopen']){echo 'selected="selected"';}?>>禁用</option><option value="1" <?php if($integralInfo['eshoppayisopen'] == '1'){echo 'selected="selected"';}?>>启用</option></select></td>
+                        <td><a class="tips">场景展示</a></td>
+                    </tr>
+                    <tr>
+                        <td>闪惠支付</td>
+                        <td>闪惠支付获得相应积分</td>
+                        <td><input class="inline w50" type="text" onchange="clearNoNum(this)" name="shanhuipayconversion" value="<?php echo $integralInfo['shanhuipayconversion']?$integralInfo['shanhuipayconversion']:'';?>" placeholder="0.00"> 元=1积分</td>
+                        <td><select class="js-shanhuipayisopen"><option value="2" <?php if($integralInfo['shanhuipayisopen'] == '2' || !$integralInfo['shanhuipayisopen']){echo 'selected="selected"';}?>>禁用</option><option value="1" <?php if($integralInfo['shanhuipayisopen'] == '1'){echo 'selected="selected"';}?>>启用</option></select></td>
+                        <td><a class="tips">场景展示</a></td>
+                    </tr>
+                    <tr>
+                        <td>微信外卖支付</td>
+                        <td>微信外卖支付获得相应积分</td>
+                        <td><input class="inline w50" type="text" onchange="clearNoNum(this)" name="takeoutconversion" value="<?php echo $integralInfo['takeoutconversion']?$integralInfo['takeoutconversion']:'';?>" placeholder="0.00"> 元=1积分</td>
+                        <td><select class="js-takeoutisopen"><option value="2" <?php if($integralInfo['takeoutisopen'] == '2' || !$integralInfo['takeoutisopen']){echo 'selected="selected"';}?>>禁用</option><option value="1" <?php if($integralInfo['takeoutisopen'] == '1'){echo 'selected="selected"';}?>>启用</option></select></td>
+                        <td><a class="tips">场景展示</a></td>
+                    </tr>
+                    <tr>
+                        <td>手机点单支付</td>
+                        <td>手机点单支付获得相应积分</td>
+                        <td><input class="inline w50" type="text" onchange="clearNoNum(this)" name="mobilephoneorderconversion" value="<?php echo $integralInfo['mobilephoneorderconversion']?$integralInfo['mobilephoneorderconversion']:'';?>" placeholder="0.00"> 元=1积分</td>
+                        <td><select class="js-mobilephoneorderisopen"><option value="2" <?php if($integralInfo['mobilephoneorderisopen'] == '2' || !$integralInfo['mobilephoneorderisopen']){echo 'selected="selected"';}?>>禁用</option><option value="1" <?php if($integralInfo['mobilephoneorderisopen'] == '1'){echo 'selected="selected"';}?>>启用</option></select></td>
+                        <td><a class="tips">场景展示</a></td>
+                    </tr>
+                    
+                    <tr>
+                        <td>付费内容商店支付</td>
+                        <td>付费内容商店消费获得相应积分</td>
+                        <td><input class="inline w50" type="text" onchange="clearNoNum(this);" name="paidcontentshopversion" value="<?php echo $integralInfo['paidcontentshopversion']?$integralInfo['paidcontentshopversion']:'0.00';?>" placeholder="0.00"> 元=1积分</td>
+                        <td><select class="js-paidcontentshopisopen">
+                        <option value="2" <?php if($integralInfo['paidcontentshopisopen'] == '2' || !$integralInfo['paidcontentshopisopen']){echo 'selected="selected"';}?>>禁用</option>
+                        <option value="1" <?php if($integralInfo['paidcontentshopisopen'] == '1'){echo 'selected="selected"';}?>>启用</option>
+                        </select></td>
+                        <td><a class="tips">场景展示</a></td>
+                    </tr>
+                    
+                    <tr>
+                        <td>后台储值消费</td>
+                        <td>后台储值消费获得相应积分</td>
+                        <td><input class="inline w50" type="text" onchange="clearNoNum(this)" name="storedvalueconversion" value="<?php echo $integralInfo['storedvalueconversion']?$integralInfo['storedvalueconversion']:'';?>" placeholder="0.00"> 元=1积分</td>
+                        <td><select class="js-storedvalueisopen"><option value="2" <?php if($integralInfo['storedvalueisopen'] == '2' || !$integralInfo['storedvalueisopen']){echo 'selected="selected"';}?>>禁用</option><option value="1" <?php if($integralInfo['storedvalueisopen'] == '1'){echo 'selected="selected"';}?>>启用</option></select></td>
+                        <td><a class="tips">场景展示</a></td>
+                    </tr>
+                    <tr>
+                        <td>拉卡拉门店收银</td>
+                        <td>拉卡拉门店收银获得相应积分</td>
+                        <td><input class="inline w50" type="text" onchange="clearNoNum(this)" name="lakalapayconversion" value="<?php echo $integralInfo['lakalapayconversion']?$integralInfo['lakalapayconversion']:'';?>" placeholder="0.00"> 元=1积分</td>
+                        <td><select class="js-lakalapayisopen"><option value="2" <?php if($integralInfo['lakalapayisopen'] == '2' || !$integralInfo['lakalapayisopen']){echo 'selected="selected"';}?>>禁用</option><option value="1" <?php if($integralInfo['lakalapayisopen'] == '1'){echo 'selected="selected"';}?>>启用</option></select></td>
+                        <td><a class="tips">场景展示</a></td>
+                    </tr>
+                    <tr>
+                        <td>风助手门店收银</td>
+                        <td>风助手门店收银获得相应积分</td>
+                        <td><input class="inline w50" type="text" onchange="clearNoNum(this)" name="windhelperpayconversion" value="<?php echo $integralInfo['windhelperpayconversion']?$integralInfo['windhelperpayconversion']:'';?>" placeholder="0.00"> 元=1积分</td>
+                        <td><select class="js-windhelperpayisopen"><option value="2" <?php if($integralInfo['windhelperpayisopen'] == '2' || !$integralInfo['windhelperpayisopen']){echo 'selected="selected"';}?>>禁用</option><option value="1" <?php if($integralInfo['windhelperpayisopen'] == '1'){echo 'selected="selected"';}?>>启用</option></select></td>
+                        <td><a class="tips">场景展示</a></td>
+                    </tr>
+                    <tr>
+                        <td>手机预订订金</td>
+                        <td>手机预订支付订金获得相应积分</td>
+                        <td><input class="inline w50" type="text" onchange="clearNoNum(this)" name="mobilebookpayconversion" value="<?php echo $integralInfo['mobilebookpayconversion']?$integralInfo['mobilebookpayconversion']:'';?>" placeholder="0.00"> 元=1积分</td>
+                        <td><select class="js-mobilebookpayisopen"><option value="2" <?php if($integralInfo['mobilebookpayisopen'] == '2' || !$integralInfo['mobilebookpayisopen']){echo 'selected="selected"';}?>>禁用</option><option value="1" <?php if($integralInfo['mobilebookpayisopen'] == '1'){echo 'selected="selected"';}?>>启用</option></select></td>
+                        <td><a class="tips">场景展示</a></td>
+                    </tr>
+                    <tr>
+                        <td>快捷储值支付</td>
+                        <td>在风助手或拉卡拉上使用储值快捷支付获得相应积分</td>
+                        <td><input class="inline w50" type="text" onchange="clearNoNum(this)" name="rechargequickpayversion" value="<?php echo $integralInfo['rechargequickpayversion']?$integralInfo['rechargequickpayversion']:'';?>" placeholder="0.00"> 元=1积分</td>
+                        <td><select class="js-rechargequickpayisopen"><option value="2" <?php if($integralInfo['rechargequickpayisopen'] == '2' || !$integralInfo['rechargequickpayisopen']){echo 'selected="selected"';}?>>禁用</option><option value="1" <?php if($integralInfo['rechargequickpayisopen'] == '1'){echo 'selected="selected"';}?>>启用</option></select></td>
+                        <td><a class="tips">场景展示</a></td>
+                    </tr>
+                    <tr>
+                        <td>手机预订奖励</td>
+                        <td>手机预订成功并确认到店消费获得除消费金额外额外积分</td>
+                        <td><input class="inline w50" type="text" onchange="this.value=this.value.replace(/[^\d]/ig,'')" name="mobilebookint" value="<?php echo $integralInfo['mobilebookint']?$integralInfo['mobilebookint']:'';?>" placeholder="0"> 分</td>
+                        <td><select class="js-mobilebookisopen"><option value="2" <?php if($integralInfo['mobilebookisopen'] == '2' || !$integralInfo['mobilebookisopen']){echo 'selected="selected"';}?>>禁用</option><option value="1" <?php if($integralInfo['mobilebookisopen'] == '1'){echo 'selected="selected"';}?>>启用</option></select></td>
+                        <td><a class="tips">场景展示</a></td>
+                    </tr>
+                    <tr>
+                        <td>后台手动加积分</td>
+                        <td>SCRM手动加积分</td>
+                        <td></td>
+                        <td></td>
+                        <td><a class="tips">场景展示</a></td>
+                    </tr>
+                    <tr>
+                        <td>生日消费加倍积分</td>
+                        <td>会员生日消费时可获得加倍积分</td>
+                        <td><input class="inline w50" type="text" onchange="clearNoNum1(this);" name="birthdaymultiple" value="<?php echo $integralInfo['birthdaymultiple']?$integralInfo['birthdaymultiple']:'1.0';?>" placeholder="1.0"> 倍</td>
+                        <td><select class="js-birthdayisopen"><option value="2" <?php if($integralInfo['birthdayisopen'] == '2' || !$integralInfo['birthdayisopen']){echo 'selected="selected"';}?>>禁用</option><option value="1" <?php if($integralInfo['birthdayisopen'] == '1'){echo 'selected="selected"';}?>>启用</option></select></td>
+                        <td><a class="tips">场景展示</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="group form-footer text-center">
+                <input class="btn-small btn-purple w100" id="id-integral-button" type="submit" value="保存">
+            </div>
+        </form>
+    </div>
+</div>
+
+<!--设置-->
+<div class="popup-wrap wrap-small-1 js-vip-details-popup">
+    <div class="mod middle-popup type-1">
+        <div class="mod-header clearfix">
+            <h4 class="fl">设置</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+            <div class="content">
+                <table class="table type-1 w-auto ">
+                    <thead>
+                    <tr>
+                        <th>会员等级</th>
+                        <th>倍数</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php if($list){ $integralmultiple = json_decode($integralInfo['integralmultiple'],true); foreach($list as $rlkey=>$rlval){?>
+                    <tr class="js-integralmultiple-select">
+                        <td>V<?php echo $rlval['number'];?></td>
+                        <td><input data-rid="<?php echo $rlval['id'];?>" class="inline w50" type="text" onchange="clearNoNum1(this);" name="integralmultiple-<?php echo $rlkey;?>" value="<?php echo $integralmultiple[$rlval['id']]['val']?$integralmultiple[$rlval['id']]['val']:'1.0';?>" placeholder="1.0"> 倍</td>
+                    </tr>
+                    <?php }}?>
+                    </tbody>
+                </table>
+                <h6 class="text-gray pt-5">*倍数默认为1.0，会员实际获得积分=原积分*倍数。 </h6>
+            </div>
+            <div class="group form-footer text-center">
+                <input class="btn-small btn-purple w100" type="submit" id="id-ajax-button-integralmultiple" value="保存">
+            </div>
+        </div>
+    </div>
+    <script src="{lanrain::RES}/js/json2.js"></script>
+    <script>
+    function clearNoNum1(obj){
+		var a = b = c = d = e ='';
+		if(obj.value.indexOf(".") > 0 && obj.value !=""){   //如果包含小数点
+			c = obj.value.indexOf(".");   //找到第一个小数点的位置
+			a = obj.value.substr(0,c).replace(/\D/g,'');   //截取小数点之前的字符并替换为纯数字
+			b = obj.value.substr(c).replace(/\D/g,'').substr(0,1);   //截取小数点之后的字符并替换为纯数字并保留两位
+		    if(a == false){
+		    	a = 0;
+		    }
+			obj.value= parseFloat(a)+'.'+b;  //组合
+		}else if(obj.value.indexOf(".") < 0 && obj.value !=""){   //如果不包含小数点
+			e = obj.value.replace(/\D/g,'');
+			if(e == false){
+				e = 0;
+			}
+			obj.value= parseFloat(e)+'.0';  //
+		}
+	}
+        $(function () {
+        	$(".js-vip-details").click(function () {
+                $(".js-vip-details-popup").fadeIn(120);
+            });
+        	$(".js-icon-close").click(function () {
+                $(".js-vip-details-popup").fadeOut(120);
+            });
+            $('#id-ajax-button-integralmultiple').click(function(){
+            	var isReturn = false;
+            	var date = {};
+            	$('.js-integralmultiple-select').each(function(index){
+            		var id = $('input[name="integralmultiple-'+index+'"]').attr('data-rid');
+            		date[id] = {};
+            		date[id]['val'] = $('input[name="integralmultiple-'+index+'"]').val();
+            		if(parseFloat(date[id]['val'])<=0){
+            			alertTan('V'+(index+1)+'倍数不能小于0','warn');
+            			isReturn = true;
+            			return false;
+            		}
+            	});
+            	if(isReturn == true){
+            		return false;
+            	}
+            	$(".loading").show();
+            	$.post("<?php echo U('MemberCardRank/ajaxSaveintegralmultiple').'&time='; ?>"+Math.random(),
+            			{date:JSON.stringify(date)},
+            				function(data){
+           					$(".js-vip-details-popup").fadeOut(120);
+            				$(".loading").hide();
+            				if(data.code == 200){
+            					alertTan(data.msg);
+            				}else{
+            					alertTan(data.msg,'error');
+            				}
+            			},"json");
+            });
+        });
+    </script>
+</div>
+
+<script>
+function clearNoNum(obj){
+	obj.value = obj.value.replace(/[^\d.]/g,""); //清除"数字"和"."以外的字符
+	obj.value = obj.value.replace(/^\./g,""); //验证第一个字符是数字而不是
+	obj.value = obj.value.replace(/\.{2,}/g,"."); //只保留第一个. 清除多余的
+	obj.value = obj.value.replace(".","$#$").replace(/\./g,"").replace("$#$",".");
+	obj.value = obj.value.replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3'); //只能输入两个小数
+
+}
+$('#id-integral-button').on('click',function(){
+	var wechatsubscribeisopen = $('.js-wechatsubscribeisopen').val();
+	var wechatsubscribeint = $('input[name="wechatsubscribeint"]').val();
+	var createcardisopen = $('.js-createcardisopen').val();
+	var createcardint = $('input[name="createcardint"]').val();
+	var perfectreginfoisopen = $('.js-perfectreginfoisopen').val();
+	var perfectreginfoint = $('input[name="perfectreginfoint"]').val();
+	var yaoqiandaoisopen = $('.js-yaoqiandaoisopen').val();
+	var yaoqiandaoint = $('input[name="yaoqiandaoint"]').val();
+	var dianpingisopen = $('.js-dianpingisopen').val();
+	var dianpingint = $('input[name="dianpingint"]').val();
+	var firstconsumptionisopen = $('.js-firstconsumptionisopen').val();
+	var firstconsumptionint = $('input[name="firstconsumptionint"]').val();
+	var eshoppayisopen = $('.js-eshoppayisopen').val();
+	var eshoppayconversion = $('input[name="eshoppayconversion"]').val();
+	var shanhuipayisopen = $('.js-shanhuipayisopen').val();
+	var shanhuipayconversion = $('input[name="shanhuipayconversion"]').val();
+	var takeoutisopen = $('.js-takeoutisopen').val();
+	var takeoutconversion = $('input[name="takeoutconversion"]').val();
+	var mobilephoneorderisopen = $('.js-mobilephoneorderisopen').val();
+	var mobilephoneorderconversion = $('input[name="mobilephoneorderconversion"]').val();
+	var lakalapayisopen = $('.js-lakalapayisopen').val();
+	var lakalapayconversion = $('input[name="lakalapayconversion"]').val();
+	var windhelperpayisopen = $('.js-windhelperpayisopen').val();
+	var windhelperpayconversion = $('input[name="windhelperpayconversion"]').val();
+	var storedvalueisopen = $('.js-storedvalueisopen').val();
+	var storedvalueconversion = $('input[name="storedvalueconversion"]').val();
+	var mobilebookisopen = $('.js-mobilebookisopen').val();
+	var mobilebookint = $('input[name="mobilebookint"]').val();
+	var mobilebookpayisopen = $('.js-mobilebookpayisopen').val();
+	var mobilebookpayconversion = $('input[name="mobilebookpayconversion"]').val();
+	var rechargequickpayisopen = $('.js-rechargequickpayisopen').val();
+	var rechargequickpayversion = $('input[name="rechargequickpayversion"]').val();
+	var birthdayisopen = $('.js-birthdayisopen').val();
+	var birthdaymultiple = parseFloat($('input[name="birthdaymultiple"]').val());
+	var paidcontentshopisopen = $('.js-paidcontentshopisopen').val();
+	var paidcontentshopversion = parseFloat($('input[name="paidcontentshopversion"]').val());
+	if(birthdaymultiple<=0){
+		alertTan('生日消费加倍积分倍数不能小于0');
+		return false;
+	}
+	var integralmultipleisopen = $('.js-integralmultipleisopen').val();
+	$(".loading").show();
+	$.post("<?php echo U('MemberCardRank/ajaxSaveIntegral').'&time='; ?>"+Math.random(),
+		{wechatsubscribeisopen:wechatsubscribeisopen,wechatsubscribeint:wechatsubscribeint,createcardisopen:createcardisopen,
+		createcardint:createcardint,perfectreginfoisopen:perfectreginfoisopen,perfectreginfoint:perfectreginfoint,
+		yaoqiandaoisopen:yaoqiandaoisopen,yaoqiandaoint:yaoqiandaoint,dianpingisopen:dianpingisopen,dianpingint:dianpingint,
+		firstconsumptionisopen:firstconsumptionisopen,firstconsumptionint:firstconsumptionint,eshoppayisopen:eshoppayisopen,
+		eshoppayconversion:eshoppayconversion,shanhuipayisopen:shanhuipayisopen,shanhuipayconversion:shanhuipayconversion,
+		takeoutisopen:takeoutisopen,takeoutconversion:takeoutconversion,mobilephoneorderisopen:mobilephoneorderisopen,
+		mobilephoneorderconversion:mobilephoneorderconversion,lakalapayisopen:lakalapayisopen,lakalapayconversion:lakalapayconversion,
+		windhelperpayisopen:windhelperpayisopen,windhelperpayconversion:windhelperpayconversion,storedvalueisopen:storedvalueisopen,
+		storedvalueconversion:storedvalueconversion,mobilebookisopen:mobilebookisopen,mobilebookint:mobilebookint,
+		mobilebookpayisopen:mobilebookpayisopen,mobilebookpayconversion:mobilebookpayconversion,birthdayisopen:birthdayisopen,
+		birthdaymultiple:birthdaymultiple,integralmultipleisopen:integralmultipleisopen,paidcontentshopversion:paidcontentshopversion,
+		paidcontentshopisopen:paidcontentshopisopen,rechargequickpayisopen:rechargequickpayisopen,rechargequickpayversion:rechargequickpayversion},
+			function(data){
+			$(".loading").hide();
+			if(data.code == 200){
+				alertTan(data.msg);
+				setTimeout(function(){
+				    window.location.href = location.href;
+				},1500);
+			}else{
+				alertTan(data.msg,'error');
+			}
+		},"json");
+});
+</script>
+<!-- 可用积分消耗规则 2016-10-25 12:10 -->
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>可用积分消耗规则</h4></div>
+    <div class="mod-body">
+        <form action="javascript:void(0);">
+            <div class="content">
+                <table class="table type-1 w-auto">
+                    <thead>
+                    <tr>
+                        <th>积分消耗类型</th>
+                        <th>消耗积分规则</th>
+                        <th>状态</th>
+                        <th>场景展示</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>到期自动清零</td>
+                        <td>自动清前年可用积分</td>
+                        <td><select class="js-integralisautoclear"><option value="2" <?php if($integralInfo['integralisautoclear'] == '2' || !$integralInfo['integralisautoclear']){echo 'selected="selected"';}?>>禁用</option><option value="1" <?php if($integralInfo['integralisautoclear'] == '1'){echo 'selected="selected"';}?>>启用</option></select></td>
+                        <td><a class="tips">场景展示</a></td>
+                    </tr>
+                    <tr>
+                        <td>会员WAP积分换储值</td>
+                        <td><a class="tips js-integral-settings">设置</a></td>
+                        <td><select class="js-integralconvertmoney"><option value="2" <?php if($integralInfo['integralconvertmoney'] == '2' || !$integralInfo['integralconvertmoney']){echo 'selected="selected"';}?>>禁用</option><option value="1" <?php if($integralInfo['integralconvertmoney'] == '1'){echo 'selected="selected"';}?>>启用</option></select></td>
+                        <td><a class="tips">场景展示</a></td>
+                    </tr>
+                    <tr>
+                        <td>积分商城</td>
+                        <td><a class="tips" href="<?php echo U('MallIntegral/base');?>">设置</a></td>
+                        <td><select class="js-integralshop"><option value="2" <?php if($integralInfo['integralshop'] == '2' || !$integralInfo['integralshop']){echo 'selected="selected"';}?>>禁用</option><option value="1" <?php if($integralInfo['integralshop'] == '1'){echo 'selected="selected"';}?>>启用</option></select></td>
+                        <td><a class="tips">场景展示</a></td>
+                    </tr>
+                    <tr>
+                        <td>后台手动减积分</td>
+                        <td>SCRM手动减积分</td>
+                        <td></td>
+                        <td><a class="tips">场景展示</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="group form-footer text-center">
+                <input class="btn-small btn-purple w100" id="id-integral-save" type="submit" value="保存">
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+$('#id-integral-save').on('click',function(){
+	var integralisautoclear = $('.js-integralisautoclear').val();
+	var integralconvertmoney = $('.js-integralconvertmoney').val();
+	var integralshop = $('.js-integralshop').val();
+	$(".loading").show();
+	$.post("<?php echo U('MemberCardRank/ajaxSaveIntegral').'&time='; ?>"+Math.random(),
+		{integralisautoclear:integralisautoclear,integralconvertmoney:integralconvertmoney,integralshop:integralshop,type:'1'},
+			function(data){
+			$(".loading").hide();
+			if(data.code == 200){
+				alertTan(data.msg);
+			}else{
+				alertTan(data.msg,'error');
+			}
+		},"json");
+});
+</script>
+<!-- 设置会员WAP积分换储值规则 弹窗-->
+<div class="popup-wrap js-integral-settings-wrap" style="display: none;">
+    <div class="mod small-popup type-1">
+        <div class="mod-header"><h4 class="fl">设置会员WAP积分换储值规则</h4><i class="fr icon-close-dark js-icon-close"></i></div>
+        <div class="mod-body">
+            <div class="content">
+            <div class="group">
+                <input class="inline w80" type="text" onchange="this.value=this.value.replace(/[^\d]/ig,'')" name="integralconvertmoneyconversion" value="<?php echo $integralInfo['integralconvertmoneyconversion']?$integralInfo['integralconvertmoneyconversion']:'';?>" placeholder="0"> <h5 class="inline">积分=1元储值</h5>
+                <h5 class="pt-5">注：储值消费不产生任何积分</h5>
+            </div>
+            </div>
+            <div class="group text-center pb-15">
+                <input class="btn-small btn-purple w100 pointer" id="id-ajax-integral" type="submit" value="保 存">
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(".js-integral-settings").click(function(){
+	$('input[name="integralconvertmoneyconversion"]').val("<?php echo $integralInfo['integralconvertmoneyconversion']?$integralInfo['integralconvertmoneyconversion']:'';?>");
+    $(".js-integral-settings-wrap").fadeIn(120);
+});
+$('#id-ajax-integral').on('click',function(){
+	var integralconvertmoneyconversion = $('input[name="integralconvertmoneyconversion"]').val();
+	if(integralconvertmoneyconversion == false){
+		alertTan('请填写积分','warn');
+	}else{
+		$(".js-integral-settings-wrap").fadeOut(120);
+		$(".loading").show();
+		$.post("<?php echo U('MemberCardRank/ajaxSaveIntegral').'&time='; ?>"+Math.random(),
+			{integralconvertmoneyconversion:integralconvertmoneyconversion,type:'2'},
+				function(data){
+				$(".loading").hide();
+				if(data.code == 200){
+					alertTan(data.msg);
+					setTimeout('location.reload();',2000);
+				}else{
+					alertTan(data.msg,'error');
+				}
+			},"json");
+	}
+});
+</script>
+<!-- 会员制说明 2016-10-25 12:10 -->
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>会员制说明</h4></div>
+    <div class="mod-body">
+        <form action="javascript:void(0);">
+            <div class="content">
+            	<div class="alert mb-15 w865">注意！本编辑器不会自动保存第三方平台中的图片，如果您的图文是从其他编辑器上直接复制粘贴过来的（如秀米等），请确保秀米等外来编辑器的原始图片文件不会被删除！否则，图文中的图片会在源图片文件被删除后无法查看！  *秀米编辑器会定期清理非秀米VIP账号的图文，请谨慎使用！</div>
+                <script id="SuperBig" name="content" type="text/plain" class="inline w350"><?php echo htmlspecialchars_decode(htmlspecialchars_decode($Cardset['info']));?></script>
+            </div>
+            <div class="group form-footer text-center">
+                <input class="btn-small btn-purple w100" id="id-ajax-info" type="submit" value="保存">
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+$('#id-ajax-info').on('click',function(){
+	var info = SuperBig.getContent();
+	$(".loading").show();
+	$.post("<?php echo U('MemberCardRank/ajaxSaveInfo').'&time='; ?>"+Math.random(),
+		{info:info},
+			function(data){
+			$(".loading").hide();
+			if(data.code == 200){
+				alertTan(data.msg);
+			}else{
+				alertTan(data.msg,'error');
+			}
+		},"json");
+});
+</script>
+<!-- 使用积分页面装修 2016-10-25 12:10 -->
+<div class="mod mb-15">
+    <div class="mod-header radius-top clearfix">
+        <h4>使用积分页面装修</h4>
+        <a class="tips QR-code-cover fr" href="javascript:void(0);">手机预览
+            <div class="QR-code-box-down" style="top: 32px;">
+                <img src="<?php echo U('MemberCardRank/mcode',array('link'=>base64_encode(C('site_url').'/index.php?g=Wap&m=Member&a=integralUse&companyid='.$companyid)));?>">
+                <h6>微信扫码<br>
+                    关注人来风</h6>
+                <span id="triangle-up-b"></span>
+                <span id="triangle-up-a"></span>
+            </div>
+        </a>
+    </div>
+    <div class="mod-body">
+        <form action="javascript:void(0);">
+            <div class="inner-header"><h5>进入积分商城图:</h5></div>
+            <div class="content">
+                <div class="group">
+                    <img class="inline text-middle js-integralshoppic" width="60px" height="60px" src="<?php echo $integralInfo['integralshoppic']?$integralInfo['integralshoppic']:'./Tpl/Wap/default/common/Member_Center/img/menber-mr1.jpg';?>">
+                    <a class="btn-small btn-white imageselect" data-type="js-integralshoppic">上传图片</a>
+                    <h6 class="inline"><a class="tips js-reset" data-type="js-integralshoppic">重置</a></h6>
+                    <h6 class="text-gray pt-5">宽640px高度不限，小于200k</h6>
+                </div>
+            </div>
+            <div class="inner-header"><h5>进入会员WAP积分换储值图:</h5></div>
+                <div class="content">
+                <div class="group">
+                    <img class="inline text-middle js-integralconvertmoneypic" width="60px" height="60px" src="<?php echo $integralInfo['integralconvertmoneypic']?$integralInfo['integralconvertmoneypic']:'./Tpl/Wap/default/common/Member_Center/img/menber-mr2.jpg';?>">
+                    <a class="btn-small btn-white imageselect" data-type="js-integralconvertmoneypic">上传图片</a>
+                    <h6 class="inline"><a class="tips js-reset" data-type="js-integralconvertmoneypic">重置</a></h6>
+                    <h6 class="text-gray pt-5">宽640px高度不限，小于200k</h6>
+                </div>
+            </div>
+            <div class="group form-footer text-center">
+                <input class="btn-small btn-purple w100" id="id-ajax-integralpic" type="submit" value="保存">
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+//打开图片弹框
+$(document).on("click",'.imageselect',function(){
+	$("#clickimgok").attr("data-type",$(this).attr('data-type'));
+})
+//确定图片
+$(document).on("click","#clickimgok",function(){
+	var type = $(this).attr('data-type');
+	var img = $(this).attr("data-imgsrc");
+	$("."+type).attr("src",'<?php echo C('site_url');?>'+img);
+});
+//点击重置
+$(document).on("click",".js-reset",function(){
+	var type = $(this).attr('data-type');
+	var src = '';
+	if(type == 'js-integralshoppic'){
+		src = './Tpl/Wap/default/common/Member_Center/img/menber-mr1.jpg';
+	}else{
+		src = './Tpl/Wap/default/common/Member_Center/img/menber-mr2.jpg';
+	}
+	$("."+type).attr("src",src);
+});
+$('#id-ajax-integralpic').on('click',function(){
+	var integralshoppic = $('.js-integralshoppic').attr('src');
+	var integralconvertmoneypic = $('.js-integralconvertmoneypic').attr('src');
+	$(".loading").show();
+	$.post("<?php echo U('MemberCardRank/ajaxSaveIntegral').'&time='; ?>"+Math.random(),
+		{integralshoppic:integralshoppic,integralconvertmoneypic:integralconvertmoneypic,type:'3'},
+			function(data){
+			$(".loading").hide();
+			if(data.code == 200){
+				alertTan(data.msg);
+			}else{
+				alertTan(data.msg,'error');
+			}
+		},"json");
+});
+</script>
+<include file="Public:footer"/>

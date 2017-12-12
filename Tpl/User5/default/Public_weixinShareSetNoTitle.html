@@ -1,0 +1,41 @@
+<!-- 非必填项·微信分享设置 -->
+<div class="group-line pb-10">
+    <h5 class="w150 fl">微信分享小图：</h5>
+	<div class="group-right ml-150">
+		<img class="shareimg" src="<?php echo $info['shareimg'] ? $info['shareimg'] : 'http://www.mobiwind.cn/Tpl/Wap/default/common/img/common.jpg';?>">
+		<input type="hidden" class="form-control span2" name="shareimg" value="<?php echo $info['shareimg'];?>" readonly="readonly">
+		<a class="btn-middle btn-white shareimg-btn imageselect" href="javascript:void(0);" data-type="shareimg">选择图片</a>
+		<h6 class="text-gray">建议图片尺寸：宽120像素*高120像素，建议图片大小：小于50k</h6>
+	</div>
+</div>
+<div class="group mb-30">
+    <h5 class="inline w150 text-left">微信分享标题：</h5>
+    <input class="inline w300" type="text" name="sharefriendstitle" value="<?php echo $info['sharefriendstitle'];?>" maxlength="38">
+    <div class="group">
+        <h5 class="inline w150 text-left"><!-- Null --></h5>
+       <h6 class="inline text-gray">仅限38个汉字，76个字节，多余文字将显示"..."</h6>
+	</div>
+</div>
+<div class="group mb-30">
+    <h5 class="inline w150 text-left text-top">微信分享描述：</h5>
+    <textarea class="inline w300 js-sharedes" cols="30" rows="5" name="sharedes" maxlength="65"><?php echo $info['sharedes'];?></textarea>
+	<div class="group">
+		<h5 class="inline w150 text-left"><!-- Null --></h5>
+		<h6 class="inline text-gray">仅限65个汉字，130个字节，多余文字将显示"..."，受微信限制，分享描述不支持回车换行，否则，将出现分享描述不能正常显示等情况。</h6>
+    </div>
+</div>
+<script>
+$(function(){
+	$(document).on("click",'.imageselect',function(){
+		$("#clickimgok").attr("data-type",$(this).attr('data-type'));
+	})
+	$(document).on("click","#clickimgok",function(){
+		var type = $(this).attr('data-type');
+		var img = $(this).attr("data-imgsrc");
+		if(type == 'shareimg'){
+			$(".shareimg").attr("src",img);
+			$("input[name=shareimg]").attr("value",img);
+		}
+	});
+});
+</script>

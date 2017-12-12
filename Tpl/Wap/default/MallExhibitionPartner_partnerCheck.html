@@ -1,0 +1,34 @@
+<include file="Public:S5NewHead" />
+<div class="title_top">代理</div>
+<div class="dl_subnavbg mb20">
+	<div class="text_title">代理区域</div>
+	<div class="line"></div>
+	<?php foreach($addressList as $sKey=>$sVal){?>
+	<div class="text_content">
+		<?php if($sVal['province']){?>
+		<span class="mr80"><?php echo $sVal['province'];?></span>
+		<?php }?>
+		<?php if($sVal['city']){?>
+		<span class="mr80"><?php echo $sVal['city']=='undefined'?'':$sVal['city'];?></span>
+		<?php }?>
+		<?php if($sVal['area']){?>
+		<span class="mr80"><?php echo $sVal['area']==' - 请选择 - '?'':$sVal['area'];?></span>
+		<?php }?>
+		<?php if($sVal['town']){?>
+		<span class="mr80"><?php echo $sVal['town'];?></span>
+		<?php }?>
+	</div>
+	<?php }?>
+	<div class="text_title">代理时效</div>
+	<div class="line"></div>
+	<div class="text_content">2017年10月20日 <span class="fs24">至</span> 2018年10月19日</div>
+</div>
+<div class="dl_subnavbg">
+	<a href="<?php echo U('MallExhibitionPartner/agencyAgreement')?>">
+		<div class="dl_subnav">
+			代理规则
+		</div>
+    </a>
+</div>
+<include file="Public:weiXinNotShareSet"/>
+<include file="Public:footer"/>

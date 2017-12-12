@@ -1,0 +1,149 @@
+<include file="Public:head"/>
+<include file="Public:smallmaterial"/>
+<?php echo $makeTopUrl;?>
+<!--场景 > 代理 > 代理管理-->
+<div class="group inline-btn-group mb-10">
+	<a class="btn-small btn-white" href="<?php echo U('MallExhibitionPartner/partnerApplyList');?>">代理申请管理</a>
+    <a class="btn-small btn-white" href="<?php echo U('MallExhibitionPartner/partnerList');?>">代理管理</a>
+    <a class="btn-small btn-purple" href="<?php echo U('MallExhibitionPartner/index');?>">代理基础设置</a>
+    <!-- <a class="btn-small btn-purple" href="<?php echo U('MallExhibitionPartner/invitationPoster');?>">邀请海报设置</a> -->
+</div>
+<!--场景 > 代理 > 代理 > 邀请海报-->
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>邀请海报设置</h4></div>
+    <div class="mod-body">
+        <div class="content clearfix">
+            <!-- 显示区 -->
+            <div class="preview-area fl">
+                <div class="mobile-bg">
+                    <div class="mobile-hd">活动标题</div>
+                    <div class="mobile-bd js-scroll" style="height: 514px; overflow: hidden; outline: none;" tabindex="5007">
+                        <div class="promote-ctt Scrm_index_content js-get-ticket" style="overflow: hidden; outline: none;background-image: url(<?php echo $info['invitationposter']?$info['invitationposter']:'./Tpl/User5/default/common/img/get_ticket_bgi.png'; ?>)">
+                            <div class="invitation-poster">
+                                <div class="invitation-poster-logo"><div></div></div>
+                                <div class="invitation-poster-head"><p class="invitation-poster-p1"><span><?php echo '<微信昵称>';?></span>邀请你加入<br/><span><?php echo '<品牌名称>';?></span></p></div>
+                                <div class="invitation-poster-qr-box">
+                                    <img class="invitation-poster-qr" src="./Tpl/User5/default/common/img/demo-QR.png" alt="">
+                                    <p class="invitation-poster-p2">扫一扫有惊喜</p>
+                                    <p class="invitation-poster-p3">长按识别二维码 关注公众号</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 编辑区 -->
+            <div class="edit-area fl ml-30">
+                <div class="tab-box type-4 js-tab-box">
+                    <div class="bd" style="width: 500px; height: 518px;border-top: 1px solid #ccc;">
+                        <!-- 网页信息 -->
+                        <div class="inner-box js-scroll" tabindex="5008" style="overflow: hidden; outline: none;">
+                            <div class="group pb-20">
+                                <h5 class="inline w100 text-top">背景图：</h5>
+                                <div class="inner-group inline">
+                                    <img class="inline text-middle invitationposter-img js-get-ticket-s-img" width="60px" height="60px" src="<?php echo $info['invitationposter']?$info['invitationposter']:'./Tpl/User5/default/common/img/get_ticket_bgi_s1.png'; ?>">
+                                	<input type="hidden" name="invitationposter" value="<?php echo $info['invitationposter']?$info['invitationposter']:'./Tpl/User5/default/common/img/get_ticket_bgi.png'; ?>" class="invitationposter"/>
+                                    <a class="btn-small btn-white js-open-img-book">从图库选择</a>
+                                    <a class="btn-small btn-white imageselect" data-type="invitationposter"">自定义上传</a>
+                                    <h6 class="text-gray pt-5">*推荐尺寸640px*1100px，图片大小小于200K</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="group form-footer text-center">
+            <input class="btn-small btn-purple w100 js-submit" type="submit" value="保存">
+        </div>
+    </div>
+</div>
+<div class="popup-wrap js-open-img-book-wrap" style="display: none;">
+    <div class="mod bigger-popup">
+        <div class="mod-header"><h4 class="fl">选择活动主图</h4><i class="fr icon-close-dark js-icon-close"></i></div>
+        <div class="mod-body">
+            <div class="content">
+                <ul class="get-ticket-bgi-list js-get-ticket-bgi-list">
+                    <!-- li.curr-item -->
+                    <li><img src="./Tpl/User5/default/common/img/get_ticket_bgi_s1.png"></li>
+                    <li><img src="./Tpl/User5/default/common/img/get_ticket_bgi_s2.png"></li>
+                    <li><img src="./Tpl/User5/default/common/img/get_ticket_bgi_s3.png"></li>
+                    <li><img src="./Tpl/User5/default/common/img/get_ticket_bgi_s4.png"></li>
+                    <li><img src="./Tpl/User5/default/common/img/get_ticket_bgi_s5.png"></li>
+                    <li class=""><img src="./Tpl/User5/default/common/img/get_ticket_bgi_s6.png"></li>
+                    <li class="curr-item"><img src="./Tpl/User5/default/common/img/get_ticket_bgi_s7.png"></li>
+                    <li><img src="./Tpl/User5/default/common/img/get_ticket_bgi_s8.png"></li>
+                    <li><img src="./Tpl/User5/default/common/img/get_ticket_bgi_s9.png"></li>
+                    <li><img src="./Tpl/User5/default/common/img/get_ticket_bgi_s10.png"></li>
+                    <li><img src="./Tpl/User5/default/common/img/get_ticket_bgi_s11.png"></li>
+                    <li><img src="./Tpl/User5/default/common/img/get_ticket_bgi_s12.png"></li>
+                    <li><img src="./Tpl/User5/default/common/img/get_ticket_bgi_s13.png"></li>
+                    <li><img src="./Tpl/User5/default/common/img/get_ticket_bgi_s14.png"></li>
+                    <li><img src="./Tpl/User5/default/common/img/get_ticket_bgi_s15.png"></li>
+                    <li><img src="./Tpl/User5/default/common/img/get_ticket_bgi_s16.png"></li>
+                    <li><img src="./Tpl/User5/default/common/img/get_ticket_bgi_s17.png"></li>
+                    <li><img src="./Tpl/User5/default/common/img/get_ticket_bgi_s18.png"></li>
+                    <li><img src="./Tpl/User5/default/common/img/get_ticket_bgi_s19.png"></li>
+                    <li><img src="./Tpl/User5/default/common/img/get_ticket_bgi_s20.png"></li>
+                    <li><img src="./Tpl/User5/default/common/img/get_ticket_bgi_s21.png"></li>
+                    <li><img src="./Tpl/User5/default/common/img/get_ticket_bgi_s22.png"></li>
+                    <li><img src="./Tpl/User5/default/common/img/get_ticket_bgi_s23.png"></li>
+                    <li><img src="./Tpl/User5/default/common/img/get_ticket_bgi_s24.png"></li>
+                    <li><img src="./Tpl/User5/default/common/img/get_ticket_bgi_s25.png"></li>
+                </ul>
+            </div>
+            <div class="group form-footer text-center">
+                <input class="btn-middle btn-purple pointer w100 js-ok js-get-ticket-ok" type="button" value="确认">
+                <input class="btn-middle btn-white pointer w100 ml-50 js-cancel" type="button" value="取消">
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        // 弹窗开启控制
+        $(".js-open-img-book").click(function(){
+            $(".js-open-img-book-wrap").fadeIn(120);
+        });
+        // 图片选中控制
+        $(document).on("click",".js-get-ticket-bgi-list>li",function(){
+            $(this).toggleClass("curr-item").siblings().removeClass("curr-item");
+        });
+        // 将实时预览背景图添上
+        $(document).on("click",".js-get-ticket-ok",function(){
+            var sImgPath = $(this).parents(".js-open-img-book-wrap").find(".get-ticket-bgi-list li.curr-item img").attr("src");
+            var bImgPath = sImgPath.replace('png','jpg');
+			$("input[name='invitationposter']").val(bImgPath);
+            $(".js-get-ticket-s-img").attr("src",sImgPath);
+            $(".js-get-ticket").css("background-image","url("+bImgPath+")");
+        });
+    </script>
+</div>
+<script>
+$(function(){
+	// 自定义上传图片
+	$("#clickimgok").click(function(){
+		$("."+$(this).attr('data-type')+'-img').attr("src",$(this).attr('data-imgsrc'));
+		$("input[name='"+$(this).attr('data-type')+"']").val("<?php echo 'http://'.$_SERVER['SERVER_NAME']; ?>"+$(this).attr('data-imgsrc'));
+		if($(this).attr('data-type')!='shareimg'){
+			$(".js-get-ticket").css("background-image","url('"+$(this).attr('data-imgsrc')+"')");
+		}
+	});
+	// 保存为背景图片
+	$('.js-submit').click(function(){
+		var id = "<?php echo $info['id'];?>";
+		var invitationposter = $('input[name="invitationposter"]').val();
+		$('.loading').show();
+		$.post("<?php echo U('MallExhibitionPartner/invitationPoster',array('companyid'=>$companyid)).'&time='?>"+Math.random(),{'id':id,'invitationposter':invitationposter},function(data){
+			$('.loading').hide();
+			if(data.code == 200){
+				alertTan(data.tips);
+				setTimeout(function(){
+					window.location.href=location.href;
+				},2000)
+			}else{
+				alertTan(data.tips,'error');
+			}
+		},'json');
+	});           
+});
+</script>
+<include file="Public:footer"/>

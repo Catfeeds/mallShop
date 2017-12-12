@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="viewport" content="width=device-width,user-scalable=no" />
+<title>测测你有怎样的性格障碍</title>
+<script src="../../js/config.js"></script>
+<link href="res/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="res/style.css" />
+<link href="res/jquery.mmenu.all.css" rel="stylesheet">
+<script src="../../js/jquery-1.11.1.min.js"></script>
+<script src="res/bootstrap.min.js"></script>
+<script src="res/jquery.hammer.min.js"></script>
+<script src="res/jquery.mmenu.min.all.js"></script>
+<script type="text/javascript">
+    var dFW = {
+        img: siteurl + "/ceshi/xgza/res/icon.jpg",
+        url: siteurl + "/ceshi/xgza/"
+    };
+</script>
+</head>
+<body id="test1" class="test1">
+<div id="content">
+	<div class="container">
+		<div id="header" class="text-center">
+			<h1 class="bold">你有怎样的性格障碍？</h1>
+		</div>
+		<!-- E header -->
+		
+		<div id="bd" class="panel">
+			<div id="panel1" class="panel-body">
+				<form action="#">
+					<dl>
+						<dd>世间不存在十全十美的事物，更不存在十全十美的人，每个人总是会有一些性格障碍存在。那么，你知道你有怎样的性格障碍吗?做个测试吧，或许它能帮你找到答案，同时也给你提供一些简易的排除方法。也许你的症状只是轻微的，但适时排除，可以让你的心理更健康。如果很严重的话，则必须请教专业的心理医生做长期追踪治疗了 </dd>
+					</dl>
+					<div class="buttons"> <a href="#result" class="btn btn-lg btn-success" style="width:100%" onclick="return next(0);">开始测试</a> </div>
+				</form>
+			</div>
+			
+			<!-- E panel-body -->
+			
+			<div id="panel2" class="panel-body js_answer" style="display: none;">
+				<form action="#" Method="POST">
+					<dl>
+						<dd>1：跟朋友相处你常有怎样的困扰?</dd>
+					</dl>
+					<ul class="list-group  js_group">
+						<li class="list-group-item" onclick="return toggle(this);">
+							<input name="g" type="radio" class="" value="1" />
+							朋友很少，大家对我好像也不怎么友善。 </li>
+						<li class="list-group-item" onclick="return toggle(this);">
+							<input name="g" type="radio" class="" value="3" />
+							很难有知心朋友可以倾吐心事。 </li>
+						<li class="list-group-item" onclick="return toggle(this);">
+							<input name="g" type="radio" class="" value="5" />
+							感觉在团体中都是自己配合别人。 </li>
+					</ul>
+				</form>
+			</div>
+			<!-- E panel-body -->
+			<div id="Div1" class="panel-body js_answer" style="display: none;">
+				<form action="#" Method="POST">
+					<dl>
+						<dd>2：假如已经有了另一半，允不允许自己有出轨的可能？</dd>
+					</dl>
+					<ul class="list-group  js_group">
+						<li class="list-group-item" onclick="return toggle(this);">
+							<input name="g" type="radio" class="" value="1" />
+							可能，保留自己谈恋爱交朋友的权利。 </li>
+						<li class="list-group-item" onclick="return toggle(this);">
+							<input name="g" type="radio" class="" value="3" />
+							会去认识他，做做朋友应该没关系。 </li>
+						<li class="list-group-item" onclick="return toggle(this);">
+							<input name="g" type="radio" class="" value="5" />
+							只可能心动，绝不可能有任何发展。 </li>
+					</ul>
+				</form>
+			</div>
+			<!-- E panel-body -->
+			<div id="Div2" class="panel-body js_answer" style="display: none;">
+				<form action="#" Method="POST">
+					<dl>
+						<dd>3：你平常的作息是否十分不正常?</dd>
+					</dl>
+					<ul class="list-group  js_group">
+						<li class="list-group-item" onclick="return toggle(this);">
+							<input name="g" type="radio" class="" value="1" />
+							很正常，因为工作或上课的关系。 </li>
+						<li class="list-group-item" onclick="return toggle(this);">
+							<input name="g" type="radio" class="" value="3" />
+							不是很正常，早上需要闹钟叫醒。 </li>
+						<li class="list-group-item" onclick="return toggle(this);">
+							<input name="g" type="radio" class="" value="5" />
+							非常不正常，睡觉时间常常颠倒。 </li>
+					</ul>
+				</form>
+			</div>
+			<!-- E panel-body -->
+			<div id="Div3" class="panel-body js_answer" style="display: none;">
+				<form action="#" Method="POST">
+					<dl>
+						<dd>4：最受不了什么类型的朋友?</dd>
+					</dl>
+					<ul class="list-group  js_group">
+						<li class="list-group-item" onclick="return toggle(this);">
+							<input name="g" type="radio" class="" value="1" />
+							自私自利、一毛不拔的朋友。 </li>
+						<li class="list-group-item" onclick="return toggle(this);">
+							<input name="g" type="radio" class="" value="3" />
+							死不认错，又爱推卸责任的朋友。 </li>
+						<li class="list-group-item" onclick="return toggle(this);">
+							<input name="g" type="radio" class="" value="5" />
+							情绪相当不稳定的朋友。 </li>
+					</ul>
+				</form>
+			</div>
+			<!-- E panel-body -->
+			<div id="Div4" class="panel-body js_answer" style="display: none;">
+				<form action="#" Method="POST">
+					<dl>
+						<dd>5：在朋友面前你是否常过度吹嘘自己的能力?</dd>
+					</dl>
+					<ul class="list-group  js_group">
+						<li class="list-group-item" onclick="return toggle(this);">
+							<input name="g" type="radio" class="" value="1" />
+							不多，让别人慢慢来了解自己 </li>
+						<li class="list-group-item" onclick="return toggle(this);">
+							<input name="g" type="radio" class="" value="3" />
+							在有好感的人面前可能就会这样 </li>
+						<li class="list-group-item" onclick="return toggle(this);">
+							<input name="g" type="radio" class="" value="5" />
+							常常会这样，也不知道怎么才改得了 </li>
+					</ul>
+				</form>
+			</div>
+			<!-- E panel-body -->
+			<div id="Div5" class="panel-body js_answer" style="display: none;">
+				<form action="#" Method="POST">
+					<dl>
+						<dd>6：遇到有好感的人，你通常会有怎样的反应?</dd>
+					</dl>
+					<ul class="list-group  js_group">
+						<li class="list-group-item" onclick="return toggle(this);">
+							<input name="g" type="radio" class="" value="1" />
+							跟踪他，调查他的一切 </li>
+						<li class="list-group-item" onclick="return toggle(this);">
+							<input name="g" type="radio" class="" value="3" />
+							制造巧合偶遇，增加见面的机会 </li>
+						<li class="list-group-item" onclick="return toggle(this);">
+							<input name="g" type="radio" class="" value="5" />
+							会在心里幻想是自己的男／女朋友 </li>
+					</ul>
+				</form>
+			</div>
+			<!-- E panel-body -->
+			<div id="Div6" class="panel-body js_answer" style="display: none;">
+				<form action="#" Method="POST">
+					<dl>
+						<dd>7：你平时是否有暴饮暴食的习惯?</dd>
+					</dl>
+					<ul class="list-group  js_group">
+						<li class="list-group-item" onclick="return toggle(this);">
+							<input name="g" type="radio" class="" value="1" />
+							很少，三餐还算规律 </li>
+						<li class="list-group-item" onclick="return toggle(this);">
+							<input name="g" type="radio" class="" value="3" />
+							不会，不过三餐时间有时不固定 </li>
+						<li class="list-group-item" onclick="return toggle(this);">
+							<input name="g" type="radio" class="" value="5" />
+							会，看到饭馆就想大吃一顿 </li>
+					</ul>
+				</form>
+			</div>
+			<!-- E panel-body -->
+			<div id="Div7" class="panel-body js_answer" style="display: none;">
+				<form action="#" Method="POST">
+					<dl>
+						<dd>8：看到朋友在一旁议论纷纷，你会有怎样的反应?</dd>
+					</dl>
+					<ul class="list-group  js_group">
+						<li class="list-group-item" onclick="return toggle(this);">
+							<input name="g" type="radio" class="" value="1" />
+							应该不关我的事吧?!不管他。 </li>
+						<li class="list-group-item" onclick="return toggle(this);">
+							<input name="g" type="radio" class="" value="3" />
+							很好奇，会凑过去了解状况。 </li>
+						<li class="list-group-item" onclick="return toggle(this);">
+							<input name="g" type="radio" class="" value="5" />
+							会不会是在讲我的坏话? </li>
+					</ul>
+				</form>
+			</div>
+			<!-- E panel-body -->
+			<div id="Div8" class="panel-body js_answer" style="display: none;">
+				<form action="#" Method="POST">
+					<dl>
+						<dd>9：想到什么会令你最控制不住自己的情绪?</dd>
+					</dl>
+					<ul class="list-group  js_group">
+						<li class="list-group-item" onclick="return toggle(this);">
+							<input name="g" type="radio" class="" value="1" />
+							工作或课业上的压力。 </li>
+						<li class="list-group-item" onclick="return toggle(this);">
+							<input name="g" type="radio" class="" value="3" />
+							人际关系产生的压力 </li>
+						<li class="list-group-item" onclick="return toggle(this);">
+							<input name="g" type="radio" class="" value="5" />
+							感情问题产生的压力 </li>
+					</ul>
+				</form>
+			</div>
+			<!-- E panel-body -->
+			<div id="Div9" class="panel-body js_answer" style="display: none;">
+				<form action="#" Method="POST">
+					<dl>
+						<dd>10：你喜不喜欢被人约束的感觉?</dd>
+					</dl>
+					<ul class="list-group  js_group">
+						<li class="list-group-item" onclick="return toggle(this);">
+							<input name="g" type="radio" class="" value="1" />
+							还好，只要合理都可以接受 </li>
+						<li class="list-group-item" onclick="return toggle(this);">
+							<input name="g" type="radio" class="" value="3" />
+							不喜欢，可能会想反抗 </li>
+						<li class="list-group-item" onclick="return toggle(this);">
+							<input name="g" type="radio" class="" value="5" />
+							不喜欢，可能直接撕破脸走人 </li>
+					</ul>
+				</form>
+			</div>
+			<!-- E panel-body -->
+			<div id="panel3" class="panel-body js_result" style="display:none;">
+				<form action="#" class="js_result">
+					<a name="result" href="javascript:void(0)"></a>
+					<div class="form-group avatar text-center">
+						<label for="" class="sr-only">结果</label>
+						<a href="#" class="img-circle"> <span class="icon icon-wand"></span> </a> </div>
+					<h1 class="bold text-danger">你容易有“反现状性格”。</h1>
+					<hr />
+					<dl>
+						<dt>详细分析:</dt>
+						<dd>
+							<p>反现状性格特质是很容易对现状产生不满，生活中难免的小摩擦或是不如意都会让你抱怨连连，仿佛全世界都对不起你一样。感觉“处处碰壁”的你很容易情绪不稳定，你也很难克制自己一时的冲动，也很难有热情长期去从事同一项工作。建议：当有不如意时，就适时换个环境，转换并缓合一下起伏的心情。 </p>
+						</dd>
+					</dl>
+					<div class="buttons"> <a href="javascript:void(0)" class="btn btn-lg btn-success" style="width:100%" onclick="document.getElementById('mcover').style.display='block';">分享给朋友(圈)</a> </div>
+				</form>
+			</div>
+			<!-- E panel-body -->
+			<div id="Div10" class="panel-body js_result" style="display:none;">
+				<form action="#" class="js_result">
+					<a name="result" href="javascript:void(0)"></a>
+					<div class="form-group avatar text-center">
+						<label for="" class="sr-only">结果</label>
+						<a href="#" class="img-circle"> <span class="icon icon-wand"></span> </a> </div>
+					<h1 class="bold text-danger">你容易有“边缘性性格”。</h1>
+					<hr />
+					<dl>
+						<dt>详细分析:</dt>
+						<dd>
+							<p>边缘性性格特质的人好恶相当明显，对喜欢的人或事物可以紧抓着不放；对不喜欢的人或事物，则是极端厌恶，甚至展开毁灭性报复。尤其是对自己得不到的东西，更可能由爱生恨，会想尽办法去毁了它。所以你也是情杀事件的高危险群。建议：感觉自己想法和旁人迥异时，记得静下心来，思考并询问对方为何如此做。 </p>
+						</dd>
+					</dl>
+					<div class="buttons"> <a href="javascript:void(0)" class="btn btn-lg btn-success" style="width:100%" onclick="document.getElementById('mcover').style.display='block';">分享给朋友(圈)</a> </div>
+				</form>
+			</div>
+			<!-- E panel-body -->
+			<div id="Div11" class="panel-body js_result" style="display:none;">
+				<form action="#" class="js_result">
+					<a name="result" href="javascript:void(0)"></a>
+					<div class="form-group avatar text-center">
+						<label for="" class="sr-only">结果</label>
+						<a href="#" class="img-circle"> <span class="icon icon-wand"></span> </a> </div>
+					<h1 class="bold text-danger">你容易有“戏剧性性格”。</h1>
+					<hr />
+					<dl>
+						<dt>详细分析:</dt>
+						<dd>
+							<p>戏剧性性格特质的人喜欢享受掌声，害怕寂寞，也非常在意旁人对你的意见、想法。你喜欢尽己所能地去表现自己，也喜欢站在领导地位，对他人有支配欲，容易对人颐指气使。有时过于依赖自己的想法去左右周围形势，常得罪朋友而不自知。建议：充实自我的专业技能，自可相得益彰，旁人对你也可由衷地心服口服。 </p>
+						</dd>
+					</dl>
+					<div class="buttons"> <a href="javascript:void(0)" class="btn btn-lg btn-success" style="width:100%" onclick="document.getElementById('mcover').style.display='block';">分享给朋友(圈)</a> </div>
+				</form>
+			</div>
+			<!-- E panel-body -->
+			<div id="Div12" class="panel-body js_result" style="display:none;">
+				<form action="#" class="js_result">
+					<a name="result" href="javascript:void(0)"></a>
+					<div class="form-group avatar text-center">
+						<label for="" class="sr-only">结果</label>
+						<a href="#" class="img-circle"> <span class="icon icon-wand"></span> </a> </div>
+					<h1 class="bold text-danger">你容易有“自恋性性格”。</h1>
+					<hr />
+					<dl>
+						<dt>详细分析:</dt>
+						<dd>
+							<p>自恋性性格特质的人以自我为中心，旁人甚至包括亲人都只算是红花绿叶，是陪衬点 缀，很难有对等关系的存在。在自我优越感的意识作祟下，你讲话自然高姿态，对任何东西 都喜欢指指点点，也无法忍受旁人对你权威的挑战。建议：自恋无可厚非，可以多点自我解嘲式的幽默。记得尊重他人才有双赢。</p>
+						</dd>
+					</dl>
+					<div class="buttons"> <a href="javascript:void(0)" class="btn btn-lg btn-success" style="width:100%" onclick="document.getElementById('mcover').style.display='block';">分享给朋友(圈)</a> </div>
+				</form>
+			</div>
+			<!-- E panel-body --> 
+			
+		</div>
+		<!-- E bd --> 
+	</div>
+	<!-- E container --> 
+	
+	<script type="text/javascript">
+
+    var total = 10;
+    var scoreArr = new Array(parseInt(total));
+    scoreArr[0] = new Array(2);
+    scoreArr[0]['min'] = 1;
+    scoreArr[0]['max'] = 20;
+    scoreArr[1] = new Array(2);
+    scoreArr[1]['min'] = 21;
+    scoreArr[1]['max'] = 30;
+    scoreArr[2] = new Array(2);
+    scoreArr[2]['min'] = 31;
+    scoreArr[2]['max'] = 40;
+    scoreArr[3] = new Array(2);
+    scoreArr[3]['min'] = 40;
+    scoreArr[3]['max'] = 1002;
+    var tScore = 0;
+    var dataForWeixin = {
+        name: "我在性格障碍测试中得0分",
+        title: "测测你有怎样的性格障碍",
+        desc: "测测你有怎样的性格障碍",
+    };
+    function next(t) {
+        $("div#bd > div.panel-body").hide();
+        $("div.js_answer").eq(t).show();
+        $("div.js_answer").eq(t).children("input").attr("checked", "");
+        gotoTop();
+    }
+    function result(t) {
+        share_pop("open", 10000);
+        $("div#bd > div.panel-body").hide();
+        dataForWeixin.name = dataForWeixin.name.replace("0", parseInt(t));
+
+        dataForWeixin.title = dataForWeixin.name + "," ;
+
+        for (var i = 0; i < parseInt(total) ; i++) {
+            if (parseInt(t) >= parseInt(scoreArr[i]['min']) && parseInt(t) <= parseInt(scoreArr[i]['max'])) {
+                $("div.js_result").eq(i).show();
+                dataForWeixin.title += $("div.js_result h1").eq(i).html().replace("你", "")  + document.title;
+                console.log(dataForWeixin.title);
+                // dataForWeixin.desc = $("div.js_result > form > dl > dd > p").eq(i).text();
+                gotoTop();
+            }
+            else
+                continue;
+        }
+    }
+    function toggle(t) {
+        $(t).children("input").attr("checked", "checked");
+        $("li.list-group-item").removeClass('active')
+        var score = $(t).children("input:checked").val();
+        tScore = parseInt(tScore) + parseInt(score);
+        $(t).addClass('active');
+        var t = $("div.js_answer").index($(t).parents("div.js_answer")) + 1;
+        if (t == total) {
+            result(tScore);
+        } else {
+            setTimeout(function () { next(t); }, 500);
+        }
+    }
+    function gotoTop() {
+        $("body,html").animate({ scrollTop: ($("#header").offset().top + $("#header").height()) }, 1000);
+    }
+    $(function () {
+        $("input[name='g']").change(function () {
+            $("li.list-group-item").removeClass('active')
+            $(this).parent("li.list-group-item").addClass('active');
+        });
+    });
+</script> 
+</div>
+<div id="mcover" onclick="document.getElementById('mcover').style.display='';" style="display:none;"> <img src="../../img/guide.png"> </div>
+<script type="text/javascript">
+    (function () {
+        var onBridgeReady = function () {
+            // 发送给好友;
+            WeixinJSBridge.on('menu:share:appmessage', function (argv) {
+                WeixinJSBridge.invoke('sendAppMessage', {
+                    "appid": "",
+                    "img_url": dFW.img,
+                    "img_width": "120",
+                    "img_height": "120",
+                    "link": dFW.url,
+                    "desc": dataForWeixin.desc,
+                    "title": dataForWeixin.title
+                }, function (res) { home_test(); });
+            });
+            // 分享到朋友圈;
+            WeixinJSBridge.on('menu:share:timeline', function (argv) {
+                WeixinJSBridge.invoke('shareTimeline', {
+                    "img_url": dFW.img,
+                    "img_width": "120",
+                    "img_height": "120",
+                    "link": dFW.url,
+                    "desc": dataForWeixin.desc,
+                    "title": dataForWeixin.title,
+                }, function (res) { home_test(); });
+            });
+            // 分享到微博;
+            WeixinJSBridge.on('menu:share:weibo', function (argv) {
+                WeixinJSBridge.invoke('shareWeibo', {
+                    "content": dataForWeixin.title + ' ' + dFW.url,
+                    "url": dFW.url
+                }, function (res) { home_test(); });
+            });
+        };
+        if (document.addEventListener) {
+            document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+                // WeixinJSBridge.call('hideToolbar');
+                WeixinJSBridge.call('showOptionMenu');
+            });
+            document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+        } else if (document.attachEvent) {
+            document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+            document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+        }
+    })();
+</script> 
+<script>
+    $(function () {
+        $("a#close1").click(function () {
+            share_pop("close", 0);
+        });
+    });
+    function shareSuccess() {
+        share_pop("open", 0);
+        $("div#pop_success").show().delay(1000).fadeOut("slow");
+    }
+    function share_pop(t, time) {
+        if (t == "open") {
+            setTimeout('showShare()', 10000);
+        } else {
+            $('#follow').hide();
+        }
+    }
+    function showShare() {
+        $('#follow').show();
+    }
+</script>
+<script src="../../js/ad-pic.js"></script>
+</body>
+</html>

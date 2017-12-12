@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html><!-- InstanceBegin template="/Templates/room.dwt" codeOutsideHTMLIsLocked="false" -->
+<head>
+    <title><?php echo $pageTitle;?></title>
+    <meta charset="utf-8">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta http-equiv="cleartype" content="on">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes"><!--网站开启对web app程序的支持-->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"><!--控制状态栏显示样式-->
+    <meta name="apple-touch-fullscreen" content="no"><!--是否全屏-->
+    <meta name="format-detection" content="telephone=no"><!--使设备浏览网页时对数字不启用电话功能-->
+    <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="{lanrain::RES}/css/bund.css?<?php echo C('site_system_file_version');?>" rel="stylesheet">
+    <script src="{lanrain::STATICS}/jquery-1.10.1.min.js" type="text/javascript"></script>
+	<script src="{lanrain::STATICS}/jquery-alert/alert.js" type="text/javascript" ></script>
+    <link href="{lanrain::RES}/css/mobile.css?<?php echo C('site_system_file_version');?>" rel="stylesheet">
+    <script>
+        //平台检测
+        var os=detectOS();
+        //------------判断浏览器、操作系统
+        function detectOS() {
+            var	userAgent=navigator.userAgent;
+            //console.log(userAgent);
+            var os = {};
+            os.android = userAgent.match(/(Android)\s+([\d.]+)/) || userAgent.match(/Silk-Accelerated/) ? true : false;
+            os.androidICS = os.android && userAgent.match(/(Android)\s4/) ? true : false;
+            os.ipad = userAgent.match(/(iPad).*OS\s([\d_]+)/) ? true : false;
+            os.iphone = !os.ipad && userAgent.match(/(iPhone\sOS)\s([\d_]+)/) ? true : false;
+            os.ios = os.ipad || os.iphone;
+            os.wp=userAgent.match(/Windows Phone/) || userAgent.match(/IEMobile/) ? true : false;
+            os.supportsTouch = ((window.DocumentTouch && document instanceof window.DocumentTouch) || 'ontouchstart' in window);
+            return os;
+        }//end func
+        if(os.ios){
+            document.write('<link rel="stylesheet" href="{lanrain::RES}/css/mobile.css" />');
+        }else{
+            document.write('<link rel="stylesheet" media="screen and (min-height:321px)" href="{lanrain::RES}/css/mobile.css" />');
+        }
+    </script>
+</head>
+<body>

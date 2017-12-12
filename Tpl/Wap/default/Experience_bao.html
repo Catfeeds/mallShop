@@ -1,0 +1,40 @@
+<include file="Public:memberCenterHeader"/>
+<link href="{lanrain::RES}/css/animate.min.css?<?php echo C('site_system_file_version'); ?>" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="{lanrain::RES}/js/wow.min.js"></script>
+<!--是否使用电子券-->
+<div class="exp-you weixin" >
+    <img src="{lanrain::RES}/profile/tiyan/zhi-shou.jpg" class="exp-you2">
+    <div  class="exp-way"><a href="<?php echo U('Experience/you',array('companyid'=>$companyid));?>">取消，上一步</a></div>
+</div>
+<div class="exp-way-top" style="display: none">
+    <img src="{lanrain::RES}/profile/tiyan/bao-sao.jpg" class="exp-you2 shangxia">
+</div>
+<div  class="exp-you  weixin2" style="display: none">
+    <img src="{lanrain::RES}/profile/tiyan/bao-zhi.jpg" class="exp-you2">
+    <div class="zai-shou">
+        <a href="<?php echo U('Experience/index',array('companyid'=>$companyid));?>">再收一笔</a>
+    </div>
+</div>
+<img src="{lanrain::RES}/profile/tiyan/demo.png" class="ti-demo">
+<div class="sign-out"><a href="">退出演示</a></div>
+<script>
+
+    var aa  =  $("#textfiled").val(); //获取input 的值
+
+    setTimeout(function(){
+        $(".exp-way-top").show();
+
+
+
+    },2000);
+    setTimeout(function(){
+        $(".exp-way-top").hide();
+        $(".weixin").hide();
+        $(".weixin2").show();
+
+    },6000);
+
+
+</script>
+<include file="Public:weiXinShareSet" />
+<include file="Public:footer2" />

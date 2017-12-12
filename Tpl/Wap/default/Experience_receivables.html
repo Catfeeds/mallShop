@@ -1,0 +1,46 @@
+<include file="Public:memberCenterHeader"/>
+<link href="{lanrain::RES}/css/animate.min.css?<?php echo C('site_system_file_version'); ?>" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="{lanrain::RES}/js/wow.min.js"></script>
+<!--是否使用电子券-->
+<style>
+    body{ background: #d0474f}
+</style>
+<div class="rece-header">
+    <img src="{lanrain::RES}/profile/tiyan/tiyan-header.jpg">
+    <a href="http://www.mobiwind.cn/index.php?g=Wap&m=Index&a=wapRegister&companyid=1"></a>
+</div>
+<div class="rece-top" style=" margin-top: 50px;">
+<img src="{lanrain::RES}/profile/tiyan/tiyan-01.jpg">
+
+</div>
+<div class="rece-con">
+    <img src="{lanrain::RES}/profile/tiyan/tiyan-02.jpg">
+    <a href="<?php echo U('Experience/index',array('companyid'=>$companyid));?>"></a>
+</div>
+<div class="rece-con">
+    <img src="{lanrain::RES}/profile/tiyan/tiyan-03.jpg">
+    <img src="{lanrain::RES}/profile/tiyan/tiyan-04.jpg">
+    <img src="{lanrain::RES}/profile/tiyan/tiyan-05.jpg">
+    <img src="{lanrain::RES}/profile/tiyan/tiyan-06.jpg">
+    <img src="{lanrain::RES}/profile/tiyan/tiyan-07.jpg">
+    <a href="http://www.mobiwind.cn/index.php?g=Wap&m=Index&a=wapRegister&companyid=1"  class="woyao"></a>
+</div>
+<div class="rece-con">
+    <img src="{lanrain::RES}/profile/tiyan/tiyan-8.jpg">
+</div>
+<script>
+
+    var aa  =  $("#textfiled").val(); //获取input 的值
+
+    setTimeout(function(){
+        $(".exp-way-top").show();
+    },2000);
+    setTimeout(function(){
+        $(".exp-way-top").hide();
+        $(".weixin").hide();
+        $(".weixin2").show();
+    },6000);
+
+
+</script>
+<include file="Public:footer2" />

@@ -1,0 +1,184 @@
+<include file="Public:head"/>
+<link rel="stylesheet" type="text/css" href="{lanrain::STATICS}/SCRM5-PlugIn/html5file/css/jquery.filer.css">
+<script src="{lanrain::STATICS}/SCRM5-PlugIn/html5file/js/jquery.filer.min.js" type="text/javascript"></script>
+<script src="{lanrain::STATICS}/SCRM5-PlugIn/html5file/js/prettify.js" type="text/javascript"></script>
+<script src="{lanrain::STATICS}/SCRM5-PlugIn/html5file/js/scripts.js" type="text/javascript"></script>
+<script src="{lanrain::STATICS}/SCRM5-PlugIn/html5file/js/custom.js" type="text/javascript"></script>
+<?php echo $makeTopUrl;?>
+<div class="mod mb-15 WeiPage">
+<!-- 账号部署的公共头部 -->
+	<include file="UserDeployment:head" />
+
+    <div class="mod-header radius-top"><h4></h4></div>
+    <div class="mod-body">
+
+        <div class="inner-header"><h5>微信支付接入</h5></div>
+        <div class="content">
+            <div class="group pb-20">
+		        <h6 class="inline w120">商户号：</h6><input class="inline w200" type="text" name="toaccount" value="<?php echo $info['toaccount'];?>">
+		        <p class="group-help-tips-w120 pt-5">请填写您的微信支付商户平台商户号如何查看？－微信支付商户平台－账户中心－账户设置－商户信息－基本账户信息</p>
+		    </div>
+		    <div class="group pb-20">
+		        <h6 class="inline w120">API密钥：</h6><input class="inline w200" type="text" name="keypassword" value="<?php echo $info['keypassword'];?>">
+		        <p class="group-help-tips-w120 pt-5">请登录微信支付商户平台－账户中心－账户设置－API安全－API密钥－设置API密钥，按照页面提示设置好密钥之后粘贴在上方空格中</p>
+		    </div>
+		    <div class="group pb-20">
+		        <h6 class="inline w120 fl">上传API证书：</h6><p class="group-help-tips-w120">请登录微信支付商户平台－账户中心－账户设置－API安全－API证书－下载证书，按提示操作，下载到名为“cert－4”的文件夹，打开文件夹，其中有5个文件</p>
+		    </div>
+		    <div class="group group-help-tips-w120 pb-20">
+		    	<input type="hidden" name="apicert" class="wechat-cert" value="<?php echo $info['apicert'];?>" />
+		        
+		        <input type="file" name="files" class="js-demo-file2-asa" data-type="wechat-cert" multiple="multiple">
+		        
+		        <h6 class="inline text-blue wechat-cert-text"><?php echo $info['apicert'];?></h6>
+		        <p class="pt-5">请选择其中名为“apiclient_cert.pem”的文件上传</p>
+		    </div>
+		    <div class="group group-help-tips-w120">
+		    	<input type="hidden" name="apikey" class="wechat-key" value="<?php echo $info['apikey'];?>" />
+		    	
+		        <input type="file" name="files" class="js-demo-file2-asa" data-type="wechat-key" multiple="multiple">
+		        
+		        <h6 class="inline text-blue wechat-key-text"><?php echo $info['apikey'];?></h6>
+		        <p class="pt-5">请选择其中名为“apiclient_key.pem”的文件上传</p>
+		    </div>
+		    <script>
+		    	$(document).on("click",".js-upload-1",function(){
+		    		document.getElementsByClassName("js-upload-1-btn")[0].click();
+		    	})
+		    </script>
+        </div>
+
+        <div class="inner-header"><h5>支付宝接入</h5></div>
+        <div class="content">
+            <div class="alert mb-20">
+		        <h6 class="mb-5">1.如果您将计划使用SCRM5风助手的支付宝门店收银功能，您必须接入企业支付宝</h6>
+		        <h6 class="mb-15">2.接入前提：接入账户为企业支付宝，且开通了当面付功能</h6>
+		        <h6><a href="http://bbs.mobiwind.cn/forum.php?mod=viewthread&tid=63" target="_blank" class="tips">如何开通企业支付宝？</a></h6>
+		        <h6><a href="http://bbs.mobiwind.cn/forum.php?mod=viewthread&tid=64&extra=page%3D1" target="_blank" class="tips">企业支付宝费率、结算周期</a></h6>
+		    </div>
+		    <div class="group pb-20">
+		        <h6 class="inline w120">合作者身份(PID)：</h6><input class="inline w200" type="text" name="pid" value="<?php echo $info2['pid'];?>">
+		        <p class="group-help-tips-w120 pt-5">请登录您的企业支付宝首页，从顶部菜单中选择“商户服务”－右上角“签约管理”－“查看PID｜KEY”，复制页面中的合作者身份(PID)，粘贴到此处</p>
+		    </div>
+		    <div class="group">
+		        <h6 class="inline w120">Appid：</h6><input class="inline w200" type="text" name="appid" value="<?php echo $info2['appid'];?>">
+		        <p class="group-help-tips-w120 pt-5">请登录您的企业支付宝首页，从顶部菜单中选择“商户服务”－右上角“签约管理”－“查看PID｜KEY”，输入支付宝支付密码后，在“开放平台密钥管理”中，选择“接入应用”为“当面付(含CRM)V4”对应的Appid，粘贴到此处</p>
+		    </div>
+        </div>
+
+        <div class="group form-footer text-center">
+            <input class="btn-small btn-purple pointer w100 js-sub-asa" type="button" value="保存">
+        </div>
+    </div>
+</div>
+<script>
+$(function(){
+	$(".js-sub-asa").click(function(){
+		var $this = $(this);
+		$('.loading').show();
+		$.post("<?php echo U('UserDeployment/enterFive');?>",
+			{
+				payversion:1,
+				isshow:1,
+				toaccount:$("input[name='toaccount']").val(),
+				keypassword:$("input[name='keypassword']").val(),
+				apicert:$("input[name='apicert']").val(),
+				apikey:$("input[name='apikey']").val(),
+				pid:$("input[name='pid']").val(),
+				appid:$("input[name='appid']").val()
+			},
+			function(data){
+				$('.loading').hide();
+				if(data.code == '200'){
+					alertTan(data.msg);
+					setTimeout("window.location.href='<?php echo U('UserDeployment/enterFive'); ?>'",1500);
+				}else{
+					alertTan(data.msg,'error');
+				}
+		},"json");
+	})
+})
+</script>
+<script>
+$(function(){
+	filer_default_opts = {
+            templates: {     //上传进度条
+    	        box: '<ul class="jFiler-items-list jFiler-items-grid"></ul>',
+    	        item: '<li class="jFiler-item">\
+    		                <div class="jFiler-item-container">\
+    		                <div class="jFiler-item-inner">\
+    		                    <div class="jFiler-item-assets jFiler-row">\
+    		                        <ul class="list-inline pull-left">\
+    					            	<li>{{fi-name | limitTo: 25}}</li>\
+    					                <li>{{fi-size2}}</li>\
+    		                            <li>{{fi-progressBar}}</li>\
+    		                        </ul>\
+    		                    </div>\
+    		                </div>\
+    		            </div>\
+    		        </li>',
+    	        progressBar: '<div class="bar"></div>',
+    	        itemAppendToEnd: false,
+    	        removeConfirmation: false,
+    	        _selectors: {
+    	            list: '.jFiler-items-list',
+    	            item: '.jFiler-item',
+    	            progressBar: '.bar',
+    	            remove: '.jFiler-item-trash-action',
+    	        }
+    	    },
+    	    dragDrop: {
+    			dragEnter: null,
+    			dragLeave: null,
+    			drop: null,
+    		},
+        };
+	$('.js-demo-file2-asa').filer({
+		limit: 1,
+		maxSize: 2,  //文件大小
+	    //extensions: ['pem'],   //限制类型
+		changeInput: '<a class="btn-small btn-white mr-10" data-type="wechat-cert">上传证书</a>',   //绑定上传样式
+		showThumbs: true,    //是否显示templates
+		theme: "dragdropbox",
+		templates: filer_default_opts.templates,
+		dragDrop: filer_default_opts.dragDrop,
+		uploadFile: {
+			url: "./Tpl/static/SCRM5-PlugIn/html5file/php/upload.php",
+			data: null,
+			type: 'POST',
+			enctype: 'multipart/form-data',
+			beforeSend: function(){},
+			success: function(data, el){
+				var files = JSON.parse(data);
+				if(files['error']){
+					$('.jFiler-items').delay(1000).hide(0);
+					alertTan(files['error'],'error',3000);
+				}else{
+					var a = files.metas;
+					//获取链接
+					var url = files.files;
+					//获取类型
+					var dataType = el.parent().parent().parent().children(".js-demo-file2-asa").attr("data-type");
+					//alert(el.parent().parent().parent().html());
+					el.parent().parent().remove();
+					$("."+dataType).val(url);
+					$.post("<?php echo U('UserDeployment/getTimeAsa'); ?>",{},function(data2){
+						$("."+dataType+'-text').html(data2.msg+' 上传成功');
+					},'json');
+				}
+			},
+			error: function(el){
+				/* var parent = el.find(".jFiler-jProgressBar").parent();
+				el.find(".jFiler-jProgressBar").fadeOut("slow", function(){
+					$("<div class=\"jFiler-item-others text-error\"><i class=\"icon-jfi-minus-circle\"></i> 上传失败</div>").hide().appendTo(parent).fadeIn("slow");    
+				}); */
+			},
+			statusCode: null,
+			onProgress: null,
+			onComplete: null
+		},
+	});
+})
+
+</script>
+<include file="Public:footer" />

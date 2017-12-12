@@ -1,0 +1,130 @@
+<include file="Public:head"/>
+<!-- 页面内容 begin -->
+<?php echo $makeTopUrl;?>
+    <div class="mod mb-15">
+        <div class="mod-header radius-top"><h4>筛选条件</h4></div>
+        <div class="mod-body">
+            <form action="<?php echo U('Wechat/manage');?>" enctype="multipart/form-data" method="post" >
+            	<input type="hidden" name='wechatid' value="<?php echo $wechatid; ?>">
+                <div class="content clearfix">
+                    <div class="child-sum-3 fl">
+                        <div class="group pb-10">
+                            <h6 class="inline w100">微信昵称：</h6>
+                            <input class="inline w150" type="text" placeholder="" value="<?php echo $wechatNickname;?>" name="nickname">
+                        </div>
+                        <div class="group pb-10">
+                            <h6 class="inline w100">是否注册：</h6>
+                            <select name="isregister" class="inline w150">
+                                <option value="">全部</option>
+                                <option value="1" <?php if($isregister == '1'){ echo 'selected="selected"';} ?>>是</option>
+                                <option value="2" <?php if($isregister == '2'){ echo 'selected="selected"';} ?>>否</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="child-sum-3 fl">
+                        <div class="group pb-10">
+                            <h6 class="inline w100">微信性别：</h6>
+                            <select name="gender" class="inline w150">
+						        <option value="">全部</option>
+						        <option value="1" <?php if($gender == '1'){ echo 'selected="selected"';} ?>>男</option>
+						        <option value="2" <?php if($gender == '2'){ echo 'selected="selected"';} ?>>女</option>
+					      	</select>
+                        </div>
+                        <div class="group pb-10">
+                            <h6 class="inline w100">注册手机号：</h6>
+                            <input class="inline w150" type="text" placeholder="" value="<?php echo $mobile;?>" name="mobile">
+                        </div>
+                    </div>
+
+                    <div class="child-sum-3 fl">
+                        <div class="group pb-10">
+                            <h6 class="inline w100">关注状态：</h6>
+                            <select name="subscribetype" class="inline w150">
+						        <option value="">全部</option>
+						        <option value="1" <?php if($subscribetype == '1'){ echo 'selected="selected"';} ?>>已关注</option>
+						        <option value="2" <?php if($subscribetype == '2'){ echo 'selected="selected"';} ?>>取消关注</option>
+						        <option value="0" <?php if($subscribetype == '0'){ echo 'selected="selected"';} ?>>未关注</option>
+					      	</select>
+                        </div>
+                        <div class="group pb-10">
+                            <h6 class="inline w100">会员备注：</h6>
+                            <input class="inline w150" type="text" placeholder="" value="<?php echo $remark;?>" name="remark">
+                        </div>
+                    </div>
+                </div>
+                <div class="group form-footer text-center">
+                    <input class="btn-middle btn-purple" type="submit" value="筛选">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input class="btn-middle btn-white" type="reset" value="重置">
+                </div>
+            </form>
+        </div>
+    </div>
+    <table class="table type-2 w-auto pb-10">
+        <thead>
+        <tr>
+            <th>微信头像</th>
+            <th>微信昵称</th>
+            <th>微信性别</th>
+            <th>注册手机号</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        	<?php if($memberList){
+        		foreach($memberList as $Key=>$info){
+        	?>
+		        	<tr>
+			            <td><img class="table-user-pic" src="<?php echo $info['headimgurl']?$info['headimgurl']:'./Tpl/User5/default/common/img/user-logo.jpg';?>"></td>
+			            <td><?php echo $info['nickname'] ? $info['nickname'] : '-';?></td>
+			            <td><?php if($info['gender'] == '1'){ echo '男';}elseif($info['gender'] == '2'){ echo '女';}else{ echo '-';}?></td>
+			            <td><a class="tips js-vip-details" href="<?php echo U('Member/memberInfo',array('id'=>$info['mid']));?>"><?php echo $info['mobile']?$info['mobile']:'-';?></a></td><!--<?php echo U('Member/memberInfo',array('id'=>$info['id'],'type'=>1));?>-->
+			            <!-- <td><a href="javascript:void(0);" data-openid="<?php echo $info['openid'];?>" class="tips js-vip-details box-menu">查看详情</a></td> -->
+						<td><a href="<?php echo U('Member/memberInfo',array('id'=>$info['mid']));?>" class="tips">查看详情</a></td>
+		        	</tr>
+        	<?php }}else{?>
+           		<tr>
+               		<td class="content text-center" colspan="8">暂无</td>
+           		</tr>
+        	<?php } ?>
+        </tbody>
+    </table>
+    <?php if($page){echo $page;}?>
+    <!-- 查看详情 的弹窗 -->
+    <div class="popup-wrap wrap-middle-3 js-vip-details-popup">
+        <div class="mod middle-popup type-1 ui-dialog">
+        </div>
+    </div>
+<script type="text/javascript">
+$(function(){
+	/******************清空表单********************/
+   /*  $('#reset-form-button').click(function(){
+    	$(':input','#search').not(':button, :submit, :reset, :hidden').val('').removeAttr('checked').removeAttr('selected');
+    }); */
+	/* 会员详情 */
+    $('.box-menu').click(function(){
+    	var openid = $(this).attr('data-openid');
+    	$('.loading').show();
+    	$.post("<?php echo U('Wechat/ajaxMemberInfo',array('companyid'=>$companyid)).'&time=time()'; ?>"+Math.random(),
+    			{'openid':openid},
+    			function(data){	  
+    				$('.loading').hide();
+	    			if(data.code == 200){
+				  		$('.ui-dialog').html(data.html);
+				  		$(".js-vip-details-popup").fadeIn(120);
+				  		ok();
+					}else{
+						alertTan(data.msg,'error');
+						ok();
+					}
+			},"json");
+    });
+	function ok(){
+		$('.js-ok').on("click",function(){
+	        $(".wrap-middle-3").fadeOut(120);
+	    });
+	}
+});
+</script>
+<include file="Public:footer"/>

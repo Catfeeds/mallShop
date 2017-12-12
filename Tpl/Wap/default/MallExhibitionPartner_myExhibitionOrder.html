@@ -1,0 +1,107 @@
+<include file="Public:S5NewHead" />
+<!-- 返回统计 -->
+<div class="page return-statistics">
+	<div class="title-h1">
+		<h1>
+			<span>返利统计</span>
+			<a href="javascript:;" title="申请提现"><em></em>申请提现</a>
+			<strong><b></b>全选</strong>
+		</h1>
+	</div>
+	<div class="statistics-money">
+		<p>
+			总返利金额:
+			<strong><?php echo $totalMoney?$totalMoney:'0.00';?></strong>
+			(已提现:<?php echo $withTotal?$withTotal:'0.00';?> 剩余:<?php echo $leaveTotal?$leaveTotal:'0.00';?>)
+		</p>
+	</div>
+	<div class="all-order">
+		<?php if($list){foreach($list as $key=>$val){?>
+		<div class="order-box">
+			<p class="order-time">
+				<b data-id="<?php echo $val['bid'];?>"></b>
+				<span><?php echo format_time($val['createtime'],'ymd');?></span>
+			</p>
+			<p class="order-lattice">
+				<span>订单编号:</span>
+				<span>订单金额:</span>
+				<span>返利金额:</span>
+			</p>
+			<p class="order-lattice lattice-data">
+				<span><?php echo $val['orderid'];?></span>
+				<span><?php echo $val['ordermoney'];?></span>
+				<span><?php echo $val['wagesmoney'];?></span>
+			</p>
+		</div>
+		<?php }}?>
+	</div>
+	<div class="successful-status-wrap">
+		<div class="status-box">
+			<b class="js-close"></b>
+			<dl>
+				<dt>
+					<img src="{lanrain::RES}/weixinfeng/images/icon_success.png" title="状态成功"></dt>
+				<dd>
+					<span>申请成功</span>
+				</dd>
+			</dl>
+			<p>为保证您的账户安全，提现申请将由工作人员<br/>与您电话核对后，方可进行，敬请谅解！</p>
+		</div>
+	</div>
+</div>
+<script>
+$(function(){
+	// 申请体现
+	/* $('.return-statistics .title-h1').on('click','.reflect',function() {
+		layer.msg('申请体现中...', {time:1000});
+		setTimeout(function() {
+		var index = layer.load(2, {shade: [0.1,'#fff']});
+			setTimeout(function() {
+				layer.close(index);
+				$('.successful-status-wrap').fadeIn();
+				$('.status-box').animate({
+					'top': '8.5rem'
+				});
+				// ajax
+			},1000);
+		},1000);
+	}); */
+	// 关闭申请状态提示
+	$('.status-box').on('click','b',function() {
+		$('.successful-status-wrap').fadeOut();
+		$('.status-box').animate({
+			'top': '-15rem'
+		});
+
+	});
+	$(document).on("click",'.reflect',function(){
+		var id = '';
+		$(".order-box b.selected").each(function(){
+			id += $(this).attr("data-id") + ",";
+		})
+		layer.msg('申请体现中...', {time:1000});
+		var index = layer.load(2, {shade: [0.1,'#fff']});
+		$.post("<?php echo U('MallExhibitionPartner/ajaxSubmitWithDrawCash'); ?>",{id:id},function(data){
+			if(data.code == 200){
+				layer.close(index);
+				$('.successful-status-wrap').fadeIn();
+				$('.status-box').animate({
+					'top': '8.5rem'
+				});
+			}else{
+				alert(data.tips);
+			}
+		},"json");
+	});
+	$('.js-close').click(function(){
+		window.location.href=location.href;
+	});
+});
+</script>
+<script src="{lanrain::RES}/weixinfeng/js/layer.js"></script>
+<script src="{lanrain::RES}/weixinfeng/js/swiper-3.3.1.jquery.min.js"></script>
+<script src="{lanrain::RES}/weixinfeng/js/distpicker.data.js"></script>
+<script src="{lanrain::RES}/weixinfeng/js/distpicker.js"></script>
+<script src="{lanrain::RES}/weixinfeng/js/public2.js"></script>
+<include file="Public:weiXinNotShareSet"/>
+<include file="Public:footer"/>

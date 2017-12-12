@@ -1,0 +1,112 @@
+<include file="Public:memberCenterHeader"/>
+<link href="{lanrain::RES}/css/message.css?<?php echo C('site_system_file_version'); ?>" rel="stylesheet" type="text/css">
+<body onload="loaded()">
+<div class="message-inform service-inform">
+  <header id="header">
+    <ul class="hd">
+      <li><a href="<?php echo U('MemberNotices/system',array('companyid'=>$companyid))?>"><p>系统通知</p><p>System notification</p></a></li>
+      <li class="active"><a href="<?php echo U('MemberNotices/customer',array('companyid'=>$companyid))?>"><p>官方客服</p><p>Customer service</p></a></li>
+    </ul>
+  </header>
+  <section id="wrapper" class="message-item service-item message-list">
+    <section id="scroller">
+    <?php if($list){?>
+    <ul class="">
+      <?php foreach($list as $Val){if($Val['msgtype']==1){?>
+      <li>
+        <img src="<?php if($Val['logourl']){ echo $Val['logourl'];}else{ echo './Tpl/Wap/default/common/img/defaul120@120.jpg';}?>" alt=""/>
+        <div class="title">
+          <p><?php echo $Val['cname'];?></p>
+          <time><?php echo format_time($Val['createtime'],'ymdhi');?></time>
+        </div>
+        <p class="cent"><?php echo $Val['info'];?></p>
+        <span class="btn-delete" data-id="<?php echo $Val['id'];?>"><i>×</i></span>
+      </li>
+      <?php }else{?>
+      <li>
+        <img src="<?php if($Val['headimgurl']){ echo $Val['headimgurl'];}else{ echo './Tpl/Wap/default/common/img/user_n.jpg';}?>" alt=""/>
+        <div class="title">
+          <p><?php echo $Val['newname'];?></p>
+          <time><?php echo format_time($Val['createtime'],'ymdhi');?></time>
+        </div>
+        <p class="cent"><?php echo $Val['info'];?></p>
+        <span class="btn-delete customer-delete" data-id="<?php echo $Val['id'];?>"><i>×</i></span>
+      </li>
+      <?php }}?>
+    </ul>
+    <?php }else{?>
+    <section class="not-info">请给我们留言 Pls leave a message</section>
+    <?php }?>
+    </section>
+  </section>
+  <footer id="footer" class="message-footer">
+    <form action="<?php echo U('MemberNotices/customer',array('companyid'=>$companyid));?>" method="post" enctype="multipart/form-data">
+      <ul id="nav-footer">
+        <li><a class="get-back" href="javascript:history.go(-1);"></a></li>
+        
+     	<li class="send-button"></li>
+     	
+     	<li><input type="text" id="sendtext" class="toolstext" name="info" oninput="cansend()" onpropertychange="cansend()"></li>
+      </ul>
+    </form>
+  </footer>
+</div>
+<script type="text/javascript" src="{lanrain::RES}/js/iscroll.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('<a href="javascript:void(0);" class="btn btn-blue on">发送 <i class="english">Send</i></a>').appendTo(".send-button");
+	 //删除li
+    $(document).on("click",".customer-delete",function(){
+      var id = $(this).attr('data-id');
+      var $this = this;
+      $('.loading').show();
+      $.post("<?php echo U('MemberNotices/removeNotices',array('companyid'=>$companyid)).'&time=';?>"+Math.random(),{id:id},function(data){
+        if(data.code == '200'){
+          alert(data.tips,2000);
+          $($this).parent().remove('li');
+        }else if(data.code == '300'){
+          alert(data.tips,2000);
+        }
+        $('.loading').hide();
+      },"json");
+    });
+});
+var myScroll;
+function loaded(){
+  myScroll = new IScroll('#wrapper', { mouseWheel: true, click: true });
+}
+document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+var userAgent = navigator.userAgent.toLowerCase();
+var IsIOS = false;
+if(userAgent.indexOf("iphone") >= 0){
+  IsIOS = true;
+  $("#nav-footer").css("position","absolute");
+}
+function cansend(){
+  var text = $("#sendtext").val();
+  if(text.trim().length > 0){
+	$(".send-button").text('');
+  	$('<button type="submit" id="submit" class="btn btn-blue">发送 <i class="english">Send</i></button>').appendTo(".send-button");
+  }else{
+	$(".send-button").text('');
+  	$('<a href="javascript:void(0);" class="btn btn-blue on">发送 <i class="english">Send</i></a>').appendTo(".send-button");
+  }
+}
+$("#submit").click(function(){
+  var text = $("#sendtext").val();
+  if(text.trim().length == 0){
+    return;
+  }else{
+    sendMessage(AId,sWeimobId,'text', text.trim());
+  }
+});
+</script>
+<include file="Public:loading"/>
+<include file="Public:weiXinNotShareSet" />
+<include file="Public:rightIcon"/>
+<script type="text/javascript">
+  var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+  document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F4e9f0b9e0dafddcb1d8ae2528867b1f3' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>

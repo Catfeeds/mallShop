@@ -1,0 +1,42 @@
+<include file="Public:memberCenterHeader"/>
+<link href="{lanrain::RES}/css/deal-style.css?<?php echo C('site_system_file_version'); ?>" rel="stylesheet" type="text/css">
+<div class="sidebar-content">
+  <div class="confirm-info">
+    <div class="confirm-info-block">
+      <h2>感谢您的支持，请店员前来献上礼品吧！</h2>
+      <p>店员输入兑换密码后，您的相应积分将被扣除。</p>
+    </div>
+    <p class="cut-line icon-gift"><!--分割线--></p>
+    <div class="input-box">
+      <input type="password" class="form-control" name="password">
+      <p class="prompt"><span class="prompt-icon"></span>此密码由工作人员输入。</p>
+    </div>
+    <div class="btn-box">
+      <a href="javascript:javascript:void(0);" class="btn-submit btn btn-pink mb15">提交兑换密码</a>
+      <input type="hidden" name="gid" value="<?php echo $gid;?>">
+      <a href="<?php echo U('MemberIntegral/integralGoods',array('companyid'=>$companyid));?>" class="btn btn-white">取消，返回积分商城</a>
+    </div>
+  </div>
+</div>
+<script>
+$('.btn-submit').click(function(){
+	var password = $('input[name="password"]').val();
+	if( password.length > 0 && password.length == 4){
+		$('.loading').show();
+		$.post("<?php echo U('MemberIntegral/ajaxExchangeConfirm',array('companyid'=>$companyid,'requiredintegral'=>$requiredintegral,'gid'=>$gid)).'&time='; ?>"+Math.random(),
+				{ password: password },
+				function(data){
+					if(data['code'] == '200'){
+						window.location.href="<?php echo U('MemberIntegral/exchangeConfirmSuccess',array('companyid'=>$companyid,'gid'=>$gid));?>";
+					}else{
+						$('.loading').hide();
+						alert(data['tips'],2000);
+					}
+				},"json");
+	}else{
+		alert('请输入4位密码',2000);
+	}
+});
+</script>
+<include file="Public:weiXinNotShareSet"/>
+<include file="Public:memberCenterFooter"/>

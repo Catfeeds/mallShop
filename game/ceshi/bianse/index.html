@@ -1,0 +1,270 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>测测您的辨色能力</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta charset="utf-8">
+  <meta name="keywords" content="趣味测试 测测您的辨色能力">
+  <meta name="description" content="色盲通常男多于女，发生率在我国男性约为5%～8%、女性0.5～1%;日本男性约为4%～5%、女性0.5%;欧美男性8%、女性0.4%。">
+  <meta name="viewport" content="target-densitydpi=320,width=640,user-scalable=no">
+  <script src="../../js/config.js"></script>
+  <script src="../../js/offline.js"></script>
+  <style>
+    html, body{margin: 0 auto;padding: 0;height: 100%;width: 640px;}
+    .button {
+      display: inline-block;
+      zoom: 1; /* zoom and *display = ie7 hack for display:inline-block */
+      *display: inline;
+      vertical-align: baseline;
+      margin: 0 2px;
+      outline: none;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      font: 30px/100% Arial, Helvetica, sans-serif;
+      padding: .5em 2em .55em;
+      text-shadow: 0 1px 1px rgba(0,0,0,.3);
+      -webkit-border-radius: .5em;
+      -moz-border-radius: .5em;
+      border-radius: .5em;
+      -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+      -moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+      box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    }
+    .orange {
+      color: #fef4e9;
+      border: solid 1px #da7c0c;
+      background: #f78d1d;
+      background: -webkit-gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));
+      background: -moz-linear-gradient(top,  #faa51a,  #f47a20);
+      filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa51a', endColorstr='#f47a20');
+    }
+    .blue {
+      color: #d9eef7;
+      border: solid 1px #0076a3;
+      background: #0095cd;
+      background: -webkit-gradient(linear, left top, left bottom, from(#00adee), to(#0078a5));
+      background: -moz-linear-gradient(top,  #00adee,  #0078a5);
+      filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#00adee', endColorstr='#0078a5');
+    }
+    .bigrounded {
+      -webkit-border-radius: 2em;
+      -moz-border-radius: 2em;
+      border-radius: 2em;
+    }
+    .fl{
+      width: 600px;
+      padding: 0 19px;
+      min-height:70%;
+      margin:0 auto;
+      background: #F0F0F0;
+      border: 1px dotted #DDD;
+      display: block;
+    }
+    .mbox {
+      display: block
+    }
+    .tshow_index {
+      border: 1px dotted #DDD;
+      padding: 19px;
+      background: #F6F6F6
+    }
+    .test_contents {
+      padding: 15px 0 0 0;
+      font-size:30px;
+      display:block;
+    }
+    div {
+      display: block;
+    }
+    .tbtns {
+      padding: 30px 0 10px;
+      text-align: center;
+    }
+    .items{
+      width:200px;
+      float:left;
+      font-size:25px;
+      margin:15px 15px;
+      padding:20px 30px;
+      color:#ffffff;
+      background:#fcfcfc;
+      cursor:pointer;
+      border-radius: 15px;
+      border: solid 1px #0076a3;
+      background: #0095cd;
+      background: -webkit-gradient(linear, left top, left bottom, from(#00adff), to(#0078a5));
+      background: -moz-linear-gradient(top,  #00adff,  #0078a5);
+    }
+    .act {
+      font-size:25px;
+    }
+    .sels_list{
+      height:200px;
+      display:block;
+    }
+    .daoyu {
+      font-size:30px;
+    }
+    .cen {
+      text-align: center;
+    }
+    .an {
+      margin-top:20px;
+    }
+    .kong{margin-top:20px;}
+  </style>
+  <script type="text/javascript">
+    var tit = "";
+    var dataForWeixin = {
+      appId: "",
+      TLImg: siteurl + "/ceshi/bianse/images/18.gif",
+      url: siteurl + "/ceshi/bianse/",
+      title: "测测您的辨色能力。",
+      desc: "色盲通常男多于女，发生率在我国男性约为5%～8%、女性0.5～1%。"
+    };
+    var onBridgeReady = function () {
+      WeixinJSBridge.on('menu:share:appmessage', function (argv) {
+        WeixinJSBridge.invoke('sendAppMessage', {
+          "appid": dataForWeixin.appId,
+          "img_url": dataForWeixin.TLImg,
+          "img_width": "120",
+          "img_height": "120",
+          "link": dataForWeixin.url,
+          "title": dataForWeixin.title + tit,
+          "desc": dataForWeixin.desc
+        },home_test);
+      });
+      WeixinJSBridge.on('menu:share:timeline', function (argv) {
+        WeixinJSBridge.invoke('shareTimeline', {
+          "appid": dataForWeixin.appId,
+          "img_url": dataForWeixin.TLImg,
+          "img_width": "120",
+          "img_height": "120",
+          "link": dataForWeixin.url,
+          "title": dataForWeixin.title + tit,
+          "desc": dataForWeixin.desc
+        },home_test);
+      });
+    };
+    if (document.addEventListener) {
+      document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+    } else if (document.attachEvent) {
+      document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+      document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+    }
+  </script>
+</head>
+<body>
+<!--****************菜单***************-->
+<link href="main.css-v2.css" tppabs="main.css" rel="stylesheet" type="text/css">
+<!--****************菜单***************-->
+<div class="fl" >
+  <div id="tip" style="display: none">
+    <img src="images/tip-share.jpg" tppabs="images/tip-share.jpg" width="100%">
+  </div>
+  <div class="cen" style="font-size:45px;">测测您的辨色能力</div>
+  <div id="wen">
+    <div id="wenti_1" class="test_contents">
+      <div class="cen"><img src="images/18_1.gif" tppabs="images/18_1.gif" height="300"></div>
+      <div class="sels_list">
+        <div class="items" onClick="show(1,0)" ><input type="radio" name="1" /> A. A</div>
+        <div class="items" onClick="show(1,1)" ><input type="radio" name="1" /> B. B</div>
+        <div class="items" onClick="show(1,1)" ><input type="radio" name="1" /> C. C</div>
+        <div class="items" onClick="show(1,1)" ><input type="radio" name="1" /> D. 没有</div>
+      </div>
+    </div>
+
+    <div id="wenti_2" class="test_contents" style="display: none">
+      <div class="cen"><img src="images/18_2.gif" tppabs="images/18_2.gif" height="300"></div>
+      <div class="sels_list">
+        <div class="items" onClick="show(2,2)" ><input type="radio" name="2" /> A. A</div>
+        <div class="items" onClick="show(2,2)" ><input type="radio" name="2" /> B. B</div>
+        <div class="items" onClick="show(2,0)" ><input type="radio" name="2" /> C. C</div>
+        <div class="items" onClick="show(2,2)" ><input type="radio" name="2" /> D. 没有</div>
+      </div>
+    </div>
+
+    <div id="wenti_3" class="test_contents" style="display: none">
+      <div class="cen"><img src="images/18_3.gif" tppabs="images/18_3.gif" height="300"></div>
+      <div class="sels_list">
+        <div class="items" onClick="show(3,5)" ><input type="radio" name="3" /> A. 一条线</div>
+        <div class="items" onClick="show(3,0)" ><input type="radio" name="3" /> B. 两条线</div>
+        <div class="items" onClick="show(3,4)" ><input type="radio" name="3" /> C. 三条线</div>
+        <div class="items" onClick="show(3,4)" ><input type="radio" name="3" /> D. 没有</div>
+      </div>
+    </div>
+
+    <div id="wenti_4" class="test_contents" style="display: none">
+      <div class="cen"><img src="images/18_4.gif" tppabs="images/18_4.gif" height="300"></div>
+      <div class="sels_list">
+        <div class="items" onClick="show(4,2)" ><input type="radio" name="4" /> A. 2</div>
+        <div class="items" onClick="show(4,1)" ><input type="radio" name="4" /> B. 6</div>
+        <div class="items" onClick="show(4,0)" ><input type="radio" name="4" /> C. 26</div>
+        <div class="items" onClick="show(4,4)" ><input type="radio" name="4" /> D. 没有</div>
+      </div>
+    </div>
+
+    <div id="wenti_5" class="test_contents" style="display: none">
+      <div class="cen"><img src="images/18_5.gif" tppabs="images/18_5.gif" height="300"></div>
+      <div class="sels_list">
+        <div class="items" onClick="show(5,4)" ><input type="radio" name="5" /> A. 鹿</div>
+        <div class="items" onClick="show(5,0)" ><input type="radio" name="5" /> B. 牛</div>
+        <div class="items" onClick="show(5,6)" ><input type="radio" name="5" /> C. 兔</div>
+        <div class="items" onClick="show(5,4)" ><input type="radio" name="5" /> D. 没有</div>
+      </div>
+    </div>
+
+    <div id="wenti_6" class="test_contents" style="display: none">
+      <div class="cen"><img src="images/18_6.gif" tppabs="images/18_6.gif" height="300"></div>
+      <div class="sels_list">
+        <div class="items" onClick="show(6,5)" ><input type="radio" name="6" /> A. 5</div>
+        <div class="items" onClick="show(6,0)" ><input type="radio" name="6" /> B. 6</div>
+        <div class="items" onClick="show(6,4)" ><input type="radio" name="6" /> C. 8</div>
+        <div class="items" onClick="show(6,3)" ><input type="radio" name="6" /> D. 没有</div>
+      </div>
+    </div>
+
+    <div id="wenti_7" class="test_contents" style="display: none">
+      <div class="cen"><img src="images/18_7.gif" tppabs="images/img/18_7.gif" height="300"></div>
+      <div class="sels_list">
+        <div class="items" onClick="show(7,5)" ><input type="radio" name="7" /> A. 5</div>
+        <div class="items" onClick="show(7,4)" ><input type="radio" name="7" /> B. 6</div>
+        <div class="items" onClick="show(7,4)" ><input type="radio" name="7" /> C. 8</div>
+        <div class="items" onClick="show(7,0)" ><input type="radio" name="7" /> D. 没有</div>
+      </div>
+    </div>
+  </div>
+  <div id="da_1" style="display: none" class="act kong" tit="我很有可能成为大富翁。"></div>
+</div>
+<script>
+  var s = [0, 0, 0, 0, 0]
+  var cur_qids = new Array();
+  function show(str1, str2) {
+    document.getElementById("wenti_" + str1).style.display = "none";
+    if (str2 == 5) {
+      s[1] = s[1] + 14.28
+      s[2] = s[2] + 14.28
+    } else if (str2 == 6) {
+      s[1] = s[1] + 14.28
+      s[2] = s[2] + 14.28
+      s[3] = s[3] + 14.28
+    } else {
+      s[str2] = s[str2] + 14.28
+    }
+    if (str1 < 7) {
+      document.getElementById("wenti_" + (str1 + 1)).style.display = "";
+    } else {
+      document.getElementById("tip").style.display = "";
+      //tit=document.getElementById(str1).getAttribute("tit");
+      document.getElementById("da_1").innerHTML = "正　常：" + s[0].toFixed(2) + "%，<br>红色盲：" + s[1].toFixed(2) + "%，<br>绿色盲：" + s[2].toFixed(2) + "%，<br>色　弱：" + s[3].toFixed(2) + "%，<br>非人类：" + s[4].toFixed(2) + "%。";
+      document.getElementById("da_1").style.display = "";
+      document.title = "我辩色能力的正常程度为" + s[0].toFixed(2) + "%,测测您的辨色能力";
+      dataForWeixin.title = document.title;
+    }
+  }
+</script>
+
+<script src="../../js/ad-pic.js"></script>
+</body></html>

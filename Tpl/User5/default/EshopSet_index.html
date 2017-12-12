@@ -1,0 +1,141 @@
+<include file="Public:head" />
+<include file="Public:smallmaterial"/>
+<?php echo $makeTopUrl;?>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>eshop基础设置</h4></div>
+    <div class="mod-body">
+        <div class="content">
+        	<div class="group pb-15">
+                <h6 class="inline w120 text-top">商户通头LOGO：</h6>
+                <div class="inner-group inline">
+                	<input name="eshopheadlogo" type="hidden" value="<?php echo $Info['eshopheadlogo']; ?>" class="eshopheadlogo" />
+                    <img class="inline text-middle eshopheadlogo-img" width="60px" height="60px" src="<?php echo $Info['eshopheadlogo']?$Info['eshopheadlogo']:'./Tpl/User5/default/common/img/WeiPage-temp-img.png'; ?>">
+                    <div class="inline"><input type="file" name="files" class="js-add-img-asa" data-type="eshopheadlogo" multiple="multiple"></div> <a class="tips js-delete-eshop-head-logo">重置</a>
+                    <h6 class="text-gray pt-5">*请上传通头LOGO，PNG格式，150px*50px</h6>
+                </div>
+            </div>
+            <div class="group pb-15">
+                <h6 class="inline w120">自动关闭订单设置：</h6>
+                <h6 class="inline">买家提交订单后</h6>
+                <input class="inline w30" name="mallorderautoset" onchange="this.value=this.value.replace(/[^\d]/ig,'')" type="text" AUTOCOMPLETE="off" value="<?php echo $Info['mallorderautoset'];?>">
+                <h6 class="inline">小时内未付款，自动关闭该订单。</h6>
+                <h6 class="ml-120 pt-5 pl-5 text-gray">*限填大于0的整数</h6>
+            </div>
+            <div class="group pb-15">
+                <h6 class="inline w120">是否可提供发票：</h6>
+                <label class=" radio inline mr-20"><input name="isinvoice" type="radio" value="1" <?php if($Info['isinvoice']=='1'){echo 'checked="checked"';}?>>是</label>
+                <label class=" radio inline"><input name="isinvoice" type="radio" value="2" <?php if($Info['isinvoice']=='2'){echo 'checked="checked"';}?>>否</label>
+            </div>
+        </div>
+        <div class="group form-footer text-center">
+            <input class="btn-small btn-purple w100 pointer" value="保存" id="id-submit" type="submit">
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(function(){
+	//------------------------------ 点击提交数据 ------------------------------
+	$("#id-submit").on("click",function(){
+		var mallorderautoset = $('input[name="mallorderautoset"]').val();
+		if(mallorderautoset <= 0||mallorderautoset == false){
+			alertTan('请填写正确的时间','warn');
+			return false;
+		}
+		var isinvoice = $('input[name="isinvoice"]:checked').val();
+		var eshopheadlogo = $('input[name="eshopheadlogo"]').val();
+		$('.loading').show();
+		$.post("<?php echo U('EshopSet/ajaxSet').'&time=';?>"+Math.random(),{mallorderautoset:mallorderautoset,isinvoice:isinvoice,eshopheadlogo:eshopheadlogo},function(data){
+			$('.loading').hide();
+			if(data.code == 200){
+				alertTan(data.tips);
+				setTimeout(function(){
+					window.location.href=location.href;
+				},2000);
+			}else{
+				alertTan(data.tips,'error');
+			}
+		},'json');
+    });
+	// 重置 将logo重新设置为空
+	$('.js-delete-eshop-head-logo').click(function(){
+		$('input[name="eshopheadlogo"]').val("");
+		$('.eshopheadlogo-img').attr("src",'./Tpl/User5/default/common/img/WeiPage-temp-img.png');
+	});
+});
+</script>
+<script>
+$(function(){
+	filer_default_opts = {
+            templates: {     //上传进度条
+    	        box: '<ul class="jFiler-items-list jFiler-items-grid"></ul>',
+    	        item: '<li class="jFiler-item">\
+    		                <div class="jFiler-item-container">\
+    		                <div class="jFiler-item-inner">\
+    		                    <div class="jFiler-item-assets jFiler-row">\
+    		                        <ul class="list-inline pull-left">\
+    					            	<li>{{fi-name | limitTo: 25}}</li>\
+    					                <li>{{fi-size2}}</li>\
+    		                            <li>{{fi-progressBar}}</li>\
+    		                        </ul>\
+    		                    </div>\
+    		                </div>\
+    		            </div>\
+    		        </li>',
+    	        progressBar: '<div class="bar"></div>',
+    	        itemAppendToEnd: false,
+    	        removeConfirmation: false,
+    	        _selectors: {
+    	            list: '.jFiler-items-list',
+    	            item: '.jFiler-item',
+    	            progressBar: '.bar',
+    	            remove: '.jFiler-item-trash-action',
+    	        }
+    	    },
+    	    dragDrop: {
+    			dragEnter: null,
+    			dragLeave: null,
+    			drop: null,
+    		},
+        };
+	//文件上传
+	$('.js-add-img-asa').filer({
+		//limit: 1,
+		maxSize: 2,  //文件大小
+        extensions: ['bmp','png','jpeg','jpg','gif'],   //限制类型
+		changeInput: '<a class="btn-small btn-white ">选择图片</a>',   //绑定上传样式
+		showThumbs: true,    //是否显示templates
+		theme: "dragdropbox",
+		templates: filer_default_opts.templates,
+		dragDrop: filer_default_opts.dragDrop,
+		uploadFile: {
+			url: "./Tpl/static/SCRM5-PlugIn/html5file/php/upload.php",
+			data: null,
+			type: 'POST',
+			enctype: 'multipart/form-data',
+			beforeSend: function(){},
+			success: function(data, el){
+				var files = JSON.parse(data);
+				if(files['error']){
+					$('.jFiler-items').delay(1000).hide(0);
+					alertTan(files['error'],'error',3000);
+				}else{
+					var a = files.metas;
+					//获取链接
+					var url = files.files;
+					//获取类型
+					var dataType = el.parent().parent().parent().children(".js-add-img-asa").attr("data-type");
+					el.parent().parent().remove();
+					$("."+dataType).val("{lanrain::C('site_url')}"+url);
+					$("."+dataType+"-img").attr("src","{lanrain::C('site_url')}"+url);
+				}
+			},
+			error: function(el){
+			},
+			statusCode: null,
+			onProgress: null,
+			onComplete: null
+		},
+	});
+})
+</script>
+<include file="Public:footer" />

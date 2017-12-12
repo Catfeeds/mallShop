@@ -1,0 +1,1114 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,  minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<title>你的醋意有多重？够胆公布吗？</title>
+<script src="../../js/config.js"></script>
+<script src="../../js/avalon.mobile.min.js?v2"></script>
+<script src="../../js/jquery-1.11.1.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="css/wechat.css"> -->
+<style>
+* {
+	font-family: '微软雅黑';
+}
+html, body {
+	margin: 0;
+	color: #000;
+	background: #ffc2bd;
+	background-size: 100%;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+#loading {
+	text-align: center;
+	font-size: 20px;
+	line-height: 400px;
+	display: none;
+}
+.loading #loading {
+	display: block;
+}
+.loading .head,  .loading .main {
+	display: none;
+}
+.head img {
+	width: 100%;
+}
+.main {
+	padding: 10px;
+	padding-top: 30%;
+	margin-top: -10px;
+	text-align: center;
+}
+.t-t {
+	font-size: 22px;
+	line-height: 2em;
+	text-align: left;
+}
+.t-s {
+	padding: 5px;
+	background-color: #fca9a2;
+	max-width: 100%;
+	margin: 10px auto;
+	text-align: center;
+	position: relative;
+	-webkit-transition: background-color 0.3s ease;
+}
+img {
+	max-width: 100%;
+}
+.t-s img {
+	max-width: 100%;
+}
+.t-s span {
+	font-size: 1em;
+	line-height: 1.5em;
+	font-weight: bold;
+}
+.t-s.active {
+	background-color: #ff7878;
+}
+.t-s.active span {
+	color: #fff;
+}
+.t-s:after {
+	position: absolute;
+	right: 1px;
+	top: 1px;
+	padding: 4px;
+	background: rgba(255,255,255,1);
+	content: "√";
+	display: none;
+	opacity: 0;
+	-webkit-transition: opacity 0.3s ease;
+}
+.t-s.active:after {
+	display: block;
+	opacity: 1;
+}
+.t-c {
+	line-height: 1.2em;
+	padding: 10px;
+	margin-bottom: 10px;
+	font-size: 1em;
+	text-align: left;
+}
+.t-s.h {
+	max-width: 40%;
+	display: inline-block;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+.t-r {
+	margin-bottom: 10px;
+	font-weight: bold;
+	font-size: 20px;
+}
+.t-r span {
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 50px;
+	color: #27AE60;
+	/*color: rgba(0,0,0,0);*/
+	text-shadow: 3px 0 4px #16A085;
+}
+.t-img {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.t-img img {
+	max-width: 60%;
+}
+.t-btn,  .t-btn:link,  .t-btn:visited {
+	color: #fff;
+	background-color: #f87984;
+	padding-top: 12px;
+	padding-bottom: 13px;
+	padding-left: 15px;
+	padding-right: 15px;
+	display: inline-block;
+	line-height: 1em;
+	min-width: 60%;
+	margin: 10px auto;
+	border-radius: 7px;
+	text-decoration: none;
+}
+.share {
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	background: rgba(0,0,0,0.6);
+	display: none;
+	z-index: 1000;
+}
+.share img {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 70%;
+	max-width: 320px;
+}
+.livetip {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0,0,0,0.7);
+	z-index: 200;
+}
+.lt-w {
+	position: fixed;
+	top: 100px;
+	left: 10px;
+	right: 10px;
+	z-index: 300;
+}
+.lt-w .lt-c {
+	background-color: white;
+	padding-top: 10px;
+	padding-bottom: 20px;
+}
+.list {
+	list-style: initial;
+	text-align: left;
+}
+.list li {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+a,  a:link,  a:visited {
+	color: #607fa6;
+}
+.dialog {
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+}
+.dialog-bg {
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0,0,0,0.7);
+}
+.dialog-con {
+	position: absolute;
+	width: 280px;
+	top: 100px;
+	background-color: white;
+	left: 50%;
+	margin-left: -140px;
+	padding-bottom: 10px;
+}
+</style>
+</head>
+<body class="loading">
+<div id="loading"> 加载中 </div>
+<div class="head"> </div>
+<div class="main" id="main" ms-controller="test"> 
+	<!-- 测试题 -->
+	<div ms-if="item.type=='hello'">
+		<div class="t-c"
+         ms-if="item.text"> {{item.text}} </div>
+		<div class="t-c"
+         ms-if="item.text1"> {{item.text1}} </div>
+		<div class="t-s h"
+         ms-repeat-elem="item.select"
+         ms-class-active="elem.active"
+         ms-on-click="elem.tap(elem, item.select)"> <img ms-attr-src="{{elem.img}}"> <span>{{elem.text}}</span> </div>
+		<a class="t-btn" href="javascript:gzh()"> 关注人来风游戏，获得更多好玩的游戏^^ </a> </div>
+	<div ms-if="item.type=='select'">
+		<div class="t-c">
+			<div ms-if="item.img" style="margin-bottom:0.5em;"> <img ms-attr-src="{{item.img}}"> </div>
+			{{item.id}}. {{item.text}} </div>
+		<div class="t-s"
+         ms-repeat-elem="item.select"
+         ms-class-active="elem.active"
+         ms-on-click="elem.tap(elem, item.select)"> <img
+        ms-if="!!elem.img"
+        ms-attr-src="{{elem.img}}"> <span>{{elem.text}}</span> </div>
+	</div>
+	<div ms-if="item.type=='result'">
+		<div class="t-r"> <span>{{item.ss}}</span>{{item.sstext}} </div>
+		<div class="t-img" ms-if="!!item.img"> <img ms-attr-src="{{item.img}}" > </div>
+		<div class="t-c"
+         ms-if="item.text"> {{item.text}} </div>
+		<div class="t-btn"
+         ms-repeat-elem="endbtns"
+         ms-on-click="elem.tap()">{{elem.text}}</div>
+	</div>
+	<div class="share"
+       ms-if="showshare"
+       ms-visible="showshare"
+       ms-on-tap="hideshare()"> <img src="../../img/guide.png"> </div>
+	<div class="livetip"
+       ms-visible="livetip"
+       ms-on-tap="hidelivetip()"> </div>
+	<!--<div class="lt-w"
+      ms-visible="livetip">
+      <div class="lt-c">
+          <div class="t-c">
+              还没分享哦，是否把这个好玩的东西分享给朋友后再离开呢？
+          </div>
+          <div class="t-btn"
+              ms-on-tap="sharebox()">分享</div>
+          <div class="t-btn white"
+              ms-on-tap="livenow()">一会再说，先去看好玩的</div>
+      </div>
+  </div>-->
+	<div class="dialog" ms-if="xunzhang">
+		<div class="dialog-bg" ms-on-tap="hidexz()"></div>
+		<div class="dialog-con"> </div>
+	</div>
+</div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<script>
+var ID = getQueryString("sid") || Date.now() + "" + Math.floor(Math.random() * 1000);
+addView();
+var fen = 0;
+function tap(elemvm, select, cb) {
+  var a = false;
+  for (var i = 0; i < select.length; i++) {
+
+    a = a || select[i].active;
+  };
+  if (!a) {
+    elemvm.active = true;
+    setTimeout(function () {
+      cb && cb()
+    }, 500)
+  }
+}
+function getQueryString(name) {
+  var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+  var r = location.search.substr(1).match(reg);
+  if (r != null) return unescape(decodeURI(r[2])); return null;
+}
+var model = avalon.define("test", function (vm) {
+
+  vm.arr = [
+    {
+      type: "hello",
+      text: "心理导师微微说：你是爱吃醋的人吗？你的醋意有多重，够胆公布吗？",
+      select: [
+        {
+          text: "开始测试",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[1];
+              model.result.sex = 0;
+            });
+          }
+        }
+
+      ]
+    }, {
+      type: "select",
+      id: 1,
+      text: "不论做什么事情，你都是信心满满的吗？",
+      select: [
+        {
+          text: "是的",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[3];
+            });
+          }
+        }, {
+          text: "不是",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[2];
+            });
+          }
+        }
+      ]
+    },
+    {
+      type: "select",
+      id: 2,
+      text: "午休时间你会注意不大声喧哗吗？",
+      select: [
+        {
+          text: "是的",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[3];
+            });
+          }
+        }, {
+          text: "不是",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[4];
+            });
+          }
+        }
+      ]
+    }, {
+      type: "select",
+      id: 3,
+      text: "假如你想集中精力做一件事，你会选择听什么音乐呢？",
+      select: [
+        {
+          text: "轻音乐",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[5];
+            });
+          }
+        }, {
+          text: "交响乐",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[6];
+            });
+          }
+        }
+        , {
+          text: "钢琴曲",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[4];
+            });
+          }
+        }
+      ]
+    }, {
+      type: "select",
+      id: 4,
+      text: "不论走到哪里，你都喜欢戴着耳机吗？",
+      select: [
+        {
+          text: "是的",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[6];
+            });
+          }
+        }, {
+          text: "不是",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[5];
+            });
+          }
+        }
+      ]
+    }, {
+      type: "select",
+      id: 5,
+      text: "看到新的减肥方法你就会去尝试一下吗？",
+      select: [
+        {
+          text: "是的",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[7];
+            });
+          }
+        }, {
+          text: "不是",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[6];
+            });
+          }
+        }
+      ]
+    }, {
+      type: "select",
+      id: 6,
+      text: "你受不了太安静的氛围吗？",
+      select: [
+        {
+          text: "是的",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[7];
+            });
+          }
+        }, {
+          text: "不是",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[8];
+            });
+          }
+        }
+      ]
+    }, {
+      type: "select",
+      id: 7,
+      text: "假如你看到公园的草地上有一本本子，你会怎么做？",
+      select: [
+        {
+          text: "打开看看",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[10];
+            });
+          }
+        }, {
+          text: "远观之",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[8];
+            });
+          }
+        }, {
+          text: "寻找失主",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[9];
+            });
+          }
+        }
+      ]
+    }, {
+      type: "select",
+      id: 8,
+      text: "有时候你也不知道原因，但是心情就是莫名低落起来了吗？",
+      select: [
+        {
+          text: "是的",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[10];
+            });
+          }
+        }, {
+          text: "不是",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[9];
+            });
+          }
+        }
+      ]
+    },
+    {
+      type: "select",
+      id: 9,
+      text: "你有自己的幸运小饰品吗？",
+      select: [
+        {
+          text: "是的",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[10];
+            });
+          }
+        }, {
+          text: "不是",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[11];
+            });
+          }
+        }
+      ]
+    },
+    {
+      type: "select",
+      id: 10,
+      text: "你是一个很注意个人形象的人吗？",
+      select: [
+        {
+          text: "是的",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[11];
+            });
+          }
+        }, {
+          text: "不是",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[12];
+            });
+          }
+        }
+      ]
+    },
+    {
+      type: "select",
+      id: 11,
+      text: "假如你是舞台设计师，你会在舞台上撒下漫天的什么呢？",
+      select: [
+        {
+          text: "花瓣",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[14];
+            });
+          }
+        }, {
+          text: "雪花",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[12];
+            });
+          }
+        }, {
+          text: "星星",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[13];
+            });
+          }
+        }
+      ]
+    },
+    {
+      type: "select",
+      id: 12,
+      text: "假如碰上了前恋人，你会觉得很尴尬吗？",
+      select: [
+        {
+          text: "是的",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[13];
+            });
+          }
+        }, {
+          text: "不是",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[14];
+            });
+          }
+        }
+      ]
+    },
+    {
+      type: "select",
+      id: 13,
+      text: "你不喜欢自己的另一半有异性朋友吗？",
+      select: [
+        {
+          text: "是的",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[15];
+            });
+          }
+        }, {
+          text: "不是",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[14];
+            });
+          }
+        }
+      ]
+    },
+    {
+      type: "select",
+      id: 14,
+      text: "饮料店推出新饮料请你试饮，你会选择哪种颜色的新型饮料呢？",
+      select: [
+        {
+          text: "粉红色",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[16];
+            });
+          }
+        }, {
+          text: "橙黄色",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[15];
+            });
+          }
+        }, {
+          text: "淡紫色",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[17];
+            });
+          }
+        }
+      ]
+    },
+    {
+      type: "select",
+      id: 15,
+      text: "你是一个依赖心很重的人吗？",
+      select: [
+        {
+          text: "是的",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[16];
+            });
+          }
+        }, {
+          text: "不是",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[17];
+            });
+          }
+        }
+      ]
+    },
+    {
+      type: "select",
+      id: 16,
+      text: "你认为自己有值得骄傲的一技之长吗？",
+      select: [
+        {
+          text: "是的",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[18];
+            });
+          }
+        }, {
+          text: "不是",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[17];
+            });
+          }
+        }
+      ]
+    },
+    {
+      type: "select",
+      id: 17,
+      text: "假如你身处在烈日炎炎的夏日，你最想做什么呢？",
+      select: [
+        {
+          text: "泡在冷水里",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[18];
+            });
+          }
+        }, {
+          text: "大吃冰激凌",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[19];
+            });
+          }
+        }, {
+          text: "一直吹空调",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[20];
+            });
+          }
+        }
+      ]
+    },
+    {
+      type: "select",
+      id: 18,
+      text: "你同时在使用一台以上的手机吗？",
+      select: [
+        {
+          text: "是的",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[19];
+            });
+          }
+        }, {
+          text: "不是",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[20];
+            });
+          }
+        }
+      ]
+    },
+    {
+      type: "select",
+      id: 19,
+      text: "假如你是一名画家，你到外地写生，你会画下面哪个呢？",
+      select: [
+        {
+          text: "彩虹",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[24];
+            });
+          }
+        }, {
+          text: "小鸟",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[20];
+            });
+          }
+        }, {
+          text: "蒲公英",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[22];
+            });
+          }
+        }
+      ]
+    },
+    {
+      type: "select",
+      id: 20,
+      text: "大雪下了一夜，你觉得窗外的松树会变成什么样了呢？",
+      select: [
+        {
+          text: "被大雪埋起来",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[21];
+            });
+          }
+        }, {
+          text: "变得七歪八倒",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[23];
+            });
+          }
+        }, {
+          text: "依然傲立风中",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[25];
+            });
+          }
+        }
+      ]
+    }
+    ,
+    {
+      type: "result",
+      id: 21,
+      ss: "A",
+      sstext: "猛烈型醋坛子",
+      sstext1: "我是猛烈型醋坛子，你的醋意有多重，够胆公布吗？",
+      text: "你是一个直接坦率的人，有什么心情你都会写在脸上。当你看到自己的恋人和别的异性在一起时，你会选择向前直接询问，甚至丝毫不掩饰自己心里满满的火光，一股腾腾的杀气所向披靡。在恋人没解释清楚，没有给自己一个满意的答复前，你会使用冷暴力惩罚对方。"
+    }, {
+      type: "result",
+      id: 22,
+      ss: "B",
+      sstext: "冷静型醋坛子",
+      sstext1: "我是冷静型醋坛子，你的醋意有多重，够胆公布吗？",
+      text: "你是一个不动声色、稳若泰山的人，就算吃醋也会走保守路线，你的不爽不会表现得太明显太强烈，而是暗地里不动声色，多询问几个人了解一下自己的处境再作判断，再不成就用激将法把恋人的秘密逼问出来，你的冷静与理性让吃醋变成一件用头脑在斗争的事情。"
+    }, {
+      type: "result",
+      id: 23,
+      ss: "C",
+      sstext: "攻击型醋坛子",
+      sstext1: "我是攻击型醋坛子，你的醋意有多重，够胆公布吗？",
+      text: "你是一个直性子的人，脾气比较急，雷厉风行的行事风格让人印象深刻。当你吃醋时你也会表现得很直接，特别是讲话讲得很白，用直言不讳的态度攻击与你恋人走得近的异性，甚至会用别人的例子来教训恋人，用直接+间接的双重攻击来警戒恋人小心点，自己吃醋可不是好惹的。"
+    }, {
+      type: "result",
+      id: 24,
+      ss: "D",
+      sstext: "自恼型醋坛子",
+      sstext1: "我是自恼型醋坛子，你的醋意有多重，够胆公布吗？",
+      text: "你是一个对自己不够自信不够满意的人，内心缺乏安全感。当你吃醋时你会非常的不着痕迹，会闷在心里慢慢发酵，然后到了一定程度就会爆发出来，含沙射影刺伤恋人，欲迎还拒的态度加上很酸的话语，甚至耍起一些小任性。不过恋人的哄一哄之后，你的任性就变成了小打小闹而已，你的气来得快去得也快。"
+    }, {
+      type: "result",
+      id: 25,
+      ss: "E",
+      sstext: "臭脸型醋坛子",
+      sstext1: "我是臭脸型醋坛子，你的醋意有多重，够胆公布吗？",
+      text: "你的孩子气很重，有时候心里明明不高兴但是就是倔强地不愿意承认。你吃醋起来先是会摆张臭脸给，突然搞起自闭不太爱讲话，整个人变得非常冷漠。其实，你心里的想法倒是一箩筐，偏偏拉不下面子把情绪表现出来，所以只好用脸色表现出来，假如恋人仍然没察觉出来的话，你就会瞬间大爆发。 "
+    }
+  ];
+  vm.item = vm.arr[0];
+  vm.endbtns = [
+    {
+      text: "分享到朋友圈",
+      tap: function () {
+        model.showshare = true;
+      }
+    }, {
+      text: "关注人来风游戏，获得更多好玩的游戏^^",
+      tap: function () {
+        gzh();
+      }
+    }, {
+      text: "再测一次",
+      tap: function () {
+
+        model.result.sex = 0;
+        for (var i = 0; i < model.arr.length; i++) {
+          var tmp = model.arr[i];
+          if (tmp.select) {
+
+            for (var ii = 0; ii < tmp.select.length; ii++) {
+              tmp.select[ii].active = false;
+            }
+          };
+        };
+        model.item = model.arr[0];
+      }
+    }, {
+      text: "我还想玩其他好玩的",
+      tap: function () {
+        location.href = siteurl + "";
+
+      }
+    }
+  ]
+  vm.$otherurl = siteurl + "#TEST";
+  vm.result = {
+    sex: 0
+  }
+  vm.showshare = false;
+  vm.hideshare = function () {
+    model.showshare = false;
+  }
+  vm.shared = false;
+  vm.sharebox = function () {
+    model.showshare = true;
+  }
+  vm.livetip = false;
+  vm.hidelivetip = function () {
+    model.livetip = false;
+  }
+  vm.livenow = function () {
+    location.href = model.$otherurl;
+  }
+  vm.xunzhang = false;
+  vm.hidexz = function () {
+    model.xunzhang = false;
+  }
+  vm.showxz = function () {
+    model.xunzhang = true;
+  }
+  vm.$watch("item", function (newval) {
+    if (newval.type == 'result') {
+      testEnd(newval.id);
+    };
+  })
+});
+document.body.className = "";
+
+// 增加访问量
+function addView() {
+
+}
+// 增加使用
+function addUse() {
+
+}
+// 增加分享
+function addShare() {
+
+}
+function shareToFre(desc) {
+
+  if (!desc) {
+    desc = document.title;
+  } else {
+    desc = desc;
+  }
+
+  // 朋友圈
+  var data = {
+    "imgUrl": siteurl + "/ceshi/cc/icon.jpg",
+    "link": siteurl + "/ceshi/cc",
+    "desc": desc,
+    "title": document.title
+  };
+
+  // share to frends
+  var data = data;
+  var callbacks = {};
+  callbacks.ok = callbacks.confirm = function () {
+    model.shared = true;
+    addShare();
+  };
+
+  weixinShareTimeline(data, callbacks);
+
+  weixinSendAppMessage(data, callbacks);
+}
+document.addEventListener('WeixinJSBridgeReady', function () {
+  shareToFre();
+}, false);
+
+
+// 分享到朋友圈
+function weixinShareTimeline(data, callbacks) {
+  callbacks = callbacks || {};
+  var shareTimeline = function (theData) {
+    WeixinJSBridge.invoke('shareTimeline', {
+      "appid": theData.appId ? theData.appId : '',
+      "img_url": theData.imgUrl,
+      "link": theData.link,
+      "desc": theData.title,
+      "title": theData.desc, // 注意这里要分享出去的内容是desc
+      "img_width": "120",
+      "img_height": "120"
+    }, function (resp) {
+      switch (resp.err_msg) {
+        // share_timeline:cancel 用户取消
+        case 'share_timeline:cancel':
+          callbacks.cancel && callbacks.cancel(resp);
+          break;
+        // share_timeline:fail　发送失败
+        case 'share_timeline:fail':
+          callbacks.fail && callbacks.fail(resp);
+          break;
+        // share_timeline:confirm 发送成功
+        case 'share_timeline:confirm':
+          callbacks.confirm && callbacks.confirm(resp);
+          break;
+        // 发送成功
+        case 'share_timeline:ok':
+          callbacks.ok && callbacks.ok(resp);
+          break;
+      }
+      home_test();
+      // 无论成功失败都会执行的回调
+      callbacks.all && callbacks.all(resp);
+    });
+  };
+  WeixinJSBridge.on('menu:share:timeline', function (argv) {
+    if (callbacks.async && callbacks.ready) {
+      if (!callbacks.__dataLoadedFuncInited) {
+        var loadedCb = callbacks.dataLoaded || new Function();
+        callbacks.dataLoaded = function (newData) {
+          loadedCb(newData);
+          shareTimeline(newData);
+        };
+        callbacks.__dataLoadedFuncInited = true;
+      }
+      // 然后就绪
+      callbacks.ready && callbacks.ready(argv);
+    } else {
+      // 就绪状态
+      callbacks.ready && callbacks.ready(argv);
+      shareTimeline(data);
+    }
+  });
+}
+
+// 分享给朋友
+function weixinSendAppMessage(data, callbacks) {
+  callbacks = callbacks || {};
+  var sendAppMessage = function (theData) {
+    WeixinJSBridge.invoke('sendAppMessage', {
+      "appid": theData.appId ? theData.appId : '',
+      "img_url": theData.imgUrl,
+      "link": theData.link,
+      "desc": theData.desc,
+      "title": theData.title,
+      "img_width": "120",
+      "img_height": "120"
+    }, function (resp) {
+      switch (resp.err_msg) {
+        // send_app_msg:cancel 用户取消
+        case 'send_app_msg:cancel':
+          callbacks.cancel && callbacks.cancel(resp);
+          break;
+        // send_app_msg:fail　发送失败
+        case 'send_app_msg:fail':
+          callbacks.fail && callbacks.fail(resp);
+          break;
+        // send_app_msg:confirm 发送成功
+        case 'send_app_msg:confirm':
+          callbacks.confirm && callbacks.confirm(resp);
+          break;
+      }
+      home_test();
+      // 无论成功失败都会执行的回调
+      callbacks.all && callbacks.all(resp);
+    });
+  };
+  WeixinJSBridge.on('menu:share:appmessage', function (argv) {
+    if (callbacks.async && callbacks.ready) {
+      if (!callbacks.__dataLoadedFuncInited) {
+        var loadedCb = callbacks.dataLoaded || new Function();
+        callbacks.dataLoaded = function (newData) {
+          loadedCb(newData);
+          sendAppMessage(newData);
+        };
+        callbacks.__dataLoadedFuncInited = true;
+      }
+      // 然后就绪
+      callbacks.ready && callbacks.ready(argv);
+    } else {
+      // 就绪状态
+      callbacks.ready && callbacks.ready(argv);
+      sendAppMessage(data);
+    }
+  });
+}
+
+function testEnd(id) {
+  addUse();
+
+  shareToFre(model.item.sstext1, model.item.ss);
+}
+</script> 
+<script src="../../js/ad-pic.js"></script>
+</body>
+</html>

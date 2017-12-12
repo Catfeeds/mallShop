@@ -1,0 +1,329 @@
+<include file="Public:head"/>
+<include file="Public:smallmaterial" />
+<?php echo $makeTopUrl;?>
+<!--场景 > 展业伙伴 > 提现申请管理-->
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>筛选条件</h4></div>
+    <form class="mod-body" action="<?php echo U('MallExhibitionPartner/withDrawCash');?>" method="post">
+        <div class="content clearfix">
+            <div class="child-sum-3 fl">
+                <div class="group pb-10">
+                    <h6 class="inline w100">展业伙伴手机号：</h6>
+                    <input class="inline w150" type="text" name="mobile" value="<?php echo $mobile;?>">
+                </div>
+            </div>
+            <div class="child-sum-3 fl">
+                <div class="group pb-10">
+                    <h6 class="inline w100">申请状态：</h6>
+                    <select class="inline w150" name="status">
+                        <option value="">全部</option>
+                        <option value="1" <?php if($status == 1){echo 'selected="selected"';}?>>待结算</option>
+                        <option value="2" <?php if($status == 2){echo 'selected="selected"';}?>>已结算</option>
+                        <option value="3" <?php if($status == 3){echo 'selected="selected"';}?>>拒绝申请</option>
+                        <option value="4" <?php if($status == 4){echo 'selected="selected"';}?>>已取消</option>
+                    </select>
+                </div>
+            </div>
+            <div class="group laydate-box">
+                <h6 class="inline w100">申请时间：</h6>
+                <input class="laydate-input" id="pay-date-3" name="createtime1" value="<?php echo $createtime1;?>" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" placeholder="YYYY-MM-DD hh:mm:ss">
+                <i class="icon-laydate" onclick="laydate({elem:'#pay-date-1'});"></i>
+                <span> - </span>
+                <input class="laydate-input" id="pay-date-4" name="createtime2" value="<?php echo $createtime2;?>" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" placeholder="YYYY-MM-DD hh:mm:ss">
+                <i class="icon-laydate" onclick="laydate({elem:'#pay-date-2'});"></i>
+            </div>
+        </div>
+        <div class="group form-footer pb-10 text-center">
+            <input class="btn-middle btn-purple" type="submit" value="提交">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input class="btn-middle btn-white" type="reset" value="重置">
+        </div>
+    </form>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>提现申请管理</h4></div>
+    <div class="mod-body">
+        <div class="content">
+            <table class="table type-1 w-auto">
+                <thead>
+                <tr>
+                    <th class="w80">展业伙伴</th>
+                    <th class="w120">申请时间<a href="javascript:void(0);" class="sort-icon"></a></th>
+                    <th class="w100">提现申请金额<a href="javascript:void(0);" class="sort-icon"></a></th>
+                    <th class="w80">提现申请状态</th>
+                    <th>管理员备注</th>
+                    <th class="w80">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php if($list){ foreach($list as $key=>$val){?>
+                <tr>
+                    <td><p><?php echo $val['name'];?></p><a href="<?php echo U('Member/memberInfo',array('id'=>$val['mid']));?>" class="tips"><?php echo $val['moblie'];?></a></td>
+                    <td><?php echo format_time($val['createtime'],'ymdhi');?></td>
+                    <td><?php echo $val['withdrawcash'];?></td>
+                    <td>
+                    	<?php if($val['status'] == 1){
+                    			echo '待结算';
+							}elseif($val['status'] == 2){
+								echo '已结算';
+							}elseif($val['status'] == 3){
+								echo '拒绝申请';
+							}elseif($val['status'] == 4){
+								echo '已取消';
+							}
+                    	?>
+                    </td>
+                    <td><?php echo $val['remark'];?></td>
+                    <td><a href="javascript:void(0);" class="tips js-apply-cash" data-id="<?php echo $val['id'];?>" data-name="<?php echo $val['name'];?>" data-mobile="<?php echo $val['moblie'];?>" data-createtime="<?php echo format_time($val['createtime'],'ymdhi');?>" data-withdrawcash="<?php echo $val['withdrawcash'];?>" data-status="<?php echo $val['status'];?>" data-mid="<?php echo $val['mid'];?>" data-accounttype="<?php echo $val['accounttype'];?>" data-alipayaccount="<?php echo $val['alipayaccount'];?>" data-bankaccount="<?php echo $val['bankaccount'];?>" data-bankholder="<?php echo $val['bankholder'];?>" data-bankbranch="<?php echo $val['bankbranch'];?>" data-remark="<?php echo $val['remark'];?>" data-pic1="<?php echo $val['pic1'];?>" data-pic2="<?php echo $val['pic2'];?>" data-pic3="<?php echo $val['pic3'];?>">管理</a></td>
+                </tr>
+                <?php }}else{?>
+                <tr class="text-center not-hover">
+                    <td colspan="6">暂无</td>
+                </tr>
+                <?php }?>
+                </tbody>
+            </table>
+        </div>
+        <div class="group form-footer clearfix">
+            <?php echo $page;?>
+        </div>
+    </div>
+</div>
+<!--管理提现申请-->
+<div class="popup-wrap wrap-pro-1 apply-cash-popup-wrap" style="display: none;">
+    <div class="mod pro-popup type-1">
+        <div class="mod-header">
+            <h4 class="fl">提现申请管理</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <input type="hidden" name="id" value="" />
+        <input type="hidden" name="mid" value=""/>
+        <input type="hidden" name="withdrawcash" value=""/>
+        <div class="mod-body">
+            <div class="content clearfix" style="max-height: 360px;overflow: auto;">
+                <div class="left-col">
+                    <div class="group pb-10">
+                        <h6 class="inline w100">展业伙伴：</h6><h6 class="inline js-name"></h6>
+                    </div>
+                    <div class="group pb-10">
+                        <h6 class="inline w100">申请时间：</h6><h6 class="inline js-createtime"></h6>
+                    </div>
+                    <div class="group pb-10">
+                        <h6 class="inline w100">账户类型：</h6><h6 class="inline js-accounttype"></h6>
+                    </div>
+                    <div class="group pb-10 js-bankbranch-box" style="display:none;">
+                        <h6 class="inline w100">开户行：</h6><h6 class="inline js-bankbranch"></h6>
+                    </div>
+                </div>
+                <div class="right-col">
+                    <div class="group pb-10">
+                        <h6 class="inline w100">展业伙伴手机：</h6><h6 class="inline js-mobile"></h6>
+                    </div>
+                    <div class="group pb-10">
+                        <h6 class="inline w100">提现金额：</h6><h6 class="inline js-withdrawcash"></h6>
+                    </div>
+                    <div class="group pb-10">
+                        <h6 class="inline w100 js-account-html">支付宝账号：</h6><h6 class="inline js-account"></h6>
+                    </div>
+                    <div class="group pb-10 js-bankholder-box" style="display:none;">
+                        <h6 class="inline w100">开户人：</h6><h6 class="inline js-bankholder"></h6>
+                    </div>
+                </div>
+                <div class="group pb-10"><h6 class="inline w100">提现申请状态：</h6>
+                    <select class="inline w150 state" name="status" id="status">
+                        <option value="1">待结算</option>
+                        <option value="2">已结算</option>
+                        <option value="3">拒绝申请</option>
+                        <option value="4">已取消</option>
+                    </select>
+                </div>
+                <div class="group clear">
+                    <h6 class="inline w100 text-top">管理员备注：</h6>
+                    <textarea cols="40" rows="5" class="inline js-remark" name="remark"></textarea>
+                </div>
+                <div class="group pb-10">
+                    <span class="inline w100"><!-- Null --></span><h6 class="inline text-gray">*请控制在20字以内</h6>
+                </div>
+                <div class="group pb-10">
+	                <h6 class="inline w100 text-top">凭证图片：</h6>
+	                <div class="inner-group inline logo js-pic">
+	                	<input name="img1" type="hidden" value="" id="img1"/>
+	                	<input name="img2" type="hidden" value="" id="img2"/>
+	                	<input name="img3" type="hidden" value="" id="img3"/>
+	                	<input type="file" name="files[]" class="js-add-img" data-type="logo" multiple="multiple">
+	                </div>
+	            </div>
+            </div>
+            <div class="group form-footer pb-10 text-center">
+                <a class="btn-big btn-purple js-submit"> &nbsp; 确认 &nbsp; </a> &nbsp; &nbsp;
+                <a class="btn-big btn-white js-ok"> &nbsp; 取消 &nbsp; </a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+	// 管理弹窗
+	$(document).on("click",".js-apply-cash",function(){
+		var id = $(this).attr("data-id");
+		var name = $(this).attr("data-name");
+		var mobile = $(this).attr("data-mobile");
+		var mid = $(this).attr("data-mid");
+		var createtime = $(this).attr("data-createtime");
+		var withdrawcash = $(this).attr("data-withdrawcash");
+		var status = $(this).attr("data-status");
+		$('#status').removeAttr("disabled");
+		if(status != 1){
+			$('#status').attr("disabled","disabled");
+		}
+		var pic1 = $(this).attr("data-pic1");
+		var pic2 = $(this).attr("data-pic2");
+		var pic3 = $(this).attr("data-pic3");
+		var accounttype = $(this).attr("data-accounttype");
+		var alipayaccount = $(this).attr("data-alipayaccount");
+		var bankaccount = $(this).attr("data-bankaccount");
+		var bankholder = $(this).attr("data-bankholder");
+		var bankbranch = $(this).attr("data-bankbranch");
+		var remark = $(this).attr("data-remark");
+		$('input[name="id"]').val(id);
+		$('input[name="mid"]').val(mid);
+		$('input[name="withdrawcash"]').val(withdrawcash);
+		$('.js-name').html(name);
+		$('.js-mobile').html(mobile);
+		$('.js-createtime').html(createtime);
+		$('.js-withdrawcash').html(withdrawcash);
+		$('.js-bankholder').html(bankholder);
+		$('.js-bankbranch').html(bankbranch);
+		$('.js-remark').val(remark);
+		$('.js-img-asa').remove();
+		if(pic1){
+			$('.js-pic').append('<img class="text-middle pb-10 js-img-asa w100" src="'+pic1+'">');
+		}
+		if(pic2){
+			$('.js-pic').append('<img class="text-middle pb-10 js-img-asa w100" src="'+pic2+'">');
+		}
+		if(pic3){
+			$('.js-pic').append('<img class="text-middle pb-10 js-img-asa w100" src="'+pic3+'">');
+		}
+		if(accounttype == 1){
+			$('.js-account-html').html('支付宝账号：');
+			$('.js-accounttype').html('支付宝账户');
+			$('.js-account').html(alipayaccount);
+			$('.js-bankholder-box').hide();
+			$('.js-bankbranch-box').hide();
+		}else if(accounttype == 2){
+			$('.js-account-html').html('银行卡账号：');
+			$('.js-accounttype').html('银行卡账户');
+			$('.js-account').html(bankaccount);
+			$('.js-bankholder-box').show();
+			$('.js-bankbranch-box').show();
+		}
+		$("#status").val(status);
+		$(".apply-cash-popup-wrap").fadeIn(120);
+	});
+	// 确定修改
+	$('.js-submit').click(function(){
+		var id = $('input[name="id"]').val();
+		var status = $('#status option:selected').val();
+		var remark = $('[name="remark"]').val();
+		var mid = $('input[name="mid"]').val();
+		var withdrawcash = $('input[name="withdrawcash"]').val();
+		//多张上传图片
+		var a = 1;
+		$(".js-img-asa").each(function(){
+			if($(this).attr("src")){
+				$('#img'+a).val($(this).attr("src"));
+				a++;
+			}
+		});
+		var img1 = $('#img1').val();
+		var img2 = $('#img2').val();
+		var img3 = $('#img3').val();
+		$('.loading').show();
+		$.post("<?php echo U('MallExhibitionPartner/ajaxManageWithDrawCash',array('companyid'=>$companyid)).'&time='?>"+Math.random(),{'id':id,'status':status,'remark':remark,'img1':img1,'img2':img2,'img3':img3,'mid':mid,'withdrawcash':withdrawcash},function(data){
+			$('.loading').hide();
+			if(data.code == 200){
+				$('.apply-cash-popup-wrap').hide();
+				alertTan(data.tips);
+				setTimeout(function(){
+					window.location.href=location.href;
+				},2000);
+			}else{
+				alert(data.tips,'error');
+			}
+		},'json');
+	});
+	$(function(){
+		filer_default_opts = {
+	            templates: {     //上传进度条
+	    	        box: '<ul class="jFiler-items-list jFiler-items-grid"></ul>',
+	    	        item: '<li class="jFiler-item">\
+	    		                <div class="jFiler-item-container">\
+	    		                <div class="jFiler-item-inner">\
+	    		                    <div class="jFiler-item-assets jFiler-row">\
+	    		                        <ul class="list-inline pull-left">\
+	    					            	<li>{{fi-name | limitTo: 25}}</li>\
+	    					                <li>{{fi-size2}}</li>\
+	    		                            <li>{{fi-progressBar}}</li>\
+	    		                        </ul>\
+	    		                    </div>\
+	    		                </div>\
+	    		            </div>\
+	    		        </li>',
+	    	        progressBar: '<div class="bar"></div>',
+	    	        itemAppendToEnd: false,
+	    	        removeConfirmation: false,
+	    	        _selectors: {
+	    	            list: '.jFiler-items-list',
+	    	            item: '.jFiler-item',
+	    	            progressBar: '.bar',
+	    	            remove: '.jFiler-item-trash-action',
+	    	        }
+	    	    },
+	    	    dragDrop: {
+	    			dragEnter: null,
+	    			dragLeave: null,
+	    			drop: null,
+	    		},
+	        };
+		//上传图片
+		$('.js-add-img').filer({
+			limit: 3,
+			maxSize: 3,  //文件大小
+	        extensions: ['bmp','png','jpeg','jpg','gif'],  //限制类型
+			changeInput: '<a class="btn-small btn-white" style="margin-bottom:20px;">上传凭证截图</a>',   //绑定上传样式
+			showThumbs: true,    //是否显示templates
+			theme: "dragdropbox",
+			templates: filer_default_opts.templates,
+			dragDrop: filer_default_opts.dragDrop,
+			uploadFile: {
+				url: "./Tpl/static/SCRM5-PlugIn/html5file/php/upload.php",
+				data: null,
+				type: 'POST',
+				enctype: 'multipart/form-data',
+				beforeSend: function(){},
+				success: function(data, el){
+					var files = JSON.parse(data);
+					if(files['error']){
+						$('.jFiler-items').delay(1000).hide(0);
+						alertTan(files['error'],'error');
+					}else{
+						var a = files.metas;
+						//获取链接
+						var url = files.files;
+						//获取类型
+						var dataType = el.parent().parent().parent().children(".js-add-img").attr("data-type");
+						el.parent().parent().hide();
+						htmla = '<img class="text-middle pb-10 js-img-asa w100" src="'+"{lanrain::C('site_url')}"+url+'"> ';
+						$("."+dataType).append(htmla);
+					}
+				},
+				statusCode: true,
+				onProgress: true,
+				onComplete: true,
+				changeInput: true,
+		        showThumbs: true
+			},
+		});
+	});
+</script>
+<include file="Public:footer"/>

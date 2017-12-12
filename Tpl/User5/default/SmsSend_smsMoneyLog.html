@@ -1,0 +1,49 @@
+<include file="Public:head"/>
+<include file="Public:uploads"/>
+<link rel="stylesheet" type="text/css" href="{lanrain::STATICS}/SCRM5-PlugIn/html5file/css/jquery.filer.css">
+<script src="{lanrain::STATICS}/SCRM5-PlugIn/html5file/js/jquery.filer.min.js" type="text/javascript"></script>
+<script src="{lanrain::STATICS}/SCRM5-PlugIn/html5file/js/prettify.js" type="text/javascript"></script>
+<script src="{lanrain::STATICS}/SCRM5-PlugIn/html5file/js/scripts.js" type="text/javascript"></script>
+<script src="{lanrain::STATICS}/SCRM5-PlugIn/html5file/js/custom.js" type="text/javascript"></script>
+<?php echo $makeTopUrl;?>
+<!-- 充值记录 2016-11-15 22:00 -->
+<div class="group inline-btn-group mb-10">
+    <a href="<?php echo U('SmsSend/index'); ?>" class="btn-small btn-white">我的短信</a>
+    <a href="<?php echo U('SmsSend/smsInfoLog'); ?>" class="btn-small btn-white">推送统计</a>
+    <a href="<?php echo U('SmsSend/smsMoneyLog'); ?>" class="btn-small btn-purple">充值记录</a>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>充值记录</h4></div>
+    <div class="mod-body">
+        <div class="content">
+            <table class="table type-1 w400">
+                <thead>
+                <tr>
+                    <th>充值时间</th>
+                    <th>充值金额</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php if($lists){ foreach($lists as $val){ ?>
+                <tr>
+                    <td><?php echo format_time($val['createtime'],'ymdhi'); ?></td>
+                    <td><?php echo $val['ordersum']; ?></td>
+                </tr>
+                <?php } }else{ ?>
+                <tr class="text-center not-hover">
+                    <td colspan="2">暂无充值记录</td>
+                </tr>
+                <?php } ?>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="group form-footer clearfix">
+        	<div class="group pagination fr">
+            	<?php echo $page; ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<include file="Public:footer" />

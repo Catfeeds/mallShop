@@ -1,0 +1,15 @@
+<include file="Public:memberCenterHeader"/>
+<div class="sidebar-content">
+  <div class="confirm-info">
+    <div class="confirm-img">
+      <img src="{lanrain::RES}/img/icon-thumb-success.png" width="102" height="80">
+      <p>恭喜您，已经成功领取会员卡！您获得了积分：<strong><?php echo $createcardscore;?></strong>分</p>
+    </div>
+    <div class="btn-box">
+      <a href="<?php echo U('MemberIntegral/integralGoods',array('companyid'=>$companyid));?>" class="btn btn-orange mb15">前往 积分商城</a>
+      <a href="<?php echo U('Member/center',array('companyid'=>$companyid));?>" class="btn btn-white">我的会员中心</a>
+    </div>
+  </div>
+</div>
+<include file="Public:weiXinNotShareSet"/>
+<include file="Public:memberCenterFooter"/>

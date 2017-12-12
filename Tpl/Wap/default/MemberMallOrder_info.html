@@ -1,0 +1,133 @@
+<include file="Public:S5NewHead" />
+<style>
+	.address_details_stlink{float:right;color:#bd9745}
+</style>
+<!--页面css-->
+<link rel="stylesheet" type="text/css" href="{lanrain::RES}/new_eshop/css/wap.css?<?php echo C('site_system_file_version');?>">
+<section class="neweshop-ctt ifoot_padding Scrm_index_content <?php if(($info['ordertype']==1&&$info['orderstatus']==3) || $info['orderstatus']==1){ echo 'neweshop-bottom-51';}?>">
+	<div class="neweshop-Order-details-logistics">
+		<div class="logistics-box">
+			<i class="logistics-icon"></i>
+			<div class="logistics-right">
+				<p class="font-clbd9745">订单状态：<?php if($info['orderstatus']==1){ echo '待付款';}elseif($info['orderstatus']==2){ echo '待发货';}elseif($info['orderstatus']==3){ echo '已发货';}elseif($info['orderstatus']==4){ echo '已签收';}elseif($info['orderstatus']==5){ echo '已取消';}elseif($info['orderstatus']==7){ echo '确认到账中';}elseif($info['orderstatus']==8){ echo '退货';}elseif($info['orderstatus']==11){ echo '待成团';}?>
+					<?php if($info['orderstatus']==11){?>
+						<a class="address_details_stlink btn small-Order-gold-btn" href="<?php echo U('MallGroupGoods/index',array('companyid'=>$companyid,'groupinfoid'=>$info['groupinfoid']))?>">邀请好友参团</a>
+					<?php }?>
+				</p>
+				<?php if($info['ordertype'] == 1){?>
+				<p>物流公司：<?php if($info['logisticsid'] == 1){ echo '顺丰速运';}elseif($info['logisticsid'] == 2){ echo '韵达货运';}elseif($info['logisticsid'] == 3){ echo '圆通速递';}elseif($info['logisticsid'] == 4){ echo '申通快递';}elseif($info['logisticsid'] == 5){ echo '天天快递';}elseif($info['logisticsid'] == 6){ echo '中通速递';}elseif($info['logisticsid'] == 7){ echo '汇通快运';}elseif($info['logisticsid'] == 8){ echo '全峰快递';}elseif($info['logisticsid'] == 9){ echo 'EMS';}elseif($info['logisticsid'] == 10){ echo '宅急送快运';}elseif($info['logisticsid'] == 11){ echo '中国邮政';}elseif($info['logisticsid'] == 12){ echo '黑猫宅急便';}?></p>
+				<p>快递单号：<?php echo $info['logisticsnum'];?></p>
+				<?php }?>
+			</div>
+		</div>
+		<?php if($info['ordertype'] == 1){?>
+		<div class="logistics-box">
+			<i class="address-icon"></i>
+			<div class="logistics-right">
+				<p>收货人：<?php echo $info['consigneename'];?><span><?php echo $info['consigneephone'];?></span></p>
+				<p class="p-line-height">收货地址：<?php echo $info['consigneeaddress'];?></p>
+			</div>
+		</div>
+		<?php }?>
+	</div>
+	<div class="details-Image-Text">
+		<div class="details-Image-Text-head">
+			<a href="javascript:void(0);">订单详情</a>
+		</div>
+		<ul class="good-list-selected Image-Text-ul">
+			<?php if($info['mall']){ foreach($info['mall'] as $key=>$val){?>
+			<li>
+				<img class="good-img" src="<?php echo $val['goodpic'];?>">
+				<div class="good-info-cover">
+					<p class="good-name"><?php echo $val['goodname'];?></p>
+					<p class="good-size"><?php echo $val['goodskuname'] ? '规格：'.$val['goodskuname'] : '';?></p>
+					<p class="good-price">￥<?php echo $val['goodprice'];?> <span class="good-num">x<?php echo $val['goodnum'];?></span></p>
+				</div>
+				<?php if($val['goodtype']==1){ if($info['orderstatus']==2 || $info['orderstatus']==3 || $info['orderstatus']==4 || $info['orderstatus']==8 || $info['orderstatus']==9 || $info['orderstatus']==10){?>
+				<div class="Image-Text-btn">
+					<?php if($val['seid']){?>
+					<a href="<?php echo U('MemberMallOrder/service',array('companyid'=>$companyid,'id'=>$val['seid']));?>"><button class="btn">售后信息</button></a>
+					<?php }else{?>
+					<a href="<?php echo U('MemberMallOrder/service',array('companyid'=>$companyid,'orid'=>$info['id'],'ogid'=>$val['id']));?>"><button class="btn">申请售后</button></a>
+					<?php }?>
+				</div>
+				<?php }}?>
+			</li>
+			<?php }}?>
+		</ul>
+		<div class="Statistics-money-box">
+			<ul class="Statistics-money-ul">
+				<li>
+					<span>￥<?php echo format_number($info['ordersubtotal']-$info['orderfreight']);?></span>
+					<P>商品金额</P>
+				</li>
+				<li>
+					<span>￥<?php echo $info['orderfreight'];?></span>
+					<P>运费</P>
+				</li>
+				<li>
+					<span>-￥<?php echo $info['orderderateprice'];?></span>
+					<P>优惠金额</P>
+				</li>
+			</ul>
+			<p class="Statistics-money-Paid">实付款<span>￥<?php echo $info['orderprice'];?></span></p>
+		</div>
+	</div>
+	<?php if($info['membernote']){?>
+	<div class="Message-receipt-box">
+		<span>留言：</span>
+		<p><?php echo $info['membernote'];?></p>
+	</div>
+	<?php }?>
+	<?php if($info['orderinvoice']==1){?>
+	<div class="Message-receipt-box">
+		<span>发票：</span>
+		<p><?php echo $info['orderinvoicetitle'];?></p>
+	</div>
+	<?php }?>
+	<ul class="Order-list-selected">
+		<li><span class="sp1">订单号</span><span class="sp2"><?php echo $info['orderid'];?></span></li>
+		<li><span class="sp1">下单时间</span><span class="sp2"><?php echo format_time($info['createtime'], 'ymdhi');?></span></li>
+		<?php if($info['paytime']){?><li><span class="sp1">付款时间</span><span class="sp2"><?php echo format_time($info['paytime'], 'ymdhi');?></span></li><?php }?>
+		<?php if($info['ordertype']==1 && $info['shippingtime']){?><li><span class="sp1">发货时间</span><span class="sp2"><?php echo format_time($info['shippingtime'], 'ymdhi');?></span></li><?php }?>
+		<?php if($info['receivaltime']){?><li><span class="sp1">签收时间</span><span class="sp2"><?php echo format_time($info['receivaltime'], 'ymdhi');?></span></li><?php }?>
+		<?php if($info['offtime']){?><li><span class="sp1">取消时间</span><span class="sp2"><?php echo format_time($info['offtime'], 'ymdhi');?></span></li><?php }?>
+	</ul>
+	<?php if(($info['ordertype']==1&&$info['orderstatus']==3) || $info['orderstatus']==1){?>
+	<div style="height: 51px;"></div>
+	<div class="Order-status-btn-box">
+		<?php if($info['ordertype']==1 && $info['orderstatus']==3){?>
+		<a href="javascript:void(0);" class="btn Order-gold-btn js-editOrderButton" data-orderstatus="4">确认签收</a>
+		<?php }?>
+		<?php if($info['orderstatus'] == 1){?>
+		<a href="<?php echo C('site_url');?>/Payapi/Wxpay/payAct/jsapi.php?orderid=<?php echo $info['orderid'];?>" class="btn Order-gold-btn">立即付款</a>
+		<a href="javascript:void(0);" class="btn Order-black-btn js-editOrderButton" data-orderstatus="5">取消订单</a>
+		<?php }?>
+	</div>
+	<?php }?>
+	<!-- ========公共底部========  -->
+	<div class="eshopv_fotter_logo">
+		<include file="Public:navFooter" />
+	</div>
+</section>
+<script>
+$(function(){
+	//-------------------- 取消订单、确认签收 --------------------
+	$(document).on("click", ".js-editOrderButton", function(){
+	    var id = "<?php echo $info['id'];?>";
+	    var orderstatus = $(this).attr('data-orderstatus');
+		$('.loading').show();
+	    $.post("<?php echo U('MemberMallOrder/ajaxCloseOrder',array('companyid'=>$companyid)).'&time=';?>"+Math.random(),{id:id,orderstatus:orderstatus},function(data){
+			$('.loading').hide();
+			alert(data.tips, 2000);
+			if(data.code == 200){
+				setTimeout('window.location.href=location.href',2000);
+			}
+	    },"json");
+	});
+});
+</script>
+<include file="Public:memberActiviesFission"/>
+<?php memberFissionA(array('companyid'=>$companyid,'orderid'=>$info['orderid'],'money'=>$info['orderprice'],'type'=>1,'mid'=>$info['mid'],'paytime'=>$info['paytime'])) ?>
+<include file="Public:weiXinNotShareSet" />
+<include file="Public:footer" />

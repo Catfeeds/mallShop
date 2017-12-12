@@ -1,0 +1,135 @@
+<include file="Public:head"/>
+<include file="Public:smallmaterial"/>
+<?php echo $makeTopUrl;?>
+<div class="mod mb-15 WeiPage-build customize-mod">
+    <div class="mod-header radius-top clearfix"><h4>编辑门店-<?php if($_GET['type']==1){echo '全部门店';}else{ echo '门店详情';} ?></h4></div>
+    <div class="mod-body">
+        <div class="content clearfix WeiPage-setting-area">
+            <!-- 显示区 -->
+            <div class="WeiPage-preview-area fl">
+                <div class="WeiPage-preview">
+                    <div class="WeiPage-preview-hd title-html-asa"><?php echo $info['title']?$info['title']:'&nbsp;'; ?></div>
+                    <div class="WeiPage-preview-bd">
+                    	<div data-id="<?php echo $headerinfo['id'];?>" class="inner-mod  mod-top clearfix text-center js-update-img" style="<?php if($info['headclasstype']!=2){ echo 'background-color:#'.$info['headcolor'];} ?>">
+						       <!-- <i class="icon-img-log"></i> -->
+						       <?php if($info['headlogo']){ ?><img class="inline logoasa-img" src="<?php echo $info['headlogo']; ?>" style="margin:4px auto;height:38px;"><?php } ?>
+						       <!-- <i class="icon-search-btn fr"></i> -->
+						</div>
+                    </div>
+                </div>
+            </div>
+            <!-- 编辑区 -->
+            <div class="WeiPage-build-form-area">
+                <div class="portable-editor">
+                    <div class="editor-inner">
+                        <div class="tab-box type-1 js-tab-box">
+                            <div class="hd">
+                                <ul>
+                                    <li class="on" style="width: 50%">网页信息</li>
+                                    <li style="width: 50%">页面头部管理</li>
+                                </ul>
+                            </div>
+
+                            <div class="bd">
+                                <!-- 网页信息 -->
+                                <div class="inner-box">
+                                    <div class="js-scroll" tabindex="5012">
+                                        <div class="group mb-30">
+                                            <h5 class="inline w100 text-left">网页标题</h5>
+                                            <input class="inline w300" value="<?php echo $info['title']?$info['title']:$info['shopname']; ?>" type="text" name="title" placeholder="请输入网页标题">
+                                        </div>
+                                        <div class="group mb-30">
+                                            <h5 class="inline w100 text-left">微信分享小图</h5>
+                                            <img class="inline text-middle wechatimg-img" width="60px" height="60px" src="<?php echo $info['shareimg']?$info['shareimg']:'./Tpl/User5/default/common/img/WeiPage-temp-img.png'; ?>">
+                                            <input type="hidden" class="wechatimg" name="shareimg" value="<?php echo $info['shareimg'];?>" />
+                                            <a class="btn-middle btn-white inline imageselect" data-type="wechatimg">选择图片</a>
+                                            <div class="group">
+                                                <h5 class="inline w100 text-left"><!-- Null --></h5>
+                                                <h6 class="inline text-gray">建议图片尺寸：宽120像素*高120像素，建议图片大小：小于50k</h6>
+                                            </div>
+                                        </div>
+                                        <div class="group mb-30">
+                                            <h5 class="inline w100 text-left">微信分享标题</h5>
+                                            <input class="inline w300" type="text" placeholder="请输入微信分享标题" name="sharefriendstitle" value="<?php echo $info['sharefriendstitle'];?>">
+                                            <div class="group">
+                                                <h5 class="inline w100 text-left"><!-- Null --></h5>
+                                                <h6 class="inline text-gray">仅限38个汉字，76个字节，多余文字将显示"..."</h6>
+                                            </div>
+                                        </div>
+                                        <div class="group mb-30">
+                                            <h5 class="inline w100 text-left text-top">微信分享描述</h5>
+                                            <textarea class="inline w300 sharedes" cols="30" rows="5" placeholder="请输入微信分享描述" name="sharedes"><?php echo htmlspecialchars_decode($info['sharedes']);?></textarea>
+                                            <div class="group">
+                                                <h5 class="inline w100 text-left"><!-- Null --></h5>
+                                                <h6 class="inline w300 text-gray">
+                                                    仅限65个汉字，130个字节，多余文字将显示"..."，受微信限制，分享描述不支持回车换行，否则，分享时可能会出现乱码等情况。</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 组件 -->
+                                <div class="inner-box mod">
+                                    <div class="js-scroll" tabindex="5013">
+                                        <div class="group mb-15">
+                                            <div class="group mb-30">
+                                                <h5 class="inline w100 text-left">头部颜色设置</h5>
+                                                <input class="inline w300 color js-update-color" name="headcolor" value="<?php echo $info['headcolor']; ?>" type="text" value="000">
+                                            </div>
+                                        </div>
+                                        <div class="group mb-30">
+                                            <h5 class="inline w100">logo设置</h5>
+                                            <img class="inline text-middle logoasa-img js-update-img" width="150px" height="48px"  style="background-color: #<?php echo $info['headcolor']; ?>" src="<?php echo $info['headlogo']?$info['headlogo']:'./Tpl/User5/default/common/img/WeiPage-temp-img.png';?>">
+                                            <input type="hidden" class="logoasa" name="headlogo" value="<?php echo $info['headlogo'];?>" />
+                                            <a class="btn-middle btn-white inline imageselect" data-type="logoasa">选择logo</a>
+                                            <h6 class="inline"><a class="tips">重置</a></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="Wechat-msg-bottom text-center">
+            <a class="btn-middle btn-white w100 js-sub-asa">保存并发布</a>
+        </div>
+    </div>
+</div>
+<script>
+$(function(){
+	$(".js-sub-asa").click(function(){
+		var id = "<?php echo $info['id'] ?>";
+		var title = $("input[name='title']").val();
+		var sharefriendstitle = $("input[name='sharefriendstitle']").val();
+		var shareimg = $("input[name='shareimg']").val();
+		var sharedes = $("textarea[name='sharedes']").val();
+		var headcolor = $("input[name='headcolor']").val();
+		var headlogo = $("input[name='headlogo']").val();
+		$('.loading').show();
+		$.post("<?php echo U('UserDeployment/shops',array('type'=>$_GET['type'])) ?>",{
+			id:id,title:title,sharefriendstitle:sharefriendstitle,
+			shareimg:shareimg,sharedes:sharedes,headcolor:headcolor,headlogo:headlogo
+		},function(data){
+			$('.loading').hide();
+			if(data.code==200){
+				alertTan(data.msg);
+				setTimeout('window.location.href="<?php echo U('UserDeployment/enterOne') ?>"',2000);
+			}else{
+				alertTan(data.msg,"error");
+			}
+		},"json");
+	});
+	$("#clickimgok").click(function(){
+		type = $(this).attr('data-type');
+		$("."+type+"-img").attr("src","{lanrain::C('site_url')}"+$(this).attr('data-imgsrc'));
+		$("."+type).val("{lanrain::C('site_url')}"+$(this).attr('data-imgsrc'));
+	});
+	$(".js-update-color").blur(function(){
+		$(".js-update-img").css("background-color","#"+$(this).val());
+	})
+})
+</script>
+<include file="Public:footer" />

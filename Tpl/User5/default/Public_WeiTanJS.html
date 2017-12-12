@@ -1,0 +1,886 @@
+<script>
+/* ===============================         操作类的JS在这，和提交没关系          =============================== */
+var addre = new Array();
+addre['1'] = "一";
+addre['2'] = "二";
+addre['3'] = "三";
+addre['4'] = "四";
+$(function(){
+	//点击article文章列表弹框
+	$('.article-asa').click(function(){
+		/* $('.js-show-article').show();
+		$('.js-hide-article').hide();
+		$('.js-on2-article').removeClass('on');
+		$('.js-on1-article').addClass('on'); */
+		$('input[name="articletitle"]').val('');
+		$('.js-article-thumbnail').attr('src','./Tpl/User5/default/common/img/WeiPage-temp-img.png');
+		$('.js-articledigest').val('');
+		$('input[name="article-url-asa"]').val('');
+		$('.article-tan-asa').show();
+		$('.sub-article-asa').attr('data-id','');
+	});
+	//点击Banner弹框
+	$('.banner-asa').click(function(){
+		$('.js-Banner-thumbnail').attr('src','./Tpl/User5/default/common/img/WeiPage-temp-img.png');
+		$('input[name="Banner-url-asa"]').val('');
+		$(".sub-Banner-asa").attr("data-id",'');
+		$('.Banner-tan-asa').show();
+	});
+	
+	$("input[name='isencrypt']").click(function(){
+		if($(this).val()==2){
+			$("input[name='encryptinfo']").attr('disabled',false);
+		}else{
+			$("input[name='encryptinfo']").attr('disabled','disabled');
+		}
+	})
+	$(document).on("click",'.imageselect',function(){
+		$("#clickimgok").attr("data-type",$(this).attr('data-type'));
+	})
+	$("#clickimgok").click(function(){
+		type = $(this).attr('data-type');
+		if(type == 'articleimg'){
+			$('.js-article-thumbnail').attr('src',"{lanrain::C('site_url')}"+$(this).attr('data-imgsrc'));
+		}
+		if(type == 'Bannerimg'){
+			$('.js-Banner-thumbnail').attr('src',"{lanrain::C('site_url')}"+$(this).attr('data-imgsrc'));
+		}
+		if(type=='wechatimg'){ //微信上传图片
+			$("input[name='shareimg']").val("{lanrain::C('site_url')}"+$(this).attr('data-imgsrc'));
+			$(".WeiChat-share-small-img").css('background-image',"url('{lanrain::C('site_url')}"+$(this).attr('data-imgsrc')+"')");
+		}
+		if(type=='photoimg'){//图片插件上传图片
+			var $this = $(this);
+			if($this.attr('data-imgsrc')!=''){
+				$(".photourl").find("i").each(function(){
+					if($(this).hasClass("on")){
+						var photourl="url('{lanrain::C('site_url')}"+$this.attr('data-imgsrc')+"')";
+						$(this).css('background-image',photourl);
+						$(this).attr("data-img","{lanrain::C('site_url')}"+$this.attr('data-imgsrc'));
+						$(this).html('<span style="opacity: 0;">*号位</span>');
+						$(".imageselect").html("重新选择");
+					}
+				})
+			}
+		}
+		if(type=='slideimg'){//幻灯片插件上传图片
+			var $this = $(this);
+			if($this.attr('data-imgsrc')!=''){
+				$(".slidelist").find("i.slideinfo").each(function(){
+					if($(this).hasClass("on")){
+						var photourl="url('{lanrain::C('site_url')}"+$this.attr('data-imgsrc')+"')";
+						$(this).css('background-image',photourl);
+						$(this).attr("data-img","{lanrain::C('site_url')}"+$this.attr('data-imgsrc'));
+						$(".imageselect").html("重新选择");
+					}
+				})
+			}
+		}
+		if(type=='headlogo'){//幻灯片插件上传图片
+			var $this = $(this);
+			if($this.attr('data-imgsrc')!=''){
+				var photourl="url('{lanrain::C('site_url')}"+$this.attr('data-imgsrc')+"')";
+				$(".js-head-logo-asa").css('background-image',photourl);
+				$(".js-head-logo-asa").attr("data-img","{lanrain::C('site_url')}"+$this.attr('data-imgsrc'));
+				$(".imageselect").html("重新选择");
+			}
+		}
+	});
+	//logo重置
+	$(".js-result-headlogo-asa").click(function(){
+		$(".js-head-logo-asa").attr('style','');
+		$(".js-head-logo-asa").attr("data-img","");
+		$(".imageselect").html("选择logo");
+	})
+	//选择连接
+	$(".select-url-asa").click(function(){
+		urlType = $(this).attr('data-urlType');
+		$(".select-url-tan-asa").show();
+	});
+	$(document).on("click",'.useUrl',function(){
+		$('.'+urlType).val($(this).attr('data-url'));
+		var $this = $(this);
+		if(urlType=='photo-url-asa'){
+			$(".photourl").find("i").each(function(){
+				if($(this).hasClass("on")){
+					$(this).attr("data-url",$this.attr('data-url'));
+				}
+			})
+		}
+		if(urlType=='slide-url-asa'){
+			$(".slidelist").find("i.slideinfo").each(function(){
+				if($(this).hasClass("on")){
+					$(this).attr("data-url",$this.attr('data-url'));
+				}
+			})
+		}
+		$(".select-url-tan-asa").hide();
+	});
+	$('.photo-url-asa').keyup(function(){
+		var $this = $(this);
+		$(".photourl").find("i").each(function(){
+			if($(this).hasClass("on")){
+				$(this).attr("data-url",$this.val());
+			}
+		})
+	})
+	$('.slide-url-asa').keyup(function(){
+		var $this = $(this);
+		$(".slidelist").find("i.slideinfo").each(function(){
+			if($(this).hasClass("on")){
+				$(this).attr("data-url",$this.val());
+			}
+		})
+	})
+	// 显示的JS    =========================================
+	//  组件开始        =======================================
+	//通头组件
+	$(".header-asa").click(function(){
+		id=$("input[name='id']").val();
+		if(id==''){
+			/* 页面信息  */
+			var title = $('input[name=title]').val();
+			var isencrypt = $('input[name=isencrypt]:checked').val();
+			var encryptinfo = $('input[name=encryptinfo]').val();
+			var gid = $('.js-add-new-class-option').val();
+			/* 微信分享信息  */	
+			var shareimg = $('input[name=shareimg]').val();
+			var sharefriendstitle = $('input[name=sharefriendstitle]').val();
+			var sharedes = $('.sharedes').val();
+			var iswechat = $('input[name="iswechat"]:checked').val();
+			if(isencrypt==2){
+				if(encryptinfo.length!=4){
+					alertTan('请输入四位数字密码',"warn");$('input[name=encryptinfo]').focus();
+					return false;
+				}
+			}
+			if(title==''){
+				title = '网页标题';
+				$("input[name='title']").val('网页标题');
+			}else{
+				$(".title-html-asa").html(title);
+			}
+			$.post("<?php echo U('Wei/addInfo',array('companyid'=>$companyid)); ?>",{
+				/* 页面信息  */
+				id:id,title:title,isencrypt:isencrypt,encryptinfo:encryptinfo,gid:gid,
+				/* 微信分享信息  */
+				iswechat:iswechat,shareimg:shareimg,sharefriendstitle:sharefriendstitle,sharedes:sharedes,
+				/* 页面类型 */
+				pagetypeasa:pagetypeasa
+			},function(data){
+				if(data.code==200){
+					$("input[name='id']").val(data.id);
+					$.post("<?php echo U('Wei/ishaveHF').'&time=';?>"+Math.random(),{
+						parentid:data.id,type:11
+					},function(data2){
+						if(data2.code == 300){
+							alertTan(data2.msg,'error');
+						}else{
+							$(".sub-footer-asa").attr("data-id",'');
+							$(".header-tan-asa").show();
+						}
+					},'json');
+				}
+				
+			},'json');
+		}else{
+			$.post("<?php echo U('Wei/ishaveHF').'&time=';?>"+Math.random(),{
+				parentid:id,type:11
+			},function(data){
+				if(data.code == 300){
+					alertTan(data.msg,'error');
+				}else{
+					$(".sub-footer-asa").attr("data-id",'');
+					$(".header-tan-asa").show();
+				}
+			},'json');
+		}
+		
+	});
+	//$("input[name='headcolor']").click
+	$("input[name='headclasstype']").click(function(){
+		if($(this).val()==1){
+			$(".js-headcolor-asa").show();
+		}else{
+			$(".js-headcolor-asa").hide();
+		}
+	})
+	//修改
+	$(document).on("click",".edit-header-asa",function(){
+		$(".sub-header-asa").attr('data-id',$(this).attr("data-id"));
+		$("input[name='headnavstatus']").prop("checked",false);
+		$("input[name='headnavstatus']").attr("checked",false);
+		$("input[name='headsearchstatus']").prop("checked",false);
+		$("input[name='headsearchstatus']").attr("checked",false);
+		$("input[name='headsearchclass']").prop("checked",false);
+		$("input[name='headsearchclass']").attr("checked",false);
+		$("input[name='headclasstype']").prop("checked",false);
+		$("input[name='headclasstype']").attr("checked",false);
+		$("input[name='headcolor']").prop("checked",false);
+		$("input[name='headcolor']").attr("checked",false);
+		var color = $(this).attr("data-headcolor");
+		if(color!="000000"&&color!="ff6700"&&color!="bf1520"&&color!="006ac9"){
+			$("input[name='headcolor'][value=7]").prop("checked",true);
+			$("input[name='headcolorinfo']").val(color);
+		}else{
+			$("input[name='headcolor'][value='"+color+"']").prop("checked",true);
+			$("input[name='headcolorinfo']").val("000000");
+		}
+		$("input[name='headclasstype'][value='"+$(this).attr("data-headclasstype")+"']").prop("checked",true);
+		if($(this).attr("data-headclasstype")==1){
+			$(".js-headcolor-asa").show();
+		}else{
+			$(".js-headcolor-asa").hide();
+		}
+		
+		
+		$("input[name='headnavstatus'][value='"+$(this).attr("data-headnavstatus")+"']").prop("checked",true);
+		$("input[name='headsearchstatus'][value='"+$(this).attr("data-headsearchstatus")+"']").prop("checked",true);
+		$("input[name='headsearchclass'][value='"+$(this).attr("data-headsearchclass")+"']").prop("checked",true);
+		if($(this).attr("data-headnavstatus")==1){
+			$(".js-headnavstatus-asa").show();
+		}else{
+			$(".js-headnavstatus-asa").hide();
+		}
+		if($(this).attr("data-headsearchstatus")==1){
+			$(".js-headsearchstatus-asa").show();
+		}else{
+			$(".js-headsearchstatus-asa").hide();
+		}
+		$(".js-head-logo-asa").css('background-image',"url('"+$(this).attr('data-headlogo')+"')");
+		$(".js-head-logo-asa").attr("data-img",$(this).attr('data-headlogo'));
+		if($(this).attr("data-headnavid")){
+			$.post("<?php echo U('Wei/ajaxHeadNav').'&time=';?>"+Math.random(),{ids:$(this).attr("data-headnavid"),assid:$(this).attr("data-id")},function(data){
+		        if(data.code==200){
+		            $(".js-headnav-info-asa").html(data.html);
+		            $(".header-tan-asa").show();
+		        }else if(data.code==400){
+		            $(".header-tan-asa").show();
+		        }else{
+		        	alertTan(data.msg,'error');
+		        }
+				
+			},"json");
+		}else{
+			$(".js-nav-zanwu-asa").show();
+			$(".header-tan-asa").show();
+		}
+	});
+	//通头导航显示隐藏
+	$("input[name='headnavstatus']").click(function(){
+		if($(this).val()==1){
+			$(".js-headnavstatus-asa").show();
+		}else{
+			$(".js-headnavstatus-asa").hide();
+		}
+	})
+	//通头搜索显示隐藏
+	$("input[name='headsearchstatus']").click(function(){
+		if($(this).val()==1){
+			$(".js-headsearchstatus-asa").show();
+		}else{
+			$(".js-headsearchstatus-asa").hide();
+		}
+	})
+	//通头导航
+	$(".header-nav-asa").click(function(){
+		$("input[name='navtitle']").val("");
+		$("input[name='navurl']").val("");
+		$("input[name='navsort']").val("");
+		$("input[name='navisstatus'][value='1']").prop("checked",true);
+		var html = '';
+		html +='<option value="">全部</option>';
+		$(".js-headnav-info-asa").find("tr").each(function(){
+			if($(this).attr("data-type")==1){
+				html +='<option value="'+$(this).attr("data-id")+'">'+$(this).attr("data-title")+'</option>';
+			}
+		});
+		$("select[name='navparentid']").html(html);
+		$("select[name='navparentid'] option[value='']").prop("selected",true);
+		$(".sub-nav-asa").attr("data-id",'');
+		$(".header-nav-tan-asa").show();
+	});
+	$(".header-quxiao").click(function(){
+		$(".header-nav-tan-asa").hide();
+	});
+	$(".sub-nav-asa").click(function(){
+		
+		var re = /^[0-9]*$/;
+		var html = '';
+		var id = $(this).attr("data-id");
+		var navtitle = $("input[name='navtitle']").val();
+		var navurl = $("input[name='navurl']").val();
+		var navsort = $("input[name='navsort']").val();
+		var navisstatus = $("input[name='navisstatus']:checked").val();
+		var navparentid = $("select[name='navparentid']").val();
+		if(navtitle==''){
+			alertTan("请填写导航名称","warn");
+			$("input[name='navtitle']").focus();
+			return false;
+		}
+		if(!re.test(navsort)){
+			alertTan("请输入正确的数字","warn");
+			$("input[name='navsort']").focus();
+			$("input[name='navsort']").select();
+			return false;
+		}
+		$(".loading").show();
+		if(navisstatus==1){navisstatus1='启用';}else{navisstatus1='禁用';}
+		if(navparentid){var type = 2;navtitle2 = '&nbsp;&nbsp;&nbsp;-- &nbsp;'+navtitle;
+		}else{var type = 1;navtitle2 = navtitle;}
+		if(id==''){//新增
+			$.post("<?php echo U('Wei/ajaxGuid') ?>",{},function(data){
+				if(data.code==200){
+					id=data.id;
+					var head ='<tr id="n'+id+'" data-id="'+id+'" data-url="'+navurl+'" data-parentid="'+navparentid+'" data-type="'+type+'" data-title="'+navtitle+'" data-sort="'+navsort+'" data-isstatus="'+navisstatus+'">';
+					html +='<td>'+navsort+'</td> ';
+					html +='<td>'+navtitle2+'</td> ';
+					html +='<td><a href="javascript:void(0);" class="tips js-navisstatus-asa">'+navisstatus1+'</a></td> ';
+					html +='<td>';
+					html +='<a href="javascript:void(0);" class="tips edit-header-nav-asa" data-id="'+id+'">编辑</a> ';
+					html +='<a href="javascript:void(0);" class="tips del-header-nav-asa" data-id="'+id+'">删除</a>';
+					html +='</td> ';
+					var footer = '</tr> ';
+					
+					if(navparentid){
+						$("#n"+navparentid).after(head+html+footer);
+					}else{
+						$(".js-headnav-info-asa").append(head+html+footer);
+					}
+					$(".loading").hide();
+					$(".js-nav-zanwu-asa").remove();
+					$(".header-nav-tan-asa").hide();
+					
+				}else{alertTan(data.msg,"error");return false;}
+			},'json');	
+		}else{//编辑
+			var head ='<tr id="n'+id+'" data-id="'+id+'" data-url="'+navurl+'" data-parentid="'+navparentid+'" data-type="'+type+'" data-title="'+navtitle+'" data-sort="'+navsort+'" data-isstatus="'+navisstatus+'">';
+			html +='<td>'+navsort+'</td> ';
+			html +='<td>'+navtitle2+'</td> ';
+			html +='<td><a href="javascript:void(0);" class="tips js-navisstatus-asa">'+navisstatus1+'</a></td> ';
+			html +='<td>';
+			html +='<a href="javascript:void(0);" class="tips edit-header-nav-asa" data-id="'+id+'">编辑</a> ';
+			html +='<a href="javascript:void(0);" class="tips del-header-nav-asa" data-id="'+id+'">删除</a>';
+			html +='</td> ';
+			var footer = '</tr> ';
+			if(navparentid){
+				$("#n"+id).remove();
+				$("#n"+navparentid).after(head+html+footer);
+			}else{
+				$("#n"+id).attr("data-url",navurl);
+				$("#n"+id).attr("data-parentid",navparentid);
+				$("#n"+id).attr("data-title",navtitle);
+				$("#n"+id).attr("data-sort",navsort);
+				$("#n"+id).attr("data-isstatus",navisstatus);
+				$("#n"+id).attr("data-type",1);
+				$("#n"+id).html(html)
+			}
+			$(".loading").hide();
+			$(".header-nav-tan-asa").hide();
+		}
+	});
+	//修改导航信息
+	$(document).on("click",".edit-header-nav-asa",function(){
+		var html = '';
+		html +='<option value="">全部</option>';
+		$(".js-headnav-info-asa").find("tr").each(function(){
+			if($(this).attr("data-type")==1){
+				html +='<option value="'+$(this).attr("data-id")+'">'+$(this).attr("data-title")+'</option>';
+			}
+		});
+		$("select[name='navparentid']").html(html);
+		var $this = $(this).parent("td").parent("tr");
+		$("input[name='navtitle']").val($this.attr("data-title"));
+		$("input[name='navurl']").val($this.attr("data-url"));
+		$("input[name='navsort']").val($this.attr("data-sort"));
+		$("input[name='navisstatus'][value='"+$this.attr("data-isstatus")+"']").prop("checked",true);
+		if($this.attr("data-parentid")){
+			$("select[name='navparentid']").find("option[value='"+$this.attr("data-parentid")+"']").prop("selected",true);
+		}else{
+			$("select[name='navparentid']").find("option:eq(0)").prop("selected",true);
+		}
+		$(".sub-nav-asa").attr("data-id",$this.attr("data-id"));
+		$(".header-nav-tan-asa").show();
+	})
+	//通头导航删除
+	$(document).on("click",".del-header-nav-asa",function(){
+		$(this).parent("td").parent("tr").remove();
+		var length = $(".js-headnav-info-asa").children("tr").length;
+		if(length==1){
+			$(".js-nav-zanwu-asa").show();
+		}
+		
+	});
+	//通头导航启用禁用
+	$(document).on("click",".js-navisstatus-asa",function(){
+		var isstatus = $(this).parent("td").parent("tr").attr("data-isstatus");
+		if(isstatus==1){
+			$(this).html("禁用");
+			$(this).parent("td").parent("tr").attr("data-isstatus",2);
+		}else{
+			$(this).html("启用");
+			$(this).parent("td").parent("tr").attr("data-isstatus",1);
+		}
+		
+	});
+	
+	//通低组件
+	$(".footer-asa").click(function(){
+		id=$("input[name='id']").val();
+		if(id==''){
+			/* 页面信息  */
+			var title = $('input[name=title]').val();
+			var isencrypt = $('input[name=isencrypt]:checked').val();
+			var encryptinfo = $('input[name=encryptinfo]').val();
+			var gid = $('.js-add-new-class-option').val();
+			/* 微信分享信息  */	
+			var shareimg = $('input[name=shareimg]').val();
+			var sharefriendstitle = $('input[name=sharefriendstitle]').val();
+			var sharedes = $('.sharedes').val();
+			var iswechat = $('input[name="iswechat"]:checked').val();
+			if(isencrypt==2){
+				if(encryptinfo.length!=4){
+					alertTan('请输入四位数字密码',"warn");$('input[name=encryptinfo]').focus();
+					return false;
+				}
+			}
+			if(title==''){
+				title = '网页标题';
+				$("input[name='title']").val('网页标题');
+			}else{
+				$(".title-html-asa").html(title);
+			}
+			$.post("<?php echo U('Wei/addInfo',array('companyid'=>$companyid)); ?>",{
+				/* 页面信息  */
+				id:id,title:title,isencrypt:isencrypt,encryptinfo:encryptinfo,gid:gid,
+				/* 微信分享信息  */
+				iswechat:iswechat,shareimg:shareimg,sharefriendstitle:sharefriendstitle,sharedes:sharedes,
+				/* 页面类型 */
+				pagetypeasa:pagetypeasa
+			},function(data){
+				if(data.code==200){
+					$("input[name='id']").val(data.id);
+					$.post("<?php echo U('Wei/ishaveHF').'&time=';?>"+Math.random(),{
+						parentid:data.id,type:12
+					},function(data2){
+						if(data2.code == 300){
+							alertTan(data2.msg,"error");
+						}else{
+							$(".sub-footer-asa").attr("data-id",'');
+							$(".js-footer-nav-isshow-asa").show();
+							$("input[name='footisstatus'][value='1']").prop('checked',true);
+							$("input[name='footclass'][value='1']").prop('checked',true);
+							$(".footer-tan-asa").show();
+						}
+					},'json');
+				}
+				
+			},'json');
+		}else{
+			$.post("<?php echo U('Wei/ishaveHF').'&time=';?>"+Math.random(),{
+				parentid:id,type:12
+			},function(data){
+				if(data.code == 300){
+					alertTan(data.msg,"error");
+				}else{
+					$(".sub-footer-asa").attr("data-id",'');
+					$(".js-footer-nav-isshow-asa").show();
+					$("input[name='footisstatus'][value='1']").prop('checked',true);
+					$("input[name='footclass'][value='1']").prop('checked',true);
+					$(".footer-tan-asa").show();
+				}
+			},'json');
+		}
+		
+	});
+	$(document).on("click",".edit-footer-asa",function(){
+		$("input[name='footisstatus'][value='"+$(this).attr("data-footisstatus")+"']").prop("checked",true);
+		if($(this).attr("data-footisstatus")==1){
+			$(".js-footer-nav-isshow-asa").show();
+		}else{
+			$(".js-footer-nav-isshow-asa").hide();
+		}
+		$("input[name='footclass'][value='"+$(this).attr("data-footclass")+"']").prop("checked",true);
+		$(".sub-footer-asa").attr("data-id",$(this).attr("data-id"));
+		$(".footer-tan-asa").show();
+	});
+	//图片组件  ====================================
+	$(".photo-asa").click(function(){
+		var i=1;
+		$(".imageselect").html("选择图片");
+		$(".photo-url-asa").val("");
+		$(".phototype").children("i").removeClass("on");
+		$(".phototype").children("i:eq(0)").addClass("on");
+		$(".photourl").find("i").each(function(){
+			$(this).attr('style','');
+			$(this).removeClass("on");
+			if(i>1){
+				$(this).attr('style','display:none');
+			}else{
+				$(this).addClass("on");
+			}
+			$(this).attr("data-img","");
+			$(this).attr("data-url","");
+			
+			$(this).html(addre[i]+'号位');
+			i++;
+		})
+		$(".sub-photo-asa").attr("data-id",'');
+		$(".photo-tan-asa").show();
+	});
+	
+	$(document).on("click",".edit-photo-asa",function(){
+		var type=$(this).attr("data-type");
+		if(type==2){type=4;}
+		else if(type==3){type=3;}
+		else if(type==4){type=2;}
+		else if(type==9){type=1;}
+		
+		//上方的样式选中状态
+		$(".phototype").children("i").removeClass("on");
+		$(".phototype").children("i:eq("+(type-1)+")").addClass("on");
+		$(".photourl").children("i").removeClass("on");
+		$(".photourl").children("i:eq(0)").addClass("on");
+		$(".imageselect").html("重新选择");
+		$('.photo-url-asa').val($(this).attr('data-url1'));
+		//编辑的把ID给确定按钮
+		$(".sub-photo-asa").attr("data-id",$(this).attr("data-id"));
+		
+		//数据的导入了
+		$(".photourl").children("i").hide();
+		for(var i=1;i<=type;i++){
+			if($(this).attr("data-img"+i)!=''){
+				$(".photourl").children("i:eq("+(i-1)+")").show();
+				$(".photourl").children("i:eq("+(i-1)+")").html('<span style="opacity: 0;">*号位</span>');
+				$(".photourl").children("i:eq("+(i-1)+")").css('background-image',"url('"+$(this).attr('data-img'+i)+"')");
+				$(".photourl").children("i:eq("+(i-1)+")").attr("data-img",$(this).attr("data-img"+i));
+				$(".photourl").children("i:eq("+(i-1)+")").attr("data-url",$(this).attr("data-url"+i));
+			}
+		}
+		$(".photo-tan-asa").show();
+	})
+	$(document).on("click",".photourl i,.slidelist i.slideinfo",function(){
+		var img = $(this).attr("data-img");
+		var url = $(this).attr("data-url");
+		if(img==''){
+			$(".imageselect").html("选择图片");
+		}else{
+			$(".imageselect").html("重新选择");
+		}
+		if(url==''){
+			$(".photo-url-asa,.slide-url-asa").val("");
+		}else{
+			$(".photo-url-asa,.slide-url-asa").val(url);
+		}
+	});
+	// 幻灯片组件  ======================================================
+	$(".slide-asa").click(function(){
+		var i=1;
+		$(".imageselect").html("选择图片");
+		$(".slide-url-asa").val("");
+		$(".slidelist").find("i.slideinfo").each(function(){
+			$(this).removeClass("on");
+			$(this).attr('style','');
+			if(i==1){
+				$(this).addClass("on");
+			}else{
+				$(this).remove();
+			}
+			$(this).attr("data-img","");
+			$(this).attr("data-url","");
+			i++;
+		})
+		$(".sub-slide-asa").attr("data-id",'');
+		$(".slide-tan-asa").show();
+	});
+	//幻灯片修改
+	$(document).on("click",".edit-slide-asa",function(){
+		var type=$(this).attr("data-type");
+		//上方的样式选中状态
+		$(".slidelist").children("i.slideinfo").removeClass("on");
+		$(".slidelist").children("i.slideinfo:eq(0)").addClass("on");
+		$(".imageselect").html("重新选择");
+		$('.slide-url-asa').val($(this).attr('data-url1'));
+		//编辑的把ID给确定按钮
+		$(".sub-slide-asa").attr("data-id",$(this).attr("data-id"));
+		//数据的导入了
+		$(".slidelist").children("i.slideinfo").remove();
+		var a=0;
+		for(var i=1;i<=5;i++){
+			if(typeof($(this).attr("data-img"+i))!=undefined&&$(this).attr("data-img"+i)!=''){
+				if(a<i){
+					$("i.uploading.WeiPage-img-add").before('<i class="uploading slideinfo" data-url="" data-img="" > <ul class="edit-group-wrap clearfix js-edit-group-wrap"> <li><i class="icon-edit to-left js-to-left"></i> </li> <li><i class="icon-edit to-right js-to-right"></i> </li> <li><i class="icon-edit be-remove js-be-remove"></i> </li> </ul> </i> ');
+				}
+				$(".slidelist").children("i.slideinfo:eq("+(i-1)+")").show();
+				$(".slidelist").children("i.slideinfo:eq("+(i-1)+")").css('background-image',"url('"+$(this).attr('data-img'+i)+"')");
+				$(".slidelist").children("i.slideinfo:eq("+(i-1)+")").attr("data-img",$(this).attr("data-img"+i));
+				$(".slidelist").children("i.slideinfo:eq("+(i-1)+")").attr("data-url",$(this).attr("data-url"+i));
+				a++;
+			}else{
+				$(".slidelist").children("i.slideinfo:eq("+(i-1)+")").remove();
+			}
+		}
+		if(a<5){
+			$(".WeiPage-img-add").show();
+		}else if(a>=5){
+			$(".WeiPage-img-add").hide();
+		}
+		$(".slide-tan-asa").show();
+	});
+	//辅助空白 ============================
+	$(".blank-asa").click(function(){
+		$(".blank-height-asa").val("");
+		$(".sub-blank-asa").attr("data-id","");
+		$(".blank-tan-asa").show();
+	});
+	$(document).on("click",".edit-blank-asa",function(){
+		//编辑的把ID给确定按钮
+		$(".blank-height-asa").val($(this).attr("data-blank"));
+		$(".sub-blank-asa").attr("data-id",$(this).attr("data-id"));
+		$(".blank-tan-asa").show();
+	});
+	//富文本 = ===========================================
+	$(".bigtext-asa").click(function(){
+		ue2.setContent('');
+		$(".sub-bigtext-asa").attr("data-id","");
+		$(".bigtext-tan-asa").show();
+	});
+	$(document).on("click",".edit-bigtext-asa",function(){
+		//编辑的把ID给确定按钮
+		var text = $("#b"+$(this).attr("data-id")).html();
+		ue2.setContent(text);
+		$(".sub-bigtext-asa").attr("data-id",$(this).attr("data-id"));
+		$(".bigtext-tan-asa").show();
+	});
+	//商品 =================================================
+	$(".goods-asa").click(function(){
+		$(".sub-goods-asa").attr("data-id","");
+		$(".goodstype-asa").children("i").removeClass("on");
+		$(".goodstype-asa").children("i:eq(0)").addClass("on");
+		var goodname = $("input[name='goodname'][value='1']").prop("checked",true);
+		var goodprice = $("input[name='goodprice'][value='1']").prop("checked",true);
+		var goodshopcart = $("input[name='goodshopcart'][value='1']").prop("checked",true);
+		var goodshopcartclass = $("input[name='goodshopcartclass'][value='1']").prop("checked",true);
+		$('.goods-list-right-asa').html("");
+		ajaxGood('','1','','');
+		$(".goods-tan-asa").show();
+	});
+	//搜索商品
+	$(".sub-goods-title-asa").click(function(){
+		var goodtype = $(this).attr("data-goodtype");
+		var ids ='';
+		var title = $(".goodstitle-asa").val();
+		$('.goods-list-right-asa li').each(function(){
+			ids +=$(this).attr('data-id')+',';
+		})
+		ajaxGood(ids,'1',title,goodtype);
+	})//
+	$(document).on("click",".edit-goods-asa",function(){
+		$(".sub-goods-asa").attr("data-id","");
+		//清除所有样式
+		$(".goodstype-asa").children("i").removeClass("on");
+		//给固定样式加ON
+		$(".goodstype-asa").children("i:eq("+($(this).attr("data-display")-1)+")").addClass("on");
+		$("input[name='goodname'][value='"+$(this).attr("data-goodname")+"']").prop("checked",true);
+		$("input[name='goodprice'][value='"+$(this).attr("data-goodprice")+"']").prop("checked",true);
+		$("input[name='goodshopcart'][value='"+$(this).attr("data-goodshopcart")+"']").prop("checked",true);
+		if($(this).attr("data-goodshopcart")==2){
+			$(".js-goods-toggle").hide();
+		}
+		$("input[name='goodshopcartclass'][value='"+$(this).attr("data-goodshopcartclass")+"']").prop("checked",true);
+		var goodid = $(this).attr("data-goodid");
+		//左侧商品列表
+		ajaxGood(goodid,'1','','');
+		//右侧商品列表
+		ajaxGood(goodid,'2','','');
+		
+		$(".sub-goods-asa").attr("data-id",$(this).attr("data-id"));
+		$(".goods-tan-asa").show();
+	});
+	//点击类型进行搜索
+	$('.js-goodtype-search').click(function(){
+		var goodtype = $(this).attr("data-goodtype");
+		var ids ='';
+		var title = $(".goodstitle-asa").val();
+		$('.goods-list-right-asa li').each(function(){
+			ids +=$(this).attr('data-id')+',';
+		});
+		$('.sub-goods-title-asa').attr("data-goodtype",goodtype);
+		ajaxGood(ids,'1',title,goodtype);
+	});
+	//拼团商品 =================================================
+	$(".js-groupon-goods").click(function(){
+		$(".sub-groupon-goods-asa").attr("data-id","");
+		$('.groupon-goods-list-right-asa').html("");
+		ajaxGroupGood('','1','');
+		$(".groupon-goods-box").show();
+	});
+	//搜索拼团商品
+	$(".sub-groupon-goods-title-asa").click(function(){
+		var ids ='';
+		var title = $(".groupongoodstitle-asa").val();
+		$('.groupon-goods-list-right-asa li').each(function(){
+			ids +=$(this).attr('data-id')+',';
+		});
+		ajaxGroupGood(ids,'1',title);
+	});
+	$(document).on("click",".edit-groupon-goods-asa",function(){
+		$(".sub-groupon-goods-asa").attr("data-id","");
+		//清除所有样式
+		var goodid = $(this).attr("data-goodid");
+		//左侧商品列表
+		ajaxGroupGood(goodid,'1','');
+		//右侧商品列表
+		ajaxGroupGood(goodid,'2','');
+		
+		$(".sub-groupon-goods-asa").attr("data-id",$(this).attr("data-id"));
+		$(".groupon-goods-box").show();
+	});
+	//编辑banner
+	$(document).on("click",".edit-Banner-asa",function(){
+		//清除所有样式
+		$(".sub-Banner-asa").attr("data-id",'');
+		$('input[name="Banner-url-asa"]').val('');
+		$('.js-Banner-thumbnail').attr('src','./Tpl/User5/default/common/img/WeiPage-temp-img.png');
+		//追加
+		$('input[name="Banner-url-asa"]').val($(this).attr('data-blink'));
+		$('.js-Banner-thumbnail').attr('src',$(this).attr('data-banner'));
+		$(".sub-Banner-asa").attr("data-id",$(this).attr("data-id"));
+		$(".Banner-tan-asa").show();
+	});
+	//编辑article
+	$(document).on("click",".edit-article-asa",function(){
+		var artid = $(this).attr("data-id");
+		/* $('.js-show-article').show();
+		$('.js-hide-article').hide();
+		$('.js-on2-article').removeClass('on');
+		$('.js-on1-article').addClass('on'); */
+		//清除所有样式
+		$(".sub-article-asa").attr("data-id",'');
+		$('input[name="articletitle"]').val('');
+		$('.js-article-thumbnail').attr('src','./Tpl/User5/default/common/img/WeiPage-temp-img.png');
+		$('.js-articledigest').val('');
+		$('input[name="article-url-asa"]').val('');
+		//追加
+		$('input[name="articletitle"]').val($('.js-articletitle-'+artid).text());
+		$('.js-article-thumbnail').attr('src',$(this).attr('data-banner'));
+		$('.js-articledigest').val($('.js-textinfo-'+artid).text());
+		$('input[name="article-url-asa"]').val($(this).attr('data-blink'));
+		$("input[name='isshowtime'][value='"+$(this).attr("data-isshowtime")+"']").prop("checked",true);
+		$("input[name='articletype'][value='"+$(this).attr("data-articletype")+"']").prop("checked",true);
+		$(".sub-article-asa").attr("data-id",artid);
+		$(".article-tan-asa").show();
+	});
+})
+/* 
+ * 加载商品的函数
+ * ids:ID的组合,1,2,
+ * type : 1：左侧商品；2：右侧商品
+ * title : 左侧搜索时
+ */
+function ajaxGood(ids,type,title,goodtype){
+	$.post("<?php echo U('Wei/ajaxGoods').'&time=';?>"+Math.random(),{ids:ids,type:type,title:title,goodtype:goodtype},function(data){
+        if(data.code==200){
+        	if(type == 1){
+                $('.goods-list-left-asa').html(data.html);
+            }else{
+            	$('.goods-list-right-asa').html(data.html);
+            }
+        }else{
+        	alertTan(data.msg,"error");
+        }
+		
+	},"json");
+}
+/* 
+ * 加载拼团商品的函数
+ * ids:ID的组合,1,2,
+ * type : 1：左侧商品；2：右侧商品
+ * title : 左侧搜索时
+ */
+function ajaxGroupGood(ids,type,title){
+	$.post("<?php echo U('Wei/ajaxGroupGoods').'&time=';?>"+Math.random(),{ids:ids,type:type,title:title},function(data){
+        if(data.code==200){
+        	if(type == 1){
+                $('.groupon-goods-list-left-asa').html(data.html);
+            }else{
+            	$('.groupon-goods-list-right-asa').html(data.html);
+            }
+        }else{
+        	alertTan(data.msg,"error");
+        }
+		
+	},"json");
+}
+//更改平排序
+$(".inner-mod .js-icon-mod-to-up").click(toUp1());
+$(".inner-mod .js-icon-mod-to-down").click(toDown1());
+
+function toUp1() {
+    $(document).delegate(".js-icon-mod-to-up", "click", function () {
+        var onThis = $(this).parents(".inner-mod");
+        
+        var id1 = onThis.attr("data-id");
+        var id2 = onThis.prev().attr("data-id");
+   	 	
+        var toUp = onThis.prev();
+        console.log("onThis : " + onThis);
+        console.log("toUp : " + toUp);
+        $(onThis).after(toUp);
+        if(id2){
+        	$.post("<?php echo U('Wei/ajaxSort').'&time=';?>"+Math.random(),{id1:id1,id2:id2},function(data){
+            },'json');
+        }
+    });
+}
+function toDown1() {
+    $(document).delegate(".js-icon-mod-to-down", "click", function () {
+        var onThis = $(this).parents(".inner-mod");
+        
+        var id1 = onThis.attr("data-id");
+        var id2 = onThis.next().attr("data-id");
+        
+        var toDown = onThis.next();
+        console.log("onThis : " + onThis);
+        console.log("toDown : " + toDown);
+        $(toDown).after(onThis);
+        if(id2){
+        	$.post("<?php echo U('Wei/ajaxSort').'&time=';?>"+Math.random(),{id1:id1,id2:id2},function(data){
+            },'json');
+        }
+    });
+}
+
+var clossColor ='#fff'; 
+// 通头组件选择底色 John@renlaifeng.cn 2016-10-18 12:00
+$(function(){
+	// 通头类型切换 John@renlaifeng.cn 2016-10-18 15:00
+	$(".content-wrap.js-scroll").scroll(function(){
+		var t = $(".content-wrap.has-mod-top").scrollTop();
+		//console.log("sH:"+t);
+ 
+		if(t>60){
+			$(".inner-mod.mod-top.js-scroll-top-opt").removeClass("top-has-opt").css("background",clossColor);
+			$(".inner-mod.mod-top.js-scroll-top-opt").next().css("height","501px");
+		}else if(t<60){
+			$(".inner-mod.mod-top.js-scroll-top-opt").css("background","").addClass("top-has-opt");
+			$(".inner-mod.mod-top.js-scroll-top-opt").next().css("height","550px");
+		}
+	});
+})
+</script>
+<style type="text/css">
+	.WeiPage-preview-area .WeiPage-preview-bd .inner-mod.mod-top.top-has-opt{
+		position: absolute;
+		z-index: 1;
+		width: 314px;
+		background: -webkit-linear-gradient(bottom,rgba(0,0,0,0),rgba(0,0,0,.7));
+		background: linear-gradient(bottom,rgba(0,0,0,0),rgba(0,0,0,.7));
+		-webkit-transition: background-color .2s linear;
+		-moz-transition: background-color .2s linear;
+		-o-transition: background-color .2s linear;
+		transition: background-color .2s linear;
+		-webkit-transform: translateZ(0);
+		transform: translateZ(0);
+	}
+</style>

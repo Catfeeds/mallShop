@@ -1,0 +1,49 @@
+<include file="Public:head"/>
+<?php echo $makeTopUrl;?>
+<div class="group inline-btn-group mb-10">
+    <a class="btn-small btn-white" href="<?php echo U('MemberEditIntegral/index');?>">后台积分修改</a>
+    <a class="btn-small btn-purple" href="<?php echo U('MemberEditIntegral/lists');?>">后台积分修改记录</a>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>后台积分修改记录</h4></div>
+    <div class="mod-body mb-15 WeChat-auto-reply-set">
+        <table class="table type-1 w-auto">
+            <thead>
+            <tr>
+                <th>交易号</th>
+                <th>会员信息</th>
+                <th>积分变更数量</th>
+                <th>操作类型</th>
+                <th>备注</th>
+                <th>操作人</th>
+                <th>操作时间</th>
+            </tr>
+            </thead>
+            <?php if($list){?>
+            <tbody>
+            	<?php foreach($list as $key=>$val){?>
+		            <tr>
+		                <td><?php echo $val['orderid'];?></td>
+		                <td><?php echo $val['name'];?><br/><?php echo $val['moblie'];?></td>
+		                <td><?php if($val['type'] == 104){?><p class="gold_cl_r">+<?php echo $val['integralnum']?$val['integralnum']:'0';?></p><?php }elseif($val['type'] == 201){?><p class="gold_cl_l">-<?php echo $val['integralnum']?$val['integralnum']:'0';?></p><?php }else{ echo '0';}?></td>
+		                <td><?php if($val['type'] == 104){ echo '后台加积分';}elseif($val['type'] == 201){ echo '后台减积分';}else{ echo '-';}?></td>
+		                <td><?php echo $val['note'];?></td>
+		                <td><p><?php echo $val['username'];?></p><p><?php echo $val['shopname'];?></p></td>
+		                <td><?php echo format_time($val['createtime'], 'ymdhis');?></td>
+	            	</tr>
+            	<?php }?>
+            </tbody>
+            <?php }else{?>
+            	<tbody><tr><td class="content text-center" colspan="7">暂无</td></tr></tbody>
+            <?php }?>
+        </table>
+        <div class="group form-footer">
+            <?php if($page){ ?>
+				<div class="pageNavigator">
+					<div class="pages"><?php echo $page;?></div>
+				</div>
+			<?php }?>
+        </div>
+    </div>
+</div>
+<include file="Public:footer"/>

@@ -1,0 +1,66 @@
+<style>
+  /*尺码指南弹窗*/
+  .chimzl-tc{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top:0;
+    z-index: 9999;
+    background: #000;
+    display: none;
+  }
+  .chimzl-tc div.page{
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: auto!important;
+  }
+
+  .chimzl-tc div.pinch-zoom {
+    position: relative;
+    width: 100%;
+  }
+  .chimzl-tc .pinch-zoom,.pinch-zoom img{
+    width: 100%;
+    -webkit-user-drag: none;
+    -moz-user-drag: none;
+    -ms-user-drag: none;
+    user-drag: none;
+  }
+  .pinch-zoom-container{
+    width: 100%;
+    height: 100%;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%)
+  }
+  .enlarge-close-icon{cursor:pointer;position: fixed;z-index:11;top:0;right:0;width: 50px;height: 50px;background: url("{lanrain::RES}/img/close.png") no-repeat center center;background-size: 24px;}
+</style>
+<!--尺码指南弹窗-->
+<div class="chimzl-tc">
+  <i class="enlarge-close-icon"></i>
+  <div class="page">
+    <div class="pinch-zoom">
+      <img id="zmzn-fd" src=""/>
+    </div>
+  </div>
+</div>
+<script src="{lanrain::RES}/js/pinchzoom.js"></script>
+<script type="text/javascript">
+  $(function () {
+    $(".FuWenBen img").click(function(){
+      $(".chimzl-tc").show();
+      var thissrc=$(this).attr("src");
+      $("#zmzn-fd").attr("src",thissrc);
+    })
+    $(".enlarge-close-icon").click(function(){
+      $(".chimzl-tc").hide();
+    })
+    $('div.pinch-zoom').each(function () {
+      new RTP.PinchZoom($(this), {});
+    });
+  })
+</script>

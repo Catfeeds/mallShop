@@ -1,0 +1,149 @@
+<include file="Public:S5NewHead" />
+<?php if($applyType == 1){?>
+<!-- 申请代理 -->
+<div class="page application-agency">
+	<div class="title-h1">
+		<h1><span>申请区域代理:</span></h1>
+	</div>
+	<div class="apply-rule">
+		<h2><span>代理规则</span><b class="ani-rotate"></b></h2>
+		<p><?php echo htmlspecialchars_decode($baseInfo['recruitplan']);?></p>
+	</div>
+	<div class="regional-choice">
+		<h2><span>选择区域</span><b class="ani-rotate"></b></h2>
+		<div id="demo1" class="citys">
+			<p class="select-p clearfix">
+				<select name="province" id="province"></select>
+				<select name="city" id="city"></select>
+				<select name="area" id="area"></select>
+				<select name="town" id="town"></select>
+			</p>
+			<p class="label-p">
+				<span>
+					<img src="{lanrain::RES}/weixinfeng/images/icon_05.png" alt="" title="">
+					代理人
+				</span>
+				<label for="">
+					<input type="text" name="name" value="" placeholder="请输入代理人姓名（选填）">
+				</label>
+				
+			</p>
+			<p class="label-p">
+				<span>
+					<img src="{lanrain::RES}/weixinfeng/images/icon_06.png" alt="" title="">
+					联系电话
+				</span>
+				<label for="">
+					<input type="text" name="mobile" value="" placeholder="请输入代理人电话（选填）">
+				</label>	
+			</p>
+		</div>
+	</div>
+	<div class="apply-set">
+		<a class="cancel-btn" href="javascript:;" title="取消">取消</a>
+		<a class="preservation-btn js-submit-apply" href="javascript:;" title="保存">保存</a>
+	</div>
+</div>
+<!--提交成功浮层-->
+<div class="sqcg_box">
+		<div class="sqcg_centent"><span class="js-close-box"></span></div>
+	 <div class="sqcg_black_opacity"></div>
+</div>
+<script>
+$('.js-submit-apply').click(function(){
+	var partneropenid = "<?php echo $partneropenid;?>";
+	var province = $('#province').find("option:selected").html();
+	var city = $('#city').find("option:selected").html();
+	var area = $('#area').find("option:selected").html();
+	var town = $('#town').find("option:selected").html();
+	var name = $('input[name="name"]').val();
+	var mobile = $('input[name="mobile"]').val();
+	$.post("<?php echo U('MallExhibitionPartner/ajaxApply',array('type'=>1))?>",{
+		'partneropenid':partneropenid,
+		'province':province,
+		'city':city,
+		'area':area,
+		'town':town,
+		'name':name,
+		'mobile':mobile
+	},function(data){
+		if(data.code == 200){
+			$(".sqcg_box").fadeIn(); 
+		}else{
+			alert(data.tips);
+		}
+	},'json');
+});
+//提交成功浮层
+$('.sqcg_centent span').click(function () {
+	$(".sqcg_box").fadeOut();
+});
+</script>
+<script src="{lanrain::RES}/weixinfeng/js/layer.js"></script>
+<script src="{lanrain::RES}/weixinfeng/js/swiper-3.3.1.jquery.min.js"></script>
+<script src="{lanrain::RES}/weixinfeng/js/distpicker.data.js"></script>
+<script src="{lanrain::RES}/weixinfeng/js/distpicker.js"></script>
+<script src="{lanrain::RES}/weixinfeng/js/public2.js"></script>
+<script type="text/javascript">
+	var $town = $('#demo1 select[name="town"]');
+	var townFormat = function(info){
+		$town.hide().empty();
+		if(info['code']%1e4&&info['code']<7e5){	//是否为“区”且不是港澳台地区
+			$.ajax({
+				url:'http://passer-by.com/data_location/town/'+info['code']+'.json',
+				dataType:'json',
+				success:function(town){
+					$town.show();
+					for(i in town){
+							$town.append('<option value="'+i+'">'+town[i]+'</option>');
+					}
+				}
+			});
+		}
+	};
+	$('#demo1').citys({
+		province:'',
+		city:'',
+		area:'',
+		town:'',
+		required:false,
+		nodata:'disabled',
+		onChange:function(info){
+			townFormat(info);
+		}
+	},function(api){
+		var info = api.getInfo();
+		townFormat(info);
+	});
+</script>
+<?php }elseif($applyType == 2){?>
+	<div class="title_top">申请成为经销</div>
+	<div class="dl_subnavbg mb20">
+		<div class="text_title2">经销规则</div>
+		<div class="text_rule"><?php echo htmlspecialchars_decode($baseInfo['distriplan']);?></div>
+	</div>
+	<div class="sqjx_btn">申请</div>
+	<!--提交成功浮层-->
+	<div class="sqcg_box">
+			<div class="sqcg_centent"><span></span></div>
+		 <div class="sqcg_black_opacity"></div>
+	</div>
+	<script>
+	$(function(){
+		$('.sqjx_btn').click(function(){
+			$.post("<?php echo U('MallExhibitionPartner/ajaxApply',array('type'=>2))?>",{},function(data){
+				if(data.code == 200){
+					$(".sqcg_box").fadeIn(); 
+				}else{
+					alert(data.tips);
+				}
+			},'json');
+		});
+		$('.sqcg_centent span').click(function () {
+			$(".sqcg_box").fadeOut();
+		});
+	});
+	</script>
+<?php }?>
+<include file="Public:weiXinNotShareSet"/>
+<include file="Public:footer"/>

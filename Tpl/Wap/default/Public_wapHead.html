@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title><?php if($pageTitle){ echo $pageTitle;}else{ echo C('site_title');}?></title>
+<meta name="keywords" content="<?php if($keywords){ echo $keywords;}else{ echo C('site_keywords');}?>">
+<meta name="description" content="<?php if($description){ echo $description;}else{ echo C('site_description');}?>">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection"content="telephone=no, email=no" />
+<link rel="shortcut icon" href="{lanrain::RES}/images/favicon.png">
+<link href="{lanrain::RES}/mb-app/css/bootstrap.css" rel="stylesheet">
+<link href="{lanrain::RES}/mb-app/css/font-awesome.min.css" rel="stylesheet">
+<link href="{lanrain::RES}/mb-app/css/bootstrap-responsive.css" rel="stylesheet">
+<!-- ============================通底css============================  -->
+<link href="{lanrain::RES}/public_scrm5/css/bottom.css?<?php echo C('site_system_file_version'); ?>" rel="stylesheet" type="text/css" />
+
+<!-- basic styles -->
+<link rel="stylesheet" href="{lanrain::RES}/mb-app/css/base.css"/>
+<script type="text/javascript" name="baidu-tc-cerfication" data-appid="6344857" src="http://apps.bdimg.com/cloudaapi/lightapp.js"></script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?d686c8436bf79b8c5705bd99d7fb60f5";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</head>
+<img src="http://www.mobiwind.cn/Tpl/Wap/default/common/img/common.jpg" style="width:100px;position: absolute;top:-100000px;">
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="mobile-nav btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <a class="brand" href="<?php echo U('Index/wapIndex',array('companyid'=>1));?>"><img src="{lanrain::RES}/mb-app/images/logo.png" /></a>
+      <div class="nav-collapse">
+        <ul class="nav">
+          <li><a href="<?php echo U('Index/wapRegister',array('companyid'=>1));?>">免费开通账号</a><span>立即免费开通，赢取百万移动流量</span></li>
+          <li <?php if(in_array(MODULE_NAME.'/'.ACTION_NAME,array('Index/wapIndex'))){ echo 'class="active"';}?>><a href="<?php echo U('Index/wapIndex',array('companyid'=>1));?>">首页</a></li>
+          <li><a href="<?php echo U('MagazineMb/index',array('companyid'=>1));?>">产品简介</a></li>
+          <li class="dropdown <?php if(in_array(MODULE_NAME.'/'.ACTION_NAME,array('Index/wapFengrenyuan'))){ echo 'active';}?>"><a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);">O2O风人院<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="<?php echo U('Index/wapFengrenyuan',array('companyid'=>1,'id'=>232));?>">O2O行业观察</a></li>
+              <li><a href="<?php echo U('Index/wapFengrenyuan',array('companyid'=>1,'id'=>223));?>">探索移动营销</a></li>
+            </ul>
+          </li>
+          <li class="dropdown <?php if(in_array(MODULE_NAME.'/'.ACTION_NAME,array('Index/wapCase'))){ echo 'active';}?>"><a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);">案例库<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="<?php echo U('Index/wapCase',array('companyid'=>1,'id'=>57));?>">生活服务业案例</a></li>
+              <li><a href="<?php echo U('Index/wapCase',array('companyid'=>1,'id'=>59));?>">移动电商案例</a></li>
+              <li><a href="<?php echo U('Index/wapCase',array('companyid'=>1,'id'=>58));?>">营销活动案例</a></li>
+            </ul>
+          </li>
+          <li class="dropdown <?php if(in_array(MODULE_NAME.'/'.ACTION_NAME,array('Index/wapCustomService'))){ echo 'active';}?>"><a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);">客服中心<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="<?php echo U('Index/wapCustomService',array('companyid'=>1,'id'=>56));?>">官方通告</a></li>
+              <li><a href="<?php echo U('Index/wapCustomService',array('companyid'=>1,'id'=>142));?>">新手入门</a></li>
+            </ul>
+          </li>
+          <li <?php if(in_array(MODULE_NAME.'/'.ACTION_NAME,array('Index/wapAgent','Index/wapAgentRegister'))){ echo 'class="active"';}?>><a href="<?php echo U('Index/wapAgent',array('companyid'=>1));?>">渠道代理</a></li>
+          <li <?php if(in_array(MODULE_NAME.'/'.ACTION_NAME,array('Index/wapPromotion'))){ echo 'class="active"';}?>><a href="<?php echo U('Index/wapPromotion',array('companyid'=>1));?>">推广合作</a></li>
+          <li <?php if(in_array(MODULE_NAME.'/'.ACTION_NAME,array('Index/wapAboutUs'))){ echo 'class="active"';}?>><a href="<?php echo U('Index/wapAboutUs',array('companyid'=>1));?>">关于人来风</a></li>
+          <li <?php if(in_array(MODULE_NAME.'/'.ACTION_NAME,array('Index/wapContactUs'))){ echo 'class="active"';}?>><a href="<?php echo U('Index/wapContactUs',array('companyid'=>1));?>">联系我们</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

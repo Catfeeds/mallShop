@@ -1,0 +1,157 @@
+
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="common/public_separate/css/base.css">
+    <link rel="stylesheet" type="text/css" href="common/Teaser/css/Teaser_index.css">
+    <link rel="stylesheet" type="text/css" href="common/public_separate/fonts/css/font-awesome.min.css">
+    <script src="common/public_separate/js/zepto.min.js"></script>
+    <script src="common/public_separate/js/vue.min.js"></script>
+</head>
+<body>
+<!-- 头部卡面开始 -->
+<header>
+    <div class="header_bg_Card">
+        <img class="bg_Card" src="common/Teaser/img/1.png" alt=""/>
+    </div>
+    <div class="choice_Card" >
+        <h3>选择卡面</h3>
+        <ul class="clearfix">
+            <li>
+                <img src="common/Teaser/img/1.png" alt=""/>
+            </li>
+            <li>
+                <img src="common/Teaser/img/1.png" alt=""/>
+            </li>
+            <li>
+                <img src="common/Teaser/img/1.png" alt=""/>
+            </li>
+            <li>
+                <img src="common/Teaser/img/1.png" alt=""/>
+            </li>
+            <li>
+                <img src="common/Teaser/img/1.png" alt=""/>
+            </li>
+        </ul>
+        <ul>
+            <li></li>
+        </ul>
+        <div class="choice_Card_bot">
+            <p>
+                <span><i class="fa fa-angle-down"></i>&nbsp;  展开</span>
+                <!--<span><i class="fa fa-angle-up"></i>&nbsp;  收起</span>-->
+            </p>
+        </div>
+    </div>
+</header>
+<!-- 头部卡面结束 -->
+<div class="gift">
+    <h3>选择礼品</h3>
+    <div class="gift_type">
+        <h4>
+            下午茶套餐下午茶套套...
+            <span class="gift_details">详情</span>
+            <span class="fr">￥ 98</span>
+        </h4>
+    </div>
+    <div class="gift_type">
+        <h4 class="gift_type_Selected">
+            下午茶套餐下午茶套套...
+            <span class="gift_details">详情</span>
+            <span class="fr">￥ 98</span>
+        </h4>
+    </div>
+    <ul>
+        <li class="package_Selected selected">
+            A套餐
+            <span class="fr package_Selected_fr">
+                ￥ 98&nbsp;
+                <i class="fa fa-dot-circle-o"></i>
+            </span>
+        </li>
+        <li class="">
+            A套餐
+            <span class="fr package_Selected_fr">
+                ￥ 98&nbsp;
+                <i class="fa fa-dot-circle-o"></i>
+            </span>
+        </li>
+        <li class="">
+            A套餐
+            <span class="fr package_Selected_fr">
+                ￥ 98&nbsp;
+                <i class="fa fa-dot-circle-o"></i>
+            </span>
+        </li>
+    </ul>
+</div>
+<!-- 购买历史 -->
+<div class="history">
+    <a href="">
+        <i class="fa fa-clock-o"></i>
+        购买历史</a>
+</div>
+<!-- 制作声悦卡 -->
+<div class="make">
+    <button>制作声悦卡</button>
+</div>
+<!-- 产品详情弹框 -->
+<div class="details_bomb_box clearfix" >
+    <img src="common/Teaser/img/bg.jpg" alt=""/>
+    <div class="details_bomb">
+        <h2>空运阿勒泰大尾羊带来边疆风味  疆小格
+            新疆主题餐厅全天单人餐</h2>
+        <div class="details_term clearfix">
+            <p>使用期限</p>
+            <span>购买后30天内有效</span>
+        </div>
+        <div class="details_explain clearfix">
+            <p>使用期限</p>
+            <div class="details_explain_explain fl">
+                <span>2.仅限本人使用</span>
+                <span>2.仅限本人使用</span>
+            </div>
+        </div>
+        <div class="store">
+            <h3>适用门店</h3>
+            <div class="store_list">
+                <h4>Zoocoffe新邻天地点 <span class="fr">23Km</span></h4>
+                <p>上海市虹口区广灵四路116号1号楼</p>
+                <p>上海市虹口区广灵四路116号1号楼</p>
+            </div>
+            <div class="store_list">
+                <h4>Zoocoffe新邻天地点 <span class="fr">23Km</span></h4>
+                <p>上海市虹口区广灵四路116号1号楼</p>
+                <p>上海市虹口区广灵四路116号1号楼</p>
+            </div>
+            <div class="whole_box">
+                <p class="whole"> <i class="fa fa-angle-double-down"></i>&nbsp;查看全部门店</p>
+            </div>
+        </div>
+    </div>
+    <!-- 弹框去除按钮-->
+    <div class="bomb_remove">
+        <img src="common/Teaser/img/remove.png" alt=""/>
+    </div>
+</div>
+</body>
+<script>
+    $.ajax({
+        type:"post",
+        url:"",
+        data:{page:"1"},
+        dataType:"json",
+        success:function(data){
+
+        },
+        error: function(xhr, type){
+            alert('Ajax error!')
+        }
+    })
+
+</script>
+
+</html>

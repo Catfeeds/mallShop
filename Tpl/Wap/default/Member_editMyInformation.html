@@ -1,0 +1,311 @@
+<include file="Public:scrm5Head" />
+<link href="{lanrain::RES}/Member_Center/css/wap.css?<?php echo C('site_system_file_version'); ?>" rel="stylesheet" type="text/css" />
+<section class="content_app ifoot_padding fzs_bgcolor pt-15 js-height">
+	<div class="modify_Head_portrait">
+		<label>头像</label>
+		<div class="Head_portrait_right fr"><div class="Head_portrait_img"><img src="<?php echo $info['headimgurl'] ? $info['headimgurl'] : './Tpl/Wap/default/common/Member_Center/img/menber-mrtx.jpg';?>" alt=""></div></div>
+	</div>
+	<ul class="modify_ul">
+		<li>
+			<label>会员姓名</label>
+			<div class="fr portrait_right js-Full-name"><p class="Not_filled_p" style="height: 0.5rem;"><?php echo $info['name'] ? $info['name'] : '未填写';?></p></div>
+		</li>
+		<li>
+			<label>手机</label>
+			<p class="fr"><?php echo $info['moblie'];?></p>
+		</li>
+		<li>
+			<label>性别</label>
+			<div class="fr portrait_right js-gender"><p class="Not_filled_p" style="height: 0.5rem;"><?php if($info['gender'] == 1){ echo '先生';}elseif($info['gender'] == 2){ echo '女士';}else{ echo '未填写';}?></p></div>
+		</li>
+		<li>
+			<label>生日</label>
+			<?php if($info['birthday']=='0000-00-00'){?>
+			<div class="fr portrait_right js-select-birth" style="height: 0.5rem;"><p class="Not_filled_p">会员生日有惊喜，填写后无法更改</p></div>
+			<?php }else{?>
+			<p class="fr"><?php echo $info['birthday'];?></p>
+			<?php }?>
+		</li>
+		<li>
+			<label>年龄</label>
+			<p class="fr"><?php echo get_age($info['birthday']);?></p>
+		</li>
+		<li>
+			<label>星座</label>
+			<p class="fr">
+				<?php if($info['constellationtag'] == 1){
+					echo '水瓶座';
+				}elseif($info['constellationtag'] == 2){
+					echo '双鱼座';
+				}elseif($info['constellationtag'] == 3){
+					echo '白羊座';
+				}elseif($info['constellationtag'] == 4){
+					echo '金牛座';
+				}elseif($info['constellationtag'] == 5){
+					echo '双子座';
+				}elseif($info['constellationtag'] == 6){
+					echo '巨蟹座';
+				}elseif($info['constellationtag'] == 7){
+					echo '狮子座';
+				}elseif($info['constellationtag'] == 8){
+					echo '处女座';
+				}elseif($info['constellationtag'] == 9){
+					echo '天秤座';
+				}elseif($info['constellationtag'] == 10){
+					echo '天蝎座';
+				}elseif($info['constellationtag'] == 11){
+					echo '射手座';
+				}elseif($info['constellationtag'] == 12){
+					echo '摩羯座';
+				}?>
+			</p>
+		</li>
+		 <?php if($membercustomfield){ foreach($membercustomfield as $mckey=>$mcval){?>
+         	<li>
+         		<label><?php echo $mcval['name'];?></label>
+         		<div class="fr portrait_right js-customfield" data-id="<?php echo $mcval['id'];?>" data-name="<?php echo $mcval['name'];?>" data-value="<?php echo $info['customfield'][$mcval['id']]['value'];?>" data-type="<?php echo $mcval['type'];?>"><p class="Not_filled_p js-membercustomfield-<?php echo $mcval['id'];?>" style="height: 0.5rem;"><?php echo $info['customfield'][$mcval['id']]['value'];?></p></div>
+         	</li>
+        <?php }}?>
+	</ul>
+	<ul class="modify_ul">
+		<a href="<?php echo U('MemberShopAddress/index',array('companyid'=>$companyid));?>">
+		<li><label>收货地址</label><div class="fr portrait_right"><p style="height: 0.5rem;"></p></div></li>
+		</a>
+	</ul>
+	
+	<!-- ========公共底部======== -->
+    <div class="eshopv_fotter_logo">
+        <include file="Public:navFooter" />
+    </div>
+</section>
+<!-- =================== 自定义字段===================== -->
+	<section class="content_app ifoot_padding fzs_bgcolor js-customfield-box dredge_popup_sebox js-pop-height">
+		<div class="modify_Gender"><img class="fr js-customfield-close" src="{lanrain::RES}/Member_Center/img/menber-close.jpg" alt=""><h6 id="id-field-title"></h6></div>
+		<ul class="modify_name_ul">
+			<li id="id-field-type-html">
+				<!-- <label id="id-field-name"></label>
+				<input class="modify_name_input" id="id-field-value" type="text" value="" placeholder="">
+				<button class="fr Preservation_btn js-customfieldButton">保存</button> -->
+			</li>
+		</ul>
+	</section>
+	<!-- =================== 修改姓名===================== -->
+	<section class="content_app ifoot_padding fzs_bgcolor js-Full-name-box dredge_popup_sebox js-pop-height">
+		<div class="modify_Gender"><img class="fr js-Full-name-close" src="{lanrain::RES}/Member_Center/img/menber-close.jpg" alt=""><h6>编辑姓名</h6></div>
+		<ul class="modify_name_ul">
+			<li>
+				<label>会员姓名</label>
+				<input class="modify_name_input js-name" type="text" value="<?php echo $info['name'];?>" placeholder="请在此输入会员名称">
+				<button class="fr Preservation_btn js-nameKeepButton">保存</button>
+			</li>
+		</ul>
+	</section>
+	<!-- =================== 修改性别===================== -->
+	<section class="content_app ifoot_padding fzs_bgcolor dredge_popup_sebox js-gender-box">
+		<div class="modify_Gender"><img class="fr js-gender-close" src="{lanrain::RES}/Member_Center/img/menber-close.jpg" alt=""><h6>选择性别</h6></div>
+		<ul class="modify_ul js-gender-modify" style="margin-top: 0;">
+			<li class="js-xiansheng">
+				<label>先生</label>
+			</li>
+			<li class="js-nvshi">
+				<label>女士</label>
+			</li>
+		</ul>
+	</section>
+	<!-- =================== 修改生日 ===================== -->
+	<section class="content_app ifoot_padding fzs_bgcolor dredge_popup_sebox js-birth-box">
+		<div class="modify_Gender"><img class="fr js-birth-close" src="{lanrain::RES}/Member_Center/img/menber-close.jpg" alt=""><h6>编辑生日</h6></div>
+		<ul class="modify_name_ul">
+			<li>
+				<label>会员生日</label>
+				<div class="Birthday-box"><input type="date" class="js-birthday"><p>请在此选择会员生日</p></div>
+				<button class="fr Preservation_btn js-birth-bc">保存</button>
+			</li>
+		</ul>
+	</section>
+<script src="{lanrain::RES}/js/json2.js"></script>
+	<script>
+	var moveStatu;
+	$(function(){
+		/* 自定义字段 */
+		$(".js-customfield").click(function(){
+			var fullname=$(".js-customfield-box");
+			if(fullname.css("opacity")=="0"){
+				$('.js-height').hide();
+				fullname.addClass("dredge_pos_active");
+			}else{
+				$('.js-height').show();
+				fullname.removeClass("dredge_pos_active");
+			}
+			var name = $(this).attr('data-name');
+			var type = $(this).attr('data-type');
+			var value = $(this).attr('data-value');
+			$('#id-field-title').text('编辑'+name);
+			var html = '<label id="id-field-name">'+name+'</label>';
+			if(type == '1' || type == '3'){
+				html += '<input class="modify_name_input" id="id-field-value" type="text" data-type="'+type+'" value="'+value+'" placeholder="请在此输入'+name+'">';
+			}else if(type == '2'){
+				html += '<div class="Birthday-box"><input id="id-field-value" type="date" data-type="'+type+'" value="'+value+'">';
+				if(!value){
+					html += '<p>请在此选择'+name+'</p></div>';	
+				}else{
+					html += '<p></p></div>';	
+				}
+			}else if(type == '4'){
+				html += '<input class="modify_name_input" id="id-field-value" type="tel" data-type="'+type+'" value="'+value+'" placeholder="请在此输入'+name+'">';
+			}
+			html += '<button class="fr Preservation_btn js-customfieldButton" data-id="'+$(this).attr('data-id')+'">保存</button>';
+			$('#id-field-type-html').html(html);
+		});
+		$(".js-customfield-close").click(function(){
+			$('.js-height').show();
+			$(".js-customfield-box").removeClass("dredge_pos_active");
+			$('#id-field-title').text('');
+			$('#id-field-name').text('');
+			$('#id-field-value').val('').attr('placeholder','');
+			$('.js-customfieldButton').attr('data-id','');
+		});
+		$(document).on('click','.js-customfieldButton',function(){
+			var id = $(this).attr('data-id');
+			var type = $('#id-field-value').attr('data-type');
+			var value = $('#id-field-value').val();
+			if(value == false){
+				alert('请填写'+$('#id-field-name').text());
+				return false;
+			}
+			if(type == '3'){
+    			if(value.length > 0 && !/^(\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14})$/.test(value)){
+    				alert('请填写正确的邮箱格式');
+    				return false;
+
+    			}
+    		}else if(type == '4'){
+    			if(value.length > 0 && !/^(((13[0-9]{1})|(14[579]{1})|(15[012356789]{1})|(17[0135678]{1})|(18[0-9]{1}))+\d{8})$/.test(value)){
+    				alert('请填写正确的手机格式');
+    				return false;
+    			}
+    		}
+			$('.js-membercustomfield-'+id).text(value);
+			var customfieldInfo = {};
+			$('.js-customfield').each(function(index){
+				var fid = $(this).attr('data-id');
+        		customfieldInfo[fid] = {};
+        		customfieldInfo[fid]['value'] = $('.js-membercustomfield-'+fid).text();
+        	});
+			customfieldInfo = JSON.stringify(customfieldInfo);
+			$('.loading').show();
+		    $.post("<?php echo U('Member/editMyInformation',array('companyid'=>$companyid)).'&time='; ?>"+Math.random(),{customfieldInfo: customfieldInfo},function(data){
+		    	$('.loading').hide();
+		    	alert(data.tips,2000);
+		    	setTimeout('location.reload();',1000);
+		    },"json");
+		});
+		/*姓名弹窗*/
+		$(".js-nameKeepButton").click(function(){
+			var name = jQuery.trim($(".js-name").val());
+			if(!name){
+				alert("请填写姓名",2000);
+				return false;
+			}
+			$('.loading').show();
+		    $.post("<?php echo U('Member/editMyInformation',array('companyid'=>$companyid)).'&time='; ?>"+Math.random(),{name: name},function(data){
+		    	$('.loading').hide();
+		    	alert(data.tips,2000);
+		    	setTimeout('location.reload();',1000);
+		    },"json");
+		});
+		$(".js-Full-name").click(function(){
+			var fullname=$(".js-Full-name-box");
+			if(fullname.css("opacity")=="0"){
+				$('.js-height').hide();
+				fullname.addClass("dredge_pos_active");
+			}else{
+				$('.js-height').show();
+				fullname.removeClass("dredge_pos_active");
+			}
+		});
+		$(".js-Full-name-close").click(function(){
+			$('.js-height').show();
+			$(".js-Full-name-box").removeClass("dredge_pos_active");
+		});
+		/*性别弹窗*/
+		$(".js-gender").click(function(){
+			// 弹框
+			var Pul=$(".js-gender-box");
+			if(Pul.css("opacity")=="0"){
+				$('.js-height').hide();
+				Pul.addClass("dredge_pos_active");
+			}else{
+				$('.js-height').show();
+				Pul.removeClass("dredge_pos_active");
+			}
+			// 标注状态
+			var genderZT = $(this).find("p").text();
+			if(genderZT == '先生'){
+				$(".js-xiansheng").addClass("Gender_active");
+				$(".js-nvshi").removeClass("Gender_active");
+			}else if(genderZT == '女士'){
+				$(".js-xiansheng").removeClass("Gender_active");
+				$(".js-nvshi").addClass("Gender_active");
+			}
+		});
+		$(".js-gender-close").click(function(){
+			$('.js-height').show();
+			$(".js-gender-box").removeClass("dredge_pos_active");
+		});
+		$(".js-gender-modify li").click(function(){
+			var gender = $(this).find("label").text();
+			$(this).siblings("li").removeClass("Gender_active");
+			$(this).addClass("Gender_active");
+			gender2 = gender=='先生' ? 1 : 2; 
+			$('.loading').show();
+			$.post("<?php echo U('Member/editMyInformation',array('companyid'=>$companyid)).'&time='; ?>"+Math.random(),{gender: gender2},function(data){
+				$('.loading').hide();
+				if(data.code == 200){
+		        	alert(data.tips,2000);
+		        	$('.js-height').show();
+					$(".js-gender p").removeClass("Not_filled_p");
+					$(".js-gender p").text(gender);
+					$(".js-gender-box").removeClass("dredge_pos_active");
+		        }
+			},"json");
+		});
+		/*生日弹窗*/
+		$(".js-select-birth").click(function(){
+			var Pul=$(".js-birth-box");
+			if(Pul.css("opacity")=="0"){
+				$('.js-height').hide();
+				Pul.addClass("dredge_pos_active");
+			}else{
+				$('.js-height').show();
+				Pul.removeClass("dredge_pos_active");
+			}
+		});
+		$(".js-birth-close").click(function(){
+			$('.js-height').show();
+			$(".js-birth-box").removeClass("dredge_pos_active");
+		});
+		$(document).on('focus','.Birthday-box>input',function(){
+			$(".Birthday-box>p").hide();
+		});
+		$(".js-birth-bc").click(function(){
+			var birthday = $(".js-birthday").val();
+			$('.loading').show();
+		    $.post("<?php echo U('Member/editMyInformation',array('companyid'=>$companyid)).'&time='; ?>"+Math.random(),{birthday: birthday},function(data){
+		    	$('.loading').hide();
+		    	setTimeout('location.reload();',1000);
+		    },"json");
+		});
+		$(".js-birthday").blur(function(){
+			if($(this).val()==""){
+				$(".js-birthday-p").show();
+			}
+		})
+		$(".js-birthday").focus(function(){
+			$(".js-birthday-p").hide();
+		})
+	});
+	</script>
+<include file="Public:loginBox" />
+<include file="Public:weiXinNotShareSet" />
+<include file="Public:scrm5Foot" />

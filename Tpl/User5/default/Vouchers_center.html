@@ -1,0 +1,121 @@
+<include file="Public:head"/>
+<!-- CRM-卡券中心 2016-10-25 18:40 -->
+<?php echo $makeTopUrl;?>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>卡券中心</h4></div>
+    <div class="mod-body mb-15 ">
+        <table class="table type-1 w-auto">
+            <tbody>
+            <tr class="Card-not-hover Card-coupons-tr-clh">
+                <td class="child-sum-3" colspan="10">
+                    <a data-Permissionsid="31" data-link="<?php echo U('StoredValue/index')?>" class="Card-coupons-plate js-S5Permissions" >
+                        <p class="Card-coupons-plate-p"><i class="card-icon icon-Stored-value"></i>后台储值交易</p>
+                    </a>
+                </td>
+                <td class="child-sum-3" colspan="10">
+                    <a data-Permissionsid="32" data-link="<?php echo U('Vouchers/useVouchers')?>" class="Card-coupons-plate js-S5Permissions">
+                        <p class="Card-coupons-plate-p Card-help-p">
+                            <i class="card-icon icon-Card-coupons"></i>后台卡券核销
+                        </p>
+                        <div class="coupons-Help-box">
+                            <i class="coupons-Help-icon"></i>
+                            <div class="help-tips-box">
+                                <h5 class="text-dark">支持核销eshop优惠券、门店使用优惠券、兑换券、计次卡、门票、团购、权益卡</h5>
+                                <span class="triangle-left-b"></span>
+                                <span class="triangle-left-a"></span>
+                            </div>
+                        </div>
+                    </a>
+                </td>
+                <td class="child-sum-3" colspan="10">
+                    <a data-Permissionsid="33" data-link="<?php echo U('MemberEditIntegral/index')?>" class="Card-coupons-plate js-S5Permissions">
+                        <p class="Card-coupons-plate-p"><i class="card-icon icon-integral"></i>后台积分修改</p>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table type-1 w-auto">
+            <tbody>
+            <tr class="not-hover">
+                <td class="w-50" colspan="15">
+                    <a data-Permissionsid="34" data-link="<?php echo U('MemberCardRank/index');?>" class="js-S5Permissions">
+                        <div class="card-box-li">
+                            <i class="card-big-icon icon-Membership-card mb-5"></i>
+                            <h6 class="card-big-name mb-15">会员卡</h6>
+                            <div class="card-Line"></div>
+                            <p class="Membership-number-p"><span><?php echo $info['registermembernum']?$info['registermembernum']:'0';?></span>位</p>
+                            <p class="Registered-member-p">注册会员</p>
+                        </div>
+                    </a>
+                </td>
+                <td class="w-50" colspan="15">
+                    <a data-Permissionsid="35" data-link="<?php echo U('StoredValue/goods')?>" class="js-S5Permissions">
+                        <div class="card-box-li">
+                            <i class="card-big-icon icon-Stored-value-card mb-5"></i>
+                            <h6 class="card-big-name mb-15">储值卡</h6>
+                            <div class="card-Line"></div>
+                            <p class="Membership-number-p"><span><?php echo $info['totalallsellrechargeincome']?$info['totalallsellrechargeincome']:'0';?></span>元</p>
+                            <p class="Registered-member-p">出售金额</p>
+                        </div>
+                    </a>
+                </td>
+            </tr>
+            <tr class="not-hover">
+                <td class="child-sum-5" colspan="6">
+                    <a data-Permissionsid="36" data-link="<?php echo U('MemberMarketingActivitiesVoucherInfo/index',array('vouchertype'=>1))?>" class="js-S5Permissions">
+                        <div class="Voucher-box-li">
+                            <i class="Voucher-big-icon icon-eshop-Voucher mb-5"></i>
+                            <h6 class="Voucher-big-name mb-20">eshop优惠券</h6>
+                            <p class="Voucher-number-p"><span><?php echo $info['totalvouchertype1sendnum']?$info['totalvouchertype1sendnum']:'0';?></span>张</p>
+                            <p class="Voucher-Delivery-p">累计投放领取</p>
+                        </div>
+                    </a>
+                </td>
+                <td class="child-sum-5" colspan="6">
+                    <a data-Permissionsid="37" data-link="<?php echo U('MemberMarketingActivitiesVoucherInfo/index',array('vouchertype'=>2))?>" class="js-S5Permissions">
+                        <div class="Voucher-box-li">
+                            <i class="Voucher-big-icon icon-store-Voucher mb-5"></i>
+                            <h6 class="Voucher-big-name mb-20">门店使用优惠券</h6>
+                            <p class="Voucher-number-p"><span><?php echo $info['totalvouchertype2sendnum']?$info['totalvouchertype2sendnum']:'0';?></span>张</p>
+                            <p class="Voucher-Delivery-p">累计投放领取</p>
+                        </div>
+                    </a>
+                </td>
+                <td class="child-sum-5" colspan="6">
+                    <a data-Permissionsid="38" data-link="<?php echo U('MemberMarketingActivitiesVoucherInfo/index',array('vouchertype'=>3))?>" class="js-S5Permissions">
+                        <div class="Voucher-box-li">
+                            <i class="Voucher-big-icon icon-exchange-Voucher mb-5"></i>
+                            <h6 class="Voucher-big-name mb-20">兑换券</h6>
+                            <p class="Voucher-number-p"><span><?php echo $info['totalvouchertype3sendnum']?$info['totalvouchertype3sendnum']:'0';?></span>张</p>
+                            <p class="Voucher-Delivery-p">累计投放领取</p>
+                        </div>
+                    </a>
+                </td>
+                <td class="child-sum-5" colspan="6">
+                    <a data-Permissionsid="39" data-link="<?php echo U('MemberMarketingActivitiesVoucherInfo/index',array('vouchertype'=>4))?>" class="js-S5Permissions">
+                        <div class="Voucher-box-li">
+                            <i class="Voucher-big-icon icon-Red-Voucher mb-5"></i>
+                            <h6 class="Voucher-big-name mb-20">红包</h6>
+                            <p class="Voucher-number-p"><span><?php echo $info['totalvouchertype4sendamount']?$info['totalvouchertype4sendamount']:'0.00';?></span>元</p>
+                            <p class="Voucher-Delivery-p">累计投放领取</p>
+                        </div>
+                    </a>
+                </td>
+                <td class="child-sum-5" colspan="6">
+                <!-- <?php if(!in_array('39',session('S5permissions'))){ echo 'js-noroot-asa';} ?> -->
+                    <a data-Permissionsid="129" data-link="<?php echo U('MemberMarketingActivitiesVoucherInfo/index',array('vouchertype'=>40))?>"  class="js-S5Permissions">
+                        <div class="Voucher-box-li">
+                            <i class="Voucher-big-icon icon-WeChat-exchange-Voucher mb-5"></i>
+                            <h6 class="Voucher-big-name mb-20">通用券</h6>
+                            <p class="Voucher-number-p"><span><?php echo $info['totalvouchertype40sendnum']?$info['totalvouchertype40sendnum']:'0';?></span>张</p>
+                            <p class="Voucher-Delivery-p">累计投放领取</p>
+                        </div>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<include file="Public:footer"/>

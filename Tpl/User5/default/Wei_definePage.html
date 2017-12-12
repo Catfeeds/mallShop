@@ -1,0 +1,209 @@
+<include file="Public:head"/>
+<include file="Public:smallmaterial"/>
+<include file="Public:UEditorJS" />
+<include file="Public:UEditorBig" />
+<style>
+.weiSelect-asa,.weiFind-asa{float:none;}
+</style>
+<input name="id" type="hidden" value="<?php echo $info['id']; ?>" />
+<input name="pagetype-asa" type="hidden" value="2" />
+<?php echo $makeTopUrl;?>
+<!-- 页面的类型：1：微页面；2：自定义 -->
+<div class="mod mb-15 WeiPage-build customize-mod">
+    <div class="mod-header radius-top clearfix"><h4><?php if($info['id']!=''){echo '编辑';}else{echo '新建';} ?>自定义模块</h4>
+        <div class="fr">
+            <a href="javascript:void(0);" class="tips"><i class="icon-build-WeiPage preview-wap"></i>手机预览</a>
+            <a href="javascript:void(0);" class="tips js-clip-btn" data-url="<?php echo C('site_url').'/index.php?g=Wap&m=Wei&a=indexScrm5&id='.$info['id'].'&companyid='.$companyid;?>"><i class="icon-build-WeiPage cpoy-url"></i>复制链接</a>
+        </div>
+    </div>
+    <div class="mod-body">
+        <div class="content clearfix WeiPage-setting-area">
+            <!-- 显示区 -->
+            <div class="WeiPage-preview-area fl">
+                <div class="WeiPage-preview">
+                    <div class="WeiPage-preview-hd title-html-asa"><?php echo $info['title']?$info['title']:'页面标题'; ?></div>
+                    <div class="WeiPage-preview-bd">
+                    	<include file="Wei:infoShow"/>
+                  	</div>
+                </div>
+            </div>
+            <script>
+                jQuery(".demo-slideBox").slide({
+                    mainCell: ".bd ul",
+                    effect: "leftLoop",
+                    autoPlay: true,
+                    trigger: "click"
+                });
+            </script>
+            <!-- 编辑区 -->
+            <div class="WeiPage-build-form-area">
+                <div class="portable-editor">
+                    <div class="editor-inner">
+                        <div class="tab-box type-1 js-tab-box">
+                            <div class="hd">
+                                <ul>
+                                    <li>模块信息</li>
+                                    <li>组件</li>
+                                    <li>风格</li>
+                                </ul>
+                            </div>
+                            <div class="bd">
+                                <!-- 网页信息 -->
+                                <div class="inner-box">
+                                    <div class="js-scroll">
+                                        <div class="group mb-30">
+                                            <h5 class="inline w100 text-left">模块名称</h5>
+                                            <input class="inline w300" type="text" placeholder="请输入模块名称" name="title" value="<?php echo $info['title'];?>">
+                                            <div class="group">
+                                                <h5 class="inline w100 text-left"><!-- Null --></h5>
+                                                <h6 class="inline text-gray">*新建自定义模块后，点击【保存并发布】并刷新页面，新建的自定义模块才会显示在自定义模块列表中</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 组件 -->
+                                <div class="inner-box mod">
+                                    <div class="js-scroll">
+                                        <div class="group mb-15">
+                                            <div class="mod-header radius-top">通头与通底</div>
+                                            <div class="mod-body">
+                                                <div class="content clearfix">
+                                                    <div class="con-box WeiPage-crose-header header-asa" data-id="">
+                                                        <i class="icon-con-box"></i>
+                                                        <h5>通头</h5>
+                                                    </div>
+                                                    <div class="con-box WeiPage-crose-footer footer-asa" data-id="">
+                                                        <i class="icon-con-box"></i>
+                                                        <h5>通低</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="group mb-15">
+                                            <div class="mod-header radius-top">基础</div>
+                                            <div class="mod-body">
+                                                <div class="content clearfix">
+                                                    <div class="con-box WeiPage-base-img photo-asa" data-type="ass">
+                                                        <i class="icon-con-box"></i>
+                                                        <h5>图片</h5>
+                                                    </div>
+                                                    <div class="con-box WeiPage-Banner banner-asa" data-type="ass">
+                                                        <i class="icon-con-box"></i>
+                                                        <h5>Banner</h5>
+                                                    </div>
+                                                    <div class="con-box WeiPage-base-slide slide-asa" data-type="ass">
+                                                        <i class="icon-con-box"></i>
+                                                        <h5>幻灯片</h5>
+                                                    </div>
+                                                    <div class="con-box WeiPage-base-bigtext bigtext-asa" data-type="ass">
+                                                        <i class="icon-con-box"></i>
+                                                        <h5>富文本</h5>
+                                                    </div>
+                                                    <div class="con-box WeiPage-base-blank blank-asa" data-type="ass">
+                                                        <i class="icon-con-box"></i>
+                                                        <h5>辅助空白</h5>
+                                                    </div>
+                                                    <div class="con-box WeiPage-base-goods goods-asa" data-type="ass">
+                                                        <i class="icon-con-box"></i>
+                                                        <h5>商品</h5>
+                                                    </div>
+                                                    <div class="con-box WeiPage-Page-list article-asa" data-type="ass">
+                                                        <i class="icon-con-box"></i>
+                                                        <h5>文章列表</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="group mb-15">
+                                            <div class="mod-header radius-top">高级</div>
+                                            <div class="mod-body">
+                                                <div class="content clearfix">
+                                                    <div class="con-box WeiPage-base-img js-groupon-goods">
+                                                        <i class="icon-con-box"></i>
+                                                        <h5>拼团商品</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- 风格 -->
+                                <div class="inner-box WeiPage-style">
+                                    <div class="js-scroll">
+                                        <div class="con-box WeiPage-style-type-1">
+                                            <i class="img-WeiPage-style"></i>
+                                        </div>
+                                        <!-- <div class="con-box WeiPage-style-type-2">
+                                            <i class="img-WeiPage-style"></i>
+                                        </div>
+                                        <div class="con-box WeiPage-style-type-2">
+                                            <i class="img-WeiPage-style"></i>
+                                        </div>
+                                        <div class="con-box WeiPage-style-type-2">
+                                            <i class="img-WeiPage-style"></i>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="Wechat-msg-bottom text-center">
+            <a class="btn-middle btn-white sub-asa">保存并发布</a> &nbsp; &nbsp; 
+        </div>
+    </div>
+</div>
+<!-- 组件弹窗 -->
+<include file="Public:WeiTan" />
+<!-- 相关的JS -->
+<include file="Public:WeiTanJS" />
+
+<script>
+var pagetypeasa = $("input[name='pagetype-asa']").val();
+/* ==========      总的提交在这       ========== */
+$(function(){
+$(".sub-asa").click(function(){
+	id=$("input[name='id']").val();
+	/* 页面信息  */
+	var title = $('input[name=title]').val();
+	var isencrypt = $('input[name=isencrypt]:checked').val();
+	var encryptinfo = $('input[name=encryptinfo]').val();
+	/* 微信分享信息  */
+	var shareimg = $('input[name=shareimg]').val();
+	var sharefriendstitle = $('input[name=sharefriendstitle]').val();
+	var sharedes = $('.sharedes').val();
+	var iswechat = $('input[name="iswechat"]:checked').val();
+	if(!title){
+		alertTan('请填写网页标题',"warn");$('input[name=title]').focus();
+		return false;
+	}
+	if(isencrypt==2){
+		if(encryptinfo.length!=4){
+			alertTan('请输入四位数字',"warn");$('input[name=encryptinfo]').focus();
+			return false;
+		}
+	}
+	$.post("<?php echo U('Wei/addInfo',array('companyid'=>$companyid)); ?>",{
+		/* 页面信息  */
+		id:id,title:title,isencrypt:isencrypt,encryptinfo:encryptinfo,
+		/* 微信分享信息  */
+		iswechat:iswechat,shareimg:shareimg,sharefriendstitle:sharefriendstitle,sharedes:sharedes
+	},function(data){
+		/* 写返回结果的  */
+		alertTan(data.msg);
+		window.history.go(-1);
+		$(".title-html-asa").html(title);
+		if(id==''){
+			$("input[name='id']").val(data.id);
+		}else{
+		}
+	},'json');
+})
+})
+</script>
+<include file="Public:footer"/>

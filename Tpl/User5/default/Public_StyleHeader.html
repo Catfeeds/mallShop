@@ -1,0 +1,102 @@
+    <div class="global-nav clearfix">
+        <div class="left-select-row">
+            <div class="select-hd"><span>请选择常用快捷功能</span><b class="icon-pull-down"></b></div>
+            <ul class="select-bd">
+                <li id="no1">功能一</li>
+                <li id="no2">功能二</li>
+                <li id="no3">功能三</li>
+            </ul>
+        </div>
+
+        <div class="content-col">
+            <!-- 给被选中的栏目追加 item-active 类-->
+            <div class="item-col item-active">
+                <a href="javascript:void(0);">
+                    <i class="icon icons-1"></i>
+                    <span>管理</span>
+                </a>
+            </div>
+            <div class="item-col ">
+                <a href="javascript:void(0);">
+                    <i class="icon icons-2"></i>
+                    <span>CRM</span>
+                </a>
+            </div>
+            <div class="item-col">
+                <a href="javascript:void(0);">
+                    <i class="icon icons-3"></i>
+                    <span>场景</span>
+                </a>
+            </div>
+            <div class="item-col">
+                <a href="javascript:void(0);">
+                    <i class="icon icons-4"></i>
+                    <span>增值</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- header end -->
+
+    <!-- body begin -->
+    <div class="scrm5-body clearfix">
+        <!-- 左边栏菜单 给被选中的栏目的li追加 class="item-active" -->
+        <div class="sidebar-row">
+            <ul class="sidebar-box">
+                <li class="sidebar-class-1 <?php if($check_url=='Typography'){echo 'item-active';} ?>">
+                    <span><a href="<?php echo U('Style/Typography')?>"><b class="icon item-1"></b>排版</a></span>
+                </li>
+
+                <li class="sidebar-class-1 <?php if($check_url == 'Buttons' || $check_url == 'Hint' || $check_url == 'Icons'){echo 'item-active';}?>">
+                    <span><a><b class="icon item-2"></b>用户UI</a></span>
+                    <ul class="sidebar-class-2 sub-list">
+                        <li <?php if($check_url=='Buttons'){echo 'class="item-active"';}?>><a href="<?php echo U('Style/Buttons')?>">按钮</a></li>
+                        <li <?php if($check_url=='Hint'){echo 'class="item-active"';}?>><a href="<?php echo U('Style/Hint')?>">提示类</a></li>
+                        <li <?php if($check_url=='Icons'){echo 'class="item-active"';}?>><a href="<?php echo U('Style/Icons')?>">图标库</a></li>
+                    </ul>
+                </li>
+
+                <li class="sidebar-class-1 <?php if($check_url=='Check' || $check_url=='Input'){echo 'item-active';} ?>">
+                    <span><a><b class="icon item-3"></b>表单</a></span>
+                    <ul class="sidebar-class-2 sub-list">
+                        <li <?php if($check_url=='Check'){echo 'class="item-active"';}?>><a href="<?php echo U('Style/Check')?>">选择类</a></li>
+                        <li <?php if($check_url=='Input'){echo 'class="item-active"';}?>><a href="<?php echo U('Style/Input')?>">输入类</a></li>
+                    </ul>
+                </li>
+
+                <li class="sidebar-class-1 <?php if($check_url=='Chart'){echo 'item-active';} ?>">
+                    <span><a href="<?php echo U('Style/Chart')?>"><b class="icon item-4"></b>图表</a></span>
+                </li>
+
+                <li class="sidebar-class-1 <?php if($check_url=='Popup'){echo 'item-active';} ?>">
+                    <span><a href="<?php echo U('Style/Popup')?>"><b class="icon item-9"></b>弹窗</a></span>
+                </li>
+
+                <li class="sidebar-class-1 <?php if($check_url=='Table' || $check_url=='TAB'){echo 'item-active';} ?>">
+                    <span><a><b class="icon item-5"></b>表格</a></span>
+                    <ul class="sidebar-class-2 sub-list">
+                        <li <?php if($check_url=='Table'){echo 'class="item-active"';}?>><a href="<?php echo U('Style/Table')?>">表格</a></li>
+                        <li <?php if($check_url=='TAB'){echo 'class="item-active"';}?>><a href="<?php echo U('Style/TAB')?>">TAB类</a></li>
+                    </ul>
+                </li>
+
+                <li class="sidebar-class-1 <?php if($check_url=='Validation'){echo 'item-active';} ?>">
+                    <span><a href="<?php echo U('Style/Validation')?>"><b class="icon item-6"></b>表单验证</a></span>
+                </li>
+
+                <li class="sidebar-class-1 <?php if($check_url=='Common'){echo 'item-active';} ?>">
+                    <span><a href="<?php echo U('Style/Common')?>"><b class="icon item-7"></b>通用页面</a></span>
+                </li>
+
+                <li class="sidebar-class-1">
+                    <span><a><b class="icon item-8"></b>工作守则</a></span>
+                    <ul class="sidebar-class-2">
+                        <li><a href="javascript:void(0);">上线兼容标准</a></li>
+                        <li><a href="javascript:void(0);">页面基本规则</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+        <!-- 页面内容 begin -->
+        <div class="main-container">

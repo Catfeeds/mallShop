@@ -1,0 +1,144 @@
+<include file="Public:memberCenterHeader"/>
+<script src="{lanrain::RES}/js/jquery-1.7.2.min.js" type="text/javascript" ></script>
+<script src="{lanrain::RES}/js/exif.js" type="text/javascript" ></script>
+<script src="{lanrain::RES}/js/binaryajax.js" type="text/javascript" ></script>
+<script src="{lanrain::RES}/js/canvasResize.js" type="text/javascript" ></script>
+<script src="{lanrain::RES}/js/jquery.canvasResize.js" type="text/javascript" ></script>
+<script src="{lanrain::RES}/js/jquery.exif.js" type="text/javascript" ></script>
+<link href="{lanrain::RES}/css/jfsc.css?fff<?php echo C('site_system_file_version'); ?>" rel="stylesheet">
+<link href="{lanrain::RES}/css/you.css?ffb<?php echo C('site_system_file_version'); ?>" rel="stylesheet">
+<link rel="stylesheet" href="{lanrain::RES}/template/css/app.css?<?php echo C('site_system_file_version'); ?>" />
+<link rel="stylesheet" href="{lanrain::RES}/template/css/jquery.swiper.css"/>
+<include file="Public:loading"/>
+
+    <!--新留言-->
+<div class="container dzxq-tc" style="display: block;top: 0;z-index: 11;" >
+    <div class="liuyana">
+        <textarea class="lytx" name='content' id='con-sub' placeholder="请输入你的留言..."  onfocus="if (placeholder =='请输入你的留言...'){placeholder =''}" onblur="if (placeholder ==''){placeholder='请输入你的留言...'}"></textarea>
+    </div>
+    
+    <div class="tu">
+        <ul class="tu_ul">
+            <li class='file-asa'>
+                <div class='ly_aliulnga'>
+                    <img src="{lanrain::RES}/image/liuyan-2.jpg">
+                    <input type="file" value="" size="300" data-num='1' id='f' class="ly_aliulan" style="opacity: 0;" >
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div style="height: 120px;clear:both"></div>
+    <div class="footer">
+        
+        <button class='sub-sub-asa'>发布</button>
+        <a href="javascript:history.go(-1);">取消</a>
+    </div>
+</div>
+<!--撰写新留言(弹窗)-->
+ <script>
+ var canvas = document.createElement("canvas");
+ var ctx = canvas.getContext('2d');
+//     瓦片canvas
+ var tCanvas = document.createElement("canvas");
+ var tctx = tCanvas.getContext("2d");
+$(function(){
+	 
+     $(".dinda-li").on("click",function() {
+    	  $('html,body').animate({scrollTop: '0px'}, 10);
+          $(".dzxq-tc").show();
+          return false;
+        });
+     $('.sub-sub-asa').click(function(){
+    	 var content=$("#con-sub").val();
+    	 if(content==''){
+      		alert('请输入留言内容');
+      		return false;
+      	 }
+    	 $(".loading").show();
+    	 var imgnum = $("li.imglist").length;
+    	 var imgurl = new Array();
+    	 for(i=0;i<imgnum;i++){
+    		 imgurl[i]=$("li.imglist:eq("+i+")").children('div').children('.imgurl').html();
+    	 }
+    	 $.post("<?php echo U('MessageBoard/messageAdd',array('companyid'=>$companyid)); ?>",{
+    		 imgurl1:imgurl[0],imgurl2:imgurl[1],imgurl3:imgurl[2],
+             imgurl4:imgurl[3],
+             imgurl5:imgurl[4],
+             imgurl6:imgurl[5],
+             imgurl7:imgurl[6],
+             imgurl8:imgurl[7],
+             imgurl9:imgurl[8],
+             content:content,type:'1',topid:'<?php echo $id ?>'
+	     	},function(data){
+	     		$(".loading").hide();
+	     		window.location.href="<?php echo U('MessageBoard/index',array('companyid'=>$companyid,'topid'=>$id)); ?>";
+	     	},'json');
+     })
+     $('.quxiao').click(function(){
+    	 $(".dzxq-tc").hide();
+     })
+     var maxsize = 100 * 1024;
+     
+    $(document).on("change",'#f',function() {
+        var file = this.files[0];
+        if(!/\/(?:jpeg|png|gif)/i.test(file.type)){
+            alert("请确保文件为图像类型");
+            return false;
+        }
+        
+        var li = document.createElement("li");
+        
+        if($('.tu_ul').children('li').length==9){
+     	   $('.file-asa').hide();
+        }
+        
+        $(".tu_ul").prepend($(li));
+        $(".loading").show();
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function(e){
+           var img = new Image();
+           img.src = this.result;
+           var result = img.src;
+           img.className = "upimg";
+           w = img.width;
+           h = img.height;
+           $(li).addClass('imglist');
+           $(li).prepend("<div class='ly_aliulnga'><i class='imgsc_uvo'  ><img src='{lanrain::RES}/image/icon_dadf.png'></i><i style='display:none' class='imgurl'></i><img src='"+result+"' /></div>");
+           if (result.length <= maxsize) {
+               img = null;
+               $(li).children('div').children('.imgurl').html(result);
+               $(".loading").hide();
+               //upload(result, file.type, $(li));
+               return;
+           }
+           if (img.complete) {
+               callback();
+           } else {
+               img.onload = callback;
+           }
+           function callback() {
+	               $.canvasResize(file, {
+	                width: 0,
+	                height: 0,
+	                crop: false,
+	                quality: 40,
+	                //rotate: 90,
+	                callback: function(data, width, height) {
+	                    $(img).attr('src', data);
+	                    $(li).children('div').children('.imgurl').html(data);
+	                    $(".loading").hide();
+	                }
+	            });
+               img = null;
+           }
+        }
+    })
+    $(document).on("click",'.imgsc_uvo',function() {
+    	$(this).parent().parent().remove();
+    	$('.file-asa').show();
+    });
+ });
+
+</script>
+<include file="Public:weiXinNotShareSet"/>

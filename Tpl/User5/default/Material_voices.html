@@ -1,0 +1,131 @@
+<include file="Public:head"/>
+<include file="Public:upload"/>
+<style>
+.inner-top .jFiler.jFiler-theme-dragdropbox{
+	float:right;
+	position:relative;
+}
+
+.inner-top .jFiler.jFiler-theme-dragdropbox .jFiler-items.jFiler-row {
+    position: absolute;
+    right: 70px;
+}
+</style>
+<?php echo $makeTopUrl;?>
+<div class="group inline-btn-group mb-10">
+	<a href="<?php echo U('Material/images');?>" class="btn-small btn-white">图片</a>
+	<a href="javascript:void(0);" class="btn-small btn-purple">音频</a>
+</div>
+<div class="mod mb-15 resource-bank add-audio">
+	<div class="mod-header radius-top"><h4>音频</h4></div>
+	<div class="mod-body">
+		<div class="inner-top-wrap">
+			<div class="inner-top clearfix">
+				<div class="input-search inline">
+					<input type="text" class="span2 inline search" placeholder="标题" value="<?php echo $title;?>">
+					<button type="submit" class="btn" id="search">搜索</button>
+				</div>
+				<input type="file" name="files[]" class="js-fileInput-voices" multiple="multiple">
+			</div>
+		</div>
+		<div class="inner-body">
+			<div class="js-masonry">
+				<?php if($lists){ foreach($lists as $lkey=>$lval){?>
+				<div class="inner-box js-inner-box js-masonry-box">
+					<div class="inner clearfix">
+						<i class="icon-menu-audio js-icon-menu-audio"></i>
+						<audio class='aa' src="<?php echo $lval['voicesurl'];?>">您的浏览器不支持播放音频</audio>
+						<div class="con-cover">
+							<h5><?php echo $lval['title'];?></h5>
+							<h5 class="text-gray">时长：<span><?php echo $lval['time']?$lval['time']:'暂无';?></span></h5>
+							<h5 class="text-gray">大小：<span><?php echo $lval['size']?$lval['size']:'暂无';?></span></h5>
+						</div>
+					</div>
+					<div class="pic-msg-edit clearfix">
+						<a class="edit js-rename-pic" href="javascript:void(0);" title="修改"><i class="icon-resource-bank"></i></a>
+						<span></span>
+						<a class="del js-del" href="javascript:void(0);" title="删除"><i class="icon-resource-bank"></i></a>
+						<!-- 编辑名字 -->
+						<div class="rename-group-popup js-rename-group-popup ">
+                             <span class="triangle-up-b"></span>
+                             <span class="triangle-up-a"></span>
+                             <h3>编辑名称</h3>
+                             <div class="input-group">
+                                 <input class="w200" type="text" value="<?php echo $lval['title']?>">
+                             </div>
+                             <div class="move-btn-group">
+                                 <button class="btn-middle btn-purple js-sure editimgname" data-id="<?php echo $lval['id'];?>">
+                                     &nbsp;&nbsp;确认&nbsp;&nbsp;</button>
+                                 &nbsp;
+                                 <button class="btn-middle btn-white js-cancel">
+                                     &nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+                             </div>
+                         </div>
+						<!-- 删除 -->
+						<div class="delete-group-popup js-delete-group-popup">
+	                        <span class="triangle-up-b"></span>
+	                        <span class="triangle-up-a"></span>
+	                        <h3>确定删除此素材吗？</h3><br>
+	                        <div class="move-btn-group">
+	                            <button class="btn-middle btn-purple js-sure delimg" data-id="<?php echo $lval['id'];?>">
+	                                &nbsp;&nbsp;确认&nbsp;&nbsp;</button>
+	                            &nbsp;
+	                            <button class="btn-middle btn-white js-cancel">
+	                                &nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+	                        </div>
+	                    </div>
+					</div>
+				</div>
+				<?php }}?>
+			</div>
+		</div>
+		<!-- 分页组件 -->
+        <?php if($page){?>
+        <div class="group form-footer clearfix">
+            <div class="group pagination fr">
+                <?php echo $page;?>
+            </div>
+        </div>
+        <?php }?>
+	</div>
+</div>
+<script>
+$(function () {
+	//搜索
+	$ ('#search').click(function(){
+    	var title = $('.search').val();
+    	window.location.href='<?php echo U("Material/voices",array("title"=>"'+title+'"))?>';
+	});
+	//播放音频
+	$ ('.js-icon-menu-audio').click(function(){
+    	var player = $(this).next(".aa")[0];
+    	if($(this).hasClass('on')){
+    		player.pause ();
+    	}else{
+    		player.play ();
+    	}
+	});
+    /* 删除音频 */
+	$(document).on("click", ".delimg", function () {
+		$(".loading").show();
+		var id = $(this).attr('data-id');
+	  	$.post("<?php echo U('Material/delimg');?>",{id:id,type:'voice'},
+				function(data){
+	  				window.location.reload();
+				},"json"
+		);
+	});
+	/* 编辑音频名称 */
+	$(document).on("click", ".editimgname", function () {
+		$(".loading").show();
+		var name = $(this).parent().prev().find('.w200').val();
+		var id = $(this).attr('data-id');
+	  	$.post("<?php echo U('Material/editname');?>",{type:'voice',name:name,id:id},
+				function(data){
+	  				window.location.reload();
+				},"json"
+		);
+	});
+});
+</script>
+<include file="Public:footer"/>

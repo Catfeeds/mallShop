@@ -1,0 +1,294 @@
+<include file="Public:head"/>
+<include file="Public:WeiTanSelect"/>
+<?php echo $makeTopUrl;?>
+<div class="group inline-btn-group mb-10">
+    <a class="btn-small btn-purple js-S5Permissions" data-Permissionsid="17" data-link="<?php echo U('QuickResponseCode/index');?>">自定义网页二维码</a>
+    <a class="btn-small btn-white js-S5Permissions" data-Permissionsid="18" data-link="<?php echo U('QuickResponseCode/lists');?>">微信关注二维码</a>
+    <a class="btn-small btn-white js-S5Permissions" data-Permissionsid="134" data-link="<?php echo U('QuickResponseCode/statistics');?>">门店拉粉统计</a>
+</div>
+<div class="alert mb-15 alert-font-14"><strong>数据统计规则：</strong>实时统计</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>自定义网页二维码</h4><div class="fr"><a class="fl js-Custom-pages">新建自定义网页二维码</a></div></div>
+    <div class="mod-body">
+        <table class="table type-1 w-auto">
+            <thead>
+            <tr>
+                <th>二维码名称</th>
+                <th class="w-50">关联网页</th>
+                <th>被扫次数</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php if($list){ foreach($list as $key=>$val){?>
+            <tr>
+                <td><?php echo htmlspecialchars_decode($val['name']);?></td>
+                <td class="link_table"><?php echo $val['content'];?></td>
+                <td><?php echo $val['scannum'];?></td>
+                <td>
+                	<a class="tips js-Custom-pages-save" href="javascript:void(0);" data-id="<?php echo $val['id'];?>" data-name="<?php echo htmlspecialchars_decode($val['name']);?>" data-url="<?php echo $val['content'];?>">编辑</a>
+                	<div class="inline QR-code-position js-QR-code-cover js-QR-code-hide">
+                        <a class="tips QR-code-cover" href="javascript:void(0);">查看二维码</a>
+                        <div class="QR-Auxiliary-blank"></div>
+                        <div class="QR-code-box-down w100">
+                            <img data-src="<?php echo $val['picurl'];?>">
+                            <h6 class="mb-10">微信扫码<br/>手机预览</h6>
+                            <a class="btn-small btn-white" target="_blank" href="<?php echo U('QuickResponseCode/downloadQRCode').'&filePath='.$val['picurl']; ?>">下载二维码</a>
+                            <span id="triangle-up-b"></span>
+                            <span id="triangle-up-a"></span>
+                        </div>
+                    </div>
+                    <a class="tips js-View-reports" href="javascript:void(0);" data-id="<?php echo $val['id'];?>">查看报表</a>
+                    <a href="javascript:void(0);" class="tips js-delete-QR" qrCodeId="<?php echo $val['id'];?>">删除</a>
+                </td>
+            </tr>
+            <?php }}else{?>
+            <tr class="text-center not-hover">
+                <td colspan="4">暂无</td>
+            </tr>
+            <?php }?>
+            </tbody>
+        </table>
+        <?php if($page){?>
+        <div class="group form-footer clearfix">
+            <div class="group pagination fr">
+            	<?php echo $page;?>
+            </div>
+        </div>
+        <?php }?>
+    </div>
+</div>
+<!-- 删除 弹窗 -->
+<div class="popup-wrap js-del-or-not-wrap js-delete-QR-popup">
+    <div class="mod small-popup type-1">
+        <div class="mod-body">
+            <div class="content ">
+                <h5 class="text-center">本二维码删除后不可恢复<br/>请谨慎删除！</h5>
+            </div>
+            <div class="group form-footer text-center">
+                <a class="btn-small btn-white w60 js-delete-QR-close">取消</a>
+                &nbsp;&nbsp;&nbsp;
+                <a class="btn-small btn-purple w60 js-ok" id="delqrCodeHref" data-id="">确认删除</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(".js-delete-QR").on("click",function(){
+        	$('#delqrCodeHref').attr('data-id','');
+            $('#delqrCodeHref').attr('data-id',$(this).attr('qrCodeId'));
+            $(".js-delete-QR-popup").fadeIn(120);
+        });
+        $('#delqrCodeHref').on("click",function(){
+        	var type = "2";
+            var qrCodeId = $(this).attr('data-id');
+            $('.loading').show();
+            $.post("<?php echo U('QuickResponseCode/qrCodeDel');?>",{type:type,id:qrCodeId},
+    				function(data){
+            			$('.loading').hide();
+            			if(data.code == '200'){
+            				alertTan(data.msg);
+            			}else{
+            				alertTan(data.msg,'error');
+            			}
+            			setTimeout("window.location.reload();",1500);
+    				},"json"
+    		);
+        });
+        $(".js-delete-QR-close").on("click",function(){
+            $(".js-delete-QR-popup").fadeOut(120);
+        });
+    </script>
+</div>
+<!-- 新建自定义网页二维码 弹窗 -->
+<div class="popup-wrap wrap-small-1 js-Custom-pages-popup">
+    <div class="mod middle-popup type-1" style="width: 500px;margin-left:-250px;">
+        <div class="mod-header"><h4 class="fl">新建自定义网页二维码</h4><i class="quxiao fr icon-close-dark js-icon-close"></i></div>
+        <div class="mod-body">
+            <div class="content">
+                <div class="group pb-15">
+                    <h6 class="inline w80">关联网页：</h6>
+                    <input class="inline w200 js-relevance-url" type="text" name="" value="">
+                    <a class="btn-middle btn-white select-url-asa" data-urlType="js-relevance-url">选择网页链接</a>
+                    <h6 class="text-gray ml-80 pt-5">&nbsp;关联网页链接必须含"http://"</h6>
+                </div>
+                <div class="group">
+                    <h6 class="inline w80">二维码名称：</h6>
+                    <input class="inline w200 js-qrCodename" type="text" name="">
+                </div>
+            </div>
+            <div class="group form-footer text-center">
+                <a class="btn-small btn-purple" id="qrCodeadd">生成二维码</a> &nbsp;
+                <a class="btn-small btn-white js-Custom-pages-close">取 消</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(".js-Custom-pages").on("click",function(){
+        	$('.js-relevance-url').val('');
+        	$('.js-qrCodename').val('');
+            $(".js-Custom-pages-popup").fadeIn(120);
+        });
+        $('.js-Custom-pages-save').on("click",function(){
+        	$('.js-relevance-url').val($(this).attr('data-url'));
+        	$('.js-qrCodename').val($(this).attr('data-name'));
+        	$('#qrCodeadd').attr('data-id',$(this).attr('data-id'));
+            $(".js-Custom-pages-popup").fadeIn(120);
+        });
+        $('#qrCodeadd').on("click",function(){
+        	var id = $(this).attr('data-id');
+        	var url = $('.js-relevance-url').val();
+            var title = $('.js-qrCodename').val();
+            if(url.substring(0,7) != 'http://'){
+            	if(url.substring(0,8) != 'https://'){
+            		alertTan('请输入正确的网页链接','warn');
+        	    	return false;
+            	}
+    	    }
+            if(title == false){
+            	alertTan('请填写二维码名称','warn');
+    	    	return false;
+            }
+            $('.loading').show();
+            $.post("<?php echo U('QuickResponseCode/urlqr');?>",{id:id,url:url,title:title,dimension:'430'},
+    				function(data){
+            		$('.loading').hide();
+            			if(data.code == '200'){
+            				alertTan(data.msg);
+            			}else{
+            				alertTan(data.msg,'error');
+            			}
+            			setTimeout("window.location.reload();",1500);
+    				},"json"
+    		);
+        });
+        $(".js-Custom-pages-close").on("click",function(){
+            $(".js-Custom-pages-popup").fadeOut(120);
+        });
+    </script>
+</div>
+
+<!-- 查看报表 弹窗 -->
+<div class="popup-wrap wrap-small-1 js-View-reports-popup">
+    <div class="mod middle-popup type-1" style="width: 700px;margin-left:-350px;">
+        <div class="mod-header"><h4 class="fl">查看报表</h4> <i class="quxiao fr icon-close-dark js-icon-close"></i><a class="fr tips excel-import-out-button mr-20">生成报表</a></div>
+        <div class="mod-body">
+            <div class="qr-code-scroll">
+                <div class="mod mt-0">
+                    <div class="mod-header radius-top"><h4>全部</h4></div>
+                    <div class="mod-body">
+                        <table class="table type-1 w-auto">
+                            <thead>
+                            <tr>
+                                <th>时间</th>
+                                <th>被扫次数</th>
+                            </tr>
+                            </thead>
+                            <tbody class="js-log">
+                            </tbody>
+                        </table>
+                        <div class="group form-footer clearfix">
+                            <div class="group pagination fr js-ajaxpage">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="group form-footer text-center"><a class="btn-small btn-white js-View-reports-close">关闭</a></div>
+        </div>
+    </div>
+    <script>
+    $(".js-View-reports").on("click",function(){
+    	var qid = $(this).attr('data-id');
+    	$(".js-View-reports-popup").attr('data-qid',qid);
+    	$('.loading').show();
+    	$.post("<?php echo U('QuickResponseCode/quicklog');?>",{qid:qid},
+				function(data){
+    			$('.loading').hide();
+        			if(data.code == '200'){
+        				$('.js-log').html(data.html);
+        				if(data.page){
+        					$('.js-ajaxpage').parent().show();
+	        				$('.js-ajaxpage').html(data.page);
+        				}else{
+        					$('.js-ajaxpage').parent().hide();
+        				}
+			            $(".js-View-reports-popup").fadeIn(120);
+        			}else{
+        				alertTan(data.msg,'error');
+        			}
+				},"json"
+		);
+    });
+    $(document).on('click','.js-ajaxpage-num',function(){
+    	var qid = $(".js-View-reports-popup").attr('data-qid');
+    	var page = $(this).attr('data-page');
+    	$.post("<?php echo U('QuickResponseCode/quicklog');?>",{qid:qid,page:page},
+				function(data){
+        			if(data.code == '200'){
+        				$('.js-log').html(data.html);
+        				if(data.page){
+        					$('.js-ajaxpage').parent().show();
+	        				$('.js-ajaxpage').html(data.page);
+        				}else{
+        					$('.js-ajaxpage').parent().hide();
+        				}
+        			}else{
+        				alertTan(data.msg,'error');
+        			}
+				},"json"
+		);
+    });
+	$(document).on('click','.js-page-go-icon',function(){
+		var qid = $(".js-View-reports-popup").attr('data-qid');
+    	var page = $(this).prev().val();
+    	$.post("<?php echo U('QuickResponseCode/quicklog');?>",{qid:qid,page:page},
+				function(data){
+        			if(data.code == '200'){
+        				$('.js-log').html(data.html);
+        				if(data.page){
+        					$('.js-ajaxpage').parent().show();
+	        				$('.js-ajaxpage').html(data.page);
+        				}else{
+        					$('.js-ajaxpage').parent().hide();
+        				}
+        			}else{
+        				alertTan(data.msg,'error');
+        			}
+				},"json"
+		);
+    });
+	$('.excel-import-out-button').click(function(){
+		var qid = $(".js-View-reports-popup").attr('data-qid');
+		$('.loading').show();
+		$.post("<?php echo U('QuickResponseCode/export');?>",{qid:qid},
+				function(data){
+				$('.loading').hide();
+	    			if(data.code == '200'){
+			            $(".js-export-popup").fadeIn(120);
+			            //setTimeout("window.location.reload();",2000);
+	    			}else{
+	    				alertTan(data.msg,'error');
+	    			}
+				},"json"
+		);
+	});
+    $(".js-View-reports-close").on("click",function(){
+        $(".js-View-reports-popup").fadeOut(120);
+    });
+    </script>
+</div>
+<!-- 报表生成提示 弹窗 -->
+<div class="popup-wrap wrap-small-1 js-export-popup">
+    <div class="mod small-popup type-1" style="width:360px;margin-left:-180px;">
+	    <div class="mod-header">
+	        <h4 class="fl">提示</h4>
+	        <i class="fr icon-close-dark js-icon-close"></i>
+	    </div>
+        <div class="mod-body">
+	        <div class="content">
+	            <h5 class="text-center">报表正在生成中...<br/>请在5分钟后前往“管理-我的导出任务”下载CSV文件</h5>
+	        </div>
+    	</div>
+	</div>
+</div>
+<include file="Public:footer"/>

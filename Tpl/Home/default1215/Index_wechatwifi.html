@@ -1,0 +1,61 @@
+<include file="Public:header" />
+	<div class="index-wrap wrap-default">
+		<div class="wechatwifi_content">
+			<div class="wechatwifi_banner"><a href="/index.php?m=Index&a=wechatwifiBuy" class="btn_visit_service">立即购买</a></div>
+			<ul class="part_cover">
+				<li class="part_1">
+					<p class="part_tit">体验视频</p>
+					<div class="vedio_cover">
+						<div class="vedio_inner">
+							<a class="vedio_ios_demo js_type_ios" href="javascript:void(0);"></a>
+							<a class="vedio_android_demo js_type_android" href="javascript:void(0);"></a>
+						</div>
+					</div>
+				</li>
+				<li class="part_2">
+					<p class="part_tit">适用场合</p>
+					<img src="./Tpl/Home/default0831/common/new_img/wechat_part_img1.jpg" draggable="false" />
+				</li>
+			</ul>
+		</div>
+	</div>
+
+
+	<!-- ios演示视频弹窗 -->
+	<div class="video_popup_wrap2 js_ios_popup_wrap2">
+		<video class="demonstration_video" controls="controls" poster="/images/w3school.gif">
+		   <source src="./Tpl/Home/default0831/common/video/ios_wechatwifi.webm" type="video/mp4" controls="controls">
+		   <source src="./Tpl/Home/default0831/common/video/ios_wechatwifi.mpg" type="video/mpg" controls="controls">
+		   您的浏览器不支持 video 标签。
+		</video>
+		<i class="icon_close js_icon_close"></i>
+		<!-- 演示视频弹窗js -->
+		<script type="text/javascript">
+			$(".js_type_ios").click(function(){
+				$(".js_ios_popup_wrap2").fadeIn(120);
+			});
+			$(".js_icon_close").click(function(){
+				$(".js_ios_popup_wrap2").fadeOut(120);
+			});
+		</script>
+	</div>
+	<!-- android演示视频弹窗 -->
+	<div class="video_popup_wrap2 js_android_popup_wrap2">
+		<video class="demonstration_video" controls="controls" poster="/images/w3school.gif">
+		   <source src="./Tpl/Home/default0831/common/video/an_wechatwifi.webm" type="video/mp4" controls="controls">
+		   <source src="./Tpl/Home/default0831/common/video/an_wechatwifi.mpg" type="video/mpg" controls="controls">
+		   您的浏览器不支持 video 标签。
+		</video>
+		<i class="icon_close js_icon_close"></i>
+		<!-- 演示视频弹窗js -->
+		<script type="text/javascript">
+			$(".js_type_android").click(function(){
+				$(".js_android_popup_wrap2").fadeIn(120);
+			});
+			$(".js_icon_close").click(function(){
+				$(".js_android_popup_wrap2").fadeOut(120);
+			});
+		</script>
+	</div>
+
+<include file="Public:footer" />

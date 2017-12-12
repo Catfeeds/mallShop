@@ -1,0 +1,441 @@
+<include file="Public:head"/>
+<include file="Public:smallEditor" />
+<!--创建拼团秒杀 2016-10-10 19:00-->
+<?php echo $makeTopUrl;?>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4><?php echo $info['gid'] ? '编辑' : '创建';?>拼团活动</h4></div>
+    <input name="id" type="hidden" value="<?php echo $info['gid']; ?>" />
+    <div class="mod-body WeChat-auto-reply-set">
+        <div class="content">
+            <div class="group pb-15">
+                <h6 class="inline w100">选择商品：</h6>
+                <?php if($info['gid']){?>
+                <a class="btn-small btn-white <?php if($info['status'] == 1){ echo 'js-Choice-commodity-edit';}?>" data-goodid="<?php echo $info['goodid'];?>">选择商品</a>
+                <h6 class="inline rd-good-info-name"><?php echo $info['title'];?></h6>
+                <?php }else{?>
+                <a class="btn-small btn-white js-Choice-commodity">选择商品</a>
+                <h6 class="inline rd-good-info-name" style="display:none;"></h6>
+                <?php }?>
+            </div>
+            <div class="group pb-15 rd-good-info-box" style="<?php if($info){echo 'display:block;';}else{echo 'display:none;';}?>">
+                <table class="table type-1 w800">
+                    <thead>
+                    <tr>
+                        <th>规格</th>
+                        <th>原价</th>
+                        <th>原售价</th>
+                        <th>拼团价</th>
+                        <th>库存</th>
+                    </tr>
+                    </thead>
+                    <tbody class="rd-ajax-goods-info">
+                    <?php if($info['goodtype']){if($info['goodtype'] == 1 || $info['goodtype'] == 3 || $info['goodtype'] == 4 || $info['goodtype'] == 5){?>
+	                    <?php foreach($goodSkuList as $key=>$val){?>
+	                    <tr>
+	                        <td><?php echo $val['name'];?></td>
+	                        <td><?php echo $val['originalprice'];?>元</td>
+	                        <td><?php echo $val['saleprice'];?>元</td>
+	                        <td><input class="inline w50" type="text" name="grouponprice<?php echo $val['id'];?>" value="<?php echo $val['grouponprice'];?>" placeholder="0.00"  data-id="<?php echo $val['id'];?>" <?php if($info['status'] == 2 || $info['status'] == 3 || $info['status'] == 4){echo 'disabled="disabled"';}?>></td>
+	                        <td><?php echo $val['stockamount'];?></td>
+	                    </tr>
+	                    <?php }?>
+	               <?php }else{?>
+	                    <tr>
+	                        <td><?php echo $info['title'];?></td>
+	                        <td><?php echo $info['originalprice'];?>元</td>
+	                        <td><?php echo $info['saleprice'];?>元</td>
+	                        <td><input class="inline w50" type="text" name="grouponprice<?php echo $info['id'];?>" value="<?php echo $info['grouponprice'];?>" placeholder="0.00"  data-id="<?php echo $info['id'];?>" <?php if($info['status'] == 2 || $info['status'] == 3 || $info['status'] == 4){echo 'disabled="disabled"';}?>></td>
+	                        <td><?php echo $info['stockamount'];?></td>
+	                    </tr>
+                    <?php }}else{?>
+                    <tr class="text-center not-hover">
+                        <td colspan="5">暂无</td>
+                    </tr>
+                    <?php }?>
+                    </tbody>
+                </table>
+                <h6 class="text-gray pt-5 pl-5">*在活动期间，原售价将会被隐藏，仅显示拼团价和原价</h6>
+            </div>
+            <div class="group pb-15">
+                <h6 class="inline w100">活动时间：</h6>
+                <input class="laydate-input" id="start" name="starttime" value="<?php echo format_time($info['starttime'],'ymdhis');?>"  placeholder="YYYY-MM-DD hh:mm:ss" <?php if($info['status'] == 3 || $info['status'] == 4){echo 'disabled="disabled"';}?>>
+                <i class="icon-laydate"></i>
+                <span> - </span>
+                <input class="laydate-input" id="end" name="endtime" value="<?php echo format_time($info['endtime'],'ymdhis');?>" placeholder="YYYY-MM-DD hh:mm:ss" <?php if($info['status'] == 3 || $info['status'] == 4){echo 'disabled="disabled"';}?>>
+                <i class="icon-laydate"></i>
+            </div>
+            <div class="group pb-15">
+                <h6 class="inline w100">成团人数：</h6>
+                <select class="inline w100" name="groupnum" id="groupnum" <?php if($info['status'] == 2 || $info['status'] == 3 || $info['status'] == 4){echo 'disabled="disabled"';}?>>
+                    <option value="">请选择</option>
+                    <option value="2" <?php if($info['groupnum'] == 2){echo 'selected';}?>>2</option>
+                    <option value="3" <?php if($info['groupnum'] == 3){echo 'selected';}?>>3</option>
+                    <option value="4" <?php if($info['groupnum'] == 4){echo 'selected';}?>>4</option>
+                    <option value="5" <?php if($info['groupnum'] == 5){echo 'selected';}?>>5</option>
+                    <option value="6" <?php if($info['groupnum'] == 6){echo 'selected';}?>>6</option>
+                    <option value="7" <?php if($info['groupnum'] == 7){echo 'selected';}?>>7</option>
+                    <option value="8" <?php if($info['groupnum'] == 8){echo 'selected';}?>>8</option>
+                    <option value="9" <?php if($info['groupnum'] == 9){echo 'selected';}?>>9</option>
+                    <option value="10" <?php if($info['groupnum'] == 10){echo 'selected';}?>>10</option>
+                </select>
+            </div>
+            <div class="group pb-15">
+                <h6 class="inline w100">是否开启限购：</h6>
+                <input class="ios-btn" type="checkbox" <?php if($info['limitbuy'] == 1){ echo 'checked="checked"';}?> <?php if($info['status'] == 2 || $info['status'] == 3 || $info['status'] == 4){echo 'disabled="disabled"';}?>>
+                <div class="group pt-10 js-ios-btn-box <?php if($info['status'] == 2 || $info['status'] == 3 || $info['status'] == 4){if($info['limitbuy'] == 1){echo 'show';}else{echo 'hide';}}?>" style="<?php if($info['limitbuy'] == 1){echo 'display:block';}else{echo 'display:none';}?>">
+                    <h6 class="inline w100"></h6>
+                    <h6 class="inline">每单限购</h6> <input class="inline w60" type="text" name="limitnum" value="<?php echo $info['limitnum'];?>" <?php if($info['status'] == 2 || $info['status'] == 3 || $info['status'] == 4){echo 'disabled="disabled"';}?>> <h6 class="inline">件/人</h6>
+                </div>
+                <script>
+                    $(document).on("click",".lcs_wrap",function(){
+                        $(".js-ios-btn-box").toggle();
+                    });
+                </script>
+            </div>
+            <!-- <div class="group">
+            	<h6 class="inline w100 text-top">关注二维码：</h6>
+                <div class="inner-group inline">
+       				<input name="qrcode" type="hidden" value="<?php echo $info['qrcode']; ?>" class="wechat-key" />
+                    <img class="inline wechat-key-img" width="60px" height="60px" src="<?php echo $info['qrcode']?$info['qrcode']:'./Tpl/User5/default/common/img/WeiPage-temp-img.png'; ?>">
+                    <div class="inline">
+	                    <input type="file" name="files" class="js-add-img-asa" data-type="wechat-key" multiple="multiple" <?php if($info['status'] == 2 || $info['status'] == 3 || $info['status'] == 4){echo 'disabled="disabled"';}?>>
+	                    <h6 class="text-gray pt-5">*此二维码用于关注您的公众号，推荐尺寸150px*150px。</h6>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+        <div class="Wechat-msg-bottom text-center">
+            <a class="btn-small btn-white w100 rd-submit">保存并发布</a>
+        </div>
+    </div>
+</div>
+<!--选择商品弹窗-->
+<div class="popup-wrap wrap-middle-1 WeiPage-popup-wrap js-Choice-commodity-popup">
+    <div class="mod middle-popup type-1">
+        <div class="mod-header">
+            <h4 class="fl mr-6">选择商品</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+            <div class="content choice-content">
+                <div class="inner-wrap">
+                    <div class="group goods-choose-wrap clearfix js-goods-choose-wrap">
+                        <div class="goods-choose-left fl">
+                            <div class="input-search pb-10">
+                                <input type="text" class="inline goodstitle-asa" value="" placeholder="请输入商品名称">
+                                <button type="submit" class="btn sub-goods-title-asa">搜索</button>
+                            </div>
+                            <ul class="goods-name-choose js-goods-name-choose goods-list-left-asa"></ul>
+                        </div>
+                        <i class="fl icon-goods-choose-to"></i>
+                        <div class="goods-choose-right fr">
+                            <ul class="goods-name-choose goods-list-right-asa"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="group form-footer text-center">
+                <input class="btn-middle btn-purple sub-goods-asa" data-id="" type="submit" value="确认">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input class="btn-middle btn-white js-Choice-commodity-close" type="button" value="取消">
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+	//搜索商品 ==============================
+	$(".sub-goods-title-asa").click(function(){
+		var ids ='';
+		var title = $(".goodstitle-asa").val();
+		$('.goods-list-right-asa > li').each(function(){
+			ids +=$(this).attr('data-id')+',';
+		});
+		ajaxGood(ids,'1',title);
+	});
+	//商品 ==============================
+	$(".js-Choice-commodity").on("click",function(){
+		$('.goods-list-right-asa').html("");
+		ajaxGood('','1','');
+        $(".js-Choice-commodity-popup").fadeIn();
+    });
+	//编辑商品 ==============================
+	$(".js-Choice-commodity-edit").on("click",function(){
+		var goodid = $(this).attr("data-goodid");
+		//左侧商品
+		ajaxGood(goodid,'1','');
+		//右侧商品
+		ajaxGood(goodid,'2','');
+        $(".js-Choice-commodity-popup").fadeIn();
+    });
+	//取消 ==============================
+    $(".js-Choice-commodity-close").on("click",function(){
+        $(".js-Choice-commodity-popup").fadeOut(120);
+    });
+    /* 
+     * 加载商品的函数
+     * ids:ID的组合,1,2,
+     * type : 1：左侧商品；2：右侧商品
+     * title : 左侧搜索时
+     */
+    function ajaxGood(ids,type,title){
+    	 $.post("<?php echo U('EshopDiscount/ajaxGoods').'&time=';?>"+Math.random(),{ids:ids,type:type,title:title},function(data){
+    		 if(data.code==200){
+            	if(type == 1){
+                    $('.goods-list-left-asa').html(data.html);
+                }else{
+                	$('.goods-list-right-asa').html(data.html);
+                }
+            }else{
+            	alertTan(data.msg,'error');
+            }
+    	},"json");
+    }
+	//确认添加商品
+	$('.sub-goods-asa').click(function(){
+		var id = $("input[name='id']").val();
+		//商品的id
+		var goodid ='';
+		$('.goods-list-right-asa > li').each(function(){
+			goodid +=$(this).attr('data-id')+',';
+		});
+		//选择商品数量
+		var goodnum ='';
+		$('.goods-list-right-asa li ul li').each(function(){
+			goodnum = parseInt(goodnum + 1);
+		});
+		if(goodnum > '1'){
+			alertTan("只能选择一个商品",'warn');
+			return false;
+		}else if(goodnum < '1'){
+			alertTan("至少选择一个商品",'warn');
+			return false;
+		}
+		$.post("<?php echo U('EshopDiscount/ajaxGetGoodsInfo').'&time='?>"+Math.random(),{goodid:goodid},function(data){
+			if(data.code == 200){
+				alertTan(data.msg);
+				$('.rd-ajax-goods-info').html("");
+				$('.rd-good-info-name').html("");
+				$('.rd-good-info-name').show();
+				$('.rd-good-info-name').text(data.goodname);
+				$('.rd-ajax-goods-info').append(data.html);
+				$('.rd-good-info-box').show();
+				$('input[name="goodid"]').val(data.goodid);
+				$('input[name="goodtype"]').val(data.goodtype);
+				$(".js-Choice-commodity-popup").fadeOut(120);
+			}else{
+				alertTan(data.msg,'error');
+			}
+		},'json');
+	});
+</script>
+<input type="hidden" name="goodid" value="<?php echo $info['goodid'];?>"/>
+<input type="hidden" name="goodtype" value="<?php echo $info['goodtype'];?>"/>
+<script>
+$(function(){
+	//-------------------- 保存 ----------------------------------------
+	$(document).on("click",".rd-submit",function(){
+		var goodtype = $('input[name="goodtype"]').val();
+		var id = $('input[name="id"]').val();
+		//商品id
+		//商品价格
+		var ids ='';
+		var grouponprices = '';
+		var priceArr = '';
+		$('.rd-ajax-goods-info tr td input').each(function(){
+			 //ids += $(this).attr('data-id')+',';
+			ids = $(this).attr('data-id');
+			grouponprices = $(this).val();
+			if(grouponprices == '' || grouponprices <= 0){
+				alertTan('请设置拼团价格','warn');
+				return false;
+			}
+			priceArr += ids+','+grouponprices+';';
+		});
+		if(grouponprices == '' || grouponprices <= 0){
+			alertTan('请设置拼团价格','warn');
+			return false;
+		}
+		if(ids == ''){
+			alertTan('请选择商品','warn');
+			return false;
+		}
+		
+		var starttime = $('input[name="starttime"]').val();
+		if(starttime == ''){
+			alertTan('请选择活动开始时间','warn');
+			return false;
+		}
+		var endtime = $('input[name="endtime"]').val();
+		if(endtime == ''){
+			alertTan('请选择活动结束时间','warn');
+			return false;
+		}
+		var day = DateDiff(starttime,endtime);
+		if(day > 30){
+			alertTan('活动时间不能超过三十天','warn');
+			return false;
+		}
+		var groupnum = $('#groupnum').val();
+		if(groupnum == ''){
+			alertTan('请选择成团人数','warn');
+			return false;
+		}
+		var lcs = $('.lcs_checkbox_switch').hasClass('lcs_on');
+		if(lcs == true){
+			limitbuy = 1;
+		}else{
+			limitbuy = 2;
+		}
+		var limitnum = $('input[name="limitnum"]').val();
+		if(limitbuy == 1){
+			if(limitnum < 1){
+				alertTan('请设置限购人数','warn');
+				return false;			
+			}
+		}
+		var goodid = $('input[name="goodid"]').val();
+		$('.loading').show();
+		$.post("<?php echo U('EshopDiscount/GroupSet').'&time=';?>"+Math.random(),{
+			id:id,
+			priceArr:priceArr,
+			goodid:goodid,
+			goodtype:goodtype,
+			starttime:starttime,
+			endtime:endtime,
+			groupnum:groupnum,
+			limitbuy:limitbuy,
+			limitnum:limitnum
+		},function(data){
+            $('.loading').hide();
+            if(data.code == 200){
+	            alertTan(data.tips);
+	            setTimeout(function(){
+	            	window.location.href = "<?php echo U('EshopDiscount/group');?>";
+	            },2000);
+            }else{
+            	alertTan(data.tips,'error');
+            }
+        }, "json");
+	});
+});
+</script>
+<script>
+$(function(){
+	filer_default_opts = {
+            templates: {     //上传进度条
+    	        box: '<ul class="jFiler-items-list jFiler-items-grid"></ul>',
+    	        item: '<li class="jFiler-item">\
+    		                <div class="jFiler-item-container">\
+    		                <div class="jFiler-item-inner">\
+    		                    <div class="jFiler-item-assets jFiler-row">\
+    		                        <ul class="list-inline pull-left">\
+    					            	<li>{{fi-name | limitTo: 25}}</li>\
+    					                <li>{{fi-size2}}</li>\
+    		                            <li>{{fi-progressBar}}</li>\
+    		                        </ul>\
+    		                    </div>\
+    		                </div>\
+    		            </div>\
+    		        </li>',
+    	        progressBar: '<div class="bar"></div>',
+    	        itemAppendToEnd: false,
+    	        removeConfirmation: false,
+    	        _selectors: {
+    	            list: '.jFiler-items-list',
+    	            item: '.jFiler-item',
+    	            progressBar: '.bar',
+    	            remove: '.jFiler-item-trash-action',
+    	        }
+    	    },
+    	    dragDrop: {
+    			dragEnter: null,
+    			dragLeave: null,
+    			drop: null,
+    		},
+        };
+	//文件上传
+	$('.js-add-img-asa').filer({
+		//limit: 1,
+		maxSize: 2,  //文件大小
+        extensions: ['bmp','png','jpeg','jpg','gif'],   //限制类型
+		changeInput: '<a class="btn-small btn-white ">选择图片</a>',   //绑定上传样式
+		showThumbs: true,    //是否显示templates
+		theme: "dragdropbox",
+		templates: filer_default_opts.templates,
+		dragDrop: filer_default_opts.dragDrop,
+		uploadFile: {
+			url: "./Tpl/static/SCRM5-PlugIn/html5file/php/upload.php",
+			data: null,
+			type: 'POST',
+			enctype: 'multipart/form-data',
+			beforeSend: function(){},
+			success: function(data, el){
+				var files = JSON.parse(data);
+				if(files['error']){
+					$('.jFiler-items').delay(1000).hide(0);
+					alertTan(files['error'],'error',3000);
+				}else{
+					var a = files.metas;
+					//获取链接
+					var url = files.files;
+					//获取类型
+					var dataType = el.parent().parent().parent().children(".js-add-img-asa").attr("data-type");
+					el.parent().parent().remove();
+					$("."+dataType).val("{lanrain::C('site_url')}"+url);
+					$("."+dataType+"-img").attr("src","{lanrain::C('site_url')}"+url);
+				}
+			},
+			error: function(el){
+			},
+			statusCode: null,
+			onProgress: null,
+			onComplete: null
+		},
+	});
+});
+</script>
+<!-- 开始日：<input class="laydate-input" id="start" style="width:200px; margin-right:10px;" />
+结束日：<input class="laydate-input" id="end" style="width:200px;" /> -->
+<script>
+	
+	var start = {
+	  elem: '#start',
+	  format: 'YYYY-MM-DD hh:mm:ss',
+	  min: laydate.now(), //设定最小日期为当前日期
+	  max: '2099-06-16 23:59:59', //最大日期
+	  istime: true,
+	  istoday: false,
+	  choose: function(datas){
+	     end.min = datas; //开始日选好后，重置结束日的最小日期
+	     end.start = datas //将结束日的初始值设定为开始日
+	  }
+	};
+	var end = {
+	  elem: '#end',
+	  format: 'YYYY-MM-DD hh:mm:ss',
+	  min: laydate.now(),
+	  max: '2099-06-16 23:59:59',
+	  istime: true,
+	  istoday: false,
+	  choose: function(datas){
+	    start.max = datas; //结束日选好后，重置开始日的最大日期
+	  }
+	};
+	laydate(start);
+	laydate(end);
+	////////////////////////////////////////////////////////////////////////////////////////////
+	//计算两个日期天数差的函数，通用
+	////////////////////////////////////////////////////////////////////////////////////////////
+	function DateDiff(sDate1, sDate2) {  //sDate1和sDate2是yyyy-MM-dd格式
+
+	    var aDate, oDate1, oDate2, iDays;
+	    aDate = sDate1.split("-");
+	    oDate1 = new Date(aDate[1] + '-' + aDate[2] + '-' + aDate[0]);  //转换为yyyy-MM-dd格式
+	    aDate = sDate2.split("-");
+	    oDate2 = new Date(aDate[1] + '-' + aDate[2] + '-' + aDate[0]);
+	    iDays = parseInt(Math.abs(oDate1 - oDate2) / 1000 / 60 / 60 / 24); //把相差的毫秒数转换为天数
+
+	    return iDays;  //返回相差天数
+	}
+</script>
+<include file="Public:footer"/>

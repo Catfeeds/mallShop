@@ -1,0 +1,58 @@
+<include file="Public:head"/>
+<include file="Public:uploads"/>
+<link rel="stylesheet" type="text/css" href="{lanrain::STATICS}/SCRM5-PlugIn/html5file/css/jquery.filer.css">
+<script src="{lanrain::STATICS}/SCRM5-PlugIn/html5file/js/jquery.filer.min.js" type="text/javascript"></script>
+<script src="{lanrain::STATICS}/SCRM5-PlugIn/html5file/js/prettify.js" type="text/javascript"></script>
+<script src="{lanrain::STATICS}/SCRM5-PlugIn/html5file/js/scripts.js" type="text/javascript"></script>
+<script src="{lanrain::STATICS}/SCRM5-PlugIn/html5file/js/custom.js" type="text/javascript"></script>
+<?php echo $makeTopUrl;?>
+<!-- 推送统计 2016-11-15 22:00 -->
+<div class="group inline-btn-group mb-10">
+    <a href="<?php echo U('SmsSend/index'); ?>" class="btn-small btn-white">我的短信</a>
+    <a href="<?php echo U('SmsSend/smsInfoLog'); ?>" class="btn-small btn-purple">推送统计</a>
+    <a href="<?php echo U('SmsSend/smsMoneyLog'); ?>" class="btn-small btn-white">充值记录</a>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>推送统计</h4></div>
+    <div class="mod-body">
+        <div class="content">
+        <div class="alert mb-15">统计规格：通知短信实时统计，营销短信每日00：00统计一次。</div>
+            <table class="table type-1 w-auto">
+                <thead>
+                <tr>
+                    <th>日期</th>
+                    <th>总发送量</th>
+                    <th>成功到达量</th>
+                    <th>计费量</th>
+                    <th>短信类型</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php if($lists){ foreach($lists as $key=>$val){ ?>
+	                <tr>
+	                    <td><?php echo format_time($val['today'],ymd); ?></td>
+	                    <td><?php echo $val['znum']; ?></td>
+	                    <td><?php echo $val['snum']; ?></td>
+	                    <td><?php echo $val['mnum']; ?></td>
+	                    <td>
+	                    <?php echo "通知短信：".$val['notifynum']."；营销短信：".$val['sellnum']; ?>
+	                    </td>
+	                </tr>
+	                <?php } }else{ ?>
+	                <tr class="text-center not-hover">
+	                	<td colspan="5">暂无</td>
+	                </tr>
+	                <?php } ?>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="group form-footer clearfix">
+        	<div class="group pagination fr">
+            	<?php echo $page; ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<include file="Public:footer" />

@@ -1,0 +1,73 @@
+<div class="content-henshu" style="display: none">
+    <img class="jrwt-1" src="{lanrain::RES}/bundimg/turn_hor1.png">
+</div>
+<!-- 分享弹窗-->
+<div class="tanchuan-1 fxtc-gg" style="display: none;">
+    <div class="tsfx-div">
+        <img src="{lanrain::RES}/bundimg/tsfx-1.png">
+    </div>
+</div>
+<script type="text/javascript" src="{lanrain::RES}/wai-js/jquery.js"></script>
+<script type="text/javascript" src="{lanrain::RES}/wai-js/common.js"></script>
+<script src="{lanrain::RES}/wai-js/wb.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="{lanrain::RES}/wai-js/room.js"></script>
+<input id="isPlayAudio" style="position: fixed;top:1000%; " value="1" >
+<script>
+	//当前钥匙
+	$(".rd-keys").text(sessionStorage.keys);
+    //控制横屏竖屏
+	window.addEventListener("orientationchange", function(){
+        var pdhs=window.orientation;
+        var hens=document.getElementsByClassName("content-henshu")[0];
+        if(pdhs!=0){
+            hens.style.display="block";
+        }else{
+            hens.style.display="none";
+        }
+    }, false);
+</script>
+<script>
+    //--------google监测
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    if(isWeixin) ga('create', 'UA-53559077-1', 'auto');
+    else ga('create', 'UA-53475978-1', 'auto');
+    // ga('create', 'UA-53475978-1', 'auto');
+    ga('send', 'pageview');
+    //------------监测函数
+    function monitorEvent(obj,label,evt){
+        if(obj && label){
+            evt=evt||'click';
+            obj.each(function(i) {
+                $(this).on(evt,{label:label},monitorFunc);
+            });
+        }//end if
+    }//end func
+    function monitorFunc(e,data){
+        var label;
+        if(e) label=e.data.label;
+        else if(data) label=data;
+        if(label){
+            if(window.console) console.log(label);
+            ga('send', 'event', 'mobile', 'click', label);
+        }//end if
+    }//end func
+</script>
+<script type="text/javascript">
+    setTimeout(function(){
+        $(window).scrollTop(1);
+    },0);
+</script>
+<script>
+    var fxiang=document.getElementsByClassName("fxiang")[0];
+    var fxtc=document.getElementsByClassName("fxtc-gg")[0];
+    fxiang.onclick=function(){
+        fxtc.style.display="block";
+    }
+    fxtc.onclick=function(){
+        fxtc.style.display="none";
+    }
+</script>
+<include file="Public:weiXinNotShareSet" />

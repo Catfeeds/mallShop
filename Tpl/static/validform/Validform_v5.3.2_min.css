@@ -1,0 +1,20 @@
+@charset "utf-8";/* CSS Document */
+/*==========以下部分是Validform必须的===========*/
+.Validform_checktip{}
+.Validform_wrong,.Validform_right{display:inline-block;}
+.Validform_loading{padding-left:20px;background:url(images/onLoad.gif) no-repeat left center;}
+.Validform_error{background-color:#ffe7e7;display:block;}
+#Validform_msg{color:#7d8289;font: 12px/1.5 tahoma, arial, \5b8b\4f53, sans-serif;width:280px;-webkit-box-shadow:2px 2px 3px #aaa;-moz-box-shadow:2px 2px 3px #aaa;background:#fff;position:absolute;top:0px;right:50px;z-index:99999;display:none;filter: progid:DXImageTransform.Microsoft.Shadow(Strength=3, Direction=135, Color='#999999');box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);}
+#Validform_msg .iframe{position:absolute;left:0px;top:-1px;z-index:-1;}
+#Validform_msg .Validform_title{line-height:25px;height:25px;text-align:left;font-weight:bold;padding:0 8px;color:#fff;position:relative;background-color:#999;background: -moz-linear-gradient(top, #999, #666 100%);background: -webkit-gradient(linear, 0 0, 0 100%, from(#999), to(#666));filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#999999', endColorstr='#666666');}
+#Validform_msg a.Validform_close:link,#Validform_msg a.Validform_close:visited{line-height:22px;position:absolute;right:8px;top:0px;color:#fff;text-decoration:none;}
+#Validform_msg a.Validform_close:hover{color:#ccc;}
+#Validform_msg .Validform_info{padding:8px;border:1px solid #bbb;border-top:none;text-align:left;}
+.info,.error,.success,.Validform_wrong,.Validform_right{padding:4px 10px;vertical-align: middle;-webkit-border-radius: 0px;-moz-border-radius: 0px;border-radius: 0px;/*border: 1px solid #BBB;*/font-size:12px;}
+.info, .error,.success {}
+.info {color: #4A84BC;border-color: #C6E3FF;background-color: #E6F3FF;}
+/*.error,.Validform_wrong{color: #bd6767;border-color: #f1bdbd;background-color: #ffdddd;}*/
+.success,.Validform_right{color: #1ea133;border-color: #a9ecb4;background-color: #dffbe4;}
+.loginForm .Validform_wrong,.loginForm .Validform_right{margin-left:0;}
+input:-webkit-autofill{background-color:#fff;}
+.form-control{display:block;}

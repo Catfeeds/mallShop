@@ -1,0 +1,508 @@
+<div id = "public" style="display: none"  >
+    <div class="drop-item" style="position: relative;">
+    <div class="header-img div-minheight2" data-state="2" data-fengmian = "0" data-boolurl= "0" data-id="" data-imgid = ""  data-src =""  data-title="" data-author ="" data-zhaiyao="" data-zhengwen = "" data-url="">
+        <div class="mouseover_bj">
+        	<a href="#"><img class="qb" src = "{lanrain::RES}/img/qb1.png" style="width: 20px;height: 20px;" ></a>
+        	<a href="#"><img class="ljt" src = "{lanrain::RES}/img/ljt1.png" style="width: 20px;height: 20px;"></a>
+        </div>
+        <label class = "title">标题</label>
+        <input class="form-control span2 shareimg" type="hidden" value="">
+        <img class = "title_img" style ="width:100px;height:100px;"src="{lanrain::RES}/img/baseimg.png">
+    </div>
+</div>
+</div>
+<div class="bianji-div">
+        <div class="upload-img upload-flt ">
+            <div class="text-header margin-div"  id="dropzone"  >
+                <div class="header-img div-minheight curt"  data-fengmian = "<?php echo $list[0]['show_cover_pic']?$list[0]['show_cover_pic']:'0';?>" data-boolurl= "<?php echo $list[0]['url']?$list[0]['url']:'0';?>" data-state="1" data-id="<?php echo $list[0]['id'];?>" data-imgid = "<?php echo $list[0]['thumb_media_id'];?>" data-src ="<?php echo $list[0]['thumb_media'];?>" data-title="<?php echo $list[0]['title'];?>" data-author ="<?php echo $list[0]['author'];?>" data-zhaiyao="<?php echo $list[0]['digest'];?>" data-zhengwen = "<?php echo $list[0]['content'];?>" data-url="<?php echo $list[0]['url'];?>">
+                    <div class="mouseover_bj">
+                        <a href="#"><img class="qb" src = "{lanrain::RES}/img/qb1.png" style="width: 20px;height: 20px;top:120px;left:48%;" ></a>
+                    </div>                 
+                    <input class="form-control span2 shareimg" type="hidden" value="">
+                 	<img id="title_img" class="title_img" style ="width:299px;height:170px;"src="<?php echo $list[0]['thumb_media'] ? $list[0]['thumb_media'] : './Tpl/User/default/common/img/fmtp.png';?>">
+                    <p class="title"style="height: 14px;"><?php echo $list[0]['title'];?></p>
+                </div>
+                <?php 
+					if($list){
+						foreach($list as $key=>$val){
+							if($key > 0){
+				?>
+	        	<div class="drop-item" style="position: relative;" >
+				    <div class="header-img div-minheight2"  data-fengmian = "<?php echo $val['show_cover_pic']?$val['show_cover_pic']:'0';?>" data-boolurl= "<?php echo $val['url']?$val['url']:'0';?>"  data-state="2" data-id="<?php echo $val['id'];?>" data-imgid = "<?php echo $val['thumb_media_id'];?>"  data-src ="<?php echo $val['thumb_media'];?>"  data-title="<?php echo $val['title'];?>" data-author ="<?php echo $val['author'];?>" data-zhaiyao="<?php echo $val['digest'];?>" data-zhengwen = "<?php echo $val['content'];?>" data-url="<?php echo $val['url'];?>">
+				        <div class="mouseover_bj">
+				        	<a href="#"><img class="qb" src = "{lanrain::RES}/img/qb1.png" style="width: 20px;height: 20px;" ></a>
+				        	<a class="delnews" data-newsid="<?php echo $val['id'];?>" href="#"><img class="ljt" src = "{lanrain::RES}/img/ljt1.png" style="width: 20px;height: 20px;"></a>
+				        </div>
+				        <label class = "title"><?php echo $val['title'];?></label>
+				        <input class="form-control span2 shareimg" type="hidden" value="">    
+				        <img class = "title_img" style ="width:100px;height:100px;"src="<?php echo $val['thumb_media']?$val['thumb_media']:'./Tpl/User/default/common/img/baseimg.png';?>">
+				    </div>
+				</div>
+				<?php }}}?>
+        	</div>
+            <a class="addto-div" href="#">+</a>
+    	</div>
+        <div class="message-div">
+            <div class="message-edit1">
+                <label >标题<span>（必填）</span></label>
+                <div class="float-sp">
+                    <input type="text" id="title" maxlength="64" value="<?php echo $list[0]['title'];?>" />
+                    <span><b class="lastbit1">0</b>/64</span>
+                </div>
+                <label for="author">作者<span>（选填）</span></label>
+                <div class="float-sp">
+                    <input type="text" id="author" maxlength="8" value="<?php echo $list[0]['author'];?>"/>
+                    <span><b class = "lastbit2">0</b>/8</span>
+                </div>
+                <div class="xuanzea-div">
+                    <p>封面<span class = "tbtbtb">（大图片建议尺寸900像素*500像素）</span></p>
+                    <div class="fmt--div" <?php if($list[0]['thumb_media'] == ''){echo 'style="display:none"';}else{echo 'style="display:block"';}?> >
+                        <img class="fmt-img" src="<?php echo $list[0]['thumb_media']?$list[0]['thumb_media']:'./Tpl/User/default/common/img/baseimg.png';?>">
+                        <a><span class = "fmt-dele">删除</span></a>
+                    </div>
+	                <button  class="bendi-div add2img2">本地上传</button>
+                    <div class="bike-d">
+                        <input type="checkbox" id="fmtp"  class="fmtp"/>
+                        <label for="fmtp" class="xszw-lb">封面图片显示在正文中</label>
+                    </div>
+                </div>
+                <label >摘要<span>（选填，该摘要只在发送单条图文消息时显示）</span></label>
+                <textarea rows="10" cols="30" id="zhaiyao"><?php echo $list[0]['digest']?></textarea>
+                <span class="zyzs-sp"><b class="lastbit3">0</b>/120</span>
+                <label for="title">正文<span style="color: red">（必填，正文里面的图片目前只支持通过编辑器上传不支持粘贴，且只能使用jpg或png格式）</span></label>
+                <script id="info-asa2" name="content" type="text/plain" style="width:100%;"><?php echo htmlspecialchars_decode($list[0]['content'])?></script>
+                <div class="bike-d"> 
+                    <input type="checkbox" id="ywlj" class = "ywlj"/>
+                    <label for="ywlj">原文链接</label>
+                    <input id = "url" class="span3" value="<?php echo $list[0]['url'];?>">
+                </div>
+                <p class="bjhd-p">编辑好的图文消息，需要点击“保存并群发”才能发送到关注者手机上。</p>
+            </div>
+        </div>
+
+	</div>
+
+    <hr>
+    <div class="form-actions baocu-btn">
+        <button id = "save"  class="btn btn-primary mr20 ">保存</button>
+        <button id = "look"  class="btn btn-success ml20  memberTagAddButton7" >预览</button>
+    </div>
+    <div class="demo-modal modal  hide fade memberTagAddBox7" style=" width: 530px;z-index: 99999">
+        <div class="modal-header"><a class="close" data-dismiss="modal">×</a>
+            <h3><span>发送预览</span></h3>
+        </div>
+        <form class="form-horizontal widget-body">
+            <div class="control-group">
+                <div class="controls">
+                      <p>关注公众号后，才能接收图文消息预览</p>
+                    <br>
+                       <input id="wxname" class="span3 srwxh-ipt" type="text" value="" style="height: 30px;" placeholder="请输入微信号">
+                  </div>
+            </div>
+        </form>
+        <div class="modal-footer">
+            <button id = "sure_look" data-dismiss="modal" class="btn btn-small btn-primary" type="submit" >确认</button>
+            <a href="javascript:void(0);" data-dismiss="modal" class="btn btn-small btn-default">取消</a>
+        </div>
+    </div>
+
+<script src="{lanrain::RES}/js/json2.js"></script>
+<script>
+$(function(){
+	var txt = Number($('#title').val().length);
+	$(".lastbit1").text(txt);
+	var txt2 = Number($('#author').val().length);
+	$(".lastbit2").text(txt2);
+})
+</script>
+<script>
+    $(function(){
+    	$("#url").hide();
+    	init();
+    	function init(){
+    		var a = Number($(".curt").attr("data-fengmian"));       		
+    		if(a==0){
+    			$(".fmtp").prop('checked',false); 
+    		}else if (a==1){
+    			$(".fmtp").prop('checked',true); 
+    		}    		
+    		var b = $(".curt").attr("data-boolurl");   		
+            if(b=='0'){
+            	$(".ywlj").prop('checked',false); 
+    		}else{
+    			$(".ywlj").prop('checked',true);
+    			$("#url").show();
+    		}
+    	}
+       // var ue = UE.getEditor("info");
+        //sh上传图片
+        $(".bendi-div").on("click",function(){
+         	 $(".fmt--div").show();   
+        });
+        //删除
+        $(".fmt-dele").bind("click",function(){
+        	 $(".fmt-img").attr("src","");
+        	 $(".fmt--div").hide();
+       	     var src = "./Tpl/User/default/common/img/baseimg.png";
+       	     $(".curt").find(".title_img").attr("src","");
+       	     $(".curt").find(".title_img").attr("src",src);
+        });
+        
+      //删除图文
+        $(".delnews").click(function(){
+        	 var newsid = $(this).attr("data-newsid");
+        	 var manynewsid = '<?php echo $manyid;?>';
+        	 $('.loading').show();
+        	 $.post("<?php echo U('MessageWechatsAuto/delnews');?>",{newsid:newsid,m_id:manynewsid},
+       				function(data){
+        		 			$('.loading').hide();
+		        			if(data.code == '200'){
+		        				return true;
+		       				}else{
+		       					return false;
+		       				}
+       				},"json"
+       			);
+        });
+      
+        //原文链接checkbox隐藏显示
+        $("#ywlj").bind("click",function(){
+        	   $(".curt").attr("data-boolurl","");
+            if($(this).is(':checked')==true){
+                $("#url").show();
+                $(".curt").attr("data-boolurl","1");
+            }else{
+                $("#url").hide();
+                $(".curt").attr("data-boolurl","0");
+            }
+        });
+        
+        //封面设置
+
+        $("#fmtp").bind("click",function(){
+        	   $(".curt").attr("data-fengmian","");
+            if($(this).is(':checked')==true){
+                $(".curt").attr("data-fengmian","1");
+            }else{
+                $(".curt").attr("data-fengmian","0");
+            }
+        });
+        
+        
+        //双向绑定数据标题
+        $('#title').bind('input propertychange', function() {
+            var haszi = Number($(this).val().length);
+            $(".lastbit1").text("");
+            $(".lastbit1").text(haszi);
+            var context = $(this).val();
+            $(".text-header").find(".curt").find(".title").text("");
+            $(".text-header").find(".curt").find(".title").text(context);
+        });
+        //计算作者的字数
+        $('#author').bind('input propertychange', function(){
+            var haszi = Number($(this).val().length);
+            $(".lastbit2").text("");
+            $(".lastbit2").text(haszi);
+        });
+        //计算摘要的字数
+        $('#zhaiyao').bind('input propertychange', function(){
+            var haszi = Number($(this).val().length);
+            $(".lastbit3").text("");
+            $(".lastbit3").text(haszi);
+        });
+        //加号
+        $(".addto-div").bind("click",function(){
+           var num =  $(".text-header").find(".header-img").length;
+            if(num<9){
+               var context = $("#public").html( );
+               $(".margin-div").append(context);
+                getlastdom();
+                getcurtdom();
+                changetop();
+            }else{
+               alertTan("您最多只能创建8个图文消息",'warn');
+            }
+        });
+        //鼠标经过时候显示黑影
+        $(".mouseover_bj").hide();
+        var dom = $(".header-img");
+        $(document).on("mouseover",".header-img",function(){
+            $(".header-img").find(".mouseover_bj").hide();
+            $(this).find(".mouseover_bj").show();
+        });
+        $(document).on("mouseout",".header-img",function(){
+            $(".header-img").find(".mouseover_bj").hide();
+        });
+        $(document).on("mouseover",".qb",function(){
+            $(this).attr("src","")
+            $(this).attr("src","{lanrain::RES}/img/qb2.png");
+        });
+        $(document).on("mouseout",".qb",function(){
+            $(this).attr("src","")
+            $(this).attr("src","{lanrain::RES}/img/qb1.png");
+        });
+        $(document).on("mouseover",".ljt",function(){
+            $(this).attr("src","")
+            $(this).attr("src","{lanrain::RES}/img/ljt2.png");
+        });
+        $(document).on("mouseout",".ljt",function(){
+            $(this).attr("src","")
+            $(this).attr("src","{lanrain::RES}/img/ljt1.png");
+        });
+        $(document).on("click",".qb",function(){   //获取当前编辑
+            $(".header-img").removeClass("curt");
+            $(this).parents(".header-img").addClass("curt");
+            changetop();
+            
+        });
+        $(document).on("click",".ljt",function(){  //删除当前dom
+            if(( $(this).parents(".header-img").hasClass("curt"))&&($(this).parents(".header-img").hasClass("last"))){  //如果删除的是最后一列,重新定位当前页
+                $(".header-img").removeClass("curt");
+                $(".div-minheight").addClass("curt");
+            }
+            $(this).parents(".header-img").remove();//删除本页
+            getlastdom(); //重新获取最后一个dom
+            changetop();//重新定位form表单
+        });
+        $(document).on("focusout","#title",function(){
+               var title =  $(this).val();
+               $(".curt").attr("data-title","");
+               $(".curt").attr("data-title",title);
+        });
+        $(document).on("focusout","#author",function(){
+            var author =  $(this).val();
+            $(".curt").attr("data-author","");
+            $(".curt").attr("data-author",author);
+        });
+        $(document).on("focusout","#zhaiyao",function(){
+            var zhaiyao =  $(this).val();
+            $(".curt").attr("data-zhaiyao","");
+            $(".curt").attr("data-zhaiyao",zhaiyao);
+        });
+        //编辑器内容发生改变的时候产生的变化//失去焦点事件
+        ueasa2.addListener( 'blur', function( editor ) {
+            var context =ueasa2.getContent();
+            $(".curt").attr("data-zhengwen","");
+            $(".curt").attr("data-zhengwen",context);
+        });
+
+        
+        $(document).on("focusout","#url",function(){
+            var url =  $(this).val();
+            $(".curt").attr("data-url","");
+            $(".curt").attr("data-url",url);
+        });
+
+      function changetop(){
+
+    	      if($(".curt").attr("data-state")=="1"){
+    	    	  $(".tbtbtb").text(" ");
+    	    	  $(".tbtbtb").text("（大图片建议尺寸900像素*500像素）");
+    	      }else if($(".curt").attr("data-state")=="2"){
+    	     	  $(".tbtbtb").text(" ");
+    	    	  $(".tbtbtb").text("（大图片建议尺寸200像素*200像素）");
+    	      }
+            /* var top = Number($(".curt").offset().top)-150+21;
+            $(".message-div").css("margin-top",top); */
+            var title = $(".curt").attr("data-title");
+            var author = $(".curt").attr("data-author");
+            var zhaiyao = $(".curt").attr("data-zhaiyao");
+            var zhengwen = $(".curt").attr("data-zhengwen");
+            var url = $(".curt").attr("data-url");
+            var src = $(".curt").find(".title_img").attr("src");
+            
+            var author_lenth = $(".curt").attr("data-author").length;         
+            var title_lenth =  $(".curt").attr("data-title").length;
+            var zhaiyao_lenth =  $(".curt").attr("data-zhaiyao").length;
+            var zhengwen_lenth =  $(".curt").attr("data-zhengwen").length;
+            	
+            $("#title").val("");
+            $("#author").val("");
+            $("#zhaiyao").val("");
+            $("#url").val("");
+            $(".fmt-img").attr("src","");
+            
+            $(".lastbit1").text("");
+            $(".lastbit2").text("");
+            $(".lastbit3").text("");
+            
+            $("#title").val(title);
+            $("#author").val(author);
+            $("#zhaiyao").val(zhaiyao);
+            ueasa2.setContent(zhengwen);
+            $("#url").val(url);
+            $(".fmt-img").attr("src",src);
+            var tt = "{lanrain::RES}/img/baseimg.png";
+            if(src==tt){
+              $(".fmt--div").hide();
+            }else{
+            	 $(".fmt--div").show();
+            }
+            
+            $(".lastbit1").text(title_lenth);
+            $(".lastbit2").text(author_lenth);
+            $(".lastbit3").text(zhaiyao_lenth);
+           
+            
+        }
+        function getlastdom(){
+            $(".text-header").find(".header-img").removeClass("last");
+            $(".text-header").find(".header-img").last().addClass("last");
+        }
+        function getcurtdom(){
+            $(".text-header").find(".header-img").removeClass("curt");
+            $(".text-header").find(".header-img").last().addClass("curt");
+        }
+
+        $("#save").click(function(){
+            var show_cover_pic ;
+            var json; //= new Array(2);
+            var parms= new Array();//定一个二维数组
+            if($("#fmtp").is(':checked')==true){
+                show_cover_pic = "1"; //表示选中
+            }else{
+                show_cover_pic = "0"; //表示没有
+            }
+            $(".text-header").find(".header-img").each(function(i){
+            	var title = $(this).attr("data-title");
+            	var author = $(this).attr("data-author");
+            	var digest = $(this).attr("data-zhaiyao");
+            	var content = $(this).attr("data-zhengwen");
+            	var url = $(this).attr("data-url");
+            	var src = $(this).attr("data-src");
+            	var imgid = $(this).attr("data-imgid");
+            	var id = $(this).attr("data-id");
+            	json = {"id":id,"thumb_media_id":imgid,"author":author,"title":title,"content_source_url":url,"content":content,"digest":digest,"show_cover_pic":show_cover_pic,"src":src};
+               	var obj = JSON.stringify(json);
+                parms.push(obj);
+            });
+            var type = '<?php echo $contenttype;?>';
+            var manyid = '<?php echo $manyid;?>';
+           	var value = '['+parms+']';
+           	$('.loading').show();
+           	$.post("<?php echo U('MessageWechatsAuto/manyNewsSet');?>",{manyid:manyid,type:type,jsons:value},
+      				function(data){
+           				if(data.codes == '300'){
+           					$(".loading").hide();
+      						alertTan(data.mag3,'error');
+           				}else if(data.codes == '600'){
+           					$(".loading").hide();
+           					alertTan(data.mag6,'error');
+           				}else if(data.codes == '700'){
+           					$(".loading").hide();
+           					alertTan(data.mag7,'error');
+           				}else{
+           					if(data.code == '200'){
+          						$(".loading").hide();
+          						alertTan(data.msg);
+        						window.location.href ="<?php echo U($contenttype.'/set');?>";
+          					}else{
+          						$(".loading").hide();
+          						alertTan(data.msg,'error');			      		            		   
+          					}
+           				}
+      				},"json"
+      			);
+        });
+        $("#look").on("click",function(){
+            $(".memberTagAddBox7").modal({
+                backdrop:true,
+                keyboard:true,
+                show:true
+            });
+
+        });
+        
+        function jsontoString(arr) {
+            var length = arr.length;
+            var jsontoString ="";
+            for(var i=0;i<length;i++) {
+                jsontoString = jsontoString+arr[i];
+            }
+            return jsontoString;
+        }
+        $("#sure_look").click(function(){
+          	var wxname = $("#wxname").val();
+            var show_cover_pic ;
+            var json; //= new Array(2);
+            var parms= new Array();//定一个二维数组
+            if($("#fmtp").is(':checked')==true){
+                show_cover_pic = "1"; //表示选中
+            }else{
+                show_cover_pic = "0"; //表示没有
+            }
+            $(".text-header").find(".header-img").each(function(i){
+            	var title = $(this).attr("data-title");
+            	var author = $(this).attr("data-author");
+            	var digest = $(this).attr("data-zhaiyao");
+            	var content = $(this).attr("data-zhengwen");
+            	var url = $(this).attr("data-url");
+            	var src = $(this).attr("data-src");
+            	var imgid = $(this).attr("data-imgid");
+            	json = {"thumb_media_id":imgid,"author":author,"title":title,"content_source_url":url,"content":content,"digest":digest,"show_cover_pic":show_cover_pic,"src":src};
+               	var obj = JSON.stringify(json);
+                parms.push(obj);
+            });
+           	var value = '['+parms+']';
+       		if(wxname == ''){
+        		alertTan('请输入正确的微信号','warn');
+        	}else{
+        		$('.loading').show();
+        		$.post("<?php echo U('MessageWechatsAuto/preview');?>",{wxname:wxname,jsons:value},
+          				function(data){
+		        			if(data.codes == '300'){
+		       					$(".loading").hide();
+		       					alertTan(data.mag3,'error');
+		       				}else if(data.codes == '600'){
+	           					$(".loading").hide();
+	           					alertTan(data.mag6,'error');
+	           				}else if(data.codes == '700'){
+	           					$(".loading").hide();
+	           					alertTan(data.mag7,'error');
+	           				}else{
+	          					if(data.code == '200'){
+	          						$(".loading").hide();
+	          						alertTan("发送预览成功，请留意你的手机微信");
+	        						//window.location.href ="<?php echo U('MessageWechatsAuto/manyNewsList');?>";
+	          					}else{
+	          						$(".loading").hide();
+	          						alertTan(data.msg,'error');			      		            		   
+	          					}
+		       				}
+          				},"json"
+          			);
+        	} 
+        });
+    });
+</script>
+<script src='{lanrain::RES}/js/jquery_and_jqueryui.js'></script>
+<script src='{lanrain::RES}/js/bootstrap.min.js'></script>
+<script>
+    $(document).ready(function(){
+
+
+        $('.drag').draggable({
+            appendTo: 'body',
+            helper: 'clone'
+        });
+
+        $('#dropzone').droppable({
+            activeClass: 'active',
+            hoverClass: 'hover',
+            accept: ":not(.ui-sortable-helper)", // Reject clones generated by sortable
+            drop: function (e, ui) {
+                var $el = $('<div class="drop-item"><details><summary>' + ui.draggable.text() + '</summary><div><label>More Data</label><input type="text" /></div></details></div>');
+                $el.append($('<button type="button" class="btn btn-default btn-xs remove"><span class="glyphicon glyphicon-trash"></span></button>').click(function () { $(this).parent().detach(); }));
+                $(this).append($el);
+            }
+        }).sortable({
+            items: '.drop-item',
+            sort: function() {
+                // gets added unintentionally by droppable interacting with sortable
+                // using connectWithSortable fixes this, but doesn't allow you to customize active/hoverClass options
+                $( this ).removeClass( "active" );
+            }
+        });
+    });
+</script>
+</script>

@@ -1,0 +1,30 @@
+<include file="Public:S5NewHead" />
+<div class="title_top"><?php if($type ==1){echo '直销';}elseif($type == 2){echo '经销';}elseif($type == 3){echo '区域';}?>订单</div>
+<div class="dl_subnavbg">
+    <a href="<?php echo U('MallExhibitionPartner/mySalesOrderList',array('orderstatus'=>9,'type'=>$type))?>"><div class="dl_subnav">
+    已完成订单
+    <div class="line"></div>
+    </div></a>
+    
+    <a href="<?php echo U('MallExhibitionPartner/mySalesOrderList',array('orderstatus'=>8,'type'=>$type))?>"><div class="dl_subnav">
+    未完成订单
+    <div class="line"></div>
+    </div></a>
+    
+    <a href="<?php echo U('MallExhibitionPartner/mySalesOrderList',array('orderstatus'=>10,'type'=>$type))?>"><div class="dl_subnav">
+    疑难订单
+    <div class="line"></div>
+    </div></a>
+    
+    <a href="<?php echo U('MallExhibitionPartner/myExhibitionOrder')?>"><div class="dl_subnav">
+    申请提现
+    <div class="line"></div>
+    </div></a>
+    
+   <a href="<?php echo U('MallExhibitionPartner/myExhibitionWithDrawCashList')?>"><div class="dl_subnav">
+    提现记录
+    <div class="line"></div>
+    </div></a>
+</div>
+<include file="Public:weiXinNotShareSet"/>
+<include file="Public:footer"/>

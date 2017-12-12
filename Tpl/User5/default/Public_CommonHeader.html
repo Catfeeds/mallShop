@@ -1,0 +1,308 @@
+    <div class="global-nav clearfix">
+        <div class="left-select-row">
+            <div class="select-hd"><span>请选择常用快捷功能</span><b class="icon-pull-down"></b></div>
+            <ul class="select-bd">
+                <li class="js-url-click-quite" id="no1" data-url="<?php echo U('Wechat/lists');?>">API管理</li>
+                <li class="js-url-click-quite" id="no2" data-url="<?php echo U('Wei/index');?>">微页面</li>
+                <!-- <li id="no3">功能三</li> -->
+            </ul>
+        </div>
+		<script>
+			$(document).on('click','.js-url-click-quite',function(){
+				var url = $(this).attr('data-url');
+				window.location.href = url;
+			});
+		</script>
+        <div class="content-col js-item-active">
+            <!-- 给被选中的栏目追加 item-active 类-->
+            <?php if(array_intersect(array(1,2,3,23,24,26),session('S5permissions'))){?>
+            <div data-class="js-manage-menu" class="item-col <?php if($commonheader == 'Quick' ||$commonheader == 'User' ||$commonheader == 'API' || $commonheader == 'Mat' || $commonheader == 'WEI'){echo 'item-active';}?>">
+                <a href="javascript:void(0);" class="js-manage-click">
+                    <i class="icon icons-1"></i>
+                    <span>管理</span>
+                </a>
+            </div>
+            <?php }?>
+            <?php if(array_intersect(array(22,27,29,40,41),session('S5permissions'))){?>
+            <div data-class="js-crm-menu" class="item-col <?php if($commonheader=='Crmactivity'||$commonheader=='EditIntegral' ||$commonheader=='Trading' || $commonheader=='Member' || $commonheader=='intBase'|| $commonheader=='Vouchers' || $commonheader=='Storedvalue' || $commonheader=='Rank' || $commonheader=='memberMarketingActivitiesVoucherInfo'){echo 'item-active';}?>">
+                <a href="javascript:void(0);" class="js-crm-click">
+                    <i class="icon icons-2"></i>
+                    <span>CRM</span>
+                </a>
+            </div>
+            <?php }?>
+            <?php if(array_intersect(array(5,6,7,8,9,11,12,14,15,16,17,19,20,25,43,44),session('S5permissions'))){?>
+            <div data-class="js-scene-menu" class="item-col <?php if($commonheader=='ConsultTable'||$commonheader == 'bookList' || $commonheader == 'projectList' || $commonheader=='Survey' || $commonheader=='Discou' || $commonheader=='Apply' || $commonheader=='eshopGood' || $commonheader=='eshopDiscount' || $commonheader=='eshopOrder' || $commonheader=='eshopFreight' || $commonheader=='noticesNew' || $commonheader=='noticesNotReturn' || $commonheader=='noticesReturn' || $commonheader == 'HelperSet' || $commonheader == 'ShopCashier' || $commonheader == 'UseVouchers' || $commonheader == 'ShanHui' || $commonheader == 'TakeOut'){echo 'item-active';}?>">
+                <a href="javascript:void(0);" class="js-scene-click">
+                    <i class="icon icons-3"></i>
+                    <span>场景</span>
+                </a>
+            </div>
+            <?php }?>
+            <?php if(array_intersect(array(28,42),session('S5permissions'))){?>
+            <div data-class="js-appreciation-menu" class="item-col <?php if($commonheader=='sms' || $commonheader=='heading'){ echo 'item-active';}?>">
+                <a href="javascript:void(0);" class="js-appreciation-click">
+                    <i class="icon icons-4"></i>
+                    <span>增值</span>
+                </a>
+            </div>
+            <?php }?>
+        </div>
+    </div>
+    <script>
+    $(function(){
+    	$(document).ready(function(){
+    		var isitem = 1;
+    		$('.js-item-active div').each(function(index){
+    			if($(this).hasClass('item-active')){
+    				isitem = 2;
+    			}
+    		});
+    		//console.log(isitem);
+    		if(isitem == 1){
+	    		$('.js-item-active').children("div:eq(0)").addClass('item-active');
+	    		var jsclass = $('.js-item-active').children("div:eq(0)").attr('data-class');
+				if($('.'+jsclass).length<=0){
+					$('.js-scrm5-body').css("padding-left","0");
+				}
+	    		$('.'+jsclass).show();
+    		}
+    	});
+    	//切换管理菜单
+		$('.js-manage-click').click(function(){
+			$('.js-scrm5-body').css("padding-left",'');
+			$(this).parent().addClass('item-active');
+			$('.js-crm-click').parent().removeClass('item-active');
+			$('.js-scene-click').parent().removeClass('item-active');
+			$('.js-appreciation-click').parent().removeClass('item-active');
+			$('.js-appreciation-menu').hide();
+			$('.js-crm-menu').hide();
+			$('.js-scene-menu').hide();
+			$('.js-manage-menu').show();
+	    });
+		//切换CRM菜单
+		 $('.js-crm-click').click(function(){
+			$(this).parent().addClass('item-active');
+			$('.js-scrm5-body').css("padding-left",'');
+			$('.js-manage-click').parent().removeClass('item-active');
+			$('.js-scene-click').parent().removeClass('item-active');
+			$('.js-appreciation-click').parent().removeClass('item-active');
+			$('.js-appreciation-menu').hide();
+			$('.js-manage-menu').hide();
+			$('.js-scene-menu').hide();
+			$('.js-crm-menu').show();
+		}); 
+		//切换场景菜单
+		$('.js-scene-click').click(function(){
+			$('.js-scrm5-body').css("padding-left",'');
+			$(this).parent().addClass('item-active');
+			$('.js-crm-click').parent().removeClass('item-active');
+			$('.js-manage-click').parent().removeClass('item-active');
+			$('.js-appreciation-click').parent().removeClass('item-active');
+			$('.js-appreciation-menu').hide();
+			$('.js-crm-menu').hide();
+			$('.js-manage-menu').hide();
+			$('.js-scene-menu').show();
+		});
+		//切换增值菜单
+		$('.js-appreciation-click').click(function(){
+			$('.js-scrm5-body').css("padding-left",'');
+			$(this).parent().addClass('item-active');
+			$('.js-crm-click').parent().removeClass('item-active');
+			$('.js-scene-click').parent().removeClass('item-active');
+			$('.js-manage-click').parent().removeClass('item-active');
+			$('.js-manage-menu').hide();
+			$('.js-crm-menu').hide();
+			$('.js-scene-menu').hide();
+			$('.js-appreciation-menu').show();
+		});
+    });
+    </script>
+    <!-- header end -->
+
+    <!-- body begin -->
+    <div class="scrm5-body clearfix js-scrm5-body" <?php if(count(session('S5permissions')) <= 2){echo 'style="padding-left:0;"';}?>>
+    <?php if(count(session('S5permissions')) > 2){?>
+        <!-- 管理  左边栏菜单 给被选中的栏目的li追加 class="item-active" -->
+	        <div class="sidebar-row js-manage-menu" <?php if($commonheader == 'Quick' ||$commonheader == 'User' ||$commonheader == 'API' || $commonheader == 'Mat' || $commonheader == 'WEI'){echo 'style="display:block"';}else{echo 'style="display:none"';}?>>
+	            <ul class="sidebar-box">
+	                <?php if(in_array(1,session('S5permissions'))){?>
+		                <li class="sidebar-class-1 <?php if($commonheader == 'API'){echo 'item-active';}?>">
+		                    <span><a href="<?php echo U('Wechat/lists')?>"><i class="icon API-icon"></i>我的API接入</a></span>
+		                </li>
+	                <?php }?>
+	                <?php if(in_array(3,session('S5permissions'))){?>
+		                <li class="sidebar-class-1 <?php if($commonheader == 'WEI'){echo 'item-active';}?>">
+		                    <span><a href="<?php echo U('Wei/index')?>"><i class="icon WeiPage-icon"></i>微页面</a></span>
+		                </li>
+	                <?php }?>
+	                <?php if(in_array(2,session('S5permissions'))){?>
+		                <li class="sidebar-class-1 <?php if($commonheader == 'Mat'){echo 'item-active';}?>">
+		                    <span><a href="<?php echo U('Material/images')?>"><i class="icon fodder-icon"></i>素材库</a></span>
+		                </li>
+	                <?php }?>
+	                <?php if(in_array(23,session('S5permissions'))){?>
+		                <li class="sidebar-class-1 <?php if($commonheader == 'Quick'){echo 'item-active';}?>">
+		                    <span><a href="<?php echo U('QuickResponseCode/index')?>"><i class="icon QR-code-icon"></i>二维码管理</a></span>
+		                </li>
+	                <?php }?>
+	                <?php if(in_array(26,session('S5permissions'))){?>
+	                	<li class="sidebar-class-1 <?php if($commonheader == 'User'){echo 'item-active';}?>">
+		                    <span><a href="<?php echo U('UserDeployment/index')?>"><i class="icon system-icon"></i>账号部署</a></span>
+		                </li>
+		            <?php }?>
+		            <?php if(in_array(24,session('S5permissions'))){?>
+		                <li class="sidebar-class-1 <?php if($commonheader == 'ExportTask'){echo 'item-active';}?>">
+		                    <span><a href="<?php echo U('ExportTask/index')?>"><i class="icon Export-task-icon"></i>我的导出任务</a></span>
+		                </li>
+	                <?php }?>
+	            </ul>
+	        </div>
+        <!-- CRM -->
+        <div class="sidebar-row js-crm-menu" <?php if($commonheader=='Crmactivity'||$commonheader=='EditIntegral' ||$commonheader=='Trading' ||$commonheader=='Member' || $commonheader=='intBase' || $commonheader=='Vouchers' || $commonheader=='Storedvalue' || $commonheader=='Rank' || $commonheader=='memberMarketingActivitiesVoucherInfo'){echo 'style="display:block"';}else{echo 'style="display:none"';}?>>
+            <ul class="sidebar-box">
+            	<?php if(in_array(27,session('S5permissions'))){?>
+                <li class="sidebar-class-1 <?php if($commonheader == 'Member'){echo 'item-active';}?>">
+                    <span><a href="<?php echo U('Member/myClients');?>"><i class="icon myVIP-icon"></i>我的会员</a></span>
+                </li>
+                <?php }?>
+            	<!-- <?php if(array_intersect(array(22),session('S5permissions'))){?>
+            	<li class="sidebar-class-1 <?php if($commonheader == 'intBase'){echo 'item-active';}?>">
+                    <span><a href="javascript:void(0);"><i class="icon integral-sys-icon"></i>积分制</a></span>
+                    <ul class="sidebar-class-2 sub-list">
+                    	<?php if(in_array(22,session('S5permissions'))){?>
+						<li <?php if($commonheader == 'intBase'){echo 'class="item-active"';}?>><a href="<?php echo U('MallIntegral/base');?>">积分商城</a></li>
+						<?php }?>
+					</ul>
+                </li>
+                <?php }?> -->
+                <?php if(array_intersect(array(29),session('S5permissions'))){?>
+                <li class="sidebar-class-1 <?php if($commonheader=='intBase' || $commonheader=='EditIntegral' || $commonheader=='Vouchers' || $commonheader=='Storedvalue' || $commonheader=='Rank' || $commonheader=='memberMarketingActivitiesVoucherInfo'){echo 'item-active';}?>">
+                    <span><a href="<?php echo U('Vouchers/center');?>"><i class="icon ticket-center-icon"></i>卡券中心</a></span>
+                </li>
+                <?php }?>
+                <?php if(array_intersect(array(40),session('S5permissions'))){?>
+                <li class="sidebar-class-1 <?php if($commonheader=='Trading'){echo 'item-active';}?>">
+                    <span><a href="<?php echo U('TradingRecord/index');?>"><i class="icon deal-record-icon"></i>交易记录</a></span>
+                </li>
+                <?php }?>
+                <?php if(array_intersect(array(41),session('S5permissions'))){?>
+                <li class="sidebar-class-1 <?php if($commonheader=='Crmactivity'){echo 'item-active';}?>">
+                    <span><a href="<?php echo U('MemberGiveawayVoucher/index');?>"><i class="icon crm-msg-icon"></i>CRM活动</a></span>
+                </li>
+                <?php }?>
+            </ul>
+        </div>
+        <!-- 场景 -->
+        <div class="sidebar-row js-scene-menu" <?php if($commonheader=='ConsultTable'||$commonheader == 'bookList' || $commonheader == 'projectList' || $commonheader=='Survey' || $commonheader=='Discou' || $commonheader=='Apply' || $commonheader=='eshopGood' || $commonheader=='eshopDiscount' || $commonheader=='eshopOrder' || $commonheader=='eshopFreight' || $commonheader=='noticesNew' || $commonheader=='noticesNotReturn' || $commonheader=='noticesReturn' || $commonheader == 'HelperSet' || $commonheader == 'ShopCashier' || $commonheader == 'UseVouchers' || $commonheader == 'ShanHui' || $commonheader == 'TakeOut'){echo 'style="display:block"';}else{echo 'style="display:none"';}?>>
+            <ul class="sidebar-box">
+            	<?php if(array_intersect(array(5,6,7,8,9),session('S5permissions'))){?>
+	                <li class="sidebar-class-1 <?php if($commonheader == 'noticesNew'){echo 'item-active';}?>">
+	                    <span><a href="javascript:void(0);"><i class="icon E-shop-icon"></i>eshop</a></span>
+	                    <ul class="sidebar-class-2 sub-list">
+	                    	<?php if(in_array(5,session('S5permissions'))){?>
+								<li <?php if($commonheader == 'eshopGood'){echo 'class="item-active"';}?>><a href="<?php echo U('MallGoods/index',array('isoffshelves'=>2,'issoldout'=>2));?>">eshop商品管理</a></li>
+							<?php }?>
+							<?php if(in_array(6,session('S5permissions'))){?>
+								<li <?php if($commonheader == 'eshopDiscount'){echo 'class="item-active"';}?>><a href="<?php echo U('EshopDiscount/index');?>">eshop活动</a></li>
+							<?php }?>
+							<?php if(in_array(7,session('S5permissions'))){?>
+								<li <?php if($commonheader=='eshopOrder' || $commonheader=='eshopFreight'){echo 'class="item-active"';}?>><a href="<?php echo U('MallOrder/index',array('ordertype'=>1));?>">eshop订单管理</a></li>
+							<?php }?>
+							<!-- <?php if(in_array(8,session('S5permissions'))){?>
+								<li><a href="javascript:void(0);">eshop数据统计</a></li>
+							<?php }?> -->
+							<?php if(in_array(9,session('S5permissions'))){?>
+								<li <?php if($commonheader=='noticesNew' || $commonheader=='noticesNotReturn' || $commonheader=='noticesReturn' ){echo 'class="item-active"';}?>><a href="<?php echo U('MallCustomService/noticesNew');?>">eshop客服</a></li>
+							<?php }?>
+						</ul>
+	                </li>
+                <?php }?>
+                <!-- DMS优惠口令 -->
+                <?php if(array_intersect(array(11,12),session('S5permissions'))){?>
+	                <li class="sidebar-class-1 <?php if($commonheader == 'Discou' || $commonheader == 'Apply'){echo 'item-active';}?>">
+	                    <span><a href="javascript:void(0);"><i class="icon DMS-token-icon"></i>DMS优惠口令</a></span>
+	                    <ul class="sidebar-class-2 sub-list">
+	                    	<?php if(in_array(11,session('S5permissions'))){?>
+	                        	<li <?php if($commonheader == 'Discou'){echo 'class="item-active"';}?>><a href="<?php echo U('Dms/Discou')?>">优惠口令管理</a></li>
+	                        <?php }?>
+							<?php if(in_array(12,session('S5permissions'))){?>
+	                        	<li <?php if($commonheader == 'Apply'){echo 'class="item-active"';}?>><a href="<?php echo U('Dms/Apply')?>">代理提现申请</a></li>
+	                    	<?php }?>
+	                    </ul>
+	                </li>
+	            <?php }?>
+                <!-- 风助手 -->
+                <?php if(array_intersect(array(14,15,16),session('S5permissions'))){?>
+	                <li class="sidebar-class-1 <?php if($commonheader == 'HelperSet' || $commonheader == 'ShopCashier' || $commonheader == 'UseVouchers'){echo 'item-active';}?>">
+	                    <span><a href="javascript:void(0);"><i class="icon cashier-icon"></i>门店收银</a></span>
+	                    <ul class="sidebar-class-2 sub-list">
+							<?php if(in_array(14,session('S5permissions'))){?>
+	                        	<li <?php if($commonheader == 'HelperSet'){echo 'class="item-active"';}?>><a href="<?php echo U('HelperSet/index')?>">门店收银配置</a></li>
+	                        <?php }?>
+							<?php if(in_array(15,session('S5permissions'))){?>
+	                        	<li <?php if($commonheader == 'ShopCashier'){echo 'class="item-active"';}?>><a href="<?php echo U('ShopCashier/index')?>">门店收银历史</a></li>
+	                        <?php }?>
+							<?php if(in_array(16,session('S5permissions'))){?>
+	                        	<li <?php if($commonheader == 'UseVouchers'){echo 'class="item-active"';}?>><a href="<?php echo U('UseVouchers/index')?>">卡券核销历史</a></li>
+	                    	<?php }?>
+	                    </ul>
+	                </li>
+	            <?php }?>
+	            <!-- 闪惠 -->
+	            <?php if(in_array(25,session('S5permissions'))){?>
+		            <li class="sidebar-class-1 <?php if($commonheader == 'ShanHui'){echo 'item-active';}?>">
+	                    <span><a href="<?php echo U('ShanHui/index')?>"><i class="icon quick-privilege-icon"></i>闪惠</a></span>
+	                </li>
+                <?php }?>
+                <!-- 风外卖 -->
+                <?php if(in_array(43,session('S5permissions'))){?>
+	                <li class="sidebar-class-1 <?php if($commonheader == 'TakeOut'){echo 'item-active';}?>">
+	                    <span><a href="<?php echo U('TakeOut/index')?>"><i class="icon take-out-icon"></i>风外卖</a></span>
+	                </li>
+                <?php }?>
+                <!-- 线上调研 -->
+                <?php if(in_array(17,session('S5permissions'))){?>
+	                <li class="sidebar-class-1 <?php if($commonheader=='Survey'){echo 'item-active';}?>">
+	                    <span><a href="<?php echo U('SurveyActivity/index')?>"><i class="icon online-research-icon"></i>线上调研</a></span>
+	                </li>
+                <?php }?>
+                <!-- 手机预订 -->
+                <?php if(array_intersect(array(19,20),session('S5permissions'))){?>
+	                <li class="sidebar-class-1 <?php if($commonheader == 'bookList' || $commonheader == 'projectList'){echo 'item-active';}?>">
+	                    <span><a href="javascript:void(0);"><i class="icon mobile-book-icon"></i>手机预订</a></span>
+	                    <ul class="sidebar-class-2 sub-list">
+	                    	<?php if(in_array(19,session('S5permissions'))){?>
+	                        	<li <?php if($commonheader == 'bookList'){echo 'class="item-active"';}?>><a href="<?php echo U('MobileBook/index')?>">手机预订管理</a></li>
+	                        <?php }?>
+							<?php if(in_array(20,session('S5permissions'))){?>
+	                        	<li <?php if($commonheader == 'projectList'){echo 'class="item-active"';}?>><a href="<?php echo U('MobileBookProject/index')?>">预订项目管理</a></li>
+	                    	<?php }?>
+	                    </ul>
+	                </li>
+	            <?php }?>
+	            <!-- 咨询表单 -->
+	            <?php if(in_array(44,session('S5permissions'))){?>
+		            <li class="sidebar-class-1 <?php if($commonheader=='ConsultTable'){echo 'item-active';}?>">
+	                    <span><a href="<?php echo U('ConsultTable/index')?>"><i class="icon consult-form-icon"></i>咨询表单</a></span>
+	                </li>
+                <?php }?>
+            </ul>
+        </div>
+        <!-- 增值 -->
+        <div class="sidebar-row js-appreciation-menu" <?php if($commonheader=='sms' || $commonheader=='heading'){ echo 'style="display:block"';}else{echo 'style="display:none"';}?>>
+            <ul class="sidebar-box">
+            	<?php if(array_intersect(array(28),session('S5permissions'))){?>
+           		<li class="sidebar-class-1 <?php if($commonheader=='sms'){echo 'item-active';}?>">
+                   <span><a href="<?php echo U('SmsSend/index')?>"><i class="icon SMS-msg-icon"></i>SMS短信通道</a></span>
+                </li>
+                <?php } ?>
+                <?php if(array_intersect(array(42),session('S5permissions'))){?>
+           		<li class="sidebar-class-1 <?php if($commonheader=='heading'){echo 'item-active';}?>">
+                   <span><a href="<?php echo U('HeadingLine/index')?>"><i class="icon top-msg-icon"></i>今日头条通</a></span>
+                </li>
+                <?php } ?>
+            </ul>
+        </div>
+        <?php }?>
+        <div class="main-container">

@@ -1,0 +1,315 @@
+<include file="Public:S5NewHead" />
+<include file="Public:weiXinShareSet"/>
+<!--页面css-->
+<link rel="stylesheet" type="text/css" href="{lanrain::RES}/ScrmWap/css/ScrmWap.css?515<?php echo C('site_system_file_version'); ?>">
+<script src="{lanrain::RES}/ScrmWap/js/ScrmWap.js"></script>
+<!--crm-->
+<div class="ScrmWap-ctt Scrm_index_content">
+	<div class="ScrmWap-header pc-fixed" style="position: fixed;">
+		<a href="/index.php?g=Wap&amp;m=ScrmWap&amp;a=index&amp;companyid=1"><img class="ScrmWap-lg" src="./Tpl/Wap/default/common/ScrmWap/img/renlaifeng-lg.png" alt=""></a>
+		<i class="Navigation-icon js-Navigation-btn"></i>
+	</div>
+	<div class="ScrmWap-kv ScrmWap-kv-bj9">
+		<div class="ScrmWap-kv-box1">
+			<div class="Cooperative-application">
+				<h5 class="Cooperative-application-h5">人来风合伙人简介</h5>
+				<p class="Cooperative-application-p">为帮助人来风入驻商户创造更大价值</p>
+				<div class="Cooperative-application-form">
+					<h6>合作申请</h6>
+					<div class="Cooperative-application-li">
+						<label>姓<span style="width:24px;display: inline-block;"></span>名</label>
+						<div class="Cooperative-application-input">
+							<input type="text" name="name" value='' />
+						</div>
+					</div>
+					<div class="Cooperative-application-li">
+						<label>手机号码</label>
+						<div class="Cooperative-application-input">
+							<input type="tel" name="mobile" value='' />
+						</div>
+					</div>
+					<div class="Cooperative-application-li" style="margin-bottom: 0;">
+						<label>公司名称</label>
+						<div class="Cooperative-application-input">
+							<input type="text" name="companyname" value='' />
+						</div>
+					</div>
+					<div class="Cooperative-Submit-box"><button class="btn js-sub-asa">提&nbsp;&nbsp;&nbsp;&nbsp;交</button></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+	$(function(){
+		var subNum = 1;
+		$(".js-sub-asa").click(function(){
+			if(subNum==1){
+				 var phone = $('input[name="mobile"]').val();
+		        var yzp = /^(((13[0-9]{1})|(14[579]{1})|(15[012356789]{1})|(17[0135678]{1})|(18[0-9]{1}))+\d{8})$/;
+		        if( phone.length<1 || !yzp.test(phone)){
+		        	alert('提交失败,请填写正确的手机号');
+		            return false;
+		        }
+				subNum = 2;
+				$.post("<?php echo U('ScrmWap/Agentcooperation',array('companyid'=>1)); ?>",{
+					name:$("input[name='name']").val(),
+					companyname:$("input[name='companyname']").val(),
+					mobile:$("input[name='mobile']").val()
+				},function(data){
+					alert(data.msg);
+					if(data.code==200){
+						setTimeout("window.location.href=window.location.href",1500);
+					}else{
+						subNum = 1;
+					}
+				},'json')
+			}
+		})
+	})
+	
+	</script>
+	<div class="Agent-cooperation-li">
+		<h5 class="Agent-cooperation-h5">什么是人来风合伙人</h5>
+		<p class="Agent-cooperation-p">人来风合伙人是为帮助人来风入驻商户<br/>创造更大价值的重要力量。</p>
+		<p class="Agent-cooperation-p mt15">人来风是专注于为广大商户提供数据价值，帮助入驻商户挖掘移动红利的SCRM平台。为保障人来风商户获得更完善更有价值的服务，提升商户平台应用的有效性，强化人来风合伙人服务能力及盈利能力规范人来风SCRM市场定价，实现增值服务商品化，促进人来风SCRM平台市场生态体系正向发展，现对人来风合伙人原有身份体系进行规范，需满足以下条件，获得对应合作等级权益。</p>
+		<img class="mt15" src="{lanrain::RES}/ScrmWap/img/Agent-1.jpg" alt="">
+		<h6 class="Agent-cooperation-h6">一个好产品，一个大梦想</h6>
+		<p class="Agent-cooperation-p1">人来风中国区合伙人分布图</p>
+		<div class="Agent-cooperation-table-box">
+			<table class="Agent-cooperation-table">
+				<tbody>
+				<tr>
+					<td>北京&nbsp;&nbsp;</td>
+					<td>服务站：1</td>
+					<td>服务伙伴：17</td>
+				</tr>
+				<tr>
+					<td>上海</td>
+					<td>总部</td>
+					<td>服务伙伴：25</td>
+				</tr>
+				<tr>
+					<td>广州</td>
+					<td>服务站：1</td>
+					<td>服务伙伴：3</td>
+				</tr>
+				<tr>
+					<td>深圳</td>
+					<td>服务站：2</td>
+					<td>—</td>
+				</tr>
+				<tr>
+					<td>成都</td>
+					<td>服务站：1</td>
+					<td>服务伙伴：5</td>
+				</tr>
+				<tr>
+					<td>杭州</td>
+					<td>—</td>
+					<td>服务伙伴：1</td>
+				</tr>
+				<tr>
+					<td>西安</td>
+					<td>—</td>
+					<td>服务伙伴：0</td>
+				</tr>
+				<tr>
+					<td>苏州</td>
+					<td>—</td>
+					<td>服务伙伴：0</td>
+				</tr>
+				<tr>
+					<td>南京</td>
+					<td>—</td>
+					<td>服务伙伴：0</td>
+				</tr>
+				<tr>
+					<td>重庆</td>
+					<td>—</td>
+					<td>服务伙伴：1</td>
+				</tr>
+				<tr>
+					<td>天津</td>
+					<td>—</td>
+					<td>服务伙伴：1</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+	<!--<div class="Agent-cooperation-li">
+		<h5 class="Agent-cooperation-h5">人来风SCRM市场定价</h5>
+		<ul class="Price-ul">
+			<li>
+				<div class="Price-box">
+					<h6>首次入驻</h6>
+					<p><span>￥</span>9600</p>
+					<div class="Price-btn-box"><button class="btn">1年期</button></div>
+				</div>
+			</li>
+			<li>
+				<div class="Price-box">
+					<h6>首次入驻</h6>
+					<p><span>￥</span>16500</p>
+					<div class="Price-btn-box"><button class="btn">2年期</button></div>
+				</div>
+			</li>
+			<li>
+				<div class="Price-box">
+					<h6>次年续费</h6>
+					<p class="cl-z"><span>￥</span>8800</p>
+					<div class="Price-btn-box"><button class="btn cl-z">1年期</button></div>
+				</div>
+			</li>
+			<li>
+				<div class="Price-box">
+					<h6>次年续费</h6>
+					<p class="cl-z"><span>￥</span>16500</p>
+					<div class="Price-btn-box"><button class="btn cl-z">2年期</button></div>
+				</div>
+			</li>
+		</ul>
+	</div>-->
+	<div class="Agent-cooperation-li">
+		<h5 class="Agent-cooperation-h5">人来风合伙人等级制</h5>
+		<div class="Grade-system">
+			<div class="Grade-system-li active-Grade">
+				<h6>展业伙伴<i class="Agent-h5-icon1"></i></h6>
+				<div class="Grade-system-slide">
+					<h6>等级获取条件</h6>
+					<ol>
+						<li>个人及企业资质均可</li>
+						<li>签订展业伙伴合作协议</li>
+						<li>获取展业邀请码</li>
+					</ol>
+					<h6>等级权益</h6>
+					<ol>
+						<li>分润权益</li>
+						<li>首次入驻：900元/年/商户<br/><span class="sp-w1">首次入驻：</span>1500/2年/商户</li>
+						<li>续<span class="sp-w2">续约</span>约：800元/年/商户<br/><span class="sp-w1">续约续约：</span>1500/2年/商户<br/>(每月5号结算，永续分润）</li>
+					</ol>
+				</div>
+			</div>
+			<div class="Grade-system-li">
+				<h6>高级展业伙伴<i class="Agent-h5-icon2"></i></h6>
+				<div class="Grade-system-slide">
+					<h6>等级获取条件</h6>
+					<ol>
+						<li>必须具备企业资质</li>
+						<li>签订展业伙伴合作协议</li>
+						<li>获取展业邀请码</li>
+						<li>累积展业成单3单且对应3家签约商户真实粉丝数大于500，会员数大于100，销售额大于1000元且线上收入不低于30%</li>
+					</ol>
+					<h6>等级权益</h6>
+					<ol>
+						<li>分润权益</li>
+						<li>首次入驻：1800元/年/商户<br/><span class="sp-w1">首次入驻：</span>3000元/2年/商户</li>
+						<li>续<span class="sp-w2">续约</span>约：1600元/年/商户<br/><span class="sp-w1">续约续约：</span>3000元/2年/商户<br/>(每月5号结算，永续分润)</li>
+					</ol>
+				</div>
+			</div>
+			<div class="Grade-system-li">
+				<h6>服务伙伴<i class="Agent-h5-icon3"></i></h6>
+				<div class="Grade-system-slide">
+					<h6>等级获取条件</h6>
+					<ol>
+						<li>个人及企业资质均可</li>
+						<li>签订展业伙伴合作协议</li>
+						<li>当月累计展业成交5单或对应签约商户SCRM5统计销售总额达20000元且线上收入不低于30%</li>
+						<li>具备增值业务服务能力</li>
+					</ol>
+					<h6>等级权益</h6>
+					<ol>
+						<li>分润权益：单笔分润不低于30%</li>
+						<li>增值服务权益</li>
+						<li>地域保护</li>
+						<li>商户资源分配</li>
+						<li>品牌授权</li>
+						<li>区域市场推广支持</li>
+					</ol>
+				</div>
+			</div>
+			<div class="Grade-system-li">
+				<h6>合伙人<i class="Agent-h5-icon4"></i></h6>
+				<div class="Grade-system-slide">
+					<h6>等级获取条件</h6>
+					<ol>
+						<li>当月累计展业成交10单并且对应签约商户SCRM5统计销售总额达20000元且线上收入不低于30%</li>
+						<li>全职</li>
+						<li>具备增值业务服务能力</li>
+						<li>具备区域公司管理能力</li>
+					</ol>
+					<h6>等级权益</h6>
+					<ol>
+						<li>分润权益：不低于10%区域服务站利润分红</li>
+						<li>不低于10万区域服务站创投基金</li>
+						<li>5-15%区域服务站股份</li>
+						<li>30万及以上年薪</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="Agent-cooperation-li li-borbt">
+		<h5 class="Agent-cooperation-h5">展业伙伴签订流程</h5>
+		<div class="Agent-process-box">
+			<div class="Agent-process-box-left">
+				<div class="process-li">
+					<p>个人/企业填写<br/>《展业伙伴申请表》</p>
+					<span>1</span>
+					<i></i>
+				</div>
+				<div class="process-li" style="margin-top: 40px;">
+					<p>授权代表签字，<br/>加盖公章及合同骑缝章</p>
+					<span>3</span>
+					<i></i>
+				</div>
+				<div class="process-li" style="margin-top: 40px;">
+					<p>人来风收到合作协议，<br/>由授权代表人签章并回寄</p>
+					<span>5</span>
+					<i></i>
+				</div>
+			</div>
+			<div class="Agent-process-box-right">
+				<div class="process-li">
+					<p>签订<br/>《展业伙伴合作协议》</p>
+					<span>2</span>
+					<i></i>
+				</div>
+				<div class="process-li" style="margin-top: 40px;">
+					<p>邮件发送合同扫描件，<br/>由区域负责人确认<br/>无误后，寄送合作协议</p>
+					<span>4</span>
+					<i></i>
+				</div>
+				<div class="process-li" style="margin-top: 20px;">
+					<p>身份生效并发放<br/>有效邀请码</p>
+					<span>6</span>
+					<i></i>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<include file="Public:ScrmWapOnthebottom" />
+</div>
+<script>
+	$(".ScrmWap-kv").css({"height":$(window).height()});
+	$(".Grade-system-li>h6").click(function(){
+		if($(this).siblings(".Grade-system-slide").is(":hidden")){
+			$(this).parent(".Grade-system-li").siblings(".Grade-system-li").removeClass("active-Grade");
+			$(this).parent(".Grade-system-li").addClass("active-Grade");
+			$(this).parent(".Grade-system-li").siblings(".Grade-system-li").find(".Grade-system-slide").slideUp();
+			$(this).siblings(".Grade-system-slide").slideDown();
+		}else{
+			$(this).parent(".Grade-system-li").removeClass("active-Grade");
+			$(this).siblings(".Grade-system-slide").slideUp();
+		}
+	})
+</script>
+<include file="Public:ScrmWapNavigation" />
+<!--向上箭头-->
+<div id="ScreenSF" class="screen-scroll-first"><img src="{lanrain::RES}/ScrmWap/img/screen-scroll-first.png" alt="Rolling"></div>
+<div id="ScreenSS" class="screen-scroll-second"><img src="{lanrain::RES}/ScrmWap/img/screen-scroll-second.png" alt="Rolling"></div>
+</body>
+</html>

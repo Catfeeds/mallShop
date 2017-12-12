@@ -1,0 +1,20 @@
+<include file="Public:packetHeader"/>
+<div class="success-d">
+    <div class="get-div site__header">
+        <img class="wow tada success-get"  data-wow-delay="0.5s" data-wow-duration="1s" src="{lanrain::RES}/images/success-get.png">
+    </div>
+    <div class="receive-div">
+        <img id="close" class="success-receive" src="{lanrain::RES}/images/success-receive.png">
+        <p class="receive-p1">您将会收到微信推送的领取红包消息，<br/>
+            请关注您的微信消息哦，24小时内领取有效。</p>
+    </div>
+</div>
+</body>
+<include file="Public:packetFooter"/>
+<script>
+    new WOW().init();
+    $('#close').click(function(){
+    	wx.closeWindow();
+    });
+</script>
+</html>

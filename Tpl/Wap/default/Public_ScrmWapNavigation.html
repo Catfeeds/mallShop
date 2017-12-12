@@ -1,0 +1,42 @@
+<!--未关注-->
+<div class="ScrmWap-Not-concerned pc-fixed">
+  <div class="ScrmWap-Not-concerned-lg">
+    <img src="{lanrain::RES}/ScrmWap/img/renlaifeng-lgwgz.png" alt="">
+    <div class="ScrmWap-Not-concerned-font">
+      <h6>您尚未关注人来风SCRM</h6>
+      <p>立即关注官方微信掌握紫色星期五新品动态</p>
+    </div>
+  </div>
+  <button class="concerned-btn btn"><i class="add-icon"></i>关注</button>
+</div>
+<!--一级导航-->
+<div class="ScrmWap-Navigation-Popup js-Navigation-box pc-fixed">
+  <img class="ScrmWap-Navigation-close js-Navigation-close" src="{lanrain::RES}/ScrmWap/img/renlaifeng-closeicon.png" alt="">
+  <div class="ScrmWap-Navigation-header">
+    <a href=""><img src="{lanrain::RES}/ScrmWap/img/renlaifeng-lg.png" alt=""></a>
+  </div>
+  <div class="ScrmWap-seven-scroll">
+    <div class="ScrmWap-seven">
+      <h6 class="ScrmWap-seven-h6">首页·了解SCRM5 </h6>
+      <ul class="ScrmWap-seven-ul">
+        <li><a href="<?php echo U('ScrmWap/index',array('companyid'=>$companyid));?>"><span class="<?php if($controller=='ScrmWap'&&ACTION_NAME=='index'){echo 'active-link';} ?>">为价值而生</span></a></li>
+        <li><a href="<?php echo U('ScrmWap/crm',array('companyid'=>$companyid));?>"><span class="<?php if(ACTION_NAME=='crm'){echo 'active-link';} ?>">会员制CRM</span></a></li>
+        <li><a href="<?php echo U('ScrmWap/Eshop',array('companyid'=>$companyid));?>"><span class="<?php if(ACTION_NAME=='Eshop'){echo 'active-link';} ?>">Eshop微商城</span></a></li>
+        <li><a href="<?php echo U('ScrmWap/otwoo',array('companyid'=>$companyid));?>"><span class="<?php if(ACTION_NAME=='otwoo'){echo 'active-link';} ?>">O2O场景</span></a></li>
+        <li><a href="<?php echo U('ScrmWap/Beverly',array('companyid'=>$companyid));?>"><span class="<?php if(ACTION_NAME=='Beverly'){echo 'active-link';} ?>">专场活动</span></a></li>
+        <li><a href="<?php echo U('ScrmWap/PlatformAccess',array('companyid'=>$companyid));?>"><span class="<?php if(ACTION_NAME=='PlatformAccess'){echo 'active-link';} ?>">开放平台接入</span></a></li>
+        <li><a href="<?php echo U('ScrmWap/deploy',array('companyid'=>$companyid));?>"><span class="<?php if(ACTION_NAME=='deploy'){echo 'active-link';} ?>">部署服务</span></a></li>
+      </ul>
+    </div>
+    <ul class="ScrmWap-Navigation-ul">
+      <li><a href="<?php echo U('ScrmWap/PurpleFriday',array('companyid'=>$companyid));?>" class="<?php if(ACTION_NAME=='PurpleFriday'){echo 'active-link';} ?>">紫色星期五  </a></li>
+      <li><a href="<?php echo U('CheckCase/index',array('companyid'=>$companyid));?>" class="<?php if($controller=='CheckCase'&&ACTION_NAME=='index'){echo 'active-link';} ?>">入驻案例</a></li>
+      <li><a href="<?php echo U('ScrmWap/Whattobuy',array('companyid'=>$companyid));?>" class="<?php if(ACTION_NAME=='Whattobuy'){echo 'active-link';} ?>">续费购买</a></li>
+      <li><a href="http://bbs.mobiwind.cn/forum.php">666商户论坛</a></li>
+      <!--<li><a href="<?php echo U('ScrmWap/PurpleFriday',array('companyid'=>$companyid));?>">人来风动态</a></li>-->
+      <li><a href="<?php echo U('ScrmWap/Companyprofile',array('companyid'=>$companyid));?>" class="<?php if(ACTION_NAME=='Companyprofile'){echo 'active-link';} ?>">关于人来风</a></li>
+      <li><a href="<?php echo U('ScrmWap/Cooperationrelationship',array('companyid'=>$companyid));?>" class="<?php if(ACTION_NAME=='Cooperationrelationship'){echo 'active-link';} ?>">合作联系</a></li>
+    </ul>
+  </div>
+
+</div>

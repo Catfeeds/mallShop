@@ -1,0 +1,220 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<title>免费申请体验 Free Trial Application</title>
+<link href="{lanrain::RES}/css/base.css" rel="stylesheet" type="text/css" />
+<link href="{lanrain::RES}/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link href="{lanrain::RES}/css/wapcss.css" rel="stylesheet" type="text/css" />
+<link href="{lanrain::RES}/css/register.css" rel="stylesheet" type="text/css">
+<style>
+.control-label {width: 30%;line-height: 18px;color: #333;}
+.control-label p{display: -webkit-inline-box;width: 100%;color: #666;font-size: 10px;}
+.controls{width: 70%;}
+.controls textarea.form-control{height:68px;padding:5px;}
+</style>
+</head>
+<body>
+<div class="sidebar-content sidebar-forms">
+  <div class="login-re">
+    <div class="br logo-frame">
+      <img src="{lanrain::RES}/img/logo.png" width="200" />
+    </div>
+    <div class="br free">
+      <h3>免费申请体验</h3>
+      <p>Free Trial Application</p>
+    </div>
+  </div>
+  <div class="form-horizontal">
+  <form method="post" action="<?php echo U('Login/registerUse');?>" enctype="multipart/form-data">
+      <div class="control-group">
+        <label class="control-label"><i class="red">*</i>人来风账号<br /><p>Mobiwind Acct</p></label>
+        <div class="controls">
+          <input type="text" class="form-control"  placeholder="请输入您的人来风账号" data-rule-remote="<?php echo U('Home/Users/ajaxRegCheckUsername') ?>" data-rule-str6_16="true" data-rule-required="true" name="username">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label"><i class="red">*</i>设置密码<br /><p>Set Password</p></label>
+        <div class="controls">
+          <input type="password" class="form-control" id="password" placeholder="请设置您的密码" data-rule-pwd6_16="true" data-rule-required="true" name="password">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label"><i class="red">*</i>确认密码<br /><p>Confirm Password</p></label>
+        <div class="controls">
+          <input type="password" class="form-control" name="repeat_password" placeholder="请再次输入一遍密码" data-rule-required="true" data-rule-pwd6_16="true" data-rule-equalTo="#password">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label"><i class="red">*</i>所属行业<br /><p>Industry</p></label>
+        <div class="controls">
+          <select name="companyBusiness" id="companyBusiness" class="form-control" data-rule-required="true">
+            <option value="0">请选择您企业的所属行业</option>
+            <option value="餐饮">餐饮</option>
+            <option value="汽车">汽车</option>
+            <option value="零售">零售</option>
+            <option value="物业">物业</option>
+            <option value="医疗">医疗</option>
+            <option value="商旅">商旅</option>
+            <option value="酒店">酒店</option>
+            <option value="酒吧">酒吧</option>
+            <option value="SPA">SPA</option>
+            <option value="健身">健身</option>
+            <option value="教育">教育</option>
+            <option value="进出口贸易">进出口贸易</option>
+            <option value="其他">其他</option>
+          </select>
+          <p for="companyBusiness" class="error_tips hide"></p>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label"><i class="red">*</i>公司名<br /><p>Company Name</p></label>
+        <div class="controls">
+          <input type="text" class="form-control" placeholder="请输入您的公司名称" data-rule-maxlength="50" data-rule-required="true" name="companyName">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label"><i class="red">*</i>手机<br /><p>Mobile</p></label>
+        <div class="controls">
+          <input type="text" class="form-control"  placeholder="请输入您的手机号码" data-rule-remote="<?php echo U('Home/Users/ajaxRegCheckPhone'); ?>" data-rule-ismobile="true" data-rule-required="true" name="phone">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label"><i class="red">*</i>邮箱<br /><p>Email</p></label>
+        <div class="controls">
+          <input type="text" class="form-control" placeholder="请输入您的邮箱地址" data-rule-remote="<?php echo U('Home/Users/ajaxCheckEmail'); ?>" data-rule-maxlength="30" data-rule-email="true" data-rule-required="true" name="email">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label"><i class="red">*</i>真实姓名<br /><p>Name</p></label>
+        <div class="controls">
+          <input type="text" class="form-control" placeholder="请输入您的真实姓名" data-rule-maxlength="20" data-rule-required="true" name="truename">
+        </div>
+      </div>
+      <div class="control-group inline cf">
+        <label class="control-label">备注<br /><p>Remark</p></label>
+        <div class="controls">
+          <textarea class="form-control" name="companyRemark" id="companyRemark"></textarea>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-dark-green" name="submit" type="submit">提交申请 Submit</button>
+      </div>
+     </form>
+  </div>
+  <div class="fotbr">
+    <div class="br mb15">
+    <div class="alert  alert-info mb15"><span class="alert-icons"></span><p>提示：人来风的客户经理将会在24小时内联系您。如有需要，请在备注中注明方便联系的时间及需求。</p>
+      <p>Notice: Mobiwind Account Manager will contact you within 24 hours, if needed please state when it is convient to contact you and you other need ot requirements.</p></div>
+    </div>
+    <div class="explain">
+      <ul class="address">
+        <li class="icon-phone arrow"><a href="tel:<?php echo C('servicenumber'); ?>"><?php echo C('servicenumber'); ?></a></li>
+        <li class="icon-map-marker arrow"><a href="<?php echo 'http://apis.map.qq.com/tools/routeplan/eword=人来风MobiWind&epointx=121.47998001901&epointy=31.286370240974&navibutton=2?referer=mobiwind-navigation&key=CI6BZ-65B33-WTZ37-3ZE4M-5CKYT-7AFOZ';?>">上海市虹口区广灵四路116号智慧桥创业园1幢312室</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<include file="Public:loading"/>
+<div class="coating">
+  <a class="refresh" href="javascript:location.reload()"></a>
+  <a class="get-back" href="javascript:history.go(-1);"><span></span></a>
+</div>
+<!--<div id="modal" class="hide">
+  <div class="modal">
+    <div class="bd">
+      <p>
+        您的申请已成功提交，您的客户经理将会在24小时内联系您！<br />
+        +ENGLISH VERSION
+      </p>
+      <a class="btn btn-green" href="#close-modal" rel="modal:close">知道了</a>
+    </div>
+  </div>
+</div>-->
+<script src="{lanrain::STATICS}/jquery-1.10.1.min.js" type="text/javascript" ></script>
+<script src="{lanrain::STATICS}/jquery-validation/dist/jquery.validate.js" type="text/javascript"></script>
+<script src="{lanrain::STATICS}/jquery-validation/localization/messages_<?php echo L('NowLang');?>.js" type="text/javascript"></script>
+<script src="{lanrain::STATICS}/jquery-validation/dist/additional-methods_<?php echo L('NowLang');?>.js" type="text/javascript"></script>
+<script src="{lanrain::STATICS}/jquery-alert/alert.js" type="text/javascript" ></script>
+<!-- <script src="{lanrain::RES}/js/jquery.modal.min.js" type="text/javascript" ></script> -->
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+    $('a[href="#modal"]').click(function(event) {
+      event.preventDefault();
+      $(this).modal({
+        escapeClose: false,
+        clickClose: false,
+        showClose: false
+      });
+    });
+  });
+  $(function(){
+    var validator = $("form").validate({
+      messages:{
+        username: {
+            required: '请输入您的人来风账号',
+            remote:'此账号已注册'
+           },
+         password: {
+            required: '请设置您的密码',
+            pwd6_16: '请输入6-16位字符的密码'
+           },
+         repeat_password: {
+            required: '请再次输入一遍密码',
+            equalTo:'请输入正确的确认密码'
+           },
+         companyBusiness: {
+            required: '请选择您企业的所属行业'
+           },
+         companyName: {
+            required: '请输入您的公司名称'
+           },
+         moblie: {
+            required: '请输入您的手机号号码',
+            isMobile:'请正确填写您的手机号号码',
+            remote:'此手机号已注册'
+           },
+         email: {
+            required: '请输入您的邮箱地址',
+            email: '请输入正确的邮箱地址',
+            remote:'此邮箱已注册'
+           },
+         truename: {
+              required: '请输入您的真实姓名'
+              }
+      },
+      errorClass:"error_tips",
+      errorElement:"p",
+      focusInvalid:false,
+          submitHandler: function(form){
+            $('.loading').show();
+            var username = $('input[name="username"]').val();
+            var repeat_password = $('input[name="repeat_password"]').val();
+            var companyBusiness = $('#companyBusiness').val();
+            var companyName = $('input[name="companyName"]').val();
+              var phone = $('input[name="phone"]').val();
+            var email = $('input[name="email"]').val();
+              var truename = $('input[name="truename"]').val();
+              var companyRemark = $('#companyRemark').val();
+              $.post("<?php echo U('Login/registerUse').'&time='; ?>"+Math.random(),
+              {username:username,repeat_password:repeat_password,companyBusiness:companyBusiness,companyName:companyName,phone:phone,email:email,truename:truename,companyRemark:companyRemark},
+              function(data){
+                if(data['code'] == 200){
+                  $('.loading').hide();
+                  alert(data['tips'],4000,'success');
+            setTimeout("window.location.href=location.href;",4000);
+          }else{
+            $('.loading').hide();
+            alert(data['tips'],2000);
+          }
+        },"json");
+            return false;
+          }
+    });
+  });
+</script>
+</body>
+</html>

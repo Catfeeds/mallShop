@@ -1,0 +1,78 @@
+<include file="Public:head"/>
+<!-- CRM-卡券中心-后台卡券核销记录 2016-10-24 18:40 -->
+<?php echo $makeTopUrl;?>
+<div class="group inline-btn-group mb-10">
+    <a class="btn-small btn-white" href="<?php echo U('Vouchers/useVouchers');?>">后台卡券核销</a>
+    <a class="btn-small btn-purple" href="<?php echo U('Vouchers/useVouchersList');?>">后台卡券核销记录</a>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>筛选条件</h4></div>
+    <form class="mod-body" action="<?php echo U('Vouchers/useVouchersList')?>" method="post">
+        <dl class="content clearfix">
+            <dt class="child-sum-3 fl">
+	            <div class="group">
+	                <h6 class="inline w100">卡券类型：</h6>
+	                <select class="inline w150" name="vouchertype">
+	                    <option value="">全部</option>
+	                    <option value="7" <?php if($vouchertype == 7){echo 'selected="selected"';}?>>eshop优惠券</option>
+	                    <option value="8" <?php if($vouchertype == 8){echo 'selected="selected"';}?>>门店使用优惠券</option>
+	                    <option value="9" <?php if($vouchertype == 9){echo 'selected="selected"';}?>>兑换券</option>
+	                    <option value="5" <?php if($vouchertype == 5){echo 'selected="selected"';}?>>门票</option>
+	                    <option value="3" <?php if($vouchertype == 3){echo 'selected="selected"';}?>>计次卡</option>
+	                    <option value="4" <?php if($vouchertype == 4){echo 'selected="selected"';}?>>团购</option>
+	                    <option value="6" <?php if($vouchertype == 6){echo 'selected="selected"';}?>>权益卡</option>
+	                    <option value="40" <?php if($vouchertype == 40){echo 'selected="selected"';}?>>通用券</option>
+	                </select>
+	            </div>
+            </dt>
+            <dt class="group  laydate-box">
+	            <h6 class="inline w100">核销时间：</h6>
+	            <input class="laydate-input w120" id="Card-type-01" name="usetime1" value="<?php echo $usetime1;?>" onclick="laydate({format: 'YYYY-MM-DD'})" placeholder="YYYY-MM-DD"><i class="icon-laydate" onclick="laydate({format: 'YYYY-MM-DD',elem:'#Card-type-01'});"></i>
+	            <span> - </span>
+	            <input class="laydate-input w120" id="Card-type-02" name="usetime2" value="<?php echo $usetime2;?>" onclick="laydate({format: 'YYYY-MM-DD'})" placeholder="YYYY-MM-DD"><i class="icon-laydate" onclick="laydate({format: 'YYYY-MM-DD',elem:'#Card-type-02'});"></i>
+            </dt>
+        </dl>
+        <div class="group form-footer text-center">
+            <input class="btn-middle btn-purple" type="submit" value="筛选">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input class="btn-middle btn-white" type="reset" value="重置">
+        </div>
+    </form>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>后台卡券核销记录</h4></div>
+    <div class="mod-body mb-15 WeChat-auto-reply-set">
+        <table class="table type-1 w-auto">
+            <thead>
+            <tr>
+                <th>卡券号</th>
+                <th>卡券名称</th>
+                <th>卡券类型</th>
+                <th>操作类型</th>
+                <th>操作人</th>
+                <th>操作时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php if($useVouchersList){foreach($useVouchersList as $key=>$val){?>
+            <tr>
+                <td><?php echo $val['sn'];?></td>
+                <td><?php echo $val['vouchername'];?></td>
+                <td><?php if($val['vouchertype'] == 3){echo '计次卡';}elseif($val['vouchertype'] == 4){echo '团购';}elseif($val['vouchertype'] == 5){echo '门票';}elseif($val['vouchertype'] == 6){echo '权益卡';}elseif($val['vouchertype'] == 7){echo 'eshop优惠券';}elseif($val['vouchertype'] == 8){echo '门店使用优惠券';}elseif($val['vouchertype'] == 9){echo '兑换券';}elseif($val['vouchertype'] == 10){echo '红包';}elseif($val['vouchertype'] == 40){echo '通用券';}?></td>
+                <td><?php if($val['handletype'] == 1){echo '核销使用';}elseif($val['handletype'] == 2){echo '核销撤回';}?></td>
+                <td><?php echo $val['handlerusername'];?></td>
+                <td><?php echo format_time($val['usetime'],'ymdhi');?></td>
+            </tr>
+            <?php }}else{?>
+            <tr class="text-center not-hover">
+                 <td colspan="7">暂无</td>
+            </tr>
+            <?php }?>
+            </tbody>
+        </table>
+        <div class="group form-footer clearfix">
+            <?php echo $page;?>
+        </div>
+    </div>
+</div>
+<include file="Public:footer"/>

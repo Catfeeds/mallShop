@@ -1,0 +1,538 @@
+<include file="Public:head"/>
+<include file="Public:UEditorJS" />
+<include file="Public:UEditorBig" />
+<?php echo $makeTopUrl;?>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>会员详情</h4><div class="fr"><a class="fl js-Member-information">编辑</a></div></div>
+    <div class="mod-body mb-15 ">
+        <table class="table type-1 w-auto Member-information-tb">
+            <tbody>
+            <tr>
+                <td class="w-50"><div class="Number-of-members"><p class="Number-of-members-p1 pb-5">会员姓名</p><p class="Number-of-members-p2"><?php echo $memberInfo['name']?$memberInfo['name']:'-';?></p></div></td>
+                <td class="w-50"><div class="Number-of-members"><p class="Number-of-members-p1 pb-5">手机</p><p class="Number-of-members-p2"><?php echo $memberInfo['moblie']?$memberInfo['moblie']:'-';?></p></div></td>
+            </tr>
+            </tbody>
+        </table>
+        <ul class="Member-information-ul clearfix">
+            <li class="clear-border">
+                <p class="Member-information-ul-p1">累计积分</p>
+                <p class="Member-information-ul-p2"><?php echo $memberInfo['totalexperiencevalue'];?></p>
+            </li>
+            <li>
+                <p class="Member-information-ul-p1">会员等级</p>
+                <p class="Member-information-ul-p2 Member-china-font"><?php echo $memberInfo['rankname']?$memberInfo['rankname']:'-';?></p>
+            </li>
+            <li>
+                <p class="Member-information-ul-p1">可用积分</p>
+                <p class="Member-information-ul-p2"><?php echo $memberInfo['totalintegration'];?></p>
+            </li>
+        </ul>
+        <div class="Member-information-content">
+            <dl class="clearfix">
+               
+                <dt class="child-sum-3 pb-10 fl">
+                	<h6 class="inline w100">会员来源：</h6><h6 class="inline"><?php if($memberInfo['registertypetag'] =='2' ){ echo '老会员导入';}elseif($memberInfo['registertypetag'] =='1' ){ echo '网页注册';}else{ echo '-';}?></h6>
+                </dt>
+                <dt class="child-sum-3 pb-10 fl">
+               		<h6 class="inline w100">注册时间：</h6><h6 class="inline"><?php echo $memberInfo['createtime']?format_time($memberInfo['createtime'],'ymdhis'):'-';?></h6>
+                </dt>
+                <dt class="child-sum-3 pb-10 fl">
+                	<h6 class="inline w100">性别：</h6><h6 class="inline"><?php if($memberInfo['gender'] ==1 ){ echo '先生';}elseif($memberInfo['gender'] ==2 ){ echo '女士';}else{ echo '-';}?></h6>
+                </dt>
+                <dt class="child-sum-3 pb-10 fl">
+                	<h6 class="inline w100">会员生日：</h6><h6 class="inline"><?php if($memberInfo['birthday'] && $memberInfo['birthday'] !='0000-00-00'){echo $memberInfo['birthday'];}else{ echo '0000-00-00';}?></h6>
+                </dt>
+                <dt class="child-sum-3 pb-10 fl">
+                	<h6 class="inline w100">年龄：</h6><h6 class="inline"><?php echo $memberInfo['age']?$memberInfo['age']:'-';?></h6>
+                </dt>
+              
+                <dt class="child-sum-3 pb-10 fl">
+                	<h6 class="inline w100 ">微信关注状态：</h6><h6 class="inline"><?php if($memberInfo['subscribetype'] == '1'){ echo '微信已关注';}elseif($memberInfo['subscribetype'] == '2'){echo '微信取关';}else{ echo '微信未关注';}?> <?php if($memberInfo['openid']){?><a class="tips" href="<?php echo U('Wechat/manage',array('companyid'=>$companyid,'wechatid'=>$search['wechatid'],'openid'=>$memberInfo['openid']));?>"><?php echo $memberInfo['nickname'];?></a><?php }?></h6>
+                </dt>
+               
+                <?php if($membercustomfield){ foreach($membercustomfield as $mkey=>$mval){?>
+                <dt class="child-sum-3 pb-10 fl">
+                	<h6 class="inline w100"><?php echo $mval['name'];?>：</h6><h6 class="inline"><?php echo $memberInfo['customfield'][$mval['id']]['value'];?></h6>
+                </dt>
+                <?php }}?>
+            </dl>
+        </div>
+        <div class="Remarks-ctt">
+            <div class="group Remarks-box">
+                <div class="group pb-10 ">
+                    <h6 class="inline w100">备注：</h6>
+                    <a href="javascript:void(0);" class="tips fr js-member-Remarks Remarks-font">编辑</a>
+                </div>
+                <div class="group pb-10">
+                    <h6 class="text-center"><?php if($memberInfo['note']){echo htmlspecialchars_decode(htmlspecialchars_decode($memberInfo['note']));}else{echo '暂无';}?></h6>
+                </div>
+            </div>
+        </div>
+        <div class="group text-center pb-15"><a class="tips label-open js-Remarks-close" href="javascript:void(0);">展开备注</a></div>
+        <script>
+                /*展开收起*/
+                $(".js-Remarks-close").click(function(){
+                    if($(this).hasClass("label-open")){
+                        $(this).removeClass("label-open");
+                        $(this).addClass("label-close");
+                        $(this).html("收起备注");
+                        $(".Remarks-ctt").slideDown();
+                    }else if($(this).hasClass("label-close")){
+                        $(this).removeClass("label-close");
+                        $(this).addClass("label-open");
+                        $(this).html("展开备注");
+                        $(".Remarks-ctt").slideUp();
+                    }
+                });
+            </script>
+        <div class="Customer-service-box">
+            <?php if(in_array(10, session('companyS5Permissions')) && in_array(10, session('S5permissions'))){ if($memberInfo['wechatmessagetime'] > strtotime('-2 day') ){?>
+                <a data-send="1" data-mid="<?php echo $memberInfo['id'];?>" data-openid="<?php echo $memberInfo['openid'];?>" data-nickname="<?php echo $memberInfo['nickname'];?>" class="btn-big btn-white btn-cl-green wechatsTalkButton"><i class="icon-WeChat mr-6"></i>微信客服对话</a>
+            <?php }else{?>
+                <a class="btn-big btn-default"><i class="icon-WeChat-prohibit mr-6"></i>微信客服对话</a>
+            <?php } } ?>
+            <?php if(in_array(70, session('companyS5Permissions')) && in_array(70, session('S5permissions'))){?>
+            <a class="btn-big btn-white btn-cl-violet ml-30 js-check-msg" data-mid="<?php echo $memberInfo['id'];?>" data-nickname="<?php echo $memberInfo['nickname'];?>"><i class="icon-Shopping mr-6"></i>eshop客服对话</a>
+            <?php } ?>
+        </div>
+    </div>
+</div>
+<input name="mid" value="" type="hidden">
+<input name="openid" value="" type="hidden">
+<!--编辑会员信息弹窗-->
+<div class="popup-wrap wrap-small-1 js-Member-information-popup">
+    <div class="mod small-popup type-1 popup-width400">
+        <div class="mod-header">
+            <h4 class="fl">编辑会员信息</h4>
+            <i class="fr icon-close-dark js-icon-close"></i></div>
+        <div class="mod-body">
+            <div class="content" style="max-height: 340px;overflow-y: scroll;">
+                <div class="group pb-15">
+                    <h6 class="inline w80">会员姓名</h6>
+                    <input class="inline w200 js-member-name" type="text" placeholder="" value="">
+                </div>
+                <div class="group pb-15">
+                    <h6 class="inline w80">手机</h6>
+                    <input class="inline w200 js-member-moblie" type="text" placeholder="" value="">
+                </div>
+                <div class="group pb-15">
+                    <h6 class="inline w80">累计积分</h6>
+                    <h6 class="inline"><?php echo $memberInfo['totalexperiencevalue'];?></h6>
+                </div>
+                <div class="group pb-15">
+                    <h6 class="inline w80">可用积分</h6>
+                    <h6 class="inline"><?php echo $memberInfo['totalintegration'];?></h6>
+                </div>
+                <div class="group pb-15">
+                    <h6 class="inline w80">注册时间</h6>
+                    <h6 class="inline"><?php echo $memberInfo['createtime']?format_time($memberInfo['createtime'],'ymdhis'):'-';?></h6>
+                </div>
+                <div class="group pb-15">
+                    <h6 class="inline w80">性别</h6>
+                    <select class="inline w200 js-member-gender">
+                        <option value="0" <?php if(!$memberInfo['gender'] || $memberInfo['gender'] == '0'){echo 'selected="selected"';}?>>未填写</option>
+                        <option value="1" <?php if($memberInfo['gender'] == '1'){echo 'selected="selected"';}?>>先生</option>
+                        <option value="2" <?php if($memberInfo['gender'] == '2'){echo 'selected="selected"';}?>>女士</option>
+                    </select>
+                </div>
+                <div class="group pb-15">
+                    <h6 class="inline w80">会员生日</h6>
+                    <input class="laydate-input birthday_input js-member-birthday" id="Member-birthday-1" onclick="laydate({format: 'YYYY-MM-DD',max: laydate.now()})" placeholder="" value=""><i class="icon-laydate" onclick="laydate({elem:'#Member-birthday-1'});"></i>
+                </div>
+                <div class="group pb-15">
+                    <h6 class="inline w80">所属门店</h6>
+                    <select class="inline w200 js-member-boundshopid">
+                        <option value="0">请选择门店</option>
+                        <?php if($shopList){foreach($shopList as $skey=>$sval){?>
+                        <option value="<?php echo $sval['id'];?>" <?php if($memberInfo['boundshopid'] == $sval['id']){echo 'selected="selected"';}?>><?php echo $sval['shopname'];?></option>
+                        <?php }}?>
+                    </select>
+                </div>
+                <?php if($membercustomfield){ foreach($membercustomfield as $mckey=>$mcval){?>
+                    <div class="group pb-15 js-membercustomfieldInfo" data-id="<?php echo $mcval['id'];?>">
+                        <h6 class="inline w80"><?php echo $mcval['name'];?></h6>
+                        <?php if($mcval['type'] == '1'||$mcval['type'] == '3'||$mcval['type'] == '4'){?>
+                        <input data-type="<?php echo $mcval['type'];?>" class="inline w200 js-membercustomfield-<?php echo $mcval['id'];?>" type="text" placeholder="" value="<?php echo $memberInfo['customfield'][$mcval['id']]['value'];?>">
+                        <?php }else{?>
+                        <input data-type="<?php echo $mcval['type'];?>" class="laydate-input birthday_input js-membercustomfield-<?php echo $mcval['id'];?>" id="id-membercustomfield-<?php echo $mcval['id'];?>" onclick="laydate({format: 'YYYY-MM-DD',max: laydate.now()})" placeholder="" value="<?php echo $memberInfo['customfield'][$mcval['id']]['value'];?>"><i class="icon-laydate" onclick="laydate({elem:'#id-membercustomfield-<?php echo $mcval['id'];?>'});"></i>
+                        <?php }?>
+                    </div>
+                <?php }}?>
+
+            </div>
+            <div class="group form-footer text-center">
+                <a class="btn-middle  btn-purple js-member-save">保 &nbsp;&nbsp; 存</a>
+                <a class="btn-middle btn-white js-Member-information-close">取&nbsp;&nbsp; 消</a>
+            </div>
+        </div>
+    </div>
+    <script src="{lanrain::RES}/js/json2.js"></script>
+    <script>
+        $(".js-Member-information").on("click",function(){
+            $('.js-member-name').val("<?php echo $memberInfo['name'];?>");
+            $('.js-member-moblie').val("<?php echo $memberInfo['moblie'];?>");
+            $('.js-member-gender').val("<?php echo $memberInfo['gender']?$memberInfo['gender']:0;?>");
+            $('.js-member-birthday').val("<?php if($memberInfo['birthday'] && $memberInfo['birthday'] !='0000-00-00'){echo $memberInfo['birthday'];}else{ echo '0000-00-00';}?>");
+            $(".js-Member-information-popup").fadeIn(120);
+        });
+        //修改信息
+        $('.js-member-save').on("click",function(){
+            var name = $('.js-member-name').val();
+            if(name == false){
+                alertTan('请填写姓名','warn');
+                return false;
+            }
+            var moblie = $('.js-member-moblie').val();
+            if(moblie.length > 0 && /^(((13[0-9]{1})|(14[579]{1})|(15[012356789]{1})|(17[0135678]{1})|(18[0-9]{1}))+\d{8})$/.test(moblie)){
+                moblie = moblie;
+            }else{
+                alertTan('请填写正确的手机号','warn');
+                return false;
+            }
+            var gender = $('.js-member-gender').val();
+            var birthday = $('.js-member-birthday').val();
+            var boundshopid = $('.js-member-boundshopid').val();
+            var membertagid = $('input[name="membertagid"]').val();
+            var customfieldInfo = {};
+            var isReturn = false;
+            $('.js-membercustomfieldInfo').each(function(index){
+                var id = $(this).attr('data-id');
+                customfieldInfo[id] = {};
+                customfieldInfo[id]['value'] = $('.js-membercustomfield-'+id).val();
+                var type = $('.js-membercustomfield-'+id).attr('data-type');
+                if(type == '3'){
+                    if(customfieldInfo[id]['value'].length > 0 && !/^(\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14})$/.test(customfieldInfo[id]['value'])){
+                        alertTan('请填写正确的邮箱格式','warn');
+                        isReturn = true;
+                        return false;
+                    }
+                }else if(type == '4'){
+                    if(customfieldInfo[id]['value'].length > 0 && !/^(((13[0-9]{1})|(14[579]{1})|(15[012356789]{1})|(17[0135678]{1})|(18[0-9]{1}))+\d{8})$/.test(customfieldInfo[id]['value'])){
+                        alertTan('请填写正确的手机格式','warn');
+                        isReturn = true;
+                        return false;
+                    }
+                }
+            });
+            if(isReturn == true){
+                return false;
+            }
+            customfieldInfo = JSON.stringify(customfieldInfo);
+            if(customfieldInfo == '{}'){
+                customfieldInfo = '';
+            }
+            $(".loading").show();
+            $.post("<?php echo U('Member/ajaxSaveMember').'&time='; ?>"+Math.random(),
+                    {mid:membertagid,name:name,moblie:moblie,gender:gender,birthday:birthday,customfieldInfo:customfieldInfo,boundshopid:boundshopid},
+                    function(data){
+                        $(".loading").hide();
+                        if(data.code == '200'){
+                            $(".js-Member-information-popup").fadeOut(120);
+                            alertTan(data.msg);
+                            setTimeout("window.location.href=location.href;",1500);
+                        }else{
+                            alertTan(data.msg,'error');
+                        }
+                    },"json");
+        });
+        $(".js-Member-information-close").on("click",function(){
+            $(".js-Member-information-popup").fadeOut(120);
+        });
+    </script>
+</div>
+<!--编辑备注-->
+<div class="popup-wrap wrap-small-1 js-member-Remarks-popup" style="z-index:4;">
+    <div class="mod small-popup type-1 popup-width800">
+        <div class="mod-header">
+            <h4 class="fl">编辑备注</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+            <div class="content content-pd32">
+                <div class="alert mb-15 w694">注意！本编辑器不会自动保存第三方平台中的图片，如果您的图文是从其他编辑器上直接复制粘贴过来的（如秀米等），请确保秀米等外来编辑器的原始图片文件不会被删除！否则，图文中的图片会在源图片文件被删除后无法查看！  *秀米编辑器会定期清理非秀米VIP账号的图文，请谨慎使用！</div>
+                <script type="text/plain" class="w-auto mb-15" id="info2" name="info"><?php echo htmlspecialchars_decode(htmlspecialchars_decode($memberInfo['note']));?></script>
+                <p class="text-center">
+                    <a class="btn-middle  btn-purple js-member-note">保 &nbsp;&nbsp; 存</a>
+                    <a class="btn-middle btn-white js-member-Remarks-close">取&nbsp;&nbsp; 消</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(".js-member-Remarks").on("click",function(){
+            $(".js-member-Remarks-popup").fadeIn(120);
+        });
+        $('.js-member-note').on("click",function(){
+            var note = ue2.getContent();
+            var membertagid = $('input[name="membertagid"]').val();
+            $(".loading").show();
+            $.post("<?php echo U('Member/ajaxSaveNote').'&time='; ?>"+Math.random(),{mid:membertagid,note:note},function(data){
+                $(".loading").hide();
+                $(".js-member-Remarks-popup").fadeOut(120);
+                if(data.code == '200'){
+                    alertTan(data.msg);
+                    setTimeout("window.location.href=location.href;",1500);
+                }else{
+                    alertTan(data.msg,'error');
+                }
+            },"json");
+        });
+        $(".js-member-Remarks-close").on("click",function(){
+            $(".js-member-Remarks-popup").fadeOut(120);
+        });
+    </script>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>收货地址</h4><div class="fr"><a class="fl js-Edit-address" data-type="新增">新增收货地址</a></div></div>
+    <div class="mod-body">
+        <table class="table type-1 w-auto">
+            <thead>
+            <tr>
+                <th>收货人</th>
+                <th>收货人手机号</th>
+                <th>地区信息</th>
+                <th>详细地址</th>
+                <th>是否默认地址</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php if($shopAddress){ foreach($shopAddress as $shkey=>$shval){?>
+            <tr>
+                <td><?php echo $shval['name'];?></td>
+                <td><?php echo $shval['mobile'];?></td>
+                <td><?php echo $shval['province'].'  '.$shval['city'].'  '.$shval['district'];?></td>
+                <td><?php echo $shval['address'];?></td>
+                <td><?php if($shval['isdefault'] == '1'){echo '是';}else{echo '否';}?></td>
+                <td>
+                    <a class="tips js-Edit-address" data-id="<?php echo $shval['id'];?>" data-address="<?php echo $shval['address'];?>" data-isdefault="<?php echo $shval['isdefault'];?>" data-name="<?php echo $shval['name'];?>" data-mobile="<?php echo $shval['mobile'];?>" data-areacode="<?php echo $shval['areacode'];?>" data-type="编辑" href="javascript:void(0);">编辑</a>
+                    <a href="javascript:void(0);" class="tips js-delete-address" data-id="<?php echo $shval['id'];?>">删除</a>
+                </td>
+            </tr>
+            <?php }}else{?>
+            <tr class="text-center not-hover">
+                <td colspan="6">暂无</td>
+            </tr>
+            <?php }?>
+            </tbody>
+        </table>
+        <?php if($page){?>
+        <div class="group form-footer clearfix">
+            <div class="group pagination fr">
+                <?php echo $page;?>
+            </div>
+        </div>
+        <?php }?>
+    </div>
+</div>
+<!--编辑收货地址弹窗-->
+<div class="popup-wrap wrap-small-1 js-Edit-address-popup">
+    <div class="mod small-popup type-1 popup-width400">
+        <div class="mod-header">
+            <h4 class="fl js-address-title">编辑收货地址</h4>
+            <i class="fr icon-close-dark js-icon-close"></i></div>
+        <div class="mod-body">
+            <div class="content content-pd">
+                <div class="group pb-15">
+                    <h6 class="inline w80">收货人</h6>
+                    <input class="inline w200" type="text" placeholder="" name="address-name" value="">
+                </div>
+                <div class="group pb-15">
+                    <h6 class="inline w80">收货人手机号</h6>
+                    <input class="inline w200" type="text" placeholder="" name="address-mobile" value="">
+                </div>
+                <div class="group pb-15">
+                    <h6 class="inline w80 text-top">地区信息</h6>
+                    <select class="inline w200 js-address-countrys">
+                        <option value="">请选择省份</option>
+                    </select>
+                </div>
+                <div class="group pb-15">
+                    <h6 class="inline w80 text-top"></h6>
+                    <select class="inline w90 js-address-provinces">
+                        <option value="">请选择城市</option>
+                    </select>
+                    <select class="inline w90 js-address-citys">
+                        <option value="">请选择区/县</option>
+                    </select>
+                </div>
+                <div class="group pb-15">
+                    <h6 class="inline w80 text-top">详细地址</h6>
+                    <textarea class="inline w200 No-stretch-ttr js-address-address" cols="30" rows="3"></textarea>
+                </div>
+                <div class="group pb-30">
+                    <h6 class="inline w80">是否默认地址</h6>
+                    <div class="fr"><input class="ios-btn" name="isdefault" type="checkbox" checked="checked"></div>
+                </div>
+                <p class="text-center mb-15">
+                    <a class="btn-middle  btn-purple js-add-address">保 &nbsp;&nbsp; 存</a>
+                    <a class="btn-middle btn-white js-Edit-address-close">取&nbsp;&nbsp; 消</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script src="{lanrain::RES}/js/json2.js"></script>
+    <script>
+        $(".js-Edit-address").on("click",function(){
+            var title = $(this).attr('data-type'); 
+            $('.js-address-title').text(title+'收货地址');
+            $('input[name="address-name"]').val($(this).attr('data-name'));
+            $('input[name="address-mobile"]').val($(this).attr('data-mobile'));
+            if($(this).attr('data-address')){
+                $('.js-address-address').text($(this).attr('data-address'));
+            }else{
+                $('.js-address-address').text('');
+            }
+            //按钮的样式
+            var isdefault = $(this).attr('data-isdefault');
+            if(isdefault == '1'){
+                $('input[name="isdefault"]').attr("checked", "checked");
+                $('.lcs_checkbox_switch').removeClass('lcs_off').addClass('lcs_on');
+            }else{
+                $('input[name="isdefault"]').removeAttr("checked");
+                $('.lcs_checkbox_switch').addClass('lcs_off').removeClass('lcs_on');
+            }
+            var areacode = $(this).attr('data-areacode');
+            var id = $(this).attr('data-id');
+            if(id){
+                $('.js-add-address').attr('data-id',id);
+            }else{
+                $('.js-add-address').attr('data-id','');
+            }
+            $.post("<?php echo U('Member/ajaxSelectAddress').'&time='; ?>"+Math.random(),{id:id,areacode:areacode},function(data){
+                if(data.code == '200'){
+                    $('.js-address-countrys').html(data.countrys);
+                    $('.js-address-provinces').html(data.provinces);
+                    $('.js-address-citys').html(data.citys);
+                }
+            },"json");
+            $(".js-Edit-address-popup").fadeIn(120);
+        });
+        //获取地区信息
+        $('.js-address-countrys').on("change",function(){
+            var parentid = $(this).val();
+            if(parentid){
+                $.post("<?php echo U('Member/ajaxAddressCity').'&time=';?>"+Math.random(),{'parentid':parentid},function(data){
+                    if(data.code == 200){
+                        $(".js-address-provinces").html(data.tips);
+                    }
+                },"json");
+            }
+        });
+        // 选择区
+        $('.js-address-provinces').on("change",function(){
+            var parentid = $(this).val();
+            if(parentid){
+                $.post("<?php echo U('Member/ajaxAddressDistrict').'&time=';?>"+Math.random(),{'parentid':parentid},function(data){
+                    if(data.code == 200){
+                        $(".js-address-citys").html(data.tips);
+                    }   
+                },"json");
+            }
+        });
+        //点击开启按钮切换样式
+        $('.lcs_switch').click(function(){
+            if($('input[name="isdefault"]').is(':checked')) {
+                $('input[name="isdefault"]').removeAttr("checked");
+            }else{
+                $('input[name="isdefault"]').attr("checked", "checked");
+            }
+        });
+        //创建/编辑地址
+        $(".js-add-address").on("click",function(){
+            var mid = "<?php echo $memberInfo['id'];?>";
+            var name = $('input[name="address-name"]').val();
+            if(name == false){
+                alertTan('请填写收货人姓名','warn');
+                return false;
+            }
+            var mobile = $('input[name="address-mobile"]').val();
+            if(mobile.length > 0 && /^(((13[0-9]{1})|(14[579]{1})|(15[012356789]{1})|(17[0135678]{1})|(18[0-9]{1}))+\d{8})$/.test(mobile)){
+                mobile = mobile;
+            }else{
+                alertTan('请填写正确的手机号','warn');
+                return false;
+            }
+            var country = $('.js-address-countrys').val();
+            console.log(country);
+            if(country == ''){
+                alertTan('请选择省份','warn');
+                return false;
+            }
+            var province = $('.js-address-provinces').val();
+            if(province == ''){
+                alertTan('请选择城市','warn');
+                return false;
+            }
+            var city = $('.js-address-citys').val();
+            if(city == ''){
+                alertTan('请选择区/县','warn');
+                return false;
+            }
+            var address = $('.js-address-address').val();
+            if(address == false){
+                alertTan('请填写详细地址','warn');
+                return false;
+            }
+            //进页面时开启按钮的样式
+            var isdefault = 2;
+            if($('input[name="isdefault"]').is(':checked')){
+                isdefault = 1;
+            }
+            var id = $(this).attr('data-id');
+            $(".loading").show();
+            $.post("<?php echo U('Member/ajaxSaveAddress').'&time='; ?>"+Math.random(),
+                    {mid:mid,id:id,name:name,mobile:mobile,country:country,province:province,city:city,address:address,isdefault:isdefault},
+                    function(data){
+                        $(".loading").hide();
+                        if(data.code == '200'){
+                            alertTan(data.msg);
+                            $(".js-Edit-address-popup").fadeIn(120);
+                            setTimeout("window.location.href=location.href;",1500);
+                        }else{
+                            alertTan(data.msg,'error');
+                        }
+                    },"json");
+        });
+        //删除地址
+        $('.js-delete-address').on("click",function(){
+            $(".loading").show();
+            var id = $(this).attr('data-id');
+            $.post("<?php echo U('Member/ajaxDelAddress').'&time='; ?>"+Math.random(),
+                    {id:id},
+                    function(data){
+                        $(".loading").hide();
+                        if(data.code == '200'){
+                            alertTan(data.msg);
+                            setTimeout("window.location.href=location.href;",1500);
+                        }else{
+                            alertTan(data.msg,'error');
+                        }
+                    },"json");
+        });
+        $(".js-Edit-address-close").on("click",function(){
+            $(".js-Edit-address-popup").fadeOut(120);
+        });
+    </script>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>会员标签</h4></div>
+    <div class="mod-body">
+        <div class="label-border-top-e8">
+            <dt class="clearfix">
+            <dl class="fl">
+                <h6 class="inline w120">自定义标签：</h6>
+                <?php if($search['alltags']){ foreach($search['alltags'] as $atkey=>$atval){ if(strpos($memberInfo['membertagsid'],','.$atval['id'].',') !== false){?>
+                <a href="javascript:void(0);" class="Unlimited-label mr-6 Unlimited-label-active"><span class="Unlimited-span"><?php echo $atval['name'];?></span></a>
+                <?php }}}?>
+                <a class="tips font-a12 ml-10 js-Custom-tags" href="javascript:void(0);">打自定义标签</a>
+                <a class="tips font-a12 ml-10 js-create-label" href="javascript:void(0);">创建自定义标签</a>
+            </dl>
+            </dt>
+        </div>
+    </div>
+</div>
+<input name="membertagid" type="hidden" value="<?php echo $memberInfo['id'];?>" data-type="1" />
+<include file="Public:memberAddTags"/>
+<include file="Public:CountLength" />
+<include file="Public:footer"/>

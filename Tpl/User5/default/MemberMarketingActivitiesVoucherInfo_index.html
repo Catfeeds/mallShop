@@ -1,0 +1,376 @@
+<include file="Public:head"/>
+<?php echo $makeTopUrl;?>
+<?php if($vouchertype == 1){?>
+<!-- eshop优惠券 2016-10-27 14:00 -->
+<div class="group pb-10"><a class="btn-small btn-white" href="<?php echo U('MemberMarketingActivitiesVoucherInfo/set',array('vouchertype'=>1))?>">新建eshop优惠券</a></div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>eshop优惠券 </h4></div>
+    <div class="mod-body">
+        <div class="content">
+            <table class="table type-1 w-auto">
+                <thead>
+                <tr>
+                    <th>eshop优惠券名称</th>
+                    <th>卡券效用</th>
+                    <th>使用期限</th>
+                    <th>投放量</th>
+                    <th>使用量</th>
+                    <th>使用率</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php if($voucherInfoList){foreach($voucherInfoList as $key=>$val){?>
+                <tr>
+                    <td><?php echo $val['title'];?></td>
+                    <td><?php if($val['discounttype'] == 1){echo '立减';}elseif($val['discounttype'] == 2){echo '立折';}elseif($val['discounttype'] == 3){echo '满减';}elseif($val['discounttype'] == 4){echo '满折';}elseif($val['discounttype'] == 5){echo '每满减';}?></td>
+                    <td>
+                    	<?php if($val['usetimelimittype'] == 1){
+							echo '在收到券后'.$val['usetimelimitset'].'日内有效';
+						}elseif($val['usetimelimittype'] == 2){
+							echo format_time($val['usestarttime'],'ymd').' 至 '.format_time($val['useendtime'],'ymd');
+						}elseif($val['usetimelimittype'] == 3){
+							echo '本券在'.$val['usetimelimitset'].'当日内有效';
+						}?>
+                    </td>
+                    <td><a class="tips" href="<?php echo U('TradingRecord/vouchersDeliveryRecord',array('vouchername'=>$val['title']))?>"><?php echo $val['allNum'];?></a></td>
+                    <td><?php echo $val['useNum'];?></td>
+                    <td><?php echo $val['useProbability'];?></td>
+                    <td>
+                    	<a class="tips" href="<?php echo U('MemberMarketingActivitiesVoucherInfo/set',array('id'=>$val['id']))?>">编辑</a>
+                    	<a class="tips js-delButton" data-id="<?php echo $val['id'];?>" data-vouchertype="<?php echo $val['vouchertype']?>">删除</a>
+                    </td>
+                </tr>
+                <?php }}else{?>
+                <tr class="text-center not-hover">
+                    <td colspan="7">暂无</td>
+                </tr>
+                <?php }?>
+                </tbody>
+            </table>
+        </div>
+        <div class="group form-footer clearfix">
+           <?php echo $page;?>
+        </div>
+    </div>
+</div>
+<?php }elseif($vouchertype == 2){?>
+<div class="group pb-10"><a class="btn-small btn-white" href="<?php echo U('MemberMarketingActivitiesVoucherInfo/set',array('vouchertype'=>2))?>">新建门店使用优惠券</a></div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>门店使用优惠券</h4></div>
+    <div class="mod-body">
+        <div class="content">
+            <table class="table type-1 w-auto">
+                <thead>
+                <tr>
+                    <th>门店使用优惠券名称</th>
+                    <th>卡券效用</th>
+                    <th>使用期限</th>
+                    <th>投放量</th>
+                    <th>使用量</th>
+                    <th>使用率</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php if($voucherInfoList){foreach($voucherInfoList as $key=>$val){?>
+                <tr>
+                    <td><?php echo $val['title'];?></td>
+                    <td><?php if($val['discounttype'] == 1){echo '立减';}elseif($val['discounttype'] == 2){echo '立折';}elseif($val['discounttype'] == 3){echo '满减';}elseif($val['discounttype'] == 4){echo '满折';}elseif($val['discounttype'] == 5){echo '每满减';}?></td>
+                    <td>
+                    	<?php if($val['usetimelimittype'] == 1){
+							echo '在收到券后'.$val['usetimelimitset'].'日内有效';
+						}elseif($val['usetimelimittype'] == 2){
+							echo format_time($val['usestarttime'],'ymd').' 至 '.format_time($val['useendtime'],'ymd');
+						}elseif($val['usetimelimittype'] == 3){
+							echo '本券在'.$val['usetimelimitset'].'当日内有效';
+						}?>
+                    </td>
+                    <td><a class="tips" href="<?php echo U('TradingRecord/vouchersDeliveryRecord',array('vouchername'=>$val['title']))?>"><?php echo $val['allNum'];?></a></td>
+                    <td><?php echo $val['useNum'];?></td>
+                    <td><?php echo $val['useProbability'];?></td>
+                    <td>
+                    	<a class="tips" href="<?php echo U('MemberMarketingActivitiesVoucherInfo/set',array('id'=>$val['id']))?>">编辑</a>
+                    	<a href="javascript:void(0);" class="tips js-update-useshops-limitset" data-id="<?php echo $val['id'];?>">更新适用门店</a>
+                    	<a class="tips js-delButton" data-id="<?php echo $val['id'];?>" data-vouchertype="<?php echo $val['vouchertype']?>">删除</a>
+                    </td>
+                </tr>
+                <?php }}else{?>
+                <tr class="text-center not-hover">
+                    <td colspan="7">暂无</td>
+                </tr>
+                <?php }?>
+                </tbody>
+            </table>
+        </div>
+        <div class="group form-footer clearfix">
+            <?php echo $page;?>
+        </div>
+    </div>
+</div>
+<?php }elseif($vouchertype == 3){?>
+<div class="group pb-10"><a class="btn-small btn-white" href="<?php echo U('MemberMarketingActivitiesVoucherInfo/set',array('vouchertype'=>3))?>">新建兑换券</a></div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>兑换券</h4></div>
+    <div class="mod-body">
+        <div class="content">
+            <table class="table type-1 w-auto">
+                <thead>
+                <tr>
+                    <th>兑换券名称</th>
+                    <th>使用期限</th>
+                    <th>投放量</th>
+                    <th>使用量</th>
+                    <th>使用率</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php if($voucherInfoList){foreach($voucherInfoList as $key=>$val){?>
+                <tr>
+                    <td><?php echo $val['title'];?></td>
+                    <td>
+                    	<?php if($val['usetimelimittype'] == 1){
+							echo '在收到券后'.$val['usetimelimitset'].'日内有效';
+						}elseif($val['usetimelimittype'] == 2){
+							echo format_time($val['usestarttime'],'ymd').' 至 '.format_time($val['useendtime'],'ymd');
+						}elseif($val['usetimelimittype'] == 3){
+							echo '本券在'.$val['usetimelimitset'].'当日内有效';
+						}?>
+                    </td>
+                    <td><a class="tips" href="<?php echo U('TradingRecord/vouchersDeliveryRecord',array('vouchername'=>$val['title']))?>"><?php echo $val['allNum'];?></a></td>
+                    <td><?php echo $val['useNum'];?></td>
+                    <td><?php echo $val['useProbability'];?></td>
+                    <td>
+                    	<a class="tips" href="<?php echo U('MemberMarketingActivitiesVoucherInfo/set',array('id'=>$val['id']))?>">编辑</a>
+                    	<a href="javascript:void(0);" class="tips js-update-useshops-limitset" data-id="<?php echo $val['id'];?>">更新适用门店</a>
+                    	<a class="tips js-delButton" data-id="<?php echo $val['id'];?>" data-vouchertype="<?php echo $val['vouchertype']?>">删除</a>
+                    </td>
+                </tr>
+                <?php }}else{?>
+                <tr class="text-center not-hover">
+                    <td colspan="7">暂无</td>
+                </tr>
+                <?php }?>
+                </tbody>
+            </table>
+        </div>
+        <div class="group form-footer clearfix">
+            <?php echo $page;?>
+        </div>
+    </div>
+</div>
+<?php }elseif($vouchertype == 4){?>
+<div class="group pb-10"><a class="btn-small btn-white" href="<?php echo U('MemberMarketingActivitiesVoucherInfo/set',array('vouchertype'=>4))?>">新建红包</a></div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>红包</h4></div>
+    <div class="mod-body">
+        <div class="content">
+            <table class="table type-1 w-auto">
+                <thead>
+                <tr>
+                    <th>红包名称</th>
+                    <th>红包面值</th>
+                    <th>投放量</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php if($voucherInfoList){foreach($voucherInfoList as $key=>$val){?>
+                <tr>
+                    <td><?php echo $val['title'];?></td>
+                    <td><?php if($val['israndom'] == 0){echo $val['parvalue'];}else{echo ($val['minparvalue'].'-'.$val['maxparvalue']);}?></td>
+                    <td><a class="tips" href="<?php echo U('TradingRecord/vouchersDeliveryRecord',array('vouchername'=>$val['title']))?>"><?php echo $val['allNum'];?></a></td>
+                    <td>
+                    	<a class="tips" href="<?php echo U('MemberMarketingActivitiesVoucherInfo/set',array('id'=>$val['id']))?>">编辑</a>
+                    	<a class="tips js-delButton" data-id="<?php echo $val['id'];?>" data-vouchertype="<?php echo $val['vouchertype']?>">删除</a>
+                    </td>
+                </tr>
+                <?php }}else{?>
+                <tr class="text-center not-hover">
+                    <td colspan="7">暂无</td>
+                </tr>
+                <?php }?>
+                </tbody>
+            </table>
+        </div>
+        <div class="group form-footer clearfix">
+            <?php echo $page;?>
+        </div>
+    </div>
+</div>
+<?php }elseif($vouchertype == 40){?>
+<div class="group pb-10"><a class="btn-small btn-white" href="<?php echo U('MemberMarketingActivitiesVoucherInfo/set',array('vouchertype'=>40))?>">新建通用券</a></div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>通用券</h4></div>
+    <div class="mod-body">
+        <div class="content">
+            <table class="table type-1 w-auto">
+                <thead>
+                <tr>
+                    <th>通用券名称</th>
+                    <th>卡券效用</th>
+                    <th>使用期限</th>
+                    <th>投放量</th>
+                    <th>使用量</th>
+                    <th>使用率</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php if($voucherInfoList){foreach($voucherInfoList as $key=>$val){?>
+                <tr>
+                    <td><?php echo $val['title'];?></td>
+                    <td><?php if($val['discounttype'] == 1){echo '立减';}elseif($val['discounttype'] == 2){echo '立折';}elseif($val['discounttype'] == 3){echo '满减';}elseif($val['discounttype'] == 4){echo '满折';}elseif($val['discounttype'] == 5){echo '每满减';}?></td>
+                    <td>
+                    	<?php if($val['usetimelimittype'] == 1){
+							echo '在收到券后'.$val['usetimelimitset'].'日内有效';
+						}elseif($val['usetimelimittype'] == 2){
+							echo format_time($val['usestarttime'],'ymd').' 至 '.format_time($val['useendtime'],'ymd');
+						}elseif($val['usetimelimittype'] == 3){
+							echo '本券在'.$val['usetimelimitset'].'当日内有效';
+						}?>
+                    </td>
+                    <td><a class="tips" href="<?php echo U('TradingRecord/vouchersDeliveryRecord',array('vouchername'=>$val['title']))?>"><?php echo $val['allNum'];?></a></td>
+                    <td><?php echo $val['useNum'];?></td>
+                    <td><?php echo $val['useProbability'];?></td>
+                    <td>
+                    	<a class="tips" href="<?php echo U('MemberMarketingActivitiesVoucherInfo/set',array('id'=>$val['id']))?>">编辑</a>
+                    	<a class="tips js-delButton" data-id="<?php echo $val['id'];?>" data-vouchertype="<?php echo $val['vouchertype']?>">删除</a>
+                    </td>
+                </tr>
+                <?php }}else{?>
+                <tr class="text-center not-hover">
+                    <td colspan="7">暂无</td>
+                </tr>
+                <?php }?>
+                </tbody>
+            </table>
+        </div>
+        <div class="group form-footer clearfix">
+            <?php echo $page;?>
+        </div>
+    </div>
+</div>
+<?php }?>
+<!-- 删除券 -->
+<div class="popup-wrap wrap-small-1 js-delBox">
+    <div class="mod small-popup type-1">
+        <div class="mod-header">
+        	<h4 class="fl js-voucher-name">删除优惠券</h4><i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+            <div class="content">
+                <div class="group pb-20">
+                    <h6 class="js-confirm-del-voucher">您确定要删除该优惠券吗？</h6>
+                </div>
+                <div class="text-center">
+                    <a class="btn-small btn-white w60 js-icon-close">取消</a>&nbsp;&nbsp;
+                    <a class="btn-small btn-purple w60 js-delKeepButton">确定</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 提示 -->
+<div class="popup-wrap wrap-small-1 js-data-tips-box">
+    <div class="mod small-popup type-1">
+        <div class="mod-header">
+        	<h4 class="fl">提示</h4><i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+            <div class="content">
+                <div class="group pb-20">
+                    <h6 class="js-data-tips"></h6>
+                </div>
+                <div class="text-center">
+                    <a class="btn-small btn-purple w60 js-ok">知道了</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 更新适用门店-->
+<div class="public-box popup-wrap js-useshops-box">
+    <div class="mod small-popup type-1">
+        <div class="mod-header">
+            <h4 class="fl">更新适用门店</h4>
+            <i class="fr icon-close-dark js-icon-close"></i></div>
+        <div class="mod-body">
+            <div class="content">
+                <h5 class="pb-10">请先编辑卡券，在适用门店处勾选新创建的门店，再进行更新。更新后适用门店将同步至已投放的卡券。确认更新吗？</h5>
+            </div>
+            <div class="text-center pb-10">
+                <a class="btn-middle btn-purple w50 js-confirm-update-useshops">确 定</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+//删除订单状态
+$(document).on('click','.js-delButton',function(){
+	var id = $(this).attr('data-id');
+	var vouchertype = $(this).attr("data-vouchertype");
+	if(vouchertype == 1){
+		$('.js-voucher-name').html('删除eshop优惠券');
+		$('.js-confirm-del-voucher').html('您确定要删除该eshop优惠券吗？删除后不可恢复！')
+	}else if(vouchertype == 2){
+		$('.js-voucher-name').html('删除门店使用优惠券');
+		$('.js-confirm-del-voucher').html('您确定要删除该门店使用优惠券吗？删除后不可恢复！')
+	}else if(vouchertype == 3){
+		$('.js-voucher-name').html('删除兑换券');
+		$('.js-confirm-del-voucher').html('您确定要删除该兑换券吗？删除后不可恢复！')
+	}else if(vouchertype == 4){
+		$('.js-voucher-name').html('删除红包');
+		$('.js-confirm-del-voucher').html('您确定要删除该红包吗？删除后不可恢复！')
+	}else if(vouchertype == 40){
+		$('.js-voucher-name').html('删除通用券');
+		$('.js-confirm-del-voucher').html('您确定要删除该通用券吗？删除后不可恢复！')
+	}
+	$(".js-delBox").show().attr("data-id", id);
+});
+$(".js-delKeepButton").click(function(){
+	$(".loading").show();
+	var id = $('.js-delBox').attr("data-id");
+	$.post("<?php echo U('MemberMarketingActivitiesVoucherInfo/ajaxDel').'&time=';?>"+Math.random(),{id:id},function(data){
+		$(".loading").hide();
+		if(data.code == '200'){
+			alertTan(data.tips);
+			setTimeout(function(){
+				window.location.href=location.href;
+			},2000);
+		}else if(data.code == '400'){
+			$('.js-delBox').hide();
+			$('.js-data-tips').html(data.tips);
+			$('.js-data-tips-box').show();
+		}else{
+			alertTan(data.tips,'error');
+			setTimeout(function(){
+				window.location.href=location.href;
+			},2000);
+		}
+	},'json');	
+});
+	//更新使用门店
+		$('.js-update-useshops-limitset').click(function(){
+		var id = $(this).attr('data-id');
+		$('.js-confirm-update-useshops').attr("data-id",id);
+		$(".js-useshops-box").fadeIn(120);
+	});
+	$('.js-confirm-update-useshops').click(function(){
+		var id = $(this).attr("data-id");
+		$('.loading').show();
+		$.post("<?php echo U('MemberMarketingActivitiesVoucherInfo/ajaxUpdateUseShops').'&time='?>"+Math.random(),{'id':id},function(data){
+			$('.loading').hide();
+			if(data.code == 200){
+				alertTan(data.tips);
+				$(".js-useshops-box").fadeOut(120);
+			}else if(data.code == 300){
+				alertTan(data.tips,'error');
+			}else if(data.code == 400){
+				alertTan(data.tips,'warn');
+			}
+		},'json');
+	});
+</script>
+<include file="Public:footer"/>

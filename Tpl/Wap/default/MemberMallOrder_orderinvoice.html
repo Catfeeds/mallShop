@@ -1,0 +1,48 @@
+<include file="Public:S5NewHead" />
+<!-- 首页 -->
+<div class="page application-agency invoice-information">
+	<div class="title-h1">
+		<h1><span>开票信息:</span></h1>
+	</div>
+	<div class="invoice-box">
+		<ul>
+			<li class="personal"><b class="choice" data-type="2" <?php if(!$orderinvoice || $orderinvoice==2){ echo 'class="choice"';};?>></b><span>个人</span></li>
+			<li class="company"><b data-type="1" <?php if($orderinvoice == 1){ echo 'class="choice"';};?>></b><span>公司</span></li>
+			<li>
+				<label for="">
+					<input class="company-name" type="text" name="orderinvoicetitle" value="<?php echo $orderinvoicetitle;?>" placeholder="请填写公司抬头">
+				</label>
+			</li>
+			<li>
+				<label for="">
+					<input class="identification-number" type="text" name="" value="" placeholder="请填写纳税人识别号">
+				</label>
+			</li>
+		</ul>
+	</div>
+	<div class="apply-set">
+		<a class="cancel-btn" href="javascript:;" title="取消">取消</a>
+		<a class="preservation-btn" href="javascript:;" title="保存">保存</a>
+	</div>
+</div>
+<script>
+$(function(){
+	var height = $(window).height();
+	$("body").height(height);
+	$('.eshopv_ordera_btnp').click(function(){
+	    var ordertype = '<?php echo $ordertype;?>';
+	    var orderinvoice = $('[name=orderinvoice]:checked').val();
+	    var orderinvoicetitle = $('#orderinvoicetitle').val();
+	    if(ordertype == 1){
+	        window.location.href = "<?php echo C('site_url').U('MemberMallOrder/createOrder',array('companyid'=>$companyid,'goodsid'=>$goodsid,'addressid'=>$addressid,'vouchersid'=>$vouchersid));?>"+'&orderinvoice='+orderinvoice+'&orderinvoicetitle='+orderinvoicetitle;
+	    }else if(ordertype == 2){
+	        window.location.href = "<?php echo C('site_url').U('MemberMallOrder/createBuyNowOrder',array('companyid'=>$companyid,'goodsid'=>$goodsid,'goodsskuid'=>$goodsskuid,'goodsnum'=>$goodsnum,'goodtype'=>$goodtype,'addressid'=>$addressid,'vouchersid'=>$vouchersid));?>"+'&orderinvoice='+orderinvoice+'&orderinvoicetitle='+orderinvoicetitle;
+	    }
+	});
+});
+</script>
+<script src="{lanrain::RES}/weixinfeng/js/layer.js"></script>
+<script src="{lanrain::RES}/weixinfeng/js/swiper-3.3.1.jquery.min.js"></script>
+<script src="{lanrain::RES}/weixinfeng/js/public2.js"></script>
+<include file="Public:weiXinNotShareSet" />
+<include file="Public:footer"/>

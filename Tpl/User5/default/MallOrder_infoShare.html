@@ -1,0 +1,371 @@
+<include file="Public:head"/>
+<?php echo $makeTopUrl;?>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>订单信息</h4></div>
+    <div class="mod-body">
+        <table class="table type-1 w-auto">
+            <tbody>
+            <tr class="not-hover">
+                <td colspan="3">订单号：<?php echo $info['orderid'];?></td>
+                <td colspan="3">订单状态：<?php if($info['orderstatus']==1){ echo '待付款';}elseif($info['orderstatus']==5){ echo '已关闭';}elseif($info['orderstatus']==6){ echo '卡券已发送';}elseif($info['orderstatus']==9){ echo '到期退单';}elseif($info['orderstatus']==10){ echo '随时退单';};?></td>
+            </tr>
+            <tr class="not-hover">
+                <td colspan="3">交易号：<?php echo $info['borderid'] ? $info['borderid'] : '';?></td>
+                <td colspan="3">商户订单号：<?php if($info['orderstatus']==1){echo '-';}else{ echo $info['out_trade_no'];}?></td>
+            </tr>
+            <tr class="not-hover">
+                <td colspan="2" class="child-sum-3">订单金额：<?php echo $info['ordersubtotal'];?></td>
+                <td colspan="2" class="child-sum-3">实付金额：<?php echo $info['orderprice'];?></td>
+                <td colspan="2" class="child-sum-3">优惠券优惠金额：<?php echo $info['orderderateprice'];?></td>
+            </tr>
+            <tr class="not-hover">
+                <td colspan="2" class="child-sum-3">下单时间：<?php echo format_time($info['createtime'],'ymdhi');?></td>
+                <td colspan="2" class="child-sum-3">付款时间：<?php echo format_time($info['paytime'],'ymdhi');?></td>
+                <td colspan="2" class="child-sum-3">退货/退款时间：<?php echo format_time($info['returntime'],'ymdhi');?></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>会员信息</h4></div>
+    <div class="mod-body">
+        <table class="table type-1 w-auto">
+            <tbody>
+            <tr class="not-hover">
+                <td class="child-sum-2">会员姓名：<?php echo $info['mname'];?></td>
+                <td class="child-sum-2">会员手机号：<a href="<?php echo U('Member/memberInfo',array('id'=>$info['mid']));?>" class="tips"><?php echo $info['mmoblie'];?></a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="mod mb-15">
+	<div class="mod-header radius-top"><h4>商品信息</h4></div>
+    <div class="mod-body mb-15 WeChat-auto-reply-set">
+	<?php if($info['ordertype'] == 7){?>
+		<table class="table type-1 w-auto">
+            <thead>
+            <tr>
+            	<th>卡券名称</th>
+                <th>卡券类型</th>
+                <th>卡券号</th>
+                <th>核销状态</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+		        <?php if($info['goods']){foreach($info['goods'] as $key=>$val){?>
+	            <tr>
+	                <td><?php echo $val['vouchername'];?></td>
+	                <td><?php if($val['vouchertype'] == 3){echo '计次卡';}elseif($val['vouchertype'] == 4){echo '团购';}elseif($val['vouchertype'] == 5){echo '门票';}elseif($val['vouchertype'] == 6){echo '权益卡';}elseif($val['vouchertype'] == 7){echo 'eshop优惠券';}elseif($val['vouchertype'] == 8){echo '门店使用优惠券';}elseif($val['vouchertype'] == 9){echo '兑换券';}?></td>
+	                <td><?php echo $val['sn'];?></td>
+	                <td>
+	                	<?php 
+						if($val['useendtime'] && $val['useendtime'] < time()){
+							echo '已过期';
+						}else{
+							if($val['vouchertype'] == 3){
+								echo $val['usednumber'].'/'.$val['usenumberlimit'];
+							}elseif($val['vouchertype'] == 6){
+								echo $val['usednumber'];
+							}else{
+								if($val['isused'] == 1){
+									echo '已核销';
+								}elseif($val['isused'] == 2){
+									echo '未核销';
+								}else{
+									echo '已冻结';	
+								}
+							}
+						}
+						?>
+	                </td>
+	                <td><a href="javascript:void(0);" class="tips js-Meter-card" data-sn="<?php echo $val['sn'];?>">查看核销记录</a></td>
+	            </tr>
+	           	<?php }}else{?>
+	           	<tr class="text-center not-hover"><td colspan="5">暂无</td></tr>
+	           	<?php }?>
+	            <tr>
+	                <td colspan="7">
+	                	<dl>
+	                		<dt class="clearfix mb-5">
+	                			<div class="text-right fr">
+			                		<p>优惠券优惠金额：<?php echo $info['orderderateprice'] ? '￥'.$info['orderderateprice'] : '￥0.00';?></p>
+			                		<p>订单金额：<?php echo $info['ordersubtotal'] ? $info['ordersubtotal'] : '0.00';?></p>
+			                	</div>
+	                		</dt>
+	                		<dt class="clearfix mb-5">
+			                	<?php if($info['eshopdiscounttitle']){?>
+					            <div class="fr w200" style="background: #fff1eb; color: #fc814c;padding: 5px; border-left:4px solid #fc814c;">
+					            	<p>整单优惠：<?php echo $info['eshopdiscounttitle'];?></p>
+					                <p>优惠效用：-<?php echo $info['eshopdiscountmoney'];?></p>
+					            </div>
+								<?php }?>
+	                		</dt>
+	                		<dt class="clearfix mb-5">
+								<?php if($info['discoukey']){?>
+								<div class="fr w200" style="background: #ebfaf2; color: #3ed27b;padding: 5px; border-left:4px solid #3ed27b;">
+									<p>优惠口令：<?php echo $info['discoukey'];?></p>
+									<p>
+									<?php if($info['discoutype'] == '2'){
+	            						echo '立减';echo $info['discoumoney'];
+	            					}elseif($info['discoutype'] == '3'){
+	            						echo '满';echo $info['startdiscoumoney'];echo '减';echo $info['discoumoney'];
+	            					}elseif($info['discoutype'] == '4'){
+	            						echo '立折';echo $info['discouratio'];echo '%';
+	            					}elseif($info['discoutype'] == '5'){
+	            						echo '满';echo $info['startdiscoumoney'];echo '折';echo $info['discouratio'];echo '%';
+	            					}elseif($info['discoutype'] == '6'){
+	            						echo '赠送';echo $info['giftname'];
+	            					}elseif($info['discoutype'] == '7'){
+	            						echo '满';echo $info['startdiscoumoney'];echo '赠送';echo $info['giftname'];
+	            					}elseif($info['discoutype'] == '8'){
+	            						echo '每满';echo $info['startdiscoumoney'];echo '减';echo $info['discoumoney'];
+	            					}else{
+	            						echo '无优惠';
+	            					}?>
+		            				</p>
+									<p>口令效用：<?php if($info['discoutype']=='6' || $info['discoutype']=='7'){ echo $info['giftname'];}else{ echo '-'; echo $info['discoumoney']?$info['discoumoney']:'0.00';}?></p>
+								</div>
+								<?php }?>
+							</dt>
+                		</dl>
+	                </td>
+	            </tr>
+            </tbody>
+        </table>
+		<?php }else{ ?>
+        <table class="table type-1 w-auto">
+            <thead>
+            <tr>
+            	<th>商品名称</th>
+                <th>售价</th>
+                <th>卡券号</th>
+            	<?php if($info['ordertype'] == 3 || $info['ordertype'] == 6){?>
+            	<?php if($info['ordertype'] == 3){?>
+                <th>已使用次数/可用次数</th>
+                <?php }?>
+                <th>操作</th>
+            	<?php }else{?>
+                <th>是否核销</th>
+                <th>核销时间</th>
+                <th>操作人</th>
+                <th>核销门店</th>
+            	<?php }?>
+            </tr>
+            </thead>
+            <tbody>
+            	<?php if($info['ordertype'] == 3 || $info['ordertype'] == 6){?>
+	            	<?php foreach($info['goods'] as $key=>$val){?>
+	            	<tr>
+		            	<td><?php echo $val['goodname'];?></td>
+		                <td><?php echo $val['goodprice'];?></td>
+		                <td><?php echo $val['sn'];?></td>
+		                <?php if($info['ordertype'] == 3){?>
+		                <td><?php echo $val['usednumber'];?>/<?php echo $val['usenumberlimit'];?></td>
+		                <?php }?>
+		                <td><a href="javascript:void(0);" class="tips js-Meter-card" data-sn="<?php echo $val['sn'];?>">查看核销记录</a></td>
+	                </tr>
+	                <?php }?>
+            	<?php }else{?>
+	            	<?php foreach($info['goods'] as $key=>$val){?>
+		            <tr>
+		                <td><?php echo $val['goodname'];?></td>
+		                <td><?php echo $val['goodprice'];?></td>
+		                <td><?php echo $val['sn'];?></td>
+		                <td><?php if($val['isused'] == 1){ echo '已核销';}elseif($val['isused'] == 2){ echo '未核销';}elseif($val['useendtime'] && $val['useendtime']<time()){ echo '已过期';};?></td>
+		                <td><?php echo format_time($val['usetime'],'ymdhi');?></td>
+		                <td><?php echo $val['staffname'];?></td>
+		                <td><?php if($val['shopid'] == '-1'){echo '总部';}else{echo $val['shopname'];};?></td>
+		            </tr>
+	            	<?php }?>
+            	<?php }?>
+	            <tr>
+	                <td colspan="7">
+	                	<dl>
+	                		<dt class="clearfix mb-5">
+	                			<div class="text-right fr">
+			                		<p>优惠券优惠金额：<?php echo $info['orderderateprice'] ? '￥'.$info['orderderateprice'] : '￥0.00';?></p>
+			                		<p>订单金额：<?php echo $info['ordersubtotal'] ? $info['ordersubtotal'] : '0.00';?></p>
+			                	</div>
+	                		</dt>
+	                		<dt class="clearfix mb-5">
+			                	<?php if($info['eshopdiscounttitle']){?>
+					            <div class="fr w200" style="background: #fff1eb; color: #fc814c;padding: 5px; border-left:4px solid #fc814c;">
+					            	<p>整单优惠：<?php echo $info['eshopdiscounttitle'];?></p>
+					                <p>优惠效用：-<?php echo $info['eshopdiscountmoney'];?></p>
+					            </div>
+								<?php }?>
+	                		</dt>
+	                		<dt class="clearfix mb-5">
+								<?php if($info['discoukey']){?>
+								<div class="fr w200" style="background: #ebfaf2; color: #3ed27b;padding: 5px; border-left:4px solid #3ed27b;">
+									<p>优惠口令：<?php echo $info['discoukey'];?></p>
+									<p>
+									<?php if($info['discoutype'] == '2'){
+	            						echo '立减';echo $info['discoumoney'];
+	            					}elseif($info['discoutype'] == '3'){
+	            						echo '满';echo $info['startdiscoumoney'];echo '减';echo $info['discoumoney'];
+	            					}elseif($info['discoutype'] == '4'){
+	            						echo '立折';echo $info['discouratio'];echo '%';
+	            					}elseif($info['discoutype'] == '5'){
+	            						echo '满';echo $info['startdiscoumoney'];echo '折';echo $info['discouratio'];echo '%';
+	            					}elseif($info['discoutype'] == '6'){
+	            						echo '赠送';echo $info['giftname'];
+	            					}elseif($info['discoutype'] == '7'){
+	            						echo '满';echo $info['startdiscoumoney'];echo '赠送';echo $info['giftname'];
+	            					}elseif($info['discoutype'] == '8'){
+	            						echo '每满';echo $info['startdiscoumoney'];echo '减';echo $info['discoumoney'];
+	            					}else{
+	            						echo '无优惠';
+	            					}?>
+		            				</p>
+									<p>口令效用：<?php if($info['discoutype']=='6' || $info['discoutype']=='7'){ echo $info['giftname'];}else{ echo '-'; echo $info['discoumoney']?$info['discoumoney']:'0.00';}?></p>
+								</div>
+								<?php }?>
+							</dt>
+                		</dl>
+	                </td>
+	            </tr>
+            </tbody>
+        </table>
+		<?php }?>
+    </div>
+</div>
+<!-- 计次卡核销记录 -->
+<div class="popup-wrap wrap-middle-2 js-Meter-card-popup">
+    <div class="mod middle-popup type-2">
+        <div class="mod-header">
+            <h4 class="fl"><?php if($info['ordertype'] == 3){echo '计次卡';}elseif($info['ordertype'] == 6){echo '权益卡';}?>核销记录</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+            <div class="content" style="max-height:440px;overflow:auto;">
+                <table class="table type-1 w-auto mb-15">
+                    <thead>
+                    <tr>
+                        <th>核销时间</th>
+                        <th>核销门店</th>
+                        <th>操作人</th>
+                    </tr>
+                    </thead>
+                    <tbody class="js-poolRecordsList"></tbody>
+                </table>
+            </div>
+            <p class="text-center mb-15">
+                <a class="btn-middle btn-white js-Meter-card-close">关&nbsp;&nbsp; 闭</a>
+            </p>
+        </div>
+    </div>
+    <script>
+    $(".js-Meter-card").on("click",function(){
+   		$(".js-poolRecordsList").text('');
+    	var sn = $(this).attr('data-sn');
+    	$.post("<?php echo U('MallOrder/poolRecordsList').'&time=';?>"+Math.random(),{sn:sn},function(data){
+    		$(".js-poolRecordsList").append(data);
+	        $(".js-Meter-card-popup").fadeIn(120);
+		},'json');
+    });
+    $(".js-Meter-card-close").on("click",function(){
+        $(".js-Meter-card-popup").fadeOut(120);
+    });
+    </script>
+</div>
+<!-- 售后服务-->
+<?php if($info['isrefund'] == 1){?>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>售后服务</h4></div>
+    <div class="mod-body mb-15 WeChat-auto-reply-set">
+        <table class="table type-1 w-auto">
+            <thead>
+            <tr>
+                <th>卡券名称</th>
+                <th>卡券号</th>
+                <th>退款金额</th>
+                <th>服务类型</th>
+                <th>申请时间</th>
+            </tr>
+            </thead>
+            <?php if($serviceInfo){?>
+            <tbody>
+            <tr>
+                <td><?php echo $serviceInfo['vouchername'];?></td>
+                <td><?php echo $serviceInfo['vouchernumber'];?></td>
+                <td><?php echo $serviceInfo['price'];?></td>
+                <td><?php if($serviceInfo['type'] == 1){echo '过期退';}elseif($serviceInfo['type'] == 2){echo '随时退';}?></td>
+                <td><?php echo format_time($serviceInfo['createtime'],'ymdhi');?></td>
+            </tr>
+            </tbody>
+            <?php }?>
+        </table>
+        <?php if(!$serviceInfo){?>
+        <h5 class="text-center table-footer-h5">暂无</h5>
+        <?php }?>
+    </div>
+</div>
+<?php }?>
+<!-- 
+<div class="popup-wrap js-user-alter-wrap rd-service-box">
+    <div class="mod small-popup type-1 popup-width400">
+        <div class="mod-header">
+            <h4 class="fl">服务状态</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+		</div>
+        <div class="mod-body">
+            <div class="content">
+                <div class="group pb-10">
+                    <h6 class="inline w100">服务状态：</h6>
+                    <select class="inline w200" id="handle" name="handle">
+                        <option value="2">未处理</option>
+                        <option value="1">已处理</option>
+                    </select>
+					<h6 class="inline">已自动退款</h6>
+                </div>
+                <div class="group">
+                    <h6 class="inline w100 text-top">备注：</h6>
+                    <textarea class="inline w200 no-resize" rows="3" name="handlernote"></textarea>
+                </div>
+            </div>
+            <input type="hidden" name="serviceid" value=""/>
+            <div class="text-center pb-10">
+                <a class="btn-middle btn-purple w50 js-keepService">保 存</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+$(function(){
+	//修改服务状态
+	$(".update-handleServiceButton").click(function(){
+		$('input[name="serviceid"]').val($(this).attr('data-serviceid'));
+		var handle = $(this).attr('data-handle');
+		$('#handle option[value='+handle+']').attr("selected","selected");
+		if(handle == 1){
+			$('#handle').attr("disabled","disabled");
+		}
+		$('[name="handlernote"]').val($(this).attr('data-handlernote'));
+		$('.rd-service-box').fadeIn(120);		
+	});
+	$(".js-keepService").click(function(){
+		var serviceid = $('input[name="serviceid"]').val();
+		var handle = $('#handle :selected').val();
+		if(!handle){
+			alertTan("请选择处理状态","warn");
+			return false;
+		}
+		var handlernote = $('[name="handlernote"]').val();
+		if(handlernote.trim() == ''){
+			alertTan("请填写操作备注","warn");
+			return false;
+		}
+		$.post("<?php echo U('MallOrder/saveServiceInfo').'&time=';?>"+Math.random(),{serviceid:serviceid,handle:handle,handlernote:handlernote},function(data){
+			alertTan(data.tips,data.code);
+			if(data.code == 'success'){
+				setTimeout(window.location.href=location.href,2000);
+			}
+		},'json');	
+	});
+});
+</script> -->
+<include file="Public:footer"/>

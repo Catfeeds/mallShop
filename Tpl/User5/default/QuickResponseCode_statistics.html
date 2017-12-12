@@ -1,0 +1,326 @@
+<include file="Public:head"/>
+<?php echo $makeTopUrl;?>
+<div class="group inline-btn-group mb-10">
+    <a class="btn-small btn-white js-S5Permissions" data-Permissionsid="17" data-link="<?php echo U('QuickResponseCode/index');?>">自定义网页二维码</a>
+    <a class="btn-small btn-white js-S5Permissions" data-Permissionsid="18" data-link="<?php echo U('QuickResponseCode/lists');?>">微信关注二维码</a>
+	<a class="btn-small btn-purple js-S5Permissions" data-Permissionsid="134" data-link="<?php echo U('QuickResponseCode/statistics');?>">门店拉粉统计</a>
+</div>
+    <div class="alert mb-15"><strong>本功能仅限微信认证服务号</strong><br><strong>数据统计规则：</strong>实时统计</div>
+    <div class="mod mb-15">
+        <div class="mod-header radius-top clearfix"><h4>门店拉粉统计</h4><a class="tips fr">导出表格</a></div>
+        <div class="mod-body">
+            <div class="content">
+
+                <div>
+                    <table class="table type-1 w-auto js-check-cover fans-table">
+                        <thead>
+                        <tr>
+                            <th>门店名称</th>
+                            <th>累计拉粉数<a href="javascript:void(0);" data-name="wechatfansnum" class="sort-icon js-sort-btn <?php if($sortname=="wechatfansnum"){if($sorttype=="asc"){echo 'sort-icon-ascending';}else{echo 'sort-icon-descending';}}?>"></a></th>
+                            <th>今日拉粉数<a href="javascript:void(0);" data-name="todaywechatfansnum" class="sort-icon js-sort-btn <?php if($sortname=="todaywechatfansnum"){if($sorttype=="asc"){echo 'sort-icon-ascending';}else{echo 'sort-icon-descending';}}?>"></a></th>
+                            <th>昨日拉粉数<a href="javascript:void(0);" data-name="yesterdaywechatfansnum" class="sort-icon js-sort-btn <?php if($sortname=="yesterdaywechatfansnum"){if($sorttype=="asc"){echo 'sort-icon-ascending';}else{echo 'sort-icon-descending';}}?>"></a></th>
+                            <th class="w200 fans-border-th">操作</th>
+                        </tr>
+                        </thead>
+                        <?php if($shopList){ foreach($shopList as $skey=>$sval){?>
+                        	<tbody class="js-fans-loop">
+	                            <tr class="fans-no-border">
+	                                <td><h5><b><?php echo $sval['shopname'];?></b></h5></td>
+	                                <td><?php echo $sval['wechatfansnum']?$sval['wechatfansnum']:'0';?></td>
+	                                <td><?php echo $sval['todaywechatfansnum']?$sval['todaywechatfansnum']:'0';?></td>
+	                                <td><?php echo $sval['yesterdaywechatfansnum']?$sval['yesterdaywechatfansnum']:'0';?></td>
+	                                <td class="fans-has-border"><a href="javascript:void (0)" class="tips label-open js-fans-toggle">展开详情</a></td>
+	                            </tr>
+	                        </tbody>
+	                        <tbody class="js-fans-box fans-table-bc">
+	                            <tr class="not-hover"><td colspan="5"><b>拉粉码</b></td></tr>
+	                            <?php if($sval['fanscode']){foreach($sval['fanscode'] as $fkey=>$fval){?>
+		                            <tr class="td-cl666">
+		                                <td><?php echo $fval['name'];?></td>
+		                                <td><?php echo $fval['wechatfansnum']?$fval['wechatfansnum']:'0';?></td>
+		                                <td><?php echo $fval['todaywechatfansnum']?$fval['todaywechatfansnum']:'0';?></td>
+		                                <td><?php echo $fval['yesterdaywechatfansnum']?$fval['yesterdaywechatfansnum']:'0';?></td>
+		                                <td>
+		                                	<div class="inline QR-code-position js-QR-code-hide">
+						                        <a class="tips QR-code-cover" href="javascript:void(0);">查看二维码</a>
+						                        <div class="QR-Auxiliary-blank"></div>
+						                        <div class="QR-code-box-down w100">
+						                            <img data-src="<?php echo $fval['picurl'];?>">
+						                            <h6 class="mb-10">微信扫码<br/>关注公众号</h6>
+						                            <a class="btn-small btn-white" target="_blank" href="<?php echo $fval['picurl'];?>">下载二维码</a>
+						                            <span id="triangle-up-b"></span>
+						                            <span id="triangle-up-a"></span>
+						                        </div>
+						                    </div>
+		                                	<a class="tips js-Report-form" href="javascript:void(0);" data-id="<?php echo $fval['content'];?>">查看每日业绩明细</a>
+	                    					<a class="tips js-Get-fans" href="javascript:void(0);" data-id="<?php echo $fval['content'];?>">查看获取粉丝</a>
+		                                </td>
+		                            </tr>
+	                            <?php }}else{?>
+	                            <tr class="td-cl666">
+		                            <td  colspan="5" class="text-center">暂无</td>
+		                        </tr>
+	                            <?php }?>
+	                            <tr class="not-hover"><td colspan="5"><b>自定义关注二维码</b></td></tr>
+	                            <?php if($sval['customcode']){foreach($sval['customcode'] as $ckey=>$cval){?>
+		                            <tr class="td-cl666">
+		                                <td><?php echo $cval['name'];?></td>
+		                                <td><?php echo $cval['wechatfansnum']?$cval['wechatfansnum']:'0';?></td>
+		                                <td><?php echo $cval['todaywechatfansnum']?$cval['todaywechatfansnum']:'0';?></td>
+		                                <td><?php echo $cval['yesterdaywechatfansnum']?$cval['yesterdaywechatfansnum']:'0';?></td>
+		                                <td>
+		                                	<div class="inline QR-code-position js-QR-code-hide">
+						                        <a class="tips QR-code-cover" href="javascript:void(0);">查看二维码</a>
+						                        <div class="QR-Auxiliary-blank"></div>
+						                        <div class="QR-code-box-down w100">
+						                            <img data-src="<?php echo $cval['picurl'];?>">
+						                            <h6 class="mb-10">微信扫码<br/>关注公众号</h6>
+						                            <a class="btn-small btn-white" target="_blank" href="<?php echo $cval['picurl'];?>">下载二维码</a>
+						                            <span id="triangle-up-b"></span>
+						                            <span id="triangle-up-a"></span>
+						                        </div>
+						                    </div>
+		                                	<a class="tips js-Report-form" href="javascript:void(0);" data-id="<?php echo $cval['content'];?>">查看每日业绩明细</a>
+	                    					<a class="tips js-Get-fans" href="javascript:void(0);" data-id="<?php echo $cval['content'];?>">查看获取粉丝</a>
+		                                </td>
+		                            </tr>
+	                            <?php }}else{?>
+	                            <tr class="td-cl666">
+		                            <td  colspan="5" class="text-center">暂无</td>
+		                        </tr>
+	                            <?php }?>
+	                        </tbody>
+                        <?php }}?>
+                    </table>
+                </div>
+            </div>
+            <?php if($page){?>
+	        <div class="group form-footer clearfix">
+	            <div class="group pagination fr">
+	            	<?php echo $page;?>
+	            </div>
+	        </div>
+	        <?php }?>
+        </div>
+        <script type="text/javascript">
+            /*展开收起*/
+            $(".js-fans-toggle").click(function(){
+                if($(this).hasClass("label-open")){
+                    $(this).removeClass("label-open");
+                    $(this).addClass("label-close");
+                    $(this).html("收起详情");
+                    $(this).parents(".js-fans-loop").next(".js-fans-box").show();
+                }else if($(this).hasClass("label-close")){
+                    $(this).removeClass("label-close");
+                    $(this).addClass("label-open");
+                    $(this).html("展开详情");
+                    $(this).parents(".js-fans-loop").next(".js-fans-box").hide();
+                }
+            });
+        </script>
+    </div>
+</div>
+<input type="hidden" id="test" value="">
+<!-- 查看报表 弹窗 -->
+<div class="popup-wrap wrap-small-1 js-Report-form-popup">
+    <div class="mod middle-popup type-1" style="width: 700px;margin-left:-350px;">
+        <div class="mod-header"><h4 class="fl">查看报表</h4><i class="quxiao fr icon-close-dark js-icon-close"></i></div>
+        <div class="mod-body">
+            <div class="qr-code-scroll">
+                <div class="mod mt-0">
+                    <div class="mod-header radius-top"><h4>全部</h4></div>
+                    <div class="mod-body">
+                        <table class="table type-1 w-auto">
+                            <thead>
+                            <tr>
+                                <th>时间</th>
+                                <th>获取关注数</th>
+                                <th>取消关注数</th>
+                                <th>有效关注数</th>
+                                <th>有效注册数</th>
+                            </tr>
+                            </thead>
+                            <tbody class="js-log">
+                            </tbody>
+                        </table>
+                        <div class="group form-footer clearfix">
+                            <div class="group pagination fr js-ajaxpage">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="group form-footer text-center"><a class="btn-small btn-white js-Report-form-close">关闭</a></div>
+        </div>
+    </div>
+    <script>
+        $(".js-Report-form").on("click",function(){
+        	var qid = $(this).attr('data-id');
+        	var type = '2';
+        	$('#test').val('js-ajaxpage').attr({'data-type':type,'data-qid':qid});
+        	$('.loading').show();
+        	$.post("<?php echo U('QuickResponseCode/quicklog');?>",{qid:qid,type:type},
+    				function(data){
+        			$('.loading').hide();
+            			if(data.code == '200'){
+            				$('.js-log').html(data.html);
+            				if(data.page){
+            					$('.js-ajaxpage').parent().show();
+    	        				$('.js-ajaxpage').html(data.page);
+            				}else{
+            					$('.js-ajaxpage').parent().hide();
+            				}
+            				$(".js-Report-form-popup").fadeIn(120);
+            			}else{
+            				alertTan(data.msg,'error');
+            			}
+    				},"json"
+    		);
+        });
+        $(".js-Report-form-close").on("click",function(){
+            $(".js-Report-form-popup").fadeOut(120);
+        });
+    </script>
+</div>
+<!-- 查看获取粉丝 弹窗 -->
+<div class="popup-wrap wrap-small-1 js-Get-fans-popup">
+    <div class="mod middle-popup type-1" style="width: 700px;margin-left:-350px;">
+        <div class="mod-header"><h4 class="fl">查看获取粉丝</h4><i class="quxiao fr icon-close-dark js-icon-close"></i></div>
+        <div class="mod-body">
+            <div class="qr-code-scroll">
+                <div class="mod mt-0">
+                    <div class="mod-header radius-top"><h4>全部</h4></div>
+                    <div class="mod-body">
+                        <table class="table type-1 w-auto">
+                            <thead>
+                            <tr>
+                                <th>微信昵称</th>
+                                <th>最新关注时间</th>
+                                <th>最近取关时间</th>
+                                <th>关注状态</th>
+                                <th>是否注册</th>
+                            </tr>
+                            </thead>
+                            <tbody class="js-log">
+                            </tbody>
+                        </table>
+                        <div class="group form-footer clearfix">
+                            <div class="group pagination fr js-ajaxpage">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="group form-footer text-center">
+                <a class="btn-small btn-white js-Get-fans-close">关闭</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(".js-Get-fans").on("click",function(){
+            var qid = $(this).attr('data-id');
+        	var type = '4';
+        	$('#test').val('js-ajaxpage').attr({'data-type':type,'data-qid':qid});
+        	$('.loading').show();
+        	$.post("<?php echo U('QuickResponseCode/quicklog');?>",{qid:qid,type:type},
+    				function(data){
+        			$('.loading').hide();
+            			if(data.code == '200'){
+            				$('.js-log').html(data.html);
+            				if(data.page){
+            					$('.js-ajaxpage').parent().show();
+    	        				$('.js-ajaxpage').html(data.page);
+            				}else{
+            					$('.js-ajaxpage').parent().hide();
+            				}
+            				$(".js-Get-fans-popup").fadeIn(120);
+            			}else{
+            				alertTan(data.msg,'error');
+            			}
+    				},"json"
+    		);
+        });
+        $(".js-Get-fans-close").on("click",function(){
+            $(".js-Get-fans-popup").fadeOut(120);
+        });
+    </script>
+</div>
+<script>
+$(function(){
+	$('#test').val('');
+	$(document).on('click','.js-ajaxpage-num',function(){
+		var qid = $('#test').attr('data-qid');
+		var type = $('#test').attr('data-type');
+		var page = $(this).attr('data-page');
+		var test = $('#test').val();
+		$.post("<?php echo U('QuickResponseCode/quicklog');?>",{qid:qid,page:page,type:type},
+				function(data){
+	    			if(data.code == '200'){
+	    				if(test == 'js-ajaxkeypage'){
+	    					$('.js-keylog').html(data.html);
+	    				}else{
+		    				$('.js-log').html(data.html);
+	    				}
+	    				if(data.page){
+	    					$('.'+test).parent().show();
+	        				$('.'+test).html(data.page);
+	    				}else{
+	    					$('.'+test).parent().hide();
+	    				}
+	    			}else{
+	    				alertTan(data.msg,'error');
+	    			}
+				},"json"
+		);
+	});
+	$(document).on('click','.js-page-go-icon',function(){
+		var qid = $('#test').attr('data-qid');
+		var type = $('#test').attr('data-type');
+		var page = $(this).prev().val();
+		var test = $('#test').val();
+		$.post("<?php echo U('QuickResponseCode/quicklog');?>",{qid:qid,page:page,type:type},
+				function(data){
+	    			if(data.code == '200'){
+	    				if(test == 'js-ajaxkeypage'){
+	    					$('.js-keylog').html(data.html);
+	    				}else{
+		    				$('.js-log').html(data.html);
+	    				}
+	    				if(data.page){
+	    					$('.'+test).parent().show();
+	        				$('.'+test).html(data.page);
+	    				}else{
+	    					$('.'+test).parent().hide();
+	    				}
+	    			}else{
+	    				alertTan(data.msg,'error');
+	    			}
+				},"json"
+		);
+	});
+	//排序
+	$(".js-sort-btn").click(function(){
+		var sortname = sorttype = '';
+        $(this).removeClass("sort-drop");
+        $(this).removeClass("sort-rise");
+        if($(this).hasClass("sort-icon-descending")){
+            $(this).removeClass("sort-icon-descending");
+            $(this).addClass("sort-icon-ascending");
+            sorttype="asc";
+        }else if($(this).hasClass("sort-icon-ascending")){
+            $(this).removeClass("sort-icon-ascending");
+            $(this).addClass("sort-icon-descending");
+            sorttype="desc";
+        }else{
+            $(this).addClass("sort-icon-descending");
+            sorttype="desc";
+        }
+        sortname=$(this).attr('data-name');
+        window.location.href="<?php echo U('QuickResponseCode/statistics',array('companyid'=>$companyid,'sortname'=>'"+sortname+"','sorttype'=>'"+sorttype+"'));?>";
+    });
+});
+</script>
+<include file="Public:footer"/>
+<link rel="stylesheet" href="./Tpl/User5/default/common/fonts/font-awesome-4.6.3/css/font-awesome.min.css"><!-- 图标字体库 -->
+<include file="Public:UEditorJS"/>
+<include file="Public:UEditorSuperMiNi"/>

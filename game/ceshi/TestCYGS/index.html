@@ -1,0 +1,658 @@
+
+
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="format-detection" content="telephone=no">
+  <meta name="viewport" content="width=device-width initial-scale=1.0 maximum-scale=1.0 user-scalable=yes">
+  <title>你会读心术吗? 从眼神看内心</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <script src="../../js/config.js"></script>
+  <link href="../../css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/style.css" />
+  <style type="text/css">
+    .bg {
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: #000;
+      background-size: 100% 100% !important;
+    }
+
+    .addthumb {
+      padding-left: 0;
+      padding-right: 0;
+      height: 50px;
+      overflow: hidden;
+    }
+
+    .btn-danger {
+      background-color: #f08c86;
+      border-color: #f08c86;
+      color: #fff;
+    }
+
+    .btn-danger:hover, .btn-danger:focus, .btn-danger:active, .btn-danger.active, .open > .dropdown-toggle.btn-danger {
+      background-color: #f08c86;
+      border-color: #f08c86;
+      color: #fff;
+    }
+
+    .btn-danger2 {
+      background-color: #5a4c4b;
+      border-color: #5a4c4b;
+      color: #fff;
+    }
+
+    .buttons2 {
+      padding-top: 5px;
+    }
+
+    .btn-danger2:hover, .btn-danger2:focus, .btn-danger2:active, .btn-danger2.active, .open > .dropdown-toggle.btn-danger2 {
+      background-color: #5a4c4b;
+      border-color: #5a4c4b;
+      color: #fff;
+    }
+
+    .btn-danger1 {
+      font-size: 22px;
+      padding: 10px;
+    }
+
+    .btn-success {
+      background-color: #2d892d;
+      border-color: #4cae4c;
+      color: #fff;
+    }
+
+    .panel {
+      background-color: #fff;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body style="zoom: 1;">
+<div class="bg"></div><div id="ad0">
+
+</div>
+<div class="container">
+<div class="text-center header">
+  <h1 class="bold">你会读心术吗？</h1>
+  <p>已有857697人参考</p>
+  <div class="avatar1 text-center">
+    <div class="img-circle" id="sicon">
+      <span class="glyphicon glyphicon-heart"></span>
+    </div>
+  </div>
+</div>
+<div id="bd" class="panel">
+<div id="panel1" class="panel-body">
+  <dl>
+    <dd style="font-size:18px;">
+      眼睛是心里的窗户，眼睛可以淋漓尽致的表达出一个人的情绪，甚至流露出难以言表的个人感情，你可以仅凭眼神读取一下的个人情绪吗？</dd>
+  </dl>
+  <div class="buttons">
+    <a href="#result" class="btn btn-danger btn-danger1 btn-block" onclick="return next(0);"> 开始测试</a>
+  </div>
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block"> 一键关注</a>
+  </div>        </div>
+<div id="panel2" class="panel-body js_answer" data-type="2" style="display: none;">
+  <dl>
+
+    <dd>
+      <p >这个眼神表达的情绪是？</p>
+      <img src="res/1.jpg" width="100%">			</dd>
+
+  </dl>
+  <ul class="list-group js_group">
+    <li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>A 生气</li>				<li class="list-group-item" data-score="7" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>B 紧张</li>				<li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>C 期待</li>				<li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>D 伤心</li>
+  </ul>
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block"> 一键关注</a>
+  </div>        </div>
+<div id="Div1" class="panel-body js_answer" data-type="2" style="display: none;">
+  <dl>
+
+    <dd>
+      <p >这个眼神表达的情绪是？</p>
+      <img src="res/2.jpg" width="100%">			</dd>
+
+  </dl>
+  <ul class="list-group js_group">
+    <li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>A 疲劳</li>				<li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>B 生气</li>				<li class="list-group-item" data-score="6" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>C 开心</li>				<li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>D 不耐烦</li>
+  </ul>
+
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block"> 一键关注</a>
+  </div>        </div>
+<div id="Div2" class="panel-body js_answer" data-type="2" style="display: none;">
+  <dl>
+
+    <dd>
+      <p >这个眼神表达的情绪是？</p>
+      <img src="res/3.jpg" width="100%">			</dd>
+
+  </dl>
+  <ul class="list-group js_group">
+    <li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>A 害怕</li>				<li class="list-group-item" data-score="7" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>B 愤怒</li>				<li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>C 伤心</li>				<li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>D 疑问</li>
+  </ul>
+
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block"> 一键关注</a>
+  </div>        </div>
+<div id="Div3" class="panel-body js_answer" data-type="2" style="display: none;">
+  <dl>
+
+    <dd>
+      <p >这个眼神表达的情绪是？</p>
+      <img src="res/4.jpg" width="100%">			</dd>
+
+  </dl>
+  <ul class="list-group js_group">
+    <li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>A 疲劳</li>				<li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>B 生气</li>				<li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>C 开心</li>				<li class="list-group-item" data-score="6" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>D 悲伤</li>
+  </ul>
+
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block"> 一键关注</a>
+  </div>        </div>
+<div id="Div4" class="panel-body js_answer" data-type="2" style="display: none;">
+  <dl>
+
+    <dd>
+      <p >这个眼神表达的情绪是？</p>
+      <img src="res/5.jpg" width="100%">			</dd>
+
+  </dl>
+  <ul class="list-group js_group">
+    <li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>A 伤心</li>				<li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>B 生气</li>				<li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>C 害怕</li>				<li class="list-group-item" data-score="7" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>D 期待</li>
+  </ul>
+
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block"> 一键关注</a>
+  </div>        </div>
+<div id="Div5" class="panel-body js_answer" data-type="2" style="display: none;">
+  <dl>
+
+    <dd>
+      <p >这个眼神表达的情绪是？</p>
+      <img src="res/6.jpg" width="100%">			</dd>
+
+  </dl>
+  <ul class="list-group js_group">
+    <li class="list-group-item" data-score="6" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>A 伤心</li>				<li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>B 生气</li>				<li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>C 愉快</li>				<li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>D 反感</li>
+  </ul>
+
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block"> 一键关注</a>
+  </div>        </div>
+<div id="Div6" class="panel-body js_answer" data-type="2" style="display: none;">
+  <dl>
+
+    <dd>
+      <p >这个眼神表达的情绪是？</p>
+      <img src="res/7.jpg" width="100%">			</dd>
+
+  </dl>
+  <ul class="list-group js_group">
+    <li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>A 疲惫</li>				<li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>B 紧张</li>				<li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>C 愉快</li>				<li class="list-group-item" data-score="6" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>D 悲哀</li>
+  </ul>
+
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block"> 一键关注</a>
+  </div>        </div>
+<div id="Div7" class="panel-body js_answer" data-type="2" style="display: none;">
+  <dl>
+
+    <dd>
+      <p >这个眼神表达的情绪是？</p>
+      <img src="res/8.jpg" width="100%">			</dd>
+
+  </dl>
+  <ul class="list-group js_group">
+    <li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>A 不耐烦</li>				<li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>B 生气</li>				<li class="list-group-item" data-score="7" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>C 愉快</li>				<li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>D 惊讶</li>
+  </ul>
+
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block"> 一键关注</a>
+  </div>        </div>
+<div id="Div8" class="panel-body js_answer" data-type="2" style="display: none;">
+  <dl>
+
+    <dd>
+      <p >这个眼神表达的情绪是？</p>
+      <img src="res/9.jpg" width="100%">			</dd>
+
+  </dl>
+  <ul class="list-group js_group">
+    <li class="list-group-item" data-score="7" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>A 期待</li>				<li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>B 伤心</li>				<li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>C 愉快</li>				<li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>D 疑惑</li>
+  </ul>
+
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block"> 一键关注</a>
+  </div>        </div>
+<div id="Div9" class="panel-body js_answer" data-type="2" style="display: none;">
+  <dl>
+
+    <dd>
+      <p >这个眼神表达的情绪是？</p>
+      <img src="res/10.jpg" width="100%">			</dd>
+
+  </dl>
+  <ul class="list-group js_group">
+    <li class="list-group-item" data-score="7" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>A 惊喜</li>				<li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>B 害怕</li>				<li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>C 愉快</li>				<li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>D 疑惑</li>
+  </ul>
+
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block"> 一键关注</a>
+  </div>        </div>
+<div id="Div10" class="panel-body js_answer" data-type="2" style="display: none;">
+  <dl>
+
+    <dd>
+      <p >这个眼神表达的情绪是？</p>
+      <img src="res/11.jpg" width="100%">			</dd>
+
+  </dl>
+  <ul class="list-group js_group">
+    <li class="list-group-item" data-score="7" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>A 不耐烦</li>				<li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>B 害怕</li>				<li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>C 紧张</li>				<li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>D 疑惑</li>
+  </ul>
+
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block"> 一键关注</a>
+  </div>        </div>
+<div id="Div11" class="panel-body js_answer" data-type="2" style="display: none;">
+  <dl>
+
+    <dd>
+      <p >这个眼神表达的情绪是？</p>
+      <img src="res/12.jpg" width="100%">			</dd>
+
+  </dl>
+  <ul class="list-group js_group">
+    <li class="list-group-item" data-score="7" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>A 惊喜</li>				<li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>B 害怕</li>				<li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>C 紧张</li>				<li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>D 疑惑</li>
+  </ul>
+
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block"> 一键关注</a>
+  </div>        </div>
+<div id="Div12" class="panel-body js_answer" data-type="2" style="display: none;">
+  <dl>
+
+    <dd>
+      <p >这个眼神表达的情绪是？</p>
+      <img src="res/13.jpg" width="100%">			</dd>
+
+  </dl>
+  <ul class="list-group js_group">
+    <li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>A 开心</li>				<li class="list-group-item" data-score="6" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>B 害怕</li>				<li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>C 好奇</li>				<li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>D 失望</li>
+  </ul>
+
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block"> 一键关注</a>
+  </div>        </div>
+<div id="Div13" class="panel-body js_answer" data-type="2" style="display: none;">
+  <dl>
+
+    <dd>
+      <p >这个眼神表达的情绪是？</p>
+      <img src="res/14.jpg" width="100%">			</dd>
+
+  </dl>
+  <ul class="list-group js_group">
+    <li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>A 不耐烦</li>				<li class="list-group-item" data-score="7" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>B 憎恶</li>				<li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>C 紧张</li>				<li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>D 疑惑</li>
+  </ul>
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block"> 一键关注</a>
+  </div>        </div>
+<div id="Div14" class="panel-body js_answer" data-type="2" style="display: none;">
+  <dl>
+
+    <dd>
+      <p >这个眼神表达的情绪是？</p>
+      <img src="res/15.jpg" width="100%">			</dd>
+
+  </dl>
+  <ul class="list-group js_group">
+    <li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>A 不满</li>				<li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>B 害怕</li>				<li class="list-group-item" data-score="0" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>C 紧张</li>				<li class="list-group-item" data-score="7" onclick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>D 失落</li>
+  </ul>
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block"> 一键关注</a>
+  </div>        </div>		<div id="panel3" class="panel-body js_result" data-id="1" style="display:none;">
+  <h1 class="bold text-danger">没到10分，不及格</h1>
+  <hr>
+  <dl>
+    <dt>详细分析:</dt>
+    <dd>
+      <p>屌丝不会读心，注定孤独终生。</p>
+    </dd>
+  </dl>
+  <div class="buttons">
+    <a href="javascript:void(0)" class="btn btn-success btn-block" onclick="$(&#39;#mcover&#39;).show()">分享给朋友(圈)</a>
+  </div>
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block"> 一键关注</a>
+  </div>        </div><div id="Div15" class="panel-body js_result" data-id="2" style="display:none;">
+  <h1 class="bold text-danger">没到20分，努力</h1>
+  <hr>
+  <dl>
+    <dt>详细分析:</dt>
+    <dd>
+      <p>沟通起来略吃力，相对的别人也不太懂得他。</p>
+    </dd>
+  </dl>
+  <div class="buttons">
+    <a href="javascript:void(0)" class="btn btn-success btn-block" onclick="$(&#39;#mcover&#39;).show()">分享给朋友(圈)</a>
+  </div>
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block"> 一键关注</a>
+  </div>        </div><div id="Div16" class="panel-body js_result" data-id="3" style="display:none;">
+  <h1 class="bold text-danger">没到30分，加油啊！</h1>
+  <hr>
+  <dl>
+    <dt>详细分析:</dt>
+    <dd>
+      <p>沟通起来略吃力，相对的别人也不太懂得他。</p>
+    </dd>
+  </dl>
+  <div class="buttons">
+    <a href="javascript:void(0)" class="btn btn-success btn-block" onclick="$(&#39;#mcover&#39;).show()">分享给朋友(圈)</a>
+  </div>
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block"> 一键关注</a>
+  </div>        </div><div id="Div17" class="panel-body js_result" data-id="4" style="display:none;">
+  <h1 class="bold text-danger">没到40分，加油！</h1>
+  <hr>
+  <dl>
+    <dt>详细分析:</dt>
+    <dd>
+      <p>沟通起来略吃力，相对的别人也不太懂得他。</p>
+    </dd>
+  </dl>
+  <div class="buttons">
+    <a href="javascript:void(0)" class="btn btn-success btn-block" onclick="$(&#39;#mcover&#39;).show()">分享给朋友(圈)</a>
+  </div>
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block"> 一键关注</a>
+  </div>        </div><div id="Div18" class="panel-body js_result" data-id="5" style="display:none;">
+  <h1 class="bold text-danger">没到50分，努力</h1>
+  <hr>
+  <dl>
+    <dt>详细分析:</dt>
+    <dd>
+      <p>沟通起来略吃力，相对的别人也不太懂得他。</p>
+    </dd>
+  </dl>
+  <div class="buttons">
+    <a href="javascript:void(0)" class="btn btn-success btn-block" onclick="$(&#39;#mcover&#39;).show()">分享给朋友(圈)</a>
+  </div>
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block"> 一键关注</a>
+  </div>        </div><div id="Div19" class="panel-body js_result" data-id="6" style="display:none;">
+  <h1 class="bold text-danger">没到60分，快及格啦</h1>
+  <hr>
+  <dl>
+    <dt>详细分析:</dt>
+    <dd>
+      <p>大部分的人在这一区间，可以自如的和别人交流，讲道理，好沟通</p>
+    </dd>
+  </dl>
+  <div class="buttons">
+    <a href="javascript:void(0)" class="btn btn-success btn-block" onclick="$(&#39;#mcover&#39;).show()">分享给朋友(圈)</a>
+  </div>
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block"> 一键关注</a>
+  </div>        </div><div id="Div20" class="panel-body js_result" data-id="7" style="display:none;">
+  <h1 class="bold text-danger">没到70分，刚及格</h1>
+  <hr>
+  <dl>
+    <dt>详细分析:</dt>
+    <dd>
+      <p>大部分的人在这一区间，可以自如的和别人交流，讲道理，好沟通</p>
+    </dd>
+  </dl>
+  <div class="buttons">
+    <a href="javascript:void(0)" class="btn btn-success btn-block" onclick="$(&#39;#mcover&#39;).show()">分享给朋友(圈)</a>
+  </div>
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block"> 一键关注</a>
+  </div>        </div><div id="Div21" class="panel-body js_result" data-id="8" style="display:none;">
+  <h1 class="bold text-danger">没到80分，不错</h1>
+  <hr>
+  <dl>
+    <dt>详细分析:</dt>
+    <dd>
+      <p>情商高，成熟，善于察言观色，能很快地感知到别人的情绪，随时知道别人在想什么。</p>
+    </dd>
+  </dl>
+  <div class="buttons">
+    <a href="javascript:void(0)" class="btn btn-success btn-block" onclick="$(&#39;#mcover&#39;).show()">分享给朋友(圈)</a>
+  </div>
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block"> 一键关注</a>
+  </div>        </div><div id="Div22" class="panel-body js_result" data-id="9" style="display:none;">
+  <h1 class="bold text-danger">没到90分，哇哦</h1>
+  <hr>
+  <dl>
+    <dt>详细分析:</dt>
+    <dd>
+      <p>情商高，成熟，善于察言观色，能很快地感知到别人的情绪，随时知道别人在想什么。</p>
+    </dd>
+  </dl>
+  <div class="buttons">
+    <a href="javascript:void(0)" class="btn btn-success btn-block" onclick="$(&#39;#mcover&#39;).show()">分享给朋友(圈)</a>
+  </div>
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block"> 一键关注</a>
+  </div>        </div><div id="Div23" class="panel-body js_result" data-id="10" style="display:none;">
+  <h1 class="bold text-danger">恭喜：快满分啦！加油啊</h1>
+  <hr>
+  <dl>
+    <dt>详细分析:</dt>
+    <dd>
+      <p>读心高手，可以敏感的捕捉到别人最细微的情绪，洞察一切，什么都不要想瞒过他。</p>
+    </dd>
+  </dl>
+  <div class="buttons">
+    <a href="javascript:void(0)" class="btn btn-success btn-block" onclick="$(&#39;#mcover&#39;).show()">分享给朋友(圈)</a>
+  </div>
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block"> 一键关注</a>
+  </div>        </div> <div id="Div24" class="panel-body js_result" data-id="11" style="display:none;">
+  <h1 class="bold text-danger">恭喜：全部答对  满分！神！</h1>
+  <hr>
+  <dl>
+    <dt>详细分析:</dt>
+    <dd>
+      <p>读心高手，可以敏感的捕捉到别人最细微的情绪，洞察一切，什么都不要想瞒过他。</p>
+    </dd>
+  </dl>
+  <div class="buttons">
+    <a href="javascript:void(0)" class="btn btn-success btn-block" onclick="$(&#39;#mcover&#39;).show()">分享给朋友(圈)</a>
+  </div>
+  <div class="buttons buttons2">
+    <a href="javascript:gzh();" class="btn btn-danger btn-danger2 btn-block"> 一键关注</a>
+  </div>        </div>
+</div>
+</div>
+
+
+<div id="mcover" onclick="$(this).hide()">
+  <img src="../../img/guide.png">
+</div>
+<div class="loads" style="display: none;"><i></i></div>
+<script type="text/javascript" src="../../js/jquery.min.js"></script>
+<script src="../../js/zepto.min.js"></script>
+<script src="../../js/WeixinApi.min.js"></script>
+<script type="text/javascript">
+  // var audio = new Audio();
+  var total = '15';
+  var tScore = 0;
+  var scoreArr = new Array();
+  scoreArr[0] = 0;
+  scoreArr[1] = 10;
+  scoreArr[2] = 20;
+  scoreArr[3] = 30;
+  scoreArr[4] = 40;
+  scoreArr[5] = 50;
+  scoreArr[6] = 60;
+  scoreArr[7] = 70;
+  scoreArr[8] = 80;
+  scoreArr[9] = 90;
+  scoreArr[10] = 100;
+  function next(t) {
+    //console.log(t);
+    $(".panel-body").hide();
+    var $_this = $(".js_answer").eq(t);
+    $_this.show();
+    var type = $_this.attr('data-type');
+    if (type == 2) {
+      // audio.src = $_this.find('audio').attr('src');
+      // audio.load();
+      // audio.play();
+      $('#sicon').html('<span class="glyphicon glyphicon-heart-empty"></span>');
+    }
+    else if (type == 1) {
+      // stop = true;
+      // audio.pause();
+      $('#sicon').html('<span class="glyphicon glyphicon-picture"></span>');
+    }
+    else {
+      // stop = true;
+      // audio.pause();
+      $('#sicon').html('<span class="glyphicon glyphicon-pencil"></span>');
+    }
+  }
+
+  function result(t) {
+    console.log("得分" + tScore);
+    $(".panel-body").hide();
+    for (var i = scoreArr.length - 1; i >= 0; i--) {
+      if (parseInt(t) >= parseInt(scoreArr[i])) {
+        console.log("应该弹" + i);
+        $(".js_result").eq(i).show();
+        $("#guangzhu").show();
+        $("body").scrollTop(300);
+        if (i > (10 / 2)) {
+          $('#sicon').html('<span class="glyphicon glyphicon-thumbs-up"></span>');
+        }
+        else {
+          $('#sicon').html('<span class="glyphicon glyphicon-thumbs-down"></span>');
+        }
+        //$.get("/Fy/up/", {
+        //    wid: 6177,
+        //    id: 60,
+        //    score: tScore
+        //});
+        return false;
+      }
+      else {
+        continue;
+      }
+    };
+  }
+
+  function toggle(t) {
+    $(".list-group-item").removeClass('active')
+    var score = $(t).attr("data-score");
+    tScore = parseInt(tScore) + parseInt(score);
+    $(t).find('i').removeClass('glyphicon-unchecked').addClass('glyphicon-ok');
+    var t = $(".js_answer").index($(t).parents(".js_answer")) + 1;
+    //音乐播放beg
+    $('.btn').show();
+    $('.stop').hide();
+    //音乐播放end
+    if (t == total) {
+      result(tScore);
+    }
+    else {
+      setTimeout(function () { next(t); }, 300);
+    }
+  }
+  Zepto(function ($) {
+    $('.loads').hide();
+  })
+  WeixinApi.ready(function (Api) {
+    Api.showOptionMenu();
+    var wxData = {
+      //"appId": "wx6987e3e535ea35fe",
+      "imgUrl":siteurl+ '/ceshi/TestCYGS/icon.jpg',
+      "link": siteurl + '/ceshi/TestCYGS/',
+      "desc": '你会读心术吗？学点吧！我得了[n]分！还能再牛点嘛？',
+      "title": '你会读心术吗？学点吧！超经典！我得了[n]分！还能再牛点嘛？'
+    };
+    // 分享的回调
+    var wxCallbacks = {
+      // 分享操作开始之前
+      ready: function () {
+        if (parseInt(tScore) == 0)
+        {
+          wxData['title'] = "你能从眼神看内心吗，快来试试读心术！";
+          wxData['desc'] = "你能从眼神看内心吗，快来试试读心术！";
+        }
+        else {
+          wxData['title'] = wxData['title'].replace('[n]', tScore);
+          wxData['desc'] = wxData['desc'].replace('[n]', tScore);
+        }
+      },
+      // 分享被用户自动取消
+      cancel: function (resp) {
+        alert("别这样的啦，好东西要和朋友分享的嘛！分享后我告诉你一个秘密。");
+      },
+      // 分享失败了
+      fail: function (resp) {
+        alert("分享失败，可能是网络问题，一会儿再试试？");
+      },
+      // 分享成功
+      confirm: function (resp) {
+        //$.get("mobile.php?act=module&name=dialect&do=detail&weid=6", {id: "7",op:'share'});
+        //$.get("/Fy/up_share/", {
+        //    wid: 6177,
+        //    id: 60,
+        //    score: tScore
+        //});
+        //window.location.href = 'javascript:gzh();';
+        onShareComplete();
+      },
+    };
+    Api.shareToFriend(wxData, wxCallbacks);
+    Api.shareToTimeline(wxData, wxCallbacks);
+    Api.shareToWeibo(wxData, wxCallbacks);
+  });
+
+  function onShareComplete() {
+    home_test();
+  }
+</script>
+<script>
+  $("#content img").each(function () {
+    $(this).removeAttr('height');
+    if (($(this).width() + 20) > $('#content').innerWidth()) {
+
+      $(this).removeAttr('style').removeAttr('width');
+      $(this).removeAttr('style').attr('width', ($('#content').innerWidth() - 20));
+    } else {
+      $(this).removeAttr('style').attr('max-width', '100%');
+    }
+
+  });
+  $("#content2 img").each(function () {
+    $(this).removeAttr('height');
+    if (($(this).width() + 20) > $('#content2').innerWidth()) {
+
+      $(this).removeAttr('style').removeAttr('width');
+      $(this).removeAttr('style').attr('width', ($('#content2').innerWidth() - 20));
+    } else {
+      $(this).removeAttr('style').attr('max-width', '100%');
+    }
+
+  });
+</script>
+<script src="../../js/ad-pic.js"></script>
+</body></html>

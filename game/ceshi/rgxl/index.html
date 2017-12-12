@@ -1,0 +1,1315 @@
+
+<!doctype html>
+<html lang="zh-cn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,  minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>菲尔博士的著名人格心理测试</title>
+<script src="../../js/config.js"></script>
+<script src="../../js/avalon.mobile.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="css/wechat.css"> -->
+<style>
+* {
+  font-family: '微软雅黑';
+}
+
+html, body {
+  margin: 0;
+  color: #000;
+  background: #95d15f url(http://mmbiz.qpic.cn/mmbiz/mhNj6OVxBQGUdb2DURj4icfMyxjLhUwhRbGY6JrvxPpEGZbvoUrPDnAtud7nZZ5E4r7NUAKP0OIuoHb8ClQ3EIg/640) no-repeat center 0;
+  background-size: 100%;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+
+#loading {
+  text-align: center;
+  font-size: 20px;
+  line-height: 400px;
+  display: none;
+}
+
+.loading #loading {
+  display: block;
+}
+
+.loading .head,
+.loading .main {
+  display: none;
+}
+
+.head img {
+  width: 100%;
+}
+
+.main {
+  padding: 10px;
+  padding-top: 20%;
+  margin-top: -10px;
+  text-align: center;
+}
+
+.t-t {
+  font-size: 22px;
+  line-height: 2em;
+  text-align: left;
+}
+
+.t-s {
+  padding: 5px;
+  background-color: #f9baba;
+  max-width: 100%;
+  margin: 10px auto;
+  text-align: center;
+  position: relative;
+  -webkit-transition: background-color 0.3s ease;
+}
+
+img {
+  max-width: 100%;
+}
+
+.t-s img {
+  max-width: 100%;
+}
+
+.t-s span {
+  font-size: 1em;
+  line-height: 1.5em;
+  font-weight: bold;
+  color: #761511;
+}
+
+.t-s.active {
+  background-color: #e98483;
+}
+
+.t-s.active span {
+  color: #fff;
+}
+
+.t-s:after {
+  position: absolute;
+  right: 1px;
+  top: 1px;
+  padding: 4px;
+  background: rgba(255,255,255,1);
+  content: "√";
+  display: none;
+  opacity: 0;
+  -webkit-transition: opacity 0.3s ease;
+}
+
+.t-s.error:after {
+  background: rgba(255,0,0,1);
+  content: "×";
+  color: white;
+}
+
+.t-s.active:after {
+  display: block;
+  opacity: 1;
+}
+
+.t-c {
+  line-height: 1.2em;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 1em;
+  text-align: left;
+  color: #761511;
+  overflow: hidden;
+}
+
+.t-s.h {
+  max-width: 40%;
+  display: inline-block;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.t-r {
+  margin-bottom: 10px;
+  font-weight: bold;
+  overflow: hidden;
+}
+
+.t-r span {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 50px;
+  color: #27AE60;
+  /*color: rgba(0,0,0,0);*/
+  text-shadow: 3px 0 4px #16A085;
+}
+
+.t-img {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.t-img img {
+  max-width: 60%;
+}
+
+.t-btn,
+.t-btn:link,
+.t-btn:visited {
+  color: #e1edea;
+  background-color: #74b651;
+  padding-top: 12px;
+  padding-bottom: 13px;
+  padding-left: 15px;
+  padding-right: 15px;
+  display: inline-block;
+  line-height: 1em;
+  min-width: 60%;
+  margin: 10px auto;
+  border-radius: 7px;
+  text-decoration: none;
+}
+
+.share {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  z-index: 1000;
+}
+
+.share img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 70%;
+  max-width: 320px;
+}
+
+.livetip {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.7);
+  z-index: 200;
+}
+
+.lt-w {
+  position: fixed;
+  top: 100px;
+  left: 10px;
+  right: 10px;
+  z-index: 300;
+}
+
+.lt-w .lt-c {
+  background-color: white;
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
+.list {
+  list-style: initial;
+  text-align: left;
+}
+
+.list li {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+a,
+a:link,
+a:visited {
+  color: #607fa6;
+}
+
+.dialog {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.dialog-bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.7);
+}
+
+.dialog-con {
+  position: absolute;
+  width: 280px;
+  top: 100px;
+  background-color: white;
+  left: 50%;
+  margin-left: -140px;
+  padding-bottom: 10px;
+}
+</style>
+</head>
+<body class="loading">
+<div id="loading">
+  加载中
+</div>
+<div class="head">
+  <!--
+  <img src="http://mmbiz.qpic.cn/mmbiz/mhNj6OVxBQEZwXMBLDIP6NHCYgb2iccXpBay8X3KRbKoZuV6DyiamRY2cd1Co7xrug682xJRznqRkUrZDVPtxGkQ/640">
+  -->
+</div>
+<div class="main" id="main" ms-controller="test">
+  <!-- 测试题 -->
+  <div ms-if="item.type=='hello'">
+    <div class="t-c"
+         ms-if="item.text">
+      {{item.text}}
+    </div>
+    <div class="t-c"
+         ms-if="item.text1">
+      {{item.text1}}
+    </div>
+    <div class="t-s h"
+         ms-repeat-elem="item.select"
+         ms-class-active="elem.active"
+         ms-on-click="elem.tap(elem, item.select)">
+      <img ms-attr-src="{{elem.img}}">
+      <span>{{elem.text}}</span>
+    </div>
+    <a class="t-btn"
+       href="javascript:gzh()">关注人来风游戏，获得更多好玩的游戏
+    </a>
+  </div>
+  <div ms-if="item.type=='select'">
+    <div class="t-c">
+      <div ms-if="item.img" style="margin-bottom: 0.5em;">
+        <img ms-attr-src="{{item.img}}">
+      </div>
+      {{item.id}}. {{item.text}}
+    </div>
+    <div class="t-s"
+         ms-repeat-elem="item.select"
+         ms-class-active="elem.active"
+         ms-class-error="elem.error"
+         ms-on-click="elem.tap(elem, item.select)">
+      <img
+        ms-if="!!elem.img"
+        ms-attr-src="{{elem.img}}">
+      <span>{{elem.text}}</span>
+    </div>
+  </div>
+  <div ms-if="item.type=='result'">
+    <div class="t-r">
+      <span>{{item.ss}}</span>{{item.sstext}}
+    </div>
+    <div class="t-img" ms-if="!!item.img">
+      <img ms-attr-src="{{item.img}}">
+    </div>
+    <div class="t-c"
+         ms-if="item.text">
+      {{item.text}}
+    </div>
+    <div class="t-btn"
+         ms-repeat-elem="endbtns"
+         ms-on-click="elem.tap()">
+      {{elem.text}}
+    </div>
+  </div>
+  <div class="share"
+       ms-if="showshare"
+       ms-visible="showshare"
+       ms-on-tap="hideshare()">
+    <img src="http://mmbiz.qpic.cn/mmbiz/mhNj6OVxBQHOIxaibNiaCDE3veWkCTua8T1JMibx8raZbkvZJicu4fcBuEGDM8qdxUHWHNictxfc5ho23q5DYXDzBMg/0">
+  </div>
+  <div class="livetip"
+       ms-visible="livetip"
+       ms-on-tap="hidelivetip()">
+  </div>
+  <div class="lt-w"
+       ms-visible="livetip">
+    <div class="lt-c">
+      <div class="t-c">
+        还没分享哦，是否把这个好玩的东西分享给朋友后再离开呢？
+      </div>
+      <div class="t-btn"
+           ms-on-tap="sharebox()">
+        分享
+      </div>
+      <div class="t-btn white"
+           ms-on-tap="livenow()">
+        一会再说，先去看好玩的
+      </div>
+    </div>
+  </div>
+  <div class="dialog" ms-if="xunzhang">
+    <div class="dialog-bg" ms-on-tap="hidexz()"></div>
+
+  </div>
+
+</div>
+<script src="../../js/ad-pic.js"></script>
+
+<script>
+
+var ID = getQueryString("sid") || Date.now() + "" + Math.floor(Math.random() * 1000);
+var fen = 0;
+var sid = 8280;
+var sharetitle = "菲尔博士的著名人格心理测试";
+var shareimgurl = "http://mmbiz.qpic.cn/mmbiz/mhNj6OVxBQGibosVlnfDGRO9zlq5YQ2fpKGnAQHWXuMVpWtPZf6KCAibG4mhBlTOOLWQTagnAhgesN5lX6CfCp4Q/640";
+var htmlname = "9-12-1";
+var baidupre = "912.菲尔";
+function tap(elemvm, select, cb) {
+  var a = false;
+  for (var i = 0; i < select.length; i++) {
+    a = a || select[i].active;
+  };
+  if (!a) {
+    elemvm.active = true;
+    setTimeout(function() {
+        cb && cb()
+      },
+      500)
+  }
+}
+function getQueryString(name) {
+  var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+  var r = location.search.substr(1).match(reg);
+  if (r != null) return unescape(decodeURI(r[2]));
+  return null;
+}
+addView();
+var model = avalon.define("test",
+  function(vm) {
+    vm.arr = [{
+      type: "hello",
+      text: "菲尔博士，何者人也？在美国有一个著名访谈类节目“菲尔博士”，主持人是著名的电视心理学咨询专家菲尔·麦格劳。今天推荐的人格测试就是来自菲尔博士的手笔，据说在女主持黑人欧普拉脱口秀节目上反响不错，有些公司的人事部也拿来做面试工具。一共10道题，满分70分，大家赶紧来测一下吧!",
+      text1: "点击开始测试咯",
+      select: [{
+        img: "http://mmbiz.qpic.cn/mmbiz/mhNj6OVxBQHOIxaibNiaCDE3veWkCTua8T9a4cEGDoCdfsD8aKWwtozrbhjXXHac1F7rJtJoT8WXrPsELN8ibOOqQ/0",
+        text: "男生",
+        active: false,
+        error: true,
+        tap: function(ele, select) {
+          tap(ele, select,
+            function() {
+              model.item = model.arr[1];
+              model.result.sex = 0;
+            });
+        }
+      },
+        {
+          img: "http://mmbiz.qpic.cn/mmbiz/mhNj6OVxBQHOIxaibNiaCDE3veWkCTua8TGJTMOJOibrhesgs0kq37I9TlTTsrIBNmnicfmblFC0o1FgBOXltsBQag/0",
+          text: "女生",
+          active: false,
+          error: true,
+          tap: function(ele, select) {
+            tap(ele, select,
+              function() {
+                model.item = model.arr[1];
+                model.result.sex = 1;
+              });
+          }
+        }]
+    },
+      {
+        type: "select",
+        id: 1,
+        text: "你何时感觉最好？",
+        select: [{
+          text: "A、早晨",
+          active: false,
+          error: false,
+          tap: function(ele, select) {
+            tap(ele, select,
+              function() {
+                fen += 2;
+                model.item = model.arr[2];
+              });
+          }
+        },
+          {
+            text: "B、下午及傍晚",
+            active: false,
+            error: false,
+            tap: function(ele, select) {
+              tap(ele, select,
+                function() {
+                  fen += 4;
+                  model.item = model.arr[2];
+                });
+            }
+          },
+          {
+            text: "C、夜里",
+            active: false,
+            error: false,
+            tap: function(ele, select) {
+              tap(ele, select,
+                function() {
+                  fen += 6;
+                  model.item = model.arr[2];
+                });
+            }
+          }]
+      },
+      {
+        type: "select",
+        id: 2,
+        text: "你走路时是……",
+        select: [{
+          text: "A、大步地快走",
+          active: false,
+          error: false,
+          tap: function(ele, select) {
+            tap(ele, select,
+              function() {
+                fen += 6;
+                model.item = model.arr[3];
+              });
+          }
+        },
+          {
+            text: "B、小步地快走",
+            active: false,
+            error: false,
+            tap: function(ele, select) {
+              tap(ele, select,
+                function() {
+                  fen += 4;
+                  model.item = model.arr[3];
+                });
+            }
+          },
+          {
+            text: "C、不快，仰着头面对着世界",
+            active: false,
+            error: false,
+            tap: function(ele, select) {
+              tap(ele, select,
+                function() {
+                  fen += 7;
+                  model.item = model.arr[3];
+                });
+            }
+          },
+          {
+            text: "D、不快，低着头",
+            active: false,
+            error: false,
+            tap: function(ele, select) {
+              tap(ele, select,
+                function() {
+                  fen += 2;
+                  model.item = model.arr[3];
+                });
+            }
+          },
+          {
+            text: "E、很慢",
+            active: false,
+            error: false,
+            tap: function(ele, select) {
+              tap(ele, select,
+                function() {
+                  fen += 1;
+                  model.item = model.arr[3];
+                });
+            }
+          }]
+      },
+      {
+        type: "select",
+        id: 3,
+        text: "和人说话时，你……",
+        select: [{
+          text: "A、手臂交叠站着",
+          active: false,
+          error: false,
+          tap: function(ele, select) {
+            tap(ele, select,
+              function() {
+                fen += 4;
+                model.item = model.arr[4];
+              });
+          }
+        },
+          {
+            text: "B、双手紧握着",
+            active: false,
+            error: false,
+            tap: function(ele, select) {
+              tap(ele, select,
+                function() {
+                  fen += 2;
+                  model.item = model.arr[4];
+                });
+            }
+          },
+          {
+            text: "C、一只手或两手放在臀部",
+            active: false,
+            error: false,
+            tap: function(ele, select) {
+              tap(ele, select,
+                function() {
+                  fen += 5;
+                  model.item = model.arr[4];
+                });
+            }
+          },
+          {
+            text: "D、碰着或推着与你说话的人",
+            active: false,
+            error: false,
+            tap: function(ele, select) {
+              tap(ele, select,
+                function() {
+                  fen += 7;
+                  model.item = model.arr[4];
+                });
+            }
+          },
+          {
+            text: "E、玩着你的耳朵、摸着你的下巴或用手整理头发",
+            active: false,
+            error: false,
+            tap: function(ele, select) {
+              tap(ele, select,
+                function() {
+                  fen += 6;
+                  model.item = model.arr[4];
+                });
+            }
+          }]
+      },
+      {
+        type: "select",
+        id: 4,
+        text: "坐着休息时，你的姿势是......",
+        select: [{
+          text: "A、两膝盖并拢",
+          active: false,
+          error: false,
+          tap: function(ele, select) {
+            tap(ele, select,
+              function() {
+                fen += 4;
+                model.item = model.arr[5];
+              });
+          }
+        },
+          {
+            text: "B、两腿交叉",
+            active: false,
+            error: false,
+            tap: function(ele, select) {
+              tap(ele, select,
+                function() {
+                  fen += 6;
+                  model.item = model.arr[5];
+                });
+            }
+          },
+          {
+            text: "C、两腿伸直",
+            active: false,
+            error: false,
+            tap: function(ele, select) {
+              tap(ele, select,
+                function() {
+                  fen += 2;
+                  model.item = model.arr[5];
+                });
+            }
+          },
+          {
+            text: "D、一腿蜷在身下",
+            active: false,
+            error: false,
+            tap: function(ele, select) {
+              tap(ele, select,
+                function() {
+                  fen += 1;
+                  model.item = model.arr[5];
+                });
+            }
+          }]
+      },
+      {
+        type: "select",
+        id: 5,
+        text: "碰到你感到发笑的事时，你的反应是……",
+        select: [{
+          text: "A、一个欣赏的大笑",
+          active: false,
+          error: false,
+          tap: function(ele, select) {
+            tap(ele, select,
+              function() {
+                fen += 6;
+                model.item = model.arr[6];
+              });
+          }
+        },
+          {
+            text: "B、笑着，但不大声",
+            active: false,
+            error: false,
+            tap: function(ele, select) {
+              tap(ele, select,
+                function() {
+                  fen += 4;
+                  model.item = model.arr[6];
+                });
+            }
+          },
+          {
+            text: "C、轻声地咯咯地笑",
+            active: false,
+            error: false,
+            tap: function(ele, select) {
+              tap(ele, select,
+                function() {
+                  fen += 3;
+                  model.item = model.arr[6];
+                });
+            }
+          },
+          {
+            text: "D、羞怯的微笑",
+            active: false,
+            error: false,
+            tap: function(ele, select) {
+              tap(ele, select,
+                function() {
+                  fen += 5;
+                  model.item = model.arr[6];
+                });
+            }
+          }]
+      },
+      {
+        type: "select",
+        id: 6,
+        text: "当你去一个派对或社交场合时，你……",
+        select: [{
+          text: "A、很大声地入场以引起注意",
+          active: false,
+          error: false,
+          tap: function(ele, select) {
+            tap(ele, select,
+              function() {
+                fen += 6;
+                model.item = model.arr[7];
+              });
+          }
+        },
+          {
+            text: "B、安静地入场，找你认识的人",
+            active: false,
+            error: false,
+            tap: function(ele, select) {
+              tap(ele, select,
+                function() {
+                  fen += 4;
+                  model.item = model.arr[7];
+                });
+            }
+          },
+          {
+            text: "C、非常安静地入场，尽量保持不被注意",
+            active: false,
+            error: false,
+            tap: function(ele, select) {
+              tap(ele, select,
+                function() {
+                  fen += 2;
+                  model.item = model.arr[7];
+                });
+            }
+          }]
+      },
+      {
+        type: "select",
+        id: 7,
+        text: "当你非常专心工作时，有人打断你，你会……",
+        select: [{
+          text: "A、欢迎他",
+          active: false,
+          error: false,
+          tap: function(ele, select) {
+            tap(ele, select,
+              function() {
+                fen += 6;
+                model.item = model.arr[8];
+              });
+          }
+        },
+          {
+            text: "B、感到非常恼怒",
+            active: false,
+            error: false,
+            tap: function(ele, select) {
+              tap(ele, select,
+                function() {
+                  fen += 2;
+                  model.item = model.arr[8];
+                });
+            }
+          },
+          {
+            text: "C、在上述两极端之间",
+            active: false,
+            error: false,
+            tap: function(ele, select) {
+              tap(ele, select,
+                function() {
+                  fen += 4;
+                  model.item = model.arr[8];
+                });
+            }
+          }]
+      },
+      {
+        type: "select",
+        id: 8,
+        text: "下列颜色中，你最喜欢哪一种颜色？",
+        select: [{
+          text: "A、红或橘色",
+          active: false,
+          error: false,
+          tap: function(ele, select) {
+            tap(ele, select,
+              function() {
+                fen += 6;
+                model.item = model.arr[9];
+              });
+          }
+        },
+          {
+            text: "B、黑色",
+            active: false,
+            error: false,
+            tap: function(ele, select) {
+              tap(ele, select,
+                function() {
+                  fen += 7;
+                  model.item = model.arr[9];
+                });
+            }
+          },
+          {
+            text: "C、黄色或浅蓝色",
+            active: false,
+            error: false,
+            tap: function(ele, select) {
+              tap(ele, select,
+                function() {
+                  fen += 5;
+                  model.item = model.arr[9];
+                });
+            }
+          },
+          {
+            text: "D、绿色",
+            active: false,
+            error: false,
+            tap: function(ele, select) {
+              tap(ele, select,
+                function() {
+                  fen += 4;
+                  model.item = model.arr[9];
+                });
+            }
+          },
+          {
+            text: "E、深蓝色或紫色",
+            active: false,
+            error: false,
+            tap: function(ele, select) {
+              tap(ele, select,
+                function() {
+                  fen += 3;
+                  model.item = model.arr[9];
+                });
+            }
+          },
+          {
+            text: "F、白色",
+            active: false,
+            error: false,
+            tap: function(ele, select) {
+              tap(ele, select,
+                function() {
+                  fen += 2;
+                  model.item = model.arr[9];
+                });
+            }
+          },
+          {
+            text: "G、棕色或灰色",
+            active: false,
+            error: false,
+            tap: function(ele, select) {
+              tap(ele, select,
+                function() {
+                  fen += 1;
+                  model.item = model.arr[9];
+                });
+            }
+          }]
+      },
+      {
+        type: "select",
+        id: 9,
+        text: "临入睡的前几分钟，你在床上的姿势是……",
+        select: [{
+          text: "A、仰躺，伸直",
+          active: false,
+          error: false,
+          tap: function(ele, select) {
+            tap(ele, select,
+              function() {
+                fen += 7;
+                model.item = model.arr[10];
+              });
+          }
+        },
+          {
+            text: "B、俯躺，伸直",
+            active: false,
+            error: false,
+            tap: function(ele, select) {
+              tap(ele, select,
+                function() {
+                  fen += 6;
+                  model.item = model.arr[10];
+                });
+            }
+          },
+          {
+            text: "C、侧躺，微蜷",
+            active: false,
+            error: false,
+            tap: function(ele, select) {
+              tap(ele, select,
+                function() {
+                  fen += 4;
+                  model.item = model.arr[10];
+                });
+            }
+          },
+          {
+            text: "D、头睡在一手臂上",
+            active: false,
+            error: false,
+            tap: function(ele, select) {
+              tap(ele, select,
+                function() {
+                  fen += 2;
+                  model.item = model.arr[10];
+                });
+            }
+          },
+          {
+            text: "E、被子盖过头",
+            active: false,
+            error: false,
+            tap: function(ele, select) {
+              tap(ele, select,
+                function() {
+                  fen += 1;
+                  model.item = model.arr[10];
+                });
+            }
+          }]
+      },
+      {
+        type: "select",
+        id: 10,
+        text: "你经常梦到自己在……",
+        select: [{
+          text: "A、落下",
+          active: false,
+          error: false,
+          tap: function(ele, select) {
+            tap(ele, select,
+              function() {
+                fen += 4;
+                testEnd();
+              });
+          }
+        },
+          {
+            text: "B、打架或挣扎",
+            active: false,
+            error: false,
+            tap: function(ele, select) {
+              tap(ele, select,
+                function() {
+                  fen += 2;
+                  testEnd();
+                });
+            }
+          },
+          {
+            text: "C、找东西或人",
+            active: false,
+            error: false,
+            tap: function(ele, select) {
+              tap(ele, select,
+                function() {
+                  fen += 3;
+                  testEnd();
+                });
+            }
+          },
+          {
+            text: "D、飞或漂浮",
+            active: false,
+            error: false,
+            tap: function(ele, select) {
+              tap(ele, select,
+                function() {
+                  fen += 5;
+                  testEnd();
+                });
+            }
+          },
+          {
+            text: "E、你平常不做梦",
+            active: false,
+            error: false,
+            tap: function(ele, select) {
+              tap(ele, select,
+                function() {
+                  fen += 6;
+                  testEnd();
+                });
+            }
+          },
+          {
+            text: "F、你的梦都是愉快的",
+            active: false,
+            error: false,
+            tap: function(ele, select) {
+              tap(ele, select,
+                function() {
+                  fen += 1;
+                  testEnd();
+                });
+            }
+          }]
+      },
+      {
+        type: "result",
+        id: 11,
+        ss: "A",
+        sstext: "69分，傲慢的孤独者",
+        sstext1: "菲尔博士的著名人格心理测试：我拿了69分，你可以吗？",
+        text: "你是自负的自我中心主义者，是个有极端支配欲、统治欲的人。别人可能钦佩你，但不会永远相信你。"
+      },
+      {
+        type: "result",
+        id: 12,
+        ss: "B",
+        sstext: "59分，吸引人的冒险家",
+        sstext1: "菲尔博士的著名人格心理测试：我拿了59分，你可以吗？",
+        text: "你是一个令人兴奋、活泼、易冲动的人，是一个天生的领袖，能够迅速做了决定，虽然你的决定不总是对的。你是一个愿意尝试机会，欣赏冒险的人，周围人喜欢跟你在一起。"
+      },
+      {
+        type: "result",
+        id: 13,
+        ss: "C",
+        sstext: "49分，平衡的中道者",
+        sstext1: "菲尔博士的著名人格心理测试：我拿了49分，你可以吗？",
+        text: "你是一个有活力、有魅力、讲究实际，而且永远有趣的人。你经常是群众注意力的焦点，但你是一足够平衡的人，不至于因此而昏了头。你亲切、和蔼、体贴、宽容，是一个永远会使人高兴、乐于助人的人。"
+      },
+      {
+        type: "result",
+        id: 14,
+        ss: "D",
+        sstext: "39分，以牙还牙的自我保护者",
+        sstext1: "菲尔博士的著名人格心理测试：我拿了39分，你可以吗？",
+        text: "你是一个明智、谨慎、注重实效的人，也是一个伶俐、有天赋、有才干且谦虚的人。你不容易很快和人成为朋友，却是一个对朋友非常忠诚的人，同时要求朋友对你也忠诚。要动摇你对朋友的信任很难，同样，一旦这种信任被破坏，也就很难恢复。"
+      },
+      {
+        type: "result",
+        id: 15,
+        ss: "E",
+        sstext: "29分，缺乏信心的挑剔者",
+        sstext1: "菲尔博士的著名人格心理测试：我拿了29分，你可以吗？",
+        text: "你勤勉、刻苦、挑剔，是一个谨慎小心的人。如果你做任何冲动的事或无准备的事，朋友们都会大吃一惊。"
+      },
+      {
+        type: "result",
+        id: 16,
+        ss: "F",
+        sstext: "19分，内向的悲观者",
+        sstext1: "菲尔博士的著名人格心理测试：我拿了19分，你可以吗？",
+        text: "你是一个害羞的、神经质的、优柔寡断的人，永远要别人为你做决定。你是一个杞人忧天者，有些人认为你令人乏味，只有那些深知你的人知道你不是这样。"
+      }];
+
+    vm.item = vm.arr[0];
+    vm.endbtns = [{
+      text: "分享到朋友圈",
+      tap: function() {
+        model.showshare = true;
+      }
+    },
+      {
+        text: "关注人来风游戏，获得更多好玩的游戏",
+        tap: function () {
+          gzh();
+        }
+      },
+      {
+        text: "再测一次",
+        tap: function() {
+          fen = 0;
+          model.result.sex = 0;
+          for (var i = 0; i < model.arr.length; i++) {
+            var tmp = model.arr[i];
+            if (tmp.select) {
+              for (var ii = 0; ii < tmp.select.length; ii++) {
+                tmp.select[ii].active = false;
+              }
+            };
+          };
+          model.item = model.arr[0];
+        }
+      },
+      {
+        text: "我还想玩其他好玩的",
+        tap: function() {
+          if (model.shared) {
+            location.href = model.$otherurl;
+          } else {
+            model.livetip = true;
+          }
+        }
+      }]
+    vm.$otherurl = siteurl + "#TEST";
+    vm.result = {
+      sex: 0
+    }
+    vm.showshare = false;
+    vm.hideshare = function() {
+      model.showshare = false;
+    }
+    vm.shared = false;
+    vm.sharebox = function() {
+      model.showshare = true;
+    }
+    vm.livetip = false;
+    vm.hidelivetip = function() {
+      model.livetip = false;
+    }
+    vm.livenow = function() {
+      location.href = model.$otherurl;
+    }
+    vm.xunzhang = false;
+    vm.hidexz = function() {
+      model.xunzhang = false;
+    }
+    vm.showxz = function() {
+      model.xunzhang = true;
+    }
+    //vm.$watch("item",
+    //function(newval) {
+    //    if (newval.type == 'result') {
+    //        alert(newval.id);
+    //        testEnd(newval.id);
+    //    };
+    //})
+  });
+document.body.className = "";
+avalon.scan();
+// 增加访问量
+function addView() {
+
+}
+// 增加使用
+function addUse() {
+
+}
+// 增加分享
+function addShare() {
+
+}
+function shareToFre(desc) {
+
+  if (!desc) {
+    desc = sharetitle;
+  } else {
+    desc = desc;
+  }
+  // 朋友圈
+  var data = {
+    "imgUrl": shareimgurl,
+    "link": siteurl + "/ceshi/rgxl",
+    "desc": desc,
+    "title": sharetitle
+  };
+
+  // share to frends
+  var data = data;
+  var callbacks = {};
+  callbacks.ok = callbacks.confirm = function () {
+    model.shared = true;
+    addShare();
+  };
+
+  // 分享给朋友
+  var data2 = {
+    "imgUrl": shareimgurl,
+    "link": siteurl + "/ceshi/rgxl",
+    "desc": desc,
+    "title": sharetitle
+  };
+
+  weixinShareTimeline(data, callbacks);
+
+  weixinSendAppMessage(data2, callbacks);
+}
+document.addEventListener('WeixinJSBridgeReady', function () {
+  shareToFre();
+}, false);
+
+
+// 分享到朋友圈
+function weixinShareTimeline(data, callbacks) {
+  callbacks = callbacks || {};
+  var shareTimeline = function (theData) {
+    WeixinJSBridge.invoke('shareTimeline', {
+      "appid": theData.appId ? theData.appId : '',
+      "img_url": theData.imgUrl,
+      "link": theData.link,
+      "desc": theData.title,
+      "title": theData.desc, // 注意这里要分享出去的内容是desc
+      "img_width": "120",
+      "img_height": "120"
+    }, function (resp) {
+      switch (resp.err_msg) {
+        // share_timeline:cancel 用户取消
+        case 'share_timeline:cancel':
+          callbacks.cancel && callbacks.cancel(resp);
+          break;
+        // share_timeline:fail　发送失败
+        case 'share_timeline:fail':
+          callbacks.fail && callbacks.fail(resp);
+          break;
+        // share_timeline:confirm 发送成功
+        case 'share_timeline:confirm':
+          callbacks.confirm && callbacks.confirm(resp);
+          break;
+        // 发送成功
+        case 'share_timeline:ok':
+          callbacks.ok && callbacks.ok(resp);
+          break;
+      }
+      home_test();
+      // 无论成功失败都会执行的回调
+      callbacks.all && callbacks.all(resp);
+    });
+  };
+  WeixinJSBridge.on('menu:share:timeline', function (argv) {
+    if (callbacks.async && callbacks.ready) {
+      if (!callbacks.__dataLoadedFuncInited) {
+        var loadedCb = callbacks.dataLoaded || new Function();
+        callbacks.dataLoaded = function (newData) {
+          loadedCb(newData);
+          shareTimeline(newData);
+        };
+        callbacks.__dataLoadedFuncInited = true;
+      }
+      // 然后就绪
+      callbacks.ready && callbacks.ready(argv);
+    } else {
+      // 就绪状态
+      callbacks.ready && callbacks.ready(argv);
+      shareTimeline(data);
+    }
+  });
+}
+
+// 分享给朋友
+function weixinSendAppMessage(data, callbacks) {
+  callbacks = callbacks || {};
+  var sendAppMessage = function (theData) {
+    WeixinJSBridge.invoke('sendAppMessage', {
+      "appid": theData.appId ? theData.appId : '',
+      "img_url": theData.imgUrl,
+      "link": theData.link,
+      "desc": theData.desc,
+      "title": theData.title,
+      "img_width": "120",
+      "img_height": "120"
+    }, function (resp) {
+      switch (resp.err_msg) {
+        // send_app_msg:cancel 用户取消
+        case 'send_app_msg:cancel':
+          callbacks.cancel && callbacks.cancel(resp);
+          break;
+        // send_app_msg:fail　发送失败
+        case 'send_app_msg:fail':
+          callbacks.fail && callbacks.fail(resp);
+          break;
+        // send_app_msg:confirm 发送成功
+        case 'send_app_msg:confirm':
+          callbacks.confirm && callbacks.confirm(resp);
+          break;
+      }
+      home_test();
+      // 无论成功失败都会执行的回调
+      callbacks.all && callbacks.all(resp);
+    });
+  };
+  WeixinJSBridge.on('menu:share:appmessage', function (argv) {
+    if (callbacks.async && callbacks.ready) {
+      if (!callbacks.__dataLoadedFuncInited) {
+        var loadedCb = callbacks.dataLoaded || new Function();
+        callbacks.dataLoaded = function (newData) {
+          loadedCb(newData);
+          sendAppMessage(newData);
+        };
+        callbacks.__dataLoadedFuncInited = true;
+      }
+      // 然后就绪
+      callbacks.ready && callbacks.ready(argv);
+    } else {
+      // 就绪状态
+      callbacks.ready && callbacks.ready(argv);
+      sendAppMessage(data);
+    }
+  });
+}
+
+function testEnd(id) {
+  if (fen > 60) {
+    model.item = model.arr[11]
+  } else if (fen >= 51) {
+    model.item = model.arr[12]
+  } else if (fen >= 41) {
+    model.item = model.arr[13]
+  } else if (fen >= 31) {
+    model.item = model.arr[14]
+  } else if (fen >= 21) {
+    model.item = model.arr[15]
+  } else {
+    model.item = model.arr[16]
+  }
+  shareToFre(model.item.sstext1);
+}
+
+
+</script>
+</body>
+</html>

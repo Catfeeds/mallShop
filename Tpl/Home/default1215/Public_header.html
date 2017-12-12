@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="keywords" content="<?php if($_SERVER['SERVER_NAME']=='www.mobiwind.cn'){if($keywords){ echo $keywords;}else{ echo C('site_keywords');}} ?>">
+	<meta name="description" content="<?php if($_SERVER['SERVER_NAME']=='www.mobiwind.cn'){if($description){ echo $description;}else{ echo C('site_description');} } ?>">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title><?php if($_SERVER['SERVER_NAME']=='weixinfeng.myad.group'){ if($title){ echo $title;}else{ echo C('site_title');} }?></title>
+	<link rel="shortcut icon" href="./Tpl/Home/default1215/common/img/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="./Tpl/Home/default1215/common/css/index_base1215.css?<?php echo C('site_system_file_version'); ?>">
+	<link rel="stylesheet" type="text/css" href="./Tpl/Home/default1215/common/css/index_style1215.css?3<?php echo C('site_system_file_version'); ?>">
+	<link rel="stylesheet" type="text/css" href="./Tpl/Home/default1215/common/fonts/font-awesome-4.6.3/css/font-awesome.min.css"><!-- 图标字体库 -->
+	<script type="text/javascript" src="./Tpl/Home/default1215/common/js/jquery-1.12.0.min.js"></script>
+	<script type="text/javascript" src="./Tpl/Home/default1215/common/js/common.js?<?php echo C('site_system_file_version'); ?>"></script>
+	<script src="{lanrain::STATICS}/jquery-alert/alert.js" type="text/javascript" ></script>
+	<script type="text/javascript">  
+		// 判断浏览器类型 pc or mobile
+		if(/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent))){ 
+		    if(window.location.href.indexOf("?mobile")<0){ 
+		        try{ 
+		            if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)){ 
+		                window.location.href="http://www.mobiwind.cn/index.php?&g=Wap&m=ScrmWap&a=index&companyid=1"; 
+		            }else if(/iPad/i.test(navigator.userAgent)){ 
+		            }else{ 
+		                window.location.href="http://www.mobiwind.cn/" 
+		            } 
+		        }catch(e){} 
+		    } 
+		} 
+	</script>
+	<style type="text/css">
+		body{
+			background-color: #f5f5f5;
+		}
+	</style>
+<script>
+// 百度统计
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?d686c8436bf79b8c5705bd99d7fb60f5";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+<body>
+</head>
+<include file="Public:loading" />
+<script>
+	$(window).scroll(function(){
+		var scl=$(document).scrollTop();
+		var wdg=$(window).height()/2;
+		if(scl>wdg){
+			$(".js-sidebar-top").show();
+		}else{
+			$(".js-sidebar-top").hide();
+		}
+	});
+	$(".js-sidebar-top").click(function(){
+		$("html,body").animate({"scrollTop":0});
+	});
+<?php if($_GET['isScroll']=='1'){ ?>
+	// 7大块内链跳转高度
+	$(function(){
+		$(document).ready(function(){
+			$(document).scroll(function(){
+				var top = $(document).scrollTop();
+				console.log(top);
+			});
+			$("body").animate({scrollTop:'310px'},0)			
+		})
+	})
+<?php } ?>
+</script>

@@ -1,0 +1,83 @@
+<include file="Public:header" />
+<style type="text/css">.common-header.header-default{display: none;}</style>
+	<div class="login-header"></div>
+	<div class="index-wrap wrap-login">
+		<!-- <div class="nav-logo"> -->
+			<!-- <a href="<?php echo U('Index/index');?>"><img src="./Tpl/Home/default1215/common/img/index-nav-logo2.png"></a> -->
+		<!-- </div> -->
+		<h1 class="tit">登录<em class="font-Hel"></em></h1>
+		<form class="login-form" action="javascript:void(0)">
+			<div class="input-box">
+				<span class="info-tit">登录名</span>
+				<input class="info-input" name="username" type="text" placeholder="请填写您的账号">
+			</div>
+			<div class="input-box">
+				<span class="info-tit">密码</span>
+				<input class="info-input" name="password" type="password" placeholder="请填写您的密码">
+			</div>
+			<input class="submit-btn js-sub-asa js-jsub-asa" type="submit" value="登 &nbsp; &nbsp; 录">
+		</form><!-- 
+		<p class="no-account-tips" style="text-indent: 10px">没有账号？</p> 
+		<a class="register-now" href="<?php echo U('Index/register')?>">立即开通</a> -->
+		<div style="height: 60px;"></div>
+	</div>
+<div id="js-ajaxok-asa"></div>
+<div id="js-ajaxerror-asa" style="display:none"></div>
+<script>
+var mb = myBrowser();
+if ("IE" == mb) {
+    window.location.href="<?php echo U('Index/error');?>";
+}
+function myBrowser(){
+    var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+    var isOpera = userAgent.indexOf("Opera") > -1;
+    if (isOpera) {
+        return "Opera"
+    }; //判断是否Opera浏览器
+    if (userAgent.indexOf("Firefox") > -1) {
+        return "FF";
+    } //判断是否Firefox浏览器
+    if (userAgent.indexOf("Chrome") > -1){
+        return "Chrome";
+    }
+    if (userAgent.indexOf("Safari") > -1) {
+        return "Safari";
+    } //判断是否Safari浏览器
+    if (userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera) {
+        return "IE";
+    }; //判断是否IE浏览器
+}
+    $(function(){
+        $(document).on('click',".js-sub-asa",function(){
+        	$(this).removeClass("js-sub-asa");
+        	$(this).css("background-color","#2c0059");
+        	$(".js-jsub-asa").val("  登 录 中");
+        	var historyUrl = "<?php echo session('historyUrl');?>";
+            var username = $("input[name='username']").val();
+            var password = $("input[name='password']").val();
+            var mb = myBrowser();
+            if ("IE" == mb) {
+                window.location.href="<?php echo U('Index/error');?>";
+            } else {
+                $.post("<?php echo U('Index/login_scrm5');?>",{username:username,password:password},function(data){
+                    if(data.code==200){
+                    	$("#js-ajaxok-asa").html(data.ok);
+                    	$("#js-ajaxerror-asa").html(data.error);
+                    	//if(historyUrl){
+                    		//setTimeout("window.location.href='<?php echo session('historyUrl'); ?>'",100);
+                    	//}else{
+                    		setTimeout("window.location.href='<?php echo U('User5/Welcome/index'); ?>'",100);
+                    	//}
+                    }else if(data.code==500){
+                    	setTimeout("window.location.href='<?php echo U('User5/EnterPlatform/enterOne'); ?>&companyid="+data.companyid+"'",1000);
+                    }else{
+						$(".js-jsub-asa").val("登    录");
+						$(".js-jsub-asa").css("background-color","#4d0c8b");
+						$(".js-jsub-asa").addClass("js-sub-asa");
+                    	alert(data.msg);
+                    }
+                },'json');
+            };
+        })
+    });
+</script>

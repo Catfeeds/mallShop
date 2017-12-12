@@ -1,0 +1,29 @@
+<include file="Public:S5NewHead" />
+<div class="title_top"><div class="fl ">产品使用提醒</div>
+</div>
+<div style="font-size:24px;  line-height:40px;  color:#000; width:710px; color:#616161; margin:0 auto;  padding-bottom:40px;max-height: 9999px; "><?php echo $info['info']; ?></div>
+
+<div style="height:60px; line-height:60px; width:100%; background:#fff; text-indent:20px; padding-top:20px; pa">推荐购买</div>
+<div class="pro_list mb0" >
+    <dl class="pro_info">
+        <dt><img src="<?php echo $info['image']; ?>" ></dt>
+        <dd><?php echo $info['title']; ?></dd>
+        <span class="price"><?php echo $info['price']; ?></span>
+    </dl>
+</div>
+<div style=" width:100%; height:80px; line-height:80px; margin:40px 0;">
+    <div class="js-cerl" style="float:left; margin-left:350px; text-decoration:underline;  color:#707070;">取消</div>
+    <div class="js-click" style="float:right; margin-right:20px; width:230px; height:80px; line-height:80px; background:#d40203; border-radius:4px; text-align:center; color:#fff;">购买</div>
+</div>
+<script>
+    $(function(){
+        $(".js-click").click(function(){
+            window.location.href="<?php echo $info['url']; ?>";
+        })
+        $(".js-cerl").click(function(){
+            window.location.href="<?php echo U('Member/center'); ?>";
+        })
+    })
+</script>
+</body> 
+</html>

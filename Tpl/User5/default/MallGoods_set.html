@@ -1,0 +1,739 @@
+<include file="Public:head" /> 
+<include file="Public:smallmaterial" />
+<include file="Public:UEditorJS" />
+<include file="Public:UEditorBig" />
+<?php echo $makeTopUrl;?>
+<!-- 创建商品 -->
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4><?php if($info['id']){echo '编辑商品';}else{ echo '创建商品';}?></h4></div>
+    <div class="mod-body">
+		<input type="hidden" name="skuitem" value="<?php echo $info['sku'] ? count($info['sku']) : 0;?>">
+		<input type="hidden" name="imgitem" value="<?php echo $info['pic'] ? count($info['pic']) : 0;?>">
+		<div class="inner-header"><h5>商品信息设置</h5></div>
+        <div class="content">
+            <div class="group pb-20">
+                <h6 class="inline w150 text-left">*商品名称：</h6>
+                <input class="group inline w350" type="text" name="title" value="<?php echo $info['title'];?>">
+            </div>
+            <div class="group pb-20">
+                <h6 class="inline w150 text-left">*商品排序：</h6>
+                <input class="group inline w350" type="text" name="sort" value="<?php echo $info['sort']?$info['sort']:50;?>">
+                <h6 class="ml-150 pt-5">*默认50，数字越小越靠前</h6>
+            </div>
+            <!-- <div class="group pb-20"> -->
+                <!-- <h6 class="inline w150 text-left">关联商品标签：</h6> -->
+            	<!-- <input type="hidden" name="tags" value="<?php echo $info['tags'];?>" /> -->
+                <!-- <a class="stickTagButton btn-small btn-purple inline" data-tags="<?php echo $info['tags'];?>">关联商品标签</a> -->
+                <!-- <a class="foundTagButton btn-small btn-purple inline">创建商品标签</a> -->
+                <!-- <div class="inline add-good-tag"> -->
+					<!-- <?php if($info['tag']){ foreach($info['tag'] as $val){?> -->
+					<!-- <div class="group-tag tag"><span class="func"><?php echo $val['title'];?><a href="javascript:void(0)" class="del-member-tags-button icon-close" data-id="<?php echo $info['id'];?>" data-tagsid="<?php echo $val['id'];?>"></a></span></div> -->
+					<!-- <?php }}?> -->
+				<!-- </div> -->
+            <!-- </div> -->
+            <div class="group pb-20">
+                <h6 class="inline w150 text-left">商品编码：</h6>
+                <input class="group inline w350" type="text" name="goodnum" value="<?php echo $info['goodnum'];?>">
+                <h6 class="ml-150 pt-5">*若未填写，系统将默认赋值</h6>
+            </div>
+            <div class="group-line pb-20">
+                <h6 class="w150 fl">*SKU：</h6>
+                <div class="group-right ml-150">
+                    <div class="group mb-15">
+                    	<a class="btn-small btn-purple mr-6 skuButton" data-type="1">创建SKU</a> 
+                    	<h6 class="inline text-gray">*当本商品下的所有SKU的库存全部等于0时，本商品将被自动列为“已售罄”商品</h6>
+                    </div>
+                    <table class="table type-1 w-auto mb-15">
+                        <thead>
+                        <tr>
+                            <th>排序</th>
+                            <th>规格</th>
+                            <th>库存</th>
+                            <th>原价</th>
+                            <th>售价</th>
+                            <th>规格图片</th>
+                            <th>销量</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody id="addmallskusbox">
+	                        <?php if($info['sku']){ foreach($info['sku'] as $key=>$val){?>
+							<tr>
+								<td id="skuSort<?php echo $key;?>"><?php echo $val['sort'];?></td>
+								<td id="skuName<?php echo $key;?>"><?php echo $val['name'];?></td>
+								<td id="skuStockamount<?php echo $key;?>"><?php echo $val['stockamount'];?></td>
+								<td id="skuOriginalprice<?php echo $key;?>"><?php echo $val['originalprice'];?></td>
+								<td id="skuSaleprice<?php echo $key;?>"><?php echo $val['saleprice'];?></td>
+								<td><img class="table-user-pic" id="skuImgurl<?php echo $key;?>" src="<?php echo $val['imgurl'];?>"></td>
+								<td id="skuSalenum<?php echo $key;?>"><?php echo $val['salenum'];?></td>
+								<td>
+									<a href="javascript:void(0);" class="tips skuButton" data-type="2" data-num="<?php echo $key;?>">详情</a>
+									<a href="javascript:void(0);" class="tips js-skuDelButton">删除</a>
+								</td>
+								<input type="hidden" name="skuId<?php echo $key;?>" value="<?php echo $val['id'];?>">
+								<input type="hidden" name="skuName<?php echo $key;?>" value="<?php echo $val['name'];?>">
+								<input type="hidden" name="skuOriginalprice<?php echo $key;?>" value="<?php echo $val['originalprice'];?>">
+								<input type="hidden" name="skuSaleprice<?php echo $key;?>" value="<?php echo $val['saleprice'];?>">
+								<input type="hidden" name="skuImgurl<?php echo $key;?>" value="<?php echo $val['imgurl'];?>">
+								<input type="hidden" name="skuSort<?php echo $key;?>" value="<?php echo $val['sort'];?>">
+								<input type="hidden" name="skuStockamount<?php echo $key;?>" value="<?php echo $val['stockamount'];?>">
+								<input type="hidden" name="skuSalenum<?php echo $key;?>" value="<?php echo $val['salenum'];?>">
+							</tr>
+	                        <?php }}?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="group-line pb-20">
+                <h6 class="w150 fl">*商品图：</h6>
+                <div class="group-right ml-150">
+                    <div class="group mb-15"><a class="btn-small btn-purple inline js-imgButton" data-type="1">上传商品图</a> <h6 class="inline text-gray">*建议图片尺寸：640px*640px，图片大小小于100k，排列第一的商品图将被默认为商品主图</h6></div>
+                    <table class="table type-1 w-auto mb-15">
+                        <thead>
+                        <tr>
+                            <th>排序</th>
+                            <th>预览图</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody id="addmallgoodimgbox">
+                        	<?php if($info['pic']){ foreach($info['pic'] as $key=>$val){?>
+							<tr>
+								<td id="goodSort<?php echo $key;?>"><?php echo $val['sort'];?></td>
+								<td><img class="table-user-pic" id="goodImgurl<?php echo $key;?>" src="<?php echo $val['pic'];?>"></td>
+								<td>
+									<a href="javascript:void(0);" class="tips js-imgButton" data-type="2" data-num="<?php echo $key;?>">编辑</a>
+									<a href="javascript:void(0);" class="tips js-goodDelButton">删除</a>
+								</td>
+								<input type="hidden" name="goodImgurl<?php echo $key;?>" value="<?php echo $val['pic'];?>">
+								<input type="hidden" name="goodSort<?php echo $key;?>" value="<?php echo $val['sort'];?>">
+							</tr>
+	                        <?php }}?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="group-line pb-10">
+                <h6 class="w150 fl">商品简介：</h6> 
+                <script type="text/plain" class="w-auto ml-150" id="info2" name="info"><?php echo htmlspecialchars_decode($info['info']);?></script>
+            </div>
+        </div>
+        <div class="inner-header"><h6>运费设置</h6></div>
+        <div class="content">
+            <!-- <div class="group pb-10">
+                <h6 class="inline w150 text-left">单件重量：</h6>
+                <input class="group inline w350" type="text" name="weight" <?php if($info['weight'] == '0.00'){echo 'placeholder="0.00"';}else{echo 'value="'.$info['weight'].'"';}?>> kg
+            </div> -->
+            <div class="group pb-10">
+                <h6 class="inline w150 text-left">*运费设置：</h6>
+                <label class="radio inline mr-6 mb-10 js-baoyou"><input type="radio" name="freighttype" value="2" <?php if($info['freighttype']==2){ echo 'checked="checked"';};?>>包邮</label>
+                <!-- <label class="radio inline mb-10 js-yfmb"><input type="radio" name="freighttype" value="3" <?php if($info['freighttype']==3){ echo 'checked="checked"';};?>>运费模板</label> -->
+                <div class="group js-yfmb-div display-none">
+                	<h6 class="inline w150"></h6>
+                	<select class="w150 js-freightTemplet">
+			            <option value="">请选择运费模板</option>
+			            <?php if($info['tplList']){foreach($info['tplList'] as $tpKey=>$tpVal){ echo '<option value="'.$tpVal['id'].'"'; if($tpVal['id']==$info['freighttplid']){ echo  'selected="selected"';} echo '>'.$tpVal['name'].'</option>';}}?>
+			        </select>
+					<h6 class="inline"><a class="tips js-updateTempletButton">刷新</a> <a class="tips" href="<?php echo U('Freight/setTpl');?>" target="_blank">新建运费模板</a></h6>
+                </div>
+                <script>
+                var freighttype = "<?php echo $info['freighttype'];?>";
+         		if(freighttype != 3){
+         			$(".js-yfmb-div").hide();
+         		};
+               	$(".js-baoyou").click(function(){
+               		$(".js-yfmb-div").hide();
+               	});
+               	$(".js-yfmb").click(function(){
+               		$(".js-yfmb-div").show();
+               	});
+               	$(".js-updateTempletButton").click(function(){
+               		$.post("<?php echo U('MallGoods/ajaxUpdateTemplet').'&time='; ?>"+Math.random(),{id:"<?php echo $info['freighttplid'];?>"},function(data){
+            			$(".js-freightTemplet").html(data.html);
+            		},"json");
+               	});
+                </script>
+            </div>
+        </div>
+        <include file="Public:weixinShareSetNull" />
+        <div class="Wechat-msg-bottom text-center">
+            <button type="submit" class="btn-middle btn-purple w100 pointer js-keepButton">保 存</button>
+        </div>
+    </div>
+</div>
+<!-- 创建标签的弹窗 -->
+<div class="foundTagBox popup-wrap wrap-small-1">
+    <div class="mod small-popup type-1 popup-width400">
+        <div class="mod-header">
+            <h4 class="fl">创建商品标签</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+            <div class="content">
+                <div class="group pb-30">
+                    <h6 class="inline w100">商品标签名称：</h6>
+                    <input type="text" class="inline w150 tagtitle">
+                    <div class="group">
+                        <span class="inline w100"></span>
+                        <h6 class="inline text-gray">*仅限6个汉字，12个字节</h6>
+                    </div>
+                </div>
+                <p class="text-center pb-10">
+                    <a class="btn-big btn-purple keepFoundTagButton"> &nbsp; &nbsp; 保存&nbsp; &nbsp;</a>
+                </p>
+            </div>
+        </div>
+    </div>
+	<script>
+	$(function(){
+		//-------------------- 创建标签 --------------------------------------------------------------------------------
+		$(".foundTagButton").click(function(){
+			$('.foundTagBox').fadeIn(120);
+		});
+		$(".keepFoundTagButton").click(function(){
+			var title = $('.tagtitle').val();
+			if(zfl.GetLength(title)<1 || zfl.GetLength(title)>12){
+				alertTan('仅限6个汉字，12个字节','warn');
+				return false;
+			}
+			$.post("<?php echo U('EshopTag/ajaxSetTag').'&time=';?>"+Math.random(),{title:title},function(data){
+				alertTan(data.tips);
+				$('.foundTagBox').hide();
+			},'json');
+		});
+	});
+	</script>
+</div>
+<!-- 选择标签的弹窗 -->
+<div class="popup-wrap wrap-middle-2 stickTagBox">
+    <div class="mod middle-popup type-2">
+        <div class="mod-header">
+            <h4 class="fl">选择商品标签</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+            <div class="content">
+                <div class="group clearfix pb-10">
+                    <div class="input-search fr clearfix">
+                        <input type="text" class="span2 inline fl">
+                        <button type="submit" class="btn fl searchTagButton" data-id="<?php echo $info['id'];?>" data-tags="<?php echo $info['tags'];?>">Search</button>
+                    </div>
+                </div>
+                <div style="max-height: 300px;overflow: hidden;overflow-y: auto;padding-bottom: 20px;">
+                    <table class="table type-1 w-auto">
+                        <thead>
+                        <tr>
+                            <th>商品标签名称</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody class="getTagsList"></tbody>
+                        <tfoot class="noContent not-tags-list" style="display: none;">
+                        	<tr>
+                        		<td colspan="2"><p class="seek"><i class="seek-icon"></i>暂无数据</p></td>
+                        	</tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <p class="text-center mb-15">
+					<a class="btn-middle btn-purple js-icon-close keepSelectTagsButton mr-20">保存</a>
+                    <a class="btn-middle btn-white js-icon-close">取消</a>
+                </p>
+            </div>
+        </div>
+    </div>
+	<script>
+	$(function(){
+		//-------------------- 给品类贴标签 --------------------------------------------------------------------------------
+		//获取标签列表
+		$(".stickTagButton").click(function(){
+			var tags = $(this).attr('data-tags');
+			getTageList(tags);
+		});
+		$(document).on("click",".searchTagButton",function(){
+			var tags = $(this).attr('data-tags');
+			var title = $(this).prev().val();
+			getTageList(tags,title);
+		});
+		function getTageList(tags,title){
+			$.post("<?php echo U('EshopClass/ajaxGetTags').'&time=';?>"+Math.random(),{tags:tags,title:title},function(data){
+	            if(data.html.length > 0){
+		            $('.getTagsList').html(data.html);
+		            $('.not-tags-list').hide();
+	            }else{
+	            	$('.not-tags-list').show();
+	            }
+				$('.stickTagBox').fadeIn(120);
+			},"json");
+		}
+		//选择、取消标签
+		$(document).on("click",".onTageButton",function(){
+			$(this).hide();
+			$(this).next().show().addClass('selectTags');
+		});
+		$(document).on("click",".offTageButton",function(){
+			$(this).hide().removeClass('selectTags');
+			$(this).prev().show();
+		});
+		//保存选取标签
+		$(document).on("click",".keepSelectTagsButton",function(){
+			var id = "<?php echo $info['id'];?>";
+			var tid = '';
+			var title = '';
+			var tagsTringId = '';
+			var tagsTringHtml = '';
+			$('.selectTags').each(function(){
+				tid = $(this).attr('data-id');
+				title = $(this).attr('data-title');
+				tagsTringId += tid+',';
+				tagsTringHtml += ' <div class="group-tag mt-3"><span class="func">'+title+'<a href="javascript:void(0)" class="del-member-tags-button icon-close" data-id="'+id+'" data-tagsid="'+tid+'"></a></span></div>';		
+			});
+			$('.add-good-tag').html(tagsTringHtml);
+			$('input[name=tags]').val(','+tagsTringId);
+			$('.stickTagButton').attr('data-tags',','+tagsTringId);
+			$('.searchTagButton').attr('data-tags',','+tagsTringId);
+		});
+		//删除标签
+		$(document).on("click",".del-member-tags-button",function(){
+			var id = $(this).attr('data-tagsid');
+			var tagString = $('input[name=tags]').val();
+			$('input[name=tags]').val(tagString.replace(','+id,''));
+			$('.stickTagButton').attr('data-tags',tagString.replace(','+id,''));
+			$('.searchTagButton').attr('data-tags',tagString.replace(','+id,''));
+			$(this).parent().parent().hide();
+		});
+	});
+	</script>
+</div>
+<!-- 创建、编辑SKU弹窗 -->
+<div class="popup-wrap wrap-small-1 skuBox">
+    <div class="mod small-popup type-1 popup-width400">
+        <div class="mod-header">
+            <h4 class="fl">SKU</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+            <div class="content">
+                <div class="group pb-10">
+                    <h6 class="inline w100">*排序：</h6>
+                    <input class="inline w150" type="text" name="skuSort">
+                </div>
+                <div class="group pb-10">
+                    <h6 class="inline w100">*<span class="skuGoodName">规格</span>：</h6>
+                    <input class="inline w150" type="text" name="skuName">
+                </div>
+                <div class="group pb-10">
+                    <h6 class="inline w100">*库存：</h6>
+                    <input class="inline w150" type="text" name="skuStockamount" placeholder="0">
+                </div>
+                <div class="group pb-10">
+                    <h6 class="inline w100">*原价：</h6>
+                    <input class="inline w150" type="text" name="skuOriginalprice" placeholder="0.00">
+                </div>
+                <div class="group pb-10">
+                    <h6 class="inline w100">*售价：</h6>
+                    <input class="inline w150" type="text" name="skuSaleprice" placeholder="0.00">
+                </div>
+                <div class="group-line pb-30 skuGoodPic">
+                    <h6 class="fl w100 text-left">规格图：</h6>
+                    <div class="group-right ml-100">
+                    	<img id="skuImgurl" src="http://www.mobiwind.cn/Tpl/Wap/default/common/img/common.jpg" style="max-width:60px;">
+						<input type="hidden" class="form-control span2" name="skuImgurl">
+                        <a class="btn-middle btn-white inline imageselect" data-type="skuImgurl">选择图片</a>
+                        <h6 class="text-gray">建议图片尺寸：宽120像素*高120像素，建议图片大小：小于100k</h6>
+                    </div>
+                </div>
+                <div class="group pb-10">
+                    <h6 class="inline w100">销量：</h6>
+                    <input class="inline w150" type="text" name="skuSalenum" placeholder="0">
+                </div>
+                <p class="text-center pb-10">
+                    <a class="btn-big btn-purple skuHoldButton"> &nbsp; &nbsp; 保存&nbsp; &nbsp;</a>
+                </p>
+            </div>
+        </div>
+    </div>
+	<script>
+	$(function(){
+		//-------------------- SKU --------------------------------------------------------------------------------
+		var skunum = "<?php echo count($info['sku']);?>";
+		if(skunum < 1){
+			$('#addmallskusbox').append('<tr class="text-center not-hover js-sku-tr-box"><td colspan="8">暂无</td></tr>');
+		}
+		$(document).on("click",".skuButton",function(){
+			var goodtype = "<?php echo $info['goodtype'];?>";
+			var type = $(this).attr('data-type'); //1：创建；2：编辑；
+			var num = $(this).attr('data-num');
+			var sort = $("#skuSort"+num).text();
+			sort = sort ? sort : '50';
+			$("input[name=skuSort]").prop('value',sort); //排序
+			$("input[name=skuName]").prop('value',$("#skuName"+num).text()); //规格
+			
+			$("input[name=skuStockamount]").val(''); //库存
+			$("input[name=skuOriginalprice]").val(''); //原价
+			$("input[name=skuSaleprice]").val(''); //售价
+			$("input[name=skuSalenum]").val(''); //销量 
+			
+			$('.skuGoodName').text('规格');
+			var imgurl = $("#skuImgurl"+num).attr('src'); //规格图
+			$("#skuImgurl").attr('src',imgurl);
+			$("input[name=skuImgurl]").prop('value',imgurl);
+			$('.skuGoodPic').show();
+			if(type == 1){
+				/* $("input[name=skuStockamount]").prop('value','0'); //库存
+				$("input[name=skuOriginalprice]").prop('value','0.00'); //原价
+				$("input[name=skuSaleprice]").prop('value','0.00'); //售价
+				$("input[name=skuSalenum]").prop('value','0'); //销量 */
+				//$(".skuHoldButton").attr('data-salenum','0');
+			}else{
+				$("input[name=skuStockamount]").prop('value',$("#skuStockamount"+num).text()); //库存
+				$("input[name=skuOriginalprice]").prop('value',$("#skuOriginalprice"+num).text()); //原价
+				$("input[name=skuSaleprice]").prop('value',$("#skuSaleprice"+num).text()); //售价
+				$("input[name=skuSalenum]").prop('value',$("#skuSalenum"+num).text()); //销量
+				//$(".skuHoldButton").attr('data-salenum',$('#skuSalenum'+num).text());
+				$(".skuHoldButton").attr('data-num',num);
+			}
+			$(".skuHoldButton").attr('data-type',type);
+			$('.skuBox').fadeIn(120);
+		});
+		//保存SKU，生成html
+		$(".skuHoldButton").click(function(){
+			var goodtype = "<?php echo $info['goodtype'];?>";
+			var sort = $('input[name=skuSort]').val();
+			if(sort<1 || !(/^(\+|-)?\d+$/.test(sort))){
+				alertTan("请填写大于零的整数",'warn');
+				return false;
+			}
+			var name = jQuery.trim($('input[name=skuName]').val());
+			if(!name){
+				if(goodtype == 1){
+					alertTan("请填写规格",'warn');
+				}
+				return false;
+			}
+			var stockamount = $('input[name=skuStockamount]').val();
+			if(stockamount<0 || !(/^(\+|-)?\d+$/.test(stockamount))){
+				alertTan("请正确填写库存量",'warn');
+				return false;
+			}
+			var originalprice = jQuery.trim($('input[name=skuOriginalprice]').val());
+			if(!originalprice || originalprice<0 || isNaN(originalprice)){
+				alertTan("请正确填写原价",'warn');
+				return false;
+			}
+			var saleprice = jQuery.trim($('input[name=skuSaleprice]').val());
+			if(!saleprice || saleprice<0 || isNaN(saleprice)){
+				alertTan("请正确填写售价",'warn');
+				return false;
+			}
+			var imgurl = $('input[name=skuImgurl]').val();
+//			<!-- if(goodtype == 1){ -->
+//				<!-- if(!imgurl){ -->
+//					<!-- alertTan("请上传规格图",'warn'); -->
+//					<!-- return false; -->
+//				<!-- } -->
+//			<!-- } -->
+			var salenum = $('input[name=skuSalenum]').val();//$(this).attr('data-salenum');
+			if(salenum == false){
+				salenum = '0';
+			}
+			var type = $(this).attr('data-type');
+			var item = $('input[name=skuitem]').val();
+			var num = $(this).attr('data-num');
+			var html = '';
+			if(type == 1){
+				//创建SKU
+				html += '<tr><td id="skuSort'+item+'">'+sort+'</td><td id="skuName'+item+'">'+name+'</td><td id="skuStockamount'+item+'">'+stockamount+'</td><td id="skuOriginalprice'+item+'">'+originalprice+'</td><td id="skuSaleprice'+item+'">'+saleprice+'</td>';
+				if(goodtype == 1){
+					html += '<td><img class="table-user-pic" id="skuImgurl'+item+'" src="'+imgurl+'"></td>';
+				}
+				html += '<td id="skuSalenum'+item+'">'+salenum+'</td><td><a href="javascript:void(0);" class="tips skuButton" data-type="2" data-num="'+item+'">详情</a><a href="javascript:void(0);" class="tips js-skuDelButton">删除</a></td>';
+				html += '<input type="hidden" name="skuId'+item+'" value="">';
+				html += '<input type="hidden" name="skuName'+item+'" value="'+name+'">';
+				html += '<input type="hidden" name="skuOriginalprice'+item+'" value="'+originalprice+'">';
+				html += '<input type="hidden" name="skuSaleprice'+item+'" value="'+saleprice+'">';
+				if(goodtype == 1){
+					html += '<input type="hidden" name="skuImgurl'+item+'" value="'+imgurl+'">';
+				}
+				html += '<input type="hidden" name="skuSort'+item+'" value="'+sort+'">';
+				html += '<input type="hidden" name="skuStockamount'+item+'" value="'+stockamount+'">';
+				html += '<input type="hidden" name="skuSalenum'+item+'" value="'+salenum+'"></tr>';
+				item = item*1+1*1;
+				$('#addmallskusbox').append(html);
+				$(".js-sku-tr-box").remove();
+				$('input[name=skuitem]').val(item);
+			}else{
+				$('#skuSort'+num).text(sort);
+				$('#skuName'+num).text(name);
+				$('#skuStockamount'+num).text(stockamount);
+				$('#skuOriginalprice'+num).text(originalprice);
+				$('#skuSaleprice'+num).text(saleprice);
+				$('#skuImgurl'+num).attr('src',imgurl);
+				$('#skuSalenum'+num).text(salenum);
+				
+				$('input[name="skuName'+num+'"]').val(name);
+				$('input[name="skuOriginalprice'+num+'"]').val(originalprice);
+				$('input[name="skuSaleprice'+num+'"]').val(saleprice);
+				$('input[name="skuImgurl'+num+'"]').val(imgurl);	
+				$('input[name="skuSort'+num+'"]').val(sort);	
+				$('input[name="skuStockamount'+num+'"]').val(stockamount);	
+				$('input[name="skuSalenum'+num+'"]').val(salenum);	
+			}
+			$(".skuBox").hide();
+		});
+		//上传图片
+		$(document).on("click","#clickimgok",function(){
+			var type = $(this).attr('data-type');
+			var img = $(this).attr('data-imgsrc');
+			if(type == 'skuImgurl'){
+				//SKU
+				$("#skuImgurl").attr("src",img);
+				$("input[name=skuImgurl]").val(img);
+			}else if(type == 'goodImgurl'){
+				//商品图
+				$("#goodImgurl").attr("src",img);
+				$("input[name=goodImgurl]").val(img);
+			}
+		});
+		//删除SKU
+		$(document).on('click','.js-skuDelButton',function(){
+			$(this).parent().parent().remove();
+			var skulength = $('#addmallskusbox').find('tr').length;
+			if(skulength < 1){
+				$('#addmallskusbox').append('<tr class="text-center not-hover js-sku-tr-box"><td colspan="8">暂无</td></tr>');
+			}
+		});
+	});
+	</script>
+</div>
+<!-- 创建、编辑商品图 弹窗 -->
+<div class="popup-wrap wrap-small-1 js-imgBox">
+    <div class="mod small-popup type-1 popup-width400">
+        <div class="mod-header">
+            <h4 class="fl">商品图</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+            <div class="content">
+                <div class="group pb-10">
+                    <h6 class="inline w100">*排序：</h6>
+                    <input class="inline w150" type="text" name="goodSort" value="50">
+                </div>
+                <div class="group-line pb-20">
+                    <h6 class="fl w100 text-left">规格图：</h6>
+                    <div class="group-right ml-100">
+                    	<img class="text-middle" id="goodImgurl" src="http://www.mobiwind.cn/Tpl/Wap/default/common/img/common.jpg" style="max-width:60px;">
+						<input type="hidden" class="form-control span2" name="goodImgurl">
+                        <a class="btn-small btn-white inline imageselect" data-type="goodImgurl">选择图片</a>
+                        <h6 class="text-gray">建议图片尺寸：宽120像素*高120像素，建议图片大小：小于100k</h6>
+                    </div>
+                </div>
+                <p class="text-center pb-10">
+                    <a class="btn-middle btn-purple goodHoldButton w80"> &nbsp; &nbsp; 保存&nbsp; &nbsp;</a>
+                </p>
+            </div>
+        </div>
+    </div>
+	<script>
+	$(function(){
+		//-------------------- 商品图 --------------------------------------------------------------------------------
+		var picnum = "<?php echo count($info['pic']);?>";
+		if(picnum < 1){
+			$('#addmallgoodimgbox').append('<tr class="text-center not-hover js-pic-tr-box"><td colspan="3">暂无</td></tr>');
+		}
+		$(document).on("click",".js-imgButton",function(){
+			var type = $(this).attr('data-type'); //1：创建；2：编辑；
+			var num = $(this).attr('data-num');
+			
+			var sort = $("#goodSort"+num).text();
+			sort = sort ? sort : '50';
+			$("input[name=goodSort]").prop('value',sort); //排序
+			
+			var imgurl = $("#goodImgurl"+num).attr('src'); //规格图
+			$("#goodImgurl").attr('src',imgurl);
+			$("input[name=goodImgurl]").prop('value',imgurl);
+			if(type == 2){
+				$(".goodHoldButton").attr('data-num',num);
+			}
+			$(".goodHoldButton").attr('data-type',type);
+			$('.js-imgBox').fadeIn(120);
+		});
+		//保存商品图 ，生成html
+		$(".goodHoldButton").click(function(){
+			var sort = $('input[name=goodSort]').val();
+			if(sort<1 || !(/^(\+|-)?\d+$/.test(sort))){
+				alertTan("请填写大于零的整数",'warn');
+				return false;
+			}
+			var imgurl = $('input[name=goodImgurl]').val();
+			if(!imgurl){
+				alertTan("请上传商品图",'warn');
+				return false;
+			}
+			var type = $(this).attr('data-type');
+			var item = $('input[name=imgitem]').val();
+			var num = $(this).attr('data-num');
+			var html = '';
+			if(type == 1){
+				//创建商品图
+				html += '<tr><td id="goodSort'+item+'">'+sort+'</td><td><img class="table-user-pic" id="goodImgurl'+item+'" src="'+imgurl+'"></td><td><a href="javascript:void(0);" class="tips js-imgButton" data-type="2" data-num="'+item+'">编辑</a><a href="javascript:void(0);" class="tips js-goodDelButton">删除</a></td>';
+				html += '<input type="hidden" name="goodImgurl'+item+'" value="'+imgurl+'">';
+				html += '<input type="hidden" name="goodSort'+item+'" value="'+sort+'"></tr>';
+				item = item*1+1*1;
+				$('#addmallgoodimgbox').append(html);
+				$(".js-pic-tr-box").remove();
+				$('input[name=imgitem]').val(item);
+			}else{
+				$('#goodSort'+num).text(sort);
+				$('#goodImgurl'+num).attr('src',imgurl);
+				$('input[name="goodImgurl'+num+'"]').val(imgurl);	
+				$('input[name="goodSort'+num+'"]').val(sort);	
+			}
+			$(".js-imgBox").hide();
+		});
+		//删除商品图
+		$(document).on('click','.js-goodDelButton',function(){
+			$(this).parent().parent().remove();
+			var piclength = $('#addmallgoodimgbox').find('tr').length;
+			if(piclength < 1){
+				$('#addmallgoodimgbox').append('<tr class="text-center not-hover js-pic-tr-box"><td colspan="3">暂无</td></tr>');
+			}
+		});
+	});
+	</script>
+</div>
+<script type="text/javascript">
+// 创建、编辑商品
+$(document).on( "click",".js-keepButton", function(){
+    var id = "<?php echo $info['id'];?>";
+    var sort = jQuery.trim($('input[name=sort]').val());
+	var goodtype = "<?php echo $info['goodtype'];?>";
+	var isoffshelves = "<?php echo $info['isoffshelves'];?>";
+	var issoldout = "<?php echo $info['issoldout'];?>";
+	var title = jQuery.trim($('input[name=title]').val());
+	if(zfl.GetLength(title)<1){
+		alertTan('请填写商品名称','warn');
+		return false;
+	}
+	var originalprice = $('input[name=originalprice]').val();
+	if(originalprice <= 0 && (goodtype == 6 || goodtype == 7)){
+		alertTan('请填写原价','warn');
+		return false;
+	}
+	var tags = $('input[name=tags]').val();
+	var goodnum = $('input[name=goodnum]').val();
+	var saleprice = $('input[name=saleprice]').val();
+	if(saleprice <= 0 && (goodtype==2 || goodtype==6 || goodtype == 7)){
+		alertTan('请填写售价','warn');
+		return false;
+	}
+	var stockamount = $('input[name=stockamount]').val();
+	if((!stockamount || !(/^(\+|-)?\d+$/.test(stockamount))) && (goodtype== 2 || goodtype== 6 || goodtype== 7)){
+		alertTan('请填写正确的库存量','warn');
+		return false;
+	}
+	var skutring = '';
+	$("#addmallskusbox").children("tr").each(function(){
+		if(goodtype == 1){
+			skutring += 'id|'+$(this).children("input").eq(0).val()+
+			',name|'+$(this).children("input").eq(1).val()+
+			',originalprice|'+$(this).children("input").eq(2).val()+
+			',saleprice|'+$(this).children("input").eq(3).val()+
+			',imgurl|'+$(this).children("input").eq(4).val()+
+			',sort|'+$(this).children("input").eq(5).val()+
+			',stockamount|'+$(this).children("input").eq(6).val()+
+			',salenum|'+$(this).children("input").eq(7).val()+';';
+		}else if(goodtype ==3 || goodtype ==4 || goodtype ==5){
+			skutring += 'id|'+$(this).children("input").eq(0).val()+
+			',name|'+$(this).children("input").eq(1).val()+
+			',originalprice|'+$(this).children("input").eq(2).val()+
+			',saleprice|'+$(this).children("input").eq(3).val()+
+			',sort|'+$(this).children("input").eq(4).val()+
+			',stockamount|'+$(this).children("input").eq(5).val()+
+			',salenum|'+$(this).children("input").eq(6).val()+';';
+		}
+		if($(this).hasClass('js-sku-tr-box')){
+			skutring = '';
+		}
+	});
+	if(!skutring && (goodtype==1)){
+		alertTan('请创建商品SKU','warn');
+		return false;
+	}
+	var imgtring = '';
+	$("#addmallgoodimgbox").children("tr").each(function(){
+		imgtring += 'pic|'+$(this).children("input").eq(0).val()+
+		',sort|'+$(this).children("input").eq(1).val()+';';
+		if($(this).hasClass('js-pic-tr-box')){
+			imgtring = '';
+		}
+	});
+	<!-- if(!imgtring && (goodtype==1)){ -->
+		<!-- alertTan('请创建商品图片','warn'); -->
+		<!-- return false; -->
+	<!-- } -->
+	var info = jQuery.trim(ue2.getContent());
+	var weight = $('input[name=weight]').val();
+	var freighttype = $('input[name=freighttype]:checked').val(); // 运费模板
+	var freighttplid = '';
+	if(freighttype == 3){
+		freighttplid = $('.js-freightTemplet :selected').val();
+		if(!freighttplid){
+			alertTan('请选择运费模板', 'warn');
+			return false;
+		}
+	}
+	var shareimg = $('input[name=shareimg]').val();
+	var sharefriendstitle = $('input[name=sharefriendstitle]').val();
+	var sharedes = $('.js-sharedes').val();
+	var salenum = $('input[name=salenum]').val();
+	$(".loading").show();
+	$.post("<?php echo U('MallGoods/set').'&time=';?>"+Math.random(),{
+		id: id,
+        sort:sort,
+		goodtype: goodtype,
+		isoffshelves: isoffshelves,
+		issoldout: issoldout,
+		title: title,
+		salenum:salenum,
+		goodnum: goodnum,
+		originalprice:originalprice,
+		saleprice: saleprice,
+		stockamount: stockamount,
+		tags: tags,
+		skutring: skutring,
+		imgtring: imgtring,
+		info: info,
+		weight: weight,
+		freighttype: freighttype,
+		freighttplid: freighttplid,
+        shareimg: shareimg,
+        sharefriendstitle: sharefriendstitle,
+        sharedes: sharedes
+	}, function(data){
+		$(".loading").hide();
+		if(data.code == 'success'){
+			alertTan(data.tips,data.code);
+			setTimeout(function(){
+				window.location.href=data.url;
+			},2000);
+		}else{
+			alertTan(data.tips,'error');
+		}
+	}, "json");
+});
+</script>
+<script>
+//计算两个日期天数差的函数，通用
+function DateDiff(sDate1, sDate2){  //sDate1和sDate2是yyyy-MM-dd格式
+	var aDate, oDate1, oDate2, iDays;
+	aDate = sDate1.split("-");
+	oDate1 = new Date(aDate[1] + '-' + aDate[2] + '-' + aDate[0]);  //转换为yyyy-MM-dd格式
+	aDate = sDate2.split("-");
+	oDate2 = new Date(aDate[1] + '-' + aDate[2] + '-' + aDate[0]);
+	iDays = parseInt(Math.abs(oDate1 - oDate2) / 1000 / 60 / 60 / 24); //把相差的毫秒数转换为天数
+	return iDays;  //返回相差天数
+}
+</script>
+<include file="Public:CountLength" />
+<include file="Public:footer" />

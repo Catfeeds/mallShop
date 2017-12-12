@@ -1,0 +1,37 @@
+	<?php if($isshow != 2){?>
+	<ul class="footer-nav">
+		<li <?php if($currentPage == 1){ echo 'class="curr-item"';}?>>
+			<a href="<?php echo $homeIndex['url'];?>">
+				<div class="nav-menu">
+					<i class="icon i-index"></i>
+					<span>首页</span>
+				</div>
+			</a>
+		</li>
+		<li <?php if($currentPage == 2){ echo 'class="curr-item"';}?>>
+			<a href="<?php echo U('MallNotices/customer',array('companyid'=>$companyid));?>">
+				<div class="nav-menu">
+					<i class="icon i-service"></i>
+					<span>客服</span>
+				</div>
+			</a>
+		</li>
+		<li <?php if($currentPage == 3){ echo 'class="curr-item"';}?>>
+			<a href="<?php echo U('MallShoppingCart/index',array('companyid'=>$companyid));?>">
+				<div class="nav-menu">
+					<i class="icon i-box"></i>
+					<span>购物袋</span>
+				</div>
+			</a>
+		</li>
+		<li <?php if($currentPage == 4){ echo 'class="curr-item"';}?>>
+			<a href="<?php echo U('MemberMallOrder/index',array('companyid'=>$companyid));?>">
+				<div class="nav-menu">
+					<i class="icon i-indent"></i>
+					<span>我的订单</span>
+				</div>
+			</a>
+		</li>
+	</ul>
+	<?php }?>
+	<div style="height: 50px;"></div>

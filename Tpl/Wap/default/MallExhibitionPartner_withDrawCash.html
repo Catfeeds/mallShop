@@ -1,0 +1,174 @@
+<include file="Public:S5NewHead" />
+<!--页面css-->
+<link rel="stylesheet" type="text/css" href="{lanrain::RES}/zhanye/css/wap.css?515<?php echo C('site_system_file_version'); ?>">
+<!--字体图标-->
+<link href="{lanrain::RES}/public_scrm5/css/font-awesome.min.css?<?php echo C('site_system_file_version'); ?>" rel="stylesheet" type="text/css" />
+<!--申请提现-->
+<div class="promote-ctt ifoot_padding Scrm_index_content promote-bt43">
+	<div class="promote-home-head withdrawals-bc">
+		<h6>可提现佣金(元)</h6>
+		<p><?php echo $info['availablemoney'];?></p>
+	</div>
+	<div class="select-card-box js-change-withdrawcash-method">
+		<a href="javascript:void (0)"><span class="js-change-withdrawcash-html">
+		<?php if($info['lastcashmethod'] == 1){
+				echo '支付宝 （'.substr($info['alipayaccount'],-4).'）';
+			}elseif($info['lastcashmethod'] == 2){
+				echo '银行卡（ '.substr($info['bankaccount'],-4).'）';
+			}
+		?></span>
+		<i class="fa fa-angle-right fr"></i></a>
+	</div>
+	<div class="amount-input-box">
+		<i class="fa fa-jpy fl"></i>
+		<div class="amount-input-right"><input type="number" name="price" value="" placeholder="请输入提现金额"></div>
+	</div>
+	<div style="height: 43px;"></div>
+	<div class="promote-home-bt">
+		<button class="btn withdrawals-btn js-submit-withdrawcash">提现</button>
+	</div>
+	<div class="eshopv_fotter_logo">
+		<include file="Public:navFooter" />
+	</div>
+</div>
+<input type="hidden" name="lastcashmethod" value="<?php echo $info['lastcashmethod'];?>"/>
+<!--弹窗-->
+<div class="Mask-pop js-Mask-pop"></div>
+<div class="promote-pop-mod js-account-information-pop" style="display: none;">
+	<div class="promote-pop-head"><h6>更换提现账户信息</h6><i class="promote-pop-close js-account-information-close"></i></div>
+	<div class="promote-pop-modbody">
+		<ul class="promote-number-ul">
+			<li>
+				<select class="" name="accounttype" id="accounttype">
+					<option value="1">支付宝账户</option>
+					<option value="2">银行账户</option>
+				</select>
+				<i class="fa fa-angle-down"></i>
+			</li>
+			<li class="bank" style="display: none;">
+				<input type="text" name="bankholder" value="<?php echo $info['bankholder'];?>" placeholder="请填写开户人">
+			</li>
+			<li class="bank" style="display: none;">
+				<input type="text" name="bankbranch" value="<?php echo $info['bankbranch'];?>" placeholder="请填写开户行">
+				<p>*请精确到具体支行</p>
+			</li>
+			<li class="bank" style="display: none;">
+				<input type="number" name="bankaccount" value="<?php echo $info['bankaccount'];?>" placeholder="请填写银行卡号">
+			</li>
+			<li  class="alipay" style="display: none;">
+				<input type="number" name="alipayaccount" value="<?php echo $info['alipayaccount'];?>" placeholder="请填写支付宝账号">
+			</li>
+		</ul>
+	</div>
+	<div class="promote-pop-modfoot"><button class="btn promote-number-btn js-submit-message">确认</button></div>
+</div>
+<script>
+$(function(){
+	// 点击确认提现
+	$('.js-submit-withdrawcash').click(function(){
+		var availablemoney = "<?php echo $info['availablemoney'];?>";
+		var price = $('input[name="price"]').val();
+		var accounttype = $('input[name="lastcashmethod"]').val();
+		if(!price || price<=0 || price-availablemoney>0){
+			alert('请输入正确的提现金额');
+			return false;
+		}
+		$('.loading').show();
+		$.post("<?php echo U('MallExhibitionPartner/ajaxSubmitWithDrawCash',array('companyid'=>$companyid)).'&time='?>"+Math.random(),{'price':price,'accounttype':accounttype},function(data){
+			$('.loading').hide();
+			if(data.code == 200){
+				alert(data.tips);
+				setTimeout(function(){
+					window.location.href="<?php echo U('MallExhibitionPartner/myExhibitionWithDrawCash',array('companyid'=>$companyid))?>";
+				},2000);
+			}else{
+				alert(data.tips);
+			}
+		},'json');
+	});
+	// 点击切换提现方式
+	$('.js-change-withdrawcash-method').click(function(){
+		var lastcashmethod = $('input[name="lastcashmethod"]').val();
+		$("#accounttype").val(lastcashmethod);
+		if(lastcashmethod == 1){
+			$('.bank').hide();
+			$('.alipay').show();
+		}else if(lastcashmethod == 2){
+			$('.bank').show();
+			$('.alipay').hide();
+		}
+		$(".js-account-information-pop").stop().slideDown(300,function(){
+			$(".js-Mask-pop").show();
+		});
+	});
+	// 显示需要填写的账号信息
+	$('#accounttype').change(function(){
+		var accounttype = $('#accounttype').val();
+		if(accounttype == 1){
+			$('.bank').hide();
+			$('.alipay').show();
+		}else if(accounttype == 2){
+			$('.bank').show();
+			$('.alipay').hide();
+		}
+	});
+	// 确认提交账号信息
+	$('.js-submit-message').click(function(){
+		var accounttype = $('#accounttype').val();
+		var alipayaccount = $('input[name="alipayaccount"]').val();
+		var bankaccount = $('input[name="bankaccount"]').val();
+		var stringHtml = '';
+		if(accounttype == 1){
+			stringHtml = "支付宝 （"+alipayaccount.substr(-4)+"）";
+		}else if(accounttype == 2){
+			stringHtml = "银行卡（ "+bankaccount.substr(-4)+"）";
+		}
+		var bankholder = $('input[name="bankholder"]').val();
+		var bankbranch = $('input[name="bankbranch"]').val();
+		if(accounttype == 1){
+			if(alipayaccount.trim() == ''){
+				alert('请填写支付宝账号');
+				return false;
+			}
+		}else if(accounttype == 2){
+			if(bankholder.trim() == ''){
+				alert('请填写开户人');
+				return false;
+			}
+			if(bankbranch.trim() == ''){
+				alert('请填写开户行');
+				return false;
+			}
+			if(bankaccount.trim() == ''){
+				alert('请填写银行卡账号');
+				return false;
+			}
+		}else{
+			alert('请选择账户类型');
+			return false;
+		}
+		$('.loading').show();
+		$.post("<?php echo U('MallExhibitionPartner/ajaxAddMessage',array('companyid'=>$companyid)).'&time='?>"+Math.random(),{'accounttype':accounttype,'alipayaccount':alipayaccount,'bankaccount':bankaccount,'bankholder':bankholder,'bankbranch':bankbranch},function(data){
+			if(data.code == 200){
+				$('.loading').hide();
+				$('input[name="lastcashmethod"]').val(accounttype);
+				$('.js-change-withdrawcash-html').html(stringHtml);
+				$(".js-account-information-pop").stop().slideUp(300,function(){
+					$(".js-Mask-pop").hide();
+				});
+			}else{
+				$('.loading').hide();
+				alert(data.tips);
+			}
+		},'json');
+	});
+	// 关闭我要提现弹窗
+	$(".js-account-information-close").click(function(){
+		$(".js-account-information-pop").stop().slideUp(300,function(){
+			$(".js-Mask-pop").hide();
+		});
+	});
+});
+</script>
+<include file="Public:weiXinNotShareSet"/>
+<include file="Public:footer" />

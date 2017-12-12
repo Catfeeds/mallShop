@@ -1,0 +1,218 @@
+<include file="Public:mallHead" />
+<link href="{lanrain::RES}/Member_Center/css/wap.css?<?php echo C('site_system_file_version'); ?>" rel="stylesheet" type="text/css" />
+<style>
+.eshopv_nav{display: none;}
+.content-pdbt{padding-top: 0px;}
+.eshopv_bigtwo > li{ padding: 0px 4px;}
+.eshopv_bigtwo > li a{ padding: 0px; background: #FFFFff;}
+body.csd_over{height: 100%;display: block;overflow: hidden;}
+</style>
+<?php 
+if($isshow==2){
+echo '<style>
+.content-pdbt{padding-bottom:132px;}
+.eshop_old_footer.eshopv_fotter_logo{bottom:0;}
+</style>';
+}
+?>
+<div class="eshop-content" style="min-height: 365px;">
+	<!-- 订单类型 -->
+	<div class="eshop_class_selection">
+		<div class="eshop_class_selecont"><span>eshop<?php echo $orderTitle;?>商品订单</span></div>
+		<div class="eshop_class_selecbg"></div>
+		<div class="eshop_class_selewarp">
+			<ul class="eshop_class_selewaul">
+				<li data-ordertype="1">eshop实物商品订单</li>
+				<li data-ordertype="2">eshop券商品订单</li>
+				<li data-ordertype="3">eshop计次卡商品订单</li>
+				<li data-ordertype="4">eshop团购商品订单</li>
+				<li data-ordertype="5">eshop门票商品订单</li>
+				<li data-ordertype="6">eshop权益卡商品订单</li>
+				<li data-ordertype="7">eshop卡券礼包商品订单</li>
+				<!-- 暂时保留 <?php if($isshow == 2){?>
+				<li data-ordertype="">门店收银订单</li>
+				<li data-ordertype="">手机预订订单</li>
+				<li data-ordertype="">闪惠订单</li>
+				<?php }?> -->
+			</ul>
+		</div>
+	</div>
+	<!-- 订单状态 -->
+	<div class="order_myself_nav">
+		<ul class="tcc_equally_box">
+			<li class="tcc_equally_son <?php if($orderstatus==''){ echo 'arder_active';}?>" data-orderstatus="">全部</li>
+			<li class="tcc_equally_son <?php if($orderstatus=='1'){ echo 'arder_active';}?>" data-orderstatus="1">待付款</li>
+			<?php if($ordertype == 1){?>
+			<li class="tcc_equally_son <?php if($orderstatus=='2'){ echo 'arder_active';}?>" data-orderstatus="2">待发货</li>
+			<li class="tcc_equally_son <?php if($orderstatus=='3'){ echo 'arder_active';}?>" data-orderstatus="3">已发货</li>
+			<li class="tcc_equally_son <?php if($orderstatus=='4'){ echo 'arder_active';}?>" data-orderstatus="4">已签收</li>
+			<li class="tcc_equally_son <?php if($orderstatus=='8'){ echo 'arder_active';}?>" data-orderstatus="8">退货</li>
+			<?php }else{?>
+			<li class="tcc_equally_son <?php if($orderstatus=='6'){ echo 'arder_active';}?>" data-orderstatus="6">已发送</li>
+			<?php if($ordertype == 3 || $ordertype == 4 || $ordertype == 5 || $ordertype == 6){?>
+			<li class="tcc_equally_son <?php if($orderstatus=='9'){ echo 'arder_active';}?>" data-orderstatus="9">过期退单</li>
+			<li class="tcc_equally_son <?php if($orderstatus=='10'){ echo 'arder_active';}?>" data-orderstatus="10">随时退单</li>
+			<?php }?>
+			<?php }?>
+		</ul>
+	</div>
+	<main class="order_myself_manin">
+		<div class="order_myself_mOcet" style="display: block;">
+			<?php if($list['list']){ foreach($list['list'] as $key=>$val){?>
+			<div class="order_myself_cont">
+				<div class="order_myself_num">
+					<p class="order_myself_nmp"><span>订单号：<em class="num_Arial"><?php echo $val['orderid'];?></em></span><?php if($val['orderstatus']==1){ echo '待付款';}elseif($val['orderstatus']==2){ echo '待发货';}elseif($val['orderstatus']==3){ echo '已发货';}elseif($val['orderstatus']==4){ echo '已签收';}elseif($val['orderstatus']==5){ echo '已取消';}elseif($val['orderstatus']==6){ echo '卡券已发送';}elseif($val['orderstatus']==7){ echo '确认到账中';}elseif($val['orderstatus']==8){ echo '退货/退款';}elseif($val['orderstatus']==9){ echo '到期退单';}elseif($val['orderstatus']==10){ echo '随时退单';}elseif($val['orderstatus']==11){ echo '待成团';}?></p>
+				</div>
+				<ul class="order_myself_ping">
+					<?php if($val['ordertype']==1 && $val['truegoodtype']==2){ foreach($val['mall'] as $mKey=>$mVal){?>
+					<li>
+						<div class="order_myself_drawing"><img src="http://www.mobiwind.cn/Tpl/User/default/common/images/default-ticket.jpg" /></div>
+						<div class="order_myself_pdetail">
+							<p class="order_myself_pname"><?php echo $mVal['name'];?></p>
+							<p class="order_myself_pnorms"></p>
+							<p class="order_myself_pprice"><i>￥<em class="num_Arial">0.00</em></i>X<em class="num_Arial">1</em></p>
+						</div>
+					</li>
+					<?php }}else{ foreach($val['mall'] as $mKey=>$mVal){?>
+					<li>
+						<a href="<?php echo U('MallGoods/goodInfo',array('id'=>$mVal['goodid'],'companyid'=>$companyid));?>">
+						<div class="order_myself_drawing"><img src="<?php echo $mVal['goodpic'];?>" /></div>
+						<div class="order_myself_pdetail">
+							<p class="order_myself_pname"><?php echo $mVal['goodname'];?></p>
+							<p class="order_myself_pnorms"></p>
+							<?php if($mVal['pricetype'] == 1){?>
+							<p class="order_myself_pprice"><i>￥<em class="num_Arial"><?php echo $mVal['goodprice'];?></em></i>X<em class="num_Arial"><?php echo $mVal['goodnum'];?></em></p>
+							<?php }elseif($mVal['pricetype'] == 2){?>
+							<p class="order_myself_pprice"><i><em class="num_Arial"><?php echo $mVal['goodint'];?></em>积分</i>X<em class="num_Arial"><?php echo $mVal['goodnum'];?></em></p>
+							<?php }?>
+						</div></a>
+					</li>
+					<?php }}?>
+				</ul>
+				<ul class="order_myself_pbtn">
+					<?php if($val['orderstatus']==1 && ($val['orderpaymethod']==1 || $val['orderpaymethod']== 7)){?>
+					<li class="order_myself_pblip1"><a href="<?php echo C('site_url');?>/Payapi/Wxpay/payAct/jsapi.php?orderid=<?php echo $val['orderid'];?>" class="order_myself_pbfk">立即付款</a></li>
+					<?php }elseif($val['orderstatus'] == 3){?>
+					<li class="order_myself_pblip1"><a href="javascript:void(0);" class="order_myself_pbfk js-signOrderButton" data-id="<?php echo $val['id'];?>" data-orderstatus="4">确认签收</a></li>
+					<?php }?>
+					<li class="order_myself_pblip2"><a href="<?php echo U('MemberMallOrder/info',array('id'=>$val['id'],'companyid'=>$companyid,'isshow'=>2));?>" class="order_myself_pbxq">订单详情</a></li>
+					<li class="order_myself_pblip3">共计
+						<?php if($val['orderpaymethod'] == 1 || $val['orderpaymethod'] == 7){?>
+						￥<em class="num_Arial"><?php echo $val['orderprice'];?></em>
+						<?php }else{?>
+						<em class="num_Arial"><?php echo $val['orderint'];?></em> 积分
+						<?php }?>
+					</li>
+				</ul>
+			</div>
+			<?php }}else{?>
+			<div style="padding-top:150px;text-align:center;">
+			 	<img style="width:28%;" src="{lanrain::RES}/Eshop/Eshop_zwdd.png">
+			</div>
+			<?php }?>
+		</div>
+	</main>
+</div>
+<script>
+$(document).ready(function(){
+	// 背景的高度与定位
+	var widH = $(window).innerHeight();
+	var hedH = $(".eshopv_nav").innerHeight();
+	var navH = $(".eshopv_nav").innerHeight();
+	var topH =  hedH+navH  ;
+	var mainH = widH - topH;
+	var  clasS = $(".eshop_class_selecbg");
+	clasS.css({
+		"top" : 50 + "px",
+		"height" : mainH + "px"
+	});
+	// 下拉select
+	$(".eshop_class_selecont span").click(function(){
+		var ul = $(".eshop_class_selewarp");
+		if(ul.css("display")=="none"){
+			ul.slideDown();
+			$(".eshop_class_selecbg").show();
+			$("body").addClass("csd_over");
+			$("body").on('touchmove',function(event) { event.preventDefault(); }, false);
+		}else{
+			ul.slideUp();
+			$(".eshop_class_selecbg").hide();
+			$("body").removeClass("csd_over");
+			$("body").unbind('touchmove');
+		}
+	});
+	$(".eshop_class_selecbg").click(function(){
+		$(".eshop_class_selewarp").slideUp();
+		$("body").removeClass("csd_over");
+		$(".eshop_class_selecbg").hide();
+	})
+	// 订单类型
+	$(".eshop_class_selewaul li").click(function(){
+		var li = $(this).text();
+		var ordertype = $(this).attr("data-ordertype");
+		$(".eshop_class_selecont span").html(li);
+		$(".eshop_class_selewarp").hide();
+		$(".eshop_class_selecbg").hide();
+		$("body").removeClass("csd_over");
+		$("body").unbind('touchmove');
+		window.location.href="<?php echo U('MemberMallOrder/index',array('companyid'=>$companyid,'ordertype'=>'"+ordertype+"','isshow'=>$isshow));?>";
+	});
+	//-------------------- 订单状态切换 --------------------\\ 
+	$('.tcc_equally_box li').click(function(){
+		var ordertype = "<?php echo $ordertype;?>";
+		var orderstatus = $(this).attr("data-orderstatus");
+		$(this).addClass('arder_active').siblings().removeClass('arder_active');
+		$('main.order_myself_manin >div.order_myself_mOcet:eq('+$(this).index()+')').show().siblings().hide();
+		window.location.href="<?php echo U('MemberMallOrder/index',array('companyid'=>$companyid,'ordertype'=>'"+ordertype+"','orderstatus'=>'"+orderstatus+"','isshow'=>$isshow));?>";
+	});
+	//-------------------- 确认签收 --------------------\\
+	$(document).on("click",".js-signOrderButton",function(){
+	    var id = $(this).attr('data-id');
+	    var orderstatus = $(this).attr('data-orderstatus');
+		$('.loading').show();
+	    $.post("<?php echo U('MemberMallOrder/ajaxCloseOrder',array('companyid'=>$companyid)).'&time=';?>"+Math.random(),{id:id,orderstatus:orderstatus},function(data){
+			$('.loading').hide();
+			alert(data.tips,2000);
+			if(data.code == 200){
+				setTimeout('window.location.href=location.href',2000);
+			}
+	    },"json");
+	});
+});
+</script>
+<script type="text/javascript">
+$(function(){
+	var ordertype = "<?php echo $ordertype;?>";
+	var orderstatus = "<?php echo $orderstatus;?>";
+    var lengthnum = "<?php echo $limit;?>"; //每次加载的数目
+    var totalnum = "<?php echo $list['count'];?>"; //库里面的总数目
+    var totalpage; //一共要加载多少页
+    var currentpage = 0; //当前页
+    totalpage = Math.ceil(totalnum / lengthnum);  //计算总页数
+    $(window).scroll(function () {
+    	var h2 = $(window).height();
+        h1 = $(document).height();
+        scollTop = $(document).scrollTop();
+        if ((h1 - h2) <= scollTop) {   //滚动条滚到浏览器底部执行的事假
+            if (currentpage == totalpage) {   // 等于总页数
+                currentpage = totalpage;
+            } else if (currentpage < totalpage) {  // 小于总页数
+                currentpage++;
+                var startNumber = currentpage * lengthnum;
+               	if(currentpage >= totalpage){
+	                return false;
+                }
+               	$(".loading").show();
+                $.post("<?php echo U('MemberMallOrder/ajaxgetorderlist',array('companyid'=>$companyid)).'&time=';?>"+Math.random(),{ordertype:ordertype,orderstatus:orderstatus,startNumber:startNumber},function(data){
+        			$('.loading').hide();
+        			$('.order_myself_mOcet').append(data.html);
+        	    },"json");
+            }
+        }
+    });
+});
+</script>
+<include file="Public:loading" />
+<include file="Public:loginBox" />
+<include file="Public:weiXinNotShareSet" />
+<include file="Public:mallFooter" />

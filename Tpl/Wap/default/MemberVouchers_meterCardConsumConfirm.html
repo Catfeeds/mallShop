@@ -1,0 +1,57 @@
+<include file="Public:scrm5Head"/>
+<link href="{lanrain::RES}/activity_wap/css/wap.css?1215<?php echo C('site_system_file_version'); ?>" rel="stylesheet" type="text/css" />
+<!-- =================== 计次卡消费扣次确认 ===================== -->
+<style>
+	.ifoot_padding{    padding-bottom: 3.15rem;}
+	.eshopv_fotter_logo{bottom: 1.1rem;}
+</style>
+<section class="content_app  ifoot_padding">
+	<div class="confirm_head">
+		<div class="confirm_head_cont">
+			<label><img src="<?php echo $logourl;?>" /></label>
+			<span><?php echo $snInfo['vouchername'];?></span>
+		</div>
+	</div>
+	<div class="confirm_warp mt10">
+		<ul class="confirm_warp_ul  btn_border_li">
+			<li>剩余次数<span><?php echo $snInfo['usenumberlimit']- $snInfo['usednumber'];?></span></li>
+			<li>使用期限<span><?php echo format_time($snInfo['usestarttime'],'ymdhi');?> - <?php echo format_time($snInfo['useendtime'],'ymdhi');?></span></li>
+			<li>卡券号<span><?php echo $snInfo['sn'];?></span></li>
+		</ul>
+	</div>
+	<div class="confirm_warp mt10">
+		<ul class="confirm_warp_ul  btn_border_li">
+			<li>申请门店<span><?php echo $shopInfo['shopname']?$shopInfo['shopname']:'总部';?></span></li>
+			<?php if($shopInfo){?>
+			<li>门店电话<a href="tel:<?php echo $shopInfo['tel'];?>"><?php echo $shopInfo['tel'];?></a></li>
+			<?php }?>
+			<li>核销店员<span><?php echo $openInfo['username'];?></span></li>
+		</ul>
+	</div>
+	<div class="meter_card_showp">
+		<ul class="meter_card_sul">
+			<li><a href="javascript:void(0)" class="submit js-use-confirm" data-type="1">拒绝</a></li>
+			<li><a href="javascript:void(0)" class="submit js-use-confirm" data-type="2">同意</a></li>
+		</ul>
+	</div>
+<script>
+$(function(){
+	$('.js-use-confirm').click(function(){
+		var id = "<?php echo $snInfo['id'];?>";
+		var type = $(this).attr("data-type");
+		var staffid = "<?php echo $openInfo['id'];?>"
+		$('.loading').show();
+		$.post("<?php echo U('MemberVouchers/ajaxConsum',array('companyid'=>$companyid)).'&time='?>"+Math.random(),{'id':id,'type':type,'staffid':staffid},function(data){
+			$('.loading').hide();
+			if(data.code == 200){
+				window.location.href="<?php echo U('MemberVouchers/consum',array('companyid'=>$companyid,'type'=>2))?>";
+			}else{
+				window.location.href="<?php echo U('MemberVouchers/consum',array('companyid'=>$companyid,'type'=>1))?>";
+			}
+		},'json');
+	});
+});
+</script>
+</section>
+<include file="Public:loading"/>
+<include file="Public:scrm5Foot"/>

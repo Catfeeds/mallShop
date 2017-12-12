@@ -1,0 +1,42 @@
+        </div>
+        <!-- 页面内容 end -->
+    </div>
+    <!--scrm5-body end-->
+    <div class="hiddenft"><!--页面不足一屏时 页脚置屏浏览器底 足一屏时至于页底--></div>
+</div>
+<!-- footer begin -->
+<div class="scrm5-footer">
+    <a target="_blank" href="javascript:void(0);">公司简介 </a>
+    <span class="s">|</span>
+    <a target="_blank" href="javascript:void(0);">最新公告</a>
+    <span class="s">|</span>
+    <a class="QR-code-up" target="_blank" href="javascript:void(0);">官方微信
+        <div class="QR-code-box-up">
+            <img src="{lanrain::RES}/img/demo-QR.png">
+            <h6>微信扫码<br>
+                关注人来风</h6>
+            <span id="triangle-down-a"></span>
+            <span id="triangle-down-b"></span>
+        </div>
+    </a>
+    <br>
+    © 2013-2016 www.MobiWind.cn All Rights Reserved.
+</div>
+<script>
+/* 复制插件 */  //http://9iphp.com/web/javascript/js-copy-library-clipboard-js.html 文档中还有多种调用方法  请大家自行参考
+var clipboard = new Clipboard('.js-clip-btn', {
+	text: function(trigger) {
+		return trigger.getAttribute('data-url');     //复制的内容   相当于$(this).attr('data-url')
+	}
+});
+//成功事件
+clipboard.on('success', function(e) {    
+	alertTan("复制成功");
+});
+//失败事件
+clipboard.on('error', function(e) {
+	alertTan("复制失败",'error');
+});
+</script>
+</body>
+</html>

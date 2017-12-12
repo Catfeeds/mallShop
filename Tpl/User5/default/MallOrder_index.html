@@ -1,0 +1,308 @@
+<include file="Public:head" /> 
+<?php echo $makeTopUrl;?>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>筛选条件</h4></div>
+    <form class="mod-body shop-pay" action="<?php echo U('MallOrder/index');?>" method="post">
+    	<input type="hidden" name="ordertype" value="<?php echo $ordertype;?>">
+        <input type="hidden" name="orderstatus" value="<?php echo $orderstatus;?>">
+        <div class="content clearfix">
+            <div class="child-sum-3 fl">
+                <div class="group pb-10">
+                    <h6 class="inline w100">订单号：</h6>
+                    <input class="inline w150" type="text" name="orderid" value="<?php echo $orderid;?>">
+                </div>
+                <div class="group pb-10">
+                    <h6 class="inline w100">订单金额：</h6>
+                    <input class="inline w60" type="text" name="orderprice1" value="<?php echo $orderprice1;?>"> -
+                    <input class="inline w60" type="text" name="orderprice2" value="<?php echo $orderprice2;?>">
+                </div>
+            </div>
+            <div class="child-sum-3 fl">
+                <div class="group pb-10">
+                    <h6 class="inline w100">商品名称：</h6>
+                    <input class="inline w150" type="text" name="ordertitle" value="<?php echo $ordertitle;?>">
+                </div>
+            </div>
+            <div class="child-sum-3 fl">
+                <div class="group pb-10">
+                    <h6 class="inline w100">会员手机号：</h6>
+                    <input class="inline w150" type="text" name="mphone" value="<?php echo $mphone;?>">
+                </div>
+            </div>
+            <div class="group mb-15 laydate-box">
+                <h6 class="inline w100">下单时间：</h6>
+                <input class="laydate-input" id="pay-date-1" onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" name="createtime1" value="<?php echo $createtime1;?>" placeholder="YYYY-MM-DD">
+                <i class="icon-laydate" onclick="laydate({elem:'#pay-date-1'});"></i>
+                <span> - </span>
+                <input class="laydate-input" id="pay-date-2" onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" name="createtime2" value="<?php echo $createtime2;?>" placeholder="YYYY-MM-DD">
+                <i class="icon-laydate" onclick="laydate({elem:'#pay-date-2'});"></i>
+            </div>
+        </div>
+        <div class="group form-footer text-center">
+            <input class="btn-middle btn-purple w100" type="submit" value="筛选">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input class="btn-middle btn-white w100" type="reset" value="重置">
+        </div>
+    </form>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top">
+    	<h4><?php echo $pageTitle;?>商品订单</h4>
+    	<div class="fr">
+    		<!--  <?php if($ordertype == 1){?>
+    		<a class="js-autoOffOrderButton fl">自动关闭订单设置</a>
+    		<?php }?>-->
+			<a class="excel-import-out-button fl ml-10">下载表格</a>
+    	</div>
+    </div>
+    <div class="mod-body WeChat-auto-reply-set">
+        <div class="content">
+            <div class="tab-box type-2 js-tab-box mb-15">
+                <div class="hd">
+                    <ul>
+                        <a href="<?php echo U('MallOrder/index',array('ordertype'=>$ordertype));?>"><li <?php if($orderstatus < 1){ echo 'class="on"';}?>><h5>全部</h5></li></a>
+                        <a href="<?php echo U('MallOrder/index',array('ordertype'=>$ordertype,'orderstatus'=>1));?>"><li <?php if($orderstatus == 1){ echo 'class="on"';}?>><h5>待付款</h5></li></a>
+                        <a href="<?php echo U('MallOrder/index',array('ordertype'=>$ordertype,'orderstatus'=>2));?>"><li <?php if($orderstatus == 2){ echo 'class="on"';}?>><h5>待发货</h5></li></a>
+                        <a href="<?php echo U('MallOrder/index',array('ordertype'=>$ordertype,'orderstatus'=>3));?>"><li <?php if($orderstatus == 3){ echo 'class="on"';}?>><h5>已发货</h5></li></a>
+                        <a href="<?php echo U('MallOrder/index',array('ordertype'=>$ordertype,'orderstatus'=>4));?>"><li <?php if($orderstatus == 4){ echo 'class="on"';}?>><h5>已安装</h5></li></a>
+                        <!-- <a href="<?php echo U('MallOrder/index',array('ordertype'=>$ordertype,'orderstatus'=>8));?>"><li <?php if($orderstatus == 8){ echo 'class="on"';}?>><h5>退货/退款</h5></li></a> -->
+                    	<a href="<?php echo U('MallOrder/index',array('ordertype'=>$ordertype,'orderstatus'=>5));?>"><li <?php if($orderstatus == 5){ echo 'class="on"';}?>><h5>已关闭</h5></li></a>
+                    </ul>
+                </div>
+            </div>
+            <div class="mb-15">
+                <table class="table type-1 w-auto">
+                    <thead>
+                    <tr>
+                        <th>订单号</th>
+                        <th>商品名称</th>
+                        <th class="min-w60">售价/数量</th>
+                        <th>会员手机号</th>
+                        <th>下单时间</th>
+                        <th>订单状态</th>
+                        <th>订单金额</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <?php if($list){?>
+                    <tbody>
+                    	<?php foreach($list as $key=>$val){?>
+	                    <tr>
+	                        <td><?php echo $val['orderid'];?></td>
+	                        <td>
+	                        	<?php if($val['ordertype']==1 && $val['truegoodtype']==2){ foreach($val['mall'] as $lmKey=>$lmVal){?>
+	                            <div class="table-line">
+	                                <div class="table-line-img"><img src="./Tpl/User/default/common/images/default-ticket.jpg"></div>
+	                                <div class="table-line-right">
+	                                    <p class="commodity-name pb-10"><?php echo $lmVal['name'];?></p>
+	                                    <p class="commodity-code"><?php echo $lmVal['sn'];?></p>
+	                                </div>
+	                            </div>
+	                        	<?php }}else{?>
+	                        	<?php foreach($val['mall'] as $lmKey=>$lmVal){?>
+	                            <div class="table-line">
+	                                <div class="table-line-img"><img src="<?php echo $lmVal['goodpic'];?>"></div>
+	                                <div class="table-line-right">
+	                                    <p class="commodity-name pb-10"><?php echo $lmVal['goodname']; echo $lmVal['goodskuname']?'（'.$lmVal['goodskuname'].'）':'';?></p>
+	                                </div>
+	                            </div>
+		                        <?php }}?>
+	                        </td>
+	                        <td>
+	                        	<?php foreach($val['mall'] as $lmKey=>$lmVal){?>
+	                        	<div>
+	                        		<?php if($lmVal['pricetype'] == 2){?>
+	                        		<p class="table-line-p">积分：<?php echo $lmVal['goodint'] ? $lmVal['goodint'] : '0.00';?></p>
+									<?php }elseif($lmVal['pricetype'] == 1){?>
+									<p class="table-line-p">￥<?php echo $lmVal['goodprice'] ? $lmVal['goodprice'] : '0.00';?></p> 
+									<?php }?>
+									<p class="table-line-p">数量：<?php echo $lmVal['goodnum'] ? $lmVal['goodnum'] : '1';?></p>
+	                        	</div>
+	                        	<?php }?>
+	                        </td>
+	                        <td>
+		                        <p class="table-line-p"><?php echo $val['mname'];?></p>
+		                        <p class="table-line-p"><a href="<?php echo U('Member/memberInfo',array('id'=>$val['mid']));?>" class="tips"><?php echo $val['mmobile'];?></a></p>
+	                        </td>
+	                        <td><?php echo format_time($val['createtime'],'ymdhi');?></td>
+	                        <td id="order-info-orderstatus-box<?php echo $val['id'];?>">
+								<?php if($val['orderstatus'] == 1){ 
+									echo '<p>待付款</p><p><a href="javascript:void(0);" class="tips update-order-info-orderstatus-button" data-orderstatus="5" data-id="'.$val['id'].'">关闭订单</a></p>';
+								}elseif($val['orderstatus'] == 7){ 
+									echo '<p>确认到账中</p><a href="javascript:void(0);" class="tips update-order-info-orderstatus-send-deliver-button" data-orderstatus="3" data-id="'.$val['id'].'">发货</a></p><p><a href="javascript:void(0);" class="tips update-order-info-orderstatus-button" data-orderstatus="5" data-id="'.$val['id'].'">关闭订单</a></p>';
+								}elseif($val['orderstatus'] == 2){ 
+									echo '<p>待发货</p><p><a href="javascript:void(0);" class="tips update-order-info-orderstatus-send-deliver-button" data-orderstatus="3" data-id="'.$val['id'].'">发货</a></p>';
+								}elseif($val['orderstatus'] == 3){ 
+									echo '<p>已发货</p><p><a href="javascript:void(0);" class="tips update-order-info-orderstatus-button" data-orderstatus="4" data-id="'.$val['id'].'">确认安装</a></p>';
+								}elseif($val['orderstatus'] == 4){ 
+									echo '<p>已安装</p>';
+								}elseif($val['orderstatus'] == 5){ 
+									echo '<p>已关闭</p>';
+								}elseif($val['orderstatus'] == 8){ 
+									echo '<p>退货/退款</p>';
+								}elseif($val['orderstatus'] == 11){ 
+									echo '<p>待成团</p>';
+								}?>
+	                        </td>
+	                        <td>
+	                        	<?php if($val['orderprice'] > 0.00){?>
+		                        <p class="table-line-p">￥<?php echo $val['orderprice'];?></p>
+	                        	<?php }else{?>
+		                        <p class="table-line-p">积分：<?php echo $val['orderint'];?></p>
+	                        	<?php }?>
+	                        </td>
+	                        <td>
+								<a href="<?php echo U('MallOrder/info',array('id'=>$val['id']));?>" class="tips">订单详情</a>
+	                            <a href="javascript:void(0);" class="tips js-delOrderButton" data-orderid="<?php echo $val['orderid'];?>">删除</a>
+	                        </td>
+	                    </tr>
+                    	<?php }?>
+                    </tbody>
+                    <?php }?>
+                </table>
+                <?php if(!$list){?>
+                <h5 class="text-center table-footer-h5">暂无</h5>
+                <?php }?>
+            </div>
+        </div>
+        <?php if($list){?>
+        <div class="group form-footer clearfix">
+            <div class="group pagination fr">
+                <?php echo $page;?>
+            </div>
+        </div>
+        <?php }?>
+    </div>
+</div>
+<!--删除订单弹窗-->
+<div class="popup-wrap wrap-small-1 js-delOrderBox">
+    <div class="mod small-popup type-1">
+        <div class="mod-header">
+            <h4 class="fl">删除订单</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+		</div>
+        <div class="mod-body">
+            <div class="content">
+                <h5 class="pb-30">您确定删除该订单吗？</h5>
+                <p class="text-center pb-10">
+                    <a class="btn-big btn-purple js-confirmDelOrderButton">确定</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script>
+    $(".js-delOrderButton").on("click",function(){
+    	$(".js-confirmDelOrderButton").attr('data-orderid',$(this).attr('data-orderid'));
+        $(".js-delOrderBox").fadeIn(120);
+    });
+    $(".js-confirmDelOrderButton").click(function(){
+    	$(".loading").show();
+    	var orderid = $(this).attr('data-orderid');
+    	$.post("<?php echo U('MallOrder/ajaxDelOrder').'&time=';?>"+Math.random(),{orderid:orderid},function(data){
+    		$(".loading").hide();
+    		alertTan(data.tips,data.code);
+    		if(data.code == 'success'){
+    			setTimeout('window.location.href=location.href',2000);
+    		}
+    	},"json");
+    });
+    </script>
+</div>
+<!-- 自动关闭订单设置弹窗 -->
+<!-- <div class="js-autoOffOrderBox popup-wrap wrap-small-1">
+    <div class="mod small-popup type-1 popup-width400">
+        <div class="mod-header">
+            <h4 class="fl">实物商品自动关闭订单设置</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+            <div class="content">
+                <div class="group pb-30">
+                    <h6 class="inline">买家提交订单后</h6>
+                    <input type="text" class="inline w50" name="mallorderautoset" value="<?php echo $info['mallorderautoset'];?>">
+                    <h6 class="inline">小时内未付款，自动关闭该订单。</h6>
+                    <h6 class="text-gray">*限填大于0的正整数</h6>
+                </div>
+                <p class="text-center mb-15">
+					<a class="btn-middle btn-purple js-keepAutoOffOrderButton">确 &nbsp;&nbsp;定</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script>
+    $(".js-autoOffOrderButton").click(function(){
+        $(".js-autoOffOrderBox").fadeIn(120);
+    });
+    $(".js-keepAutoOffOrderButton").click(function(){
+    	var mallorderautoset = $('input[name=mallorderautoset]').val();
+		if(mallorderautoset<1 || !(/^(\+|-)?\d+$/.test(mallorderautoset))){
+			alertTan("请填写大于零的整数","warn");
+			return false;
+		}
+		$(".loading").show();
+		$.post("<?php echo U('MallOrder/ajaxMallorderautoset').'&time=';?>"+Math.random(),{mallorderautoset:mallorderautoset},function(data){
+			$(".loading").hide();
+			alertTan(data.tips,data.code);
+			if(data.code == 'success'){
+				setTimeout(function(){
+		        	$(".js-autoOffOrderBox").hide();
+				},2000);
+            }
+		},"json");
+	});
+    </script>
+</div> -->
+<script type="text/javascript">
+//xls导出
+$('.excel-import-out-button').click(function(){
+	window.location.href="<?php echo U('MallOrder/exportExcel',array('orderstatus'=>$orderstatus,'orderid'=>$orderid,'ordertitle'=>$ordertitle,'mphone'=>$mphone,'orderprice1'=>$orderprice1,'orderprice2'=>$orderprice2,'createtime1'=>$createtime1,'createtime2'=>$createtime2));?>";
+	/*$.post("<?php echo U('AjaxExport/ajaxCehsoporder',array('ordertype'=>$ordertype,'orderstatus'=>$orderstatus,'orderid'=>$orderid,'ordertitle'=>$ordertitle,'mphone'=>$mphone,'orderprice1'=>$orderprice1,'orderprice2'=>$orderprice2,'createtime1'=>$createtime1,'createtime2'=>$createtime2));?>",
+		{},
+		function(data){
+   			if(data.code == '200'){
+	            $(".js-export-popup").fadeIn(120);
+   			}else{
+   				alertTan(data.msg,'error');
+   			}
+		},"json"
+	);*/
+});
+//修改订单状态
+$(document).on('click','.update-order-info-orderstatus-button',function(){
+	var id = $(this).attr('data-id');
+	var orderstatus = $(this).attr('data-orderstatus');
+	var $this = $(this);
+	if(id && orderstatus){
+		$(".loading").show();
+		$.post("<?php echo U('MallOrder/ajaxCloseOrder').'&time=';?>"+Math.random(),{id:id,orderstatus:orderstatus},function(data){
+			$(".loading").hide();
+			if(data.code == 200){
+			   	if(orderstatus == 5){
+			   		$('#order-info-orderstatus-box'+id).html('<p>已关闭</p>');
+			   	}else if(orderstatus == 4){
+			   		$('#order-info-orderstatus-box'+id).html('<p>已安装</p>');
+			   	}else if(orderstatus == 3){
+			   		$('#order-info-orderstatus-box'+id).html('<p>已发货</p><p><a href="javascript:void(0);" class="tips update-order-info-orderstatus-button" data-orderstatus="4" data-id="'+id+'">确认安装</a></p>');
+			   	}
+		    }
+		},"json");
+	} 
+});
+//关闭订单
+$('.ajax-close-order-button').click(function(){
+	var id = $(this).attr('data-id');
+	var orderstatus = 5;
+	var $this = $(this);
+	if(id){
+		$(".loading").show();
+		$.post("<?php echo U('MallOrder/ajaxCloseOrder').'&time=';?>"+Math.random(),{id:id,orderstatus:orderstatus},function(data){
+			$(".loading").hide();
+			if(data.code == 200){
+	        $this.parent().parent().html('<p>已取消</p>');
+	      }
+	    },"json");
+	}
+});
+</script>
+<include file="Public:mallOrderSendDeliver" />
+<include file="Public:footer" />

@@ -1,0 +1,304 @@
+<include file="Public:memberCenterHeader"/>
+<link href="{lanrain::RES}/css/animate.min.css?<?php echo C('site_system_file_version'); ?>" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="{lanrain::RES}/profile/css/jian.css?<?php echo C('site_system_file_version'); ?>"/>
+<script type="text/javascript" src="{lanrain::RES}/js/wow.min.js"></script>
+<!--是否使用电子券-->
+<style>
+    body{ background: #d0474f}
+</style>
+<div class="opera-header">
+    <div class="opera-header-logo"></div>
+    <a href="javascript:void(0);" class="b1">我要合作</a>
+    <span>微信收款解决方案</span>
+</div>
+<div class="rece-top" style="">
+<img src="{lanrain::RES}/profile/tiyan/tiyan-01.jpg">
+
+</div>
+
+<div class="rece-con">
+    <img src="{lanrain::RES}/profile/tiyan/tiyan-02.jpg">
+</div>
+<div class="experience-flow" style="position: relative">
+    <a  href="<?php echo U('Experience/index',array('companyid'=>$companyid));?>">点击体验流程</a>
+    <img class="img1" src="{lanrain::RES}/profile/tiyan/quan.png" style="">
+    <img class="img2" src="{lanrain::RES}/profile/tiyan/hand_r.png" style="">
+</div>
+<div class="rece-con" style=" background: #ffffff;padding-bottom: 30px;">
+    <img src="{lanrain::RES}/profile/tiyan/tiyan-03.jpg"  >
+    <img src="{lanrain::RES}/profile/tiyan/tiyan-04.jpg" style="margin-top: 30px;">
+    <img src="{lanrain::RES}/profile/tiyan/tiyan-05.jpg">
+    <img src="{lanrain::RES}/profile/tiyan/tiyan-06.jpg">
+</div>
+<div class="kol-biao " id="yb1" style=" padding-top:15px;">
+    <div class="to-open" >
+        <p></p>
+        <span>免费开通</span>
+    </div>
+    <div class="kol-biao-nei"style="padding-top:12px;">
+        <div class="kol-biao-list">
+            <label><img src="{lanrain::RES}/image/shouye-1.png"></label><input type="text" class="name" name="name" id="demo" placeholder="请输入您的姓名">
+        </div>
+        <div class="kol-biao-list">
+            <label><img src="{lanrain::RES}/image/shouji.png"></label><input type="tel" class="phone" name="phone" placeholder="请输入您的手机号码">
+        </div>
+        <div class="kol-biao-list">
+            <label><img src="{lanrain::RES}/image/compny.png"></label><input type="text" class="companyname" name="companyname" placeholder="请输入您的公司名称">
+        </div>
+        <p class="kol-p" style=" margin-top: 38px; ">1个工作日内我们将于您取得联系<br />专业AM客户经理立马到位！</p>
+        <a href="<?php echo U('Index/wapRegister',array('companyid'=>'1'));?>" class="kol-button experience-open" style="margin-bottom: 15px;">立即开通</a>
+
+    </div>
+</div>
+<div ><img src="{lanrain::RES}/images/KOL4_22.jpg" style="width: 100%"></div>
+
+<div class="plug-div">
+    <img id = "menu-bj" src="{lanrain::RES}/profile/images/bj.png">
+    <div class="plug-phone">
+        <img id = "plug-menu" class="plug-menu themeStyle" src="{lanrain::RES}/profile/images/menu.png">
+        <div id="plug-btn1" class="themeStyle plug-btn plug-btn1 " >
+            <a href="javascript:void(0);">
+                <img src="{lanrain::RES}/profile/images/erweima.png" style="width:36px;">
+            </a>
+        </div>
+        <div id = "plug-btn2"class="themeStyle plug-btn plug-btn2 " >
+            <a>
+                <img src="{lanrain::RES}/profile/images/qq.png" style="width: 36px;">
+            </a>
+        </div>
+        <div id = "plug-btn3"class="themeStyle plug-btn plug-btn3 " >
+            <a  href="tel:<?php echo C('servicenumber'); ?>">
+                <img src="{lanrain::RES}/profile/images/tel.png" style="width: 36px;">
+            </a>
+        </div>
+        <div id = "plug-btn4" class="themeStyle plug-btn plug-btn4 " >
+            <a>
+                <img src="{lanrain::RES}/profile/images/daohang.png" style="width: 36px;">
+            </a>
+        </div>
+    </div>
+</div>
+<div class="qq-tan guan" style="display: none">
+    <div class="qq-tan2 animation" >
+        <img src="{lanrain::RES}/profile/images/close-cha.png" class="qq-close">
+        <div class="qq-img">
+            <img src="{lanrain::RES}/profile/images/qq-hao.png" >
+        </div>
+        <div class="shou-qq">售前QQ</div>
+        <div class="shou-qq copy-qq-text" id="source" style="font-size: 18px;"><?php echo C('site_shouqianqq');?></div>
+        <div class="shou-qq" style="font-size: 10px;  ">请长按复制↑↑↑</div>
+
+    </div>
+</div>
+<div class="dz-tan guan" style="display: none">
+    <div class="dz-tan2 animation" >
+        <img src="{lanrain::RES}/profile/images/close-cha.png" class="qq-close">
+        <div class="dz-img">
+            <img src="{lanrain::RES}/profile/images/dizhi.png" >
+        </div>
+        <div class="shou-dz">办公地址：</div>
+        <div class="shou-dz" style="font-size: 14px;">上海市虹口区广灵四路116号1号楼3楼</div>
+        <a href="http://apis.map.qq.com/tools/routeplan/eword=人来风MobiWind&epointx=121.47998001901&epointy=31.286370240974&navibutton=2?referer=mobiwind-navigation&key=CI6BZ-65B33-WTZ37-3ZE4M-5CKYT-7AFOZ" class="fuzhi">一键导航</a>
+    </div>
+</div>
+<div class="er-tan  guan" style="display: none;">
+    <div class="er-tan2 animation " >
+        <img src="{lanrain::RES}/profile/images/close-cha.png" class="qq-close">
+        <div class="er-ma"><img src="{lanrain::RES}/profile/images/erwei.png" ></div>
+        <div class="changan">长按加关注</div>
+    </div>
+</div>
+<script src="{lanrain::STATICS}/zclip/js/jquery.zclip.min.js" type="text/javascript"></script>
+<script src="{lanrain::RES}/js/tinyscrollbar.min.js"></script>
+<script src="{lanrain::RES}/js/jquery.scrollLoading-min.js"></script>
+<script type="text/javascript">
+
+$(function(){
+    function scroll(id){
+        var target = "#y"+id;
+        $.smoothScroll({
+            scrollTarget:target
+        });
+    }
+    $(".b1").click(function(){
+        var id = "b1";
+        scroll(id);
+    });
+    // 免费开通
+    $('.experience-open').on("click", function(){
+    	
+        var name = $('input[name="name"]').val();
+        if(name.length<1){
+            alert('请填写真实姓名');
+            return false;
+        }
+        var phone = $('input[name="phone"]').val();
+        var yzp = /^(((13[0-9]{1})|(14[579]{1})|(15[012356789]{1})|(17[0135678]{1})|(18[0-9]{1}))+\d{8})$/;
+        if( phone.length<1 || !yzp.test(phone)){
+            alert('请填写正确的手机号');
+            return false;
+        }
+        var companyname = $('input[name="companyname"]').val();
+        if(companyname.length<1){
+         alert('请填写公司名称');
+         return false;
+         }
+         $('.loading').show();
+        $.post("<?php echo U('Experience/experienceRegister',array('companyid'=>1)).'&time=';?>"+Math.random(),
+                { companyname: companyname, name: name, phone: phone },
+                function(data){
+                    if(data.code == '200'){
+                    	$('.loading').hide();
+                        alert('提交成功，1个工作日内我们将于您取得联系');
+                        setTimeout("window.location.href='<?php echo U('Experience/h5',array('companyid'=>1));?>'",2000);
+                    }else{
+                        alert('提交失败');
+                    }
+                },"json");
+    });
+});
+$(function(){
+    $("#imglist2").hide();
+    $("#imglist3").hide();
+    $("#imglist4").hide();
+    $("#imglist5").hide();
+
+    var h1 = $(document).height();
+    var h2 = $(window).height();
+    var scrollTop = 0 ;
+    var loadnum = 1 ;//0表示没加载，1表示已经加载
+    var showstate = 0;
+    var imglist ;
+    $(window).bind("scroll",function(){
+        scrollTop   = $(window).scrollTop();
+    });
+
+    //绑定事件
+    function bindTouchmoveEvent(dom1) {
+        document.addEventListener('touchstart',     //touchstart事件
+                function touchSatrtMove(evt) {
+                    try {
+                        if(loadnum==1){
+                            imglist = $("#imglist2");
+                        }else if (loadnum==2){
+                            imglist = $("#imglist3");
+                        }else if (loadnum==3){
+                            imglist = $("#imglist4");
+                        }else if (loadnum==4){
+                            imglist = $("#imglist5");
+                        }else if(loadnum>=5){
+                            $(".loading_wai").html("  ");
+                        }
+                    } catch (e) {
+                        alert('touchSatrtgg：' + e.message);
+                    }
+                }, false);
+        document.addEventListener('touchmove',   //touchmove事件
+                function touchMoveMove(evt) {
+                    try {
+                        if(scrollTop+300>=h1-h2) {
+                            if (loadnum < 5) {
+                                loading(imglist);
+                            }
+                        }
+                        if(scrollTop+150>=h1-h2) {
+                            dom1.style.height = "40px";
+                            if (loadnum < 5) {
+                                if (showstate == 0) {
+                                    showstate = 1;
+                                    showimglist(imglist);
+                                }
+                            }
+                        }
+                    } catch (e) {
+                        alert('touchMovemove：' + e.message);
+                    }
+                }, false);
+        document.addEventListener('touchend',     //touchend的事件
+                function touchEndMove(evt) {
+                    try {
+                        if(loadnum<5){
+                            dom1.style.height = "40px";
+                        }else{
+                            dom1.style.height = "0px";
+                        }
+                    } catch (e) {
+                        alert('touchEndmove：' + e.message);
+                    }
+                }, false);
+    }
+    function loading(imglist){
+        imglist.find("img").each(function(i){
+            var src = $(this).attr("data-src");
+            $(this).attr("src",src);
+        });
+    }
+    function showimglist(imglist){
+        $(".loading_wai").show();
+        setTimeout(function(){
+            showstate=0;
+            loadnum++;
+            $(".loading_wai").hide();
+            imglist.show();
+            h1 = $(document).height();
+        },5000);
+    }
+    $('#plug-btn1').click(function(){
+        $('.er-tan').show();
+    });
+    $('#plug-btn2').click(function(){
+        $('.qq-tan').show();
+    });
+    $('#plug-btn4').click(function(){
+        $('.dz-tan').show();
+    });
+    $('.qq-close').click(function(){
+        $('.guan').hide();
+    });
+    var tt = 0;
+    change(tt);
+    $("#plug-menu").bind("click",function(){
+        if(tt==0){
+            tt=1;
+        }else if(tt=1){
+            tt=0;
+        }
+        change(tt);
+    });
+    function change(tt){
+        $(".p").text("");
+        $(".P").text(tt);
+        if(tt==0){
+            $("#plug-menu").addClass("closet");
+            $("#plug-menu").removeClass("opent");
+            $("#menu-bj").show();
+            $("#menu-bj").addClass("menu-bj");
+            $("#plug-btn1").removeClass("open");
+            $("#plug-btn1").addClass("close");
+            $("#plug-btn2").removeClass("open");
+            $("#plug-btn2").addClass("close");
+            $("#plug-btn3").removeClass("open");
+            $("#plug-btn3").addClass("close");
+            $("#plug-btn4").removeClass("open");
+            $("#plug-btn4").addClass("close");
+        }else if(tt==1){
+            $("#plug-menu").addClass("opent");
+            $("#plug-menu").removeClass("closet");
+            $("#menu-bj").hide();
+            $("#menu-bj").removeClass("menu-bj");
+            $("#plug-btn1").removeClass("close");
+            $("#plug-btn1").addClass("open");
+            $("#plug-btn2").removeClass("close");
+            $("#plug-btn2").addClass("open");
+            $("#plug-btn3").removeClass("close");
+            $("#plug-btn3").addClass("open");
+            $("#plug-btn4").removeClass("close");
+            $("#plug-btn4").addClass("open");
+        }
+    }
+
+});
+</script>
+<include file="Public:weiXinShareSet" />
+<include file="Public:loading"/>
+<include file="Public:footer2" />

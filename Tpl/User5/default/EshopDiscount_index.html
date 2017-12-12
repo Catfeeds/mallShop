@@ -1,0 +1,81 @@
+<include file="Public:head"/>
+<?php echo $makeTopUrl;?>
+<div class="group inline-btn-group mb-10">
+	<a href="<?php echo U('EshopDiscount/index');?>" class="btn-small btn-purple">整单优惠活动</a>
+	<a href="<?php echo U('EshopDiscount/group');?>" class="btn-small btn-white">拼团活动</a>
+</div>
+<div class="group clearfix pb-10">
+    <a href="<?php echo U('EshopDiscount/set');?>" class="btn-small btn-purple">创建整单优惠活动</a>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>活动管理</h4></div>
+    <div class="mod-body mb-15 WeChat-auto-reply-set">
+        <table class="table type-1 w-auto">
+            <thead>
+            <tr>
+                <th>名称</th>
+                <th>类型</th>
+                <th>开始时间</th>
+                <th>结束时间</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <?php if($list){?>
+            <tbody>
+            	<?php foreach($list as $key=>$val){?>
+	            <tr>
+	                <td><?php echo $val['title'];?></td>
+	                <td><?php if($val['type'] == 1){ echo '立减';}elseif($val['type'] == 2){ echo '立折';}elseif($val['type'] == 3){ echo '满减';}elseif($val['type'] == 4){ echo '满折';}elseif($val['type'] == 5){ echo '满件减';}else{ echo '满件折';};?>优惠</td>
+	                <td><?php echo format_time($val['starttime'],'ymdhi');?></td>
+	                <td><?php echo format_time($val['endtime'],'ymdhi');?></td>
+	                <td><?php if($val['isoff'] == 1){ if($val['starttime'] > time()){ echo '未开始';}elseif($val['starttime']<time() && $val['endtime']>time()){ echo '进行中';}elseif($val['endtime'] < time()){ echo '已结束';}}else{ echo '已关闭';}?></td>
+	                <td>
+	                    <a href="<?php echo U('EshopDiscount/set',array('id'=>$val['id']));?>" class="tips">编辑</a>
+	                    <a href="javascript:void(0);" class="tips js-delButton" data-id="<?php echo $val['id'];?>">删除</a>
+	                </td>
+	            </tr>
+	            <?php }?>
+            </tbody>
+            <?php }?>
+        </table>
+        <?php if($list){ echo $page;}else{?>
+        <h5 class="text-center table-footer-h5">暂无</h5>
+        <?php }?>
+    </div>
+</div>
+<!--删除订单弹窗-->
+<div class="popup-wrap wrap-small-1 js-delBox">
+    <div class="mod small-popup type-1">
+        <div class="mod-header">
+            <h4 class="fl">删除</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+		</div>
+        <div class="mod-body">
+            <div class="content">
+                <h5 class="pb-30">您确定删除该数据吗？</h5>
+                <p class="text-center pb-10">
+                    <a class="btn-big btn-purple js-confirmDelButton">确定</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script>
+    $(".js-delButton").click(function(){
+    	$(".js-confirmDelButton").attr('data-id',$(this).attr('data-id'));
+        $(".js-delBox").fadeIn(120);
+    });
+    $(".js-confirmDelButton").click(function(){
+    	$(".loading").show();
+    	var id = $(this).attr('data-id');
+    	$.post("<?php echo U('EshopDiscount/ajaxDel').'&time=';?>"+Math.random(),{id:id},function(data){
+	    	$(".loading").hide();
+    		alertTan(data.tips,data.code);
+    		if(data.code == 'success'){
+    			setTimeout('window.location.href=location.href',2000);
+    		}
+    	},"json");
+    });
+    </script>
+</div>
+<include file="Public:footer"/>

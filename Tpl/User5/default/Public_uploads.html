@@ -1,0 +1,405 @@
+<link rel="stylesheet" type="text/css" href="{lanrain::STATICS}/SCRM5-PlugIn/html5file/css/jquery.filer.css">
+<script src="{lanrain::STATICS}/SCRM5-PlugIn/html5file/js/jquery.filer.min.js" type="text/javascript"></script>
+<script src="{lanrain::STATICS}/SCRM5-PlugIn/html5file/js/prettify.js" type="text/javascript"></script>
+<script src="{lanrain::STATICS}/SCRM5-PlugIn/html5file/js/scripts.js" type="text/javascript"></script>
+<script src="{lanrain::STATICS}/SCRM5-PlugIn/html5file/js/custom.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function(){
+	filer_default_opts = {
+            templates: {     //上传进度条
+    	        box: '<ul class="jFiler-items-list jFiler-items-grid"></ul>',
+    	        item: '<li class="jFiler-item">\
+    		                <div class="jFiler-item-container">\
+    		                <div class="jFiler-item-inner">\
+    		                    <div class="jFiler-item-assets jFiler-row">\
+    		                        <ul class="list-inline pull-left">\
+    					            	<li>{{fi-name | limitTo: 25}}</li>\
+    					                <li>{{fi-size2}}</li>\
+    		                            <li>{{fi-progressBar}}</li>\
+    		                        </ul>\
+    		                    </div>\
+    		                </div>\
+    		            </div>\
+    		        </li>',
+    	        progressBar: '<div class="bar"></div>',
+    	        itemAppendToEnd: false,
+    	        removeConfirmation: false,
+    	        _selectors: {
+    	            list: '.jFiler-items-list',
+    	            item: '.jFiler-item',
+    	            progressBar: '.bar',
+    	            remove: '.jFiler-item-trash-action',
+    	        }
+    	    },
+    	    dragDrop: {
+    			dragEnter: null,
+    			dragLeave: null,
+    			drop: null,
+    		},
+        };
+	//图片素材
+	$('.demo-fileInput-img').filer({
+		limit: 1,
+		maxSize: 2,  //文件大小
+        extensions: ['bmp','png','jpeg','jpg','pem'],   //限制类型
+		changeInput: '<a class="tips fr" href="javascript:void(0);"><i class="icon-upload"></i>上传图片</a>',   //绑定上传样式
+		showThumbs: true,    //是否显示templates
+		theme: "dragdropbox",
+		templates: filer_default_opts.templates,
+		dragDrop: filer_default_opts.dragDrop,
+		uploadFile: {
+			url: "./Tpl/static/SCRM5-PlugIn/html5file/php/upload.php",
+			data: null,
+			type: 'POST',
+			enctype: 'multipart/form-data',
+			beforeSend: function(){},
+			success: function(data, el){
+				var files = JSON.parse(data);
+				if(files['error']){
+					$('.jFiler-items').delay(1000).hide(0);
+					alertTan(files['error'],'error',3000);
+				}else{
+					var parent = el.find(".jFiler-jProgressBar").parent();
+					el.find(".jFiler-jProgressBar").fadeOut("slow", function(){
+						$("<div class=\"jFiler-item-others text-success\"><i class=\"icon-jfi-check-circle\"></i> 上传成功</div>").hide().appendTo(parent).fadeIn("slow", function(){
+							$('.jFiler-items').delay(1000).hide(0);
+						});    
+					});
+					var gid = '<?php echo $gid;?>';
+					$.post("<?php echo U('MessageWechats/imgUrl');?>",{type:'image',url:files['metas']['0']['file'],title:files['metas']['0']['old_name'],gid:gid},
+		      				/* 上线后要加meid */
+							function(data){
+		      					if(data.code == '200'){	
+		      						window.location.reload();
+		      					}else{
+		      						alertTan(data.msg,'error');
+		      					}
+		      				},"json"
+		      			);
+				}
+			},
+			error: function(el){
+				var parent = el.find(".jFiler-jProgressBar").parent();
+				el.find(".jFiler-jProgressBar").fadeOut("slow", function(){
+					$("<div class=\"jFiler-item-others text-error\"><i class=\"icon-jfi-minus-circle\"></i> 上传失败</div>").hide().appendTo(parent).fadeIn("slow");    
+				});
+			},
+			statusCode: null,
+			onProgress: null,
+			onComplete: null
+		},
+	});
+	//弹窗图片素材
+	$('.demo-fileInput-img-tan').filer({
+		limit: null,
+		maxSize: 2,  //文件大小
+        extensions: ['bmp','png','jpeg','jpg'],   //限制类型
+		changeInput: '<a class="tips fr" href="javascript:void(0);"><i class="icon-upload"></i>上传图片</a>',   //绑定上传样式
+		showThumbs: true,    //是否显示templates
+		theme: "dragdropbox",
+		templates: filer_default_opts.templates,
+		dragDrop: filer_default_opts.dragDrop,
+		uploadFile: {
+			url: "./Tpl/static/SCRM5-PlugIn/html5file/php/upload.php",
+			data: null,
+			type: 'POST',
+			enctype: 'multipart/form-data',
+			beforeSend: function(){},
+			success: function(data, el){
+				var files = JSON.parse(data);
+				if(files['error']){
+					$('.jFiler-items').delay(1000).hide(0);
+					alertTan(files['error'],'error',3000);
+				}else{
+					var parent = el.find(".jFiler-jProgressBar").parent();
+					el.find(".jFiler-jProgressBar").fadeOut("slow", function(){
+						$("<div class=\"jFiler-item-others text-success\"><i class=\"icon-jfi-check-circle\"></i> 上传成功</div>").hide().appendTo(parent).fadeIn("slow", function(){
+							$('.jFiler-items').delay(1000).hide(0);
+						});    
+					});
+					var gid = '<?php echo $gid;?>';
+					$.post("<?php echo U('MessageWechats/imgUrl');?>",{type:'image',url:files['metas']['0']['file'],title:files['metas']['0']['old_name'],gid:gid},
+		      				/* 上线后要加meid */
+							function(data){
+		      					if(data.code == '200'){	
+		      						var nums = $('#js-group').find('.on').find('span:eq(1)').text();
+		      						$('#js-group').find('.on').find('span:eq(1)').text('('+(parseInt(nums.slice(1,-1))+1)+')');
+		      						$('#imgadd').prepend('<div class="inner-box inline add-file-wrap js-add-file-wrap"><div class="js-add-file clickimg" data-imgid="'+data.id+'"><img class="add-img" src="'+files['metas']['0']['file']+'"><h5 class="add-tit">'+files['metas']['0']['old_name']+'</h5></div><div class="add-file-cover-wrap js-add-file-cover-wrap"><img class="add-img-cover" src="./Tpl/User5/default/common/img/add-pic-img-cover.png"></div></div>');
+		      					}else{
+		      						alertTan(data.msg,'error');
+		      					}
+		      				},"json"
+		      			);
+				}
+			},
+			error: function(el){
+				var parent = el.find(".jFiler-jProgressBar").parent();
+				el.find(".jFiler-jProgressBar").fadeOut("slow", function(){
+					$("<div class=\"jFiler-item-others text-error\"><i class=\"icon-jfi-minus-circle\"></i> 上传失败</div>").hide().appendTo(parent).fadeIn("slow");    
+				});
+			},
+			statusCode: null,
+			onProgress: null,
+			onComplete: null
+		},
+	});
+	//弹窗图片素材
+	$('.demo-fileInput-img-tan2').filer({
+		limit: null,
+		maxSize: 2,  //文件大小
+        extensions: ['bmp','png','jpeg','jpg'],   //限制类型
+		changeInput: '',   //绑定上传样式
+		showThumbs: false,    //是否显示templates
+		theme: "dragdropbox",
+		templates: filer_default_opts.templates,
+		dragDrop: filer_default_opts.dragDrop,
+		uploadFile: {
+			url: "./Tpl/static/SCRM5-PlugIn/html5file/php/upload.php",
+			data: null,
+			type: 'POST',
+			enctype: 'multipart/form-data',
+			beforeSend: function(){},
+			success: function(data, el){
+				var files = JSON.parse(data);
+				if(files['error']){
+					$('.jFiler-items').delay(1000).hide(0);
+					alertTan(files['error'],'error',3000);
+				}else{
+					var parent = el.find(".jFiler-jProgressBar").parent();
+					var gid = '<?php echo $gid;?>';
+					var datanum = '';
+					var menutype = $('input[name="menutype"]').val();
+			        if(menutype == '2'){
+			        	datanum = $('input[name="datanums_zi"]').val();
+			        }else{
+			        	datanum = $('input[name="datanums"]').val();
+			        }
+					$.post("<?php echo U('MessageWechats/imgUrl');?>",{type:'image',url:files['metas']['0']['file'],title:files['metas']['0']['old_name'],gid:gid},
+		      				/* 上线后要加meid */
+							function(data){
+		      					if(data.code == '200'){	
+		      						$('#tupianshow').prev().addClass('hide');
+		      						$('#tupianshow').html('<div class="Wechat-menu-pic-box"><i class="pic-img" style="background-image:url('+files['metas']['0']['file']+');"></i><a class="tips del-cur-img js-del-cur-img" href="javascript:void(0);">删除</a></div>');
+		      	        			$('#tupianshow').fadeIn(120);
+			      	        		$('#num'+datanum).attr("data-sucaicoutent",data.id);
+			      	        		$(".js-tab-box-pro .hd li").eq(2).attr('data-scvalue',data.id);
+		      					}else{
+		      						alertTan(data.msg,'error');
+		      					}
+		      				},"json"
+		      			);
+				}
+			},
+			error: function(el){
+				var parent = el.find(".jFiler-jProgressBar").parent();
+				el.find(".jFiler-jProgressBar").fadeOut("slow", function(){
+					$("<div class=\"jFiler-item-others text-error\"><i class=\"icon-jfi-minus-circle\"></i> 上传失败</div>").hide().appendTo(parent).fadeIn("slow");    
+				});
+			},
+			statusCode: null,
+			onProgress: null,
+			onComplete: null
+		},
+	});
+	//图片素材
+	$('.js-fileInput-img').filer({
+		limit: 1,
+		maxSize: 2,  //文件大小
+        extensions: ['bmp','png','jpeg','jpg','gif'],   //限制类型
+		changeInput: '<a class="tips fr" href="javascript:void(0);"><i class="icon-upload"></i>上传图片</a>',   //绑定上传样式
+		showThumbs: true,    //是否显示templates
+		theme: "dragdropbox",
+		templates: filer_default_opts.templates,
+		dragDrop: filer_default_opts.dragDrop,
+		uploadFile: {
+			url: "./Tpl/static/SCRM5-PlugIn/html5file/php/upload.php",
+			data: null,
+			type: 'POST',
+			enctype: 'multipart/form-data',
+			beforeSend: function(){},
+			success: function(data, el){
+				var files = JSON.parse(data);
+				if(files['error']){
+					$('.jFiler-items').delay(1000).hide(0);
+					alertTan(files['error'],'error',3000);
+				}else{
+					var parent = el.find(".jFiler-jProgressBar").parent();
+					el.find(".jFiler-jProgressBar").fadeOut("slow", function(){
+						$("<div class=\"jFiler-item-others text-success\"><i class=\"icon-jfi-check-circle\"></i> 上传成功</div>").hide().appendTo(parent).fadeIn("slow", function(){
+							$('.jFiler-items').delay(1000).hide(0);
+						});    
+					});
+					var gid = '<?php echo $gid;?>';
+					$.post("<?php echo U('Material/imgUrl');?>",{type:'image',url:files['metas']['0']['file'],title:files['metas']['0']['old_name'],gid:gid},
+		      				/* 上线后要加meid */
+							function(data){
+		      					if(data.code == '200'){	
+		      						window.location.reload();
+		      					}else{
+		      						alertTan(data.msg,'error');
+		      					}
+		      				},"json"
+		      			);
+				}
+			},
+			error: function(el){
+				var parent = el.find(".jFiler-jProgressBar").parent();
+				el.find(".jFiler-jProgressBar").fadeOut("slow", function(){
+					$("<div class=\"jFiler-item-others text-error\"><i class=\"icon-jfi-minus-circle\"></i> 上传失败</div>").hide().appendTo(parent).fadeIn("slow");    
+				});
+			},
+			statusCode: null,
+			onProgress: null,
+			onComplete: null
+		},
+	});
+	//弹窗图片素材
+	$('.js-fileInput-img-tan').filer({
+		limit: null,
+		maxSize: 2,  //文件大小
+        extensions: ['bmp','png','jpeg','jpg','gif'],   //限制类型
+		changeInput: '<a class="tips fr" href="javascript:void(0);"><i class="icon-upload"></i>上传图片</a>',   //绑定上传样式
+		showThumbs: true,    //是否显示templates
+		theme: "dragdropbox",
+		templates: filer_default_opts.templates,
+		dragDrop: filer_default_opts.dragDrop,
+		uploadFile: {
+			url: "./Tpl/static/SCRM5-PlugIn/html5file/php/upload.php",
+			data: null,
+			type: 'POST',
+			enctype: 'multipart/form-data',
+			beforeSend: function(){},
+			success: function(data, el){
+				var files = JSON.parse(data);
+				if(files['error']){
+					$('.jFiler-items').delay(1000).hide(0);
+					alertTan(files['error'],'error',3000);
+				}else{
+					var parent = el.find(".jFiler-jProgressBar").parent();
+					el.find(".jFiler-jProgressBar").fadeOut("slow", function(){
+						$("<div class=\"jFiler-item-others text-success\"><i class=\"icon-jfi-check-circle\"></i> 上传成功</div>").hide().appendTo(parent).fadeIn("slow", function(){
+							$('.jFiler-items').delay(1000).hide(0);
+						});    
+					});
+					var gid =  $('#js-group').find('.on').attr('data-id');
+					$.post("<?php echo U('Material/imgUrl');?>",{type:'image',url:files['metas']['0']['file'],title:files['metas']['0']['old_name'],gid:gid},
+		      				/* 上线后要加meid */
+							function(data){
+		      					if(data.code == '200'){
+		      						var nums = $('#js-group').find('.on').find('span:eq(1)').text();
+		      						$('#js-group').find('.on').find('span:eq(1)').text('('+(parseInt(nums.slice(1,-1))+1)+')');
+		      						$('#imgadd').prepend('<div class="inner-box inline add-file-wrap js-add-file-wrap"><div class="js-add-file clickimg" data-imgid="'+data.id+'"><img class="add-img" src="'+files['metas']['0']['file']+'"><h5 class="add-tit">'+files['metas']['0']['old_name']+'</h5></div><div class="add-file-cover-wrap js-add-file-cover-wrap"><img class="add-img-cover" src="./Tpl/User5/default/common/img/add-pic-img-cover.png"></div></div>');
+		      					}else{
+		      						alertTan(data.msg,'error');
+		      					}
+		      				},"json"
+		      			);
+				}
+			},
+			error: function(el){
+				var parent = el.find(".jFiler-jProgressBar").parent();
+				el.find(".jFiler-jProgressBar").fadeOut("slow", function(){
+					$("<div class=\"jFiler-item-others text-error\"><i class=\"icon-jfi-minus-circle\"></i> 上传失败</div>").hide().appendTo(parent).fadeIn("slow");    
+				});
+			},
+			statusCode: null,
+			onProgress: null,
+			onComplete: null
+		},
+	});
+	//文件上传
+	$('.js-demo-file-asa').filer({
+		limit: 1,
+		maxSize: 2,  //文件大小
+        //extensions: ['pem'],   //限制类型
+		changeInput: '<a class="btn-small btn-white mr-10" data-type="wechat-cert">上传证书</a>',   //绑定上传样式
+		showThumbs: true,    //是否显示templates
+		theme: "dragdropbox",
+		templates: filer_default_opts.templates,
+		dragDrop: filer_default_opts.dragDrop,
+		uploadFile: {
+			url: "./Tpl/static/SCRM5-PlugIn/html5file/php/upload.php",
+			data: null,
+			type: 'POST',
+			enctype: 'multipart/form-data',
+			beforeSend: function(){},
+			success: function(data, el){
+				var files = JSON.parse(data);
+				if(files['error']){
+					$('.jFiler-items').delay(1000).hide(0);
+					alertTan(files['error'],'error',3000);
+				}else{
+					var a = files.metas;
+					//获取链接
+					var url = files.files;
+					//获取类型
+					var dataType = el.parent().parent().parent().children(".js-demo-file-asa").attr("data-type");
+					el.parent().parent().remove();
+					$("."+dataType).val(url);
+					$.post("<?php echo U('EnterPlatform/getTimeAsa'); ?>",{},function(data2){
+						$("."+dataType+'-text').html(data2.msg+' 上传成功');
+					},'json');
+				}
+			},
+			error: function(el){
+				/* var parent = el.find(".jFiler-jProgressBar").parent();
+				el.find(".jFiler-jProgressBar").fadeOut("slow", function(){
+					$("<div class=\"jFiler-item-others text-error\"><i class=\"icon-jfi-minus-circle\"></i> 上传失败</div>").hide().appendTo(parent).fadeIn("slow");    
+				}); */
+			},
+			statusCode: null,
+			onProgress: null,
+			onComplete: null
+		},
+	});
+	// 上传csv文件
+	$('.js-fileInput-csv').filer({
+		limit: null,
+		maxSize: 10,  //文件大小
+        extensions: ['csv'],   //限制类型
+        // extensions: ['bmp','png','jpeg','jpg','gif'],   //限制类型
+        changeInput: '<a class="files_csv_sub btn-small btn-white">导入文件</a>',   //绑定上传样式
+		showThumbs: true,    //是否显示templates
+		theme: "dragdropbox",
+		templates: filer_default_opts.templates,
+		dragDrop: filer_default_opts.dragDrop,
+		uploadFile: {
+			url: "./Tpl/static/SCRM5-PlugIn/html5file/php/upload.php",
+			data: null,
+			type: 'POST',
+			enctype: 'multipart/form-data',
+			beforeSend: function(){},
+			success: function(data, el){
+				var files = JSON.parse(data);
+				if(files['error']){
+					$('.jFiler-items').delay(1000).hide(0);
+					alertTan(files['error'],'error',3000);
+
+					$('.files_csv_hidden').val('');
+					$('.files_csv_show').text('');
+					$('.files_csv_sub').text('上传文件');
+					$('.files_csv_submit').hide();
+				}else{
+					//获取链接
+					var url = files.files;
+
+					el.parent().parent().remove();
+					$('.files_csv_hidden').val(url);
+					$('.files_csv_show').text(url);
+					$('.files_csv_sub').text('重新选择');
+					$('.files_csv_submit').show();
+				}
+			},
+			error: function(el){
+				/* var parent = el.find(".jFiler-jProgressBar").parent();
+				el.find(".jFiler-jProgressBar").fadeOut("slow", function(){
+					$("<div class=\"jFiler-item-others text-error\"><i class=\"icon-jfi-minus-circle\"></i> 上传失败</div>").hide().appendTo(parent).fadeIn("slow");    
+				}); */
+			},
+			statusCode: null,
+			onProgress: null,
+			onComplete: null
+		},
+	});
+});
+</script>

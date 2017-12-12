@@ -1,0 +1,406 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1,minimum-scale=1,maximum-scale=1" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta content="telephone=no" name="format-detection">
+<meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+<meta content="no-cache" http-equiv="pragma">
+<meta content="0" http-equiv="expires">
+<meta name="format-detection"content="telephone=no, email=no" />
+
+
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<!-- apple devices fullscreen -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<title></title>
+	<!-- ============================公用css+js============================  -->
+	<link href="{lanrain::RES}/new_wap/css/font-awesome.min.css?<?php echo C('site_system_file_version'); ?>" rel="stylesheet" type="text/css" />
+	<link href="{lanrain::RES}/new_wap/css/base.css?<?php echo C('site_system_file_version'); ?>" rel="stylesheet" type="text/css" />
+	<script src="{lanrain::RES}/new_wap/js/jquery.min.js" type="text/javascript" ></script>
+	<script src="{lanrain::RES}/new_wap/js/jquery-1.11.0.min.js" type="text/javascript" ></script>
+
+	<!-- ============================页面css============================  -->
+	<link href="{lanrain::RES}/new_wap/css/wap.css?<?php echo C('site_system_file_version'); ?>" rel="stylesheet" type="text/css" />
+
+	<!-- ============================轮播css+js============================  -->
+	<link href="{lanrain::RES}/new_wap/css/swiper.min.css?<?php echo C('site_system_file_version'); ?>" rel="stylesheet" type="text/css" />
+	<script src="{lanrain::RES}/new_wap/js/swiper.min.js" type="text/javascript" ></script>
+
+	<!-- ============================图片延迟加载js============================ -->
+	<script src="{lanrain::RES}/new_wap/js/jquery.lazyload.js" type="text/javascript" ></script>
+
+	<!-- ===========================  ================================= -->
+	<!-- ========================幻灯片 强制修改样式======================== -->
+	<style>
+		body{background: #eaeaea;  }
+		  .swiper-pagination span.swiper-pagination-bullet {
+			  width: 2rem;
+			  height: 0.3rem;
+			  display: inline-block;
+			  background: #FFFFff;
+			  opacity: 0.5;
+			  border-radius: 0rem;
+		  }
+		  .swiper-pagination span.swiper-pagination-bullet-active {
+			  width: 2rem;
+			  height: 0.3rem;
+			  display: inline-block;
+			  background: #FFFFff;
+			  opacity: 1;
+			  border-radius: 0px;
+		  }
+		  .swiper-container-horizontal>.swiper-pagination{
+			  bottom:0px;;
+		  }
+		  .swiper-container-horizontal>.swiper-pagination .swiper-pagination-bullet {
+			  margin: 0 0.2rem;
+		  }
+	</style>
+
+</head>
+<body>
+<section class="content_app  contrnt_pabttom">
+	<!--  ============================头部  start============================  -->
+	<div class="eshopv_nav">
+		<ul class="eshopv_nav_left">
+			<li class="eshopv_navluli1_active"><i><img src="{lanrain::RES}/new_wap/img/Eshop_left_nav1.png"></i></li>
+			<li class="eshopv_navluli1_active2"><i><img src="{lanrain::RES}/new_wap/img/Eshop_search.png"></i></li>
+			<li><a href="javascript:void(0);"><img src="{lanrain::RES}/new_wap/img/Eshop_left_nav2.png"></a></li>
+		</ul>
+	</div>
+         <div style="width: 100%; height: 48px; display: block;"></div>  <!-- 有头的时候加此div，没有去掉 -->
+	<!--  ============================头部  end============================  -->
+	 <!--============================ 幻灯片  start============================ -->
+	<div class="eshopv_banner">
+		<div class="swiper-container">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide"><a href="javascript:void(0);"><img src="{lanrain::RES}/new_wap/img/Eshop_benner1.png" alt=""/></a></div>
+				<div class="swiper-slide"><a href="javascript:void(0);"><img src="{lanrain::RES}/new_wap/img/Eshop_benner1.png" alt=""/></a></div>
+				<div class="swiper-slide"><a href="javascript:void(0);"><img src="{lanrain::RES}/new_wap/img/Eshop_benner1.png" alt=""/></a></div>
+				<div class="swiper-slide"><a href="javascript:void(0);"><img src="{lanrain::RES}/new_wap/img/Eshop_benner1.png" alt=""/></a></div>
+				<div class="swiper-slide"><a href="javascript:void(0);"><img src="{lanrain::RES}/new_wap/img/Eshop_benner1.png" alt=""/></a></div>
+			</div>
+		<!-- Add Pagination -->
+		<div class="swiper-pagination"></div>
+		</div>
+	</div>
+	<!--============================ 幻灯片  end============================ -->
+	<!--============================ banner  start============================ -->
+	<div class="eshopv_banner2">
+		<a href="javascript:void(0);"><img src="{lanrain::RES}/new_wap/img/Eshop_benner1.png" alt=""/></a>
+	</div>
+	<!--============================ banner  end============================ -->
+	<!--  ==========单图  ==========  -->
+    <div class="eshopv_bigone mt5" >
+		<div class="eshop_leave_one ">
+			<a href="javascript:void(0);" class="eshop_leave_border">
+					<img src="{lanrain::RES}/new_wap/img/lozhy＿img.png" data-original="{lanrain::RES}/new_wap/img/Eshop_benner1.png" class="eshop_jzl"/>
+			</a>
+		</div>
+	</div>
+        <!-- ============================组件 start ============================ -->
+	<!--  ==========4*1==========  -->
+	<div class="eshopv_bigone">
+		<ul class="eshopv_bigfour">
+			<li><a href="javascript:void(0);"><img src="{lanrain::RES}/new_wap/img/lozhy＿img.png" data-original="{lanrain::RES}/new_wap/img/Eshop_dise.png" class="eshop_jzl"/></a></li>
+			<li><a href="javascript:void(0);"><img src="{lanrain::RES}/new_wap/img/lozhy＿img.png" data-original="{lanrain::RES}/new_wap/img/Eshop_dise.png" class="eshop_jzl"/></a></li>
+			<li><a href="javascript:void(0);"><img src="{lanrain::RES}/new_wap/img/lozhy＿img.png" data-original="{lanrain::RES}/new_wap/img/Eshop_dise.png" class="eshop_jzl"/></a></li>
+			<li><a href="javascript:void(0);"><img src="{lanrain::RES}/new_wap/img/lozhy＿img.png" data-original="{lanrain::RES}/new_wap/img/Eshop_dise.png" class="eshop_jzl"/></a></li>
+		</ul>
+	</div>
+	<!--  ==========3*1==========  -->
+	<div class="eshopv_bigone">
+		<ul class="eshopv_bigthree">
+			<li><a href="javascript:void(0);"><img src="{lanrain::RES}/new_wap/img/lozhy＿img.png" data-original="{lanrain::RES}/new_wap/img/Eshop_dise.png" class="eshop_jzl"/></a></li>
+			<li><a href="javascript:void(0);"><img src="{lanrain::RES}/new_wap/img/lozhy＿img.png" data-original="{lanrain::RES}/new_wap/img/Eshop_dise.png" class="eshop_jzl"/></a></li>
+			<li><a href="javascript:void(0);"><img src="{lanrain::RES}/new_wap/img/lozhy＿img.png" data-original="{lanrain::RES}/new_wap/img/Eshop_dise.png" class="eshop_jzl"/></a></li>
+		</ul>
+	</div>
+	<!--  ==========2*1==========  -->
+	<div class="eshopv_bigone">
+		<ul class="eshopv_bigtwo">
+			<li><a href="javascript:void(0);"><img src="{lanrain::RES}/new_wap/img/lozhy＿img.png" data-original="{lanrain::RES}/new_wap/img/Eshop_dise.png" class="eshop_jzl"/></a></li>
+			<li><a href="javascript:void(0);"><img src="{lanrain::RES}/new_wap/img/lozhy＿img.png" data-original="{lanrain::RES}/new_wap/img/Eshop_dise.png" class="eshop_jzl" /></a></li>
+		</ul>
+	</div>
+	<!--  ==========2*1 有价格和详情  ==========  -->
+	<div class="eshopv_bigone">
+			<ul class="eshopv_bigtwo">
+				<li>
+					<a href="" class="eshoppk_big_addborder">
+						<img src="{lanrain::RES}/new_wap/img/lozhy＿img.png" data-original="{lanrain::RES}/new_wap/img/Eshop_dise.png" class="eshop_jzl"/>
+						<p class="eshopv_bigtwo_p1">TEST1607201750</p>
+						<p class="eshopv_bigtwo_p2">￥<i>90.00</i> <b class="eshopv_bigtwo_phuy"></b></p>
+					</a>
+				</li>
+				<li>
+					<a href="javascript:void(0);" class="eshoppk_big_addborder">
+						<img src="{lanrain::RES}/new_wap/img/lozhy＿img.png" data-original="{lanrain::RES}/new_wap/img/Eshop_dise.png" class="eshop_jzl"/>
+						<p class="eshopv_bigtwo_p1">TEST07201116</p>
+						<p class="eshopv_bigtwo_p2">￥<i>90.00</i><b class="eshopv_bigtwo_phuy"></b></p>
+					</a>
+				</li>
+			</ul>
+	</div>
+	<!--  ==========3*1 有价格和详情  ==========  -->
+	<div class="eshopv_bigone">
+			<ul class="eshopv_bigthree">
+				<li class="eshopv_bigthree_onebig">
+					<a href="javascript:void(0);" class="eshoppk_big_addborder">
+						<img src="{lanrain::RES}/new_wap/img/lozhy＿img.png" data-original="{lanrain::RES}/new_wap/img/Eshop_dise.png" class="eshop_jzl"/>
+						<p class="eshopv_bigtwo_p1">TEST1607201750</p>
+						<p class="eshopv_bigtwo_p2">￥<i>90.00</i></p>
+					</a>
+				</li>
+				<li class="eshopv_bigthree_twobig">
+					<a href="javascript:void(0);" class="eshoppk_big_addborder">
+						<img src="{lanrain::RES}/new_wap/img/lozhy＿img.png" data-original="{lanrain::RES}/new_wap/img/Eshop_dise.png" class="eshop_jzl"/>
+						<p class="eshopv_bigtwo_p1">TEST07201116</p>
+						<p class="eshopv_bigtwo_p2">￥<i>90.00</i></p>
+					</a>
+				</li>
+				<li class="eshopv_bigthree_twobig">
+					<a href="javascript:void(0);" class="eshoppk_big_addborder">
+						<img src="{lanrain::RES}/new_wap/img/lozhy＿img.png" data-original="{lanrain::RES}/new_wap/img/Eshop_dise.png" class="eshop_jzl"/>
+						<p class="eshopv_bigtwo_p1">TEST07201116</p>
+						<p class="eshopv_bigtwo_p2">￥<i>90.00</i></p>
+					</a>
+				</li>
+			</ul>
+		</div>
+	<!--  ==========1*1 有价格和详情  ==========  -->
+	<div class="eshopv_bigone">
+			<ul class="eshopv_bigthree">
+				<li class="eshopv_bigthree_onebig">
+					<a href="javascript:void(0);" class="eshoppk_big_addborder">
+						<img src="{lanrain::RES}/new_wap/img/lozhy＿img.png" data-original="{lanrain::RES}/new_wap/img/Eshop_dise.png" class="eshop_jzl"/>
+						<p class="eshopv_bigtwo_p1">TEST1607201750</p>
+						<p class="eshopv_bigtwo_p2">￥<i>90.00</i></p>
+					</a>
+				</li>
+			</ul>
+		</div>
+	<!--  ==========1*1 没有价格和详情  ==========  -->
+	<div class="eshopv_bigone">
+		<ul class="eshopv_bigthree">
+			<li class="eshopv_bigthree_onebig">
+				<a href="javascript:void(0);">
+					<img src="{lanrain::RES}/new_wap/img/lozhy＿img.png" data-original="{lanrain::RES}/new_wap/img/Eshop_dise.png" class="eshop_jzl"/>
+				</a>
+			</li>
+		</ul>
+	</div>
+
+	<!--  ==========富文本  ==========  -->
+	<div class="eshopv_futext FuWenBen">
+		<div class="eshopv_futext_cont ">
+
+		</div>
+	</div>
+	<div class="eshopv_bigone">
+		<div class="eshop_leave_one ">
+			<img src="{lanrain::RES}/new_wap/img/new_fuwenb.png" />
+		</div>
+	</div>
+
+
+	<!-- =============================== 文章列表 ================================ -->
+	<!-- 列表  一 -->
+	<div class="Article_box">
+		<ul class="Article_box_ul">
+			<li>
+				<a href="">
+					<div class="Article_box_list">
+						<div class="Article_box_pict"><img src="{lanrain::RES}/Eshop/Eshop_dise.png" /></div>
+						<div class="Article_box_cont">
+							<h3>文章标题</h3>
+							<span>2016-10-09</span>
+							<p>
+								文章摘要摘要摘摘要摘要摘摘要摘要摘要摘要摘要摘要摘要要摘摘要摘要摘要摘要摘要摘要摘要
+							</p>
+						</div>
+					</div>
+				</a>
+			</li>
+			<li>
+				<a href="">
+					<div class="Article_box_list">
+						<div class="Article_box_pict"><img src="{lanrain::RES}/Eshop/Eshop_dise.png" /></div>
+						<div class="Article_box_cont">
+							<h3>文章标题</h3>
+							<span>2016-10-09</span>
+							<p>
+								文章摘要摘要摘摘要摘要摘摘要摘要摘要摘要摘要摘要摘要要摘摘要摘要摘要摘要摘要摘要摘要
+							</p>
+						</div>
+					</div>
+				</a>
+			</li>
+
+		</ul>
+	</div>
+	<!-- 列表 二 -->
+	<div class="Article_bigbox">
+		<a href="">
+			<dl class="Article_bigbox_dl">
+			<dt class="Article_bigbox_dt"><h3>我是文章标题</h3></dt>
+				<dd class="Article_bigbox_dd">2016-09-11</dd>
+			<dd class="Article_bigbox_dd1"><img src="{lanrain::RES}/Eshop/Eshop_dise.png" /></dd>
+			<dd class="Article_bigbox_dd2">文章摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要</dd>
+			</dl>
+		</a>
+	</div>
+	<div class="Article_bigbox">
+		<a href="">
+			<dl class="Article_bigbox_dl">
+			<dt class="Article_bigbox_dt"><h3>我是文章标题</h3></dt>
+				<dd class="Article_bigbox_dd">2016-09-11</dd>
+			<dd class="Article_bigbox_dd1"><img src="{lanrain::RES}/Eshop/Eshop_dise.png" /></dd>
+			<dd class="Article_bigbox_dd2">文章摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要摘要</dd>
+			</dl>
+		</a>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+	<!-- ============================组件 end ============================ -->
+	<!-- ============================底部logo  start ============================ -->
+	<!--<div class="eshopv_fotter_logo">
+		<p class="eshopv_fotter_logor"><a href="javascript:void(0);"><img src="{lanrain::RES}/new_wap/img/Eshop_rlf.png" alt=""></a></p>
+		<p class="eshopv_fotter_logoa"><a href="javascript:void(0);">问题反馈</a></p>
+	</div>-->
+	<div class="eshopv_fotter_logo">
+			<div class="eshopv_fotter_lnavit">
+				<a href="javascript:void(0);">首页</a>
+				<a href="javascript:void(0);">关注我们</a>
+				<a href="javascript:void(0);">线下门店</a>
+				<a href="javascript:void(0);">会员中心</a>
+			</div>
+			<p class="eshopv_fotter_logor"><a href="/new.lightpen/index.php?g=Wap&amp;m=Eshop&amp;a=index&amp;companyid=1"></a></p>
+			<a class="eshopv_fotter_logPa" href="/new.lightpen/index.php?g=Wap&amp;m=Eshop&amp;a=index&amp;companyid=1">人来风平台支持</a>
+			<p class="eshopv_fotter_logoa"><a href="javascript:void(0);">BUG反馈</a></p>
+		</div>
+	<!-- ============================底部logo  end ============================ -->
+	<!-- ============================底部导航 start ============================ -->
+	<div class="eshopv_footer_menu">
+		<ul class="eshopv_footer_menul">
+			<li><a href="javascript:void(0);"><i class="eshopv_footer_imga1 eshopv_footer_iactive"></i></a></li>
+			<li><a href="javascript:void(0);"><i class="eshopv_footer_imga2"></i><!--  --></a></li>
+			<li><a href="javascript:void(0);"><i class="eshopv_footer_imga3 "></i></a></li>
+			<li><a href="javascript:void(0);"><i class="eshopv_footer_imga4 "></i></a></li>
+		</ul>
+	</div>
+	<!-- ============================底部导航 end ============================ -->
+</section>
+
+
+<!-- ============================搜素弹窗============================  -->
+<div class="eshop_search_boxn">
+      <div class="eshopv_search">
+            <div class="eshopv_search_input">
+                  <span class="eshopv_search_ispan eshop_search_boxn_hide">取消</span>
+                  <form action="javascript:void(0)" class="eshopv_search_infom">
+                        <input type="search" placeholder="请输入搜索内容" class="eshopv_search_cont"/>
+                        <input  type="submit" class="eshopv_search_submit" value="" />
+                  </form>
+
+            </div>
+      </div>
+</div>
+<!-- ============================左导航============================  -->
+<div class="eshopv_zhezhao"></div>
+<div class="eshopv_subNavBox eshopv_subNavBox_show">
+      <h6 class="eshopv_subNavBox_h6">选择分类</h6>
+      <div class="eshopv_subNav  eShopv_navLeft"><a href="javascript:void(0);" class="">全部商品</a></div>
+      <div class="eshopv_subNav"><i>男士上装</i></div>
+      <ul class="eshopv_navContent " >
+            <li class="eShopv_navLeft2"><a href="javascript:void(0);">外套</a></li>
+            <li class="eShopv_navLeft2"><a href="javascript:void(0);">短袖</a></li>
+      </ul>
+      <div class="eshopv_subNav"><i>男士下装</i></div>
+      <ul class="eshopv_navContent">
+            <li class="eShopv_navLeft2"><a href="javascript:void(0);">外套</a></li>
+            <li class="eShopv_navLeft2"><a href="javascript:void(0);">短袖</a></li>
+      </ul>
+      <div class="eshopv_subNav"><i>女士下装</i></div>
+      <ul class="eshopv_navContent">
+            <li class="eShopv_navLeft2"><a href="javascript:void(0);">外套</a></li>
+            <li class="eShopv_navLeft2"><a href="javascript:void(0);">短袖</a></li>
+      </ul>
+      <div class="eshopv_subNav"><i>女士下装</i></div>
+      <ul class="eshopv_navContent">
+            <li class="eShopv_navLeft2"><a href="javascript:void(0);">外套</a></li>
+            <li class="eShopv_navLeft2"><a href="javascript:void(0);">短袖</a></li>
+      </ul>
+</div>
+
+<script>
+	/*  ========================幻灯片========================  */
+	var swiper = new Swiper('.swiper-container', {
+		pagination: '.swiper-pagination',
+		autoplay: 3500,
+		speed:800,
+		paginationClickable: true,
+		centeredSlides: true,
+		spaceBetween: 0,
+		loop: true,
+		autoplayDisableOnInteraction: false
+	});
+</script>
+
+<script type="text/javascript" charset="utf-8">
+		 /* ========================图片预加载======================== */
+	            $(function() {
+			    $("img.eshop_jzl").lazyload({
+				    effect : "fadeIn"
+			    } );
+		    });
+		 /* ========================左导航2级======================== */
+		 $(function(){
+			 $(".eshopv_subNav").click(function(){
+				 $(this).next(".eshopv_navContent").slideToggle(300).siblings(".eshopv_navContent").slideUp(500);
+			 });
+		 });
+		/* ========================左导航伸出======================== */
+		$(function(){
+		 $(".eshopv_navluli1_active").on("click",function(){
+			 $("body").css("overflow","auto");
+			 $(".eshopv_subNavBox_show").animate({left:"0px"},"1000");
+			 $(".eshopv_zhezhao").show();
+		 });
+		 $(".eshopv_zhezhao").on("click",function(){
+			 $("body").css("overflow","auto");
+			 $(".eshopv_subNavBox_show").animate({left:"-250px"},"1000");
+			 $(".eshopv_zhezhao").hide();
+			 return false
+		 });
+		});
+	     /* ========================搜索效果======================== */
+	     $(function(){
+		     $(".eshopv_navluli1_active2").click(function(){
+			     $(".eshop_search_boxn").addClass("eshop_search_boxn_active");
+			     $(".eshopv_search_cont").focus();
+		     });
+		     $(".eshop_search_boxn_hide").click(function(){
+			     $(".eshop_search_boxn").removeClass("eshop_search_boxn_active");
+			     return false
+		     });
+	     });
+</script>
+</body>
+</html>

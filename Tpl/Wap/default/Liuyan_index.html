@@ -1,0 +1,299 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <title>登录</title>
+  <link href="{lanrain::RES}/css/base.css?<?php echo C('site_system_file_version'); ?>" rel="stylesheet" type="text/css" />
+  <link href="{lanrain::RES}/css/wapcss.css?<?php echo C('site_system_file_version'); ?>" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" type="text/css" href="{lanrain::RES}/css/liuyan/message.css" media="all">
+  <script type="text/javascript" src="{lanrain::RES}/js/liuyan/jquery_min.js"></script>
+</head>
+<body>
+
+<script type="text/javascript"> 
+$(document).ready(function () {
+	//****************************留言1*****************************
+	$("#showcard1").click(function () { 
+		var btn = $(this);
+		var wxname = $("#wxname1").val();
+		if (wxname  == '') {
+			alert("{lanrain::L('PlsEnterNick')}");
+			return;
+		}
+		var info = $("#info1").val();
+			if (info == '') {
+			alert("{lanrain::L('PlsEnterContent')}");
+			return;
+		}
+		var submitData = {
+			lid:'{lanrain:$linyanInfo.id}',
+			uname:wxname,
+			content: info,
+			isshow:'{lanrain:$linyanInfo.isaudit}',
+			openid:'{lanrain:$wecha_id}'
+		};
+		$.post("<?php echo U('Liuyan/add',array('companyid'=>$companyid)).'&time=';?>"+Math.random(), submitData,
+			function(data) {
+			if (data == "{lanrain::L('LeaveMsgSuc')},{lanrain::L('MsgAwaitApproval')}") {
+				alert("{lanrain::L('LeaveMsgSuc')},{lanrain::L('MsgAwaitApproval')}");
+				setTimeout('window.location.href=location.href',1000);
+			return;
+			}else if (data == "{lanrain::L('LeaveMsgSuc')}") {
+				alert("{lanrain::L('LeaveMsgSuc')}");
+				setTimeout('window.location.href=location.href',1000);
+			return;
+			}else{}
+		})
+	}); 
+	//****************************留言2*****************************
+	$("#showcard2").click(function () { 
+		var btn = $(this);
+		var wxname = $("#wxname2").val();
+			if (wxname  == '') {
+			alert("{lanrain::L('PlsEnterNick')}");
+			return;
+		}
+		var info = $("#info2").val();
+			if (info == '') {
+			alert("{lanrain::L('PlsEnterContent')}");
+			return;
+		}
+		var submitData = {
+			lid:'{lanrain:$linyanInfo.id}',
+			uname:wxname,
+			content: info,
+			isshow:'{lanrain:$linyanInfo.isaudit}',
+			openid:'{lanrain:$wecha_id}'
+		};
+		$.post("<?php echo U('Liuyan/add',array('companyid'=>$companyid)).'&time=';?>"+Math.random(), submitData,
+			function(data) {
+			if (data == "{lanrain::L('LeaveMsgSuc')},{lanrain::L('MsgAwaitApproval')}") {
+				alert("{lanrain::L('LeaveMsgSuc')},{lanrain::L('MsgAwaitApproval')}");
+				setTimeout('window.location.href=location.href',1000);
+			return;
+			}else if (data =="{lanrain::L('LeaveMsgSuc')}") {
+				alert("{lanrain::L('LeaveMsgSuc')}");
+				setTimeout('window.location.href=location.href',1000);
+			return;
+			}else{}
+		})
+	});  
+	//***********************回复*************************** 
+	$(".hhsubmit").click(function () { 
+		var objid = $(this).attr("date");
+		var info = $(".hly"+objid).val();
+			if (info == '') {
+			alert("{lanrain::L('PlsEnterContent')}");
+			return;
+		}
+		var submitData = {
+			lid:'{lanrain:$linyanInfo.id}',
+			pid:objid,
+			uname:'{lanrain:$userInfo.uname}',
+			content: "{lanrain:$userInfo.uname}{lanrain::L('Reply')}："+info,
+			isshow:'{lanrain:$linyanInfo.isaudit}',
+			openid:'{lanrain:$wecha_id}'
+		};
+		$.post("<?php echo U('Liuyan/add',array('companyid'=>$companyid)).'&time=';?>"+Math.random(), submitData,
+			function(data) {
+			if (data == "{lanrain::L('LeaveMsgSuc')},{lanrain::L('MsgAwaitApproval')}") {
+				alert("{lanrain::L('LeaveMsgSuc')},{lanrain::L('MsgAwaitApproval')}");
+				setTimeout('window.location.href=location.href',1000);
+			return;
+			}else if (data == "{lanrain::L('LeaveMsgSuc')}") {
+				alert("{lanrain::L('LeaveMsgSuc')}");
+				setTimeout('window.location.href=location.href',1000);
+			return;
+			}else {}
+		})
+	});  
+	//
+	$(".hfinfo").click(function () { 
+		var objid = $(this).attr("date");
+		$(".hhly"+objid).slideToggle();
+	}); 
+	//
+	$(".hhbt").click(function () { 
+		var objid = $(this).attr("date");
+		$(".hhly"+objid).slideToggle();
+	});
+	//
+	$("#windowclosebutton").click(function () { 
+		$("#windowcenter").slideUp(500);
+	});
+	//
+	$("#alertclose").click(function () { 
+		$("#windowcenter").slideUp(500);
+	});
+}); 
+//
+function alert(title){ 
+	window.scrollTo(0, -1);
+	$("#windowcenter").slideToggle("slow"); 
+	$("#txt").html(title);
+	setTimeout(function(){$("#windowcenter").slideUp(500);},4000);
+}
+//
+$(document).ready(function(){
+	$(".first1").click(function(){
+		$(".ly1").slideToggle();
+	});
+	$(".first2").click(function(){
+		$(".ly2").slideToggle();
+	});
+});
+</script>
+<script src="./Tpl/Wap/default/common/js/jweixin-1.0.0.js"></script>
+<script>
+wx.config({
+  debug: false,
+  appId: '<?php echo $signPackage["appId"];?>',
+  timestamp: <?php echo $signPackage["timestamp"];?>,
+  nonceStr: '<?php echo $signPackage["nonceStr"];?>',
+  signature: '<?php echo $signPackage["signature"];?>',
+  jsApiList: [
+              'onMenuShareTimeline',    
+              'onMenuShareAppMessage',    
+              'onMenuShareQQ',    
+              'onMenuShareWeibo',    
+              'hideMenuItems',    
+              'showMenuItems'
+  ]
+});
+
+wx.ready(function(){
+	//显示右上角菜单接口
+	wx.showOptionMenu();
+    // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+    var diytitle = "<?php echo session('cname');?>留言板";
+    var diylink = "<?php echo 'http://' . $_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];?>";
+    var diyimgUrl = "<?php echo session('clogo'); ?>";
+    var diydesc = "点击进入了解更多";
+    //获取“分享到朋友圈”
+	wx.onMenuShareTimeline({
+	    title: diytitle, // 分享标题
+	    link: diylink, // 分享链接
+	    imgUrl: diyimgUrl, // 分享图标
+	    success: function () { 
+	        // 用户确认分享后执行的回调函数
+	    },
+	    cancel: function () { 
+	        // 用户取消分享后执行的回调函数
+	        
+	    }
+	});
+    //获取“分享给朋友”
+	wx.onMenuShareAppMessage({
+	    title: diytitle, // 分享标题
+	    link: diylink, // 分享链接
+	    imgUrl: diyimgUrl, // 分享图标
+	    desc: diydesc, // 分享描述
+	    type: '', // 分享类型,music、video或link，不填默认为link
+	    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+	    success: function () { 
+	        // 用户确认分享后执行的回调函数
+	    },
+	    cancel: function () { 
+	        // 用户取消分享后执行的回调函数
+	    }
+	});
+});
+</script>
+<div class="container">
+	<div class="qiandaobanner"> <a href="javascript:history.go(-1);">
+		<php> if($linyanInfo['headpic']){ </php>
+		<img src="{lanrain:$linyanInfo.headpic}" style="width:100%;">
+		<php> }else{ </php>
+		<img src="{lanrain::RES}/images/liuyan/liuyan_message_top_pic_<?php echo L('NowLang');?>.jpg" style="width:100%;">
+		<php> } </php>
+		</a> </div>
+	<div class="cardexplain">
+		<div class="window" id="windowcenter">
+			<div id="title" class="wtitle">{lanrain::L('SubmitPrompt')}<span class="close" id="alertclose"></span></div>
+			<div class="content">
+				<div id="txt"></div>
+			</div>
+		</div>
+		<div class="history">
+			<div class="history-date">
+				<ul>
+					<h2 class="first first1" style="position: relative;">{lanrain::L('TapToLeaveMsg')}</h2>
+					<!--<li class="nob  mb"><div class="beizhu">留言审核通过后才会显示在留言墙上！</div></li>-->
+					<li class="green bounceInDown nob ly1" style="display:none">
+						<dl>
+							<dt>
+								<input name="wxname" class="px" id="wxname1" value="<?php echo $registerName;?>" <if condition="$userInfo['uname']"> readonly </if>  placeholder="{lanrain::L('PlsEnterYourNick')}" type="text">
+							</dt>
+							<dt>
+								<textarea name="info" class="pxtextarea" style=" height:60px;" id="info1" placeholder="{lanrain::L('PlsEnterMsg')}"></textarea>
+							</dt>
+							<dt><a id="showcard1" class="submit" href="javascript:void(0)">{lanrain::L('SubmitMsg')}</a></dt>
+						</dl>
+					</li>
+					<volist name="lists" id="vo">
+						<li class="green bounceInDown">
+							<h3> 
+								{lanrain:$vo.uname}
+								<div class="clr"></div>
+							</h3>
+							<dl>
+								<dt class="hfinfo" date="9055" >{lanrain:$vo.content} <b style="font-weight:100; font-size:10px; color:#1DB702; padding:0 0px 0 8px;">
+									<php>echo date('Y-m-d H:i',$vo['createtime'])</php>
+									</b></dt>
+							</dl>
+							<php> if($vo['openid'] == $wecha_id){ </php>
+							<dl>
+								<a href="{lanrain::U('Liuyan/del',array('companyid'=>$companyid,'lid'=>$vo['lid'],'id'=>$vo['id'], 'wecha_id'=> $wecha_id))}"class="del">{lanrain::L('Del')}</a>
+							</dl>
+							<php> } </php>
+							<if condition="$userInfo['uname']"> 
+							<dl class="huifu">
+								<dt>
+									<span>
+									<a class="hhbt czan" date="{lanrain:$vo.id}" href="javascript:void(0)">{lanrain::L('Reply')}</a>
+										<p style="display:none;" class="hhly{lanrain:$vo.id}">
+											<textarea name="info" class="pxtextarea hly{lanrain:$vo.id}"></textarea> 
+										<a class="hhsubmit submit" date="{lanrain:$vo.id}" href="javascript:void(0)">{lanrain::L('Confirm')}</a>
+										</p>
+									</span>
+								</dt>
+							</dl>
+							</if>
+							<volist name="vo.list" id="lists">
+							<dl class="huifu" >
+								<dt>{lanrain:$lists.content}<b style="font-weight:100; font-size:10px; color:#1DB702; padding:0 0px 0 8px;">
+									<php>if($lists['createtime'])echo date('Y-m-d H:i',$lists['createtime']);</php>
+									</b> </dt>
+							</dl>
+							</volist>
+						</li>
+					</volist>
+					<li class="green bounceInDown nob ly2" style="display:none">
+						<dl>
+							<dt>
+								<input name="wxname" class="px" id="wxname2" value="{lanrain:$userInfo.uname}" <if condition="$userInfo['uname']"> readonly </if>  placeholder="{lanrain::L('PlsEnterYourNick')}" type="text">
+							</dt>
+							<dt>
+								<textarea name="info" class="pxtextarea" style=" height:60px;" id="info2" placeholder="{lanrain::L('PlsEnterMsg')}"></textarea>
+							</dt>
+							<dt> <a id="showcard2" class="submit" href="javascript:void(0)">{lanrain::L('SubmitMsg')}</a> </dt>
+						</dl>
+					</li>
+					<a>
+					<h2 class="first first2" style="position: relative;">{lanrain::L('TapToLeaveMsg')}</h2>
+					</a>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<footer style="text-align:center; color:#ffd800;margin-right:20px"><a href=""></a></footer>
+<div class="coating">
+  <a class="refresh" href="javascript:location.reload()"></a>
+  <a class="get-back" href="javascript:history.go(-1);"><span></span></a>
+</div>
+</body>
+</html>

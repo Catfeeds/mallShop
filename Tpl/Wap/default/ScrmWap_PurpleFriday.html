@@ -1,0 +1,160 @@
+<include file="Public:S5NewHead" />
+<include file="Public:weiXinShareSet"/>
+<!--页面css-->
+<link rel="stylesheet" type="text/css" href="{lanrain::RES}/ScrmWap/css/ScrmWap.css?515<?php echo C('site_system_file_version'); ?>">
+<script src="{lanrain::RES}/ScrmWap/js/ScrmWap.js"></script>
+<!--使命-->
+<div class="Scrm_index_content">
+	<div class="ScrmWap-header pc-fixed" style="position: fixed;">
+		<a href="<?php echo U('ScrmWap/index',array('companyid'=>$companyid));?>"><img class="ScrmWap-lg" src="{lanrain::RES}/ScrmWap/img/renlaifeng-lg.png" alt=""></a>
+		<i class="Navigation-icon js-Navigation-btn"></i>
+	</div>
+	<div class="Friday-kv">
+		<img class="Friday-kv-img" src="{lanrain::RES}/ScrmWap/img/Friday-kv.png" alt="">
+		<div class="Friday-kv-link-box"><a href="http://bbs.mobiwind.cn/forum.php?mod=viewthread&tid=283&extra=" class="Friday-kv-link">阅读全文</a></div>
+	</div>
+	<div class="Friday-li li-borbt">
+		<ul class="Friday-ul">
+			<li>
+				<i class="Friday-icon1"></i>
+				<p>新品发布</p>
+			</li>
+			<li>
+				<i class="Friday-icon2"></i>
+				<p>新品预告</p>
+			</li>
+			<li>
+				<i class="Friday-icon3"></i>
+				<p>功能优化发布</p>
+			</li>
+			<li>
+				<i class="Friday-icon4"></i>
+				<p>功能优化预告</p>
+			</li>
+		</ul>
+		<div class="Friday-time">
+			<img src="{lanrain::RES}/ScrmWap/img/Friday-time.jpg" alt="">
+			<span class="day-sp1"></span>
+			<span class="day-sp2"></span>
+			<span class="hour-sp1"></span>
+			<span class="hour-sp2"></span>
+			<span class="Minute-sp1"></span>
+			<span class="Minute-sp2"></span>
+			<span class="second-sp1"></span>
+			<span class="second-sp2"></span>
+		</div>
+		<div class="Friday-History">
+			<h5 class="Friday-History-h5">紫色星期五历史发布</h5>
+			<ul class="Friday-History-ul">
+				<li>
+					<a href="http://bbs.mobiwind.cn/forum.php?mod=viewthread&tid=283&extra=">
+						<h6>【紫色星期五 第十四周 更新公告】</h6>
+						<p>外卖秒杀功能、关注二维码增加门店统计功能发布</p>
+						<span>2017/03/17</span>
+					</a>
+				</li>
+				<li>
+					<a href="http://bbs.mobiwind.cn/forum.php?mod=viewthread&tid=271&extra=">
+						<h6>【紫色星期五 第十三周 更新公告】</h6>
+						<p>声悦传情、快捷储值收银、卡券投放记录功能发布</p>
+						<span>2017/03/10</span>
+					</a>
+				</li>
+				<li>
+					<a href="http://bbs.mobiwind.cn/forum.php?mod=viewthread&tid=267&extra=">
+						<h6>【紫色星期五 第十二周 更新公告】</h6>
+						<p>展业伙伴、新版手机预订功能发布</p>
+						<span>2017/03/04</span>
+					</a>
+				</li>
+				<li>
+					<a href="http://bbs.mobiwind.cn/forum.php?mod=viewthread&tid=265&extra=">
+						<h6>【紫色星期五 第十一周 更新公告】</h6>
+						<p>付费内容商店、订阅闹钟功能发布</p>
+						<span>2017/02/24</span>
+					</a>
+				</li>
+				<li>
+					<a href="http://bbs.mobiwind.cn/forum.php?mod=viewthread&tid=255&extra=">
+						<h6>【紫色星期五 第十周 更新公告】</h6>
+						<p>Eshop微商城2.0、手机预订「SPA行业版」、卡券批量核销功能发布</p>
+						<span>2017/02/17</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<include file="Public:ScrmWapOnthebottom" />
+</div>
+<include file="Public:ScrmWapNavigation" />
+
+
+<script type="text/javascript">
+	/* 倒计时组件*/
+	$(function(){
+		//发布小时
+		var fabuxiaoshi = 15;
+		//发布周几
+		var fabuzhou = 5;
+		//延迟一周发布么
+		var fabuyan = 0;
+		//实例化倒计时
+		var asadate = FormatDate(fabuxiaoshi,fabuzhou,fabuyan);
+		var EndTime= new Date(asadate);
+		setInterval(GetRTime,100);
+		//倒计时方法
+		function GetRTime(){
+			var NowTime = new Date();
+			var t =EndTime.getTime() - NowTime.getTime();
+			var d=0;
+			var h=0;
+			var m=0;
+			var s=0;
+			if(t>=0){
+				d=Math.floor(t/1000/60/60/24);
+				h=Math.floor(t/1000/60/60%24);
+				m=Math.floor(t/1000/60%60);
+				s=Math.floor(t/1000%60);
+			}
+			if(d<10){
+				d="0"+d;
+			}
+			if(h<10){
+				h="0"+h;
+			}
+			if(m<10){
+				m="0"+m;
+			}
+			if(s<10){
+				s="0"+s;
+			}
+			document.getElementsByClassName("day-sp1")[0].innerHTML = (d.toString().slice(0,1));
+			document.getElementsByClassName("day-sp2")[0].innerHTML = (d.toString().slice(1,2));
+			document.getElementsByClassName("hour-sp1")[0].innerHTML = (h.toString().slice(0,1));
+			document.getElementsByClassName("hour-sp2")[0].innerHTML = (h.toString().slice(1,2));
+			document.getElementsByClassName("Minute-sp1")[0].innerHTML = (m.toString().slice(0,1));
+			document.getElementsByClassName("Minute-sp2")[0].innerHTML = (m.toString().slice(1,2));
+			document.getElementsByClassName("second-sp1")[0].innerHTML = (s.toString().slice(0,1));
+			document.getElementsByClassName("second-sp2")[0].innerHTML = (s.toString().slice(1,2));
+		}
+		//实例化倒计时的方法
+		function FormatDate (fabuxiaoshi,fabuzhou,fabuyan){
+			//获取今天是周几
+			var d = new Date();
+			var asahours = d.getHours();
+			var asaday =d.getDay();
+			var asa = d.getDate();
+			var asanum = fabuzhou-asaday;
+			if(asanum<0) asanum = asanum+7;
+			else if(asanum==0&&asahours>=fabuxiaoshi) asanum = asanum+7;
+			asanum = asanum+7*fabuyan;
+			d.setDate(asa+asanum);
+			var date = new Date(d);
+			var test = date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate();
+			return test+' '+fabuxiaoshi+':00:00';
+		}
+	});
+</script>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="keywords" content="<?php if($_SERVER['SERVER_NAME']=='www.mobiwind.cn'){ if($keywords){ echo $keywords;}else{ echo C('site_keywords');} } ?>">
+	<meta name="description" content="<?php if($_SERVER['SERVER_NAME']=='www.mobiwind.cn'){if($description){ echo $description;}else{ echo C('site_description');} } ?>">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title><?php if($_SERVER['SERVER_NAME']=='www.mobiwind.cn'){ if($title){ echo $title;}else{ echo C('site_title');} }?></title>
+	<link rel="shortcut icon" href="./Tpl/Home/default1215/common/img/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="./Tpl/Home/default1215/common/css/index_base1215.css?<?php echo C('site_system_file_version'); ?>">
+	<link rel="stylesheet" type="text/css" href="./Tpl/Home/default1215/common/css/index_style1215.css?<?php echo C('site_system_file_version'); ?>">
+	<link rel="stylesheet" type="text/css" href="./Tpl/Home/default1215/common/fonts/font-awesome-4.6.3/css/font-awesome.min.css"><!-- 图标字体库 -->
+	<script type="text/javascript" src="./Tpl/Home/default1215/common/js/jquery-1.12.0.min.js"></script>
+	<script type="text/javascript" src="./Tpl/Home/default1215/common/js/common.js?<?php echo C('site_system_file_version'); ?>"></script>
+</head>
+<body>
+<script type="text/javascript">  
+	// 判断浏览器类型 pc or mobile
+	if(/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent))){ 
+	    if(window.location.href.indexOf("?mobile")<0){ 
+	        try{ 
+	            if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)){ 
+	                window.location.href="http://www.mobiwind.cn/index.php?&g=Wap&m=ScrmWap&a=index&companyid=1"; 
+	            }else if(/iPad/i.test(navigator.userAgent)){ 
+	            }else{ 
+	                window.location.href="http://www.mobiwind.cn/" 
+	            } 
+	        }catch(e){} 
+	    } 
+	} 
+</script> 
+<script type="text/javascript">
+	/* idnex 导航滑动跟随 @John 2016-12-18 21:00 */
+	$(function(){
+		var time = 150;
+		var ul = $("#js-nav-list");
+		var li = ul.find("li");
+		var bg = ul.find("li.navbg");
+
+		//初始化
+		var on = ul.find(".on");
+		var on_index = on.index();
+
+		function start(){
+			bg.stop().animate({width:li.eq(on_index).outerWidth(),left:li.eq(on_index).offset().left-ul.offset().left},time);
+		}
+		start();
+		
+		//li绑定mouseover事件
+		li.mouseover(function(){
+			bg.css("background-Color","rgba(0,0,0,.2)");
+			var w = $(this).outerWidth();
+			var l = $(this).offset().left-ul.offset().left;
+			bg.stop().animate({width:w,left:l},time);
+		})
+		//ul移出，恢复初始化
+		ul.mouseleave(function(){
+			bg.css("background-Color","transparent");
+			start();
+		});
+	})
+</script>
+	<div class="common-header index-header">
+		<include file="Public:headerCommon" />
+	</div>
+
+
+
+
+	<div class="index-wrap wrap-default part-of-seven">
+		<div class="part-header">
+			<div class="banner-bd">
+				<img class="index-banner-img-default" src="./Tpl/Home/default1215/common/img/index-banner-img-default2.png">
+			</div>
+			<ul class="banner-hd">
+				<li>
+					<a href="<?php echo U('Index/missionComplete',array('isScroll'=>'1'));?>">
+						<i class="icon-index btn1"></i>
+						<h3>为价值而生</h3>
+					</a>
+				</li>
+				<li>
+					<a href="<?php echo U('Index/CRM',array('isScroll'=>'1'));?>">
+						<i class="icon-index btn2"></i>
+						<h3>会员制<em class="font-Hel">CRM</em></h3>
+					</a>
+				</li>
+				<li class="on">
+					<a href="<?php echo U('Index/eshop',array('isScroll'=>'1'));?>">
+						<i class="icon-index btn3"></i>
+						<h3><em class="font-Hel">Eshop</em>微商城</h3>
+					</a>
+				</li>
+				<li>
+					<a href="<?php echo U('Index/O2O',array('isScroll'=>'1'));?>">
+						<i class="icon-index btn4"></i>
+						<h3><em class="font-Hel">O2O</em>场景</h3>
+					</a>
+				</li>
+				<li>
+					<a href="<?php echo U('Index/Session',array('isScroll'=>'1'));?>">
+						<i class="icon-index btn5"></i>
+						<h3>专场活动</h3>
+					</a>
+				</li>
+				<li>
+					<a href="<?php echo U('Index/S5activity',array('isScroll'=>'1'));?>">
+						<i class="icon-index btn6"></i>
+						<h3>开放平台接入</h3>
+					</a>
+				</li>
+				<li>
+					<a href="<?php echo U('Index/deploy',array('isScroll'=>'1'));?>">
+						<i class="icon-index btn7"></i>
+						<h3>部署服务</h3>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="part-body">
+			<div class="part-hero2">
+				<img src="./Tpl/Home/default1215/common/img/index_banner_img3.jpg" draggable="false">
+				<ul class="demo-user-list2">
+					<li>
+						<div class="logo-cover">
+							<img class="demo-user-logo" src="./Tpl/Home/default1215/common/img/demo_user_logo1.jpg" draggable="false">
+							<img class="demo-user-logo-qrcode" src="./Tpl/Home/default1215/common/img/oshili.jpg" draggable="false">
+						</div>
+						<p>欧时力</p>
+						<a href="javascript:void(0);">扫码参观</a>
+					</li>
+					<li>
+						<div class="logo-cover">
+							<img class="demo-user-logo" src="./Tpl/Home/default1215/common/img/demo_user_logo2.jpg" draggable="false">
+							<img class="demo-user-logo-qrcode" src="./Tpl/Home/default1215/common/img/yuxi.jpg" draggable="false">
+						</div>
+						<p>羽西</p>
+						<a href="javascript:void(0);">扫码参观</a>
+					</li>
+					<li>
+						<div class="logo-cover">
+							<img class="demo-user-logo" src="./Tpl/Home/default1215/common/img/demo_user_logo3.jpg" draggable="false">
+							<img class="demo-user-logo-qrcode" src="./Tpl/Home/default1215/common/img/muji.jpg" draggable="false">
+						</div>
+						<p class="font-Hel">MUJI</p>
+						<a href="javascript:void(0);">扫码参观</a>
+					</li>
+					<li>
+						<div class="logo-cover">
+							<img class="demo-user-logo" src="./Tpl/Home/default1215/common/img/demo_user_logo4.jpg" draggable="false">
+							<img class="demo-user-logo-qrcode" src="./Tpl/Home/default1215/common/img/10cc.jpg" draggable="false">
+						</div>
+						<p class="font-Hel">10 Corso Como</p>
+						<a href="javascript:void(0);">扫码参观</a>
+					</li>
+					<li>
+						<div class="logo-cover">
+							<img class="demo-user-logo" src="./Tpl/Home/default1215/common/img/demo_user_logo5.jpg" draggable="false">
+							<img class="demo-user-logo-qrcode" src="./Tpl/Home/default1215/common/img/misssixty.jpg" draggable="false">
+						</div>
+						<p class="font-Hel">MISS SIXTY</p>
+						<a href="javascript:void(0);">扫码参观</a>
+					</li>
+					<li>
+						<div class="logo-cover">
+							<img class="demo-user-logo" src="./Tpl/Home/default1215/common/img/demo_user_logo6.jpg" draggable="false">
+							<img class="demo-user-logo-qrcode" src="./Tpl/Home/default1215/common/img/nike.png" draggable="false">
+						</div>
+						<p class="font-Hel">NIKE</p>
+						<a href="javascript:void(0);">扫码参观</a>
+					</li>
+					<li>
+						<div class="logo-cover">
+							<img class="demo-user-logo" src="./Tpl/Home/default1215/common/img/demo_user_logo7.jpg" draggable="false">
+							<img class="demo-user-logo-qrcode" src="./Tpl/Home/default1215/common/img/hm.png" draggable="false">
+						</div>
+						<p class="font-Hel">H&amp;M</p>
+						<a href="javascript:void(0);">扫码参观</a>
+					</li>
+					<li>
+						<div class="logo-cover">
+							<img class="demo-user-logo" src="./Tpl/Home/default1215/common/img/demo_user_logo8.jpg" draggable="false">
+							<img class="demo-user-logo-qrcode" src="./Tpl/Home/default1215/common/img/dior.png" draggable="false">
+						</div>
+						<p class="font-Hel">Dior</p>
+						<a href="javascript:void(0);">扫码参观</a>
+					</li>
+				</ul>
+			</div>
+			<ul class="crm-part-list">
+				<li>
+					<h3 class="tit1">有格调的<em class="font-Hel">Eshop</em></h3>
+					<h4 class="tit2">有格调的门面至关重要，注重视觉细节与您的品牌调性相匹配</h4>
+					<img style="margin-top: -200px;" src="./Tpl/Home/default1215/common/img/part_bgi7.png" draggable="false">
+				</li>
+				<li>
+					<h3 class="tit1">支持售卖实物与虚拟商品</h3>
+					<h4 class="tit2">实物商品订单支持自定义运费模板、虚拟商品支持团购券、电子门票、计次卡、<br>门店使用权益卡、卡券礼包等虚拟商品在线销售(支持储值支付)</h4>
+					<img src="./Tpl/Home/default1215/common/img/part_bgi8.png" draggable="false">
+					<p class="more-data">了解更多<em class="font-Hel">Eshop</em>售卖商品 <i class="fa fa-angle-down" aria-hidden="true"></i></p>
+					<ul class="part-icon-list clearfix">
+						<li class="fl" style="margin-left: 5px;"><a target="_blank"  href="http://bbs.mobiwind.cn/forum.php?mod=viewthread&tid=177"><img src="./Tpl/Home/default1215/common/img/part_icon26.png" draggable="false"><p>实物商品</p></a></li>
+						<li class="fl"><a target="_blank"  href="http://bbs.mobiwind.cn/forum.php?mod=viewthread&tid=178"><img src="./Tpl/Home/default1215/common/img/part_icon27.png" draggable="false"><p>虚拟券商品</p></a></li>
+						<li class="fl"><a target="_blank"  href="http://bbs.mobiwind.cn/forum.php?mod=viewthread&tid=179"><img src="./Tpl/Home/default1215/common/img/part_icon28.png" draggable="false"><p>团购商品</p></a></li>
+						<li class="fl"><a target="_blank"  href="http://bbs.mobiwind.cn/forum.php?mod=viewthread&tid=180"><img src="./Tpl/Home/default1215/common/img/part_icon29.png" draggable="false"><p>门票商品</p></a></li>
+						<li class="fl"><a target="_blank"  href="http://bbs.mobiwind.cn/forum.php?mod=viewthread&tid=127"><img src="./Tpl/Home/default1215/common/img/part_icon30.png" draggable="false"><p>计次卡</p></a></li>
+						<li class="fl"><a target="_blank"  href="http://bbs.mobiwind.cn/forum.php?mod=viewthread&tid=184"><img src="./Tpl/Home/default1215/common/img/part_icon31.png" draggable="false"><p>门店使用权益卡</p></a></li>
+						<li class="fl"><a target="_blank"  href="http://bbs.mobiwind.cn/forum.php?mod=viewthread&tid=187"><img src="./Tpl/Home/default1215/common/img/part_icon32.png" draggable="false"><p>卡券礼包</p></a></li>
+					</ul>
+				</li>
+				<li>
+					<h3 class="tit1">订单管理</h3>
+					<h4 class="tit2">支撑双十一大促承载，稳定服务器集群，支持每秒并发处理万单。<em class="font-Hel">SCRM-PC</em>后台、风助手微信实时订单通知</h4>
+					<img src="./Tpl/Home/default1215/common/img/part_bgi9.png" draggable="false">
+				</li>
+				<li>
+					<h3 class="tit1"><em class="font-Hel">Eshop</em>活动</h3>
+					<h4 class="tit2">会员消费积分直通、多样独立<em class="font-Hel">Eshop</em>活动插件支持</h4>
+					<img src="./Tpl/Home/default1215/common/img/part_bgi10.png" draggable="false">
+					<p class="more-data">了解更多<em class="font-Hel">Eshop</em>活动 <i class="fa fa-angle-down" aria-hidden="true"></i></p>
+					<ul class="part-icon-list clearfix">
+						<li class="fl" style="margin-left: 5px"><a target="_blank"  href="http://bbs.mobiwind.cn/forum.php?mod=viewthread&tid=199"><img src="./Tpl/Home/default1215/common/img/part_icon33.png" draggable="false"><p>商品预售</p></a></li>
+						<li class="fl"><a target="_blank"  href="http://bbs.mobiwind.cn/forum.php?mod=viewthread&tid=205"><img src="./Tpl/Home/default1215/common/img/part_icon34.png" draggable="false"><p>会员梯度折扣</p></a></li>
+						<li class="fl"><a target="_blank"  href="http://bbs.mobiwind.cn/forum.php?mod=viewthread&tid=202"><img src="./Tpl/Home/default1215/common/img/part_icon35.png" draggable="false"><p>拼团</p></a></li>
+						<li class="fl"><a target="_blank"  href="http://bbs.mobiwind.cn/forum.php?mod=viewthread&tid=204"><img src="./Tpl/Home/default1215/common/img/part_icon36.png" draggable="false"><p>秒杀</p></a></li>
+						<li class="fl"><a target="_blank"  href="http://bbs.mobiwind.cn/forum.php?mod=viewthread&tid=157"><img src="./Tpl/Home/default1215/common/img/part_icon37.png" draggable="false"><p>首单优惠</p></a></li>
+						<li class="fl"><a target="_blank"  href="http://bbs.mobiwind.cn/forum.php?mod=viewthread&tid=159"><img src="./Tpl/Home/default1215/common/img/part_icon38.png" draggable="false"><p>立减优惠</p></a></li>
+						<li class="fl"><a target="_blank"  href="http://bbs.mobiwind.cn/forum.php?mod=viewthread&tid=162"><img src="./Tpl/Home/default1215/common/img/part_icon39.png" draggable="false"><p>立折优惠</p></a></li>
+						<li class="fl" style="margin-left: 5px"><a target="_blank"  href="http://bbs.mobiwind.cn/forum.php?mod=viewthread&tid=163"><img src="./Tpl/Home/default1215/common/img/part_icon40.png" draggable="false"><p>满减优惠</p></a></li>
+						<li class="fl"><a target="_blank"  href="http://bbs.mobiwind.cn/forum.php?mod=viewthread&tid=164"><img src="./Tpl/Home/default1215/common/img/part_icon41.png" draggable="false"><p>满折优惠</p></a></li>
+						<li class="fl"><a target="_blank"  href="http://bbs.mobiwind.cn/forum.php?mod=viewthread&tid=165"><img src="./Tpl/Home/default1215/common/img/part_icon42.png" draggable="false"><p>满件减优惠</p></a></li>
+						<li class="fl"><a target="_blank"  href="http://bbs.mobiwind.cn/forum.php?mod=viewthread&tid=166"><img src="./Tpl/Home/default1215/common/img/part_icon43.png" draggable="false"><p>满件折优惠</p></a></li>
+					</ul>
+				</li>
+				<li style="border-bottom: 0">
+					<h3 class="tit1"><em class="font-Hel">DMS</em>优惠口令</h3>
+					<h4 class="tit2" style="padding-bottom: 30px;">不破坏品牌价值的电商分销解决方案</h4>
+					<div><a class="btn btn-login2" target="_blank" href="http://bbs.mobiwind.cn/forum.php?mod=viewthread&tid=88&highlight=dms"> <i class="fa fa-angle-right icon-arrow-right"></i> 了解详情</a></div>
+					<img style="margin-top: 60px;" src="./Tpl/Home/default1215/common/img/part_bgi11.png" draggable="false">
+				</li>
+			</ul>
+		</div>
+	</div>
+<include file="Public:footer" />

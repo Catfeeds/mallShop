@@ -1,0 +1,372 @@
+<include file="Public:head"/>
+<!-- CRM-我的会员-我的注册会员 2016-10-14 10:40 -->
+<?php echo $makeTopUrl;?>
+<div class="group inline-btn-group mb-10">
+    <a class="btn-small btn-purple" href="javascript:void(0);">我的注册会员</a>
+    <!-- <a class="btn-small btn-white" href="<?php echo U('MemberGroup/index');?>">会员标签</a> -->
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>筛选条件</h4></div>
+    <form class="mod-body" action="<?php echo U('Member/myClients');?>" name="search" id="search" method="post" enctype="multipart/form-data">
+        <dl class="content clearfix mt-15">
+            <dt class="child-sum-3 fl">
+                <div class="group pb-10">
+                    <h6 class="inline w100">手机号码：</h6>
+                    <input class="inline w150" type="text" placeholder="" name="mobile" value="<?php echo $mobile;?>">
+                </div>
+
+            </dt>
+            <dt class="child-sum-3 fl">
+                <div class="group pb-10">
+                    <h6 class="inline w100">会员姓名：</h6>
+                    <input class="inline w150" type="text" placeholder="" name="name" value="<?php echo $name;?>">
+                </div>
+
+            </dt>
+            <dt class="child-sum-3 fl">
+                <div class="group pb-10">
+                    <h6 class="inline w100">收货地址：</h6>
+                    <input class="inline w150" type="text" placeholder="" name="allshopaddress" value="<?php echo $allshopaddress;?>">
+                </div>
+            </dt>
+            <dt class="size1of2 fl">
+                <div class="group mb-15 laydate-box fl">
+                    <h6 class="inline w100">会员生日：</h6>
+                    <input class="laydate-input w120" id="Member-birthday-order-1" name="birthday1" value="<?php echo $birthday1;?>" onclick="laydate({ format: 'YYYY-MM-DD'})" placeholder="YYYY-MM-DD">
+                    <i class="icon-laydate" onclick="laydate({elem:'#Member-birthday-order-1'});"></i>
+                    <span> - </span>
+                    <input class="laydate-input w120" id="Member-birthday-order-2" name="birthday2" value="<?php echo $birthday2;?>" onclick="laydate({ format: 'YYYY-MM-DD'})" placeholder="YYYY-MM-DD">
+                    <i class="icon-laydate" onclick="laydate({elem:'#Member-birthday-order-2'});"></i>
+                </div>
+            </dt>
+
+            <dt class="size1of2 fl">
+                <div class="group mb-15 laydate-box fl">
+                    <h6 class="inline w100">注册时间：</h6>
+                    <input class="laydate-input w120" id="Member-birthday-order-3" name="createtime1" value="<?php echo $createtime1;?>" onclick="laydate({format: 'YYYY-MM-DD'})" placeholder="YYYY-MM-DD">
+                    <i class="icon-laydate" onclick="laydate({elem:'#Member-birthday-order-3'});"></i>
+                    <span> - </span>
+                    <input class="laydate-input w120" id="Member-birthday-order-4" name="createtime2" value="<?php echo $createtime2;?>" onclick="laydate({format: 'YYYY-MM-DD'})" placeholder="YYYY-MM-DD">
+                    <i class="icon-laydate" onclick="laydate({elem:'#Member-birthday-order-4'});"></i>
+                </div>
+            </dt>
+            <dt class="child-sum-3 fl">
+                <div class="group pb-10">
+                    <h6 class="inline w100">备注：</h6>
+                    <input class="inline w150" type="text" placeholder="" name="note" value="<?php echo $note;?>">
+                </div>
+            </dt>
+        </dl>
+        <div class="group form-footer text-center">
+            <input class="btn-middle btn-purple" type="submit" value="筛选">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input class="btn-middle btn-white js-reset" type="reset" value="重置">
+            <script>
+	            $(".js-reset").click(function(){
+	            	$('.js-Unlimited-btn').removeClass("Unlimited-active").addClass("Unlimited-active");
+	            	$('.js-Unlimited-label').removeClass("Unlimited-label-active");
+	            	$('input[type="hidden"]').val('')
+	            });
+            </script>
+        </div>
+    </form>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>全部</h4><div class="fr"><a class="fl js-add-Member-data">添加自定义会员资料字段</a><a class="fl ml-10 js-Custom-tags">批量打自定义标签</a><a class="excel-import-out-button fl ml-10 js-icon-excel">下载表格</a></div></div>
+    <div class="mod-body">
+        <table class="table type-1 w-auto">
+            <thead>
+            <tr>
+                <th class="w50"><label class="checkbox inline"><input type="checkbox" class="check-sale check-all-sale">全选</label></th>
+                <th>手机</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>会员等级</th>
+                <th>累计积分</th>
+                <th>可用积分</th>
+                <th>储值余额</th>
+                <th>微信关注状态</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php if($memberList){ foreach($memberList as $Key=>$info){?>
+	            <tr>
+	                <td><input type="checkbox" class="check-sale" name="memberid" value="<?php echo $info['id'];?>"></td>
+	                <td><?php echo $info['mobile']?$info['mobile']:'-';?></td>
+	                <td><?php echo $info['name']?$info['name']:'-';?></td>
+	                <td><?php if($info['gender'] == '1'){ echo '先生';}elseif($info['gender'] == '2'){ echo '女士';}else{ echo '-';}?></td>
+	                <td><?php echo $info['rankname']?$info['rankname']:'-';?></td>
+	                <td><?php echo $info['totalexperiencevalue'];?></td>
+	                <td><?php echo $info['totalintegration'];?></td>
+	                <td><?php echo $info['accountbalance'];?></td>
+	                <td><?php if($info['subscribetype'] == '1'){ echo '微信已关注';}elseif($info['subscribetype'] == '2'){echo '微信取关';}else{ echo '微信未关注';}?></td>
+	                <td>
+	                    <a class="tips" href="<?php echo U('Member/memberInfo',array('id'=>$info['id']));?>">会员详情</a>
+	                </td>
+	            </tr>
+            <?php }}else{?>
+	            <tr class="text-center not-hover">
+	                <td colspan="10">暂无</td>
+	            </tr>
+            <?php }?>
+            </tbody>
+        </table>
+        <?php if($page){?>
+        <div class="group form-footer clearfix">
+            <div class="group pagination fr">
+				<?php echo $page;?>
+            </div>
+        </div>
+        <?php }?>
+    </div>
+</div>
+<input name="membertagid" type="hidden" value="" />
+<include file="Public:memberAddTags"/>
+<!-- 报表生成提示 弹窗 -->
+<div class="popup-wrap wrap-small-1 js-export-popup">
+    <div class="mod small-popup type-1" style="width:360px;margin-left:-180px;">
+	    <div class="mod-header">
+	        <h4 class="fl">提示</h4>
+	        <i class="fr icon-close-dark js-icon-close"></i>
+	    </div>
+        <div class="mod-body">
+	        <div class="content">
+	            <h5 class="text-center">报表正在生成中...<br/>请在5分钟后前往“管理-我的导出任务”下载CSV文件</h5>
+	        </div>
+    	</div>
+	</div>
+</div>
+<script>
+	$(document).ready(function(){
+		$('.check-sale').prop("checked", false);
+		$('input[name="membertagid"]').val('');
+	});
+	//全选
+	$('.check-all-sale').click(function(){
+	    if ($(this).is(":checked")){
+	    	$('.check-sale').prop("checked", true);
+	    }else{
+	    	$('.check-sale').prop("checked", false);
+	    }
+	});
+	$('.check-sale').click(function(){
+		var id = [];
+		var num = cnum = 0;
+		$('input[name="memberid"]:checked').each(function(){
+			id.push($(this).val());
+			cnum++;
+		});
+		$('input[name="memberid"]').each(function(){
+			num++;
+		});
+		if(cnum == num){
+			$('.check-all-sale').prop("checked", true);
+		}else{
+			$('.check-all-sale').prop("checked", false);
+		}
+		$('input[name="membertagid"]').val(id);
+	});
+	$('.js-icon-excel').click(function(){
+		$.post("<?php echo U('Member/memberexcel').'&time='; ?>"+Math.random(),
+				{mobile:"<?php echo $mobile;?>",totalexperiencevalue1:"<?php echo $totalexperiencevalue1;?>",totalexperiencevalue2:"<?php echo $totalexperiencevalue2;?>",
+				name:"<?php echo $name;?>",totalintegration1:"<?php echo $totalintegration1;?>",totalintegration2:"<?php echo $totalintegration2;?>",
+				allshopaddress:"<?php echo $allshopaddress;?>",note:"<?php echo $note;?>",birthday1:"<?php echo $birthday1;?>",birthday2:"<?php echo $birthday2;?>",
+				createtime1:"<?php echo $createtime1;?>",createtime2:"<?php echo $createtime2;?>",registertypetag:"<?php echo $registertypetag;?>",
+				rankid:"<?php echo $rankid;?>",gender:"<?php echo $gender;?>",agetag:"<?php echo $agetag;?>",constellationtag:"<?php echo $constellationtag;?>",
+				subscribetype:"<?php echo $subscribetype;?>",howlongspendingtag:"<?php echo $howlongspendingtag;?>",spendingfrequencytag:"<?php echo $spendingfrequencytag;?>",
+				howlongusevoucherstag:"<?php echo $howlongusevoucherstag;?>",usevouchersfrequencytag:"<?php echo $usevouchersfrequencytag;?>",totalspendingtag:"<?php echo $totalspendingtag;?>",membertagsid:"<?php echo $membertagsid;?>"
+				},
+				function(data){
+					if(data.code == '200'){
+						$(".js-export-popup").fadeIn(120);
+					}else{
+						alertTan(data.msg,'error');
+					}
+				},"json");
+	});
+</script>
+
+
+
+<!--添加自定义会员资料字段-->
+<div class="popup-wrap wrap-middle-2 js-add-Member-data-wrap">
+    <div class="mod middle-popup type-2">
+        <div class="mod-header">
+            <h4 class="fl">添加自定义会员资料字段</h4>
+            <i class="fr icon-close-dark js-Member-data-close"></i>
+        </div>
+        <div class="mod-body">
+            <div class="content">
+                <h5 class="pb-10">
+                    <a class="btn-small btn-purple js-add-data"><b>+</b> 添加</a>
+                </h5>
+                <table class="table type-1 w-auto mb-20">
+                    <thead>
+                    <tr>
+                        <th>资料名称</th>
+                        <th>格式类型</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="membercustomfield">
+                    <?php if($membercustomfield){ foreach($membercustomfield as $mckey=>$mcval){?>
+	                    <tr>
+	                        <td id="id-name-<?php echo $mcval['id'];?>"><?php echo $mcval['name']?$mcval['name']:'';?></td>
+	                        <td id="id-type-<?php echo $mcval['id'];?>"><?php if($mcval['type'] == '1'){echo '文本';}elseif($mcval['type'] == '2'){echo '日期';}elseif($mcval['type'] == '3'){echo '邮箱';}elseif($mcval['type'] == '4'){echo '手机号';}else{echo '-';}?></td>
+	                        <td><a class="tips js-save-data" id="id-attr-<?php echo $mcval['id'];?>" data-id="<?php echo $mcval['id'];?>" data-name="<?php echo $mcval['name'];?>" data-type="<?php echo $mcval['type'];?>" href="javascript:void(0);">编辑</a><a class="tips js-del-membercustomfield" href="javascript:void(0);">删除</a></td>
+	                    </tr>
+	                <?php }}else{?>
+	                    <tr class="text-center not-hover" id="id-not-membercustomfield">
+	                        <td colspan="3">暂无</td>
+	                    </tr>
+                    <?php }?>
+                    </tbody>
+                </table>
+                <p class="text-center mb-15">
+                    <a href="javascript:void(0);" class="btn-big btn-purple" id="id-ajax-addfield">保存</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(".js-add-Member-data").click(function(){
+            $(".js-add-Member-data-wrap").fadeIn(120);
+        });
+        $(".js-Member-data-close").click(function(){
+            $(".js-add-Member-data-wrap").fadeOut(120);
+        });
+        //点击删除
+        $(document).on('click','.js-del-membercustomfield',function(){
+        	$(this).parent().parent().remove();
+        	if($('#membercustomfield').children().length<=0){
+        		html = ' <tr class="text-center not-hover" id="id-not-membercustomfield">';
+				html += ' <td colspan="3">暂无</td>';
+				html += ' </tr>';
+				$('#membercustomfield').append(html);
+        	}
+        });
+    </script>
+</div>
+<!--添加弹窗-->
+<div class="popup-wrap js-add-data-wrap" style="z-index: 10;">
+    <div class="mod small-popup">
+        <div class="mod-header">
+            <h4 class="fl">添加</h4>
+            <i class="fr icon-close-dark js-data-close"></i></div>
+        <div class="mod-body">
+            <ul class="content">
+                <li class="group pb-15">
+                    <h6 class="inline w80">资料名称：</h6>
+                    <input class="inline w150" type="text" name="customname" value="">
+                    <h6 class="text-gray ml-80 pt-5 pl-5">*仅限7个汉字</h6>
+                </li>
+                <li class="group">
+                    <h6 class="inline w80">格式类型：</h6>
+                    <select class="inline w150 js-custom-type">
+                        <option value="0">请选择</option>
+                        <option value="1">文本</option>
+                        <option value="2">日期</option>
+                        <option value="3">邮箱</option>
+                        <option value="4">手机号</option>
+                    </select>
+                </li>
+            </ul>
+            <div class="group text-center pb-15">
+                <a class="btn-middle btn-purple w60" id="id-add-field">保存</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{lanrain::RES}/js/json2.js"></script>
+<script type="text/javascript">
+	//点击添加
+	$(".js-add-data").click(function(){
+		$('input[name="customname"]').val('');
+		$('.js-custom-type option').eq(1).prop('selected',true);
+		$('#id-add-field').attr('data-id','');
+	    $(".js-add-data-wrap").fadeIn(120);
+	});
+	//点击编辑
+	$(document).on('click','.js-save-data',function(){
+		$('input[name="customname"]').val($(this).attr('data-name'));
+		$('.js-custom-type option').eq($(this).attr('data-type')).prop('selected',true);
+		$('#id-add-field').attr('data-id',$(this).attr('data-id'));
+	    $(".js-add-data-wrap").fadeIn(120);
+	});
+	$(".js-data-close").click(function(){
+	    $(".js-add-data-wrap").fadeOut(120);
+	});
+	$('#id-add-field').click(function(){
+		var id = $(this).attr('data-id');
+    	var name = $('input[name="customname"]').val();
+    	if(name == false){
+    		alertTan('请填写资料名称','warn');
+    		return false;
+    	}
+    	var type = $('.js-custom-type').val();
+		var text = '';
+		if(type == '1'){
+			text = '文本';
+		}else if(type == '2'){
+			text = '日期';
+		}else if(type == '3'){
+			text = '邮箱';
+		}else if(type == '4'){
+			text = '手机号';
+		}else{
+			alertTan('请选择格式类型','warn');
+    		return false;
+		}
+		if(id){
+			$('#id-name-'+id).text(name);
+			$('#id-type-'+id).text(text);
+			$('#id-attr-'+id).attr({ 'data-name': name,'data-type': type });
+		}else{
+			var num = new Date().getTime();
+			html = ' <tr>';
+			html += ' <td id="id-name-'+num+'">'+name+'</td>';
+			html += ' <td id="id-type-'+num+'">'+text+'</td>';
+			html += ' <td><a class="tips js-save-data" id="id-attr-'+num+'" data-id="'+num+'" data-name="'+name+'" data-type="'+type+'" href="javascript:void(0);">编辑</a><a class="tips js-del-membercustomfield" href="javascript:void(0);">删除</a></td>';
+			html += ' </tr>';
+			if($('#id-not-membercustomfield').length>0){
+				$('#id-not-membercustomfield').remove();
+			}
+			$('#membercustomfield').append(html);
+		}
+		$(".js-add-data-wrap").fadeOut(120);
+	});
+	$('#id-ajax-addfield').click(function(){
+		var date = {};
+		$('#membercustomfield tr').each(function(index){
+    		if($(this).hasClass('not-hover')){
+    		}else{
+    			date[index] = {};
+    			date[index]['id'] = $(this).find('.js-save-data').attr('data-id');
+    			date[index]['name'] = $(this).find('.js-save-data').attr('data-name');
+    			date[index]['type'] = $(this).find('.js-save-data').attr('data-type');
+    		}
+    	});
+		date = JSON.stringify(date);
+		if(date == '{}'){
+			date = '';
+    	}
+		$(".js-add-Member-data-wrap").fadeOut(120);
+		$(".loading").show();
+		$.post("<?php echo U('Member/ajaxmembercustomfield').'&time='; ?>"+Math.random(),
+   				{date:date},
+   				function(data){
+					$(".loading").hide();
+   					if(data.code=='success'){
+						alertTan(data.msg);
+						setTimeout(function(){
+						    // JS 操作代码
+							window.location.href=location.href;
+						},1500);
+   		        	}else{
+   		        		alertTan(data.msg,data.code);
+   		        	}
+   		},"json");
+	});
+</script>
+<include file="Public:footer"/>

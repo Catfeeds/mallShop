@@ -1,0 +1,166 @@
+<include file="Public:S5NewHead" />
+<!--页面css-->
+<link rel="stylesheet" type="text/css" href="{lanrain::RES}/zhanye/css/wap.css?515<?php echo C('site_system_file_version'); ?>">
+<!--首页-->
+<!--字体图标-->
+<link href="{lanrain::RES}/public_scrm5/css/font-awesome.min.css?<?php echo C('site_system_file_version'); ?>" rel="stylesheet" type="text/css" />
+<?php if($info){?>
+<div class="promote-ctt ifoot_padding Scrm_index_content promote-bt43">
+	<div class="promote-home-head">
+		<h6>当前累计佣金(元)</h6>
+		<p><?php echo $info['totalmoney']?$info['totalmoney']:'0.00';?></p>
+		<p>（含待结算<?php echo $totalNotSumMoney?$totalNotSumMoney:'0.00';?>元）</p>
+	</div>
+	<div class="promote-home-btn">
+		<a href="<?php echo U('MallExhibitionPartner/myExhibitionWithDrawCash',array('companyid'=>$companyid))?>" class="btn immediate-withdrawal-btn">立即提现</a>
+		<p>可提现佣金 <?php echo $info['availablemoney']?$info['availablemoney']:'0.00';?>元</p>
+	</div>
+	<ul class="promote-home-achievement">
+		<li>
+			<a href="<?php echo U('MallExhibitionPartner/myExhibitionCustomer',array('companyid'=>$companyid))?>">
+				<h6><?php echo $info['totalcustomer']?$info['totalcustomer']:'0';?></h6>
+				<p>我的客户 <i class="fa fa-angle-right"></i></p>
+			</a>
+		</li>
+		<li>
+			<a href="<?php echo U('MallExhibitionPartner/myExhibitionOrder',array('companyid'=>$companyid))?>">
+				<h6><?php echo $info['totalorder']?$info['totalorder']:'0';?></h6>
+				<p>我的业绩 <i class="fa fa-angle-right"></i></p>
+			</a>
+		</li>
+	</ul>
+	<div class="recent-results">
+		<div class="recent-results-title"><a href="<?php echo U('MallExhibitionPartner/myExhibitionOrder',array('companyid'=>$companyid))?>">查看全部</a><h6>近期业绩</h6></div>
+		<div class="recent-results-list">
+			<ul class="recent-results-ul">
+				<?php if($list){ foreach($list as $key=>$val){?>
+					<?php if($val['billtype'] == 1){?>
+						<li>
+							<p>收入<span>+<?php echo $val['commission'];?>元</span></p>
+							<p><?php echo format_time($val['createtime'],'ymdhi');?><span><?php echo $val['name'];?>消费了<?php echo $val['orderprice'];?>元</span></p>
+						</li>
+					<?php }elseif($val['billtype'] == 2){?>
+						<li>
+							<p>提现<span>提交了<?php echo $val['withdrawcash'];?>元提现申请</span></p>
+							<p><?php echo format_time($val['createtime'],'ymdhi');?><span>相应金额临时冻结</span></p>
+						</li>
+					<?php }elseif($val['billtype'] == 3){?>
+						<li>
+							<p>提现<span>-<?php echo $val['withdrawcash'];?>元</span></p>
+							<p><?php echo format_time($val['createtime'],'ymdhi');?><span><?php echo $val['withdrawcash'];?>元提现成功</span></p>
+						</li>
+					<?php }elseif($val['billtype'] == 4){?>
+						<li>
+							<p>提现<span>+<?php echo $val['withdrawcash'];?>元</span></p>
+							<p><?php echo format_time($val['createtime'],'ymdhi');?><span><?php echo $val['withdrawcash'];?>元提现失败</span></p>
+						</li>
+					<?php }elseif($val['billtype'] == 5){?>
+						<li>
+							<p>收入<span>+<?php echo $val['wages'];?>元</span></p>
+							<p><?php echo format_time($val['createtime'],'ymdhi');?><span>奖金收入</span></p>
+						</li>
+					<?php }?>
+				<?php }}?>
+			</ul>
+		</div>
+	</div>
+	<div style="height: 43px;"></div>
+	<div class="promote-home-bt">
+		<a href="<?php echo U('MallExhibitionPartner/invitationPoster',array('companyid'=>$companyid))?>" class="invitation-poster-link"><span>邀请海报</span></a>
+	</div>
+	<div class="eshopv_fotter_logo">
+		<include file="Public:navFooter" />
+	</div>
+</div>
+<?php }else{?>
+	<!--展业伙伴申请-->
+	<div class="promote-ctt ifoot_padding Scrm_index_content promote-bt43 promote-bc-fff">
+		<div class="FuWenBen apply-box">
+		<?php echo htmlspecialchars_decode($baseInfo['recruitplan']);?>
+		</div>
+		<div style="height: 43px;"></div>
+		<div class="promote-home-bt">
+			<a href="javascript:void(0);" class="invitation-poster-link add-poster js-apply-partner"><span>申请成为展业伙伴</span></a>
+		</div>
+		<div class="eshopv_fotter_logo">
+			<include file="Public:navFooter" />
+		</div>
+	</div>
+	<!--成功弹窗-->
+	<div class="success-Pop js-need-checked">
+		<div class="success-Pop-ctt">
+			<img class="success-icon" src="{lanrain::RES}/zhanye/img/zhanye-iconcg.png" alt="">
+			<h6 class="success-h6">您的申请已经提交成功</h6>
+			<p class="success-p">我们将尽快进行审核，请耐心等待</p>
+			<div class="success-btn-box"><button class="success-Got-it btn js-success-Got-it">知道啦</button></div>
+		</div>
+	</div>
+	<!--需首单弹窗-->
+	<div class="success-Pop js-need-an-order">
+		<div class="success-Pop-ctt">
+			<img class="success-icon" src="{lanrain::RES}/zhanye/img/zhanye-iconsb.png" alt="">
+			<h6 class="success-h6">需完成首单<br/>才能申请成为展业伙伴</h6>
+			<div class="success-btn-box"><button class="success-Got-it btn js-success-Got-it">知道啦</button></div>
+		</div>
+	</div>
+	<script>
+		$(function(){
+			// 申请成为展业伙伴
+			$('.js-apply-partner').click(function(){
+				var recruitisopen = "<?php echo $baseInfo['recruitisopen'];?>";
+				var applycondition = "<?php echo $baseInfo['applycondition'];?>";
+				var isexamine = "<?php echo $baseInfo['isexamine'];?>";
+				var orderCount = "<?php echo $orderCount;?>";
+				if(recruitisopen == 1){
+					if(applycondition == 1){
+						if(orderCount > 0){
+							$('.loading').show();
+							$.post("<?php echo U('MallExhibitionPartner/ajaxApply',array('companyid'=>$companyid)).'&time='?>"+Math.random(),{},function(data){
+								$('.loading').hide();
+								if(data.code == 200){
+									if(data.status == 1){
+										$('.js-need-checked').show();
+										return false;
+									}else{
+										alert(data.tips);
+										window.location.href=location.href;
+									}
+								}else{
+									alert(data.tips);
+								}
+							},'json');
+						}else{
+							$('.js-need-an-order').show();
+						}
+					}else{
+						$('.loading').show();
+						$.post("<?php echo U('MallExhibitionPartner/ajaxApply',array('companyid'=>$companyid)).'&time='?>"+Math.random(),{},function(data){
+							$('.loading').hide();
+							if(data.code == 200){
+								if(data.status == 1){
+									$('.js-need-checked').show();
+									return false;
+								}else{
+									alert(data.tips);
+									window.location.href=location.href;
+								}
+							}else{
+								alert(data.tips);
+							}
+						},'json');
+					}
+				}else if(recruitisopen == 2){
+					alert('招募活动未开启');
+					return false;
+				}
+			});
+			// 关闭弹窗
+			$(".js-success-Got-it").click(function(){
+				$(this).parents(".success-Pop").hide();
+			});
+		});
+	</script>
+<?php }?>
+<include file="Public:weiXinNotShareSet"/>
+<include file="Public:footer"/>
+<include file="Public:loginBoxNoSession" />

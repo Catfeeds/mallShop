@@ -1,0 +1,141 @@
+<include file="Public:head"/>
+<?php echo $makeTopUrl;?>
+<!--<div class="group clearfix pb-10">
+    <a class="excel-import-out-button btn-small btn-purple">导出CSV</a>
+</div>-->
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>筛选条件</h4></div>
+    <div class="mod-body ticket-destroy">
+         <form action="<?php echo U('UseVouchers/index');?>" method="post">
+             <div class="content pb-10 clearfix">
+                 <div class="child-sum-3 fl">
+                     <div class="group pb-10">
+                         <h6 class="inline w100 text-right">卡券号：</h6>
+                         <input name="vouchernumber" class="inline w150" type="text" value="<?php echo $vouchernumber;?>">
+                     </div>
+                     <div class="group pb-10">
+                         <h6 class="inline w100 text-right">会员手机号：</h6>
+                         <input name="mobile" class="inline w150" type="text" value="<?php echo $mobile;?>">
+                     </div>
+                 </div>
+                 <div class="child-sum-3 fl">
+                     <div class="group pb-10">
+                         <h6 class="inline w100 text-right">卡券类型：</h6>
+                         <select name="vouchertype" class="inline w150">
+                             <option value="0">全部</option>
+                             <option value="2" <?php if($vouchertype == '2'){ echo 'selected="true"';}?>>门店使用优惠券</option>
+                             <option value="3" <?php if($vouchertype == '3'){ echo 'selected="true"';}?>>计次卡券</option>
+                             <option value="4" <?php if($vouchertype == '4'){ echo 'selected="true"';}?>>团购券</option>
+                             <option value="5" <?php if($vouchertype == '5'){ echo 'selected="true"';}?>>门票</option>
+                             <option value="6" <?php if($vouchertype == '6'){ echo 'selected="true"';}?>>权益卡</option>
+                             <option value="7" <?php if($vouchertype == '7'){ echo 'selected="true"';}?>>eshop优惠券</option>
+                             <option value="8" <?php if($vouchertype == '8'){ echo 'selected="true"';}?>>门店使用优惠券</option>
+                             <option value="9" <?php if($vouchertype == '9'){ echo 'selected="true"';}?>>兑换券</option>
+                             <option value="10" <?php if($vouchertype == '10'){ echo 'selected="true"';}?>>红包</option>
+                             <option value="40" <?php if($vouchertype == '40'){ echo 'selected="true"';}?>>通用券</option>
+                         </select>
+                     </div>
+                     <div class="group pb-10">
+                         <h6 class="inline w100 text-right">处理人：</h6>
+                         <select name="staffname" class="inline w150">
+                             <option value="0">全部</option>
+                             <?php foreach($nameList as $nameKey=>$nameVal){?>
+                             	<option value="<?php echo $nameVal['staffname'];?>" <?php if($nameVal['staffname'] == $staffname){ echo 'selected="true"';}?>><?php echo $nameVal['staffname'];?></option>
+                             <?php }?>
+                         </select>
+                     </div>
+                 </div>
+                 <div class="child-sum-3 fl">
+                     <div class="group pb-10">
+                         <h6 class="inline w100 text-right">卡券名称：</h6>
+                         <input name="vouchername" class="inline w150" type="text" value="<?php echo $vouchername;?>">
+                     </div>
+                     <div class="group pb-10">
+                         <h6 class="inline w100 text-right">处理人所属门店：</h6>
+                         <select name="shopid" class="inline w150">
+                             <option value="0">全部</option>
+                             <?php foreach($shopList as $shopKey=>$shopVal){?>
+                             	<option value="<?php echo $shopVal['shopid'];?>" <?php if($shopVal['shopid'] == $shopid){ echo 'selected="true"';}?>><?php echo $shopVal['shopname'];?></option>
+                             <?php }?>
+                         </select>
+                     </div>
+                 </div>
+                 <div class="group mb-15 laydate-box">
+                     <h6 class="inline w100 text-right">核销时间：</h6>
+                     <input name="usetime1" class="laydate-input" id="laydate-demo-1" value="<?php echo $usetime1;?>" onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" placeholder="请选择核销时间">
+                     <i class="icon-laydate" onclick="laydate({elem:'#laydate-demo-1'});"></i>
+                     <span> - </span>
+                     <input name="usetime2" class="laydate-input" id="laydate-demo-2" value="<?php echo $usetime2;?>" onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" placeholder="请选择核销时间">
+                     <i class="icon-laydate" onclick="laydate({elem:'#laydate-demo-2'});"></i>
+                 </div>
+             </div>
+             <div class="group form-footer text-center">
+                 <input class="btn-middle btn-purple" type="submit" value="筛选">
+                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 <input class="btn-middle btn-white" type="reset" value="重置">
+             </div>
+         </form>
+    </div>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>核销历史</h4><div class="fr"><a class="excel-import-out-button fl ml-10">下载表格</a></div></div>
+    <div class="mod-body ticket-destroy-table">
+        <table class="table type-1 w-auto">
+            <thead>
+            <tr>
+                <th>卡券号</th>
+                <th>卡券类型</th>
+                <th>卡券名称</th>
+                <th>单次价格</th>
+               <!--  <th>效用</th> -->
+                <th>会员手机号</th>
+                <th>核销时间</th>
+                <th>处理人</th>
+                <th>核销渠道</th>
+                <th>处理人所属门店</th>
+            </tr>
+            </thead>
+            <?php if($list){?>
+                <tbody>
+                    <?php foreach($list as $key=>$val){?>
+                        <tr>
+                            <td><?php echo $val['vouchernumber']?$val['vouchernumber']:'-';?></td>
+                            <td><?php if($val['vouchertype'] == '2'){ echo '门店使用优惠券';}elseif($val['vouchertype'] == '3'){ echo '计次卡券';}elseif($val['vouchertype'] == '4'){ echo '团购券';}elseif($val['vouchertype'] == '5'){ echo '门票';}elseif($val['vouchertype'] == '6'){ echo '权益卡';}elseif($val['vouchertype'] == '7'){ echo 'eshop优惠券';}elseif($val['vouchertype'] == '8'){ echo '门店使用优惠券';}elseif($val['vouchertype'] == '9'){ echo '兑换券';}elseif($val['vouchertype'] == '10'){ echo '红包';}elseif($val['vouchertype'] == '40'){ echo '通用券';}?></td>
+                            <td><?php echo $val['vouchername']?$val['vouchername']:'-';?></td>
+                            <td><?php if($val['singleprice'] != '0.00'){echo $val['singleprice'];}else{echo '/';}?></td>
+                           <!--  <td><?php echo $val['utility'];?></td> -->
+                            <td><a class="tips js-vip-details" href="<?php echo U('Member/memberInfo',array('id'=>$val['mid']));?>"><?php echo $val['mobile'];?></a></td>
+                            <td><?php echo $val['usetime']?format_time($val['usetime'],'ymdhi'):'-';?></td>
+                            <td><?php echo $val['staffname']?$val['staffname']:'-';?></td>
+                            <td><?php if($val['type'] == '1'){ echo '风助手微信版';}elseif($val['type'] == '2'){ echo '风助手POS+';}elseif($val['type'] == '3'){ echo 'PC后台';}elseif($val['type'] == '4'){ echo 'eshop商城';}else{ echo '-';}?></td>
+                            <td><?php echo $val['shopname']?$val['shopname']:'-';?></td>
+                        </tr>
+                    <?php }?>
+                </tbody>
+            <?php }else{?>
+                <tbody><tr><td class="content text-center" colspan="9">暂无</td></tr></tbody>
+            <?php }?>
+        </table>
+        <?php if($page){ ?>
+            <div class="group form-footer clearfix">
+                <?php echo $page;?>
+            </div>
+        <?php } ?>
+    </div>
+</div>
+<script type="text/javascript">
+$('.excel-import-out-button').click(function(){
+	window.location.href="<?php echo U('UseVouchers/exportExcel',array('vouchernumber'=>$vouchernumber,'mobile'=>$mobile,'vouchertype'=>$vouchertype,'staffname'=>$staffname,'vouchername'=>$vouchername,'usetime1'=>$usetime1,'usetime2'=>$usetime2,'shopid'=>$shopid));?>";
+	/*$.post("<?php echo U('AjaxExport/ajaxCvocherslog',array('vouchernumber'=>$vouchernumber,'mobile'=>$mobile,'vouchertype'=>$vouchertype,'staffname'=>$staffname,'vouchername'=>$vouchername,'usetime1'=>$usetime1,'usetime2'=>$usetime2,'shopid'=>$shopid));?>",
+		{},
+		function(data){
+   			if(data.code == '200'){
+	            $(".js-export-popup").fadeIn(120);
+   			}else{
+   				alertTan(data.msg,'error');
+   			}
+		},"json"
+	);*/
+});
+</script>
+<include file="Public:footer"/>

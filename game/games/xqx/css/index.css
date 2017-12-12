@@ -1,0 +1,87 @@
+html, body, div, p, h1, h2, a, span, img{border:0;margin:0;}
+html, body{-webkit-tap-highlight-color: transparent;background:#fff;}
+
+a,a:hover{text-decoration:none;}
+.animate{
+	-webkit-transition:all 200ms;
+	-moz-transition:all 200ms;
+	-ms-transition:all 200ms;
+	-o-transition:all 200ms;
+	transition:all 200ms;
+}
+.btnTouched{
+	-webkit-transform:scale(0.9);
+	-moz-transform:scale(0.9);
+	-o-transform:scale(0.9);
+	transform:scale(0.9);
+}
+
+#main{position:relative;width:480px;height:760px;margin:0 auto;overflow:hidden;}
+
+#main .page{position:absolute;width:100%;height:100%;}
+#main .hide{top:0;left:100%;}
+
+/*** 游戏开始 ***/
+#start{background:url(../images/start.png) no-repeat 0 0;text-indent:-9999px;}
+#start .title{height:300px;}
+#start .desc{height:132px;}
+#start .logo{margin-top:230px;font-size:26px;text-align:center;color:#fff;text-indent:0;}
+#start .btn{position:absolute;top:434px;width:209px;height:88px;background:url(../images/btn.png) no-repeat;}
+#start .boy{left:15px;background-position:0 0;}
+#start .girl{right:15px;background-position:-230px 0;}
+
+
+/** 玩游戏 **/
+.playBoy{background:#01b6dd;}
+.playGirl{background:#ff7aac;}
+#play{font-size:24px;color:#fff;}
+#play .question{overflow:hidden;position:relative;padding:40px 20px;}
+
+/*进度条*/
+#progress{color:#fff;font-size:20px;}
+#progress a{color:#fff;}
+#progress .wraper{position:relative;height:40px;line-height:40px;}
+#progress .again{position:absolute;right:0px;height:100%;padding-left:24px;background:url(../images/btn.png) no-repeat -490px 7px;}
+#progress .bar{height:28px;border:2px solid #eee;border-color:rgba(0, 0, 0, 0.1);background-color:#f1f1f1;background-color:rgba(255, 255, 255, 0.5);}
+#progress .in{height:100%;background:#fcff00;}
+
+/*问题*/
+#container{position:relative;}
+#container .title{padding:20px 10px;line-height:32px;}
+#container .yel{display:block;padding-left:2px;font-size:30px;color:#fffe8d;}
+#container .answer{display:block;height:30px;line-height:30px;padding:15px;margin-bottom:20px;}
+.containerHide{
+	-webkit-transform:scale(0.5);
+	-moz-transform:scale(0.5);
+	-o-transform:scale(0.5);
+	transform:scale(0.5);
+}
+
+.playGirl .answer{background:#f65f97;}
+.playGirl .selected{background:#ffc4da;}
+.playBoy .answer{background:#11d0fa;}
+.playBoy .selected{background:#a7efff;}
+#play.playGirl .bar{border-color:#ea709e;}
+#play.playBoy .bar{border-color:#01a7cb;}
+
+/*** 测试结果 ***/
+#end{font-size:24px;line-height:30px;color:#fff;}
+#end .wraper{padding:40px 20px;}
+#end .tip{padding-left:10px;}
+#end .result{padding:20px;margin-top:20px;}
+.playBoy .result{background:#01a7cb;}
+.playGirl .result{background:#ea709e;}
+#end .title{padding-bottom:18px;font-size:30px;line-height:32px;color:#fffe8d;}
+#end .desc{}
+#end .btn{display:block;margin:20px auto 0;width:280px;height:60px;line-height:60px;border:4px solid #fff;text-align:center;background:#fff;}
+
+#end.playBoy .btn{color:#01b6dd;border-color:#4ecce7;}
+#end.playGirl .btn{color:#ea709e;border-color:#ffa2c5;}
+#end.playBoy .btnSelected{color:#fff;background:#00a3df;border-color:#a7e6f3;}
+#end.playGirl .btnSelected{color:#fff;background:#f7498a;border-color:#ffd1e2;}
+
+/**  游戏LOGO **/
+#play .logo, #end .logo{position:absolute;bottom:30px;width:100%;text-align:center;font-size:20px;color:#fff;}
+
+
+

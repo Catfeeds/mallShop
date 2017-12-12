@@ -1,0 +1,58 @@
+<include file="Public:head"/>
+<?php echo $makeTopUrl;?>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4><?php if($type == 1){ echo '风外卖订单提醒';}elseif($type == 2){ echo 'Eshop新订单提醒';}elseif($type == 3){ echo '预订新订单提醒';}elseif($type == 4){ echo '闪惠新订单提醒';}elseif($type == 5){ echo '门店收银新订单提醒';}elseif($type == 6){ echo '储值充值新订单提醒';}?></h4></div>
+    <div class="mod-body">
+        <ul class="content">
+            <li class="group pb-15">
+                <h6 class="inline w80">是否启用：</h6>
+            	<input class="ios-btn" type="checkbox" <?php if( ($type==1&&$info['takeoutorderisopen']==1) || ($type==2&&$info['eshoporderisopen']==1) || ($type==3&&$info['commonbookorderisopen']==1) || ($type==4 && $info['shanhuiorderisopen']==1) || ($type==5 && $info['shopcashierorderisopen']==1) || ($type==6&&$info['storedvalueorderisopen']==1) ){ echo ' checked="checked"';}?> />
+            </li>
+            <li class="group pb-15">
+                <h6 class="inline w80">触发说明：</h6>
+                <h6 class="inline">
+                <?php if($type == 1){ echo '当风外卖有新订单时发送，仅发送给拥有风助手权限-外卖管理权限的子账号，请确保该子账号的手机号填写正确。';}elseif($type == 2){ echo '当Eshop微商城有新订单时发送，仅发送给拥有风助手权限-管理Eshop订单权限的子账号，请确保该子账号的手机号填写正确。';}elseif($type == 3){ echo '当预订有新订单时发送，仅发送给拥有风助手权限-预订管理权限的子账号，请确保该子账号的手机号填写正确。';}elseif($type == 4){ echo '当闪惠有新订单时发送，仅发送给拥有风助手权限-闪惠管理权限的子账号，请确保该子账号的手机号填写正确。';}elseif($type == 5){ echo '当门店收银有新订单时发送，仅发送给拥有风助手权限-门店收银权限的子账号，请确保该子账号的手机号填写正确。';}elseif($type == 6){ echo '当储值充值有新订单时发送，仅发送给拥有风助手权限-储值充值权限的子账号，请确保该子账号的手机号填写正确。';}?>
+                子账号权限设置请前往 <a href="<?php echo U('UserDeployment/enterTwo');?>" target="_blank" style="text-decoration:underline; color:#2A77C8">账号部署</a>
+                </h6>
+            </li>
+            <li class="group">
+                <h6 class="inline w80 text-top">短信内容：</h6>
+                <textarea style="padding: 10px;font-size: 12px;" class="inline w250 no-resize" cols="60" rows="4" readonly="readonly"><?php if($type == 1){ echo '您好，您有新的外卖订单。订单号：<订单号>，下单会员：<会员姓名><会员手机号>，下单时间：<下单时间>，订单金额：<订单金额>，请您尽快处理。';}elseif($type == 2){ echo '您好，您有新的Eshop微商城订单。订单号：<订单号>，下单会员：<会员姓名><会员手机号>，下单时间：<下单时间>，订单金额：<订单金额>，请您尽快处理。';}elseif($type == 3){ echo '您好，您有新的预订订单。订单号：<订单号>，下单会员：<会员姓名><会员手机号>，下单时间：<下单时间>，订单金额：<订单金额>，请您尽快处理。';}elseif($type == 4){ echo '您好，您有新的闪惠订单。订单号：<订单号>，下单会员：<会员姓名><会员手机号>，下单时间：<下单时间>，付款金额：<订单金额>。';}elseif($type == 5){ echo '您好，您有新的门店收银订单。订单号：<订单号>，下单会员：<会员姓名><会员手机号>，下单时间：<下单时间>，付款金额：<订单金额>。';}elseif($type == 6){ echo '您好，您有新的储值充值订单。交易号：<交易号>，下单会员：<会员姓名><会员手机号>，下单时间：<下单时间>，付款金额：<订单金额>。';}?></textarea>
+            </li>
+        </ul>
+        <div class="group form-footer text-center">
+            <input class="order_remind_submit btn-small btn-purple w100" type="button" value="保存">
+        </div>
+    </div>
+</div>
+<script>
+$(function(){
+	$(".order_remind_submit").click(function(){
+		var type = "<?php echo $type;?>";
+		if(type.length > 0){
+			if($('.lcs_switch').is('.lcs_on')){
+				var isopen = '1';	
+			}else{
+				var isopen = '2';
+			}
+			$(".loading").show();
+			$.post("<?php echo U('SmsSend/orderRemind'); ?>",{'type':type, 'isopen':isopen},function(data){
+				$(".loading").hide();
+				if(data.code == 200){
+					alertTan(data.tips, 5000);
+					setTimeout(function(){
+					    window.location.href="<?php echo U('SmsSend/index');?>";
+					},1500);
+				}else{
+					alertTan(data.tips, "warn", 1500);
+					setTimeout("window.location.href=location.href;",1500);
+				}
+	  	    },"json");
+		}else{
+			alertTan('抱歉，服务器繁忙，请稍后重试', "warn");
+		}
+	});
+});
+</script>
+
+<include file="Public:footer"/>

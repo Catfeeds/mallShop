@@ -1,0 +1,85 @@
+<include file="Public:memberCenterHeader"/>
+<!--收款金额-->
+<div class="experience-02" >
+    <div class="exp-shu">
+          <p>收款金额：</p>
+          <input type="tel"   placeholder="0.00" id="textfiled"  disabled="disabled" >
+           <span class="exp-shu2">￥</span>
+    </div>
+    <div class="exp-heng"></div>
+    <img src="{lanrain::RES}/profile/tiyan/demo.png" class="ti-demo">
+    <div class="exp-xia"><a href="javascript:void(0);">下一步</a></div>
+    <div class="exp-xia2" style="display: none"><a href="<?php echo U('Experience/voucher',array('companyid'=>$companyid));?>">下一步</a></div>
+    <div class="exp-jian exp-jian1"><img src="{lanrain::RES}/profile/tiyan/shuzijianpan.jpg"></div>
+    <div class="exp-jian exp-jian2"><img src="{lanrain::RES}/profile/tiyan/1.jpg"></div>
+    <div class="exp-jian exp-jian3"><img src="{lanrain::RES}/profile/tiyan/0.jpg"></div>
+</div>
+
+<div class="sign-out"><a href="<?php echo U('Experience/h5',array('companyid'=>$companyid));?>">退出演示</a></div>
+<script>
+	document.addEventListener('touchmove', function (event) {
+        event.preventDefault();
+    });
+	
+       var aa  =  $("#textfiled").val(); //获取input 的值
+
+       setTimeout(function(){
+          $(".exp-jian1").show();
+           $(".exp-xia").hide();
+
+       },1000);
+       setTimeout(function(){
+    // $(".experience").hide();
+           $("#textfiled").val(" ");
+           $(".exp-jian1").hide();
+           $(".exp-jian2").show();
+           $("#textfiled").val("1");  //给input重新赋值
+
+
+           document.getElementById('textfiled').style.color = "#000000";
+    },2000);
+    setTimeout(function(){
+
+        $(".exp-jian2").hide();
+        $(".exp-jian1").show();
+
+
+
+    },2500);
+       setTimeout(function(){
+
+           $("#textfiled").val(" ");    //将input值清空
+           $(".exp-jian2").hide();
+           $(".exp-jian3").show();
+           $("#textfiled").val("10");  //给input重新赋值
+       },3000);
+    setTimeout(function(){
+
+        $(".exp-jian3").hide();
+        $(".exp-jian1").show();
+
+
+
+    },3500);
+       setTimeout(function(){
+           $(".exp-jian1").hide();
+           $(".exp-jian3").show();
+           $("#textfiled").val(" ");    //将input值清
+           $("#textfiled").val("100");  //给input重新赋值
+       },4000);
+    setTimeout(function(){
+
+        $(".exp-jian3").hide();
+        $(".exp-jian1").show();
+
+
+
+    },4500);
+       setTimeout(function(){
+           $(".exp-jian").hide();
+           $(".exp-xia2").show();
+       },5000);
+       
+</script>
+<include file="Public:weiXinShareSet" />
+<include file="Public:footer2" />

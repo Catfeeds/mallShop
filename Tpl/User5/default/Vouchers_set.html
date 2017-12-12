@@ -1,0 +1,120 @@
+<include file="Public:head" /> 
+<include file="Public:smallmaterial" />
+<include file="Public:UEditorJS" />
+<include file="Public:UEditorBig" />
+<?php echo $makeTopUrl;?>
+<!-- 创建商品 -->
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4><?php if($info['id']){echo '编辑优惠券';}else{ echo '优惠券';}?></h4></div>
+    <div class="mod-body">
+		<div class="inner-header"><h5>优惠券信息设置</h5></div>
+        <div class="content">
+            <div class="group pb-20">
+                <h6 class="inline w150 text-left">*优惠券名称：</h6>
+                <input class="group inline w350" type="text" name="title" value="<?php echo $info['title'];?>">
+            </div>
+
+            <div class="group pb-20">
+                <h6 class="inline w150 text-left">优惠券编码：</h6>
+                <input class="group inline w350" type="text" name="sn" value="<?php echo $info['sn'];?>">
+                <h6 class="ml-150 pt-5">*若未填写，系统将默认赋值</h6>
+            </div>
+            <div class="group pb-20">
+                <h6 class="inline w150">券颜色：</h6>
+                <label class="radio inline mr-6"><input type="radio" name="color" value="1" checked="checked">金色</label>
+            </div>
+            <div class="group pb-20 clearfix">
+                <h5 class="fl">卡券效用：</h5>
+                <ul class="ml-150 sale-token js-sale-toggle">
+                    <li>
+                        <label class="radio w100 pb-10 js-lijian"><input type="radio" name="type" value="1" <?php if($info['type']==1){echo 'checked="checked"';} ?>>立减</label>
+                        <div class="group pb-10" style="<?php if($info['type']==1){echo 'display:block';} ?>">
+                            <h6 class="inline w80 text-right">立减：</h6><input class="inline w50" type="text" name="reduce1" value="<?php echo $info['reduce']; ?>"> 元
+                        </div>
+                    </li>
+                    <li>
+                        <label class="radio w100 pb-10 js-manjian"><input type="radio" name="type" value="2" <?php if($info['type']==2){echo 'checked="checked"';} ?>>满减</label>
+                        <div class="group pb-10" style="<?php if($info['type']==2){echo 'display:block';} ?>">
+                            <h6 class="inline w80 text-right">满：</h6>
+                            <input class="inline w50" type="text" name="full" value="<?php echo $info['full']; ?>"> 元，减 <input class="inline w50" type="text" name="reduce2" value="<?php echo $info['reduce']; ?>"> 元
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="group pb-20 clearfix">
+                <h5 class="fl">使用期限：</h5>
+                <ul class="ml-150 sale-token">
+                    <!--<li><label class="radio pb-10"><input type="radio" name="usetimelimittype" value="1" checked="checked">获得后
+                        <input class="inline w50 js-currdate-after" type="text" name="usedays" value=""> 日内有效</label></li>-->
+                    <li><label class="radio pb-10">
+                        <input class="laydate-input w100 js-someday" id="Card-type-03" name="end_time" value="<?php echo $info['end_time'];?>" onclick="laydate({format: 'YYYY-MM-DD'})" placeholder="YYYY-MM-DD"><i class="icon-laydate" onclick="laydate({format: 'YYYY-MM-DD',elem:'#Card-type-03'});"></i></label>
+                    *之前使用
+                    </li>
+                    <!--<li><label class="radio pb-10"><input type="radio" name="usetimelimittype" value="2">-->
+                        <!--<input class="laydate-input w100 js-anyday-1" id="Card-type-01" name="usebegintime" value="" onclick="laydate({format: 'YYYY-MM-DD'})" placeholder="YYYY-MM-DD"><i class="icon-laydate" onclick="laydate({format: 'YYYY-MM-DD',elem:'#Card-type-01'});"></i> - <input class="laydate-input w100 js-anyday-2" id="Card-type-02" name="useendtime" value="" onclick="laydate({format: 'YYYY-MM-DD'})" placeholder="YYYY-MM-DD"><i class="icon-laydate" onclick="laydate({format: 'YYYY-MM-DD',elem:'#Card-type-02'});"></i></label></li>-->
+                </ul>
+            </div>
+            <div class="group pb-20">
+                <h6 class="inline w150 text-left text-top">券使用规则：</h6>
+                <textarea class="inline w300" cols="30" rows="5" name="info" data-rule-maxlength="130"></textarea>
+
+            </div>
+        </div>
+        <div class="Wechat-msg-bottom text-center">
+            <button type="submit" class="btn-middle btn-purple w100 pointer js-keepButton">保 存</button>
+        </div>
+    </div>
+</div>
+
+
+</div>
+
+<script type="text/javascript">
+// 创建、编辑商品
+$(document).on( "click",".js-keepButton", function(){
+    var id = "<?php echo $info['id'];?>";
+    var sn = $("input[name='sn']").val();
+    var type = $("input[name='type']:checked").val();
+    var full = $("input[name='full']").val();
+    var info = $("textarea[name='info']").val();
+    var reduce = $("input[name='reduce"+type+"']").val();
+    var title = jQuery.trim($('input[name=title]').val());
+    var end_time = $("input[name='end_time']").val();
+	if(!title){
+		alertTan('请填写券名称','warn');
+		return false;
+	}
+	if(!type){
+        alertTan('请选择券效用','warn');
+        return false;
+    }
+    if(!end_time){
+        alertTan('请填写券到期时间','warn');
+        return false;
+    }
+
+	$(".loading").show();
+	$.post("<?php echo U('Vouchers/set').'&time=';?>"+Math.random(),{
+        id: id,
+        sn: sn,
+        type: type,
+        full: full,
+        reduce: reduce,
+        title: title,
+        info: info,
+        end_time: end_time
+
+	}, function(data){
+		$(".loading").hide();
+		if(data.code == '200'){
+			alertTan(data.tips,data.code);
+			setTimeout(function(){
+				window.location.href='<?php echo U("Vouchers/lists"); ?>';
+			},2000);
+		}else{
+			alertTan(data.tips,'error');
+		}
+	}, "json");
+});
+</script>
+<include file="Public:footer" />

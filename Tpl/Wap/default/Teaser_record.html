@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="common/public_separate/css/base.css">
+    <link rel="stylesheet" type="text/css" href="common/Teaser/css/Teaser_record.css">
+    <link rel="stylesheet" type="text/css" href="common/public_separate/fonts/css/font-awesome.min.css">
+    <script src="common/public_separate/js/zepto.min.js"></script>
+    <script src="common/public_separate/js/vue.min.js"></script>
+</head>
+<body>
+<!-- 头部产品展示 -->
+<header>
+    <div>
+        <h3>下午茶套餐（A套餐）</h3>
+        <img class="bg_Card" src="common/Teaser/img/1.png" alt=""/>
+    </div>
+</header>
+<!-- 录音板块 -->
+<div class="record">
+    <div class="record_call"  >
+        <i class="fa fa-user-circle-o"></i>
+        <input type="text" placeholder="输入赠送对象昵称"/>
+    </div>
+    <p class="Prompt font_color">按住送上想说的话</p>
+    <!-- 录制前 -->
+    <div class="record_start" style="display: none">
+        <img src="common/Teaser/img/Microphone.png" alt=""/>
+    </div>
+    <!-- 录制中 -->
+   <!-- <div class="record_start_an" >
+        <img src="common/Teaser/img/Microphone_select.png" alt=""/>
+    </div>-->
+    <div class="record_in">
+        <div class="record_Great_circle">
+            <canvas id="myCanvas" class="Sector_canvas" width="280" height="280"></canvas>
+            <img class="Recording_audio_btn canvas_box" src="common/Teaser/img/Microphone_select.jpg" alt="">
+        </div>
+    </div>
+    <!-- 录制成功 -->
+    <div class="record_success" style="display: none">
+        <div class="record_success_voice">
+            <img src="" alt="" class="user"/>
+            <span>Vincnet </span>
+            <img class="call fr" src="common/Teaser/img/shengying.png" alt=""/>
+        </div>
+        <p>
+            <i class="fa fa-rotate-left"></i>
+            重新录制
+        </p>
+    </div>
+</div>
+<!-- 赠送 -->
+<div class="git" style="display: none">
+    <p>伟大的产品经理：</p>
+    <div class="record_success">
+        <div class="record_success_voice">
+            <img src="" alt="" class="user"/>
+            <span>Vincnet </span>
+            <img class="call fr" src="common/Teaser/img/gif.gif" alt=""/>
+        </div>
+        <p>
+            *购买后三天内未被领取<br/>
+            卡券将自动进入您的卡券包
+        </p>
+    </div>
+</div>
+<!--确定并购买 -->
+<div class="make" style="display: none">
+    <button>确定并购买</button>
+</div>
+<!-- 赠送按钮  -->
+<div class="make make_git">
+    <button>赠&nbsp;送</button>
+</div>
+<!-- 赠送弹框  -->
+<div class="bomb"style="display: none">
+    <img src="common/Teaser/img/bomb.png" alt=""/>
+</div>
+<script>
+    $(function(){
+        CanvasRenderingContext2D.prototype.sector = function (x, y, radius, sDeg, eDeg) {
+            // 初始保存
+            this.save();
+            // 位移到目标点
+            this.translate(x, y);
+            this.beginPath();
+            // 画出圆弧
+            this.arc(0,0,radius,sDeg, eDeg);
+            // 再次保存以备旋转
+            this.save();
+            // 旋转至起始角度
+            this.rotate(eDeg);
+            // 移动到终点，准备连接终点与圆心
+            this.moveTo(radius,0);
+            // 连接到圆心
+            this.lineTo(0,0);
+            // 还原
+            this.restore();
+            // 旋转至起点角度
+            this.rotate(sDeg);
+            // 从圆心连接到起点
+            this.lineTo(radius,0);
+            this.closePath();
+            // 还原到最初保存的状态
+            this.restore();
+            return this;
+        }
+        var c=document.getElementById("myCanvas");
+        var deg = Math.PI/180;
+        var Percentage=c.getContext("2d");
+        var zd =270;
+        var i = -90;
+        Percentage.fillStyle="#1aad19";
+        /*Percentage.globalAlpha=.15;*/
+        var timer;
+        $(".canvas_box").on("touchstart", function(e) {
+            timer=setInterval(function(){
+                if(i<zd){
+                    i+=0.6;
+                    Percentage.sector(140,140,140,(i-0.6)*deg,i*deg).fill();
+                }else{
+                    clearInterval(timer);
+                }
+            },100)
+        })
+        $(".canvas_box").on("touchend", function(e) {
+            clearInterval(timer);
+        })
+    })
+</script>
+</body>
+
+</html>

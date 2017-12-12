@@ -1,0 +1,615 @@
+<?php
+class IndexAction extends HomeBaseAction{
+	
+	private $usersModel;
+	
+	private $companyModel;
+	
+	private $companyGroupModel;
+	
+	public function __construct(){
+		parent::__construct();
+		$this->usersModel = M('users');
+		$this->companyModel = M('company');
+		$this->companyGroupModel = M('company_group');
+	}
+	//首页
+	public function index(){
+		$this->diningCount();
+		$this->commonCount();
+		$this->wechatMessageCount();
+		$this->liuyanCount();
+		//人来风 - MobiWind
+		$this->setPageSeo(array('title'=>'人来风-MobiWind，帮助企业玩转会员制移动营销。','keywords'=>'人来风，MobiWind，人来风-MobiWind，会员制移动营销，移动O2O','description'=>'目前，人来风正低调的帮助着超过500家企业和近20万的消费者通过微信进行着沟通。在人来风的管理下，企业每天和消费者在微信上会发生超过1.2万次的互动。'));
+		$articleList = M('article')->field('fArticleId,fArticleTitle,fArticleCreateDate,fArticleIntrod')->where(array('fArticleCategoryId'=>1,'fArticleIsShow'=>1))->order('fArticleSort ASC,fArticleCreateDate DESC')->limit('2')->select();
+		//O2O最新推荐
+		$articleList['new'] = M()->table('tp_home_list_link as link')->join(array('LEFT JOIN tp_home_list as list on list.id=link.listid'))->where(array('link.companyid'=>'1','link.listid'=>array('in','223,232')))->field('list.title,link.listid,link.pic,link.url')->order('link.id DESC')->limit('8')->select();
+		if($articleList['new']){
+			foreach($articleList['new'] as $lhKey=>$lhVal){
+				$txt= $lhVal['url'];
+				$re1='.*?';
+				$re2='(\\d+)';
+				if(preg_match_all ("/".$re1.$re2."/is", $txt, $matches)){
+					$nid=$matches[1][0];
+				}
+				$articleList['new'][$lhKey]['info'] = M('home_info')->where(array('companyid'=>'1','id'=>$nid))->field('id,title,praise')->find();
+			}
+		}
+		$this->assign('list',$articleList);
+		$this->display();
+	}
+	//产品介绍
+	public function article(){
+		$this->display();
+	}
+	//O2O风人院
+	public function hearsay(){
+		$nowMonth = strtotime(format_time(time(),'ym'));
+		$nextMonth = strtotime(format_time(strtotime('+1 month'),'ym'));
+		$listLink['id'] = $id = $this->_get('id');
+		//每月新增、总计
+		$listLink['monthlyAddCount'] = M('home_list_link')->where(array('companyid'=>'1','listid'=>$id,'createtime'=>array('between',array($nowMonth,$nextMonth))))->count();
+		$listLink['allCount'] = M('home_list_link')->where(array('companyid'=>'1','listid'=>$id))->count();
+		//热点
+		$listLink['hotSpot'] = M('home_list_link')->where(array('companyid'=>'1','listid'=>$id))->field('listid,title,url,createtime')->select();
+		if($listLink['hotSpot']){
+			foreach($listLink['hotSpot'] as $lhKey=>$lhVal){
+				$listLink['hotSpot'][$lhKey]['readcount'] = M('history_page_browsing')->where(array('companyid'=>'1','pagelink'=>$lhVal['url']))->count();
+				$txt= $lhVal['url'];
+				$re1='.*?';
+				$re2='(\\d+)';
+				if(preg_match_all ("/".$re1.$re2."/is", $txt, $matches)){
+					$listLink['hotSpot'][$lhKey]['id']=$matches[1][0];
+				}
+			}
+		}		
+		if($listLink['hotSpot']){
+			$listLink['topHotSpot'] = arraySort($listLink['hotSpot'],$listLink['hotSpot'][$lhKey]['readcount'],'SORT_ASC');
+		}
+		//热门
+		$listLink['hotDoor'] = M()->table('tp_home_list_link as link')->join(array('LEFT JOIN tp_home_list as list on list.id=link.listid'))->where(array('link.companyid'=>'1','link.listid'=>array('in','223,232')))->field('list.title,link.listid,link.title as lTitle,link.pic,link.url')->select();
+		if($listLink['hotDoor']){
+			foreach($listLink['hotDoor'] as $lhKey=>$lhVal){
+				$listLink['hotDoor'][$lhKey]['readcount'] = M('history_page_browsing')->where(array('companyid'=>'1','pagelink'=>$lhVal['url']))->count();
+				$txt= $lhVal['url'];
+				$re1='.*?';
+				$re2='(\\d+)';
+				if(preg_match_all ("/".$re1.$re2."/is", $txt, $matches)){
+					$listLink['hotDoor'][$lhKey]['id']=$matches[1][0];
+				}
+			}
+		}
+		if($listLink['hotDoor']){
+			$listLink['hotDoor'] = arraySort($listLink['hotDoor'],$listLink['hotDoor'][$lhKey]['readcount'],'SORT_ASC');
+		}
+		//
+		$count = M('home_list_link')->where(array('companyid'=>'1','listid'=>$id))->count();
+		$pages = ceil($count/4);
+		$page = $this->_get('page')>0?$this->_get('page'):'1';
+		$prevpage = $page-1;
+		$nextpage = $page+1;
+		$listLink['title'] = M('home_list')->where(array('companyid'=>'1','id'=>$id))->field('title')->find();
+		$listLink['listLink'] = M('home_list_link')->where(array('companyid'=>'1','listid'=>$id))->field('listid,pic,url')->order('id DESC')->page($page)->limit('4')->select();
+		if($listLink['listLink']){
+			foreach($listLink['listLink'] as $llKey=>$llVal){
+				$txt= $llVal['url'];
+				$re1='.*?';
+				$re2='(\\d+)';
+				if(preg_match_all ("/".$re1.$re2."/is", $txt, $matches)){
+					$infoId=$matches[1][0];
+				}
+				$listLink['listLink'][$llKey]['info'] = M('home_info')->where(array('companyid'=>'1','id'=>$infoId))->field('id,title as infoTitle,author,desc,click,praise,sharenum,updatetime')->find();
+			}
+		}
+		$this->assign('list',$listLink);
+		$this->assign('prevpage',$prevpage);
+		$this->assign('nextpage',$nextpage);
+		$this->assign('pages',$pages);
+		$this->display();
+	}
+	//O2O风人院详情
+	public function hearsayInfo(){
+		if(IS_POST){
+			$listid = $this->_post('listid');
+			$infoid = $this->_post('infoid');
+			$_POST['info'] = $this->_post('info');
+			if(empty($_POST['info'])){
+				$this->redirect(U('Index/hearsayInfo',array('listid'=>$listid,'id'=>$infoid)));
+			}
+			$_POST['createtime'] = $_POST['updatetime'] = time();
+			$comment = M('home_info_comment')->add($_POST);
+			if($comment){
+				$this->redirect(U('Index/hearsayInfo',array('listid'=>$listid,'id'=>$infoid)));
+			}
+		}else{
+			$listid = $this->_get('listid');
+			$id = $this->_get('id');
+			$listLink['link'] = M()->table('tp_home_list_link as link')->join(array('LEFT JOIN tp_home_list as list on list.id=link.listid'))->where(array('link.companyid'=>'1','link.listid'=>$listid))->field('list.title,link.listid,link.pic')->find();
+			$listLink['info'] = M('home_info')->where(array('companyid'=>'1','id'=>$id))->field('id,title,author,info,click,praise,sharenum,updatetime')->find();
+			//热门
+			$listLink['hotDoor'] = M()->table('tp_home_list_link as link')->join(array('LEFT JOIN tp_home_list as list on list.id=link.listid'))->where(array('link.companyid'=>'1','link.listid'=>array('in','223,232')))->field('list.title,link.listid,link.title as lTitle,link.pic,link.url')->select();
+			if($listLink['hotDoor']){
+				foreach($listLink['hotDoor'] as $lhKey=>$lhVal){
+					$listLink['hotDoor'][$lhKey]['readcount'] = M('history_page_browsing')->where(array('companyid'=>'1','pagelink'=>$lhVal['url']))->count();
+					$txt= $lhVal['url'];
+					$re1='.*?';
+					$re2='(\\d+)';
+					if(preg_match_all ("/".$re1.$re2."/is", $txt, $matches)){
+						$listLink['hotDoor'][$lhKey]['id']=$matches[1][0];
+					}
+				}
+			}
+			if($listLink['hotDoor']){
+				$listLink['hotDoor'] = arraySort($listLink['hotDoor'],$listLink['hotDoor'][$lhKey]['readcount'],'SORT_ASC');
+			}
+			//回复内容
+			$listLink['comment'] = M('home_info_comment')->where(array('listid'=>$listid,'infoid'=>$id))->field('name,info')->order('id DESC')->limit('3')->select();
+			$this->assign('list',$listLink);
+			//PV
+			$data['companyid'] = '1';
+			$data['pagelink'] = C('site_url').U('Index/hearsayInfo',array('companyid'=>1,'listid'=>$listid,'id'=>$id));;
+			$data['createtime'] = time();
+			M('history_page_browsing')->where(array('companyid'=>'1'))->add($data);
+			$this->display();
+		}
+	}
+	//案例库
+	public function cases(){
+		$listLink['life'] = M('home_list_link')->where(array('companyid'=>'1','listid'=>'57'))->field('listid,title,pic,url')->order('sort,id DESC')->select();
+		if($listLink['life']){
+			foreach($listLink['life'] as $Key=>$Val){
+				$txt= $Val['url'];
+				$re1='.*?';
+				$re2='(\\d+)';
+				if(preg_match_all ("/".$re1.$re2."/is", $txt, $matches)){
+					$listLink['life'][$Key]['id']=$matches[1][0];
+				}
+			}
+		}
+		$listLink['market'] = M('home_list_link')->where(array('companyid'=>'1','listid'=>'58'))->field('listid,title,pic,url')->order('sort,id DESC')->select();
+		if($listLink['market']){
+			foreach($listLink['market'] as $Key=>$Val){
+				$txt= $Val['url'];
+				$re1='.*?';
+				$re2='(\\d+)';
+				if(preg_match_all ("/".$re1.$re2."/is", $txt, $matches)){
+					$listLink['market'][$Key]['id']=$matches[1][0];
+				}
+			}
+		}
+		$listLink['society'] = M('home_list_link')->where(array('companyid'=>'1','listid'=>'59'))->field('listid,title,pic,url')->order('sort,id DESC')->select();
+		if($listLink['society']){
+			foreach($listLink['society'] as $Key=>$Val){
+				$txt= $Val['url'];
+				$re1='.*?';
+				$re2='(\\d+)';
+				if(preg_match_all ("/".$re1.$re2."/is", $txt, $matches)){
+					$listLink['society'][$Key]['id']=$matches[1][0];
+				}
+			}
+		}
+		$this->assign('list',$listLink);
+		$this->display();
+	}
+	//案例详情
+	public function caseInfo(){
+		$listid = $this->_get('listid');
+		$id = $this->_get('id');
+		$info = M('home_info')->where(array('id'=>$id))->field('title,desc,info,shareimg')->find();
+		if($listid=='57'){
+			$info['listTitle'] = '生活服务业';
+		}elseif($listid=='58'){
+			$info['listTitle'] = '营销活动';
+		}elseif($listid=='59'){
+			$info['listTitle'] = '移动电商';
+		}
+		//O2O最新推荐
+		$info['new'] = M()->table('tp_home_list_link as link')->join(array('LEFT JOIN tp_home_list as list on list.id=link.listid'))->where(array('link.companyid'=>'1','link.listid'=>array('in','223,232')))->field('list.title,link.listid,link.pic,link.url')->order('link.id DESC')->limit('8')->select();
+		if($info['new']){
+			foreach($info['new'] as $lhKey=>$lhVal){
+				$txt= $lhVal['url'];
+				$re1='.*?';
+				$re2='(\\d+)';
+				if(preg_match_all ("/".$re1.$re2."/is", $txt, $matches)){
+					$nid=$matches[1][0];
+				}
+				$info['new'][$lhKey]['info'] = M('home_info')->where(array('companyid'=>'1','id'=>$nid))->field('id,title,praise')->find();
+			}
+		}
+		$this->assign('info',$info);
+		$this->display();
+	}
+	//客服中心
+	public function serviceList(){
+		$id = $this->_get('id');
+		$count = M('home_list_link')->where(array('companyid'=>'1','listid'=>$id))->count();
+		$pages = ceil($count/10);
+		$page = $this->_get('page')>0?$this->_get('page'):'1';
+		$prevpage = $page-1;
+		$nextpage = $page+1;
+		$listLink = M('home_list')->where(array('companyid'=>'1','id'=>$id))->field('id,title')->find();
+		$listLink['listLink'] = M('home_list_link')->where(array('companyid'=>'1','listid'=>$id))->field('url')->page($page)->limit('10')->select();
+		if($listLink['listLink']){
+			foreach($listLink['listLink'] as $llKey=>$llVal){
+				$txt= $llVal['url'];
+				$re1='.*?';
+				$re2='(\\d+)';
+				if(preg_match_all ("/".$re1.$re2."/is", $txt, $matches)){
+					$infoId=$matches[1][0];
+				}
+				$listLink['listLink'][$llKey]['info'] = M('home_info')->where(array('companyid'=>'1','id'=>$infoId))->field('id as infoId,title as infoTitle,author,praise,updatetime,createtime')->find();
+			}
+		}
+		//最多浏览
+		$listLink['more'] = M('home_list_link')->where(array('companyid'=>'1','listid'=>$id))->field('listid,url')->select();
+		if($listLink['more']){
+			foreach($listLink['more'] as $mKey=>$mVal){
+				$listLink['more'][$mKey]['readcount'] = M('history_page_browsing')->where(array('companyid'=>'1','pagelink'=>$mVal['url']))->count();
+				$txt= $mVal['url'];
+				$re1='.*?';
+				$re2='(\\d+)';
+				if(preg_match_all ("/".$re1.$re2."/is", $txt, $matches)){
+					$infoId=$matches[1][0];
+				}
+				$listLink['more'][$mKey]['info'] = M('home_info')->where(array('companyid'=>'1','id'=>$infoId))->field('id,title')->find();
+			}
+		}
+		if($listLink['more']){
+			$listLink['more'] = arraySort($listLink['more'],$listLink['more'][$mKey]['readcount'],'SORT_ASC');
+		}
+		//PV
+		$data['companyid'] = '1';
+		$data['pagelink'] = C('site_url').U('Index/serviceList',array('companyid'=>1,'id'=>$id));
+		$data['createtime'] = time();
+		M('history_page_browsing')->where(array('companyid'=>'1'))->add($data);
+		$this->assign('list',$listLink);
+		$this->assign('prevpage',$prevpage);
+		$this->assign('nextpage',$nextpage);
+		$this->assign('pages',$pages);
+		$this->display();
+	}
+	//客服中心详情
+	public function serviceInfo(){
+		if(IS_POST){
+			$listid = $this->_post('listid');
+			$infoid = $this->_post('infoid');
+			$_POST['info'] = $this->_post('info');
+			if(empty($_POST['info'])){
+				$this->redirect(U('Index/serviceInfo',array('listid'=>$listid,'id'=>$infoid)));
+			}
+			$_POST['createtime'] = $_POST['updatetime'] = time();
+			$comment = M('home_info_comment')->add($_POST);
+			if($comment){
+				$this->redirect(U('Index/serviceInfo',array('listid'=>$listid,'id'=>$infoid)));
+			}
+		}else{
+			$listid = $this->_get('listid');
+			$id = $this->_get('id');
+			$listLink = M('home_list')->where(array('companyid'=>'1','id'=>$listid))->field('id,title')->find();
+			$listLink['info'] = M('home_info')->where(array('companyid'=>'1','id'=>$id))->field('id,title,author,info,praise,updatetime,createtime')->find();
+			//回复内容
+			$listLink['comment'] = M('home_info_comment')->where(array('listid'=>$listid,'infoid'=>$id))->field('name,info')->order('id DESC')->limit('3')->select();
+			//最多浏览
+			$listLink['more'] = M('home_list_link')->where(array('companyid'=>'1','listid'=>$listid))->field('listid,url')->select();
+			if($listLink['more']){
+				foreach($listLink['more'] as $mKey=>$mVal){
+					$listLink['more'][$mKey]['readcount'] = M('history_page_browsing')->where(array('companyid'=>'1','pagelink'=>$mVal['url']))->count();
+					$txt= $mVal['url'];
+					$re1='.*?';
+					$re2='(\\d+)';
+					if(preg_match_all ("/".$re1.$re2."/is", $txt, $matches)){
+						$infoId=$matches[1][0];
+					}
+					$listLink['more'][$mKey]['info'] = M('home_info')->where(array('companyid'=>'1','id'=>$infoId))->field('id,title')->find();
+				}
+			}
+			if($listLink['more']){
+				$listLink['more'] = arraySort($listLink['more'],$listLink['more'][$mKey]['readcount'],'SORT_ASC');
+			}
+			$this->assign('info',$listLink);
+			//PV
+			$data['companyid'] = '1';
+			$data['pagelink'] = C('site_url').U('Index/serviceInfo',array('companyid'=>1,'listid'=>$listid,'id'=>$id));
+			$data['createtime'] = time();
+			M('history_page_browsing')->where(array('companyid'=>'1'))->add($data);
+			$this->display();
+		}
+	}
+	//渠道代理
+	public function agent(){
+		if(IS_POST){
+			$_POST['createtime'] = $_POST['updatetime'] = time();
+			$agentlist = M('agent')->add($_POST);
+			if($agentlist){
+				$this->redirect(U('Index/agent'));
+			}
+		}else{
+			$areaAll = M('area')->where(array('parentid'=>'1017'))->field('id,name')->select();
+			$this->assign('list',$areaAll);
+			$this->display();
+		}
+	}
+	//ajax 获得城市
+	public function	getCity(){
+		$provinceId = $this->_post('provinceId');
+		$citys = M('area')->where(array('isshow'=>1,'parentid'=>$provinceId))->select();
+		if($citys){
+			$message['code'] = 200;
+			$message['html'] = '';
+			foreach($citys as $cKey=>$cVal){
+				$message['html'].="<option value='".$cVal['id']."'>".$cVal['name']."</option>";
+			}
+		}else{
+			$message['code'] = 300;
+		}
+		echo json_encode($message);
+	}
+	//登录
+	public function login(){
+		if(IS_POST){
+			$usersInfoWhere['username'] = $this->_post('username');
+			$userInfo = $this->usersModel->where($usersInfoWhere)->find();
+			if (empty($userInfo)){
+				$this->error(L('ServerBusyPrompt'));
+			}
+			$password=get_md5_password($this->_post('password'));
+			if($password===$userInfo['password']){
+				$companyInfo = $this->companyModel->where(array('id'=>$userInfo['companyid']))->find();
+				if (empty($companyInfo)){
+					$this->error(L('ServerBusyPrompt'));
+				}
+	
+				if($companyInfo['viptime']< time() && $companyInfo['gid'] != 5){
+					$this->error('抱歉！您的账号已到期。续费请联系您的客户经理，系统将于一周内自动删除您的历史数据。');
+				}
+				if($companyInfo['status']==0){
+					$this->error('您的试用申请正在审核中，请耐心等待。');
+				}elseif ($companyInfo['status']==2){
+					$this->error('抱歉！您的试用申请未被通过，如有疑问请联系您的客户经理。');
+				}
+				if ($companyInfo['isclose']==1){
+					$this->error('您的账号已被冻结，请联系您的客户经理。');
+				}
+				//记住密码
+				$username = $this->_post('username');
+				$password = $this->_post('password');
+				$rememberPassword = $this->_post('rememberPassword') ? $this->_post('rememberPassword') : 0 ;
+				if($rememberPassword == 1){
+					cookie('username',$username,time()+360000000);
+					cookie('password',$password,time()+360000000);
+					cookie('rememberPassword',$rememberPassword,time()+360000000);
+				}
+				if(!is_dir('./Uploads/'.$userInfo['companyid'].'/image')){
+					check_dir('./Uploads/'.$userInfo['companyid'].'/image');//创建文件夹
+				}
+				$companyGroupInfo = $this->companyGroupModel->where(array('id'=>$companyInfo['gid']))->field('name')->find();
+				if (empty($companyGroupInfo)){
+					$this->error(L('ServerBusyPrompt'));
+				}
+				session(null);
+				session('uid',$userInfo['id']);
+				session('shopsid',$userInfo['shopsid']);
+				session('uname',$userInfo['username']);
+				session('truename',$userInfo['truename']);
+				session('cid',$userInfo['companyid']);
+				session('cname',$companyInfo['name']);
+				session('viptime',$companyInfo['viptime']);
+				session('logourl',$companyInfo['logourl']);
+				session('companyPermissions',explode(',', $companyInfo['permissions']));
+				if($userInfo['isboss'] == 1){
+					session('permissions',explode(',', $companyInfo['permissions']));
+				}else{
+					session('permissions',explode(',', $userInfo['permissions']));
+				} 
+				session('maximgspace',$companyInfo['maximgspace']);
+				session('gid',$companyInfo['gid']);
+				session('gname',$companyGroupInfo['name']);
+				$saveCompanyDate['lasttime'] = time();
+				$saveCompanyDate['lastip'] = get_client_ip(0);
+				if(format_time(time(),'d') == '01'){
+					$saveCompanyDate['nowrequestsnum'] = 0;
+				}
+				$this->usersModel->where(array('id'=>$userInfo['id']))->save();
+				$this->success(L('LoginSuccessful'),U('User/System/systemInfo'));
+			}else{
+				$this->error(L('WrongPW'));
+			}
+		}else {
+			if(session('uid')){
+				$this->redirect(U('Index/index'));
+			}
+			$this->setPageSeo(array('title'=>'企业登录-人来风-MobiWind','keywords'=>'企业登录人来风，企业登录MobiWind，人来风，MobiWind，人来风-MobiWind','description'=>'企业登录-人来风-MobiWind'));
+			$this->display();
+		}
+	}
+	//注册
+	public function register(){
+		if(IS_POST){
+			
+				$model = new Model();
+				$model->startTrans();//开启事务
+				$companyGroupInfo = $this->companyGroupModel->where(array('id'=>1))->field('id,permissions,maximgspace,maxrequestsnum')->find();
+				if (empty($companyGroupInfo)){
+					$this->error(L('ServerBusyPrompt'),U('Index/register'));
+				}
+				$viptime = time()+604800;//注册一周试用期
+				$companyInfoData['viptime'] = $viptime;
+				$companyInfoData['permissions'] = $companyGroupInfo['permissions'];
+				$companyInfoData['gid'] = $companyGroupInfo['id'];
+				$companyInfoData['maximgspace'] = $companyGroupInfo['maximgspace'];
+				$companyInfoData['maxrequestsnum'] = $companyGroupInfo['maxrequestsnum'];
+				$companyInfoData['wechatnum'] = 1;
+				$companyInfoData['workernum'] = 0;
+				$companyInfoData['shopsnum'] = 1;
+				$companyInfoData['status'] = 0;
+				$companyInfoData['isclose'] = 0;
+				$companyInfoData['updatetime'] = $companyInfoData['createtime'] = time();
+				$companyInfoInsterReturn = $this->companyModel->add($companyInfoData);
+				
+				$_POST['companyid'] = $companyInfoInsterReturn;
+				$_POST['password'] = get_md5_password($this->_post('repeat_password'));
+				$_POST['truePassword'] = $this->_post('repeat_password','trim');
+				$_POST['updatetime'] = $_POST['createtime'] = time();
+				$_POST['createip'] = get_client_ip(0);
+				$_POST['applyname'] = $this->_post('truename');
+				$_POST['applymobile'] = $this->_post('phone');
+				$_POST['applyemail'] = $this->_post('email');
+				$_POST['isboss'] = 1;
+				$usersInsterReturn = $this->usersModel->add($_POST);
+				
+				if($companyInfoInsterReturn && $usersInsterReturn){
+					$model->commit();//事务提交
+					check_dir('./Uploads/'.$companyInfoInsterReturn.'/image');//创建文件夹
+					$this->redirect(U('Index/registerOk'));//提示 审核
+				}else{
+					$model->rollback();//事务回滚
+					$this->error(L('ServerBusyPrompt'),U('Index/register'));
+				}
+			
+		}else{
+			/* if(session('uid')){
+				$this->redirect(U('Index/index'));
+			} */
+			$this->setPageSeo(array('title'=>'申请体验-人来风-MobiWind','keywords'=>'申请体验，人来风，MobiWind，人来风-MobiWind，会员制移动营销，移动O2O','description'=>'人来风-MobiWind，最专业的移动O2O运营平台，我们帮助企业玩转会员制移动营销，开启移动O2O-SAAS应用时代。'));
+			$this->display();
+		}
+	}
+	//注册成功
+	public function registerOk(){
+		$this->display();
+	}
+	//找回密码
+	public function forgotPassword(){
+		if(IS_POST){
+			$usersWhere['email'] = $this->_post('email','trim');
+			$usersCount = $this->usersModel->where($usersWhere)->field('id,truePassword')->find();
+			if($usersCount){
+				$mailer = new Mailer();
+				$toList = array($usersWhere['email']);
+				$subject = '人来风：您的登录密码';
+				$content = '<div class="" id="qm_con_body"><div id="mailContentContainer" class="qmbox qm_con_body_content" style="">
+	<div class="wrapper" style="margin: 20px auto 0; width: 500px; padding:15px auto 10px">
+	<div class="header clearfix">
+	<a href="'.C('site_url').'" class="logo" style="float:left" target="_blank">
+	<img src="'.C('site_url').'/Tpl/Home/default/common/images/logo.png" width="150"></a>
+	</div>
+	<br style="clear:both; height:0"><div class="content" style="background: none repeat scroll 0 0 #FFFFFF; border: 1px solid #E9E9E9; margin: 10px 0 0; padding: 30px;">
+	<p> '.$usersWhere['email'].'，你好</p>
+	<p>您的登录密码为：'.$usersCount['truePassword'].'</p>
+	<p class="footer" style="border-top: 1px solid #DDDDDD; padding-top:6px; margin-top:25px; color:#838383;">© 2014 人来风&nbsp;&nbsp;|&nbsp;&nbsp;该邮件由系统发送，请勿回复</p>
+	</div>
+	</div>
+	  </div></div>';
+				$sendReturn = $mailer->sendMail($toList, $subject, $content);
+				if ($sendReturn){
+					$this->redirect(U('Index/forgotPasswordOk'));
+				}else{
+					$this->error(L('ServerBusyPrompt'));
+				}
+			}else{
+				$this->error('邮箱不存在');
+			}
+		}else{
+			$this->display();
+		}
+	}
+	//找回密码
+	public function forgotPasswordOk(){
+		$this->display();
+	}
+	//退出
+	public function logOut(){
+		session(null);
+		$this->success('退出成功',U('Index/index'));
+	}
+	//联系我们
+	public function contactUs(){
+		/* if(IS_POST){
+			$data['name'] = $this->_post('name');
+			$data['mobile'] = $this->_post('mobile');
+			$data['info'] = $this->_post('info');
+			$insterReturn = $this->insertStatus('System_contact_us');
+			if($insterReturn){
+				$this->success('提交成功');
+			}else{
+				$this->error('提交失败');
+			}
+		}else{
+			$this->diningCount();
+			$this->commonCount();
+			$this->wechatMessageCount();
+			$this->liuyanCount();
+			$this->setPageSeo(array('title'=>'联系我们-人来风-MobiWind','keywords'=>'联系人来风，MobiWind，人来风-MobiWind，会员制移动营销，移动O2O','description'=>'客户经理邀约：021-61172202 传真：021-61172203 售前QQ：1150099313 人来风-MobiWind，最专业的移动O2O运营平台，我们帮助企业玩转会员制移动营销，开启移动O2O-SAAS应用时代。'));
+		} */
+		$this->display();
+	}
+	//推广合作
+	public function extendCooperation(){
+		$this->display();
+	}
+	//点赞
+	public function praise(){
+		$id = $this->_post('id');
+		$praise = M('home_info')->where(array('id'=>$id))->setInc('praise');
+		$newPraise = M('home_info')->where(array('id'=>$id))->getfield('praise');
+		if($praise){
+			$data['code'] = '200';
+			$data['newPraise'] = $newPraise;
+		}else{
+			$data['code'] = '300';
+			$data['newPraise'] = $newPraise;
+		}
+		echo json_encode($data);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//公告详情页
+	public function articleInfo(){
+		$articleInfo = M('article')->field('fArticleId,fArticleTitle,fArticleIntrod,fArticleContent')->where(array('fArticleId'=>$this->_get('id','intval'),'fArticleCategoryId'=>1,'fArticleIsShow'=>1))->find();
+		$this->assign('info',$articleInfo);
+		$this->display();
+	}
+	//产品与服务
+	public function scheme(){
+		$this->diningCount();
+		$this->commonCount();
+		$this->wechatMessageCount();
+		$this->liuyanCount();
+		$this->setPageSeo(array('title'=>'人来风产品与服务-人来风-MobiWind','keywords'=>'人来风报价、试用版，基础版，专业版，餐饮专业版，定制版，人来风，MobiWind，人来风-MobiWind','description'=>'立即申请试用，7天免费。人来风产品版本类型简介及详细报价。'));
+		$this->display();
+	}
+	//关于我们
+	public function aboutUs(){
+		$this->diningCount();
+		$this->commonCount();
+		$this->wechatMessageCount();
+		$this->liuyanCount();
+		$this->setPageSeo(array('title'=>'关于我们-人来风-MobiWind','keywords'=>'关于人来风，SCRM，人来风SCRM，人来风，MobiWind，人来风-MobiWind，会员制移动营销，移动O2O','description'=>'MobiWind人来风是一个专注于SCRM的企业品牌。人来风SCRM不做入门级微信平台！我们不提供无视用户体验的功能堆砌类产品；我们不追求客户数量，只追求客户质量。人来风团队均由百万用户量级互联网产品团队倾力打造。低调、认真、务实、忠于原创、注重口碑！'));
+		$this->display();
+	}
+	//修改数据
+	public function saveData(){
+		$users = M('users')->field('id,truename,email,phone')->where(array('isboss'=>1))->select();
+		if($users){
+			foreach($users as $key=>$val){
+				$saveData['applyname'] = $val['truename'];
+				$saveData['applyemail'] = $val['email'];
+				$saveData['applymobile'] = $val['phone'];
+				M('users')->where(array('id'=>$val['id']))->save($saveData);
+			}
+		}
+	}
+}

@@ -1,0 +1,785 @@
+<include file="Public:head"/>
+<include file="Public:UEditorJS" />
+<include file="Public:UEditorSmall" />
+<include file="Public:smallmaterial"/>
+<?php echo $makeTopUrl;?>
+<!-- check后台 公司门店信息 2016-09-13 09:20 -->
+<div class="mod mb-15">
+    <!-- 账号部署的公共头部 -->
+	<include file="UserDeployment:head" />
+
+    <div class="mod-header radius-top"><h4>公司信息</h4></div>
+    <div class="mod-body">
+        <ul class="content">
+            <li class="group pb-15">
+                <h6 class="inline w80">公司名称：</h6>
+                <input class="inline w150" type="text" name="companyname" value="<?php echo $companyInfo['companyname']; ?>"></input>
+            </li>
+            <li class="group pb-15">
+                <h6 class="inline w80">品牌名称：</h6>
+                <input class="inline w150" type="text" name="brandname" value="<?php echo $companyInfo['brandname']; ?>"></input>
+                <h6 class="text-gray ml-80 pt-5">&nbsp;请输入您的品牌名称简称，如星巴克，食之秘，仅限20个字符</h6>
+            </li>
+            <li class="group">
+                <h6 class="inline w80 text-top">商户LOGO：</h6>
+                <div class="inner-group inline">
+       				<input name="logourl" type="hidden" value="<?php echo $companyInfo['logourl']; ?>" class="wechat-key" />
+                    <img class="inline logo-img logourl wechat-key-img" width="60px" height="60px" src="<?php echo $companyInfo['logourl']?$companyInfo['logourl']:'./Tpl/User5/default/common/img/WeiPage-temp-img.png'; ?>">
+                    <div class="inline">
+	                    <input type="file" name="files" class="js-add-img-asa" data-type="wechat-key" multiple="multiple">
+	                    <h6 class="text-gray pt-5">建议图片尺寸：宽120像素*高120像素，建议图片大小：小于100k</h6>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        
+        <div class="group form-footer text-center">
+            <input class="btn-small btn-purple w100 pointer js-sub-asa" type="button" value="保存">
+        </div>
+    </div>
+</div>
+
+
+<div class="group pb-10">
+	<select class="w150 js-select-shops-type-asa">
+	    <option value="1">门店-全部门店</option>
+	    <option value="2" <?php if($_GET['pageType']==2){echo 'selected="selected"';} ?> >门店-门店详情页</option>
+	</select>
+</div>
+
+
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>相关页面</h4></div>
+    <div class="mod-body">
+        <table class="table type-1 w-auto">
+            <thead>
+            <tr>
+                <th>微页面类型</th>
+                <th>网页标题</th>
+                <th class="min-w70">更新时间</th>
+                <th class="min-w90">页面浏览量</th>
+                <th>操作</th>
+            </tr>
+            </thead><tbody>
+            <?php if($_GET['pageType']!=2){ ?>
+            <tr>
+                <td>门店-全部门店</td>
+                <td><?php echo $mallShops['title']?$mallShops['title']:'全部门店'; ?></td>
+                <td><?php echo $mallShops['updatetime']?date('Y-m-d',$mallShops['updatetime']):'0'; ?></td>
+                <td><?php echo $mallShops['viewnum']?$mallShops['viewnum']:0; ?></td>
+                <td>
+	                <a href="<?php echo U('UserDeployment/shops',array('id'=>$mallShops['id'],'type'=>1)); ?>" class="tips">编辑</a>
+	                <a class="tips js-clip-btn" data-url="<?php echo C('site_url').'/index.php?g=Wap&m=MemberDining&a=shops&companyid='.$companyid;?>" href="javascript:void(0);">复制链接</a>
+	                <!-- <a class="tips">设为首页</a> -->
+	                <a class="tips QR-code-down">手机预览
+                		<div class="QR-code-box-down has-border-img">
+                            <img src="<?php echo U('Wei/erweima',array('link'=>base64_encode(C('site_url').'/index.php?g=Wap&m=MemberDining&a=shops&companyid='.$companyid)));?>">
+                            <h6>微信扫码<br>手机预览</h6>
+                            <span id="triangle-up-b"></span>
+                            <span id="triangle-up-a"></span>
+                        </div>
+	                </a>
+                </td>
+            </tr>
+            <?php }else{ ?>
+	            <?php if($shopsInfo){ foreach($shopsInfo as $key => $val){ ?>
+	            <tr>
+	                <td>门店-门店详情</td>
+	                <td><?php echo $val['title']?$val['title']:$val['shopname']; ?></td>
+	                <td><?php echo $val['updatetime']?date('Y-m-d H:i',$val['updatetime']):'0';?></td>
+	                <td><?php echo $val['viewnum']; ?></td>
+	                <td>
+		                <a href="<?php echo U('UserDeployment/shops',array('id'=>$val['id'],'type'=>2)); ?>" class="tips">编辑</a>
+		                <a class="tips js-clip-btn"data-url="<?php echo C('site_url').'/index.php?g=Wap&m=MemberDining&a=shopsInfo&companyid='.$companyid.'&id='.$val['id'];?>">复制链接</a>
+		                <!-- <a class="tips">设为首页</a> -->
+		                <a class="tips QR-code-down">手机预览
+	                		<div class="QR-code-box-down has-border-img">
+	                            <img src="<?php echo U('Wei/erweima',array('link'=>base64_encode(C('site_url').'/index.php?g=Wap&m=MemberDining&a=shopsInfo&id='.$val['id'].'&companyid='.$companyid)));?>">
+	                            <h6>微信扫码<br>手机预览</h6>
+	                            <span id="triangle-up-b"></span>
+	                            <span id="triangle-up-a"></span>
+	                        </div>
+		                </a>
+                </td>
+            	</tr>
+            	<?php } }else{ ?>
+		        <tr class="text-center not-hover">
+		            <td colspan="5">暂无</td>
+		        </tr>
+		        <?php } ?>
+            <?php } ?>
+            </tbody>
+        </table>
+        <?php if($_GET['pageType']==2){ ?>
+        <div class="group form-footer clearfix">
+            <div class="group pagination fr">
+            	<?php echo $page;?>
+            </div>
+        </div>
+        <?php } ?>
+    </div>
+</div>
+
+
+<div class="mod mb-15">
+	<div class="mod-header radius-top"><h4>门店信息</h4></div>
+	<div class="mod-body">
+		<div class="content">
+			<div class="group pb-15"><a class="btn-small btn-purple js-add-shops-asa">添加门店</a></div>
+			<table class="table type-1 w-auto">
+                <thead>
+                    <tr>
+                        <th class="min-w80">门店名称</th>
+                        <th class="w100">门店电话</th>
+                        <th class="min-w80">门店所属城市</th>
+                        <th class="min-w80">门店地址</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if($shopsInfo){ foreach($shopsInfo as $key => $val){ ?>
+			        <tr>
+			            <td><?php echo $val['shopname']; ?></td>
+			            <td><?php echo $val['tel']; ?></td>
+			            <td><?php echo $val['name1'].'  '.$val['name2'].'  '.$val['name3'].'  '.$val['name4']; ?></td>
+			            <td><?php echo $val['address']; ?></td>
+			            <td>
+			                <a href="javascript:void(0);" class="tips js-edit-asa" data-id="<?php echo $val['id']; ?>">编辑</a>
+			                <a href="javascript:void(0);" data-id="<?php echo $val['id']; ?>" class="tips js-del-shops-asa">删除</a>
+			            </td>
+			        </tr>
+			        <?php } }else{ ?>
+			        <tr class="text-center not-hover">
+			            <td colspan="5">暂无</td>
+			        </tr>
+			        <?php } ?>
+                </tbody>
+            </table>
+            <?php if($page){ ?>
+            <div class="group form-footer clearfix">
+	            <div class="group pagination fr">
+	            	<?php echo $page;?>
+	            </div>
+        	</div>
+        	<?php } ?>
+		</div>
+	</div>
+</div>
+
+
+<!-- 添加/编辑门店 弹窗 -->
+<div class="popup-wrap js-wrap-bigger-1 js-add-shops-tan-asa" style="display: none;">
+    <div class="mod bigger-popup">
+        <div class="mod-header"><h4 class="fl js-title-info-asa">添加/编辑门店</h4><i class="fr icon-close-dark js-icon-close"></i></div>
+        <div class="mod-body">
+        <input type="hidden" name="shopsid" value="" />
+            <div class="content popup-scroll">
+                <div class="group pb-15">
+                    <h6 class="w120 inline">门店名称：</h6><input type="text" name="shopname" class="w150 inline js-edti-asa1">
+                    <p class="group-help-tips-w120 pt-5">如XXX虹口店</p>
+                </div>
+                <div class="group pb-15">
+                    <h6 class="w120 inline">门店电话：</h6><input type="text" name="tel" class="w150 inline js-edti-asa2">
+                    <p class="group-help-tips-w120 pt-5">国内固话：021-31338888 &nbsp; 国际固话：+86-21-31338888 <br>国内手机：13888888888 &nbsp; 国际手机：+8613888888888 400/800：400-188-8888</p>
+                </div>
+                <div class="group pb-15">
+	                <h6 class="inline w120 text-top">门店图片：</h6>
+	                <div class="inner-group inline">
+	       				<input name="banner" type="hidden" value="<?php echo $companyInfo['banner']; ?>" class="banner-key" />
+	                    <img class="inline banner-key-img" width="60px" height="60px" src="<?php echo $companyInfo['banner']?$companyInfo['banner']:'./Tpl/User5/default/common/img/WeiPage-temp-img.png'; ?>">
+	                    <div class="inline">
+		                    <input type="file" name="files" class="js-add-img-asa" data-type="banner-key" multiple="multiple">
+		                    <h6 class="text-gray pt-5">建议图片尺寸：宽640像素*高400像素，建议图片大小：小于100k</h6>
+	                    </div>
+	                </div>
+	            </div>
+                <div class="group pb-15">
+                    <h6 class="w120 inline">门店所属城市：</h6><select class="w80 js-city-info-asa js-edti-asa13" name="country">
+                    	<option value="">请选择国家</option>
+                        <?php if($country){?>
+                       	<?php foreach($country as $cKey=>$cVal){?>
+                       	<option value="<?php echo $cVal['id']?>"><?php echo $cVal['name'];?></option>
+                       	<?php } ?>
+                       	<?php } ?>
+                    </select>
+                    <select class="w80 js-city-info-asa js-edti-asa14" name="province">
+                        <option>请选择省</option>
+                    </select>
+                    <select class="w80 js-city-info-asa js-edti-asa15" name="city">
+                        <option>请选择市</option>
+                    </select>
+                    <select class="w80 js-city-info-asa js-edti-asa16" name="district">
+                        <option>请选择区</option>
+                    </select>
+                </div>
+                <div class="group pb-15">
+                    <h6 class="w120 inline">门店地址：</h6><input id="suggestId" type="text" name="address" class=" inline js-edti-asa3">
+                    <p class="group-help-tips-w120 pt-5">请输入门店详细地址,无需重复输入国家省市</p>
+                </div>
+                <div class="group pb-15">
+                    <h6 class="w120 inline">门店导航配置：</h6><a class="btn-small btn-white" id="positioning">门店定位</a>
+                    <h6 class="inline text-purple">请先输入"门店所属城市"以及"门店地址"</h6>
+                </div>
+                <div class="group-help-tips-w120 mb-15 vipMap" style="background-color:#ccc; width:600px; height:320px;" id="l-map">
+                	好吧，我是腾讯地图，请连带div一起把我替换掉~~~
+                </div>
+                <input type="hidden" id="lng" value=""  name="longitude">
+				<input type="hidden" id="lat" value=""  name="latitude">
+							
+                <div class="group pb-20">
+                    <h6 class="inline w120 text-top text-info">营业时间：</h6>
+                    <ul class="inner-group inline target-store js-shophours-asa">
+                        <li class="inner-item pb-15">
+                            <select class="inline w40">
+                                <?php for($i=0;$i<=23;$i++){ ?>
+                                <?php echo '<option value="'.$i.'" >'.$i.'</option>'; ?>
+                                <?php } ?>
+                            </select>
+                            :
+                            <select class="inline w40">
+                                <?php for($i=0;$i<=59;$i++){ ?>
+                                <?php echo '<option value="'.$i.'" >'.$i.'</option>'; ?>
+                                <?php } ?>
+                            </select>
+                            -
+                            <select class="inline w40">
+                                <?php for($i=0;$i<=23;$i++){ ?>
+                                <?php echo '<option value="'.$i.'" >'.$i.'</option>'; ?>
+                                <?php } ?>
+                            </select>
+                            :
+                            <select class="inline w40">
+                                <?php for($i=0;$i<=59;$i++){ ?>
+                                <?php echo '<option value="'.$i.'" >'.$i.'</option>'; ?>
+                                <?php } ?>
+                            </select>
+                            <i class="icon-EnterPlatform-add js-icon-EnterPlatform-add"></i>
+                        </li>
+                    </ul>
+                </div>
+                <div class="group pb-15">
+		             <h6 class="w120 inline text-top">门店公告：</h6>
+		             <div class="inline" style="font-size:15px;"><script id="info7" type="text/plain"></script></div>
+		         </div>
+            </div>
+
+
+            <div class="group form-footer text-center">
+                <input class="btn-middle btn-purple js-sub-shop-asa" type="button" value="保存">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input class="btn-middle btn-white js-ok" type="button" value="取消">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ==============================    删除弹窗    ============================== -->
+<div class="popup-wrap del-tan-asa" style="display: none;">
+    <div class="mod small-popup type-1">
+        <div class="mod-header">
+            <h4 class="fl">删除微页面</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+            <div class="content">
+                <h5 class="pb-20">确认删除当前门店么？</h5>
+                <p class="text-center">
+                    <a class="btn-small btn-purple w60 js-ok del-asa" data-id=''>确 认</a> &nbsp;
+                    <a class="btn-small btn-white w60 js-cancel quxiao">取 消</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+$(function(){
+	//选择图片的
+	$("#clickimgok").click(function(){
+		$(".logo-img").attr("src",$(this).attr('data-imgsrc'));
+		$("input[name='logourl']").val($(this).attr('data-imgsrc'));
+	})
+	//添加门店的
+	$(".js-add-shops-asa").click(function(){
+		$(".js-title-info-asa").html("添加门店");
+		$("input[name='shopsid']").val('');
+		ue7.setContent("");
+		$("input[name='shopname']").val('');
+		$("input[name='tel']").val('');
+		$("input[name='address']").val('');
+		$("input[name='longitude']").val('');
+		$("input[name='latitude']").val('');
+		$("input[name='banner']").val('');
+		$(".banner-key-img").attr("src",'./Tpl/User5/default/common/img/WeiPage-temp-img.png');
+		$(".js-edti-asa13").find("option[value='']").prop("selected",true);;
+		$(".js-edti-asa15").hide();
+		$(".js-edti-asa14").hide();
+		$(".js-edti-asa16").hide();
+		$(".js-add-shops-tan-asa").show();
+	});
+	//省市联动
+	$(".js-city-info-asa").on("change",function(){
+		var parentid = $(this).val();
+		var $this = $(this);
+		if(parentid){
+			$('.loading').show();
+			$.post("<?php echo U('UserDeployment/ajaxGetCityInfo').'&time=';?>"+Math.random(),{'parentid':parentid},function(data){
+			 	if(data.code == 200){
+			 		$('.loading').hide();
+			 		if(data.msg){
+			 			$this.next("select").show();
+			 			$this.next("select").next("select").hide();
+			 			$this.next("select").next("select").next("select").hide();
+			 			$this.next("select").next("select").html('');
+				 		$this.next("select").html(data.msg);
+			 		}else{
+			 			$this.next("select").hide();
+			 			$this.next("select").next("select").hide();
+			 			$this.next("select").next("select").next("select").hide();
+			 			$this.next("select").next("select").html('');
+				 		$this.next("select").html('');
+			 		}
+			 	}else{
+			 		$('.loading').hide();
+			 		$this.next("select").hide();
+			 		$this.next("select").html('');
+			 		//alertTan(data.msg);
+			 	}	
+			},"json");
+		}
+	});
+	//页面提交
+	$(".js-sub-asa").click(function(){
+		var companyname = $("input[name='companyname']").val();
+		var logourl = $("input[name='logourl']").val();
+		var brandname = $("input[name='brandname']").val();
+		if(companyname==''){
+			alertTan("请填写公司名称","warn",1500);
+			return false;
+		}
+		if(brandname==''){
+			alertTan("请填写品牌名称","warn",1500);
+			return false;
+		}
+		if(brandname.length>20){
+			alertTan("品牌名称仅限20个字符","warn",1500);
+			return false;
+		}
+		$('.loading').show();
+		$.post("<?php echo U('UserDeployment/enterOne').'&time=';?>"+Math.random(),{
+			companyname:companyname,logourl:logourl,brandname:brandname
+			},function(data){
+			$('.loading').hide();
+			if(data.code == 200){
+				alertTan(data.msg);
+				//alertTan(data.msg,"success",1500);
+		 		$('.loading').hide();
+		 		setTimeout("window.location.href='<?php echo U('UserDeployment/enterOne',array('p'=>$_GET['p'])); ?>'",1500);
+		 	}else{
+		 		alertTan(data.msg,"error");
+		 	}
+		},"json");
+	});
+	//门店弹窗的JS
+	$(".js-sub-shop-asa").click(function(){
+		var id = $("input[name='shopsid']").val();
+		var shopname = $("input[name='shopname']").val();
+		var tel = $("input[name='tel']").val();
+		var address = $("input[name='address']").val();
+		var country = $("select[name='country']").val();
+		var province = $("select[name='province']").val();
+		var city = $("select[name='city']").val();
+		var district = $("select[name='district']").val();
+		var longitude = $("input[name='longitude']").val();
+		var latitude = $("input[name='latitude']").val();
+		var banner = $("input[name='banner']").val();
+		var announcement = ue7.getContent();
+		if(shopname==''){
+			alertTan("请填写门店名称",'warn');
+			$("input[name='shopname']").focus();
+			return false;
+		}
+		var shophours = "{";
+		var i=1;
+		$(".js-shophours-asa li").each(function(){
+			shophours += '"shophours'+i+'":{';
+			var a=1;
+			$(this).children("select").each(function(){
+				shophours += '"time' + a + '":"'+$(this).val()+'",';
+				a++;
+			})
+			shophours = substrasa(shophours);
+			i++;
+			shophours +="},"
+		})
+		shophours = substrasa(shophours);
+		shophours +="}";
+		$('.loading').show();
+		$.post("<?php echo U('UserDeployment/ajaxShop').'&time=';?>"+Math.random(),{
+			id:id,shopname:shopname,tel:tel,country:country,province:province,city:city,
+			longitude:longitude,latitude:latitude,shophours:shophours,address:address,district:district,
+			banner:banner,info:announcement
+		},function(data){
+			$('.loading').hide();
+			if(data.code == 200){
+				alertTan(data.msg);
+				
+				var agentname = $("input[name='agentname']").val();
+				var agentid = $("input[name='agentid']").val();
+				var agentphone = $("input[name='agentphone']").val();
+				var companyname = $("input[name='companyname']").val();
+				var logourl = $("input[name='logourl']").val();
+				var brandname = $("input[name='brandname']").val();
+				$.post("<?php echo U('UserDeployment/enterOne').'&time=';?>"+Math.random(),{
+					companyname:companyname,logourl:logourl,brandname:brandname,
+					agentname:agentname,agentphone:agentphone,agentid:agentid
+					},function(data2){
+					if(data.code == 200){
+				 		$('.loading').hide();
+				 		setTimeout("window.location.href='<?php echo U('UserDeployment/enterOne',array('p'=>$_GET['p'])); ?>'",1500);
+				 	}
+				},"json");
+				
+		 		$('.loading').hide();
+		 		//setTimeout("window.location.href='<?php echo U('EnterPlatform/enterOne'); ?>'",1500);
+		 	}else{
+		 		alertTan(data.msg,'error');
+		 	}
+		},"json");
+	});
+	$(".js-del-shops-asa").click(function(){
+		var id = $(this).attr('data-id');
+		$('.del-asa').attr('data-id',id);
+		$(".del-tan-asa").show();
+
+	});
+	$(".del-asa").click(function(){
+		var $this = $(this);
+		$('.loading').show();
+		$.post("<?php echo U('UserDeployment/delShop').'&time=';?>"+Math.random(),{
+			id:$this.attr("data-id")
+		},function(data){
+			$('.loading').hide();
+			if(data.code == 200){
+				alertTan(data.msg);
+		 		setTimeout("window.location.href='<?php echo U('UserDeployment/enterOne'); ?>'",1500);
+		 	}else{
+		 		alertTan(data.msg,'error');
+		 	}
+		},"json");
+	});
+	//修改门店信息
+	$(".js-edit-asa").click(function(){
+		$(".js-title-info-asa").html("编辑门店");
+		$("loading").show();
+		$.post(	"<?php echo U('UserDeployment/infoShops'); ?>",{
+			id:$(this).attr("data-id")
+		},function(data){
+			//ID
+			$("input[name='shopsid']").val(data.id);
+			$(".js-edti-asa1").val(data.shopname);
+			$(".js-edti-asa2").val(data.tel);
+			ue7.setContent(data.info);
+			if(data.banner){
+				$(".banner-key").val(data.banner);
+				$(".banner-key-img").attr("src",data.banner);
+			}else{
+				$(".banner-key").val(data.logourl);
+				$(".banner-key-img").attr("src",data.logourl);
+			}
+			
+			//获取省市的
+			$(".js-edti-asa13").find("option").prop("selected",false);
+			$(".js-edti-asa13").find("option[value='"+data.country+"']").prop("selected",true);
+			if(data.country){
+				$(".js-edti-asa14").show();
+				$.post("<?php echo U('UserDeployment/ajaxGetCityInfo').'&time=';?>"+Math.random(),{'parentid':data.country},function(data2){
+				 	if(data2.code == 200){
+				 		$(".js-edti-asa14").html(data2.msg);
+				 		$(".js-edti-asa14").find("option[value='"+data.province+"']").prop("selected",true);
+				 	}
+				},"json");
+				if(data.province){
+					$(".js-edti-asa15").show();
+					$.post("<?php echo U('UserDeployment/ajaxGetCityInfo').'&time=';?>"+Math.random(),{'parentid':data.province},function(data3){
+					 	if(data3.code == 200){
+					 		$(".js-edti-asa15").html(data3.msg);
+					 		$(".js-edti-asa15").find("option[value='"+data.city+"']").prop("selected",true);
+					 	}	
+					},"json");
+					if(data.city){
+						$.post("<?php echo U('UserDeployment/ajaxGetCityInfo').'&time=';?>"+Math.random(),{'parentid':data.city},function(data4){
+						 	if(data4.code == 200){
+						 		if(data4.msg){
+						 			//alert(data4.msg);
+						 			$(".js-edti-asa16").show();
+						 			$(".js-edti-asa16").html(data4.msg);
+							 		$(".js-edti-asa16").find("option[value='"+data.district+"']").prop("selected",true);
+						 		}else{
+						 			$(".js-edti-asa16").hide();
+						 			$(".js-edti-asa16").html('');
+						 		}
+						 	}else{
+					 			$(".js-edti-asa16").hide();
+					 			$(".js-edti-asa16").html('');
+						 	}	
+						},"json");
+						
+					}
+				}
+			}else{
+				$(".js-edti-asa16").hide();
+				$(".js-edti-asa15").hide();
+				$(".js-edti-asa14").hide();
+			}
+			//获取经纬度
+			$(".js-edti-asa3").val(data.address);
+			$("#lng").val(data.longitude);
+			$("#lat").val(data.latitude);
+			init(data.latitude,data.longitude);
+			
+
+			//var arr = eval("("+data.shophours+")");
+			if(data.shophours){
+				var arr = JSON.parse(data.shophours);
+				//全是为了JSON格式的营业时间
+				var ab = 0;
+				var abc = 1;
+				$.each(arr,function(n,val) {
+					ab++;
+				})
+				var _html = '';
+				$.each(arr,function(n,val) {
+					var str241 = ''; 
+			        for(var i=0;i<=23;i++){
+			        	if(val["time1"] == i) str241 += '<option value="'+i+'" selected="selected">'+i+'</option>';
+			        	else str241 += '<option value="'+i+'">'+i+'</option>';
+			        }
+			        var str601 = ''; 
+			        for(var i=0;i<=59;i++){
+			        	if(val["time2"] == i) str601 += '<option value="'+i+'" selected="selected">'+i+'</option>';
+			        	else str601 += '<option value="'+i+'">'+i+'</option>';
+			        }
+			        var str242 = ''; 
+			        for(var i=0;i<=23;i++){
+			        	if(val["time3"] == i) str242 += '<option value="'+i+'" selected="selected">'+i+'</option>';
+			        	else str242 += '<option value="'+i+'">'+i+'</option>';
+			        }
+			        var str602 = ''; 
+			        for(var i=0;i<=59;i++){
+			        	if(val["time4"] == i) str602 += '<option value="'+i+'" selected="selected">'+i+'</option>';
+			        	else str602 += '<option value="'+i+'">'+i+'</option>';
+			        }
+			        _html +=  '<li class="inner-item pb-15"><select class="inline w40">'+str241+'</select> : '
+			        _html += '<select class="inline w40">'+str601+'</select> - ';
+			        _html += '<select class="inline w40">'+str242+'</select> : ';
+			        _html += '<select class="inline w40">'+str602+'</select> ';
+		            if(ab == abc) _html += '<i class="icon-EnterPlatform-add js-icon-EnterPlatform-add"></i></li>'; 
+		            else _html += '<i class="icon-EnterPlatform-del js-icon-EnterPlatform-del"></i></li>';
+		            abc++;
+				});
+				if(ab>0) $(".js-shophours-asa").html(_html);
+			}
+			
+			
+			$(".loading").hide();
+			$(".js-add-shops-tan-asa").show();
+		},'json');
+		
+	});
+	$(".js-select-shops-type-asa").change(function(){
+		window.location.href='<?php echo U("UserDeployment/enterOne"); ?>&pageType='+$(this).val();
+	})
+})
+function substrasa(str){
+	return str = str.substring(0,str.length-1);
+}
+</script>
+<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&key=CI6BZ-65B33-WTZ37-3ZE4M-5CKYT-7AFOZ"></script>
+<script type="text/javascript">
+$(function(){
+	var lat = '<?php echo $set['latitude']?>';
+	var lng = '<?php echo $set['longitude'];?>';
+	init(lat,lng);
+	$('#positioning').click(function(){
+
+		var c = $("select[name='country']").children("option[value='"+$("select[name='country']").val()+"']").html();
+		var d = $("select[name='province']").children("option[value='"+$("select[name='province']").val()+"']").html();
+		var e = $("select[name='city']").children("option[value='"+$("select[name='city']").val()+"']").html();
+		
+		var address = $('#suggestId').val();
+		address = c+d+e+address;
+		var aa = $('#lat').val();
+		var bb = $('#lng').val();
+		
+		codeLatLng(address,aa,bb);
+	});
+});
+function init(lat,lng){
+	if(lat == '' || lng == ''){
+		lat = '31.286293';
+		lng = '121.479966';
+	}
+	var center = new qq.maps.LatLng(lat,lng);
+    map = new qq.maps.Map(document.getElementById('l-map'),{
+        center: center,
+        zoom: 16
+    });
+    var marker = new qq.maps.Marker({
+        map:map,
+        draggable: true,
+        position: center
+    });
+    qq.maps.event.addListener(map, 'dragend', function(event) {
+    	var lat1 = map.getCenter().getLat().toFixed(6);
+    	var lng1 = map.getCenter().getLng().toFixed(6);
+    	//$('#lat').val(lat1);
+        //$('#lng').val(lng1);
+        codeAddress(lat1,lng1);
+        init(lat1,lng1);
+    });
+    qq.maps.event.addListener(marker, 'dragend', function(event) {
+    var latLng = event.latLng,
+        lat = latLng.getLat().toFixed(6),
+        lng = latLng.getLng().toFixed(6);
+        //$('#lat').val(lat);
+        //$('#lng').val(lng);
+        codeAddress(lat,lng);
+        init(lat,lng);
+	});
+    geocoder = new qq.maps.Geocoder();
+}
+function codeLatLng(address,lat,lng){
+	if(lat == '' || lng == ''){
+		lat = '31.249400';
+		lng = '121.397000';
+	}
+	var center = new qq.maps.LatLng(lat,lng);
+    map = new qq.maps.Map(document.getElementById('l-map'),{
+        center: center,
+        zoom: 16
+    });
+    var marker = new qq.maps.Marker({
+        draggable: true,
+        position: center
+    });
+    geocoder = new qq.maps.Geocoder();
+	geocoder.getLocation(address);
+    //设置服务请求成功的回调函数
+    geocoder.setComplete(function(result) {
+        map.setCenter(result.detail.location);
+        var marker = new qq.maps.Marker({
+            map: map,
+            draggable: true,
+            position: result.detail.location
+        });
+        var latLng = result.detail.location;
+        var lat = latLng.getLat().toFixed(6);
+        var lng = latLng.getLng().toFixed(6);
+        qq.maps.event.addListener(marker, 'dragend', function(event) {
+            var latLng = event.latLng,
+                lat = latLng.getLat().toFixed(6),
+                lng = latLng.getLng().toFixed(6);
+                init(lat,lng);
+        	});
+        qq.maps.event.addListener(map, 'dragend', function(event) {
+        	var lat = map.getCenter().getLat().toFixed(6);
+        	var lng = map.getCenter().getLng().toFixed(6);
+            init(lat,lng);
+        });
+        $('#lat').val(lat);
+        $('#lng').val(lng);
+    });
+    //若服务请求失败，则运行以下函数
+    geocoder.setError(function() {
+        alertTan("出错了，请输入正确的地址！！！",'warn');
+    });
+}
+function codeAddress(lat,lng){
+	url3 = encodeURI("http://apis.map.qq.com/ws/geocoder/v1/?location=" + lat + "," + lng + "&key=CI6BZ-65B33-WTZ37-3ZE4M-5CKYT-7AFOZ&output=jsonp&&callback=?");
+    $.getJSON(url3, function (result) {
+        if(result.result!=undefined){
+        	//$('#suggestId').val(result.result.address);
+        }else{
+        	$('#suggestId').val('');
+        	alertTan("出错了，请选择正确的经纬度！！！",'warn');
+        }
+    })
+}
+</script>
+<script>
+$(function(){
+	filer_default_opts = {
+            templates: {     //上传进度条
+    	        box: '<ul class="jFiler-items-list jFiler-items-grid"></ul>',
+    	        item: '<li class="jFiler-item">\
+    		                <div class="jFiler-item-container">\
+    		                <div class="jFiler-item-inner">\
+    		                    <div class="jFiler-item-assets jFiler-row">\
+    		                        <ul class="list-inline pull-left">\
+    					            	<li>{{fi-name | limitTo: 25}}</li>\
+    					                <li>{{fi-size2}}</li>\
+    		                            <li>{{fi-progressBar}}</li>\
+    		                        </ul>\
+    		                    </div>\
+    		                </div>\
+    		            </div>\
+    		        </li>',
+    	        progressBar: '<div class="bar"></div>',
+    	        itemAppendToEnd: false,
+    	        removeConfirmation: false,
+    	        _selectors: {
+    	            list: '.jFiler-items-list',
+    	            item: '.jFiler-item',
+    	            progressBar: '.bar',
+    	            remove: '.jFiler-item-trash-action',
+    	        }
+    	    },
+    	    dragDrop: {
+    			dragEnter: null,
+    			dragLeave: null,
+    			drop: null,
+    		},
+        };
+	//文件上传
+	$('.js-add-img-asa').filer({
+		//limit: 1,
+		maxSize: 2,  //文件大小
+        extensions: ['bmp','png','jpeg','jpg','gif'],   //限制类型
+		changeInput: '<a class="btn-small btn-white ">选择图片</a>',   //绑定上传样式
+		showThumbs: true,    //是否显示templates
+		theme: "dragdropbox",
+		templates: filer_default_opts.templates,
+		dragDrop: filer_default_opts.dragDrop,
+		uploadFile: {
+			url: "./Tpl/static/SCRM5-PlugIn/html5file/php/upload.php",
+			data: null,
+			type: 'POST',
+			enctype: 'multipart/form-data',
+			beforeSend: function(){},
+			success: function(data, el){
+				var files = JSON.parse(data);
+				if(files['error']){
+					$('.jFiler-items').delay(1000).hide(0);
+					alertTan(files['error'],'error',3000);
+				}else{
+					var a = files.metas;
+					//获取链接
+					var url = files.files;
+					//获取类型
+					var dataType = el.parent().parent().parent().children(".js-add-img-asa").attr("data-type");
+					el.parent().parent().remove();
+					$("."+dataType).val("{lanrain::C('site_url')}"+url);
+					$("."+dataType+"-img").attr("src","{lanrain::C('site_url')}"+url);
+				}
+			},
+			error: function(el){
+			},
+			statusCode: null,
+			onProgress: null,
+			onComplete: null
+		},
+	});
+})
+</script>
+<include file="Public:footer" />

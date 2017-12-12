@@ -1,0 +1,60 @@
+<!-- 
+ --这是顶部的导航信息
+ -->
+<div class="header-nav clearfix">
+<?php if(ACTION_NAME=='index'||ACTION_NAME=='missionComplete'||ACTION_NAME=='CRM'||ACTION_NAME=='eshop'||ACTION_NAME=='O2O'||ACTION_NAME=='Session'||ACTION_NAME=='S5activity'||ACTION_NAME=='deploy'){ ?>
+	<div class="nav-left"><a href="<?php echo U('Index/index');?>"><img class="nav-logo" src="./Tpl/Home/default1215/common/img/index-nav-logo.png"></a></div>
+<?php }else{ ?>
+	<div class="nav-left"><a href="<?php echo U('Index/index');?>"><img class="nav-logo" src="./Tpl/Home/default1215/common/img/index-nav-logo2.png"></a></div>
+<?php } ?>
+	<div class="nav-right">
+		<?php if(!session('uid')){ ?>
+			<div class="btn-cover fr">
+				<a class="btn btn-login mr20" href="<?php echo U('Index/login');?>">商户登录</a><a class="btn btn-login on" href="<?php echo U('Index/register');?>">立即开通</a>
+			</div>
+		<?php }else{?>
+			<div class="login-yet index-login fr">
+				<img class="user-avatar" src="<?php echo session('logourl')?session('logourl'):'./Tpl/User5/default/common/img/avatar.jpg'; ?>" draggable="false"><span class="user-name"><?php echo session('uname'); ?></span><i class="fa up-and-down" aria-hidden="true"></i>
+				<div class="user-settings-cover">
+					<a class="settings-btn" href="<?php echo U('User5/Welcome/index'); ?>">进入后台</a>
+					<a class="settings-btn" href="<?php echo U('Index/logOut');?>">退出登录</a>
+				</div>
+			</div>
+		<?php } ?>
+		<ul class="nav-list fr" id="<?php if(ACTION_NAME=='index'||ACTION_NAME=='missionComplete'||ACTION_NAME=='CRM'||ACTION_NAME=='eshop'||ACTION_NAME=='O2O'||ACTION_NAME=='Session'||ACTION_NAME=='S5activity'||ACTION_NAME=='deploy'){ echo 'js-nav-list';} ?>">
+			<li class=""><a href="<?php echo U('Index/index');?>"><span style="<?php if(ACTION_NAME=='index') echo 'opacity:1'; ?>" >首页</span></a></li>
+			<li class="<?php if(ACTION_NAME=='missionComplete') echo 'on'; ?>"><a href="<?php echo U('Index/missionComplete');?>"><span>了解<em class="font-Hel">SCRM5</em></span></a></li>
+			<li class="<?php if(ACTION_NAME=='PurpleFriday') echo 'on'; ?>"><a href="<?php echo U('Index/PurpleFriday');?>"><span>紫色星期五</span></a></li>
+			<li class="<?php if(ACTION_NAME=='joincase') echo 'on'; ?>"><a href="<?php echo U('Index/joincase');?>"><span>入驻案例</span></a></li>
+			<li class="<?php if(ACTION_NAME=='renew') echo 'on'; ?>"><a href="<?php echo U('Index/renew');?>"><span>续费购买</span></a></li>
+			<li><a href="http://bbs.mobiwind.cn/forum.php" target="_blank"><span><em class="font-Hel">666</em>商户论坛</span></a></li>
+			<?php if(ACTION_NAME=='index'||ACTION_NAME=='missionComplete'||ACTION_NAME=='CRM'||ACTION_NAME=='eshop'||ACTION_NAME=='O2O'||ACTION_NAME=='Session'||ACTION_NAME=='S5activity'||ACTION_NAME=='deploy'){  ?><li class="navbg"></li><?php } ?>
+		</ul>
+	</div>
+</div>
+<span class="line-hr"></span>
+<script type="text/javascript">
+$(window).scroll(function(){
+	var scl=$(document).scrollTop();
+	var wdg=$(window).height()/2;
+	if(scl>wdg){
+		$(".js-sidebar-top").show();
+	}else{
+		$(".js-sidebar-top").hide();
+	}
+});
+$(".js-sidebar-top").click(function(){
+	$("html,body").animate({"scrollTop":0});
+});
+<?php if($_GET['isScroll']=='1'){ ?>
+	// 7大块内链跳转高度
+	$(function(){
+		$(document).scroll(function(){
+			var top = $(document).scrollTop();
+			console.log(top);
+		});
+		$("body").animate({scrollTop:'400px'},1)	
+	})
+<?php } ?>
+
+</script>

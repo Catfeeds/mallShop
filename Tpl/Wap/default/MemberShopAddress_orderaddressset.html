@@ -1,0 +1,132 @@
+<include file="Public:memberMallhead"/>
+<link href="{lanrain::RES}/css/app.css?<?php echo C('site_system_file_version'); ?>" rel="stylesheet">
+<!-- 增加选择地区的插件  css -->
+<link href="{lanrain::RES}/fangIOS/css/iosSelect.css?<?php echo C('site_system_file_version'); ?>" rel="stylesheet">
+<style>
+body{
+	background: #f2f3f4;
+}
+.eshop-content{min-height:100%;}
+</style>
+<div class="eshop-content eshop_posit content-pdbt1">
+	<div class="eshopv_address">
+		<ul class="eshopv_addressul">
+			<li><label>收货人：</label><div class="eshopv_addressul_ipt"><input type="text" name="name" value="<?php echo $addressInfo['name'];?>" placeholder="请您填写您的姓名"/></div></li>
+			<li><label>手机号码：</label><div class="eshopv_addressul_ipt"><input type="tel" name="moblie" value="<?php echo $addressInfo['mobile'];?>" placeholder="请您填写您的手机号码"/></div></li>
+			<li id="select_contact">
+				<label>所在地区：</label>
+				<div class="eshopv_addressul_ipt">
+					<!-- <input type="text" name="city" value="<?php echo $addressInfo['city'];?>" placeholder="请您填写您的所在地区"/>
+					<input type="hidden" name="contact_province_code" id="contact_province_code" value="" data-province-name="">
+        			<input type="hidden" name="contact_city_code" id="contact_city_code" value="" data-city-name=""> -->
+        			<span data-province-code="<?php echo $addressInfo['areacode'][0];?>" data-city-code="<?php echo $addressInfo['areacode'][1];?>" data-district-code="<?php echo $addressInfo['areacode'][2];?>" id="show_contact"><?php echo $addressInfo['area'] ? $addressInfo['area'] : '<i>请您填写您的所在地区</i>';?></span>
+				</div>
+			</li>
+			<li style="height: 70px;"><label>详细地址：</label><div class="eshopv_addressul_ipt"><textarea placeholder="请您填写您的详细地址"  name="address" id="address"><?php echo $addressInfo['address'];?></textarea></div></li>
+			<li>设置默认地址<div class="mui-switch mui-switcha1 rd-switch <?php if($addressInfo['isdefault'] == 1){echo 'mui-active';}else{echo '';}?>" data-open="2"><div class="mui-switch-handle"></div></div></li>
+		</ul>
+	</div>
+	<div class="eshopv_ordera_btnm">
+		<a class="eshopv_ordera_btnp" id="submit" href="javascript:void(0);">保存并使用</a>
+	</div>
+</div>
+<script>
+$(function(){
+	$("#submit").click(function(){
+		var id = "<?php echo $addressInfo['id'];?>";
+		var name = jQuery.trim($('input[name="name"]').val());
+		if(!name){
+			alert('请填写收货人姓名');
+			return false;
+		}
+		var moblie = $('input[name="moblie"]').val();
+		var yzp = /^(((13[0-9]{1})|(14[579]{1})|(15[012356789]{1})|(17[0135678]{1})|(18[0-9]{1}))+\d{8})$/;
+		if(moblie.length<1 || !yzp.test(moblie)){
+			alert('请填写正确的手机号');
+			return false;
+		}
+		var addre = $('#show_contact').text();
+		var areacode = $('#show_contact').attr('data-province-code')+','+$('#show_contact').attr('data-city-code')+','+$('#show_contact').attr('data-district-code');
+		if(areacode == ',,'){
+			alert('请选择所在地区');
+			return false;
+		}
+		var address = jQuery.trim($('#address').val());
+		if(!address){
+			alert('请填写详细地址');
+			return false;
+		}
+		var isdefault = $('.rd-switch').attr("data-open");
+		$('.loading').show();
+	   	$.post("<?php echo U('MemberShopAddress/orderaddressset',array('companyid'=>$companyid)).'&time='; ?>"+Math.random(),
+	   		{id:id,name:name,mobile:moblie,addre:addre,areacode:areacode,address:address,isdefault:isdefault},function(result){
+	       if(result.code==200){
+	    	   var ordertype = '<?php echo $ordertype; ?>';
+				if(ordertype == 1){
+					window.location.href="<?php echo C('site_url').U('MemberMallOrder/createOrder',array('companyid'=>$companyid,'goodsid'=>$goodsid)); ?>"+'&addressid='+result.id;
+				}else if(ordertype == 2){
+					window.location.href="<?php echo C('site_url').U('MemberMallOrder/createBuyNowOrder',array('companyid'=>$companyid,'goodsid'=>$goodsid,'goodsskuid'=>$goodsskuid,'goodsnum'=>$goodsnum,'goodtype'=>$goodtype,'groupid'=>$groupid,'groupinfoid'=>$groupinfoid)); ?>"+'&addressid='+result.id;
+				}
+	       }else if(result['code']==300){
+	    	   $('.loading').hide();
+	    	   alert(result.tips,1000);
+	       }
+		},'json');
+	});
+	// 设置默认地址
+	$(".mui-switcha1").click(function(){
+		if($(this).hasClass("mui-active")){
+			$(this).removeClass("mui-active");
+               $(this).attr("data-open",2);
+         	}else {
+              	$(this).addClass("mui-active");
+               $(this).attr("data-open",1);
+           }
+       });
+});
+</script>
+<!-- 增加选择地区的插件  js -->
+<script src="{lanrain::RES}/fangIOS/js/zepto.js" type="text/javascript" charset="utf-8"></script>
+<script src="{lanrain::RES}/fangIOS/js/iscroll.js" type="text/javascript" charset="utf-8"></script>
+<script src="{lanrain::RES}/fangIOS/js/areaData_v2.js" type="text/javascript" charset="utf-8"></script>
+<script src="{lanrain::RES}/fangIOS/js/iosSelect.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+/* *
+* 增加选择地区的插件
+* owen
+* */
+var selectContactDom = $('#select_contact');
+var showContactDom = $('#show_contact');
+var contactProvinceCodeDom = $('#contact_province_code');
+var contactCityCodeDom = $('#contact_city_code');
+selectContactDom.bind('click', function () {
+	var sccode = showContactDom.attr('data-city-code');
+	var scname = showContactDom.attr('data-city-name');
+	var oneLevelId = showContactDom.attr('data-province-code');
+	var twoLevelId = showContactDom.attr('data-city-code');
+	var threeLevelId = showContactDom.attr('data-district-code');
+	var iosSelect = new IosSelect(3,
+		[iosProvinces, iosCitys, iosCountys],
+		{
+		title: '地址选择',
+		itemHeight: 35,
+		oneTwoRelation: 1,
+		twoThreeRelation: 1,
+		oneLevelId: oneLevelId,
+		twoLevelId: twoLevelId,
+		threeLevelId: threeLevelId,
+		callback: function (selectOneObj, selectTwoObj, selectThreeObj) {
+		//contactProvinceCodeDom.val(selectOneObj.id);
+		//contactProvinceCodeDom.attr('data-province-name', selectOneObj.value);
+		//contactCityCodeDom.val(selectTwoObj.id);
+		//contactCityCodeDom.attr('data-city-name', selectTwoObj.value);
+		showContactDom.attr('data-province-code', selectOneObj.id);
+		showContactDom.attr('data-city-code', selectTwoObj.id);
+		showContactDom.attr('data-district-code', selectThreeObj.id);
+		showContactDom.html(selectOneObj.value + ' ' + selectTwoObj.value + ' ' + selectThreeObj.value);
+		}
+	});
+});
+</script>
+<include file="Public:weiXinNotShareSet" />
+<include file="Public:footer" />

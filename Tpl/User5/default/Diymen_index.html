@@ -1,0 +1,606 @@
+<include file="Public:head"/>
+<include file="Public:smallEditor"/>
+<include file="Public:WeiTanSelect"/>
+<!-- 页面内容 begin -->
+	<?php echo $makeTopUrl;?>
+    <include file="Public:wechatsManage"/>
+    <!-- 微信自定义菜单管理 弹窗 -->
+    <form class="mod mb-15" id="form_id">
+        <div class="mod-header radius-top"><h4>微信自定义菜单管理</h4></div>
+        <input type="hidden" name="menutype" value=""/>
+        <input type="hidden" name="datanums" value=""/>
+        <input type="hidden" name="datanums_zi" value=""/>
+        <div class="mod-body">
+            <div class="content clearfix menu-setting-area">
+                <!-- 显示区 -->
+                <div class="menu-preview-area fl">
+                    <div class="mobile-menu-preview">
+                        <div class="mobile-hd"><?php echo $info['wxname'];?></div>
+                        <div class="mobile-bd">
+                            <ul class="pre-menu-list">
+                           		<?php if($list['parent']){?>
+                           			<?php foreach($list['parent'] as $key=>$val){?>
+                           				<li class="pre-menu-item <?php if(count($list['parent'])==1){echo 'size1of2';}elseif(count($list['parent'])>1){echo 'size1of3';}?>">
+											<a id="<?php echo 'num'.$val['num'];?>" data-sucaicoutent="<?php echo $val['sucaicoutent'];?>" data-url="<?php echo str_replace(array('&amp;'),array('&'),$val['url']);?>" data-content="<?php echo emoji_decode($val['content']);?>" data-num="<?php echo $val['num'];?>" data-contenttype="<?php echo $val['contenttype'];?>" data-replytype="<?php echo $val['replytype'];?>" class="pre-menu-link js-add-btn-toggle" href="javascript:void(0);">
+												<span><?php echo emoji_decode($val['title']);?></span>
+											</a>
+											<div class="child-pre-menu-list-wrap" style="display:none">
+												<ul class="child-pre-menu-list">
+													<?php foreach($val['child'] as $cKey=>$cVal){?>
+														<li id="<?php echo 'num'.$cVal['num'];?>" data-sucaicoutent="<?php echo $cVal['sucaicoutent'];?>" data-url="<?php echo str_replace(array('&amp;'),array('&'),$cVal['url']);?>" data-content="<?php echo emoji_decode($cVal['content']);?>" data-num="<?php echo $cVal['num'];?>" data-contenttype="<?php echo $cVal['contenttype'];?>" data-replytype="<?php echo $cVal['replytype'];?>" class="child-pre-menu-item js-menu-alive">
+															<a class="child-pre-menu-link <?php if($cKey=='0'){echo 'item-active';}?>" href="javascript:void(0);">
+																<span class="child-pre-menu-inner">
+																	<span><?php echo emoji_decode($cVal['title']);?></span>
+																</span>
+															</a>
+														</li>
+													<?php }?>
+													<?php if(count($val['child'])<5){?>
+													<li class="child-pre-menu-item">
+														<a class="child-pre-menu-link js-add-child-btn" title="最多添加5个二级菜单" href="javascript:void(0);">
+															<span class="child-pre-menu-inner">
+																<i class="icon-menu-add"></i>
+															</span>
+														</a>
+													</li>
+													<?php }?>
+												</ul>
+												<i class="arrow-out"></i>
+												<i class="arrow-in"></i>
+											</div>
+										</li>
+								<?php }}?>
+                               	<li class="pre-menu-item <?php if(count($list['parent'])==1){echo 'size1of2';}elseif(count($list['parent'])>1){echo 'size1of3';}else{echo 'size1of1';}?>" <?php if(count($list['parent'])>2){echo 'style="display:none"';}?>>
+                                    <a href="javascript:void(0);" class="pre-menu-link js-add-btn <?php if(!$list['parent']){echo 'item-active';}?>" title="最多添加3个一级菜单">
+                                    	<?php if(!$list['parent']){?>
+                                    		<span><i class="icon-menu-add no-menu"></i>添加菜单</span>
+                                    	<?php }else{?>
+                                    		<i class="icon-menu-add"></i>
+                                    	<?php }?>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- 编辑区 -->
+                <div class="menu-form-area js-menu-form-area hide">
+                    <div class="portable-editor">
+                        <div class="editor-inner">
+                            <div class="menu-form-hd">
+                                <h5 class="js-menu-form-hd-tit fl">菜单名称</h5>
+                                <h5 class="text-right"><a href="javascript:void(0);" class="jsDelBt tips">删除此菜单</a></h5>
+                            </div>
+                            <div class="menu-form-body">
+                                <div class="group mb-30 hide js-inner-none">
+                                    <h5 class="inline w250 text-gray ">已添加子菜单，仅可设置菜单名称。</h5>
+                                </div>
+
+                                <div class="group js-emoji-into mb-30">
+                                    <h5 class="js-emoji-into-tit inline w80 text-left">菜单名称：</h5>
+                                    <input class="inline w300 js_menu_name" id="js_menu_name" type="text" placeholder="">
+									<include file="Public:emojiDown"/>
+                                    <div class="group ">
+                                        <h6 class="inline w80 text-left"><!-- Null --></h6>
+                                        <h6 class="js_titleNolTips inline text-gray">字数不超过4个汉字或8个字母</h6>
+                                    </div>
+                                </div>
+
+                                <div class="group mb-30 js-control-wrap">
+                                    <h5 class="js_menuContent inline w80 text-left">菜单内容：</h5>
+                                    <div class="inline">
+                                        <label class=" radio inline js-radio-send-msg">
+                                        	<input type="radio" name="replytype" checked="checked" value="1">回复消息
+                                        </label>
+                                        &nbsp; &nbsp; &nbsp; &nbsp;
+                                        <label class=" radio inline js-radio-url">
+                                        	<input type="radio" name="replytype" value="2">植入链接
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="group js-radio-send-msg-wrap">
+                                    <div class="tab-box type-3 Wechat-menu-tabs js-tab-box-pro">
+                                        <div class="hd">
+                                            <ul>
+                                                <li data-value="1" data-scvalue=""><i class="icon-msg icon-text"></i>文字</li>
+                                                <li data-value="2" data-scvalue=""><i class="icon-msg icon-text-pic"></i>图文</li>
+                                                <li data-value="3" data-scvalue=""><i class="icon-msg icon-pic"></i>图片</li>
+                                                <li data-value="4" data-scvalue=""><i class="icon-msg icon-audio"></i>语音</li>
+                                                <li data-value="5" data-scvalue=""><i class="icon-msg icon-video"></i>视频</li>
+                                            </ul>
+                                        </div>
+                                        <div class="bd">
+                                            <!-- 新建文字 -->
+                                            <div class="Wechat-menu-msg-inner js-emoji-into">
+                                                <textarea class="Wechat-menu-msg-msg"></textarea>
+                                                <div class="Wechat-menu-msg-tools-wrap clearfix">
+                                                    <include file="Public:emojiUP"/>
+                                                    <h5 class="fr">剩余<span>600</span>字</h5>
+                                                </div>
+                                            </div>
+
+                                            <!-- 新建图文 -->
+                                            <div class="Wechat-menu-pic-msg-inner js-Wechat-menu-pic-msg-inner">
+                                                <!-- 无图文 -->
+                                                <div class="Wechat-menu-no-con js-Wechat-menu-no-con">
+                                                    <div class="create-access text-gray js-WeChat-file-add-pic-msg">
+                                                        <i class="icon-add-btn"></i><h5>从素材库中选择</h5>
+                                                    </div>
+                                                    <div class="create-access text-gray js-newmanylist">
+                                                        <i class="icon-add-btn"></i><h5>新建图文消息</h5>
+                                                    </div>
+                                                </div>
+                                                <!-- 有图文 -->
+                                                <div class="Wechat-menu-con" id="tuwenshow" style="display:none">
+                                                </div>
+                                            </div>
+
+                                            <!-- 新建图片 -->
+                                            <div class="Wechat-menu-pic-inner js-Wechat-menu-pic-inner">
+                                                <!-- 无图片 -->
+                                                <div class="Wechat-menu-no-con js-Wechat-menu-no-con">
+                                                    <div class="create-access text-gray  js-WeChat-file-add-pic imageselect">
+                                                        <i class="icon-add-btn"></i><h5>从素材库中选择</h5>
+                                                    </div>
+                                                    <div class="create-access text-gray js-pic-click">
+                                                        <i class="icon-add-btn"></i><h5>上传图片</h5>
+                                                        <input id="js-demo-fileInput-img-tan2" type="file" name="files[]" class="hide demo-fileInput-img-tan2" multiple="multiple">
+                                                    </div>
+                                                </div>
+                                                <!-- 有图片 -->
+                                                <div class="Wechat-menu-con " id="tupianshow" style="display:none">
+                                                </div>
+                                            </div>
+
+                                            <!-- 新建语音 -->
+                                            <div class="Wechat-menu-audio-inner js-Wechat-menu-audio-inner">
+                                                <!-- 无语音 -->
+                                                <div class="Wechat-menu-no-con js-Wechat-menu-no-con">
+                                                    <div class="create-access text-gray js-WeChat-file-add-audio">
+                                                        <i class="icon-add-btn"></i><h5>从素材库中选择</h5>
+                                                    </div>
+                                                    <div class="create-access text-gray js-voice-click">
+                                                        <i class="icon-add-btn"></i><h5>新建语音</h5>
+                                                        <input id="js-demo-fileInput-voices-tan2" type="file" name="files[]" class="hide demo-fileInput-voices-tan2" multiple="multiple">
+                                                    </div>
+                                                </div>
+                                                <!-- 有语音 -->
+                                                <div class="Wechat-menu-con" id="voiceshow"  style="display:none">
+                                                </div>
+                                            </div>
+
+                                            <!-- 新建视频 -->
+                                            <div class="Wechat-menu-video-inner js-Wechat-menu-video-inner">
+                                                <!-- 无视频 -->
+                                                <div class="Wechat-menu-no-con js-Wechat-menu-no-con">
+                                                    <div class="create-access text-gray js-WeChat-file-add-video">
+                                                        <i class="icon-add-btn"></i><h5>从素材库中选择</h5>
+                                                    </div>
+                                                    <div class="create-access text-gray js-video-click">
+                                                        <i class="icon-add-btn"></i><h5>新建视频</h5>
+                                                        <input id="js-demo-fileInput-videos-tan2" type="file" name="files[]" class="hide demo-fileInput-videos-tan2" multiple="multiple">
+                                                    </div>
+                                                </div>
+                                                <!-- 有视频 -->
+                                                <div class="Wechat-menu-con" id="videoshow" style="display:none">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="group js-radio-url-wrap hide">
+                                    <h5 class="inline w80 text-left">链接内容：</h5>
+                                    <input class="inline w300 js-diyurl" type="text" name="addurl" placeholder="必须含有“http://”">
+                                    <a class="btn-small btn-white js-WeChat-into-url-btn select-url-asa" data-urlType="js-diyurl" href="javascript:void(0);">插入链接</a>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="editor-arrow-wrap">
+                            <i class="editor-arrow-out"></i>
+                            <i class="editor-arrow-in"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- <h5 class="fl no-menu-tips js-no-menu-tips"><b><</b> 请点击左侧菜单进行操作...</h5> -->
+            </div>
+            <div class="Wechat-msg-bottom text-center">
+                <a class="btn-middle btn-white js-queren-option3" href="javascript:void(0);" >保存并发布</a>
+            </div>
+        </div>
+    </form>
+<div class="popup-wrap js-queren-option3-wrap" style="display: none;">
+    <div class="mod small-popup">
+        <div class="mod-header">
+            <h4 class="fl">确认发布</h4>
+            <i class="fr icon-close-dark js-icon-close"></i></div>
+        <div class="mod-body">
+            <div class="content">
+                <h5 class="pb-10">发布后，公众号的原有菜单会被覆盖，确认发布吗？</h5>
+            </div>
+            <div class="group text-center pb-10">
+                <a class="btn-small btn-white w60 mr-20 js-cancel">取消</a>
+                <a class="btn-small btn-purple w60" id="savemenu">确定</a>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function(){
+            $(".js-queren-option3").on("click",function(){
+                $(".js-queren-option3-wrap").fadeIn(120);
+            })
+        })
+    </script>
+</div>
+<script src="{lanrain::RES}/js/json2.js"></script>
+<script>
+$(document).ready(function(){
+	//$("#form_id").validationEngine();
+	$(document).delegate('.js-pic-click','click',function(){
+		document.getElementById("js-demo-fileInput-img-tan2").click();
+	});
+	$(document).delegate('.js-voice-click','click',function(){
+		document.getElementById("js-demo-fileInput-voices-tan2").click();
+	});
+	$(document).delegate('.js-video-click','click',function(){
+		document.getElementById("js-demo-fileInput-videos-tan2").click();
+	});
+});
+$(function () {
+	$('#savemenu').click(function(){
+		$(".loading").show();
+		var myArray = {};
+		$('.pre-menu-list .pre-menu-item .js-add-btn-toggle').each(function (index,domEle){
+			var index1 = index; 
+			var $this = $(this);
+			var num = $this.attr('data-num');
+			myArray[num] = {};
+			myArray[num]['title'] = $this.attr('data-title');
+			myArray[num]['replytype'] = $this.attr('data-replytype');
+			myArray[num]['contenttype'] = $this.attr('data-contenttype');
+			myArray[num]['sucaicoutent'] = $this.attr('data-sucaicoutent');
+			var chil = {};
+			$this.next('.child-pre-menu-list-wrap').find('.js-menu-alive').each(function (index,domEle){
+				var chilnum = $this.next('.child-pre-menu-list-wrap').find('.js-menu-alive').eq(index).attr('data-num');
+				chil[chilnum] = {};
+				chil[chilnum]['title'] = $this.next('.child-pre-menu-list-wrap').find('.js-menu-alive').eq(index).attr('data-title');
+				chil[chilnum]['replytype'] = $this.next('.child-pre-menu-list-wrap').find('.js-menu-alive').eq(index).attr('data-replytype');
+				chil[chilnum]['contenttype'] = $this.next('.child-pre-menu-list-wrap').find('.js-menu-alive').eq(index).attr('data-contenttype');
+				chil[chilnum]['sucaicoutent'] = $this.next('.child-pre-menu-list-wrap').find('.js-menu-alive').eq(index).attr('data-sucaicoutent');
+			});
+			myArray[num]['chil'] = chil;
+		});
+		$.post("<?php echo U('Diymen/createDiymen',array('companyid'=>$companyid)).'&time='?>"+Math.random(),{data:JSON.stringify(myArray)},function(data){
+			$(".loading").hide();
+			if(data.code == 200){
+        		$(".js-queren-option3-wrap").fadeOut(120);
+        		alertTan('发布成功');
+        		setTimeout(function(){
+				    // JS 操作代码
+					window.location.href=location.href;
+				},1500);
+        	}else{
+        		alertTan(data.msg,'error');
+        	}
+        },'json');
+	});
+	//播放音频
+	$(document).on("click", ".js-icon-menu-audio", function () {
+    	var player = $(this).next(".aa")[0];
+    	if($(this).hasClass('on')){
+    		player.play ();
+    	}else{
+    		player.pause ();
+    	}
+	});
+	//公共方法------清除隐藏域
+	function clearInput(){
+		$('input[name="datanums"]').val('');
+		$('input[name="datanums_zi"]').val('');
+		$('input[name="menutype"]').val('');
+	};
+	clearInput();
+	
+	// 一级菜单点击 查询素材
+    $(document).on("click", ".pre-menu-link", function () {
+        var contenttype = $(this).attr("data-contenttype");
+        var sucaicoutent = $(this).attr("data-sucaicoutent");
+        if(contenttype != '1' && sucaicoutent){
+        	selectSucai(contenttype,sucaicoutent,'');
+        }
+    });
+ 	// 二级菜单点击 查询素材
+    $(document).on("click", ".js-menu-alive", function () {
+        var contenttype = $(this).attr("data-contenttype");
+        var sucaicoutent = $(this).attr("data-sucaicoutent");
+        if(contenttype != '1' && sucaicoutent){
+        	selectSucai(contenttype,sucaicoutent,'');
+        }
+    });
+  	//选中视频点击确定
+    $(document).on("click", "#clickvideook", function () {
+    	var sucaicoutent = $(this).attr("data-videoid");
+    	selectSucai('5',sucaicoutent,'');
+    });
+ 	//选中音频点击确定
+    $(document).on("click", "#clickvoiceok", function () {
+    	var sucaicoutent = $('input:radio[name="audio-item"]:checked').val();
+    	selectSucai('4',sucaicoutent,'');
+    });
+  	//选中图片点击确定
+    $(document).on("click", "#clickimgok", function () {
+    	var sucaicoutent = $(this).attr("data-imgid");
+    	selectSucai('3',sucaicoutent,'');
+    });
+	//选中素材点击确定
+    $(document).on("click", "#clicktextok", function () {
+    	var sucaicoutent = $(this).attr("data-imgtext");
+    	selectSucai('2',sucaicoutent,'');
+    });
+	function selectSucai(val1,val2,val3){
+		$(".loading").show();
+		var datanum = '';
+		var menutype = $('input[name="menutype"]').val();
+        if(menutype == '2'){
+        	datanum = $('input[name="datanums_zi"]').val();
+        }else{
+        	datanum = $('input[name="datanums"]').val();
+        }
+		$.post("<?php echo U('Diymen/sucaiCoutent',array('companyid'=>$companyid)).'&time='?>"+Math.random(),{contenttype:val1,sucaicoutent:val2},function(data){
+			$(".loading").hide();
+			if(data.code == 200){
+        		if(val1 == '2'){
+        			$('#tuwenshow').html(data.html);
+        			$('#tuwenshow').prev().addClass('hide');
+        			$('#tuwenshow').fadeIn(120);
+        		}else if(val1 == '3'){
+        			$('#tupianshow').html(data.html);
+        			$('#tupianshow').prev().addClass('hide');
+        			$('#tupianshow').fadeIn(120);
+        		}else if(val1 == '4'){
+        			$('#voiceshow').html(data.html);
+        			$('#voiceshow').prev().addClass('hide');
+        			$('#voiceshow').fadeIn(120);
+        		}else if(val1 == '5'){
+        			$('#videoshow').html(data.html);
+        			$('#videoshow').prev().addClass('hide');
+        			$('#videoshow').fadeIn(120);
+        		}
+        		$('#num'+datanum).attr("data-sucaicoutent",val2);
+        		$(".js-tab-box-pro .hd li").eq(val1-1).attr('data-scvalue',val2);
+        	}
+        },'json');
+	}
+    
+/********************** 修改菜单开始**************************/
+
+ 
+	//	插入链接
+	$(document).on("blur", 'input[name="addurl"]', function () {
+	    var addurl = $(this).val();
+	    if(addurl.substring(0,7) == 'http://'||addurl.substring(0,8) == 'https://'){
+	    	commonEdit($(this),'url',addurl);
+	    }else{
+	    	return false;
+	    }
+	});
+	//插入链接
+	$(document).on("click",'.useUrl',function(){
+		var addurl = $(this).attr('data-url');
+	    if(addurl.substring(0,7) == 'http://'||addurl.substring(0,8) == 'https://'){
+	    	commonEdit($(this),'url',addurl);
+	    }else{
+	    	return false;
+	    }
+		//$('.js-mobile-menu-preview').find('.on').attr('data-url',$(this).attr('data-url'));
+	});
+	 	
+	//	设置文本
+    $(document).on("blur", ".Wechat-menu-msg-msg", function () {
+        var content = $(this).val();
+        commonEdit($(this),'content',content);
+    });
+	
+	//	切换发送信息
+    $(document).on("click", ".js-radio-send-msg", function () {
+        $(this).parents(".menu-form-body").find(".js-radio-url-wrap").hide();
+        $(this).parents(".menu-form-body").find(".js-radio-send-msg-wrap").removeClass("hide").fadeIn(120);
+        commonEdit($(this),'replytype',1);
+    });
+
+	//	切换植入链接
+    $(document).on("click", ".js-radio-url", function () {
+        $(this).parents(".menu-form-body").find(".js-radio-send-msg-wrap").hide();
+        $(this).parents(".menu-form-body").find(".js-radio-url-wrap").removeClass("hide").fadeIn(120);
+        commonEdit($(this),'replytype',2);
+    });
+   /*  $('#js_menu_name').bind('jqv.field.result',function(event,field,isError,promptText){
+        if(isError){
+        	return false;
+        }else{
+        	var inputVal = $(this).val();
+            if (inputVal != "") {
+                $(this).parents(".menu-setting-area").find(".js-add-btn-toggle.item-active span").text(inputVal);
+                $(this).parents(".menu-setting-area").find(".child-pre-menu-link.item-active .child-pre-menu-inner span").text(inputVal);
+            } else if (inputVal == "") {
+                $(this).parents(".menu-setting-area").find(".js-add-btn-toggle.item-active span").text("一级菜单");
+                $(this).parents(".menu-setting-area").find(".child-pre-menu-link.item-active .child-pre-menu-inner span").text("二级菜单");
+            }
+            commonEdit($(this),'title',inputVal);
+        };
+      }); */
+    $('#js_menu_name').on("blur", function () {
+      	var inputVal = $(this).val();
+        if (inputVal != "") {
+            $(this).parents(".menu-setting-area").find(".js-add-btn-toggle.item-active span").text(inputVal);
+            $(this).parents(".menu-setting-area").find(".child-pre-menu-link.item-active .child-pre-menu-inner span").text(inputVal);
+        } else if (inputVal == "") {
+            $(this).parents(".menu-setting-area").find(".js-add-btn-toggle.item-active span").text("一级菜单");
+            $(this).parents(".menu-setting-area").find(".child-pre-menu-link.item-active .child-pre-menu-inner span").text("二级菜单");
+        }
+        commonEdit($(this),'title',inputVal);
+    });
+	//	切换回复消息类型开始
+	$(".js-tab-box-pro .hd li").on("click", function () {
+		var contenttype = $(this).attr("data-value");
+		var sucaicoutent = $(this).attr("data-scvalue");
+        if ($(this).not(".on")[0]) {
+    		$(".js-tab-box-pro .hd li").eq($(this).index()).addClass("on").siblings().removeClass("on");
+            $(".js-tab-box-pro .bd>div").hide().eq($(this).index()).fadeIn(120);
+            commonEdit($(this),'contenttype',contenttype);
+        }
+        $(".js-radio-send-msg-wrap").find(".bd>div").eq(contenttype - 1).children('.Wechat-menu-no-con').removeClass('hide').siblings('div').hide();
+        if(contenttype !='1' && sucaicoutent){
+        	selectSucai(contenttype,sucaicoutent,'');
+        }
+    });
+	
+	//	公用方法------修改菜单数据
+	function commonEdit(val0,val1,val2){
+		var datanum = '';
+		var menutype = $('input[name="menutype"]').val();
+        if(menutype == '2'){
+        	datanum = $('input[name="datanums_zi"]').val();
+        }else{
+        	datanum = $('input[name="datanums"]').val();
+        }
+		var edittype = val1;
+		var content = val2;
+		if(edittype != 'title'){
+			$('#num'+datanum).attr("data-"+edittype,content);
+		}
+		$.post("<?php echo U('Diymen/commonSave',array('companyid'=>$companyid)).'&time='?>"+Math.random(),{datanum:datanum,content:content,edittype:edittype},function(data){},'json');
+	}
+/********************** 修改菜单结束**************************/	
+	
+	
+/********************** 删除菜单开始**************************/
+    $(document).on("click", ".jsDelBt", function () {
+        var menutype = $('input[name="menutype"]').val();
+        var datanum = '';
+        if(menutype == '2'){
+        	datanum = $('input[name="datanums_zi"]').val();
+        }else{
+        	datanum = $('input[name="datanums"]').val()
+        }
+        $(this).parents(".js-menu-form-area").hide();
+		$(this).parents(".menu-setting-area").find(".js-no-menu-tips").show();
+
+        // 删除一级菜单
+        var L1Len = $(this).parents(".menu-setting-area").find(".pre-menu-item").length;
+
+        if (L1Len == 4 && $(this).parents(".menu-setting-area").find(".js-add-btn-toggle").hasClass("item-active")) {
+            // 当前有三个一级菜单的时候
+            $(this).parents(".menu-setting-area").find(".js-add-btn-toggle.item-active").parents(".pre-menu-item").remove();
+            $(this).parents(".menu-setting-area").find(".pre-menu-item").attr("class", "pre-menu-item size1of3");
+            $(this).parents(".menu-setting-area").find(".pre-menu-item:last-child").show();
+        } else if (L1Len == 3 && $(this).parents(".menu-setting-area").find(".js-add-btn-toggle").hasClass("item-active")) {
+            // 当前有三个一级菜单的时候
+            $(this).parents(".menu-setting-area").find(".js-add-btn-toggle.item-active").parents(".pre-menu-item").remove();
+            $(this).parents(".menu-setting-area").find(".pre-menu-item").attr("class", "pre-menu-item size1of2");
+
+        } else if (L1Len == 2 && $(this).parents(".menu-setting-area").find(".js-add-btn-toggle").hasClass("item-active")) {
+            // 当前有三个一级菜单的时候
+            $(this).parents(".menu-setting-area").find(".js-add-btn-toggle.item-active").parents(".pre-menu-item").remove();
+            $(this).parents(".menu-setting-area").find(".pre-menu-item").attr("class", "pre-menu-item size1of1");
+            $(this).parents(".menu-setting-area").find(".pre-menu-item:last-child a").replaceWith('<a href="javascript:void(0);" class="pre-menu-link js-add-btn item-active" title="最多添加3个一级菜单"><span><i class="icon-menu-add no-menu"></i> 添加菜单</span></a>');
+        }
+
+        // 删除二级菜单
+        $(this).parents(".menu-setting-area").find(".child-pre-menu-link.item-active").parents(".child-pre-menu-list").find("li:last-child").show();
+        if ($(this).parents(".menu-setting-area").find(".child-pre-menu-link.item-active").hasClass("item-active")) {
+            $(this).parents(".menu-setting-area").find(".child-pre-menu-link.item-active").parents(".child-pre-menu-item").remove();
+        }
+        clearInput();
+    	$.post("<?php echo U('Diymen/delMain',array('companyid'=>$companyid)).'&time='?>"+Math.random(),{datanum:datanum},function(data){},'json');
+    });
+/********************** 删除菜单结束**************************/	
+
+	
+/********************** 添加菜单开始**************************/	
+	//	添加一级菜单 
+    $(document).on("click", ".js-add-btn", function () {
+    	$('.Wechat-menu-msg-msg').val('一级菜单默认文本回复内容');
+    	addMenu('1',$(this));
+    });
+	
+ 	//	添加二级菜单
+    $(document).on("click", ".js-add-child-btn", function () {
+    	$('.Wechat-menu-msg-msg').val('二级菜单默认文本回复内容');
+    	addMenu('2',$(this));
+    });
+ 	
+ 	//	公用方法-----添加菜单
+	function addMenu(val0,val1){
+		var num = new Date().getTime();
+		var datanum = datanum_zi = '';
+		$('input[name="addurl"]').val('');
+		if(val0 == '1'){
+			datanum = num;
+			$('input[name="datanums"]').val(num);
+			val1.parents(".content").find(".js-no-menu-tips").hide();
+	        val1.parents(".content").find(".js-menu-form-area").removeClass("hide").show();
+
+	        var ClLen = val1.parents("ul.pre-menu-list").find("li.pre-menu-item").length;
+	        if (ClLen == 1) {
+	            // 追加第一个一级菜单
+	            val1.parents("li.pre-menu-item").before('<li class="pre-menu-item size1of1"><a href="javascript:void(0);" class="pre-menu-link js-add-btn-toggle item-active" data-sucaicoutent="" id="num'+num+'" data-url="" data-content="一级菜单默认文本回复内容" data-num="'+num+'" data-contenttype="1" data-replytype="1"><span>一级菜单</span></a><div class="child-pre-menu-list-wrap"><ul class="child-pre-menu-list"><li class="child-pre-menu-item"><a href="javascript:void(0);" class="child-pre-menu-link js-add-child-btn" title="最多添加5个二级菜单"><span class="child-pre-menu-inner"><i class="icon-menu-add"></i></span></a></li></ul><i class="arrow-out"></i><i class="arrow-in"></i></div></li>');
+	            val1.parents("ul.pre-menu-list").find("li.pre-menu-item").attr("class", "pre-menu-item size1of2");
+	            val1.removeClass("item-active").find("span").replaceWith('<i class="icon-menu-add"></i>');
+	        } else if (ClLen == 2) {
+	            // 追加第二个一级菜单
+	            val1.parents("li.pre-menu-item").before('<li class="pre-menu-item size1of1"><a href="javascript:void(0);" class="pre-menu-link js-add-btn-toggle item-active" data-sucaicoutent="" id="num'+num+'" data-url="" data-content="一级菜单默认文本回复内容" data-num="'+num+'" data-contenttype="1" data-replytype="1"><span>一级菜单</span></a><div class="child-pre-menu-list-wrap"><ul class="child-pre-menu-list"><li class="child-pre-menu-item"><a href="javascript:void(0);" class="child-pre-menu-link js-add-child-btn" title="最多添加5个二级菜单"><span class="child-pre-menu-inner"><i class="icon-menu-add"></i></span></a></li></ul><i class="arrow-out"></i><i class="arrow-in"></i></div></li>');
+	            val1.parents("ul.pre-menu-list").find("li.pre-menu-item").attr("class", "pre-menu-item size1of3");
+	            val1.parents("ul.pre-menu-list").find("li.pre-menu-item:eq(0) .child-pre-menu-list-wrap").hide();
+	            val1.parents("ul.pre-menu-list").find("li.pre-menu-item:eq(1)").siblings().find(".js-add-btn-toggle").removeClass("item-active");
+	        } else if (ClLen == 3) {
+	            // 追加第三个一级菜单
+	            val1.parents("li.pre-menu-item").before('<li class="pre-menu-item size1of1"><a href="javascript:void(0);" class="pre-menu-link js-add-btn-toggle item-active" data-sucaicoutent="" id="num'+num+'" data-url="" data-content="一级菜单默认文本回复内容" data-num="'+num+'" data-contenttype="1" data-replytype="1"><span>一级菜单</span></a><div class="child-pre-menu-list-wrap"><ul class="child-pre-menu-list"><li class="child-pre-menu-item"><a href="javascript:void(0);" class="child-pre-menu-link js-add-child-btn" title="最多添加5个二级菜单"><span class="child-pre-menu-inner"><i class="icon-menu-add"></i></span></a></li></ul><i class="arrow-out"></i><i class="arrow-in"></i></div></li>');
+	            val1.parents("ul.pre-menu-list").find("li.pre-menu-item").attr("class", "pre-menu-item size1of3");
+	            val1.parents("ul.pre-menu-list").find("li.pre-menu-item:eq(0) .child-pre-menu-list-wrap").hide();
+	            val1.parents("ul.pre-menu-list").find("li.pre-menu-item:eq(1) .child-pre-menu-list-wrap").hide();
+	            val1.parents("ul.pre-menu-list").find("li.pre-menu-item:eq(2)").siblings().find(".js-add-btn-toggle").removeClass("item-active");
+	            val1.parents(".pre-menu-item").hide();
+	        }
+			var L1Val = val1.parents(".pre-menu-item").prev().find("span").text();
+			val1.parents(".menu-setting-area").find(".js_menu_name").focus().val(L1Val);
+		}else if(val0 == '2'){
+			datanum = $('input[name="datanums"]').val();
+			datanum_zi = num;
+			$('input[name="datanums_zi"]').val(num);
+			val1.parents(".content").find(".js-no-menu-tips").hide();
+	        val1.parents(".content").find(".js-menu-form-area").removeClass("hide").show();
+
+	        val1.parents("ul.pre-menu-list").find("li.pre-menu-item").find(".js-add-btn-toggle").removeClass("item-active");
+	        var C2Len = val1.parents("ul.child-pre-menu-list").find("li.child-pre-menu-item").length;
+	        // 二级菜单最多5个
+	        if (C2Len < 5) {
+	            val1.parents("li.child-pre-menu-item").before('<li class="child-pre-menu-item js-menu-alive" data-sucaicoutent="" id="num'+num+'" data-num="'+num+'" data-url="" data-content="二级菜单默认文本回复内容" data-contenttype="1" data-replytype="1"><a href="javascript:void(0);" class="child-pre-menu-link"><span class="child-pre-menu-inner"><span>二级菜单</span></span></a></li>');
+	            val1.parents("li.child-pre-menu-item").prev().find(".child-pre-menu-link").addClass("item-active");
+	            val1.parents("li.child-pre-menu-item").prev().siblings().find(".child-pre-menu-link").removeClass("item-active");
+	        } else if (C2Len == 5) {
+	            val1.parents("li.child-pre-menu-item").before('<li class="child-pre-menu-item js-menu-alive" data-sucaicoutent="" id="num'+num+'" data-num="'+num+'" data-url="" data-content="二级菜单默认文本回复内容" data-contenttype="1" data-replytype="1"><a href="javascript:void(0);" class="child-pre-menu-link"><span class="child-pre-menu-inner"><span>二级菜单</span></span></a></li>');
+	            val1.parents("li.child-pre-menu-item").prev().find(".child-pre-menu-link").addClass("item-active");
+	            val1.parents("li.child-pre-menu-item").prev().siblings().find(".child-pre-menu-link").removeClass("item-active");
+	            val1.parents("li.child-pre-menu-item").hide();
+	        }
+			var L2Val = val1.parents(".child-pre-menu-item").prev().find("span.child-pre-menu-inner span").text();
+			val1.parents(".menu-setting-area").find(".js_menu_name").focus().val(L2Val);
+		}else{
+			return false;
+		}
+		val1.parents(".menu-setting-area").find(".js-menu-form-area").find(".js-radio-send-msg-wrap").show();
+		val1.parents(".menu-setting-area").find(".js-menu-form-area").find(".js-radio-url-wrap").hide();
+		$('input[name="replytype"]').eq(0).prop('checked',true);
+		$(".js-tab-box-pro .hd ul li").eq(0).addClass("on").siblings().removeClass("on");
+	    $(".js-tab-box-pro .bd>div").hide().eq(0).fadeIn(120);
+		$('input[name="menutype"]').val(val0);
+		$.post("<?php echo U('Diymen/addMenu',array('companyid'=>$companyid)).'&time='?>"+Math.random(),{datanum:datanum,datanum_zi:datanum_zi,type:val0},function(data){},'json');
+	}
+/************************* 添加菜单结束*********************/
+});
+</script>
+<!-- 页面内容 end -->
+<include file="Public:footer"/>

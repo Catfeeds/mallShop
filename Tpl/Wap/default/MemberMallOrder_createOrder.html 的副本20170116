@@ -1,0 +1,161 @@
+<include file="Public:memberMallhead"/>
+<!--结算页面-->
+<div class="eshop-content settlement-bj">
+		<?php if($address){ ?>
+			<ul class="eshop-address-ul" style="margin-bottom: 10px;">
+				<li>
+					<a href="<?php echo U('MemberShopAddress/orderindex',array('companyid'=>$companyid,'goodsid'=>$goodsid,'ordertype'=>1,'addressid'=>$addressid,'vouchersid'=>$vouchersid)); ?>">
+					<i class="eshop-address-dzicon"><img src="{lanrain::RES}/Eshop/eshop_dzicon.png"></i>
+					<div class="eshop-address-dz">
+						<p class="eshop-address-mzdh"><span><?php echo $addressInfo['mobile'];?></span><?php echo $addressInfo['name'];?></p>
+						<p class="eshop-address-dzp"><?php echo $address; ?></p>
+					</div>
+					<i class="eshop-address-i"><img src="{lanrain::RES}/Eshop/Eshop_jan2.png"></i>
+					</a>
+				</li>
+			</ul>
+		<?php }else{ ?>
+			<div class="address-null">
+			  	<a href="<?php echo U('MemberShopAddress/orderindex',array('companyid'=>$companyid,'goodsid'=>$goodsid,'ordertype'=>1,'addressid'=>$addressid,'vouchersid'=>$vouchersid)); ?>"><div class="eshop-receipt-address"><img src="{lanrain::RES}/Eshop/eshop_jia.png"> 新增收货地址</div></a>
+			</div>
+		<?php } ?>
+	<div class="eshop-settlement-xq">
+		<h6 class="eshop-xq-bt">订单详情</h6>
+		<?php foreach($list as $val){?>
+		<div class="eshop-settlement-sp">
+			<!-- <?php if($val['good']['goodtype'] == 1){?>
+				<img class="eshop-con-mor" src="<?php echo $val['good']['pic'];?>" width="100">
+			<?php }else{?>
+				<img class="eshop-con-mor" src="<?php echo $val['good']['voucherimgurl']?$val['good']['voucherimgurl']:'./Tpl/User/default/common/images/xuni/moren.png'; ?>" />
+			<?php  }?> -->
+			<img class="eshop-con-mor" src="<?php echo $val['good']['pic'];?>" width="100">
+			<div class="eshop-con-nr" id="settlement">
+				<h6><?php echo $val['good']['title'];?></h6>
+				<p class="eshop-con-gg">规格</p>
+				<!-- <?php if($val['good']['pricetype'] == 1){?>
+					<p class="eshop-con-jg" data-price="<?php echo $val['good']['saleprice'];?>">￥<?php echo $val['good']['saleprice'];?></p>
+				<?php }elseif($val['good']['pricetype'] == 2){ ?>
+					<p class="eshop-con-jg" data-price="<?php echo $val['good']['intprice'];?>"><?php echo $val['good']['intprice'];?>积分</p>
+				<?php } ?> -->
+				<p class="eshop-con-jg" data-price="<?php echo $val['good']['saleprice'];?>">￥<?php echo $val['good']['saleprice'];?></p>
+				<div class="eshop-con-dw eshop-con-sl">X<?php echo $val['good']['goodnum'] ? $val['good']['goodnum'] : 0;?></div>
+			</div>
+		</div>
+		<?php }?>
+		<ul class="eshop-settlement-invoice">
+			<li style="overflow: hidden;"><span>运费：</span><div><p class="eshop-settlement-yunf">￥<?php echo $isDispatching==1 ? $orderInfo['allFreight'] : '0.00';?></p></div></li>
+			<li><span>留言：</span><div><input type="text" id="membernote" placeholder="请输入对本次交易说明"></div></li>
+		</ul>
+	</div>
+	<a style="display: block" href="<?php echo U('MemberMallOrder/myVouchers',array('companyid'=>$companyid,'goodsid'=>$goodsid,'ordertype'=>1,'addressid'=>$addressid,'vouchersid'=>$vouchersid,'orderPrice'=>$orderPrice)) ?>">
+	<div class="eshop-settlement-li">
+		<span CLASS="eshop-discount-wsy"><?php if($orderInfo['deratePrice'] > 0){ echo '已抵用'.$orderInfo['deratePrice'];}else{ echo '未使用';} ?></span>
+		<p class="eshop-discount-yh">优惠：<?php echo $canUseVouchersCount.'张可用'; ?></p>
+	</div>
+	</a>
+	<?php if($orderInfo['deratePrice']>$orderInfo['tempAllPrice']){ echo '<p class="mb10" style="color:#f11b1d;font-weight:bold;padding: 0px 15px; line-height: 18px;font-size: 12px;">注意！！！您使用的优惠劵金额大于订单金额！差额将不予退回。请确认后再点击下方支付按钮。</p>'; }?>
+	<!-- DMS优惠口令 -->
+	<?php if($orderInfo['allPrice'] > 0){?>
+	<div class="eshop-settlement-li">
+		<button class="eshop-settlement-sybtn usePassword-button">使用</button>
+		<div class="eshop-discount-password">
+			<label>优惠口令</label>
+			<div>
+				<input type="text" name="discoukey" placeholder="请在此输入优惠口令">
+			</div>
+		</div>
+	</div>
+	<?php }?>
+    <div class="eshop-settlement-li tcc_gaiban_zjcon">
+    	<a href="<?php echo U('MemberMallOrder/orderinvoice',array('companyid'=>$companyid,'goodsid'=>$goodsid,'ordertype'=>1,'addressid'=>$addressid,'vouchersid'=>$vouchersid,'orderinvoice'=>$orderinvoice,'orderinvoicetitle'=>$orderinvoicetitle));?>">
+		<span class="eshop-discount-wsy"><?php echo $orderinvoice==1 ? '' : '不';?>需要发票</span>
+		</a>
+		<p class="eshop-discount-yh">发票：</p>
+	</div>
+	<!-- 整单优惠 -->
+	<?php if($orderInfo['ED']['title']){?>
+	<div class="beizhu-kl2">
+		<p class="yhkl-4p"><?php echo $orderInfo['ED']['title'];?></p>
+		<p class="yhkl-4p">活动期限：<span class="dms-discou"><?php echo $orderInfo['ED']['starttime'];?> 至 <?php echo $orderInfo['ED']['endtime'];?></span></p>
+		<p class="yhkl-4p">活动优惠：<span class="dms-xy hon-sp"><?php echo '-'.$orderInfo['ED']['discountPrice'];?></span></p>
+	</div>
+	<?php }?>
+	<div class="eshop-settlement eshop-settlement-pd" style="bottom:0;">
+		<?php if($isDispatching == 1){ ?>
+  			<?php if($orderInfo['allPrice'] >= 0 && $orderInfo['allIntegral'] == 0){ ?>
+  				<button class="eshop-settlement-btn create-order-info-button" data-pay-type="1">去结算</button>
+    		<?php } ?>
+    		<!-- <?php if($orderInfo['allIntegral'] > 0 && ($orderInfo['allPrice'] == '0.00' || $orderInfo['allPrice'] == '0.01')){ ?>
+    			<button class="eshop-settlement-btn create-order-info-button" data-pay-type="5" data-allIntegral="<?php echo $orderInfo['allIntegral'];?>">去结算</button>
+    		<?php } ?> -->
+  		<?php }else{ echo '<span style="display:inline-block;line-height:30px;font-weight:600;font-size:15px;color:#999;">该地区暂时不支持配送</span>';} ?>
+		<p class="eshop-settlement-p">￥<spen class="rd-allPrice"><?php echo $orderInfo['allPrice']; ?></spen></p>
+	</div>
+</div>
+
+<div style="height:30px;"></div>
+<script>
+//-------------------- 使用优惠口令 ------------------------------
+$('.usePassword-button').click(function(){
+	var allPrice = "<?php echo $orderInfo['allPrice'];?>";
+	var discoukey = $('input[name="discoukey"]').val();
+	if(!discoukey){
+    	alert('请输入优惠口令',2000);
+    	return false;
+    }
+	$('.loading').show();
+	$.post("<?php echo U('MemberMallOrder/ajaxPreferentialPassword',array('companyid'=>$companyid)).'&time='; ?>"+Math.random(),{allPrice:allPrice,discoukey:discoukey},function(data){
+		$('.loading').hide();
+		if(data.code == 200){
+			$(".rd-allPrice").text(data.amount);
+			$(".beizhu-kl").hide();
+			if(data.html){
+				$(".tcc_gaiban_zjcon").after(data.html);
+			}else{
+				alert(data.tips,2000);
+			}
+		}else{
+			alert(data.tips,2000);
+			$(".rd-allPrice").text(data.amount);
+			$(".beizhu-kl").hide();
+		}
+	},"json");
+});
+$('.create-order-info-button').click(function(){
+	//选中的商品
+	var addressid = '<?php echo $addressid;?>';
+	if(!addressid || addressid < 1){
+		alert('请选择您的收货地址');
+		return false;
+	}
+	var goodsid = "<?php echo $goodsid;?>";
+	if(!goodsid || goodsid.length <2){
+		alert('请选择您需要购买的商品');
+		return false;
+	}
+	var orderinvoice = '<?php echo $orderinvoice;?>'; //订单发票：1：需要；2：不需要；
+	var orderinvoicetitle = '<?php echo $orderinvoicetitle;?>'; //发票抬头
+	var membernote = $('#membernote').val(); //留言
+	var eshopdiscounttitle = "<?php echo $orderInfo['ED']['title'];?>"; //整单优惠活动名称
+    var eshopdiscountmoney = "<?php echo $orderInfo['ED']['discountPrice'];?>"; //整单优惠金额
+    var vouchersid = "<?php echo $vouchersid ? $vouchersid : 0;?>";
+    var dmsDiscoukeyId = $(".beizhu-kl").attr("data-id");//优惠口令ID
+    var orderpaymethod = $(this).attr("data-pay-type");
+	$('.loading').show();
+	$.post("<?php echo U('MemberMallOrder/ajaxCreateOrder',array('companyid'=>$companyid)).'&time='; ?>"+Math.random(),{addressid:addressid,goodsid:goodsid,orderinvoice:orderinvoice,orderinvoicetitle:orderinvoicetitle,membernote:membernote,eshopdiscounttitle:eshopdiscounttitle,eshopdiscountmoney:eshopdiscountmoney,vouchersid:vouchersid,dmsDiscoukeyId:dmsDiscoukeyId,orderpaymethod:orderpaymethod},function(data){
+		if(data.code == 200){
+			if(orderpaymethod == 1){
+				window.location.href="<?php echo C('site_url');?>/Payapi/Wxpay/payAct/jsapi.php?orderid="+data.orderid;
+			}else{
+				window.location.href="<?php echo C('site_url').U('MemberMallOrder/orderPayIntegral',array('companyid'=>$companyid)); ?>&id="+data.id;	
+			}
+		}else if(data.code == 300){
+			$('.loading').hide();
+			alert(data.msg);
+		}
+	},"json");
+});
+</script>
+<include file="Public:loading" />
+<include file="Public:weiXinNotShareSet" />
+<include file="Public:footer"/>

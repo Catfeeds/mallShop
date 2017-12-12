@@ -1,0 +1,50 @@
+<include file="Public:S5NewHead" />
+<div class="title_top"><div class="fl "><?php if($orderstatus == 9){echo '已完成订单';}elseif($orderstatus == 8){echo '未完成订单';}elseif($orderstatus == 10){echo '疑难订单';}?></div>
+	<a href="<?php echo U('MallExhibitionPartner/myExhibitionOrder')?>"><img src="{lanrain::RES}/weixinfeng/images/fltj_btn.png" class="fr fltj_btn" ></a>
+</div>
+<?php if($orderList){foreach($orderList as $key=>$val){?>
+<div class="dl_subnavbg mb20">
+    <div class="pro_topnum">
+        <span class="ddbh_txet">订单编号:</span>
+        <span class="ddbh_num"><?php echo $val['orderid'];?></span>
+        <span class="ddbh_zt"><?php if($orderstatus == 9){echo '已完成';}elseif($orderstatus == 8){echo '未完成';}elseif($orderstatus == 10){echo '疑难';}?></span>
+    </div>
+    <div class="pro_list mb0" >
+        <dl class="pro_info">
+                <dt><img src="<?php echo $val['goodpic']?$val['goodpic']:'./Tpl/Wap/default/common/weixinfeng/images/pro_pic.jpg';?>" ></dt>
+                <dd><?php echo $val['ordertitle'];?></dd>
+                <span class="price"><?php echo $val['goodprice']?$val['goodprice']:'0.00'?><p><span class="color"><?php echo $val['name']?></span>X<span class="num"><?php echo $val['goodnum'];?></span></p></span>
+        </dl>
+    </div>
+    <div class="pro_more">
+    展开
+    </div>   
+    <div class="pro_bottominfo">
+        <div class="pro_moreinfo">
+            <div class="hjjg_left">合计：</div>
+            <div class="hjjg_right"><?php echo $val['saleprice']?$val['saleprice']:'0.00';?></div>
+            <div class="line"></div>
+            <div class="info_title">配送信息：</div>
+            <div class="info_text"><span><?php echo $val['consigneeaddress'];?></span></div>
+            <div class="info_text">收件人:<span><?php echo $val['consigneename'];?></span><span><?php echo $val['consigneephone'];?></span></div>
+            <div class="info_text">邮编: <span> </span></div>
+        </div>
+        <div class="line"></div>
+        <div class="pro_moreclose">收起</div>
+    </div>
+</div>
+<?php }}?>
+<script>
+$(function(){
+	//购买信息点击展开
+	$(".pro_more").on("click",function(){
+		$(this).hide().nextAll().show();
+	});
+	//购买信息点击关闭
+	$(".pro_moreclose").on("click",function(){
+		$(this).parent().hide().prev().show();
+	});
+});
+</script>
+<include file="Public:weiXinNotShareSet"/>
+<include file="Public:footer"/>

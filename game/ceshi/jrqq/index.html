@@ -1,0 +1,1262 @@
+
+
+<!doctype html>
+<html lang="zh-cn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,  minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<title>测试你何时嫁人娶妻，准确率极高哦！</title>
+<script src="../../js/config.js"></script>
+<script src="../../js/avalon.mobile.min.js"></script>
+<script src="../../js/jquery-1.11.1.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="css/wechat.css"> -->
+<style>
+  *{
+    font-family: '微软雅黑';
+  }
+  html,body {
+    margin: 0;
+    color: #000;
+    background: #ffc2bd ;
+    background-size: 100%;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+  }
+
+  #loading {
+    text-align: center;
+    font-size: 20px;
+    line-height: 400px;
+    display: none;
+  }
+  .loading #loading {
+    display: block;
+  }
+  .loading .head,
+  .loading .main {
+    display: none;
+  }
+  .head img {
+    width: 100%;
+  }
+  .main {
+    padding: 10px;
+    padding-top: 30%;
+    margin-top: -10px;
+    text-align: center;
+  }
+  .t-t {
+    font-size: 22px;
+    line-height: 2em;
+    text-align: left;
+  }
+  .t-s {
+    padding: 5px;
+    background-color: #fca9a2;
+    max-width: 100%;
+    margin: 10px auto;
+    text-align: center;
+    position: relative;
+    -webkit-transition: background-color 0.3s ease;
+  }
+  img {
+    max-width: 100%;
+  }
+  .t-s img {
+    max-width: 100%;
+  }
+  .t-s span {
+    font-size: 1em;
+    line-height: 1.5em;
+    font-weight: bold;
+  }
+  .t-s.active {
+    background-color: #ff7878;
+  }
+  .t-s.active span {
+    color: #fff;
+  }
+  .t-s:after {
+    position: absolute;
+    right: 1px;
+    top: 1px;
+    padding: 4px;
+    background: rgba(255,255,255,1);
+    content: "√";
+    display: none;
+    opacity: 0;
+    -webkit-transition: opacity 0.3s ease;
+  }
+  .t-s.active:after {
+    display: block;
+    opacity: 1;
+  }
+  .t-c {
+    line-height: 1.2em;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 1em;
+    text-align: left;
+  }
+  .t-s.h {
+    max-width: 40%;
+    display: inline-block;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+  .t-r {
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 20px;
+  }
+  .t-r span {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 50px;
+    color: #27AE60;
+    /*color: rgba(0,0,0,0);*/
+    text-shadow: 3px 0 4px #16A085;
+  }
+  .t-img {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .t-img img {
+    max-width: 60%;
+  }
+  .t-btn,
+  .t-btn:link,
+  .t-btn:visited {
+    color: #fff;
+    background-color: #f87984;
+    padding-top: 12px;
+    padding-bottom: 13px;
+    padding-left: 15px;
+    padding-right: 15px;
+    display: inline-block;
+    line-height: 1em;
+    min-width: 60%;
+    margin: 10px auto;
+    border-radius: 7px;
+    text-decoration: none;
+  }
+  .share {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    z-index: 1000;
+  }
+  .share img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 70%;
+    max-width: 320px;
+  }
+  .livetip {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.7);
+    z-index: 200;
+  }
+  .lt-w {
+    position: fixed;
+    top: 100px;
+    left: 10px;
+    right: 10px;
+    z-index: 300;
+  }
+  .lt-w .lt-c {
+    background-color: white;
+    padding-top: 10px;
+    padding-bottom: 20px;
+  }
+
+  .list{
+    list-style:initial;
+    text-align: left;
+  }
+  .list li {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+  a,
+  a:link,
+  a:visited {
+    color: #607fa6;
+  }
+  .dialog{
+    position: fixed;
+    left: 0;top: 0;right: 0;bottom: 0;
+  }
+  .dialog-bg{
+    position: absolute;
+    left: 0;top: 0;right: 0;bottom: 0;
+    background-color: rgba(0,0,0,0.7);
+  }
+  .dialog-con{
+    position: absolute;
+    width: 280px;
+    top: 100px;
+    background-color: white;
+    left: 50%;
+    margin-left: -140px;
+    padding-bottom: 10px;
+  }
+</style>
+</head>
+<body class="loading">
+<!--****************菜单***************-->
+<div id="loading">
+  加载中
+</div>
+<div class="head">
+  <!--<img src="http://mmbiz.qpic.cn/mmbiz/mhNj6OVxBQFCMAANLib7T8626cu3nXDib4Stu7TMr5kgJxzpicE8IyPxiaxGe7yk9VwYDYWib2u0gZZlUGO7zIBbgkw/640">-->
+</div>
+<div class="main" id="main" ms-controller="test">
+  <!-- 测试题 -->
+  <div ms-if="item.type=='hello'">
+    <div class="t-c"
+         ms-if="item.text">
+      {{item.text}}
+    </div>
+    <div class="t-c"
+         ms-if="item.text1">
+      {{item.text1}}
+    </div>
+    <div class="t-s h"
+         ms-repeat-elem="item.select"
+         ms-class-active="elem.active"
+         ms-on-click="elem.tap(elem, item.select)">
+      <img ms-attr-src="{{elem.img}}">
+      <span>{{elem.text}}</span>
+    </div>
+    <a class="t-btn" href="javascript:gzh()">
+      关注人来风游戏，获得更多好玩的游戏^^
+    </a>
+  </div>
+  <div ms-if="item.type=='select'">
+    <div class="t-c">
+      <div ms-if="item.img" style="margin-bottom:0.5em;">
+        <img ms-attr-src="{{item.img}}">
+      </div>
+      {{item.id}}. {{item.text}}
+    </div>
+    <div class="t-s"
+         ms-repeat-elem="item.select"
+         ms-class-active="elem.active"
+         ms-on-click="elem.tap(elem, item.select)">
+      <img
+        ms-if="!!elem.img"
+        ms-attr-src="{{elem.img}}">
+      <span>{{elem.text}}</span>
+    </div>
+  </div>
+  <div ms-if="item.type=='result'">
+    <div class="t-r">
+      <span>{{item.ss}}</span>{{item.sstext}}
+    </div>
+    <div class="t-img" ms-if="!!item.img">
+      <img ms-attr-src="{{item.img}}" >
+    </div>
+    <div class="t-c"
+         ms-if="item.text">
+      {{item.text}}
+    </div>
+    <div class="t-btn"
+         ms-repeat-elem="endbtns"
+         ms-on-click="elem.tap()">{{elem.text}}</div>
+  </div>
+  <div class="share"
+       ms-if="showshare"
+       ms-visible="showshare"
+       ms-on-tap="hideshare()">
+    <img src="../../img/guide.png">
+  </div>
+  <div class="livetip"
+       ms-visible="livetip"
+       ms-on-tap="hidelivetip()">
+  </div>
+  <!--<div class="lt-w"
+      ms-visible="livetip">
+      <div class="lt-c">
+          <div class="t-c">
+              还没分享哦，是否把这个好玩的东西分享给朋友后再离开呢？
+          </div>
+          <div class="t-btn"
+              ms-on-tap="sharebox()">分享</div>
+          <div class="t-btn white"
+              ms-on-tap="livenow()">一会再说，先去看好玩的</div>
+      </div>
+  </div>-->
+  <div class="dialog" ms-if="xunzhang">
+    <div class="dialog-bg" ms-on-tap="hidexz()"></div>
+    <div class="dialog-con">
+
+    </div>
+  </div>
+
+</div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<script>
+var ID = getQueryString("sid") || Date.now() + "" + Math.floor(Math.random() * 1000);
+addView();
+var fen = 0;
+function tap(elemvm, select, cb) {
+  var a = false;
+  for (var i = 0; i < select.length; i++) {
+
+    a = a || select[i].active;
+  };
+  if (!a) {
+    elemvm.active = true;
+    setTimeout(function () {
+      cb && cb()
+    }, 500)
+  }
+}
+function getQueryString(name) {
+  var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+  var r = location.search.substr(1).match(reg);
+  if (r != null) return unescape(decodeURI(r[2])); return null;
+}
+var model = avalon.define("test", function (vm) {
+
+  vm.arr = [
+    {
+      type: "hello",
+      text: "测试你何时嫁人娶妻",
+      //text1: "点击开始测试咯~",
+      select: [
+        {
+          // img: "http://mmbiz.qpic.cn/mmbiz/mhNj6OVxBQHOIxaibNiaCDE3veWkCTua8T9a4cEGDoCdfsD8aKWwtozrbhjXXHac1F7rJtJoT8WXrPsELN8ibOOqQ/0",
+          text: "开始测试",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[1];
+              model.result.sex = 0;
+            });
+          }
+        }
+        // ,
+        // {
+        //     img: "http://mmbiz.qpic.cn/mmbiz/mhNj6OVxBQHOIxaibNiaCDE3veWkCTua8TGJTMOJOibrhesgs0kq37I9TlTTsrIBNmnicfmblFC0o1FgBOXltsBQag/0",
+        //     text: "女生",
+        //     active: false,
+        //     tap: function (ele, select) {
+        //         tap(ele, select, function () {
+        //             model.item = model.arr[1];
+        //             model.result.sex = 1;
+        //         });
+        //     }
+        // }
+      ]
+    }, {
+      type: "select",
+      id: 1,
+      text: "你觉得自己已经是老太婆（老头）了？",
+      select: [
+        {
+          text: "a.Yes",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[4];
+            });
+          }
+        }, {
+          text: "b.No",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[2];
+            });
+          }
+        }
+      ]
+    },
+    {
+      type: "select",
+      id: 2,
+      text: "你最近相当注意脸部保养？",
+      select: [
+        {
+          text: "a.Yes",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[3];
+            });
+          }
+        }, {
+          text: "b.No",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[10];
+            });
+          }
+        }
+      ]
+    }, {
+      type: "select",
+      id: 3,
+      text: "你第一次谈恋爱是在高中时代？",
+      select: [
+        {
+          text: "a.Yes",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[12];
+            });
+          }
+        }, {
+          text: "b.No",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[11];
+            });
+          }
+        }
+      ]
+    }, {
+      type: "select",
+      id: 4,
+      text: "你喜欢看拳击摔跤类节目？",
+      select: [
+        {
+          text: "a.Yes",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[6];
+            });
+          }
+        }, {
+          text: "b.No",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[5];
+            });
+          }
+        }
+      ]
+    }, {
+      type: "select",
+      id: 5,
+      text: "你想在水上举行婚礼？",
+      select: [
+        {
+          text: "a.Yes",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[7];
+            });
+          }
+        }, {
+          text: "b.No",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[13];
+            });
+          }
+        }
+      ]
+    }, {
+      type: "select",
+      id: 6,
+      text: "你曾有灵魂出窍的经验？",
+      select: [
+        {
+          text: "a.Yes",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[13];
+            });
+          }
+        }, {
+          text: "b.No",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[8];
+            });
+          }
+        }
+      ]
+    }, {
+      type: "select",
+      id: 7,
+      text: "筷子掉在地上你会捡起来擦一擦再用？",
+      select: [
+        {
+          text: "a.Yes",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[15];
+            });
+          }
+        }, {
+          text: "b.No",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[9];
+            });
+          }
+        }
+      ]
+    }, {
+      type: "select",
+      id: 8,
+      text: "你曾经玩过吃角子老虎或赛马等赌博游戏？",
+      select: [
+        {
+          text: "a.Yes",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[15];
+            });
+          }
+        }, {
+          text: "b.No",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[10];
+            });
+          }
+        }
+      ]
+    },
+    {
+      type: "select",
+      id: 9,
+      text: "你和异性发生关系是在二十岁以后？",
+      select: [
+        {
+          text: "a.Yes",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[17];
+            });
+          }
+        }, {
+          text: "b.No",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[19];
+            });
+          }
+        }
+      ]
+    },
+    {
+      type: "select",
+      id: 10,
+      text: "你喜欢咖啡的香味胜于口味？",
+      select: [
+        {
+          text: "a.Yes",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[17];
+            });
+          }
+        }, {
+          text: "b.No",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[11];
+            });
+          }
+        }
+      ]
+    },
+    {
+      type: "select",
+      id: 11,
+      text: "大部份都是你打电话给别人，很少别人打给你？",
+      select: [
+        {
+          text: "a.Yes",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[19];
+            });
+          }
+        }, {
+          text: "b.No",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[17];
+            });
+          }
+        }
+      ]
+    },
+    {
+      type: "select",
+      id: 12,
+      text: "你是属于娃娃脸？",
+      select: [
+        {
+          text: "a.Yes",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[19];
+            });
+          }
+        }, {
+          text: "b.No",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[11];
+            });
+          }
+        }
+      ]
+    },
+    {
+      type: "select",
+      id: 13,
+      text: "你可以很清楚地说出十二生肖顺序？",
+      select: [
+        {
+          text: "a.Yes",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[22];
+            });
+          }
+        }, {
+          text: "b.No",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[14];
+            });
+          }
+        }
+      ]
+    },
+    {
+      type: "select",
+      id: 14,
+      text: "曾经有三个以上男人（女人）向你求婚？",
+      select: [
+        {
+          text: "a.Yes",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[24];
+            });
+          }
+        }, {
+          text: "b.No",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[23];
+            });
+          }
+        }
+      ]
+    },
+    {
+      type: "select",
+      id: 15,
+      text: "你的臀部有痣？",
+      select: [
+        {
+          text: "a.Yes",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[16];
+            });
+          }
+        }, {
+          text: "b.No",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[14];
+            });
+          }
+        }
+      ]
+    },
+    {
+      type: "select",
+      id: 16,
+      text: "即使和第一次见面的人约会、你也会考虑到结婚的问题？",
+      select: [
+        {
+          text: "a.Yes",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[24];
+            });
+          }
+        }, {
+          text: "b.No",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[25];
+            });
+          }
+        }
+      ]
+    },
+    {
+      type: "select",
+      id: 17,
+      text: "你很想超越时空去未来看看？",
+      select: [
+        {
+          text: "a.Yes",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[18];
+            });
+          }
+        }, {
+          text: "b.No",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[26];
+            });
+          }
+        }
+      ]
+    },
+    {
+      type: "select",
+      id: 18,
+      text: "你曾经相过亲？",
+      select: [
+        {
+          text: "a.Yes",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[25];
+            });
+          }
+        }, {
+          text: "b.No",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[26];
+            });
+          }
+        }
+      ]
+    },
+    {
+      type: "select",
+      id: 19,
+      text: "你的家具皆白色？",
+      select: [
+        {
+          text: "a.Yes",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[26];
+            });
+          }
+        }, {
+          text: "b.No",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[18];
+            });
+          }
+        }
+      ]
+    },
+    {
+      type: "select",
+      id: 20,
+      text: "你随身携带防身用品？",
+      select: [
+        {
+          text: "a.Yes",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[28];
+            });
+          }
+        }, {
+          text: "b.No",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[27];
+            });
+          }
+        }
+      ]
+    },
+    {
+      type: "select",
+      id: 21,
+      text: "你对自己的抛媚眼功夫很有自信？",
+      select: [
+        {
+          text: "a.Yes",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[28];
+            });
+          }
+        }, {
+          text: "b.No",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[27];
+            });
+          }
+        }
+      ]
+    },
+    {
+      type: "select",
+      id: 22,
+      text: "你认为26岁左右结婚最合适？",
+      select: [
+        {
+          text: "a.Yes",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[21];
+            });
+          }
+        }, {
+          text: "b.No",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[20];
+            });
+          }
+        }
+      ]
+    },
+    {
+      type: "select",
+      id: 23,
+      text: "你希望自己的另一半会说英文？",
+      select: [
+        {
+          text: "a.Yes",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[29];
+            });
+          }
+        }, {
+          text: "b.No",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[30];
+            });
+          }
+        }
+      ]
+    },
+    {
+      type: "select",
+      id: 24,
+      text: "你很想踏上万里长城？",
+      select: [
+        {
+          text: "a.Yes",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[30];
+            });
+          }
+        }, {
+          text: "b.No",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[29];
+            });
+          }
+        }
+      ]
+    },
+    {
+      type: "select",
+      id: 25,
+      text: "你曾经买过某些书且认为对你帮助很大？",
+      select: [
+        {
+          text: "a.Yes",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[31];
+            });
+          }
+        }, {
+          text: "b.No",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[23];
+            });
+          }
+        }
+      ]
+    },
+    {
+      type: "select",
+      id: 26,
+      text: "如果结婚、三年之内你不打算生小孩？",
+      select: [
+        {
+          text: "a.Yes",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[24];
+            });
+          }
+        }, {
+          text: "b.No",
+          active: false,
+          tap: function (ele, select) {
+            tap(ele, select, function () {
+              model.item = model.arr[25];
+            });
+          }
+        }
+      ]
+    }
+    ,
+    {
+      type: "result",
+      id: 27,
+      ss: "A",
+      sstext: "早婚早生贵子型",
+      sstext1: "我是早婚早生贵子型，测试你何时嫁人娶妻，准确率极高哦！",
+      text: "你比同年龄的人早婚，甚至有可能在二十岁之前就结婚生子，可能是比其他人早熟，也可能是年轻不懂事，懵懵懂懂就奉儿女之命结婚，所以离婚率也满高的，等到较成熟时则想重新来过。如果年轻时就遇到心怡的对象，千万不要冲动和对方发生关系，也不要因谈恋爱而荒废学业或工作，因为等到年纪再大一点，一定会后悔，所以务必随时警惕自己，可不要一失足成千古恨！"
+    }, {
+      type: "result",
+      id: 28,
+      ss: "B",
+      sstext: "三十岁左右结婚型",
+      sstext1: "我是三十岁左右结婚型，测试你何时嫁人娶妻，准确率极高哦！",
+      text: "爱情对你而言虽然重要，但并不是那么急，因此即使爱情稳定，但要步入红毯的那一端也必须是三十岁左右的事，如果男方急着要结婚，可能彼此就要好好的沟通了。这类型的你在三十岁之前会全力做自己想做的事，可是结婚后，如果有必要的话，则会舍去一切全心投入家庭中，是拿得起放得下的人，常让周遭的人跌破眼镜。"
+    }, {
+      type: "result",
+      id: 29,
+      ss: "C",
+      sstext: "二十五到三十岁左右结婚型",
+      sstext1: "我是二十五到三十岁左右结婚型，测试你何时嫁人娶妻，准确率极高哦！",
+      text: "你是相当保守传统的人，在你的观念中女人必须要在二十五岁左右结婚生子，不然会好像嫁不出去一样觉得很没面子，因此在就学、工作时，就很留意周遭的异性朋友，用尽全力去达成人生中最重要的结婚目标。婚后的你是一个贤妻良母，只是要注意的是，由于你太会想像结婚了，所以容易被有心人欺骗，可要特别小心！即时很想嫁人，但也不要写在脸上。"
+    }, {
+      type: "result",
+      id: 30,
+      ss: "D",
+      sstext: "相当晚婚或一辈子独身类型",
+      sstext1: "我是相当晚婚或一辈子独身类型，测试你何时嫁人娶妻，准确率极高哦！",
+      text: "你是个相当不把爱情当一回事的人，因为在你的人生中有太多比爱情更重要的事，做这些事情的时间去谈恋爱：即使谈恋爱结婚也会在年纪大一点时，因为可能你已完成很多想做的事情，因此此类型的人多为“女强人”、“独身贵族”。但人总是要有个人生伴侣才好，这样才不会孤伶伶的过一生。 "
+    }, {
+      type: "result",
+      id: 31,
+      ss: "E",
+      sstext: "结婚年龄不详型",
+      sstext1: "我是结婚年龄不详型，测试你何时嫁人娶妻，准确率极高哦！",
+      text: "你是个相当乐观、懂得生活、外表看起来永远比实际年龄年轻的人。在你认为结婚和年龄根本无关。任何时候都可能结婚，婚后的你仍旧坚持不失去婚前的自由与理想，所以找的对象一定要和你有共同想法才行。两人与其说是夫妻，还不如说是好朋友彼此有很大的空间去发挥、互不约束对象，这样的你们也不太想生小孩，可说是标准的“丁克族”！ "
+    }
+  ];
+  vm.item = vm.arr[0];
+  vm.endbtns = [
+    {
+      text: "到朋友圈晒晒",
+      tap: function () {
+        model.showshare = true;
+      }
+    }, {
+      text: "关注人来风游戏，获得更多好玩的游戏^^",
+      tap: function () {
+        gzh();
+      }
+    }, {
+      text: "再测一次",
+      tap: function () {
+
+        model.result.sex = 0;
+        for (var i = 0; i < model.arr.length; i++) {
+          var tmp = model.arr[i];
+          if (tmp.select) {
+
+            for (var ii = 0; ii < tmp.select.length; ii++) {
+              tmp.select[ii].active = false;
+            }
+          };
+        };
+        model.item = model.arr[0];
+      }
+    }, {
+      text: "我还想玩其他好玩的",
+      tap: function () {
+        location.href = siteurl + "";
+
+      }
+    }
+  ]
+  vm.$otherurl = siteurl + "#TEST";
+  vm.result = {
+    sex: 0
+  }
+  vm.showshare = false;
+  vm.hideshare = function () {
+    model.showshare = false;
+  }
+  vm.shared = false;
+  vm.sharebox = function () {
+    model.showshare = true;
+  }
+  vm.livetip = false;
+  vm.hidelivetip = function () {
+    model.livetip = false;
+  }
+  vm.livenow = function () {
+    location.href = model.$otherurl;
+  }
+  vm.xunzhang = false;
+  vm.hidexz = function () {
+    model.xunzhang = false;
+  }
+  vm.showxz = function () {
+    model.xunzhang = true;
+  }
+  vm.$watch("item", function (newval) {
+    if (newval.type == 'result') {
+      testEnd(newval.id);
+    };
+  })
+});
+document.body.className = "";
+
+// 增加访问量
+function addView() {
+
+}
+// 增加使用
+function addUse() {
+
+}
+// 增加分享
+function addShare() {
+
+}
+function shareToFre(desc,ss) {
+
+  if (!desc) {
+    desc = '测试你何时嫁人娶妻，准确率极高哦！';
+  } else {
+    desc = desc;
+  }
+
+  if (!ss) {
+    ss = "a";
+  }
+
+  // 朋友圈
+  var data = {
+    "imgUrl": siteurl + "/ceshi/jrqq/icon.jpg",
+    "link": siteurl + "/ceshi/jrqq",
+    "desc": desc,
+    "title": '测试你何时嫁人娶妻，准确率极高哦！'
+  };
+
+  // share to frends
+  var data = data;
+  var callbacks = {};
+  callbacks.ok = callbacks.confirm = function () {
+    model.shared = true;
+    addShare();
+  };
+
+  // 分享给朋友
+  var data2 = {
+    "imgUrl": siteurl + "/ceshi/jrqq/icon.jpg",
+    "link": siteurl + "/ceshi/jrqq",
+    "desc": desc,
+    "title": '测试你何时嫁人娶妻，准确率极高哦！'
+  };
+
+
+  weixinShareTimeline(data, callbacks);
+
+  weixinSendAppMessage(data2, callbacks);
+}
+document.addEventListener('WeixinJSBridgeReady', function () {
+  shareToFre();
+}, false);
+
+
+// 分享到朋友圈
+function weixinShareTimeline(data, callbacks) {
+  callbacks = callbacks || {};
+  var shareTimeline = function (theData) {
+    WeixinJSBridge.invoke('shareTimeline', {
+      "appid": theData.appId ? theData.appId : '',
+      "img_url": theData.imgUrl,
+      "link": theData.link,
+      "desc": theData.title,
+      "title": theData.desc, // 注意这里要分享出去的内容是desc
+      "img_width": "120",
+      "img_height": "120"
+    }, function (resp) {
+      switch (resp.err_msg) {
+        // share_timeline:cancel 用户取消
+        case 'share_timeline:cancel':
+          callbacks.cancel && callbacks.cancel(resp);
+          break;
+        // share_timeline:fail　发送失败
+        case 'share_timeline:fail':
+          callbacks.fail && callbacks.fail(resp);
+          break;
+        // share_timeline:confirm 发送成功
+        case 'share_timeline:confirm':
+          callbacks.confirm && callbacks.confirm(resp);
+          break;
+        // 发送成功
+        case 'share_timeline:ok':
+          callbacks.ok && callbacks.ok(resp);
+          break;
+      }
+      // 无论成功失败都会执行的回调
+      callbacks.all && callbacks.all(resp);
+    });
+  };
+  WeixinJSBridge.on('menu:share:timeline', function (argv) {
+    if (callbacks.async && callbacks.ready) {
+      if (!callbacks.__dataLoadedFuncInited) {
+        var loadedCb = callbacks.dataLoaded || new Function();
+        callbacks.dataLoaded = function (newData) {
+          loadedCb(newData);
+          shareTimeline(newData);
+        };
+        callbacks.__dataLoadedFuncInited = true;
+      }
+      // 然后就绪
+      callbacks.ready && callbacks.ready(argv);
+    } else {
+      // 就绪状态
+      callbacks.ready && callbacks.ready(argv);
+      shareTimeline(data);
+    }
+  });
+}
+
+// 分享给朋友
+function weixinSendAppMessage(data, callbacks) {
+  callbacks = callbacks || {};
+  var sendAppMessage = function (theData) {
+    WeixinJSBridge.invoke('sendAppMessage', {
+      "appid": theData.appId ? theData.appId : '',
+      "img_url": theData.imgUrl,
+      "link": theData.link,
+      "desc": theData.desc,
+      "title": theData.title,
+      "img_width": "120",
+      "img_height": "120"
+    }, function (resp) {
+      switch (resp.err_msg) {
+        // send_app_msg:cancel 用户取消
+        case 'send_app_msg:cancel':
+          callbacks.cancel && callbacks.cancel(resp);
+          break;
+        // send_app_msg:fail　发送失败
+        case 'send_app_msg:fail':
+          callbacks.fail && callbacks.fail(resp);
+          break;
+        // send_app_msg:confirm 发送成功
+        case 'send_app_msg:confirm':
+          callbacks.confirm && callbacks.confirm(resp);
+          break;
+      }
+      // 无论成功失败都会执行的回调
+      callbacks.all && callbacks.all(resp);
+    });
+  };
+  WeixinJSBridge.on('menu:share:appmessage', function (argv) {
+    if (callbacks.async && callbacks.ready) {
+      if (!callbacks.__dataLoadedFuncInited) {
+        var loadedCb = callbacks.dataLoaded || new Function();
+        callbacks.dataLoaded = function (newData) {
+          loadedCb(newData);
+          sendAppMessage(newData);
+        };
+        callbacks.__dataLoadedFuncInited = true;
+      }
+      // 然后就绪
+      callbacks.ready && callbacks.ready(argv);
+    } else {
+      // 就绪状态
+      callbacks.ready && callbacks.ready(argv);
+      sendAppMessage(data);
+    }
+  });
+}
+
+function testEnd(id) {
+  addUse();
+
+  shareToFre(model.item.sstext1, model.item.ss);
+}
+</script>
+<script src="../../js/ad-pic.js"></script>
+</body>
+</html>

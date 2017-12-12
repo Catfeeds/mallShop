@@ -1,0 +1,148 @@
+<include file="Public:header" />
+<style type="text/css">.common-header.header-default{display: none;}</style>
+	<div class="login-header"></div>
+	<div class="index-wrap wrap-login">
+		<div class="nav-logo">
+			<a href="<?php echo U('Index/index');?>"><img src="./Tpl/Home/default1215/common/img/index-nav-logo2.png"></a>
+		</div>
+		<h1 class="tit">立即开通-人来风<em class="font-Hel">SCRM5</em></h1>
+		<form class="login-form">
+			<div class="input-box">
+				<span class="info-tit">姓名</span>
+				<input class="info-input" name="truename" type="text" placeholder="请输入您的姓名">
+			</div>
+			<div class="input-box">
+				<span class="info-tit">手机</span>
+				<input class="info-input" name="mobile" type="tel" placeholder="请输入您的手机">
+			</div>
+			<div class="input-box">
+				<span class="info-tit">公司名称</span>
+				<input class="info-input" name="companyname" type="text" placeholder="请输入您的公司名称或品牌简称">
+			</div>
+			<div class="input-box">
+				<span class="info-tit2">所属行业</span>
+				<select class="info-select pointer" name="industry">
+					<option>请选择行业</option>
+					<option>餐厅</option>
+					<option>酒店旅游</option>
+					<option>亲子</option>
+					<option>教育培训</option>
+					<option>商业地产</option>
+					<option>内容电商</option>
+					<option>食品快消</option>
+					<option>服装</option>
+					<option>咖啡蛋糕</option>
+					<option>公共事业</option>
+					<option>生态优品</option>
+					<option>宠物</option>
+					<option>酒吧会所</option>
+					<option>保健品</option>
+					<option>运动健身</option>
+					<option>美容SPA</option>
+					<option>丽人丽妆</option>
+					<option>3C家电</option>
+					<option>家居生活</option>
+					<option>其他</option>
+					
+					
+				</select>
+			</div>
+			<div class="input-box">
+				<span class="info-tit">登录名</span>
+				<input class="info-input" name="loginname" type="text" placeholder="请输入登录名">
+			</div>
+			<div class="input-box bb-dashed">
+				<span class="info-tit">密码</span>
+				<input class="info-input" name="password" type="password" placeholder="请输入登录密码">
+			</div>
+			<div class="input-box">
+				<span class="info-tit">邀请码</span>
+				<input class="info-input" name="invitecode" type="text" placeholder="请输入邀请码 (非必填)">
+			</div>
+
+			<input class="submit-btn js-sub-asa" type="button" value="提交开通申请">
+		</form>
+		<p class="no-account-tips">已拥有账户</p>
+		<a class="register-now" href="<?php echo U('Index/login')?>">商户登录</a>
+		<div style="height: 60px;"></div>
+	</div>
+
+
+<div class="pupop-wrap js-dredge_popup_show">
+	<div class="register-succeed">
+		<p class="demo-status js-dredge_popup_sar">注册已成功</p>
+		<h2 class="demo-status2 js-dredge_popup_sap">欢迎您选择SCRM5</h2>
+		<div><a href="<?php echo U('User5/EnterPlatform/enterOne'); ?>" class="register-succeed-btn">开始 SCRM5新商户入驻流程</a></div>
+		<div><a href="http://bbs.mobiwind.cn" class="register-succeed-btn into-btn">进入 666价值论坛</a></div>
+	</div>
+</div>
+
+
+
+
+
+
+<script>
+
+	$(function(){
+		/* 提交信息 */
+		$(".js-sub-asa").click(function(){
+	    	var truename = $('input[name="truename"]').val();
+	        if(truename.length<1 || truename == false){
+	        	alert('提交失败,请填写真实姓名');
+	            return false;
+	        }
+	        var phone = $('input[name="mobile"]').val();
+	        var yzp = /^(((13[0-9]{1})|(14[579]{1})|(15[012356789]{1})|(17[0135678]{1})|(18[0-9]{1}))+\d{8})$/;
+	        if( phone.length<1 || !yzp.test(phone)){
+	        	alert('提交失败,请填写正确的手机号');
+	            return false;
+	        }
+	        var companyName = $('input[name="companyname"]').val();
+	        if(companyName.length<1 || companyName == false){
+	        	alert('提交失败,请填写正确的公司名称');
+	            return false;
+	        }
+	        var industry = $("select[name='industry']").find("option:selected").html();
+	        if(industry.length<1 || industry == false){
+	        	alert('提交失败,请选择正确的行业');
+	            return false;
+	        }
+	        var loginname = $('input[name="loginname"]').val();
+	        var reg = /^[\w]{6,16}$/   //这个是正则表达式
+	        if(loginname.length<1 || loginname == false){
+	        	alert('提交失败,请填写正确的登录名');
+	            return false;
+	        }else if(loginname.length<6 || loginname.length>16 || loginname == false){
+	           	alert('提交失败,登录名不能小于6位大于16位');
+	            return false;
+	        }else if(!loginname.match(reg)){
+	        	alert('提交失败,登录名只能包含字母数字下划线');
+	        	return false;
+	        }
+	        var password = $('input[name="password"]').val();
+	        if(password.length<6 || password.length>16 || password == false){
+	        	alert('提交失败,密码不能小于6位大于16位');
+	            return false;
+	        }
+	        var invitecode = $('input[name="invitecode"]').val();
+	        $('.loading').show();
+	        $.post("<?php echo U('Index/register_scrm5').'&time=';?>"+Math.random(),
+	                {phone:phone,name:truename,companyname:companyName,industry:industry,loginname:loginname,password:password,invitecode:invitecode},
+	                function(data){
+	                $('.loading').hide();
+	                  if(data.code == 200){
+	                	  $(".js-dredge_popup_show").show();
+	                  }else if(data.code == 100){
+	                	  alert('提交失败,登录名已被使用<br/>请更换');
+	                  }else if(data.code == 600){
+	                	  alert(data.tips);
+	                  }else{
+	                	  alert('提交失败',"网络繁忙<br/>请稍后重试");
+	                  }
+	                },"json");
+	    });
+	})
+
+</script>
+<include file="Public:footer" />

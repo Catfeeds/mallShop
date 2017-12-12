@@ -1,0 +1,156 @@
+<include file="Public:memberCenterHeader"/>
+<!--是否使用电子券-->
+<div class="exp-dian">
+    <div class="exp-dian2">
+        <p class="exp-shi">是否使用电子券</p>
+        <div class="shi-input" ><p class="exp-shi2"><img src="{lanrain::RES}/profile/tiyan/icon-xuan2.jpg">使用</p></div>
+        <div class="shi-input2" style="display: none">
+            <p class="exp-shi2"><img src="{lanrain::RES}/profile/tiyan/icon-xan.jpg">使用</p>
+            <input type="tel" placeholder="请输入券号" id="textfiled" disabled="disabled">
+        </div>
+        <p class="exp-shi2"><img src="{lanrain::RES}/profile/tiyan/icon-xuan2.jpg">不使用</p>
+        <div class="voucher">
+            <ul>
+                <li><a href="javascript:void(0);">上一步</a></li>
+                <li><a href="javascript:void(0);">下一步</a></li>
+            </ul>
+        </div>
+        <div class="voucher2" style="display: none;">
+            <ul>
+                <li><a href="<?php echo U('Experience/index',array('companyid'=>$companyid));?>">上一步</a></li>
+                <li><a href="<?php echo U('Experience/you',array('companyid'=>$companyid));?>">下一步</a></li>
+            </ul>
+        </div>
+        <img src="{lanrain::RES}/profile/tiyan/demo.png" class="ti-demo">
+        <div class="exp-jian exp-jian1"><img src="{lanrain::RES}/profile/tiyan/shuzijianpan.jpg"></div>
+        <div class="exp-jian exp-jian2"><img src="{lanrain::RES}/profile/tiyan/8.jpg"></div>
+        <div class="exp-jian exp-jian3"><img src="{lanrain::RES}/profile/tiyan/2.jpg"></div>
+        <div class="exp-jian exp-jian4"><img src="{lanrain::RES}/profile/tiyan/1.jpg"></div>
+        <div class="exp-jian exp-jian5"><img src="{lanrain::RES}/profile/tiyan/3.jpg"></div>
+        <div class="exp-jian exp-jian6"><img src="{lanrain::RES}/profile/tiyan/0.jpg"></div>
+    </div>
+</div>
+<div class="sign-out"><a href="<?php echo U('Experience/h5',array('companyid'=>$companyid));?>">退出演示</a></div>
+<script>
+	$("title").html("手机收款解决方案");
+    document.addEventListener('touchmove', function (event) {
+        event.preventDefault();
+    });
+       var aa  =  $("#textfiled").val(); //获取input 的值
+
+       setTimeout(function(){
+          $(".shi-input2").show();
+           $(".shi-input").hide();
+
+
+       },2000);
+       setTimeout(function(){
+
+           $("#textfiled").val(" ");    //将input值清空
+           $(".exp-jian1").show();  //给input重新赋值
+       },3000);
+       setTimeout(function(){
+
+           $("#textfiled").val(" ");    //将input值清空
+           $(".exp-jian1").hide();
+           $(".exp-jian2").show();
+           $("#textfiled").val("8");  //给input重新赋值
+       },4000);
+    setTimeout(function(){
+
+        $(".exp-jian1").show();
+        $(".exp-jian2").hide();
+    },4300);
+       setTimeout(function(){
+
+           $("#textfiled").val(" ");    //将input值清空
+           $(".exp-jian1").hide();
+           $(".exp-jian3").show();
+           $("#textfiled").val("82");  //给input重新赋值
+       },4600);
+    setTimeout(function(){
+
+        $(".exp-jian1").show();
+        $(".exp-jian3").hide();
+    },4900);
+    setTimeout(function(){
+
+        $("#textfiled").val(" ");    //将input值清空
+        $(".exp-jian1").hide();
+        $(".exp-jian4").show();
+        $("#textfiled").val("821");  //给input重新赋值
+    },5200);
+    setTimeout(function(){
+
+        $(".exp-jian1").show();
+        $(".exp-jian4").hide();
+    },5500);
+    setTimeout(function(){
+
+        $("#textfiled").val(" ");    //将input值清空
+        $(".exp-jian1").hide();
+        $(".exp-jian5").show();
+        $("#textfiled").val("8213");  //给input重新赋值
+    },5800);
+    setTimeout(function(){
+
+        $(".exp-jian1").show();
+        $(".exp-jian5").hide();
+    },6100);
+    setTimeout(function(){
+
+        $("#textfiled").val(" ");    //将input值清空
+        $(".exp-jian1").hide();
+        $(".exp-jian6").show();
+        $("#textfiled").val("82130");  //给input重新赋值
+    },6400);
+    setTimeout(function(){
+
+        $(".exp-jian1").show();
+        $(".exp-jian6").hide();
+    },6700);
+    setTimeout(function(){
+
+        $("#textfiled").val(" ");    //将input值清空
+        $(".exp-jian1").hide();
+        $(".exp-jian6").show();
+        $("#textfiled").val("821300");  //给input重新赋值
+    },7000);
+    setTimeout(function(){
+
+        $(".exp-jian1").show();
+        $(".exp-jian6").hide();
+    },7300);
+    setTimeout(function(){
+
+        $("#textfiled").val(" ");    //将input值清空
+        $(".exp-jian1").hide();
+        $(".exp-jian6").show();
+        $("#textfiled").val("8213000");  //给input重新赋值
+    },7600);
+    setTimeout(function(){
+
+        $(".exp-jian1").show();
+        $(".exp-jian6").hide();
+    },7900);
+    setTimeout(function(){
+
+        $("#textfiled").val(" ");    //将input值清空
+        $(".exp-jian1").hide();
+        $(".exp-jian4").show();
+        $("#textfiled").val("82130001");  //给input重新赋值
+    },8100);
+    setTimeout(function(){
+
+        $(".exp-jian1").show();
+        $(".exp-jian4").hide();
+    },8400);
+       setTimeout(function(){
+           $(".exp-jian").hide();
+           $(".voucher").hide();
+           $(".voucher2").show();
+           $(".exp-xia2").show();
+       },10000);
+</script>
+<include file="Public:weiXinShareSet" />
+<include file="Public:footer2" />

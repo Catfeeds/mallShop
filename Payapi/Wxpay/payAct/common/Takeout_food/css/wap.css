@@ -1,0 +1,179 @@
+@charset "utf-8";
+body{height: 100%;-webkit-overflow-scrolling: touch;}
+/*  ====== main ======= */
+.content_app {min-width: 320px;margin: 0 auto;max-width: 560px; min-height: 100%;position: relative;}
+.contrnt_pabttom { padding-bottom: 14.6rem; position: relative;display: block;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box; }
+/*  ====== public ======= */
+input[type="search"] {-webkit-appearance: none;  }
+input::-webkit-search-cancel-button {display: none;}
+.fzs_bgcolor {background: #eaeaea;}
+.fzs_bgcolor_fff{ background: #ffffff;}
+.fzs_bgcolor_f1f0f5{background: #f1f0f5;}
+em.num_Arial,.num_Arial {font-family: Arial;font-style: normal;}
+.color_orange{color: #ff631c;}
+.font_purple{ color: #5d0c8b; }
+.purple_bg{background: #5d0c8b;}
+.border_img{ -webkit-border-image: url("../img/bor-der.png") 2 stretch;}
+.btn_border_img{border-bottom: 2px solid #e0e0e0;-webkit-border-image: url("../img/bor-der.png") 2 stretch;border-bottom-width: 1px;border-top-width: 0px; border-left-width: 0px;  border-right-width: 0px;  }
+.last_child{border-bottom: none;border-bottom-width: 0px;}
+/* === 平分的盒子模型 == */
+.equally_box{display:-moz-box;display:-webkit-box;display:flex;display:-webkit-flex;-webkit-flex-wrap:nowrap;-ms-flex-wrap:nowrap;flex-wrap:nowrap;width:100%;box-sizing:border-box;padding:0;margin:0}
+.equally_bson{-webkit-box-flex:1;-moz-box-flex:1;flex:1;-webkit-flex:1;-ms-flex:1;-webkit-flex-basis:0;-ms-flex-preferred-size:0;flex-basis:0;width:0;max-width:100%;display:block;justify-content:space-between}
+/* ======正中间====== */
+.place_middle{-webkit-transform: translate(-50%, -50%);transform: translate(-50%, -50%);left: 50%;top: 50%;}
+/* ======= 上下居中 ======= */
+.masterY_middle{transform: translateY(-50%);-webkit-transform: translateY(-50%);top: 50%;}
+/* ======= 左右居中 ======= */
+.masterX_middle{transform: translateX(-50%);-webkit-transform: translateX(-50%);left: 50%;}
+
+.mt-15{margin-top: 0.15rem;}
+.mr-130{margin-right: 1.3rem;}
+
+/* ======= 通底 ======= */
+.ifoot_padding{padding-bottom:128px;position:relative}
+.eshopv_fotter_logo{bottom:0rem;}
+.Fixed-bottom-pst100  .eshopv_fotter_logo{bottom:1rem;}
+.Fixed-bottom-pst112  .eshopv_fotter_logo{bottom:1.12rem;}
+
+
+/*pc适配*/
+@media screen and (min-width: 561px){
+    .Take-bottom-btn-box,.Choose-dish-bottom{width: 560px!important;left: 50%!important;margin-left: -380px;}
+}
+
+
+
+
+/*确认订单*/
+.Confirm-order{background: #fff;}
+.Room-mode-ul{padding: 0.1rem 0;overflow: hidden;border-bottom: 1px solid #e0e0e0;}
+.Room-mode-ul li{width: 50%;float: left;text-align: center;color: #000;font-size: 14px;padding: 0.2rem 0;line-height: 1;text-align: center;}
+.Room-mode-ul li:first-child{border-right: 1px solid #e0e0e0;}
+.Room-mode-ul li label{line-height: 1;display: inline-block;padding-left: 20px;position: relative;cursor: pointer}
+.Room-mode-ul input[type="radio"] {
+    padding: 0;
+    -webkit-appearance: none;
+    background: #ffffff;
+    border: 1px solid #0b400d;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 1px solid #939393;
+    margin:0;
+    position: absolute;
+    left: 0;
+    top:-1px;
+}
+.Room-mode-ul input[type="radio"]:checked {
+    border: none;
+    background: url("../img/Takeout-xz.png")no-repeat;
+    background-size: 100%;
+}
+.New-receiving-di{padding: 0 0.4rem;}
+.New-receiving-di a{display: block;text-align: center;color:#000;padding: 0.3rem 0;background: url("../img/Takeout-yjt.png") no-repeat right center;line-height: 14px;background-size: 0.14rem;}
+.New-receiving-di a img{display: inline-block;width: 14px;vertical-align: middle;}
+.New-receiving-di a span{display: inline-block;line-height: 14px;padding-left: 0.2rem;color:#000;}
+.Take-out-Order-details{background: #fff;padding: 0 0.4rem;}
+.Take-out-Order-h6{font-size:14px;padding:0.26rem 0;color: #000;line-height: 1;}
+.Take-out-Order-ul>li{border-top: 1px solid #e0e0e0;}
+.Take-out-Order-ul-ul{padding: 0.15rem 0;}
+.Take-out-Order-ul-ul>li{padding: 0.1rem 0;line-height: 16px;color: #666;}
+.Take-out-Order-ul-ul>li p{line-height: 16px;font-size: 12px;}
+.Take-out-Order-ul-ul>li span{float: right;text-align: right;font-size:14px;}
+.w-130{width: 1.3rem;}
+.w-60{width: 0.6rem;}
+.total-p{color: #333;font-size: 14px!important;}
+.total-mn{font-size: 16px;color: #f53d3f;}
+.Take-out-Remarks{padding: 0.2rem 0.4rem;background: #fff;position: relative;margin-bottom: 0.15rem;overflow: hidden;}
+.Take-out-Remarks-ipt{margin-left: 40px;}
+.Take-out-Remarks label{font-size: 14px;line-height: 20px;color: #333;float: left;}
+.Take-out-Remarks input{border: none;outline: none;line-height: 18px;color: #333;}
+.Take-out-Remarks p{line-height: 20px;color: #333;min-height: 20px;font-size:14px;}
+.Take-out-button-box{padding: 0.15rem 0.4rem;background: #fff;position: fixed;bottom:0;left: 0;width: 100%;border-top: 1px solid #e0e0e0;}
+.btn-Take{width: 100%;height: 0.84rem;line-height: 0.84rem;padding: 0;border-radius: 5px;}
+.btn-Take-bclh{background: #bd9745;color: #fff;border: 1px solid #bd9745;font-size: 0.32rem;}
+
+
+/**/
+.Take-Count-down{padding: 0.15rem 0;text-align: center;background-color: #bd9745;}
+.Take-Count-down>span{display: inline-block;color:#fff;font-size:12px;padding-left: 20px;line-height: 14px;height: 14px;background: url("../img/Takeout-sjicon.png") no-repeat left center;background-size: 14px;}
+.Meal-time-box{padding:0.26rem 0;line-height:14px;line-height: 1;color: #000;font-size: 14px;background: #fff;text-align: center;}
+.Take-bottom-btn-box{background: #fff;padding: 0.2rem 0.3rem;border-top: 1px solid #e0e0e0;overflow: hidden;position: fixed;bottom:0;left:0;z-index: 9;width: 100%;}
+.Pay-later-btn{width: 46%;height: 0.72rem;line-height: 0.72rem;padding: 0;border-radius: 5px;background: #f8f8f8;color: #333;border: 1px solid #e0e0e0;float: left;}
+.Pay-immediately-btn{width: 46%;height: 0.72rem;line-height: 0.72rem;padding: 0;border-radius: 5px;background: #bd9745;color: #fff;border: 1px solid #bd9745;float: right;}
+.Delivery-address-phone{padding: 0.2rem 0.4rem;background: #fff;}
+.Take-phone-name{font-size: 14px;line-height: 24px;color: #000;}
+.Take-phone-name span{float: right;line-height: 24px;}
+.Take-Delivery-address{line-height: 24px;font-size: 14px;color: #000;}
+
+
+
+
+/*订单详情*/
+.To-be-signed{padding: 0.2rem 0.4rem;position: relative;background: #fff;}
+.To-be-signed-p{padding:0.1rem 0;color: #333;line-height: 1;font-size: 16px;}
+.To-be-signed-Ordernumber{padding:0.1rem 0;color: #333;line-height: 1;font-size: 14px;}
+.To-be-signed-confirm{position: absolute;right: 0.4rem;bottom:0.3rem;border-radius:3px;border: 1px solid #333;color: #333;font-size: 0.24rem;line-height: 0.52rem;padding:0 0.1rem;outline: none;background: none;}
+.Take-time-ul{padding: 0.15rem 0.4rem;background: #fff;}
+.Take-time-ul li{padding: 0.1rem 0;font-size: 14px;color: #666;line-height: 1;}
+.Take-time-ul li span{float: right;color: #333;font-size: 14px;}
+
+.Payment-success-box{
+    padding: 33% 0;
+    text-align: center;
+}
+.Payment-success-box img{
+    display: block;
+    width: 95px;
+    margin:0 auto;
+}
+.Payment-success-box p{
+    padding-top: 12px;
+    font-size: 18px;
+    color: #333333;
+    text-align: center;
+}
+.Payment-success-box a{
+    margin-top: 8px;
+    font-size: 12px;
+    text-decoration: underline;
+    color: #bd9745;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

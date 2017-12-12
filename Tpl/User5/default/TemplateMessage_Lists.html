@@ -1,0 +1,69 @@
+<include file="Public:head"/>
+<!-- 页面内容 begin -->
+	<?php echo $makeTopUrl;?>
+    <include file="Public:wechatsManage"/>
+    <input type="hidden" name="wechatid" value="<?php echo $wechatid;?>">
+    <!-- 微信消息通知模板列表 -->
+    <div class="mod mb-15">
+        <div class="mod-header radius-top"><h4>微信消息通知模板列表</h4></div>
+        <div class="mod-body">
+            <div class="content">
+                <div class="group pb-30">
+                    <h5 class="inline w150 text-left">微信消息模板类型：</h5>
+                    <select class="inline w150 span3">
+                        <option value="" selected="selected">请选择</option>
+                        <?php if($lists){ foreach($lists as $lkey=>$lval){?>
+	                    <option value="<?php echo $lval['id'];?>"><?php echo $lval['name'];?></option>
+                    <?php }}?>
+                    </select>
+                </div>
+                <div class="group commonmuban" style="display:none">
+                    <h5 class="inline w150 text-left pb-10">公众号场景消息模板：</h5>
+                    <div class="Wechat-msg-card wewhat_muban">
+                    </div>
+                </div>
+
+                <div class="group helpmuban" style="display:none">
+                    <h5 class="inline w150 text-left pb-10">风助手场景消息模板：</h5>
+                    <div class="Wechat-msg-card js-help-muban">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- 页面内容 end -->
+<script>
+$(function () {
+	//$(document).on("click",'.span.option',function(){
+	$(".span3 option:first").prop("selected", 'selected');
+	$(".span3").change(function(){
+		var value = $(this).val();
+		var wechatid = $('input[name="wechatid"]').val();
+		$.post("<?php echo U('TemplateMessage/Lists').'&time=time()'; ?>"+Math.random(),
+			{type:value,wechatid:wechatid},
+			function(data){	    			 
+				if(data.code == 200){
+					$(".wewhat_muban").html(data.msg);
+					$(".js-help-muban").html(data.tips);
+					if(data.msg1 == '1'){
+						$('.commonmuban').show();
+					}else{
+						$('.commonmuban').hide();
+					}
+					if(data.tips1 == '1'){
+						$('.helpmuban').show();
+					}else{
+						$('.helpmuban').hide();
+					}
+				}else{
+					if(data.msg == ''){
+						$(".wewhat_muban").html('');
+					}else{
+						alertTan(data.msg,'error');
+					}
+				}
+		},"json");
+	});
+});
+</script>
+<include file="Public:footer"/> 

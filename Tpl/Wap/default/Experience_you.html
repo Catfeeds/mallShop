@@ -1,0 +1,75 @@
+<include file="Public:memberCenterHeader"/>
+<!--是否使用电子券-->
+<div class="exp-you"  id="dian">
+    <img src="{lanrain::RES}/profile/tiyan/top.jpg" class="exp-you2">
+    <div class="voucher">
+        <ul>
+            <li><a href="<?php echo U('Experience/voucher',array('companyid'=>$companyid));?>">取消，上一步</a></li>
+            <li><a href="javascript:void(0);" class="ljsy">立即使用</a></li>
+        </ul>
+    </div>
+</div>
+<div class="exp2-way" style="display: none">
+    <img src="{lanrain::RES}/profile/tiyan/way.jpg" class="exp-you2">
+    <div class="exp-way2">
+        <img src="{lanrain::RES}/profile/tiyan/way-02.jpg" class="exp-you2">
+          <div data-num = "1" class="way-xuan2"></div>
+    </div>
+    <div class="exp-way2">
+        <img src="{lanrain::RES}/profile/tiyan/way-03.jpg" class="exp-you2">
+        <div data-num = "2" class="way-xuan"></div>
+    </div>
+    <div class="exp-way2">
+        <img src="{lanrain::RES}/profile/tiyan/way-04.jpg" class="exp-you2">
+        <div data-num = "3" class="way-xuan"></div>
+    </div>
+    <div class="exp-way2">
+        <img src="{lanrain::RES}/profile/tiyan/way-05.jpg" class="exp-you2">
+    </div>
+    <div class="way-tiao">
+        <ul>
+            <li><a href="">上一步</a></li>
+            <li id = "sure"><a href="javascript:void(0);">确认并提交</a></li>
+        </ul>
+    </div>
+</div>
+<img src="{lanrain::RES}/profile/tiyan/demo.png" class="ti-demo">
+<div class="sign-out"><a href="<?php echo U('Experience/h5',array('companyid'=>$companyid));?>">退出演示</a></div>
+<script>
+    $(function(){
+    	$("title").html("手机收款解决方案");
+        $('.way-xuan').click(function(){
+            $(this).removeClass("way-xuan");
+            $('.way-xuan2').addClass("way-xuan");
+            $('.way-xuan2').removeClass("way-xuan2");
+            $(this).addClass("way-xuan2");
+        });
+        $('.way-xuan2').click(function(){
+            $(this).removeClass("way-xuan");
+            $('.way-xuan2').addClass("way-xuan");
+            $('.way-xuan2').removeClass("way-xuan2");
+            $(this).addClass("way-xuan2");
+        });
+        $('.ljsy').click(function(){
+            $('#dian').hide();
+            $('.exp2-way').show();
+        });
+        //支付跳转
+
+        $("#sure").click(function(){
+           var a = $(".way-xuan2").attr("data-num");
+            if(a=="1"){  //微信
+               window.location.href = "<?php echo U('Experience/wei',array('companyid'=>$companyid));?>";
+            }else if (a=="2"){  //支付宝
+                window.location.href = "<?php echo U('Experience/bao',array('companyid'=>$companyid));?>";
+            }else if(a=="3"){  //现金
+                window.location.href = "<?php echo U('Experience/xian',array('companyid'=>$companyid));?>";
+            }
+        });
+
+
+
+    });
+</script>
+<include file="Public:weiXinShareSet" />
+<include file="Public:footer2" />

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0, maximum-scale=2.0">
+<title>忘记密码 Password has been sent </title>
+  <link href="{lanrain::RES}/css/base.css" rel="stylesheet" type="text/css" />
+  <link href="{lanrain::RES}/css/wapcss.css" rel="stylesheet" type="text/css" />
+  <link href="{lanrain::RES}/css/register.css" rel="stylesheet" type="text/css">
+<body>
+<div class="sidebar-content sidebar-form">
+  <div class="form-horizontal">
+    <h3 class="login-title">密码已发送 Password has been sent </h3>
+    <div class="line"></div>
+    <div class="control-group">
+      <div class="control-label">邮箱 <p>E-mail</p></div>
+      <div class="controls" style="line-height: 38px;">
+        <?php echo $email;?>
+      </div>
+    </div>
+    <p class="reg-prompt icon-pass" style="color: #999;padding-top: 5px;">密码已发送至您的邮箱，请前往邮箱查看密码！</p>
+    <p class="reg-prompt icon-pass" style="color: #999;padding-top: 5px;font-size: 12px;">Your password has been sent to the above mail box, please check your mail for the password!</p>
+    <div class="form-actions">
+      <a class="btn btn-green" href="<?php echo U('Login/login',array('companyid'=>$companyid));?>" >重新登录 Log in </a>
+    </div>
+
+  </div>
+</div>
+<include file="Public:weiXinNotShareSet"/>
+</body>
+</html>

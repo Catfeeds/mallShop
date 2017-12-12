@@ -1,0 +1,241 @@
+<include file="Public:head"/>
+<!-- 代理提现申请 -->
+<?php echo $makeTopUrl;?>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>筛选条件</h4></div>
+    <div class="mod-body">
+    <form action="<?php echo U('MallExhibitionPartner/totalMoney');?>" method="post" >
+        <div class="content clearfix">
+            <div class="child-sum-3 fl">
+                <div class="group pb-10">
+                    <h6 class="inline w100">代理人：</h6>
+                    <input class="inline w150" type="text" name="name" value="<?php echo $name;?>">
+                </div>
+                <div class="group">
+                    <h6 class="inline w100">提现金额：</h6>
+                    <input class="inline w60" type="text" name="withdrawcash1" value="<?php echo $withdrawcash1;?>"> -
+                    <input class="inline w60" type="text" name="withdrawcash2" value="<?php echo $withdrawcash2;?>">
+                </div>
+            </div>
+
+            <div class="child-sum-3 fl">
+                <div class="group pb-10">
+                    <h6 class="inline w100">代理人手机号：</h6>
+                    <input class="inline w150" type="text" name="mobile" value="<?php echo $mobile;?>">
+                </div>
+            </div>
+
+            <div class="child-sum-3 fl">
+                <div class="group pb-10">
+                    <h6 class="inline w100">提现申请状态：</h6>
+                    <select name="state" class="inline w150">
+                        <option value="">全部</option>
+                        <option value="1" <?php if($state == '1'){ echo ' selected = "selected"';}?>>待打款</option>
+                        <option value="2" <?php if($state == '2'){ echo ' selected = "selected"';}?>>已打款</option>
+                        <option value="3" <?php if($state == '3'){ echo ' selected = "selected"';}?>>已取消</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="group laydate-box">
+                <h6 class="inline w100">申请时间：</h6>
+                <input class="laydate-input" id="pay-date-3" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" placeholder="YYYY-MM-DD hh:mm:ss" name="applytime1" value="<?php echo $applytime1;?>">
+                <i class="icon-laydate" onclick="laydate({elem:'#pay-date-1'});"></i>
+                <span> - </span>
+                <input class="laydate-input" id="pay-date-4" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" placeholder="YYYY-MM-DD hh:mm:ss" name="applytime2" value="<?php echo $applytime2;?>">
+                <i class="icon-laydate" onclick="laydate({elem:'#pay-date-2'});"></i>
+            </div>
+        </div>
+        <div class="group form-footer pb-10 text-center">
+            <input class="btn-middle btn-purple" type="submit" value="筛选">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input class="btn-middle btn-white" type="reset" value="重置">
+        </div>
+        </form>
+    </div>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>提现申请</h4></div>
+    <div class="mod-body mb-15">
+        <table class="table type-1 w-auto">
+            <thead>
+            <tr>
+                <th>代理人</th>
+                <th>代理人手机</th>
+                <th class="min-w70">申请时间<a href="javascript:void(0);" class="sort-icon <?php if($sortclass1==1){ echo 'sort-icon-ascending';}elseif($sortclass1==2){ echo 'sort-icon-descending';}?>" data-sorttype="1" data-sortclass="<?php echo $sortclass1;?>"></th>
+                <th class="min-w90">提现申请金额<a href="javascript:void(0);" class="sort-icon <?php if($sortclass2==1){ echo 'sort-icon-ascending';}elseif($sortclass2==2){ echo 'sort-icon-descending';}?>" data-sorttype="2" data-sortclass="<?php echo $sortclass2;?>"></th>
+                <th>提现申请状态</th>
+                <th>管理员备注</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php if($list){?>
+            <?php foreach($list as $key=>$val){?>
+            <tr>
+                <td><?php echo $val['nickname'];?></td>
+                <td><?php echo $val['mobile'];?></td>
+                <td><?php echo format_time($val['applytime'],'ymdhi');?></td>
+                <td><?php echo $val['withdrawcash']?$val['withdrawcash']:'0.00';?></td>
+                <td>
+                    <?php if($val['state'] == '1'){?>
+                    <span style=" color:#FF0000;">待打款</span>
+                    <?php }elseif($val['state'] == '2'){?>
+                    <span style=" color:#00cc99;">已打款</span>
+                    <?php }elseif($val['state'] == '3'){?>
+                    <span style=" color:#000000;">已取消</span>
+                    <?php }?>
+                </td>
+                <td><?php echo $val['playmoneynote'];?></td>
+                <td><a href="javascript:void(0);" data-realname="<?php echo $val['realname']; ?>" data-id="<?php echo $val['id'];?>" data-orderid="<?php echo $val['orderid'];?>" data-name="<?php echo $val['name'];?>" data-mobile="<?php echo $val['mobile'];?>" data-applytime="<?php echo format_time($val['applytime'],'ymdhi');?>" data-withdrawcash="<?php echo $val['withdrawcash'];?>" data-playmoneynote="<?php echo $val['playmoneynote'];?>" data-state="<?php echo $val['state'];?>" class="dmsApply tips js-apply-cash">管理</a></td>
+            </tr>
+            <?php }}else{?>
+            <tr>
+                <td class="content text-center" colspan="8">暂无</td>
+            </tr>
+            <?php }?>
+            </tbody>
+        </table>
+        <div class="group form-footer clearfix">
+            <?php echo $page;?>
+        </div>
+    </div>
+
+
+</div>
+<!-- 提现申请管理 弹窗 -->
+<div class="popup-wrap wrap-pro-1 apply-cash-popup-wrap">
+    <div class="mod pro-popup type-1">
+        <div class="mod-header">
+            <h4 class="fl">提现申请管理</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+            <div class="content clearfix">
+            <input type="hidden" class="id" value="" />
+	    	<input type="hidden" class="keyid" value="" />
+	    	<input type="hidden" class="orderid" value="" />
+                <div class="left-col">
+                    <div class="group pb-10">
+                        <h6 class="inline w80">代理人：</h6><h6 class="inline name"></h6>
+                    </div>
+                    <div class="group pb-10">
+                        <h6 class="inline w80">申请时间：</h6><h6 class="inline applytime"></h6>
+                    </div>
+                    <div class="group pb-10 dms-select">
+                    </div>
+                </div>
+                <div class="right-col">
+                    <div class="group pb-10">
+                        <h6 class="inline w80">代理人手机：</h6><h6 class="inline mobile"></h6>
+                    </div>
+                    <div class="group pb-10">
+                        <h6 class="inline w80">提现金额：</h6><h6 class="inline withdrawcash"></h6>
+                    </div>
+                </div>
+                <div class="group clear">
+                    <h6 class="inline w80 text-top">管理员备注：</h6>
+                    <textarea cols="50" rows="5" class="inline playmoneynote"></textarea>
+                </div>
+                <div class="group pb-10">
+                    <span class="inline w80"><!-- Null --></span><h6 class="inline text-gray">*请控制在20字以内</h6>
+                </div>
+                <p class="text-center clear">
+                    <a class="btn-big btn-purple dms-apply-box-submit"> &nbsp; 确认 &nbsp; </a> &nbsp; &nbsp;
+                    <a class="btn-big btn-white js-ok"> &nbsp; 取消 &nbsp; </a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).on("click",".js-apply-cash",function(){
+            $(".apply-cash-popup-wrap").fadeIn(120);
+        })
+    </script>
+</div>
+
+<script>
+$(function(){
+	//排序功能
+	$('.sort-icon').click(function(){
+		var sorttype = $(this).attr('data-sorttype');
+		var sortclass = $(this).attr('data-sortclass');
+		window.location.href = "<?php echo U('MallExhibitionPartner/totalMoney',array('name'=>$name,'withdrawcash1'=>$withdrawcash1,'withdrawcash2'=>$withdrawcash2,'mobile'=>$mobile,'state'=>$state,'applytime1'=>$applytime1,'applytime2'=>$applytime2,'sorttype'=>'"+sorttype+"','sortclass'=>'"+sortclass+"'));?>";
+	});
+	// 提现请求
+	$('.dmsApply').on("click",function(){
+		$('.id').val('');
+		$('.orderid').val('');
+		$(".name").text("");
+		$(".mobile").text("");
+		$(".applytime").text("");
+		$(".withdrawcash").text("");
+		$(".playmoneynote").text("");
+
+		var id = $(this).attr('data-id');
+		$('.id').val(id);
+		var orderid = $(this).attr('data-orderid');
+		$('.orderid').val(orderid);
+		var realname = $(this).attr('data-realname');
+		$(".realname").text(realname);
+		var name = $(this).attr('data-name');
+		$(".name").text(name);
+		var mobile = $(this).attr('data-mobile');
+		$(".mobile").text(mobile);
+		var applytime = $(this).attr('data-applytime');
+		$(".applytime").text(applytime);
+		var withdrawcash = $(this).attr('data-withdrawcash');
+		$(".withdrawcash").text(withdrawcash);
+		
+		$('.dms-select').empty();
+		var statetype = $(this).attr('data-state');
+		if(statetype == '1'){
+			$('.dms-select').append('<h6 class="inline w80">审核状态：</h6><select name="state" class="inline w150 state"><option value="1">待打款</option><option value="2">已打款</option><option value="3">已取消</option></select>');
+		}else if(statetype == '2' || statetype == '3'){
+	        $('.dms-select').append('<h6 class="inline w80">审核状态：</h6><select name="state" class="inline w150 state"><option value="2">已打款</option><option value="3">已取消</option></select>');
+		}
+		$(".state option[value='"+$(this).attr('data-state')+"']").attr("selected","selected");
+		
+		$(".playmoneynote").text("");
+		var playmoneynote = $(this).attr('data-playmoneynote');
+		$(".playmoneynote").text(playmoneynote);
+	})
+	// 保存
+	$('.dms-apply-box-submit').on("click",function(){
+		// 提现金额
+		var withdrawcash = $('.withdrawcash').text();
+		if(withdrawcash.length>0){
+			if(isNaN(withdrawcash)){
+				alertTan('请填写正确的提现金额','warn');
+				var cashwithdrawalVal = 0;
+			}else{
+				var cashwithdrawalVal = 1;
+			}
+		}else{
+			alertTan('请填写提现金额','warn');
+			var cashwithdrawalVal = 0;
+		}
+		// 审核状态
+		var state = $('.state').val();
+		// 管理员备注
+		var playmoneynote = $(".playmoneynote").val();
+		var id = $('.id').val();
+		var orderid = $('.orderid').val();
+		if(id.length>0 && orderid.length>0 && cashwithdrawalVal==1){
+			$('.loading').show();
+			$.post("<?php echo U('MallExhibitionPartner/ajaxApplyEdit').'&time=';?>"+Math.random(),{'id':id, 'orderid':orderid, 'withdrawcash':withdrawcash, 'state':state, 'playmoneynote':playmoneynote},function(data){
+			 	$('.loading').hide();
+				if(data.code == 200){
+				 	alertTan(data.tips);
+					setTimeout("window.location.href=window.location.href",1500);
+			 	}else{
+			 		alertTan(data.tips,'error');
+			 	}
+		   },"json");
+		}else{
+			alertTan('抱歉，服务器繁忙，请稍后重试','warn');
+		}
+	});
+})
+</script>
+<include file="Public:footer"/>

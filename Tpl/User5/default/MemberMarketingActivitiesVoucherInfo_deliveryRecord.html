@@ -1,0 +1,346 @@
+<include file="Public:head"/>
+<?php echo $makeTopUrl;?>
+<!-- 投放记录 -->
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>筛选条件</h4></div>
+    <form class="mod-body" action="<?php echo U('MemberMarketingActivitiesVoucherInfo/deliveryRecord',array('id'=>$id));?>" method="post">
+        <?php if($voucherInfo['vouchertype'] == 1){?>
+        <div class="content clearfix">
+            <div class="group size1of3 fl">
+                <h6 class="inline w80">卡券号：</h6>
+                <input class="inline w150" type="text" name="sn" value="<?php echo $sn;?>">
+            </div>
+            <div class="group size1of3 fl">
+                <h6 class="inline w80">会员手机号：</h6>
+                <input class="inline w150" type="text" name="moblie" value="<?php echo $moblie;?>">
+            </div>
+            <div class="group size1of3 fl">
+                <h6 class="inline w80">核销状态：</h6>
+                <select class="inline w150" name="isusedStatus">
+                    <option value="">全部</option>
+                    <option value="1" <?php if($isusedStatus == 1){echo 'selected="selected"';}?>>未使用</option>
+                    <option value="2" <?php if($isusedStatus == 2){echo 'selected="selected"';}?>>已使用</option>
+                    <option value="3" <?php if($isusedStatus == 3){echo 'selected="selected"';}?>>已过期</option>
+                </select>
+            </div>
+        </div>
+        <?php }elseif($voucherInfo['vouchertype'] == 2 || $voucherInfo['vouchertype'] == 3){?>
+        <ul class="content ">
+            <li class="clearfix pb-15">
+                <div class="group size1of3 fl">
+                    <h6 class="inline w80">卡券号：</h6>
+                    <input class="inline w150" type="text" name="sn" value="<?php echo $sn;?>">
+                </div>
+                <div class="group size1of3 fl">
+                    <h6 class="inline w80">会员手机号：</h6>
+                    <input class="inline w150" type="text" name="moblie" value="<?php echo $moblie;?>">
+                </div>
+                <div class="group size1of3 fl">
+                    <h6 class="inline w80">核销状态：</h6>
+                    <select class="inline w150" name="isusedStatus">
+	                    <option value="">全部</option>
+	                    <option value="1" <?php if($isusedStatus == 1){echo 'selected="selected"';}?>>未使用</option>
+	                    <option value="2" <?php if($isusedStatus == 2){echo 'selected="selected"';}?>>已使用</option>
+	                    <option value="3" <?php if($isusedStatus == 3){echo 'selected="selected"';}?>>已过期</option>
+                	</select>
+                </div>
+            </li>
+            <li class="clearfix">
+                <div class="group size1of3 fl">
+                    <h6 class="inline w80">操作人：</h6>
+                    <input class="inline w150" type="text" name="staffname" value="<?php echo $staffname;?>">
+                </div>
+                <div class="group size1of3 fl">
+                    <h6 class="inline w80">核销门店：</h6>
+                    <select class="inline w150" name="handleshopid">
+                        <option value="">全部</option>
+                        <?php if($shopList){foreach($shopList as $key=>$val){?>
+                        <option value="<?php echo $val['id']?>" <?php if($handleshopid == $val['id']){echo 'selected="selected"';}?>><?php echo $val['shopname'];?></option>
+                        <?php }}?>
+                    </select>
+                </div>
+            </li>
+        </ul>
+        <?php }elseif($voucherInfo['vouchertype'] == 4){?>
+        <ul class="content">
+            <li class="clearfix">
+                <div class="group size1of3 fl">
+                    <h6 class="inline w80">卡券号：</h6>
+                    <input class="inline w150" type="text" name="sn" value="<?php echo $sn;?>">
+                </div>
+                <div class="group size1of3 fl">
+                    <h6 class="inline w80">会员手机号：</h6>
+                    <input class="inline w150" type="text" name="moblie" value="<?php echo $moblie;?>">
+                </div>
+            </li>
+        </ul>
+        <?php }?>
+        <div class="group form-footer text-center">
+            <input class="btn-small btn-purple w100" type="submit" value="筛选">
+            <input class="btn-small btn-white w100 ml-80" type="reset" value="重置">
+        </div>
+    </form>
+</div>
+<?php if($voucherInfo['vouchertype'] == 1){?>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>投放记录</h4><div class="fr"><a class="fl js-export-csv">导出CSV</a></div></div>
+    <div class="mod-body">
+        <div class="content">
+            <table class="table type-1 w-auto">
+                <thead>
+                <tr>
+                    <th>卡券号</th>
+                    <th>卡券效用</th>
+                    <th>投放时间</th>
+                    <th>会员信息</th>
+                    <th>核销状态</th>
+                    <th>核销时间</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php if($list){foreach($list as $key=>$val){?>
+                <tr>
+                    <td><?php echo $val['sn'];?></td>
+                    <td><?php echo $voucherInfo['useful']? $voucherInfo['useful'] :'-';?></td>
+                    <td><?php echo format_time($val['createtime'],'ymdhi');?></td>
+                    <td><?php echo $val['name'];?><br/><a class="tips" href="<?php echo U('Member/memberInfo',array('id'=>$val['mid']));?>"><?php echo $val['moblie'];?></a></td>
+                    <td id="status<?php echo $val['id'];?>">
+                    <?php if($val['isused'] == 1){
+							echo '已使用';
+						}else{
+							if($val['useendtime'] < time()){
+								echo '已过期';
+							}else{
+								if($val['isused'] == 2){
+									echo '未使用';
+								}elseif($val['isused'] == 3){
+									echo '已冻结';
+								}
+							}
+						}?>
+					</td>
+                    <td><?php if($val['usetime']){echo $val['usetime'];}else{echo '-';}?></td>
+                    <td id="operation<?php echo $val['id'];?>">
+                    	<?php if($val['useendtime'] > time() && $val['isused'] == '2'){?>
+						<a class="tips freeze" data-freeze="<?php echo $val['id'];?>">冻结本券</a>
+						<?php }?>
+						<?php if($val['useendtime'] > time() && $val['isused'] == '3'){?>
+						<a class="tips thaw" data-thaw="<?php echo $val['id'];?>">解冻本券</a>
+						<?php }?>
+                    </td>
+                </tr>
+                <?php }}else{?>
+                <tr class="text-center not-hover">
+                    <td colspan="7">暂无</td>
+                </tr>
+                <?php }?>
+                </tbody>
+            </table>
+        </div>
+        <div class="group form-footer clearfix">
+            <?php echo $page;?>
+        </div>
+    </div>
+</div>
+<?php }elseif($voucherInfo['vouchertype'] == 2){?>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>投放记录</h4></div>
+    <div class="mod-body">
+        <div class="content">
+            <table class="table type-1 w-auto">
+                <thead>
+                <tr>
+                    <th>卡券号</th>
+                    <th>卡券效用</th>
+                    <th>投放时间</th>
+                    <th>会员信息</th>
+                    <th>核销状态</th>
+                    <th>核销时间</th>
+                    <th>操作人</th>
+                    <th>核销门店</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php if($list){foreach($list as $key=>$val){?>
+                <tr>
+                	<td><?php echo $val['sn'];?></td>
+                    <td><?php echo $voucherInfo['useful'];?></td>
+                    <td><?php echo format_time($val['createtime'],'ymdhi');?></td>
+                    <td><?php echo $val['name'];?><br/><a class="tips" href="<?php echo U('Member/memberInfo',array('id'=>$val['mid']));?>"><?php echo $val['moblie'];?></a></td>
+                    <td id="status<?php echo $val['id'];?>">
+                    <?php if($val['isused'] == 1){
+							echo '已使用';
+						}else{
+							if($val['useendtime'] < time()){
+								echo '已过期';
+							}else{
+								if($val['isused'] == 2){
+									echo '未使用';
+								}elseif($val['isused'] == 3){
+									echo '已冻结';
+								}
+							}
+						}?>
+					</td>
+					<td><?php echo format_time($val['usetime']);?></td>
+                    <td><?php echo $val['staffname'];?></td>
+                    <td><?php echo $val['shopname'];?></td>
+                    <td id="operation<?php echo $val['id'];?>">
+	                	<?php if($val['useendtime'] > time() && $val['isused'] == '2'){?>
+						<a class="tips freeze" data-freeze="<?php echo $val['id'];?>">冻结本券</a>
+						<?php }?>
+						<?php if($val['useendtime'] > time() && $val['isused'] == '3'){?>
+						<a class="tips thaw" data-thaw="<?php echo $val['id'];?>">解冻本券</a>
+						<?php }?>
+	                </td>
+                </tr>
+                <?php }}else{?>
+                <tr class="text-center not-hover">
+                    <td colspan="8">暂无</td>
+                </tr>
+                <?php }?>
+                </tbody>
+            </table>
+        </div>
+        <div class="group form-footer clearfix">
+            <?php echo $page;?>
+        </div>
+    </div>
+</div>
+<?php }elseif($voucherInfo['vouchertype'] == 3){?>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>投放记录</h4></div>
+    <div class="mod-body">
+        <div class="content">
+            <table class="table type-1 w-auto">
+                <thead>
+                <tr>
+                    <th>卡券号</th>
+                    <th>兑换券名称</th>
+                    <th>投放时间</th>
+                    <th>会员信息</th>
+                    <th>核销状态</th>
+                    <th>核销时间</th>
+                    <th>操作人</th>
+                    <th>核销门店</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php if($list){foreach($list as $key=>$val){?>
+                <tr>
+                	<td><?php echo $val['sn'];?></td>
+                    <td><?php echo $voucherInfo['title'];?></td>
+                    <td><?php echo format_time($val['createtime'],'ymdhi');?></td>
+                    <td><?php echo $val['name'];?><br/><a class="tips" href="<?php echo U('Member/memberInfo',array('id'=>$val['mid']));?>"><?php echo $val['moblie'];?></a></td>
+                    <td id="status<?php echo $val['id'];?>">
+                    <?php if($val['isused'] == 1){
+							echo '已使用';
+						}else{
+							if($val['useendtime'] < time()){
+								echo '已过期';
+							}else{
+								if($val['isused'] == 2){
+									echo '未使用';
+								}elseif($val['isused'] == 3){
+									echo '已冻结';
+								}
+							}
+						}?>
+					</td>
+                    <td><?php echo format_time($val['usetime'],'ymdhi');?></td>
+                    <td><?php echo $val['staffname'];?></td>
+                    <td><?php echo $val['shopname'];?></td>
+                    <td id="operation<?php echo $val['id'];?>">
+	                	<?php if($val['useendtime'] > time() && $val['isused'] == '2'){?>
+						<a class="tips freeze" data-freeze="<?php echo $val['id'];?>">冻结本券</a>
+						<?php }?>
+						<?php if($val['useendtime'] > time() && $val['isused'] == '3'){?>
+						<a class="tips thaw" data-thaw="<?php echo $val['id'];?>">解冻本券</a>
+						<?php }?>
+	                </td>
+                </tr>
+                <?php }}else{?>
+                <tr class="text-center not-hover">
+                    <td colspan="9">暂无</td>
+                </tr>
+                <?php }?>
+                </tbody>
+            </table>
+        </div>
+        <div class="group form-footer clearfix">
+            <?php echo $page;?>
+        </div>
+    </div>
+</div>
+<?php }elseif($voucherInfo['vouchertype'] == 4){?>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>投放记录</h4></div>
+    <div class="mod-body">
+        <div class="content">
+            <table class="table type-1 w-auto">
+                <thead>
+                <tr>
+                    <th>卡券号</th>
+                    <th>红包名称</th>
+                    <th>红包面值</th>
+                    <th>投放时间</th>
+                    <th>会员信息</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php if($list){foreach($list as $key=>$val){?>
+                <tr>
+                	<td><?php echo $val['sn'];?></td>
+                    <td><?php echo $voucherInfo['title'];?></td>
+                    <td><?php echo $val['parvalue'];?></td>
+                    <td><?php echo format_time($val['createtime'],'ymdhi');?></td>
+                    <td><?php echo $val['name'];?><br/><a class="tips" href="<?php echo U('Member/memberInfo',array('id'=>$val['mid']));?>"><?php echo $val['moblie'];?></a></td>
+                </tr>
+                <?php }}else{?>
+                <tr class="text-center not-hover">
+                    <td colspan="5">暂无</td>
+                </tr>
+                <?php }?>
+                </tbody>
+            </table>
+        </div>
+        <div class="group form-footer clearfix">
+            <?php echo $page;?>
+        </div>
+    </div>
+</div>
+<?php }?>
+<script>
+//冻结
+$(document).on('click','.freeze',function(){
+	var vouchersId = $(this).attr('data-freeze');
+	$('.loading').show();
+	$.post("<?php echo U('MemberMarketingActivitiesVoucherInfo/ajaxFreeze').'&time='; ?>"+Math.random(),{ id:vouchersId },function(data){
+		$('.loading').hide();
+		if(data.code == '200'){
+			$('#status'+vouchersId).html('已冻结');
+			$('#operation'+vouchersId).html('<a class="tips thaw" data-thaw="'+vouchersId+'">解冻本券</a>');
+		}
+	},"json");
+});
+//解冻
+$(document).on('click','.thaw',function(){
+	var vouchersId = $(this).attr('data-thaw');
+	$('.loading').show();
+	$.post("<?php echo U('MemberMarketingActivitiesVoucherInfo/ajaxThaw').'&time='; ?>"+Math.random(),{ id:vouchersId },function(data){
+		$('.loading').hide();
+		if(data.code == '200'){
+			$('#status'+vouchersId).html('未使用');
+			$('#operation'+vouchersId).html('<a class="tips freeze" data-freeze="'+vouchersId+'">冻结本券</a>');
+		}
+	},"json");
+});
+//导出CSV
+$('.js-export-csv').click(function(){
+	window.location.href="<?php echo U('MemberMarketingActivitiesVoucherInfo/exportCsv',array('id'=>$id,'title'=>$title,'moblie'=>$moblie,'isusedStatus'=>$isusedStatus));?>";
+});
+</script>
+<include file="Public:footer"/>

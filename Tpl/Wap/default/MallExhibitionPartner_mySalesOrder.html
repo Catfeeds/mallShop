@@ -1,0 +1,25 @@
+<include file="Public:S5NewHead" />
+<div class="title_top">我的销售订单及返利</div>
+<div class="dl_subnavbg">
+	<?php if($info['salestype'] == 2){?>
+    <a href="<?php echo U('MallExhibitionPartner/mySalesOrderType',array('type'=>1))?>"><div class="dl_subnav">
+    直销订单
+    <div class="line"></div>
+    </div></a>
+	<?php }elseif($info['salestype'] == 1){?>
+	<a href="<?php echo U('MallExhibitionPartner/mySalesOrderType',array('type'=>1))?>"><div class="dl_subnav">
+    直销订单
+    <div class="line"></div>
+    </div></a>
+    <a href="<?php echo U('MallExhibitionPartner/mySalesOrderType',array('type'=>2))?>"><div class="dl_subnav">
+    经销订单
+    <div class="line"></div>
+    </div></a>
+    <a href="<?php echo U('MallExhibitionPartner/mySalesOrderType',array('type'=>3))?>"><div class="dl_subnav">
+    区域订单
+    <div class="line"></div>
+    </div></a>
+	<?php }?>
+</div>
+<include file="Public:weiXinNotShareSet"/>
+<include file="Public:footer"/>

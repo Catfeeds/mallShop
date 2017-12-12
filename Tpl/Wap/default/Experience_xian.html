@@ -1,0 +1,134 @@
+<include file="Public:memberCenterHeader"/>
+<link href="{lanrain::RES}/css/animate.min.css?<?php echo C('site_system_file_version'); ?>" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="{lanrain::RES}/js/wow.min.js"></script>
+<!--是否使用电子券-->
+<div class="exp-you weixin" >
+    <img src="{lanrain::RES}/profile/tiyan/xianjin-top.jpg" class="exp-you2">
+    <div  class="xian-ping">
+        <label>现金收银凭证</label><input type="tel"placeholder="请在此输入收银凭证号码" disabled="disabled" id="textfiled">
+    </div>
+    <div class="voucher2 qu-xiao" >
+        <ul>
+            <li><a href="javascript:void(0);">取消，上一步</a></li>
+            <li><a href="javascript:void(0);">确认已现金收款</a></li>
+        </ul>
+    </div>
+    <div class="voucher2 qu-xiao2" style="display: none">
+        <ul>
+            <li><a href="<?php echo U('Experience/you',array('companyid'=>$companyid));?>">取消，上一步</a></li>
+            <li id="que"><a href="javascript:void(0);">确认已现金收款</a></li>
+        </ul>
+    </div>
+    <div class="exp-jian exp-jian4"><img src="{lanrain::RES}/profile/tiyan/shuzijianpan.jpg"></div>
+    <div class="exp-jian exp-jian0"><img src="{lanrain::RES}/profile/tiyan/0.jpg"></div>
+    <div class="exp-jian exp-jian1"><img src="{lanrain::RES}/profile/tiyan/1.jpg"></div>
+    <div class="exp-jian exp-jian2"><img src="{lanrain::RES}/profile/tiyan/2.jpg"></div>
+    <div class="exp-jian exp-jian3"><img src="{lanrain::RES}/profile/tiyan/3.jpg"></div>
+</div>
+
+<div  class="exp-you  weixin2" style="display: none">
+    <img src="{lanrain::RES}/profile/tiyan/xian-zhi.jpg" class="exp-you2">
+    <div class="zai-shou">
+        <a href="<?php echo U('Experience/index',array('companyid'=>$companyid));?>">再收一笔</a>
+    </div>
+</div>
+<div class="sign-out"><a href="<?php echo U('Experience/h5',array('companyid'=>$companyid));?>">退出演示</a></div>
+<script>
+    document.addEventListener('touchmove', function (event) {
+        event.preventDefault();
+    });
+    var aa  =  $("#textfiled").val(); //获取input 的值
+
+    setTimeout(function(){
+       $(".exp-jian4").show();
+        $("#textfiled").val(" ");    //将input值清空
+
+    },3000);
+    setTimeout(function(){
+        $(".exp-jian4").hide();
+        $(".exp-jian0").show();
+        $("#textfiled").val("0");    //将input值清空
+
+    },4000);
+    setTimeout(function(){
+        $(".exp-jian0").hide();
+        $(".exp-jian4").show();
+
+
+    },4300);
+    setTimeout(function(){
+        $(".exp-jian4").hide();
+        $(".exp-jian0").show();
+        $("#textfiled").val("00");    //将input值清空
+
+    },4600);
+    setTimeout(function(){
+        $(".exp-jian0").hide();
+        $(".exp-jian4").show();
+
+
+    },4900);
+    setTimeout(function(){
+        $(".exp-jian4").hide();
+        $(".exp-jian0").show();
+        $("#textfiled").val("000");    //将input值清空
+
+    },5100);
+    setTimeout(function(){
+        $(".exp-jian0").hide();
+        $(".exp-jian4").show();
+
+
+    },5300);
+    setTimeout(function(){
+        $(".exp-jian4").hide();
+        $(".exp-jian1").show();
+        $("#textfiled").val("0001");    //将input值清空
+
+    },5600);
+    setTimeout(function(){
+        $(".exp-jian1").hide();
+        $(".exp-jian4").show();
+
+
+    },5900);
+    setTimeout(function(){
+        $(".exp-jian4").hide();
+        $(".exp-jian2").show();
+        $("#textfiled").val("00012");    //将input值清空
+
+    },6200);
+    setTimeout(function(){
+        $(".exp-jian2").hide();
+        $(".exp-jian4").show();
+
+
+    },6500);
+    setTimeout(function(){
+        $(".exp-jian4").hide();
+        $(".exp-jian3").show();
+        $("#textfiled").val("000123");    //将input值清空
+
+    },6800);
+    setTimeout(function(){
+        $(".exp-jian3").hide();
+        $(".exp-jian4").show();
+
+
+    },7100);
+
+    setTimeout(function(){
+        $(".exp-jian").hide();
+        $(".qu-xiao").hide();
+        $(".qu-xiao2").show();
+
+    },7500);
+   $("#que").bind("click",function(){
+       $(".weixin").hide();
+       $(".weixin2").show();
+    });
+
+
+</script>
+<include file="Public:weiXinShareSet" />
+<include file="Public:footer2" />

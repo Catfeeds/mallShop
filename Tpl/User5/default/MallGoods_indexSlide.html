@@ -1,0 +1,130 @@
+<include file="Public:head" />
+<include file="Public:smallmaterial" />
+<?php echo $makeTopUrl;?>
+<div class="group inline-btn-group mb-10">
+    <a href="<?php echo U('MallGoods/index',array('isoffshelves'=>2,'issoldout'=>2));?>" class="btn-small btn-white">商品管理</a>
+    <a href="<?php echo U('MallGoods/indexSlide');?>" class="btn-small btn-purple">商城首页banner</a>
+    <a href="<?php echo U('Remind/index');?>" class="btn-small btn-white">产品使用提醒设置</a>
+    <!-- <a href="<?php echo U('EshopTag/index');?>" class="btn-small btn-white">商品标签管理</a> -->
+</div>
+<!-- 创建商品 -->
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>产品使用提醒设置</h4></div>
+    <div class="mod-body ">
+        <div class="content">
+            <div class="inner-wrap">
+                <div class="group slide-img-group js-slide-img-group mb-20 slidelist">
+                    <?php $info['slide'] = json_decode($info['slide'],true);  ?>
+                    <?php foreach($info['slide'] as $key =>  $val){ ?>
+                    <i class="uploading slideinfo" data-url="<?php echo $val['url']; ?>" data-img="<?php echo $val['img']; ?>" style="background-image: url('<?php echo $val['img']; ?>')">
+                        <ul class="edit-group-wrap clearfix js-edit-group-wrap">
+                            <li><i class="icon-edit to-left"></i> </li>
+                            <li><i class="icon-edit to-right"></i> </li>
+                            <li><i class="icon-edit be-remove js-be-remove"></i> </li>
+                        </ul>
+                    </i>
+                    <?php } ?>
+                    <i class="uploading WeiPage-img-add"></i>
+                    <h6 class="text-gray">请上传相同尺寸的图片（最多5张），仅支持JPG、JPEG、PNG、GIF格式，推荐宽度640px</h6>
+                </div>
+                <div class="group pb-20">
+                    <!--<span class="inline w120">&lt;!&ndash; Null &ndash;&gt;</span>-->
+                    <div class="inline">
+                        <h5 class="pb-10">
+                            <span class="inline w120">图片上传：</span>
+                            <a class="btn-small btn-white imageselect" data-type="slideimg">选择图片</a>
+                        </h5>
+                        <h5 class="pb-10">
+                            <span class="inline w120">关联网页：</span>
+                            <input type="text" class="inline w200 slide-url-asa">
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="Wechat-msg-bottom text-center">
+            <button type="submit" class="btn-middle btn-purple w100 pointer js-sub">保 存</button>
+        </div>
+    </div>
+</div>
+<script>
+    $(function(){
+        $(".js-sub").click(function(){
+            var slide = "[";
+            $(".slidelist").find("i.slideinfo").each(function(){
+                if($(this).attr("data-img")){
+                    slide +='{"img":"'+$(this).attr("data-img")+'","url":"'+$(this).attr("data-url")+'"},';
+                }
+            });
+            if(slide.length<=1){
+                slide = '';
+                //$(".loading").hide();
+                //alertTan("请至少上传一张幻灯片","warn");
+                //return false;
+            }else{
+                slide = slide.substring(0,slide.length-1);
+                slide += "]";
+            }
+            $.post(window.location.href,{
+                slide:slide
+            },function(data){
+                alertTan(data.msg);
+                if(data.code==200){
+                    setTimeout("window.location.href=location.href",1500);
+                }
+            },"json")
+        });
+        $(document).on("click",'.imageselect',function(){
+            $("#clickimgok").attr("data-type",$(this).attr('data-type'));
+        })
+        $("#clickimgok").click(function(){
+            type = $(this).attr('data-type');
+            if(type=='slideimg'){//幻灯片插件上传图片
+                var $this = $(this);
+                if($this.attr('data-imgsrc')!=''){
+                    $(".slidelist").find("i.slideinfo").each(function(){
+                        if($(this).hasClass("on")){
+                            var photourl="url('"+$this.attr('data-imgsrc')+"')";
+                            $(this).css('background-image',photourl);
+                            $(this).attr("data-img",""+$this.attr('data-imgsrc'));
+                            $(".imageselect").html("重新选择");
+                        }
+                    })
+                }
+            }
+        });
+    });
+    $(document).on("click",".slidelist i",function(){
+        if($(this).attr("data-img")){
+            $(".imageselect").html("重新选择");
+        }else{
+            $(".imageselect").html("选择图片");
+        }
+        if($(this).attr("data-url")){
+            $(".slide-url-asa").val($(this).attr("data-url"));
+        }else{
+            $(".slide-url-asa").val("");
+        }
+    });
+    $(document).on("input",'.slide-url-asa',function(){
+        var $this = $(this);
+        $(".slidelist").find("i.slideinfo").each(function(){
+            if($(this).hasClass("on")){
+                $(this).attr("data-url",$this.val());
+            }
+        })
+    })
+    //计算两个日期天数差的函数，通用
+    function DateDiff(sDate1, sDate2){  //sDate1和sDate2是yyyy-MM-dd格式
+        var aDate, oDate1, oDate2, iDays;
+        aDate = sDate1.split("-");
+        oDate1 = new Date(aDate[1] + '-' + aDate[2] + '-' + aDate[0]);  //转换为yyyy-MM-dd格式
+        aDate = sDate2.split("-");
+        oDate2 = new Date(aDate[1] + '-' + aDate[2] + '-' + aDate[0]);
+        iDays = parseInt(Math.abs(oDate1 - oDate2) / 1000 / 60 / 60 / 24); //把相差的毫秒数转换为天数
+        return iDays;  //返回相差天数
+    }
+</script>
+<include file="Public:CountLength" />
+<include file="Public:footer" />

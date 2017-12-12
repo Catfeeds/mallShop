@@ -1,0 +1,84 @@
+<include file="Public:head"/>
+<!-- 累计订单 -->
+<?php echo $makeTopUrl;?>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>累计订单</h4><!-- <div class="fr"><a class="excel-export-button fl ml-10">下载表格</a></div> --></div>
+    <div class="mod-body">
+    	<?php if($list){?>
+        <table class="table type-1 w-auto">
+            <thead>
+            <tr>
+                <th>订单号</th>
+                <th>商品名称</th>
+                <th>售价/数量</th>
+                <th>会员信息</th>
+                <th>下单时间</th>
+                <th>订单状态</th>
+                <th>订单金额</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach($list as $key=>$val){?>
+            	<?php if($val['ordertype'] == '1'){?>
+	            <tr>
+	                <td><?php echo $val['orderid'];?></td>
+	                <td>
+	                <?php foreach($val['mall'] as $mKey=>$mVal){?>
+	                    <div class="table-line">
+	                        <div class="table-line-img"><img src="<?php echo $mVal['goodpic'];?>" alt="">
+	                        </div>
+	                        <div class="table-line-right">
+	                            <p class="commodity-name pb-10"><?php echo $mVal['chinagoodname'];?></p>
+	                            <p class="commodity-code"><?php echo $mVal['skuname'];?></p>
+	                        </div>
+	                    </div>
+	                <?php }?>
+	                </td>
+	                <td>
+	                	<?php foreach($val['mall'] as $mKey=>$mVal){?>
+	                    	<div class="table-line-height"><?php echo $mVal['goodprice']?$mVal['goodprice']:'0.00';?>/<?php echo $mVal['goodnum']?$mVal['goodnum']:'0'?></div>
+	                	<?php }?>
+	                </td>
+	                <td><p class="table-line-p"><?php echo $val['member']['name']?$val['member']['name']:$val['member']['nickname']; ?></p>
+	                    <p class="table-line-p"><?php echo $val['member']['moblie']?$val['member']['moblie']:'-'; ?></p>
+	                </td>
+	                <td><?php echo format_time($val['createtime'],'ymdhis');?></td>
+	                <td>
+		                <?php if($val['orderstatus'] == '4'){
+							echo '已签收';
+						}elseif($val['orderstatus'] == '5'){
+							echo '已取消';
+						}else{
+							echo '-';
+						}?>
+					</td>
+	                <td>
+	                   	<p class="table-line-p">￥<?php echo $val['ordermoney']?$val['ordermoney']:'0.00';?></p>
+	                </td>
+	            </tr>
+				<?php } ?>
+			<?php }?>
+            </tbody>
+        </table>
+        <?php }else{?>
+        <h5 class="text-center table-footer-h5">暂无</h5>
+        <?php }?>
+    </div>
+</div>
+<script>
+$(function(){
+	// 导出
+	$('.excel-export-button').on("click", function(){
+		$(".loading").show();
+		$.post("<?php echo U('AjaxExport/ajaxCdmsordernum',array('keyid'=>$_GET['keyid'],'type'=>$_GET['type']));?>",{},function(data){
+			$(".loading").hide();
+			if(data.code == '200'){
+	            $(".js-export-popup").fadeIn(120);
+   			}else{
+   				alertTan(data.msg,'error');
+   			}
+		},"json");
+	});
+});
+</script>
+<include file="Public:footer"/>

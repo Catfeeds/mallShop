@@ -1,0 +1,334 @@
+<!-- 选择图片 弹窗 -->
+<style>
+.inner-top .jFiler.jFiler-theme-dragdropbox{
+	float:right;
+	position:relative;
+}
+
+.inner-top .jFiler.jFiler-theme-dragdropbox .jFiler-items.jFiler-row {
+    position: absolute;
+    right: 70px;
+}
+
+.inner-body-columns  {
+        -webkit-column-count: 2;
+
+        -moz-column-count: 2;
+ 
+        column-count: 2;
+    }
+
+</style>
+<!-- 图片懒加载 插件 -->
+    <script src="{lanrain::RES}/js/jquery.lazyload.min.js" type="text/javascript"></script>
+	<!-- 选择图文 弹窗 -->
+    <div class="popup-wrap js-WeChat-file-add-pic-msg-wrap">
+        <div class="mod type-WeChat-file-add WeChat-file-add-pic-msg">
+            <div class="mod-header">
+                <h4 class="fl">选择图文</h4>
+                <i class="fr icon-close-dark js-icon-close"></i>
+            </div>
+            <div class="mod-body">
+                <div class="clearfix">
+                    <div class="bd fl">
+                        <div class="inner">
+                            <div class="inner-top clearfix">
+                                <div class="input-search inline">
+                                    <input type="text" class="span2 inline" id="texttitle" placeholder="标题/摘要">
+                                    <button type="submit" class="btn" id="textsearch">搜索</button>
+                                </div>
+                                <a id="quxiao" href="<?php echo U('MessageWechats/manyNewsSet');?>" target="_blank" class="tips fr"><i class="icon-upload"></i>新建图文</a>
+                            </div>
+                            <div class="inner-body clearfix inner-body-column" id="textadd">
+                            </div>
+                       	</div>
+                   	</div>
+               	</div>
+                <div class="foot text-center">
+                    <a class="btn-big btn-purple js-ok" id="clicktextok" data-imgtext="">确认</a>
+                    &nbsp;&nbsp;
+                    <a class="btn-big btn-white js-cancel">取消</a>
+                </div>
+           	</div>
+       	</div>
+   	</div>
+    <!-- 选择图片 -->
+    <div class="popup-wrap js-WeChat-file-add-pic-wrap">
+        <div class="mod type-WeChat-file-add WeChat-file-add-pic">
+            <div class="mod-header">
+                <h4 class="fl">选择图片</h4>
+                <i class="fr icon-close-dark js-icon-close"></i>
+            </div>
+            <div class="mod-body">
+                <div class="js-tab-box clearfix">
+                    <div class="hd fl">
+                        <ul id="js-group">
+                            <li data-id=""><h5><span>全&nbsp; &nbsp;部</span><span class="text-gray">(<?php echo $wechatLists['img']?count($wechatLists['img']):'0';?>)</span></h5></li>
+                            <?php if($wechatLists['group']){ foreach($wechatLists['group'] as $wgkey=>$wgval){?>
+                            <li data-id="<?php echo $wgval['id'];?>"><h5><span><?php echo $wgval['title'];?></span><span class="text-gray">(<?php echo $wgval['count']?$wgval['count']:0;?>)</span></h5></li>
+                            <?php }}?>
+                        </ul>
+                    </div>
+                    <div class="bd fl">
+                        <div class="inner">
+                            <div class="inner-top clearfix">
+                                <div class="input-search inline">
+                                    <input type="text" class="span2 inline" id="imgtitle" placeholder="标题/摘要" value="">
+                                    <button type="submit" class="btn" id="imgsearch">搜索</button>
+                                </div>
+                                <input type="file" name="files[]" class="demo-fileInput-img-tan" multiple="multiple">
+                            </div>
+                            <div class="inner-body" id="imgadd">
+                            <?php if($wechatLists['img']){ foreach($wechatLists['img'] as $wikey=>$wival){?>
+                                <div class="inner-box inline add-file-wrap js-add-file-wrap">
+                                    <div class="js-add-file clickimg" data-imgid="<?php echo $wival['id'];?>">
+                                        <img class="add-img" src="" data-original="<?php echo $wival['imageurl'];?>">
+                                        <h5 class="add-tit"><?php echo $wival['title'];?></h5>
+                                    </div>
+                                    <div class="add-file-cover-wrap js-add-file-cover-wrap">
+                                        <img class="add-img-cover" src="./Tpl/User5/default/common/img/add-pic-img-cover.png">
+                                    </div>
+                                </div>
+                                <?php }}?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="foot text-center">
+                    <a href="javascript:void(0);" class="btn-big btn-purple js-ok" id="clickimgok" data-imgsrc="" data-imgid="">确认</a>
+                    &nbsp;&nbsp;
+                    <a href="javascript:void(0);" class="btn-big btn-white js-cancel">取消</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 选择语音 弹窗 -->
+    <div class="popup-wrap js-WeChat-file-add-audio-wrap">
+        <div class="mod type-WeChat-file-add WeChat-file-add-audio">
+            <div class="mod-header">
+                <h4 class="fl">选择语音</h4>
+                <i class="fr icon-close-dark js-icon-close"></i>
+            </div>
+            <div class="mod-body">
+                <div class="clearfix">
+                    <div class="bd fl">
+                        <div class="inner">
+                            <div class="inner-top clearfix">
+                                <div class="input-search inline">
+                                    <input type="text" class="span2 inline" id="voicetitle" placeholder="标题/摘要">
+                                    <button type="submit" class="btn" id="voicesearch">搜索</button>
+                                </div>
+                                <input type="file" name="files[]" class="demo-fileInput-voices-tan" multiple="multiple">
+                            </div>
+                            <div class="inner-body" id="voiceadd">
+                            	<?php if($wechatVLists){ foreach($wechatVLists as $wvkey=>$wvval){?>
+	                                <label class="audio-item radio inline">
+	                                    <input type="radio" name="audio-item" value="<?php echo $wvval['id'];?>">
+	                                        <span>
+	                                            <span class="audio-meta audio-title w350"><?php echo $wvval['title'];?></span>
+	                                            <span class="audio-meta audio-date w120"><?php echo format_time($wvval['updatetime'],'ymd');?></span>
+	                                            <span class="audio-meta audio-length w120"><?php echo $wvval['time'];?></span>
+	                                            <span class="audio-meta"><i class="icon-menu-audio js-icon-menu-audios"></i><audio class="aa" src="<?php echo $wvval['voicesurl'];?>">您的浏览器不支持播放音频</audio></span>
+	                                        </span>
+	                                </label>
+                                <?php }}?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="foot text-center">
+                    <a class="btn-big btn-purple js-ok" id="clickvoiceok">确认</a>
+                    &nbsp;&nbsp;
+                    <a class="btn-big btn-white js-cancel">取消</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 选择视频 弹窗 -->
+    <div class="popup-wrap js-WeChat-file-add-video-wrap">
+        <div class="mod type-WeChat-file-add WeChat-file-add-video">
+            <div class="mod-header">
+                <h4 class="fl">选择视频</h4>
+                <i class="fr icon-close-dark js-icon-close"></i>
+            </div>
+            <div class="mod-body">
+                <div class="clearfix">
+                    <div class="bd fl">
+                        <div class="inner">
+                            <div class="inner-top clearfix">
+                                <div class="input-search inline">
+                                    <input type="text" class="span2 inline" id="videotitle" placeholder="标题/摘要">
+                                    <button type="submit" class="btn" id="videosearch">搜索</button>
+                                </div>
+                                <input type="file" name="files[]" class="demo-fileInput-videos-tan" multiple="multiple">
+                            </div>
+                            <div class="inner-body" id="videoadd">
+                            <?php if($wechatDLists){ foreach($wechatDLists as $wdkey=>$wdval){?>
+                                <div class="inner-box inline add-file-wrap js-add-file-wrap">
+                                    <div class="js-add-file clickvideo" data-videoid="<?php echo $wdval['id'];?>">
+                                        <div class="add-video">
+                                            <video src="<?php echo $wdval['videosurl'];?>" height="116" width="230">
+												您的浏览器不支持视频播放。
+											</video>
+                                        </div>
+                                        <h5 class="add-tit"><?php echo $wdval['title'];?></h5>
+                                        <h5 class="add-tit-date"><?php echo format_time($wdval['updatetime'],'ymd');?></h5>
+                                    </div>
+                                    <div class="add-file-cover-wrap js-add-file-cover-wrap">
+                                        <img class="add-img-cover" src="./Tpl/User5/default/common/img/add-pic-img-cover.png">
+                                    </div>
+                                </div>
+							<?php }}?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="foot text-center">
+                    <a class="btn-big btn-purple js-ok" id="clickvideook" data-videoid="">确认</a>
+                    &nbsp;&nbsp;
+                    <a class="btn-big btn-white js-cancel">取消</a>
+                </div>
+            </div>
+        </div>
+    </div>
+<include file="Public:upload"/>
+<script type="text/javascript">
+$(function(){
+	//播放音频
+	$(document).on("click", ".js-icon-menu-audios", function () {
+		if($(this).hasClass('on')){
+			$(this).next("audio")[0].play();
+		}else{
+			$(this).next("audio")[0].load();
+		}
+		$(this).parents('.audio-item').siblings().find('.js-icon-menu-audios').next("audio")[0].load();
+	});
+    //公用
+    $(document).on("click", ".js-add-file-cover-wrap", function () {
+        $(this).fadeOut(120);
+        $('#clickimgok').attr('data-imgsrc','');
+        $('#clickimgok').attr('data-imgid','');
+        $('#clicktextok').attr('data-imgtext','');
+        $('#clickvideook').attr('data-videoid','');
+    });
+    //点击上传图文时关闭
+    $('#quxiao').click(function(){
+    	$(".js-WeChat-file-add-pic-msg-wrap").fadeOut(120);
+    	$('#clicktextok').attr('data-imgtext','');
+    });
+    // 打开上传图文模态框
+    $(document).on("click", ".js-WeChat-file-add-pic-msg", function () {
+        $(".js-WeChat-file-add-pic-msg-wrap").fadeIn(120);
+        $.post("<?php echo U('MessageWechats/textsearch');?>",{},
+				function(data){
+					if(data.code == '200'){
+						$('#textadd').html(data.html);
+					}else{
+						alertTan(data.msg,'error');
+					}
+				},"json"
+		);
+    });
+  	//选择图文
+    $(document).on("click", ".clickimgtext", function () {
+    	$('#clicktextok').attr('data-imgtext',$(this).attr('data-itextid'));
+    });
+	//图文
+	$(document).on("click", "#textsearch,.js-WeChat-file-add-pic", function () {
+		var title = $('#texttitle').val();
+		$('.loading').show();
+		$.post("<?php echo U('MessageWechats/textsearch');?>",{title:title},
+				function(data){
+				$('.loading').hide();
+					if(data.code == '200'){
+						$('#textadd').html(data.html);
+					}else{
+						alertTan(data.msg,'error');
+					}
+				},"json"
+		);
+	});
+	//选择图片
+    $(document).on("click", ".clickimg", function () {
+    	$('#clickimgok').attr('data-imgsrc',$(this).children('img').attr('src'));
+    	$('#clickimgok').attr('data-imgid',$(this).attr('data-imgid'));
+    });
+    // 打开上传图片模态框
+    $(document).on("click", ".imageselect", function () {
+    	$('.js-add-file-cover-wrap').fadeOut(120);
+		$('#clickimgok').attr('data-imgsrc','');
+		$('#clickimgok').attr('data-imgid','');
+        $(".js-WeChat-file-add-pic-wrap").fadeIn(120);
+        $('.add-img').lazyload({
+            effect: 'fadeIn',
+            threshold:200,
+            skip_invisible:true,
+            container: $('#imgadd')
+        });
+    });
+  	//图片筛选
+	$(document).on("click", "#imgsearch,#js-group li", function () {
+		var title = $('#imgtitle').val();
+		var id = $('#js-group').find('.on').attr('data-id');
+		$('.loading').show();
+    	$.post("<?php echo U('MessageWechats/imgsearch');?>",{title:title,id:id,type:'wechat'},
+				function(data){
+    				$('.loading').hide();
+    				if(data.code == '200'){
+    					$('#imgadd').html(data.html);
+    				}else{
+    					alertTan(data.msg,'error');
+    				}
+				},"json"
+		);
+	});
+	//音频筛选
+	$(document).on("click", "#voicesearch", function () {
+		var title = $('#voicetitle').val();
+		$('.loading').show();
+    	$.post("<?php echo U('MessageWechats/voicesearch');?>",{title:title,type:'wechat'},
+				function(data){
+    			$('.loading').hide();
+    				if(data.code == '200'){
+    					$('#voiceadd').html(data.html);
+    				}else{
+    					alertTan(data.msg,'error');
+    				}
+				},"json"
+		);
+	});
+	//选择视频
+    $(document).on("click", ".clickvideo", function () {
+    	$('#clickvideook').attr('data-videoid',$(this).attr('data-videoid'));
+    });
+	//视频筛选
+	$(document).on("click", "#videosearch", function () {
+		var title = $('#videotitle').val();
+		$('.loading').show();
+    	$.post("<?php echo U('MessageWechats/videosearch');?>",{title:title},
+				function(data){
+    			$('.loading').hide();
+    				if(data.code == '200'){
+    					$('#videoadd').html(data.html);
+    				}else{
+    					alertTan(data.msg,'error');
+    				}
+				},"json"
+		);
+	});
+});
+</script>
+<!-- 图片懒加载 js  -->
+<script>
+    $(function(){
+        $('.add-img').lazyload({
+            effect: 'fadeIn',
+            threshold:200,
+            skip_invisible:true,
+            container: $('#imgadd')
+        });
+    });
+
+
+</script>

@@ -1,0 +1,38 @@
+
+/*头部*/
+.beverly-header{width: 1000px;margin: 0 auto;border-bottom: 1px solid #e0e0e0;}
+.beverly-lg-box{float: left;padding: 25px 0;}
+.beverly-lg-box img{width: auto;display: block;}
+.beverly-right{float: right;padding: 25px 0;}
+.beverly-right a{line-height: 50px;float: left;margin-left: 25px;color: #333;text-decoration: none;}
+.beverly-right a.active-link{color: #bd9745;}
+.beverly-right a:hover{color: #bd9745;}
+/*主体*/
+.beverly-content{width: 1000px;margin: 0 auto;padding: 60px 0;}
+.beverly-img-ul li{position: relative;display: block;}
+.beverly-img-ul li img{width:100%;display: block;}
+.beverly-qr{position: absolute;top:57%;width: 180px;left: 410px;}
+.beverly-qr p{font-size: 16px;text-align: center;line-height: 26px;color: #9f7f3b;margin-top: 20px;}
+
+/*底部*/
+.beverly-footer{width: 100%;background-color: #171716;}
+.beverly-footer-content{width: 1000px;margin: 0 auto;padding: 45px 0;}
+.beverly-footer-about{width: 500px;float: left;}
+.beverly-footer-about h6{font-size: 20px;line-height: 40px;color: #fff;}
+.beverly-footer-about a{color: #fff;padding-left: 30px;font-size: 14px;line-height: 14px;display: block;margin-top: 15px;cursor: default;}
+.link-icon1{background:url("../img/beverly/beverly-linkicon1.png") no-repeat left center;background-size: 14px;}
+.link-icon2{background:url("../img/beverly/beverly-linkicon2.png") no-repeat left center;background-size: 14px;}
+.link-icon3{background:url("../img/beverly/beverly-linkicon3.png") no-repeat left center;background-size: 14px;}
+.beverly-footer-about p{font-size: 14px;padding: 10px 0;line-height: 1;margin-top: 40px;color: #434343;}
+.beverly-footer-cooperation{width: 290px;float: left;}
+.beverly-footer-cooperation h6{font-size: 20px;line-height: 40px;color: #fff;}
+.beverly-footer-cooperation a{width: 100px;display: block;}
+.beverly-footer-cooperation img{width: 100px;display: block;}
+.beverly-footer-qr{width: 210px;text-align: right;float: left;padding-top: 15px;}
+.beverly-footer-qr img{width: 128px;}
+
+
+
+
+
+

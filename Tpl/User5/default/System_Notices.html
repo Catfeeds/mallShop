@@ -1,0 +1,50 @@
+<include file="Public:head"/>
+<div class="content"> 
+	<section class="row-fluid">
+     	<section class="span12">
+     		<div class="panel panel-default">
+     			<div class="panel-body table-content">
+     			<!--一级菜单-->
+     				<ul class="nav nav-tabs nav-tabsed information-table">
+				         <li class="active"><a href="#stair1" data-toggle="tab" id="systemNotices"><span class="info-icon"></span>系统消息</a></li>
+				         <li class=""><a href="#stair2" data-toggle="tab" id="officalNotices"><span class="info-icon2"></span>官方客服消息</a></li>
+				         <li class=""><a href="#stair3" data-toggle="tab" id="wechatNotices"><span class="info-icon3"></span>微信客服信息</a></li>
+				         <li class=""><a href="#stair4" data-toggle="tab" id="shopNotices"><span class="info-icon4"></span>商城客服信息</a></li>
+     				</ul>
+     				<div class="tab-content tab-contentbor">
+     				<!--官网-->
+     					<div class="tab-pane active" id="stair1">
+          					<ul class="system-list rd-Notices">
+         						<?php foreach($sysNotices as $key=>$val){?>
+             					<li class="<?php if($val['isread'] == 1){echo 'active';}else{echo '';}?>"><a href="<?php echo U('System/editisread',array('companyid'=>$companyid,'id'=>$val['id'],'type'=>$val['type']));?>" class="read-this"><i></i><?php echo $val['content'];?><span><?php echo format_time($val['createtime'],'ymdhi');?></span></a></li>
+             					<?php }?>
+         					</ul>
+         					<?php if($page){ ?>
+							<div class="pageNavigator">
+								<div class="pages"><?php echo $page; ?></div>
+							</div>
+							<?php } ?>
+      					</div>
+     				</div>
+     			</div>
+     		</div>
+		</section>
+	</section>
+</div>
+<script>
+$(function(){
+	$('#systemNotices').click(function(){
+		window.location.href="<?php echo U('System/Notices',array('companyid'=>$companyid))?>";
+	});
+	$('#wechatNotices').click(function(){
+		window.location.href="<?php echo U('MemberCustomService/wechatsNew',array('companyid'=>$companyid))?>";
+	});
+	$('#officalNotices').click(function(){
+		window.location.href="<?php echo U('MemberCustomService/noticesNew',array('companyid'=>$companyid))?>";
+	});
+	$('#shopNotices').click(function(){
+		window.location.href="<?php echo U('MallCustomService/noticesNew',array('companyid'=>$companyid));?>"
+	});
+});
+</script>
+<include file="Public:footer"/>

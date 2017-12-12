@@ -1,0 +1,67 @@
+<include file="Public:loading"/>
+
+<!--<div class="coating">
+	<?php if (session('wapcid') && in_array(27,session('permissions'))){ ?>
+	<a href="<?php echo U('MemberNotices/customer',array('companyid'=>$companyid));?>" class="icons-message"><?php if($noticeCount>0){?><em><?php echo $noticeCount < 100?$noticeCount:'99+';?></em><?php }?></a>
+	<i class="line"></i>
+	<?php } ?>
+	<?php if (session('wapcid') && in_array(127,session('permissions'))){ ?>
+    <a class="icons-shop-cart shoping-cart-num-box" href="<?php echo U('MallShoppingCart/index',array('companyid'=>session('wapcid'))); ?>"><?php if($shoppingcartgoodsnum > 0){ echo $shoppingcartgoodsnum < 100 ? '<em>'.$shoppingcartgoodsnum.'</em>' : '<em>99+</em>' ; } ?></a>
+    <i class="line"></i>
+    <?php } ?>
+	<a class="refresh" href="javascript:location.reload()"></a>
+</div>-->
+<!-- <script>
+  $('.quit').click(function(){
+    $.post("<?php echo U('Login/safeQuit').'&time=';?>"+Math.random(),function(data){
+      if(data['code'] == 200){
+        alert(data['tips'],2000,'success');
+        setTimeout("window.location.href='<?php echo U('Login/login',array('companyid'=>$companyid));?>'",2000);
+      }else{
+        alert(data['tips'],2000);
+      }
+    },"json");
+  });
+</script> -->
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F4e9f0b9e0dafddcb1d8ae2528867b1f3' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script>
+  $(function(){
+    $(".controls .form-control").focus(function(e) {
+      var $this = $(this);
+      $this.removeClass("text-right");
+    }).focusout(function(e) {
+      var $this = $(this),
+        pl = $this.attr("placeholder");
+      if($this.val() === pl){
+        $this.val("");
+      }
+      $this.addClass("text-right");
+    });
+  });
+  $(function(){
+    $(".form-right .form-control").focus(function(e) {
+      var $this = $(this);
+      $this.removeClass("text-right");
+    }).focusout(function(e) {
+      var $this = $(this),
+        pl = $this.attr("placeholder");
+      if($this.val() === pl){
+        $this.val("");
+      }
+      $this.addClass("text-right");
+    });
+  });
+</script>
+<script type="text/javascript">
+  $(function() {
+    $("img").load(function () {
+      $(this).hide();
+      $(this).fadeIn("3000");
+    });
+  });
+</script>
+</body>
+</html>

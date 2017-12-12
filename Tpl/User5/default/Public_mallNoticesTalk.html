@@ -1,0 +1,341 @@
+<!--eshop客服弹窗 -->
+<!-- 微信查看对话弹窗 -->
+<div class="popup-wrap wrap-middle-1 js-Wecaht-msg-popup">
+    <div class="mod middle-popup type-1">
+        <div class="mod-header">
+            <h4 class="fl">查看对话</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+        	<input type="hidden" name="mid" value="" >
+            <div class="Wechat-msg-record-scroll-wrap-v2">
+                <div class="Wechat-msg-record-scroll-v2">
+                    <h5 class="text-center pb-20"><a href="javascript:void(0);" class="ajax-more tips">更多历史记录</a></h5>
+                    <ul class="Wechat-msg-record" id="notices-message-list"></ul>
+                    <a class="hide" id="to-down" name='to-down'></a>
+	            	<a class="hide" href="#to-down"></a>
+                </div>
+            </div>
+            <div class="Wechat-msg-text-wrap-v2 js-emoji-into">
+                <textarea name="info"></textarea>
+                <div class="Wechat-msg-tools-wrap-v2 clearfix">
+                    <!-- emoji表情 -->
+                    <div class="emoji-wrap pt-5">
+                        <i class="emoji-change js-emoji-change"></i>
+                        <div class="emoji-box js-emoji-box">
+                            <span class="triangle-down-a"></span>
+                            <span class="triangle-down-b"></span>
+                            <ul>
+                                <li><i class="emoji emoji2600" data-title="☀"></i></li>
+                                <li><i class="emoji emoji1f60d" data-title="😍"></i></li>
+                                <li><i class="emoji emoji1f618" data-title="😘"></i></li>
+                                <li><i class="emoji emoji1f603" data-title="😃"></i></li>
+                                <li><i class="emoji emoji1f31f" data-title="🌟"></i></li>
+                                <li><i class="emoji emoji1f440" data-title="👀"></i></li>
+                                <li><i class="emoji emoji1f4b0" data-title="💰"></i></li>
+                                <li><i class="emoji emoji1f525" data-title="🔥 "></i></li>
+                                <li><i class="emoji emoji1f381" data-title="🎁"></i></li>
+                                <li><i class="emoji emoji1f4aa" data-title="💪"></i></li>
+                                <li><i class="emoji emoji1f44f" data-title="👏"></i></li>
+                                <li><i class="emoji emoji1f44d" data-title="👍"></i></li>
+                                <li><i class="emoji emoji1f464" data-title="👤"></i></li>
+                                <li><i class="emoji emoji1f3e8" data-title="🏨"></i></li>
+                                <li><i class="emoji emoji1f4de" data-title="📞"></i></li>
+                                <li><i class="emoji emoji2708" data-title="✈"></i></li>
+                                <li><i class="emoji emoji1f3c3" data-title="🏃"></i></li>
+                                <li><i class="emoji emoji1f4ac" data-title="💬"></i></li>
+                                <li><i class="emoji emoji2601" data-title="☁"></i></li>
+                                <li><i class="emoji emoji2614" data-title="☔"></i></li>
+                                <li><i class="emoji emoji26c4" data-title="⛄"></i></li>
+                                <li><i class="emoji emoji26a1" data-title="⚡"></i></li>
+                                <li><i class="emoji emoji1f300" data-title="🌀"></i></li>
+                                <li><i class="emoji emoji1f301" data-title="🌁"></i></li>
+                                <li><i class="emoji emoji1f302" data-title="🌂"></i></li>
+                                <li><i class="emoji emoji1f303 " data-title="🌃"></i></li>
+                                <li><i class="emoji emoji1f308" data-title="🌈"></i></li>
+                                <li><i class="emoji emoji2744 " data-title="❄"></i></li>
+                                <li><i class="emoji emoji1f609 " data-title="😉"></i></li>
+                                <li><i class="emoji emoji1f60c " data-title="😌"></i></li>
+                                <li><i class="emoji emoji1f604  " data-title="😄"></i></li>
+                                <li><i class="emoji emoji263a " data-title="☺"></i></li>
+                                <li><i class="emoji emoji1f60a " data-title="😊"></i></li>
+                                <li><i class="emoji emoji1f601 " data-title="😁"></i></li>
+                                <li><i class="emoji emoji1f606 " data-title="😆"></i></li>
+                                <li><i class="emoji emoji1f633 " data-title="😳"></i></li>
+                                <li><i class="emoji emoji1f602 " data-title="😂"></i></li>
+                                <li><i class="emoji emoji1f60b" data-title="😋"></i></li>
+                                <li><i class="emoji emoji1f61d " data-title="😝"></i></li>
+                                <li><i class="emoji emoji1f61c " data-title="😜"></i></li>
+                                <li><i class="emoji emoji1f624 " data-title="😤"></i></li>
+                                <li><i class="emoji emoji1f620 " data-title="😠"></i></li>
+                                <li><i class="emoji emoji1f640 " data-title="🙀"></i></li>
+                                <li><i class="emoji emoji1f647 " data-title="🙇"></i></li>
+                                <li><i class="emoji emoji1f64b " data-title="🙋"></i></li>
+                                <li><i class="emoji emoji1f453 " data-title="👓"></i></li>
+                                <li><i class="emoji emoji1f380 " data-title="🎀"></i></li>
+                                <li><i class="emoji emoji1f382 " data-title="🎂"></i></li>
+                                <li><i class="emoji emoji1f389 " data-title="🎉"></i></li>
+                                <li><i class="emoji emoji1f383 " data-title="🎃"></i></li>
+                                <li><i class="emoji emoji1f4ee " data-title="📮"></i></li>
+                                <li><i class="emoji emoji1f4e2 " data-title="📢"></i></li>
+                                <li><i class="emoji emoji1f3a4 " data-title="🎤"></i></li>
+                                <li><i class="emoji emojia9 " data-title="©"></i></li>
+                                <li><i class="emoji emoji2757 " data-title="❗"></i></li>
+                                <li><i class="emoji emoji2753 " data-title="❓"></i></li>
+                                <li><i class="emoji emoji1f496 " data-title="💖"></i></li>
+                                <li><i class="emoji emoji1f4a4 " data-title="💤"></i></li>
+                                <li><i class="emoji emoji1f4a5 " data-title="💥"></i></li>
+                                <li><i class="emoji emoji1f4af " data-title="💯"></i></li>
+                                <li><i class="emoji emoji270c " data-title="✌"></i></li>
+                                <li><i class="emoji emoji1f44a " data-title="👊"></i></li>
+                                <li><i class="emoji emoji1f44c " data-title="👌"></i></li>
+                                <li><i class="emoji emoji1f445 " data-title="👅"></i></li>
+                                <li><i class="emoji emoji1f46f " data-title="👯"></i></li>
+                                <li><i class="emoji emoji1f47b " data-title="👻"></i></li>
+                                <li><i class="emoji emoji1f47c " data-title="👼"></i></li>
+                                <li><i class="emoji emoji1f47d " data-title="👽"></i></li>
+                                <li><i class="emoji emoji1f384 " data-title="🎄"></i></li>
+                                <li><i class="emoji emoji1f42f " data-title="🐯"></i></li>
+                                <li><i class="emoji emoji1f47f " data-title="👿"></i></li>
+                                <li><i class="emoji emoji1f48b " data-title="💋"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- emoji end -->
+                    <a class="btn-small btn-white w50 text-center fr rd-submit">提 交</a>
+                    <h5 class="fr pt-5 mr-10">仅限200个汉字，400个字节</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(".js-check-msg").on("click", function () {
+            $(".js-Wecaht-msg-popup").fadeIn(120);
+        });
+        $(".js-sub-ok-close").on("click", function () {
+            $(".js-Wecaht-msg-popup").fadeOut(120);
+        })
+    </script>
+</div>
+<!--  
+<div class="popup-wrap wrap-middle-1 js-Wecaht-msg-popup" style="display:none;">
+    <div class="mod middle-popup type-1">
+        <div class="mod-header">
+            <h4 class="fl">查看对话</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+            <input type="hidden" name="mid" value="" >
+            <div class="Wechat-msg-record-scroll-wrap">
+            	<div class="Wechat-msg-record-scroll">
+	                <h5 class="text-center"><a href="javascript:void(0);" class="ajax-more tips" data-page="" data-mid="" style="display:none;">加载更多...</a></h5>
+	                <ul class="Wechat-msg-record" id="notices-message-list"></ul>
+	            	<a class="hide" id="to-down" name='to-down'></a>
+	            	<a class="hide" href="#to-down"></a>
+                </div>
+            </div>
+            <div class="Wechat-msg-text-wrap js-emoji-into">
+                <textarea class="Wechat-msg-text" name="info" data-rule-maxlength="400" maxlength="400"></textarea>
+                <div class="Wechat-msg-tools-wrap clearfix">
+                     <div class="emoji-wrap">
+                        <i class="emoji-change js-emoji-change"></i>
+                        <div class="emoji-box js-emoji-box">
+                            <span class="triangle-down-a"></span>
+                            <span class="triangle-down-b"></span>
+                            <ul>
+                                <li><i class="emoji emoji2600" data-title="☀"></i></li>
+                                <li><i class="emoji emoji1f60d" data-title="😍"></i></li>
+                                <li><i class="emoji emoji1f618" data-title="😘"></i></li>
+                                <li><i class="emoji emoji1f603" data-title="😃"></i></li>
+                                <li><i class="emoji emoji1f31f" data-title="🌟"></i></li>
+                                <li><i class="emoji emoji1f440" data-title="👀"></i></li>
+                                <li><i class="emoji emoji1f4b0" data-title="💰"></i></li>
+                                <li><i class="emoji emoji1f525" data-title="🔥 "></i></li>
+                                <li><i class="emoji emoji1f381" data-title="🎁"></i></li>
+                                <li><i class="emoji emoji1f4aa" data-title="💪"></i></li>
+                                <li><i class="emoji emoji1f44f" data-title="👏"></i></li>
+                                <li><i class="emoji emoji1f44d" data-title="👍"></i></li>
+                                <li><i class="emoji emoji1f464" data-title="👤"></i></li>
+                                <li><i class="emoji emoji1f3e8" data-title="🏨"></i></li>
+                                <li><i class="emoji emoji1f4de" data-title="📞"></i></li>
+                                <li><i class="emoji emoji2708" data-title="✈"></i></li>
+                                <li><i class="emoji emoji1f3c3" data-title="🏃"></i></li>
+                                <li><i class="emoji emoji1f4ac" data-title="💬"></i></li>
+                                <li><i class="emoji emoji2601" data-title="☁"></i></li>
+                                <li><i class="emoji emoji2614" data-title="☔"></i></li>
+                                <li><i class="emoji emoji26c4" data-title="⛄"></i></li>
+                                <li><i class="emoji emoji26a1" data-title="⚡"></i></li>
+                                <li><i class="emoji emoji1f300" data-title="🌀"></i></li>
+                                <li><i class="emoji emoji1f301" data-title="🌁"></i></li>
+                                <li><i class="emoji emoji1f302" data-title="🌂"></i></li>
+                                <li><i class="emoji emoji1f303 " data-title="🌃"></i></li>
+                                <li><i class="emoji emoji1f308" data-title="🌈"></i></li>
+                                <li><i class="emoji emoji2744 " data-title="❄"></i></li>
+                                <li><i class="emoji emoji1f609 " data-title="😉"></i></li>
+                                <li><i class="emoji emoji1f60c " data-title="😌"></i></li>
+                                <li><i class="emoji emoji1f604  " data-title="😄"></i></li>
+                                <li><i class="emoji emoji263a " data-title="☺"></i></li>
+                                <li><i class="emoji emoji1f60a " data-title="😊"></i></li>
+                                <li><i class="emoji emoji1f601 " data-title="😁"></i></li>
+                                <li><i class="emoji emoji1f606 " data-title="😆"></i></li>
+                                <li><i class="emoji emoji1f633 " data-title="😳"></i></li>
+                                <li><i class="emoji emoji1f602 " data-title="😂"></i></li>
+                                <li><i class="emoji emoji1f60b" data-title="😋"></i></li>
+                                <li><i class="emoji emoji1f61d " data-title="😝"></i></li>
+                                <li><i class="emoji emoji1f61c " data-title="😜"></i></li>
+                                <li><i class="emoji emoji1f624 " data-title="😤"></i></li>
+                                <li><i class="emoji emoji1f620 " data-title="😠"></i></li>
+                                <li><i class="emoji emoji1f640 " data-title="🙀"></i></li>
+                                <li><i class="emoji emoji1f647 " data-title="🙇"></i></li>
+                                <li><i class="emoji emoji1f64b " data-title="🙋"></i></li>
+                                <li><i class="emoji emoji1f453 " data-title="👓"></i></li>
+                                <li><i class="emoji emoji1f380 " data-title="🎀"></i></li>
+                                <li><i class="emoji emoji1f382 " data-title="🎂"></i></li>
+                                <li><i class="emoji emoji1f389 " data-title="🎉"></i></li>
+                                <li><i class="emoji emoji1f383 " data-title="🎃"></i></li>
+                                <li><i class="emoji emoji1f4ee " data-title="📮"></i></li>
+                                <li><i class="emoji emoji1f4e2 " data-title="📢"></i></li>
+                                <li><i class="emoji emoji1f3a4 " data-title="🎤"></i></li>
+                                <li><i class="emoji emojia9 " data-title="©"></i></li>
+                                <li><i class="emoji emoji2757 " data-title="❗"></i></li>
+                                <li><i class="emoji emoji2753 " data-title="❓"></i></li>
+                                <li><i class="emoji emoji1f496 " data-title="💖"></i></li>
+                                <li><i class="emoji emoji1f4a4 " data-title="💤"></i></li>
+                                <li><i class="emoji emoji1f4a5 " data-title="💥"></i></li>
+                                <li><i class="emoji emoji1f4af " data-title="💯"></i></li>
+                                <li><i class="emoji emoji270c " data-title="✌"></i></li>
+                                <li><i class="emoji emoji1f44a " data-title="👊"></i></li>
+                                <li><i class="emoji emoji1f44c " data-title="👌"></i></li>
+                                <li><i class="emoji emoji1f445 " data-title="👅"></i></li>
+                                <li><i class="emoji emoji1f46f " data-title="👯"></i></li>
+                                <li><i class="emoji emoji1f47b " data-title="👻"></i></li>
+                                <li><i class="emoji emoji1f47c " data-title="👼"></i></li>
+                                <li><i class="emoji emoji1f47d " data-title="👽"></i></li>
+                                <li><i class="emoji emoji1f384 " data-title="🎄"></i></li>
+                                <li><i class="emoji emoji1f42f " data-title="🐯"></i></li>
+                                <li><i class="emoji emoji1f47f " data-title="👿"></i></li>
+                                <li><i class="emoji emoji1f48b " data-title="💋"></i></li>
+                            </ul>
+                        </div>
+                    </div> 
+                    <h5 class="fr">仅限200个汉字，400个字节</h5>
+                </div>
+            </div>
+            
+            <div class="Wechat-sub-btn-wrap"><a class="btn-big btn-purple js-sub-ok-close rd-submit">提交</a></div>
+		</div>        
+    </div>
+    <script>
+        $(".js-check-msg").on("click", function () {
+            $(".js-Wecaht-msg-popup").fadeIn(120);
+        });
+    </script>
+</div>-->
+<script type="text/javascript">
+/************eshop客服消息 互动***************/
+$(document).on("click",'.js-check-msg',function(){
+	$('.ajax-more').hide();	 //加载第一页的时候重置隐藏属性
+	$('.nickname').text($(this).attr('data-nickname'));
+	var mid = $(this).attr('data-mid');
+	$('input[name="mid"]').attr('value',mid);
+	$('.rd-submit').attr('data-mid',mid);
+	$('.ajax-more').attr('data-mid',mid);
+	$('#notices-message-list').html(" ");
+	getNoticeTalkList(1,mid);
+});
+//分页加载
+$(document).on("click",'.ajax-more',function(){
+	var page = $(this).attr('data-page');
+	var mid = $(this).attr('data-mid');
+	getNoticeTalkList(page,mid);
+});
+//公用函数
+function getNoticeTalkList(page,mid){
+	$(".loading").show();
+	$.post("<?php echo U('MallCustomService/getMallNoticeTalkList').'&time='; ?>"+Math.random(),{page:page,mid:mid},function(data) {
+		$(".loading").hide();
+		if(data.code == 200){
+			$('#notices-message-list').prepend(data.html);
+			if(data.nextPage < (data.allPage+1)){
+				$('.ajax-more').show();	
+				$('.ajax-more').attr("data-page",data.nextPage);
+			}else{
+				$('.ajax-more').hide();			
+			};
+			if(data.nextPage == 2){
+				$('.Wechat-msg-record-scroll-v2').scrollTop( $('.Wechat-msg-record-scroll-v2')[0].scrollHeight ); //开始加载自动滚动到底部
+			}else{
+				$(".Wechat-msg-record-scroll-v2").animate({scrollTop:$(".Wechat-msg-record-scroll-v2").offset().top},100); //点击加载更多滚动到之前的顶部
+			}
+		}else if(data.code == 300){
+			$('#notices-message-list').prepend('');
+		}
+		$(".js-Wecaht-msg-popup").fadeIn(120);
+	},"json");	
+}
+//异步提交聊天信息
+$('.rd-submit').click(function(){
+	var info = $('[name="info"]').val();
+	if(info.trim() == ''){
+		alertTan('请输入您要回复的内容','warn');
+		return false;
+	}
+	var mid = $(this).attr("data-mid");
+	$(".loading").show();
+	$.post("<?php echo U('MallCustomService/ajaxSubmit',array('companyid'=>$companyid)).'&time='?>"+Math.random(),{info:info,mid:mid},function(data){
+		if(data.code == 200){
+			setTimeout("window.location.href=location.href;",1000);
+		}
+	},'json');
+});
+/* $("#noticesTalk").submit(function(){
+	var options = {
+			   target: '#noticesTalkTips',          //把服务器返回的内容放入id为output的元素中      
+			   beforeSubmit: function(formData, jqForm, options){  
+				   return $("#noticesTalk").valid();  //只要不返回false，表单都会提交,在这里可以对表单元素进行验证  
+				},  //提交前的回调函数 
+			   success: function(responseText, statusText){
+				   $('#noticesTalkTips').text(responseText['info']).show();
+				   setTimeout("$('.noticesTalkBox').modal('hide');$('#noticesTalkTips').text('').hide();",1000);
+				   setTimeout("$('#noticesTalk')[0].reset();",1000);
+				   setTimeout("window.location.href=location.href;",1000);
+				},      //提交后的回调函数  
+			   dataType: 'json',           //html(默认), xml, script, json...接受服务端返回的类型  
+			   timeout: 3000               //限制请求的时间，当请求大于3秒后，跳出请求  
+			};
+   $(this).ajaxSubmit(options);  
+   return false;   //阻止表单默认提交   
+});*/
+</script>
+<!--{end:官方客服对话弹框-->
+<!--与商城客服对话弹框-->
+<!-- <div class="noticesTalkBox myModal-true modal hide fade">
+	<div class="modal-header"><a class="close" data-dismiss="modal">×</a>
+    	<h3><span>与<span class="nickname"></span>的eshop客服对话</span></h3>
+    </div>
+    <form class="form-horizontal" action="<?php echo U('MallCustomService/mallNoticesTalk');?>" id="noticesTalk" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="mid" value="" >
+		<div class="modal-body comment-modal-body">
+        	<label id="noticesTalkTips" class="red t-center"></label>
+			<div id="notices-message-list"></div>
+			<div class="pageNav-mini">
+          		<div>共有<em id="noticesAllCount">0</em>条消息</div>
+         		<ul class="notices-pge">
+		            <li class=""><a class="" href="javascript:void(0);" data-page="" data-mid="" data-openid="" data-token="" id="noticesPrevPage">上一页</a></li>
+		            <li class=""><a class="" href="javascript:void(0);" data-page="" data-mid="" data-openid="" data-token="" id="noticesNextPage">下一页</a></li>
+         		</ul>
+        	</div>
+	        <div class="comment-textarea">
+	        	<label class="control-label" for=""></label>
+	          	<div class="controls">
+	            	<textarea name="info" class="form-control span3" data-rule-required="true" data-rule-maxlength="400" maxlength="400"></textarea>
+	            	<p class="help-block">仅限200个汉字，400个字节。</p>
+	          	</div>
+	        </div>
+      </div>
+      <div class="modal-footer">
+      	<button class="btn btn-small btn-primary" id="" type="submit">发送</button>
+      	<a href="javascript:void(0);" data-dismiss="modal" class="btn btn-small btn-default"><?php echo L('Cancel');?></a> 
+      </div>
+    </form>
+</div> -->

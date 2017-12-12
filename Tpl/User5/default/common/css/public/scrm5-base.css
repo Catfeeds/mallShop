@@ -1,0 +1,111 @@
+/* base begin
+john@renlaifeng.cn
+2016/06/14 12:00 */
+html {
+    height: 100%;
+}
+
+body {
+    font-family: "Microsoft Yahei", Arial, helvetica, sans-serif;
+    font-weight: normal;
+    color: #333;
+    height: 100%;
+    min-width: 1200px;
+    position: relative;
+}
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+}
+
+input, textarea, select {
+    font-family: Arial, helvetica, "Microsoft Yahei", sans-serif;
+    font-weight: normal;
+    color: #333;
+}
+
+img {
+    border: none;
+}
+
+ul ,ol {
+    list-style: none;
+}
+
+li{
+    list-style-type: inherit;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+}
+
+h1 {
+    font-size: 30px;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+h3 {
+    font-size: 18px;
+}
+
+h4 {
+    font-size: 16px;
+}
+
+h5 {
+    font-size: 14px;
+}
+
+h6 {
+    font-size: 12px;
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+    cursor: pointer;
+}
+
+a:active, a:focus, a:link {
+    outline: none;
+}
+
+/*clear float*/
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.clear {
+    clear: both;
+    overflow: hidden;
+}
+
+.clearfix:after {
+    clear: both;
+    content: ' ';
+    display: block;
+    font-size: 0;
+    line-height: 0;
+    visibility: hidden;
+    height: 0;
+    overflow: hidden;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+/* base end 2016/06/16 12:00 */
+/* 请勿轻易修改通用 scrm-base.css
+   仅供公共 头、左侧菜单、尾部使用
+   如需添加新建表或在 scrm5-style.css 追加*/

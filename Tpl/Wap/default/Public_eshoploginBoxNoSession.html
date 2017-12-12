@@ -1,0 +1,310 @@
+<style>
+	.login-pop{
+		-webkit-touch-callout:none; /*系统默认菜单被禁用*/
+		-webkit-user-select:none; /*webkit浏览器*/
+		-khtml-user-select:none; /*早期浏览器*/
+		-moz-user-select:none;/*火狐*/
+		-ms-user-select:none; /*IE10*/
+		user-select:none;
+	}
+	.login-pop input{webkit-appearance:none;appearance:none;outline:none;-webkit-tap-highlight-color:rgba(0,0,0,0);}
+	.login-pop{transform: translateY(100%);position: fixed;z-index: 9999;width: 100%;height: 100%;background-color: rgba(0,0,0,0.5);top:0;left: 0;font-family:"Microsoft YaHei",Arial;margin: 0;padding: 0;}
+	.login-top{height: 100%;box-sizing: border-box;padding-bottom: 220px;transform: translateY(100%);transition: all .3s ease-in;}
+	.login-top-pos{height: 100%;position: relative;}
+	.login-pop-ctt{width: 75%;position: absolute;left: 12.5%;top:50%;box-sizing: border-box;padding:0 0 37px 0;border-radius: 5px;background-color: #fff;-webkit-transform: translateY(-50%);transform: translateY(-50%);}
+	.login-pop-close{cursor:pointer;position: absolute;top: 0;right: 0;width: 52px;height: 52px;background: url("./Tpl/Wap/default/common/img/login-close.png") no-repeat center center;background-size: 12px;}
+	.login-pop-go{display:none;cursor:pointer;position: absolute;top: 0;left: 0;width: 47px;height: 52px;background: url("./Tpl/Wap/default/common/img/login-go.png") no-repeat center center;background-size:auto 12px;}
+	.login-pop-h{padding:0;margin:0;font-size: 15px;color: #000000;text-align: center;line-height: 1;padding: 20px 0;}
+	.login-pop-Slide{width: 100%;overflow: hidden;height: 125px;position: relative;}
+	.login-pop-w200{width: 200%;overflow: hidden;position: relative;transition: all .5s ease-in;left:0;}
+	.login-pop-tel{padding: 27px 20px 0 20px;box-sizing: border-box;width: 50%;float: left;}
+	.login-pop-ipt{position: relative;}
+	.login-pop-ipt input{font-family:Helvetica;width: 100%;border: none;outline:none;border-bottom: 1px solid #e1e2e3;font-size: 17px;color: #000;padding: 5px;margin:0;box-sizing: border-box;line-height: 27px;border-radius: 0;-webkit-appearance:none;background: #fff;}
+	.tel-remove-icon{position: absolute;right:0;top:0;width: 36px;height: 36px;background: url("./Tpl/Wap/default/common/img/logon-remove.png") no-repeat center right;background-size: 12px;cursor: pointer;}
+	.login-pop-tel button{font-family:"Microsoft YaHei",Arial;width: 100%;border: 1px solid #e0e0e0;background-color: #e0e0e0;color: #fff;font-size: 15px;margin: 0;padding: 0;margin-top: 20px;line-height: 38px;outline: none;}
+	.login-pop-tel button.Clickable{background-color: #bd9745;border: 1px solid #bd9745;}
+	.login-pop-Verification{padding: 20px 20px 0 20px;box-sizing: border-box;width: 50%;float: left;height: 125px;position: relative;}
+	.Verification-tel{line-height: 1;font-size: 16px;color: #333;text-align: center;margin: 0;padding: 0;}
+	.Verification-time{text-align: center;margin: 0;padding: 0;margin-top: 12px;}
+	.Verification-time span{line-height: 1;font-size: 13px;color: #666;cursor: pointer;}
+	.recapture-sp{padding-left: 17px;background: url("./Tpl/Wap/default/common/img/login-cx.png") no-repeat left center;background-size: auto 11px;}
+	.Verification-ipt{overflow: hidden;position: absolute;width: 100%;box-sizing: border-box;padding: 0 20px;bottom:0;left: 0;}
+	.Verification-ipt input{-webkit-appearance:none;width: 15%;padding: 0;margin: 0;box-sizing: border-box;border: 1px solid #bdc0c5;float: left;text-align: center;font-size: 17px;color: #bd9745;outline:none;border-radius: 0;background: #fff;}
+	.Verification-ipt input.active{border: 1px solid #bd9745;}
+	.Verification-ipt input:not(:last-child){margin-right: 2%;}
+
+
+	/*键盘*/
+	.login-number-keyboard{
+		-webkit-touch-callout:none; /*系统默认菜单被禁用*/
+		-webkit-user-select:none; /*webkit浏览器*/
+		-khtml-user-select:none; /*早期浏览器*/
+		-moz-user-select:none;/*火狐*/
+		-ms-user-select:none; /*IE10*/
+		user-select:none;
+	}
+	.login-number-keyboard{position: absolute;bottom:0;left: 0;width: 100%;background: #fff;transform: translateY(100%);transition: all .4s ease-in;}
+	.login-number-ul{overflow: hidden;list-style-type: none;margin: 0;padding: 0;}
+	.login-number-ul li{font-family:Helvetica;width: 33.33%;box-sizing: border-box;cursor: pointer;height: 54px;line-height: 54px;font-size: 30px;color: #000000;text-align: center;float: left;border-bottom: 1px solid #ccc;}
+	.login-number-ul li:active{background: #caced4;}
+	.login-number-ul li:nth-child(3n),.login-number-ul li:nth-child(3n+2){border-left:1px solid #ccc;}
+	.keyboard-delete{background:url("./Tpl/Wap/default/common/img/logon-jp-remove.png") no-repeat center center;background-size:32px;background-color: #caced4;}
+	.login-number-ul li.keyboard-delete:active{background:url("./Tpl/Wap/default/common/img/logon-jp-remove1.png") no-repeat center center;background-size:32px;background-color: #fff;}
+	.keyboard-no-click{background-color: #caced4;}
+	.login-number-ul li.no-bor-bt{border-bottom: none;}
+	@media screen and (min-width: 561px){
+		.pc-fixed{
+			max-width: 560px;
+			left: 50%!important;
+			margin-left: -379px!important;
+		}
+	}
+</style>
+<div class="login-pop js-login-pop Scrm_index_content pc-fixed" id="id-not-logged-in-box">
+	<div class="login-top js-top-animate">
+		<div class="login-top-pos">
+			<div class="login-pop-ctt">
+				<i class="login-pop-close js-login-pop-close"></i>
+				<i class="login-pop-go js-login-pop-go"></i>
+				<h6 class="login-pop-h">手机快捷登录</h6>
+				<div class="login-pop-Slide">
+					<div class="login-pop-w200 js-slede-box">
+						<div class="login-pop-tel">
+							<div class="login-pop-ipt active-ipt"><input class="js-tel-ipt" type="tel" placeholder="请填写您的手机号" readonly><i class="tel-remove-icon js-tel-remove"></i></div>
+							<button class="js-next-btn">下一步</button>
+						</div>
+						<div class="login-pop-Verification">
+							<p class="Verification-tel js-tel-number"></p>
+							<p class="Verification-time"><span class="js-Count-down">还剩<time>60</time>秒</span><span class="recapture-sp js-recapture-btn" style="display: none;">重新获取</span></p>
+							<div class="Verification-ipt">
+								<input type="number" readonly>
+								<input type="number" readonly>
+								<input type="number" readonly>
+								<input type="number" readonly>
+								<input type="number" readonly>
+								<input type="number" readonly>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="login-number-keyboard js-keyboard-animate" onmousemove=/HideMenu()/ oncontextmenu="return false" ondragstart="return false" onselectstart ="return false" onselect="document.selection.empty()" oncopy="document.selection.empty()" onbeforecopy="return false">
+		<ul class="login-number-ul">
+			<li data-nb="1" class="js-number-btn">1</li>
+			<li data-nb="2" class="js-number-btn">2</li>
+			<li data-nb="3" class="js-number-btn">3</li>
+			<li data-nb="4" class="js-number-btn">4</li>
+			<li data-nb="5" class="js-number-btn">5</li>
+			<li data-nb="6" class="js-number-btn">6</li>
+			<li data-nb="7" class="js-number-btn">7</li>
+			<li data-nb="8" class="js-number-btn">8</li>
+			<li data-nb="9" class="js-number-btn">9</li>
+			<li class="keyboard-no-click no-bor-bt"></li>
+			<li data-nb="0" class="js-number-btn no-bor-bt">0</li>
+			<li data-nb="删除" class="js-number-remove keyboard-delete no-bor-bt"></li>
+		</ul>
+	</div>
+</div>
+<script>
+	/*打开登录弹框（点击触发事件）*/
+	$(".js-open-login-box").click(function(){
+		$("#id-not-logged-in-box").css("transform","translateY(0)");
+	    $(".js-top-animate").css("transform","translateY(0)");
+	    $(".js-keyboard-animate").css("transform","translateY(0)");
+	    $(".js-login-pop").bind("touchmove",function(e){
+				e.preventDefault();
+		})
+	});
+	/*关闭弹窗*/
+	$(".js-login-pop-close").click(function(){
+		$(".js-top-animate").css("transform","translateY(100%)");
+		$(".js-keyboard-animate").css("transform","translateY(100%)");
+		setTimeout(function(){
+			$(".js-login-pop").css("transform","translateY(100%)");
+		},400);
+	})
+	$(".Verification-ipt input").height($(".Verification-ipt input").width());
+	
+	/*切换  点击下一步获取验证码*/
+	$(document).on("click",".Clickable",function(){
+		var mobile = $(".js-tel-ipt").val().replace(/\s/ig,'');
+		var phone = $(".js-tel-number").text().replace(/\s/ig,'');
+		if(mobile == phone){
+			alert('验证码已下发,请耐心等待');
+			$(".js-slede-box").css("left","-100%");
+   	 		$(".js-login-pop-go").show();
+   	 		$(".login-pop-ipt").removeClass("active-ipt");
+   	 		$(".Verification-ipt").addClass("active-ipt");
+   	 		$(".js-tel-number").text($(".js-tel-ipt").val());
+   	 		if($(".js-Count-down time").text()==60){
+				countdown(60);
+			}
+		}else{
+	   		$('.loading').show(); 
+	   		$.post("<?php echo U('Login/iegiCode',array('companyid'=>$companyid)).'&time=';?>"+Math.random(),{mobile: mobile},function(data){
+	  	        $('.loading').hide();
+	   	        if(data.code == 200){
+	   	        	if(data.tips){
+	   	        		alert(data.tips,3000);
+	   	        	}
+	   	        	$(".js-slede-box").css("left","-100%");
+		   	 		$(".js-login-pop-go").show();
+		   	 		$(".login-pop-ipt").removeClass("active-ipt");
+		   	 		$(".Verification-ipt").addClass("active-ipt");
+		   	 		$(".js-tel-number").text($(".js-tel-ipt").val());
+		   	 		if($(".js-Count-down time").text()==60){
+						countdown(60);
+					}
+	   	       	}else if(data.code == 300){
+	   	        	alert(data.tips,3000);
+	   	        }
+	   	    },"json");
+		}
+	})
+	/* 返回 */
+	$(".js-login-pop-go").on("click",function(){
+		$(".js-slede-box").css("left","0");
+		$(".js-login-pop-go").hide();
+		$(".Verification-ipt").removeClass("active-ipt");
+		$(".login-pop-ipt").addClass("active-ipt");
+	})
+
+	/*输入手机号和验证码*/
+	$(function(){
+		var telnb="";
+		var telreg=/^(((13[0-9]{1})|(14[579]{1})|(15[012356789]{1})|(17[0135678]{1})|(18[0-9]{1}))+\d{8})$/;
+		if(/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent))){
+			//输入手机浩
+			$(".js-number-btn").on("touchstart",function(){
+				var nbthis=$(this);
+				numberclick(nbthis);
+			})
+			//删除手机号
+			$(".js-number-remove").on("touchstart",function(){
+				removeclick();
+			})
+		}else{
+			//输入验证码
+			$(".js-number-btn").on("click",function(){
+				var nbthis=$(this);
+				numberclick(nbthis);
+			})
+			//删除验证码
+			$(".js-number-remove").on("click",function(){
+				removeclick();
+			})
+		}
+		/*数字输入*/
+		function numberclick(nbthis){
+			if($(".login-pop-ipt").hasClass("active-ipt")){
+				if(telnb.length<13){
+					telnb+=nbthis.attr("data-nb");
+					if(telnb.length==3||telnb.length==8){
+						telnb+=" ";
+					}
+					$(".login-pop-ipt").find("input").val(telnb);
+					if(telnb.length==13) {
+						var telzz=telnb.replace(/\s/ig,'');
+						if (telreg.test(telzz)) {
+							$(".js-next-btn").addClass("Clickable");
+						}else {
+							alert("请输入正确的手机号");
+						}
+
+					}
+				}
+			}else if($(".Verification-ipt").hasClass("active-ipt")){
+				var thisnb=nbthis.attr("data-nb");
+				var i = 0;
+				var code = '';
+				$(".Verification-ipt").find("input").each(function(){
+					if($(this).val()==""){
+						$(this).addClass("active");
+						$(this).val(thisnb);
+						return false;
+					}else{
+						code+=$(this).val();
+						i++;
+					}
+				})
+				if(i == 5){
+					code+=thisnb;
+					var moblie = $(".js-tel-number").text().replace(/\s/ig,'');
+					$('.loading').show();
+					$.post("<?php echo U('Login/ajaxIegiCode',array('companyid'=>$companyid)).'&time='; ?>"+Math.random(),{moblie:moblie,code:code},function(data){
+				    	if(data.code == 200){
+							window.location.href="<?php if(session('historyUrl') && (strpos(session('historyUrl'),'login') ===FALSE) && !(strpos(session('historyUrl'),'companyid='.$companyid) ===FALSE)){ echo session('historyUrl'); }else{ echo U('Member/center',array('companyid'=>$companyid)); } ?>";
+				    	}else{
+				    		$('.loading').hide();
+				    		$(".Verification-ipt").find("input").each(function(){
+				    		      $(this).removeClass("active");
+				    		      $(this).val("");
+				    		});
+				    	    alert(data.tips,3000);
+				    	}
+					},"json");
+				}
+			}
+		}
+		/*键盘删除*/
+		function removeclick(){
+			if($(".login-pop-ipt").hasClass("active-ipt")){
+				if(telnb.length>0){
+					if(telnb.charAt(telnb.length-1)==" "){
+						telnb=telnb.slice(0,telnb.length-1);
+					}
+					telnb=telnb.slice(0,telnb.length-1);
+					$(".login-pop-ipt").find("input").val(telnb);
+					$(".js-next-btn").removeClass("Clickable");
+				}
+			}else if($(".Verification-ipt").hasClass("active-ipt")){
+				for(var i=5;i>=0;i--){
+					if($(".Verification-ipt").find("input").eq(i).val()!=""){
+						$(".Verification-ipt").find("input").eq(i).removeClass("active");
+						$(".Verification-ipt").find("input").eq(i).val("");
+						break;
+					}
+
+				}
+			}
+		}
+		/*删除手机号*/
+		$(".js-tel-remove").click(function(){
+			$(".js-tel-ipt").val("");
+			telnb="";
+			$(".js-next-btn").removeClass("Clickable");
+		})
+	})
+	/*倒计时*/
+	function countdown(s){
+		var timer;
+		timer=setInterval(function(){
+			s--;
+			$(".js-Count-down time").text(s);
+			if(s==0){
+				clearInterval(timer);
+				$(".js-Count-down").hide();
+				$(".js-recapture-btn").show();
+				$(".js-Count-down time").text(60);
+			}
+		},1000)
+	}
+	/* 点击重新发送 */
+	$(".js-recapture-btn").click(function(){
+		var mobile = $(".js-tel-ipt").val().replace(/\s/ig,'');
+   		$('.loading').show(); 
+   		$.post("<?php echo U('Login/iegiCode',array('companyid'=>$companyid)).'&time=';?>"+Math.random(),{mobile: mobile},function(data){
+  	        $('.loading').hide();
+   	        if(data.code == 200){
+   	        	$(".js-recapture-btn").hide();
+	   	 		$(".js-Count-down").show();
+	   	 		countdown(60);
+   	        }else if(data.code == 300){
+   	        	alert(data.tips,3000);
+   	        }
+   	    },"json");
+	})
+</script>

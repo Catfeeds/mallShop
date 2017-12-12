@@ -1,0 +1,255 @@
+<include file="Public:head"/>
+<include file="Public:WeiTanSelect"/>
+<?php echo $makeTopUrl;?>
+<!-- 管理 > 微页面 > WAP页面通底设置 2016-12-08 19:20 -->
+<div class="group inline-btn-group mb-10">
+    <a class="btn-small btn-white js-S5Permissions" data-Permissionsid="13" data-link="<?php echo U('Wei/index');?>">微页面</a>
+    <a class="btn-small btn-purple js-S5Permissions" data-Permissionsid="14" data-link="<?php echo U('Wei/Wapmenu');?>">WAP页面通底设置</a>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>WAP页面通底设置</h4></div>
+    <div class="mod-body new-pic-msg js-new-pic-msg">
+        <div class="content clearfix">
+            <!-- 显示区 -->
+            <div class="menu-preview-area fl">
+                <div class="mobile-menu-preview">
+                    <div class="mobile-hd" style="margin: 0 60px;">WAP页面通底设置</div>
+                    <div class="mobile-bd footer-sitting">
+                        <div class="footer-view">
+                            <div class="footer-nav-cover js-footer-nav-cover">
+                                <a class="js-nav-item1" <?php if($info['isopen1'] == '2'){echo 'style="display:none"';}?>><?php echo $info['name1'];?></a>
+                                <a class="js-nav-item2" <?php if($info['isopen2'] == '2'){echo 'style="display:none"';}?>><?php echo $info['name2'];?></a>
+                                <a class="js-nav-item3" <?php if($info['isopen3'] == '2'){echo 'style="display:none"';}?>><?php echo $info['name3'];?></a>
+                                <a class="js-nav-item4" <?php if($info['isopen4'] == '2'){echo 'style="display:none"';}?>><?php echo $info['name4'];?></a>
+                            </div>
+                            <!-- <img width="60px" height="" src="./Tpl/User5/default/common/img/foot_logo_poi.png"> -->
+                            <p class="footer-tips">人来风平台支持<br>www.mobiwind.cn</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 编辑区 -->
+            <div class="menu-form-area">
+                <div class="vipcard-portable-editor">
+                    <ul class="vipcard-editor-inner js-scroll">
+                        <li class="group pb-20">
+                            <h5 class="inline">通底文字导航：</h5>
+                            <input class="ios-btn js-nav-toggle" AUTOCOMPLETE="off" type="checkbox" <?php if($info['isopen'] == '1'){echo 'checked="checked"';}?>>
+                            <div>
+                                <table class="table type-1 mt-10">
+                                    <thead>
+                                    <tr>
+                                        <th class="w100">导航名称</th>
+                                        <th class="w200">关联网页</th>
+                                        <th class="w60">是否启用</th>
+                                        <th class="w30">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="js-footer-edit1">
+                                        <td><?php echo $info['name1'];?></td>
+                                        <td style="word-break: break-all;"><?php if($info['relevancetype1'] == '1'){echo $info['relevanceurl1'];}else{echo '关注二维码弹窗';}?></td>
+                                        <td>
+                                        	<select AUTOCOMPLETE="off">
+                                        		<option value="1" <?php if($info['isopen1'] == '1'){echo 'selected="selected"';}?>>启用</option>
+                                        		<option value="2" <?php if($info['isopen1'] == '2'){echo 'selected="selected"';}?>>禁用</option>
+                                       		</select>
+                                        </td>
+                                        <td><a class="tips js-footer-edit" data-relevancetype="<?php echo $info['relevancetype1'];?>" data-type="1">编辑</a></td>
+                                    </tr>
+                                    <tr class="js-footer-edit2">
+                                        <td><?php echo $info['name2'];?></td>
+                                        <td style="word-break: break-all;"><?php if($info['relevancetype2'] == '1'){echo $info['relevanceurl2'];}else{echo '关注二维码弹窗';}?></td>
+                                        <td>
+                                        	<select AUTOCOMPLETE="off">
+                                        		<option value="1" <?php if($info['isopen2'] == '1'){echo 'selected="selected"';}?>>启用</option>
+                                        		<option value="2" <?php if($info['isopen2'] == '2'){echo 'selected="selected"';}?>>禁用</option>
+                                       		</select>
+                                        </td>
+                                        <td><a class="tips js-footer-edit" data-relevancetype="<?php echo $info['relevancetype2'];?>" data-type="2">编辑</a></td>
+                                    </tr>
+                                    <tr class="js-footer-edit3">
+                                        <td><?php echo $info['name3'];?></td>
+                                        <td style="word-break: break-all;"><?php if($info['relevancetype3'] == '1'){echo $info['relevanceurl3'];}else{echo '关注二维码弹窗';}?></td>
+                                        <td>
+                                        	<select AUTOCOMPLETE="off">
+                                        		<option value="1" <?php if($info['isopen3'] == '1'){echo 'selected="selected"';}?>>启用</option>
+                                        		<option value="2" <?php if($info['isopen3'] == '2'){echo 'selected="selected"';}?>>禁用</option>
+                                       		</select>
+                                        </td>
+                                        <td><a class="tips js-footer-edit" data-relevancetype="<?php echo $info['relevancetype3'];?>" data-type="3">编辑</a></td>
+                                    </tr>
+                                    <tr class="js-footer-edit4">
+                                        <td><?php echo $info['name4'];?></td>
+                                        <td style="word-break: break-all;"><?php if($info['relevancetype4'] == '1'){echo $info['relevanceurl4'];}else{echo '关注二维码弹窗';}?></td>
+                                        <td>
+                                        	<select AUTOCOMPLETE="off">
+                                        		<option value="1" <?php if($info['isopen4'] == '1'){echo 'selected="selected"';}?>>启用</option>
+                                        		<option value="2" <?php if($info['isopen4'] == '2'){echo 'selected="selected"';}?>>禁用</option>
+                                       		</select>
+                                        </td>
+                                        <td><a class="tips js-footer-edit" data-relevancetype="<?php echo $info['relevancetype4'];?>" data-type="4">编辑</a></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="group form-footer text-center">
+            <input class="btn-small btn-purple w100 ml-80 js-editWapmenu" type="submit" value="保存">
+        </div>
+    </div>
+</div>
+<!-- 编辑通底文字导航 弹窗 2016-12-08 22:50 -->
+<div class="popup-wrap  js-footer-edit-wrap">
+    <div class="mod pro-popup type-1">
+        <div class="mod-header">
+            <h4 class="fl">编辑通底文字导航</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+            <ul class="content" style="height: 140px;">
+                <li class="group pb-15">
+                    <h6 class="inline w100">导航类型：</h6>
+                    <label class="radio inline mr-20"><input class="js-url-check" type="radio" value="1" name="nav-toggle" checked="checked">网页链接</label>
+                    <label class="radio inline"><input class="js-qrcode-check" type="radio" value="2" name="nav-toggle">关注二维码弹窗</label>
+                </li>
+                <li class="group pb-15">
+                    <h6 class="inline w100">导航名称：</h6>
+                    <input class="inline w200 js-nav-name" type="text">
+                </li>
+                <li class="pb-15 js-qrcode-check-wrap">
+                    <h6 class="inline w100">关联网页：</h6>
+                    <input class="inline w200 js-nav-url" type="text">
+                    <a class="btn-small btn-white select-url-asa" data-urlType="js-nav-url">选择网页链接</a>
+                </li>
+            </ul>
+            <div class="group pb-20 text-center">
+                <input class="btn-middle btn-purple pointer w100 js-ok js-footer-edit-ok" type="button" data-type="" value="保存">
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        // 导航类型控制
+        $(".js-url-check").on("click",function(){
+            $(".js-qrcode-check-wrap").slideDown(120);
+        });
+        $(".js-qrcode-check").on("click",function(){
+            $(".js-qrcode-check-wrap").slideUp(120);
+        });
+        // 弹窗赋值
+        $(".js-footer-edit").on("click",function(){
+        	$(".js-footer-edit-wrap").fadeIn(120);
+        	$(".js-nav-name").val($(this).parent().parent().children().eq(0).text());
+        	if($(this).attr('data-relevancetype') == '2'){
+        		$('.js-url-check').prop("checked",false);
+        		$('.js-qrcode-check').prop("checked",true);
+        		$(".js-qrcode-check-wrap").hide();
+        	}else{
+        		$('.js-url-check').prop("checked",true);
+        		$('.js-qrcode-check').prop("checked",false);
+        		$(".js-qrcode-check-wrap").show();
+        	}
+        	if($(this).parent().parent().children().eq(1).text() == '关注二维码弹窗'){
+        		$(".js-nav-url").val('');
+        	}else{
+        		$(".js-nav-url").val($(this).parent().parent().children().eq(1).text());
+        	}
+            $(".js-footer-edit-ok").attr("data-type",$(this).attr("data-type"));
+        });
+        $(".js-footer-edit-ok").on("click",function(){
+            $(".js-footer-edit"+$(this).attr("data-type")).children("td:eq(0)").text($(".js-nav-name").val());
+            if($('input[name="nav-toggle"]:checked').val() == '1'){
+	            $(".js-footer-edit"+$(this).attr("data-type")).children("td:eq(1)").text($(".js-nav-url").val());
+	            $(".js-footer-edit"+$(this).attr("data-type")).children("td:eq(3)").children().attr('data-relevancetype','1');
+            }else{
+            	$(".js-footer-edit"+$(this).attr("data-type")).children("td:eq(1)").text('关注二维码弹窗');
+            	$(".js-footer-edit"+$(this).attr("data-type")).children("td:eq(3)").children().attr('data-relevancetype','2');
+            }
+            $(".js-nav-item"+$(this).attr("data-type")).text($(".js-nav-name").val());
+        });
+        // 是否启用
+        $(".js-footer-edit1 td:eq(2) select").on("click",function(){
+            var optionVal = $(this).children("option:selected").val();
+            (optionVal==1) ? $(".js-nav-item1").show() : $(".js-nav-item1").hide();
+        });
+        $(".js-footer-edit2 td:eq(2) select").on("click",function(){
+            var optionVal = $(this).children("option:selected").val();
+            (optionVal==1) ? $(".js-nav-item2").show() : $(".js-nav-item2").hide();
+        });
+        $(".js-footer-edit3 td:eq(2) select").on("click",function(){
+            var optionVal = $(this).children("option:selected").val();
+            (optionVal==1) ? $(".js-nav-item3").show() : $(".js-nav-item3").hide();
+        });
+        $(".js-footer-edit4 td:eq(2) select").on("click",function(){
+            var optionVal = $(this).children("option:selected").val();
+            (optionVal==1) ? $(".js-nav-item4").show() : $(".js-nav-item4").hide();
+        });
+        // 是否开启通底导航
+        $(document).on("click",".js-nav-toggle+.lcs_switch",function(){
+            $(this).hasClass("lcs_on") ? $(".js-footer-nav-cover").hide() : $(".js-footer-nav-cover").show();
+        });
+        // 保存
+        $(document).on("click",'.js-editWapmenu',function(){
+        	var isopen = '1';
+        	if($('.lcs_checkbox_switch').hasClass('lcs_on')){
+       			isopen = '1';
+        	}else if($('.lcs_checkbox_switch').hasClass('lcs_off')){
+        		isopen = '2';
+        	}
+        	var name1 = $(".js-footer-edit1 td:eq(0)").text();
+        	var relevancetype1 = '';
+        	var relevanceurl1 = $(".js-footer-edit1 td:eq(1)").text();
+        	if(relevanceurl1 != '关注二维码弹窗'){
+        		relevancetype1 = '1';
+        	}else{
+        		relevancetype1 = '2';
+        	}
+        	var isopen1 = $(".js-footer-edit1 td:eq(2) select option:selected").val();
+        	var name2 = $(".js-footer-edit2 td:eq(0)").text();
+        	var relevancetype2 = '';
+        	var relevanceurl2 = $(".js-footer-edit2 td:eq(1)").text();
+        	if(relevanceurl2 != '关注二维码弹窗'){
+        		relevancetype2 = '1';
+        	}else{
+        		relevancetype2 = '2';
+        	}
+        	var isopen2 = $(".js-footer-edit2 td:eq(2) select option:selected").val();
+        	var name3 = $(".js-footer-edit3 td:eq(0)").text();
+        	var relevancetype3 = '';
+        	var relevanceurl3 = $(".js-footer-edit3 td:eq(1)").text();
+        	if(relevanceurl3 != '关注二维码弹窗'){
+        		relevancetype3 = '1';
+        	}else{
+        		relevancetype3 = '2';
+        	}
+        	var isopen3 = $(".js-footer-edit3 td:eq(2) select option:selected").val();
+        	var name4 = $(".js-footer-edit4 td:eq(0)").text();
+        	var relevancetype4 = '';
+        	var relevanceurl4 = $(".js-footer-edit4 td:eq(1)").text();
+        	if(relevanceurl4 != '关注二维码弹窗'){
+        		relevancetype4 = '1';
+        	}else{
+        		relevancetype4 = '2';
+        	}
+        	var isopen4 = $(".js-footer-edit4 td:eq(2) select option:selected").val();
+        	$('.loading').show();
+       		$.post("<?php echo U('Wei/ajaxWapmenu',array('companyid'=>$companyid)).'&time='?>"+Math.random(),
+        			{isopen:isopen,name1:name1,relevancetype1:relevancetype1,relevanceurl1:relevanceurl1,isopen1:isopen1,
+	       			name2:name2,relevancetype2:relevancetype2,relevanceurl2:relevanceurl2,isopen2:isopen2,
+	       			name3:name3,relevancetype3:relevancetype3,relevanceurl3:relevanceurl3,isopen3:isopen3,
+	       			name4:name4,relevancetype4:relevancetype4,relevanceurl4:relevanceurl4,isopen4:isopen4,
+        			},
+        		function(data){
+        			 $('.loading').hide();
+	            	alertTan(data.msg,data.code);
+            },'json');
+        });
+    </script>
+</div>
+<include file="Public:footer"/>

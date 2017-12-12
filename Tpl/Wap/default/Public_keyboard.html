@@ -1,0 +1,111 @@
+<style>
+	/*键盘*/
+	.wind-money-keyboard{
+		-webkit-touch-callout:none; /*系统默认菜单被禁用*/
+		-webkit-user-select:none; /*webkit浏览器*/
+		-khtml-user-select:none; /*早期浏览器*/
+		-moz-user-select:none;/*火狐*/
+		-ms-user-select:none; /*IE10*/
+		user-select:none;
+	}
+	.wind-money-keyboard{position: fixed;bottom:0;left: 0;width: 100%;background: #fff;transition: all .4s ease-in;z-index: 9999;transform: translateY(100%);border-top:1px solid #ccc;}
+	.wind-money-ul{overflow: hidden;list-style-type: none;margin: 0;padding: 0;}
+	.wind-money-ul li{font-family:Helvetica;width: 33.33%;box-sizing: border-box;cursor: pointer;height: 54px;line-height: 54px;font-size: 30px;color: #000000;text-align: center;float: left;border-bottom: 1px solid #ccc;}
+	.wind-money-ul li:active{background: #caced4;}
+	.wind-money-ul li:nth-child(3n),.wind-money-ul li:nth-child(3n+2){border-left:1px solid #ccc;}
+	.wind-keyboard-delete{background:url("./Tpl/Wap/default/common/img/logon-jp-remove.png") no-repeat center center;background-size:32px;background-color: #caced4;}
+	.wind-money-ul li.wind-keyboard-delete:active{background:url("./Tpl/Wap/default/common/img/logon-jp-remove1.png") no-repeat center center;background-size:32px;background-color: #fff;}
+	.wind-keyboard-no-click{background-color: #caced4;vertical-align: middle;font-family:"宋体"!important;}
+	.wind-money-ul li.no-bor-bt{border-bottom: none;}
+	.wind-keyboard-complete{overflow: hidden;background-color: #f0f1f3;}
+	.wind-keyboard-complete a{float: right;line-height: 40px;padding: 0 20px;color: #1a6ed1;font-size: 16px;}
+</style>
+<div class="wind-money-keyboard js-money-pop" onmousemove=/HideMenu()/ oncontextmenu="return false" ondragstart="return false" onselectstart ="return false" onselect="document.selection.empty()" oncopy="document.selection.empty()" onbeforecopy="return false">
+<div class="wind-keyboard-complete"><a href="javascript:void (0)" class="js-money-up">完成</a></div>
+<ul class="wind-money-ul">
+	<li data-nb="1" class="js-money-btn">1</li>
+	<li data-nb="2" class="js-money-btn">2</li>
+	<li data-nb="3" class="js-money-btn">3</li>
+	<li data-nb="4" class="js-money-btn">4</li>
+	<li data-nb="5" class="js-money-btn">5</li>
+	<li data-nb="6" class="js-money-btn">6</li>
+	<li data-nb="7" class="js-money-btn">7</li>
+	<li data-nb="8" class="js-money-btn">8</li>
+	<li data-nb="9" class="js-money-btn">9</li>
+	<li data-nb="." class="wind-keyboard-no-click no-bor-bt js-money-spot">·</li>
+	<li data-nb="0" class="js-money-zero no-bor-bt">0</li>
+	<li data-nb="删除" class="js-money-remove wind-keyboard-delete no-bor-bt"></li>
+</ul>
+</div>
+<script>
+	var dqipt=".js-money-ipt-btn";
+	Customkeyboard(dqipt);
+	function Customkeyboard(obj){
+		var objthis;
+		var money="";
+		$(document).on("touchstart",".js-money-btn",function(){
+			if(money!="0"){
+				if(money.indexOf(".")!=-1){
+					if(money.length-money.indexOf(".")<=2){
+						money+=$(this).attr('data-nb');
+						objthis.val(money);
+					}
+				}else{
+					money+=$(this).attr('data-nb');
+					objthis.val(money);
+				}
+
+			}else {
+				money=$(this).attr('data-nb');
+				objthis.val(money);
+			}
+		});
+		$(document).on("touchstart",".js-money-spot",function(){
+			if((money.indexOf(".")==-1)&&(money.length!=0)){
+				money+=$(this).attr('data-nb');
+				objthis.val(money);
+			}
+		});
+		$(document).on("touchstart",".js-money-zero",function(){
+			if(money!="0"){
+				if(money.indexOf(".")!=-1){
+					if(money.length-money.indexOf(".")<=2){
+						money+=$(this).attr('data-nb');
+						objthis.val(money);
+					}
+				}else{
+					money+=$(this).attr('data-nb');
+					objthis.val(money);
+				}
+			}
+		})
+		/*删除*/
+		$(document).on("touchstart",".js-money-remove",function(){
+			var moneyl=money.length;
+			if(moneyl>0){
+				money=money.slice(0,moneyl-1);
+				objthis.val(money);
+			}
+		});
+		/*完成*/
+		$(document).on("click",".js-money-up",function(){
+			$(".js-money-pop").css("transform","translateY(100%)");
+		})
+		/*显示隐藏*/
+		$(document).on("focus",obj,function(){
+			objthis=$(this);
+			money=objthis.val();
+			$(".js-money-pop").css("transform","translateY(0)");
+		})
+		//判断:当前元素是否是被筛选元素的子元素或者本身
+		/*$.fn.isChildAndSelfOf = function(b){
+			return (this.closest(b).length > 0);
+		};
+		$(document).on("touchstart",function(event){
+			if(!$(event.target).isChildAndSelfOf(".js-money-pop")&&!$(event.target).isChildAndSelfOf(obj)){
+				$(".js-money-pop").css("transform","translateY(100%)");
+			}
+		})*/
+
+	}
+</script>

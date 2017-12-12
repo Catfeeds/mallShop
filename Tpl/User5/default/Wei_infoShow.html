@@ -1,0 +1,372 @@
+<!-- 放通头的 -->
+<?php if($headerinfo){ ?><!-- has-mod-top js-scroll-top-opt top-has-opt   浮层式所需要的CSS    -->
+<div data-id="<?php echo $headerinfo['id'];?>" class="inner-mod has-mod-top <?php if($headerinfo['headclasstype']==2){ echo 'js-scroll-top-opt top-has-opt';} ?> mod-top clearfix text-center on a<?php echo $headerinfo['id'] ?>" style="<?php if($headerinfo['headclasstype']!=2){ echo 'background-color:#'.$headerinfo['headcolor'];} ?>">
+    <!-- 素材编辑模块 -->
+    <div class="edit-mod-group clearfix">
+    <?php if($headerinfo['asstype']!='-1'){ ?>
+    	<span class="mod-edit-btn fl edit-header-asa" data-headcolor="<?php echo $headerinfo['headcolor']; ?>" data-headclasstype="<?php echo $headerinfo['headclasstype']; ?>" data-headsearchstatus="<?php echo $headerinfo['headsearchstatus']; ?>" data-headsearchclass="<?php echo $headerinfo['headsearchclass']; ?>" data-headnavstatus="<?php echo $headerinfo['headnavstatus']; ?>" data-headnavid="<?php echo $headerinfo['headnavid']; ?>" data-headlogo="<?php echo $headerinfo['headlogo']; ?>" data-id="<?php echo $headerinfo['id']; ?>" data-type="<?php echo $headerinfo['type']; ?>">编辑模块</span>
+    <?php } ?>
+        <ul class="edit-icon-group fr">
+            <!-- <li><i class="icon-mod-to-up js-icon-mod-to-up"></i></li>
+            <li><i class="icon-mod-to-down js-icon-mod-to-down"></i></li> -->
+            <li><i class="icon-mod-be-remove js-icon-mod-be-remove del-assembly-asa" data-type="<?php echo $headerinfo['type'] ?>" data-id="<?php echo $headerinfo['id'] ?>"></i></li>
+        </ul>
+    </div>
+
+       <i class="<?php if($headerinfo['headnavstatus']==1){ ?>icon-menu-btn<?php } ?> fl"></i>
+       <!-- <i class="icon-img-log"></i> -->
+       <?php if($headerinfo['headlogo']){ ?><img class="inline" src="<?php echo $headerinfo['headlogo']; ?>" style="margin:4px auto;height:38px;"><?php } ?>
+       <i class="<?php if($headerinfo['headsearchstatus']==1){ ?>icon-search-btn<?php } ?> fr"></i>
+</div>
+<?php } ?>
+ <div class="content-wrap js-scroll <?php if($footerinfo){ echo 'has-mod-footer'; }if($headerinfo){ echo ' has-mod-top'; } ?>" id="info-html-asa">
+ <?php if($info['assembly']){ foreach($info['assembly'] as $key=>$val){?>
+ 	<?php if($val['type'] == 9||$val['type']==2||$val['type']==3||$val['type']==4){ ?>
+ 	<?php if($val['type']==9){ $num = 1; }if($val['type']==4){ $num = 2; }if($val['type']==3){ $num = 3; }if($val['type']==2){ $num = 4; } ?>
+ 	<?php   $addinner=''; for($i = 1;$i<=$num;$i++){
+			$addinner .=' data-img'.$i.'='.$val['small'.$i];
+			$addinner .=' data-url'.$i.'="'.$val['link'.$i].'"';
+			$str .='<img src="';
+			$str .=$val['small'.$i];
+			$str .='">  ';
+			} ?>
+<!-- <?php echo $num; ?>*1 图片组件 -->
+	 		<div data-id="<?php echo $val['id'];?>" class="inner-mod js-to-move-cover mod-img-<?php echo $num; ?> on a<?php echo $val['id'] ?>">
+          <!-- 素材编辑模块 -->
+          <div class="edit-mod-group clearfix">
+              <span class="mod-edit-btn fl edit-photo-asa" <?php echo $addinner;$addinner=''; ?> data-id="<?php echo $val['id']; ?>" data-type="<?php echo $val['type']; ?>" >编辑模块</span>
+              <ul class="edit-icon-group fr">
+                  <li><i class="icon-mod-to-up js-icon-mod-to-up"></i></li>
+                  <li><i class="icon-mod-to-down js-icon-mod-to-down"></i></li>
+                  <li><i class="icon-mod-be-remove js-icon-mod-be-remove del-assembly-asa" data-id="<?php echo $val['id'] ?>"></i></li>
+              </ul>
+          </div>
+          <div class="img-<?php echo $num; ?>-group text-center">
+          	<?php echo $str; $str =''; ?>
+          </div>
+      </div>
+	 	<?php }elseif($val['type']==5){ ?>
+	 	<?php $a5='';$b5='';$c5=0;
+							for($i=1;$i<=5;$i++){
+								if($val['small'.$i]){
+									$addinner .=' data-img'.$i.'="'.$val['small'.$i].'"';
+									$addinner .=' data-url'.$i.'="'.$val['link'.$i].'"';
+									$a5 .='<li><img src="'.$val['small'.$i].'" alt="" width="100%"></li> ';
+									$b5 .='<li></li> ';$c5++;
+								}
+							}if($c5<=1){$b5='';}
+                    	 	 ?>
+	 	<!-- 幻灯片插件 -->
+	 		<div data-id="<?php echo $val['id'];?>" class="inner-mod mod-slide on a<?php echo $val['id'] ?>">
+          <!-- 素材编辑模块 -->
+          <div class="edit-mod-group clearfix">
+              <span class="mod-edit-btn fl edit-slide-asa" <?php echo $addinner;$addinner=''; ?> data-id="<?php echo $val['id']; ?>" data-type="<?php echo $val['type']; ?>">编辑模块</span>
+              <ul class="edit-icon-group fr">
+                  <li><i class="icon-mod-to-up js-icon-mod-to-up"></i></li>
+                  <li><i class="icon-mod-to-down js-icon-mod-to-down"></i></li>
+                  <li><i class="icon-mod-be-remove js-icon-mod-be-remove del-assembly-asa" data-id="<?php echo $val['id'] ?>"></i></li>
+              </ul>
+          </div>
+          <div class="demo-slideBox">
+              <div class="hd">
+                  <ul><?php echo $b5; $b5 =''; ?></ul>
+              </div>
+              <div class="bd">
+                  <ul><?php echo $a5; $a5 =''; ?></ul>
+              </div>
+          </div>
+      </div>
+	 	<?php }elseif($val['type']==7){ ?>
+	 		<div data-id="<?php echo $val['id'];?>" class="inner-mod mod-blank on a<?php echo $val['id'] ?>">
+	 			<div class="edit-mod-group clearfix">
+              <span class="mod-edit-btn fl edit-blank-asa" data-blank="<?php echo $val['blank']; ?>" data-id="<?php echo $val['id']; ?>" data-type="<?php echo $val['type']; ?>">编辑模块</span>
+              <ul class="edit-icon-group fr">
+                  <li><i class="icon-mod-to-up js-icon-mod-to-up"></i></li>
+                  <li><i class="icon-mod-to-down js-icon-mod-to-down"></i></li>
+                  <li><i class="icon-mod-be-remove js-icon-mod-be-remove del-assembly-asa" data-id="<?php echo $val['id'] ?>"></i></li>
+              </ul>
+          </div>
+          <div class="FuZhuKongBai" style="height:<?php echo $val['blank']; ?>px;"><!-- 我是辅助空白，其实你根本就看不见我 --></div>
+	 		</div>
+	 	<?php }elseif($val['type']==10){ ?>
+	 		<div data-id="<?php echo $val['id'];?>" class="inner-mod mod-textarea on a<?php echo $val['id'] ?>">
+	 			<div class="edit-mod-group clearfix">
+              <span class="mod-edit-btn fl edit-bigtext-asa" data-id="<?php echo $val['id']; ?>" data-type="<?php echo $val['type']; ?>">编辑模块</span>
+              <ul class="edit-icon-group fr">
+                  <li><i class="icon-mod-to-up js-icon-mod-to-up"></i></li>
+                  <li><i class="icon-mod-to-down js-icon-mod-to-down"></i></li>
+                  <li><i class="icon-mod-be-remove js-icon-mod-be-remove del-assembly-asa" data-id="<?php echo $val['id'] ?>"></i></li>
+              </ul>
+          </div>
+          <div class="FuWenBen" id="b<?php echo $val['id'] ?>"><?php echo htmlspecialchars_decode($val['textinfo']); ?></div>
+	 		</div>
+	 	<?php }elseif($val['type']==6){ ?>
+	 		<div data-id="<?php echo $val['id'];?>" class="inner-mod product-small-wrap-cover clearfix on a<?php echo $val['id'] ?>">
+	 			<div class="edit-mod-group clearfix">
+              <span class="mod-edit-btn fl edit-goods-asa" data-display="<?php echo $val['display']; ?>" data-goodshopcartclass="<?php echo $val['goodshopcartclass']; ?>" data-goodshopcart="<?php echo $val['goodshopcart']; ?>" data-goodprice="<?php echo $val['goodprice']; ?>" data-goodname="<?php echo $val['goodname']; ?>" data-goodid="<?php echo $val['goodid']; ?>" data-id="<?php echo $val['id']; ?>" data-type="<?php echo $val['type']; ?>">编辑模块</span>
+              <ul class="edit-icon-group fr">
+                  <li><i class="icon-mod-to-up js-icon-mod-to-up"></i></li>
+                  <li><i class="icon-mod-to-down js-icon-mod-to-down"></i></li>
+                  <li><i class="icon-mod-be-remove js-icon-mod-be-remove del-assembly-asa" data-id="<?php echo $val['id'] ?>"></i></li>
+              </ul>
+          </div>
+          <div class="product-small-wrap-cover <?php if($val['display']==1){echo 'product-small-wrap-cover-tempFixed-Big';}elseif($val['display']==3){ echo 'product-small-wrap-cover-tempFixed';} ?> clearfix">
+	 			<?php foreach($val['goods'] as $gkey=>$gval){ ?>
+             	<div class="product-small-wrap fl">
+                 <img src="<?php echo $gval['pic']?$gval['pic']:'http://www.mobiwind.cn/Tpl/Wap/default/common/img/common.jpg';?>" width="165px" style="margin:auto;display:block">
+                 <?php if($val['goodname'] != 2){ ?>
+                 <h4><?php echo $gval['title'];?></h4>
+                 <?php } ?>
+                 <?php if($val['goodprice'] != 2||$val['goodshopcart'] != 2){ ?>
+                 <div class="product-price clearfix">
+                 	<?php if($val['goodprice'] != 2){?>
+                     <h3 class="fl w100"><?php echo $gval['pricetype']==1 ? '￥<span>'.$gval['saleprice'].'</span>' : '<span>'.$gval['intprice'].'</span>积分';?></h3>  
+                     <?php } ?>
+                     <?php if($gval['goodtype'] == 1){?>
+	                     <?php if($val['goodshopcart'] != 2){?>
+	                     <i class="icon-buy-buy-buy fr"></i>
+	                     <?php } ?>
+                     <?php }elseif($gval['goodtype'] == 3){?>
+                     <i class="icon-buy-buy-buy icon-jicika fr"></i>
+                     <?php }elseif($gval['goodtype'] == 4){?>
+                      <i class="icon-buy-buy-buy icon-tuangouka fr"></i>
+                     <?php }elseif($gval['goodtype'] == 5){?>
+                      <i class="icon-buy-buy-buy icon-piao fr"></i>
+                     <?php }elseif($gval['goodtype'] == 2){?>
+                      <i class="icon-buy-buy-buy icon-quan fr"></i>
+                     <?php }elseif($gval['goodtype'] == 6){?>
+	                 <i class="icon-buy-buy-buy icon-qianyika fr"></i>
+	                 <?php }elseif($gval['goodtype'] == 7){?>
+	                 <i class="icon-buy-buy-buy icon-libao fr"></i>
+	                 <?php }?>
+                 </div>
+                 <?php } ?>
+             </div>
+             <?php } ?>
+             </div>
+         </div>
+         <?php }elseif($val['type'] == 14){?>
+	     <!--新增拼团组件-->
+	     <div class="inner-mod on mod-product-big-1-small-2 mod-groupon a<?php echo $val['id'];?>" data-id="<?php echo $val['id'];?>">
+	         <div class="edit-mod-group clearfix on"><span class="mod-edit-btn js-fight-groups-mod fl edit-groupon-goods-asa" data-goodid="<?php echo $val['goodid']; ?>" data-id="<?php echo $val['id']; ?>" data-type="<?php echo $val['type']; ?>">编辑模块</span>
+	             <ul class="edit-icon-group fr">
+	                 <li><i class="icon-mod-to-up js-icon-mod-to-up"></i></li>
+	                 <li><i class="icon-mod-to-down js-icon-mod-to-down"></i></li>
+	                 <li><i class="icon-mod-be-remove js-icon-mod-be-remove del-assembly-asa" data-id="<?php echo $val['id'] ?>"></i></li>
+	             </ul>
+	         </div>
+	         <div class="product-small-wrap-cover product-small-wrap-cover-tempFixed-Big product-small-wrap-cover-tempFixed clearfix">
+	         	<?php foreach($val['goods'] as $gkey=>$gval){ ?>
+	             <div class="product-small-wrap fl">
+	                 <img src="<?php echo $gval['pic']?$gval['pic']:'http://www.mobiwind.cn/Tpl/Wap/default/common/img/common.jpg';?>" width="165px" style="margin:auto;display:block;">
+	                 <h4><?php echo $gval['title'];?></h4>
+	                 <div class="product-price clearfix"><h3 class="fl w150 grab-at-once-h3">￥<?php echo $gval['grouponprice'];?><span class="grab-at-once-originalprice">￥<?php echo $gval['originalprice'];?></span></h3><div class="fr"><p class="grab-at-once-nb mr-6 fl"><?php if($gval['groupnum']){echo $gval['groupnum'];}else{echo '0';}?>人团</p><button class="btn-small grab-at-once-btn fl" style="cursor:pointer;">马上抢</button></div></div>
+	             </div>
+	             <?php }?>
+	         </div>
+	     </div>
+        <?php }elseif($val['type']==1){ ?>
+        	<!-- 新添加的 Banner 你要不要 -->
+	        <div data-id="<?php echo $val['id'];?>" class="inner-mod mod-banner on a<?php echo $val['id'];?>">
+	            <!-- 素材编辑模块 -->
+	            <div class="edit-mod-group clearfix">
+	                <span class="mod-edit-btn fl edit-Banner-asa" data-blink="<?php echo $val['blink']; ?>" data-id="<?php echo $val['id']; ?>" data-banner="<?php echo $val['banner']; ?>">编辑模块</span>
+	                <ul class="edit-icon-group fr">
+	                    <li><i class="icon-mod-to-up js-icon-mod-to-up"></i></li>
+	                    <li><i class="icon-mod-to-down js-icon-mod-to-down"></i></li>
+	                    <li><i class="icon-mod-be-remove js-icon-mod-be-remove del-assembly-asa" data-id="<?php echo $val['id'];?>"></i></li>
+	                </ul>
+	            </div>
+	            <img class="" src="<?php echo $val['banner'];?>" width="100%">
+	        </div>
+	    <?php }elseif($val['type']==13){ ?>
+	    	<?php if($val['articletype']==2){?>
+	            <div data-id="<?php echo $val['id'];?>" class="inner-mod mod-page-list-small on a<?php echo $val['id'];?>">
+	                <!-- 素材编辑模块 -->
+	                <div class="edit-mod-group clearfix">
+	                    <span class="mod-edit-btn fl edit-article-asa" data-articletype="<?php echo $val['articletype']; ?>" data-isshowtime="<?php echo $val['isshowtime']; ?>" data-blink="<?php echo $val['blink']; ?>" data-id="<?php echo $val['id']; ?>" data-banner="<?php echo $val['banner']; ?>">编辑模块</span>
+	                    <ul class="edit-icon-group fr">
+	                        <li><i class="icon-mod-to-up js-icon-mod-to-up"></i></li>
+	                        <li><i class="icon-mod-to-down js-icon-mod-to-down"></i></li>
+	                        <li><i class="icon-mod-be-remove js-icon-mod-be-remove del-assembly-asa" data-id="<?php echo $val['id'] ?>"></i></li>
+	                    </ul>
+	                </div>
+	                <ul>
+	                    <li class="page-box clearfix">
+	                        <img src="<?php echo $val['banner']; ?>" class="page-img">
+	                        <h3 class="page-tit js-articletitle-<?php echo $val['id'];?>"><?php echo $val['articletitle']; ?></h3>
+	                        <?php if($val['isshowtime']=='1'){?>
+	                        	<h6 class="page-date"><?php echo format_time($val['updatetime'],'ymd'); ?></h6>
+	                        <?php }?>
+	                        <h6 class="page-con text-gray js-textinfo-<?php echo $val['id'];?>"><?php echo $val['textinfo']; ?></h6>
+	                    </li>
+	                </ul>
+	            </div>
+            <?php }else{?>
+	            <div data-id="<?php echo $val['id'];?>" class="inner-mod mod-page-list-big on a<?php echo $val['id'];?>">
+	                <!-- 素材编辑模块 -->
+	                <div class="edit-mod-group clearfix">
+	                    <span class="mod-edit-btn fl edit-article-asa" data-articletype="<?php echo $val['articletype']; ?>" data-isshowtime="<?php echo $val['isshowtime']; ?>" data-blink="<?php echo $val['blink']; ?>" data-id="<?php echo $val['id']; ?>" data-banner="<?php echo $val['banner']; ?>">编辑模块</span>
+	                    <ul class="edit-icon-group fr">
+	                        <li><i class="icon-mod-to-up js-icon-mod-to-up"></i></li>
+	                        <li><i class="icon-mod-to-down js-icon-mod-to-down"></i></li>
+	                        <li><i class="icon-mod-be-remove js-icon-mod-be-remove del-assembly-asa" data-id="<?php echo $val['id'] ?>"></i></li>
+	                    </ul>
+	                </div>
+	                <div class="page-box">
+	                    <h3 class="page-tit js-articletitle-<?php echo $val['id'];?>"><?php echo $val['articletitle']; ?></h3>
+	                    <?php if($val['isshowtime']=='1'){?>
+	                        <h6 class="page-date"><?php echo format_time($val['updatetime'],'ymd'); ?></h6>
+	                    <?php }?>
+	                    <img width="100%" src="<?php echo $val['banner']; ?>" class="page-img">
+	                    <h6 class="page-con text-gray js-textinfo-<?php echo $val['id'];?>"><?php echo $val['textinfo']; ?></h6>
+	                </div>
+	            </div>
+            <?php }?>
+	 	<?php }elseif($val['type']==-1){ ?>
+	 	<?php  if($val['assinfo']){ ?>
+		<div data-id="<?php echo $val['id'];?>" class="inner-mod product-small-wrap-cover product-small-wrap-cover-defined clearfix on a<?php echo $val['id'] ?>">
+			<div class="edit-mod-group clearfix">
+                         <ul class="edit-icon-group fr">
+                             <li><i class="icon-mod-to-up js-icon-mod-to-up"></i></li>
+                             <li><i class="icon-mod-to-down js-icon-mod-to-down"></i></li>
+                             <li><i class="icon-mod-be-remove js-icon-mod-be-remove del-assembly-asa" data-id="<?php echo $val['id'] ?>"></i></li>
+                         </ul>
+                     </div>
+			<?php foreach($val['assinfo'] as $val2){ ?>
+ 	 		<?php if($val2['type'] == 9||$val2['type']==2||$val2['type']==3||$val2['type']==4){ ?>
+	 			<?php if($val2['type']==9){ $num = 1; }if($val2['type']==4){ $num = 2; }if($val2['type']==3){ $num = 3; }if($val2['type']==2){ $num = 4; } ?>
+	 			<?php for($i = 1;$i<=$num;$i++){
+										$str .='<img src="';
+										$str .=$val2['small'.$i];
+										$str .='">  ';
+									} ?>
+<!-- <?php echo $num; ?>*1 图片组件 -->
+           <div class="img-<?php echo $num; ?>-group text-center">
+           	<?php echo $str; $str =''; ?>
+           </div>
+	 			<?php }elseif($val2['type']==5){ ?>
+  	 	<?php $a5='';$b5='';$c5=0;
+										for($i=1;$i<=5;$i++){
+											if($val2['small'.$i]){
+												$a5 .='<li><img src="'.$val2['small'.$i].'" alt="" width="100%"></li> ';
+												$b5 .='<li></li> ';$c5++;
+											}
+										}if($c5<=1){$b5='';}
+                    	 	 		?>
+  	 	<!-- 幻灯片插件 -->
+          <div class="demo-slideBox">
+              <div class="hd">
+                  <ul><?php echo $b5; $b5 =''; ?></ul>
+              </div>
+              <div class="bd">
+                  <ul><?php echo $a5; $a5 =''; ?></ul>
+              </div>
+          </div>
+  	 	<?php }elseif($val2['type']==7){ ?>
+    	<div class="FuZhuKongBai" style="height:<?php echo $val2['blank']; ?>px;"><!-- 我是辅助空白，其实你根本就看不见我 --></div>
+  	 	<?php }elseif($val2['type']==10){ ?>
+    	<div class="FuWenBen" id="b<?php echo $val2['id'] ?>"><?php echo htmlspecialchars_decode($val2['textinfo']); ?></div>
+    	<?php }elseif($val2['type']==1){ ?>
+    	<!-- 新添加的 Banner 你要不要 -->
+	        <img class="" src="<?php echo $val2['banner'];?>" width="100%">
+	    <?php }elseif($val2['type']==13){ ?>
+	    	<?php if($val2['articletype']==2){?>
+	    		<div class="inner-mod mod-page-list-small">
+                <!-- 素材编辑模块 -->
+                <ul>
+                    <li class="page-box clearfix">
+                        <img src="<?php echo $val2['banner']; ?>" class="page-img">
+                        <h3 class="page-tit js-articletitle-<?php echo $val2['id'];?>"><?php echo $val2['articletitle']; ?></h3>
+                        <?php if($val2['isshowtime']=='1'){?>
+                        	<h6 class="page-date"><?php echo format_time($val2['updatetime'],'ymd'); ?></h6>
+                        <?php }?>
+                        <h6 class="page-con text-gray js-textinfo-<?php echo $val2['id'];?>"><?php echo $val2['textinfo']; ?></h6>
+                    </li>
+                </ul>
+                </div>
+            <?php }else{?>
+                <!-- 素材编辑模块 -->
+                <div class="inner-mod mod-page-list-big">
+                <div class="page-box">
+                    <h3 class="page-tit js-articletitle-<?php echo $val2['id'];?>"><?php echo $val2['articletitle']; ?></h3>
+                    <?php if($val2['isshowtime']=='1'){?>
+                        <h6 class="page-date"><?php echo format_time($val2['updatetime'],'ymd'); ?></h6>
+                    <?php }?>
+                    <img width="100%" src="<?php echo $val2['banner']; ?>" class="page-img">
+                    <h6 class="page-con text-gray js-textinfo-<?php echo $val2['id'];?>"><?php echo $val2['textinfo']; ?></h6>
+                </div>
+                </div>
+            <?php }?>
+  	 	<?php }elseif($val2['type'] == 14){?>
+	     <!--新增拼团组件-->
+         <div class="product-small-wrap-cover product-small-wrap-cover-tempFixed-Big product-small-wrap-cover-tempFixed clearfix">
+         	<?php foreach($val2['goods'] as $gkey=>$gval){ ?>
+             <div class="product-small-wrap fl">
+                 <img src="<?php echo $gval['pic']?$gval['pic']:'http://www.mobiwind.cn/Tpl/Wap/default/common/img/common.jpg';?>" width="165px" style="margin:auto;display:block;">
+                 <h4><?php echo $gval['title'];?></h4>
+                 <div class="product-price clearfix"><h3 class="fl w150 grab-at-once-h3">￥<?php echo $gval['grouponprice'];?><span class="grab-at-once-originalprice">￥<?php echo $gval['originalprice'];?></span></h3><div class="fr"><p class="grab-at-once-nb mr-6 fl"><?php if($gval['groupnum']){echo $gval['groupnum'];}else{echo '0';}?>人团</p><button class="btn-small grab-at-once-btn fl" style="cursor:pointer;">马上抢</button></div></div>
+             </div>
+             <?php }?>
+         </div>
+        <?php }elseif($val2['type']==6){ ?>
+          <div class="product-small-wrap-cover <?php if($val2['display']==1){echo 'product-small-wrap-cover-tempFixed-Big';}elseif($val2['display']==3){ echo 'product-small-wrap-cover-tempFixed';} ?> clearfix">
+	 			<?php foreach($val2['goods'] as $gkey=>$gval){ ?>
+             	<div class="product-small-wrap fl">
+                 <img src="<?php echo $gval['pic']?$gval['pic']:'http://www.mobiwind.cn/Tpl/Wap/default/common/img/common.jpg';?>" width="98%" style="margin:auto;display:block">
+                 <?php if($val2['goodname'] != 2){ ?>
+                 <h4><?php echo $gval['title'];?></h4>
+                 <?php } ?>
+                 <?php if($val2['goodprice'] != 2||$val2['goodshopcart'] != 2){ ?>
+                 <div class="product-price clearfix">
+                 	<?php if($val2['goodprice'] != 2){ ?>
+                     <h3 class="fl w100"><?php echo $gval['pricetype']==1 ? '￥<span>'.$gval['saleprice'].'</span>' : '<span>'.$gval['intprice'].'</span>积分';?></h3>
+                     <?php } ?>
+                     <?php if($gval['goodtype'] == 1){?>
+	                     <?php if($val2['goodprice'] != 2){ ?>
+	                     <i class="icon-buy-buy-buy fr"></i>
+	                     <?php } ?>
+	                 <?php }elseif($gval['goodtype'] == 3){?>
+	                 <i class="icon-buy-buy-buy icon-jicika fr"></i>
+	                 <?php }elseif($gval['goodtype'] == 4){?>
+	                 <i class="icon-buy-buy-buy icon-tuangouka fr"></i>
+	                 <?php }elseif($gval['goodtype'] == 5){?>
+	                 <i class="icon-buy-buy-buy icon-piao fr"></i>
+	                 <?php }elseif($gval['goodtype'] == 2){?>
+	                 <i class="icon-buy-buy-buy icon-quan fr"></i>
+	                 <?php }elseif($gval['goodtype'] == 6){?>
+	                 <i class="icon-buy-buy-buy icon-qianyika fr"></i>
+	                 <?php }elseif($gval['goodtype'] == 7){?>
+	                 <i class="icon-buy-buy-buy icon-libao fr"></i>
+	                 <?php }?>
+                 </div>
+                 <?php } ?>
+             </div>
+             <?php } ?>
+             </div>
+             <?php } ?>
+ 	 	<?php } ?>
+ 	 	</div>
+ 	 	<?php } ?>
+	 	<?php }  ?>
+	 <?php } }?>
+</div>
+<!-- 放通底的 -->
+<?php if($footerinfo){ ?>
+<div data-id="<?php echo $footerinfo['id'];?>" class="inner-mod mod-footer on a<?php echo $footerinfo['id'] ?>">
+    <!-- 素材编辑模块 -->
+    <div class="edit-mod-group clearfix">
+        <?php if($footerinfo['asstype']!='-1'){ ?>
+     	<span class="mod-edit-btn fl edit-footer-asa" data-footclass="<?php echo $footerinfo['footclass']; ?>" data-footisstatus="<?php echo $footerinfo['footisstatus']; ?>" data-id="<?php echo $footerinfo['id']; ?>" data-type="<?php echo $footerinfo['type']; ?>">编辑模块</span>
+        <?php } ?>
+        <ul class="edit-icon-group fr">
+            <!-- <li><i class="icon-mod-to-up js-icon-mod-to-up"></i></li>
+            <li><i class="icon-mod-to-down js-icon-mod-to-down"></i></li> -->
+            <li><i class="icon-mod-be-remove js-icon-mod-be-remove del-assembly-asa" data-type="<?php echo $footerinfo['type'] ?>" data-id="<?php echo $footerinfo['id'] ?>"></i></li>
+        </ul>
+    </div>
+    <div class="mod-footer-group">
+        <i class="footer-group-img"></i>
+    </div>
+</div>
+<?php } ?>

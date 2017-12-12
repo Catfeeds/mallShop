@@ -1,0 +1,111 @@
+<script src="./Tpl/Wap/default/common/js/jweixin-1.0.0.js"></script>
+<script>
+var isshare = '<?php echo $type['isshare']?>';
+if(isshare == '1'){
+	wx.config({
+		  debug: false,
+		  appId: "<?php echo $signPackage['appId'];?>",
+		  timestamp: "<?php echo $signPackage['timestamp'];?>",
+		  nonceStr: "<?php echo $signPackage['nonceStr'];?>",
+		  signature: "<?php echo $signPackage['signature'];?>",
+		  jsApiList: [
+		'onMenuShareTimeline',    
+		'onMenuShareAppMessage',    
+		'onMenuShareQQ',    
+		'onMenuShareWeibo',    
+		'hideMenuItems',    
+		'showMenuItems'
+		  ]
+		});
+	wx.ready(function(){
+		//显示右上角菜单接口
+		wx.showOptionMenu();
+	    // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+	    var diytitle = "<?php echo htmlspecialchars_decode($type['sharefriendstitle']);?>";
+	    var diylink = "<?php echo C('site_url').U('WechatPacket/index',array('companyid'=>$companyid,'id'=>$id));?>";
+	    var diyimgUrl = "<?php echo $type['shareimg'] ? $type['shareimg'] : session('clogo'); ?>";
+	    var diydesc = "<?php echo htmlspecialchars_decode($type['sharedes']);?>";
+	    //获取“分享到朋友圈”
+		wx.onMenuShareTimeline({
+		    title: diytitle, // 分享标题
+		    link: diylink, // 分享链接
+		    imgUrl: diyimgUrl, // 分享图标
+		    success: function () { 
+		        // 用户确认分享后执行的回调函数
+		    	$(".share-layer2").hide();
+		    	$.post("<?php echo U('WechatPacket/relay',array('companyid'=>$companyid)).'&time=';?>"+Math.random(),function(data){},"json");
+		    },
+		    cancel: function () { 
+		        // 用户取消分享后执行的回调函数
+		    },
+	        fail: function (res) {
+	          $('#ceshicontent').html(JSON.stringify(res));
+	        }
+		});
+	    //获取“分享给朋友”
+		wx.onMenuShareAppMessage({
+		    title: diytitle, // 分享标题
+		    link: diylink, // 分享链接
+		    imgUrl: diyimgUrl, // 分享图标
+		    desc: diydesc, // 分享描述
+		    type: '', // 分享类型,music、video或link，不填默认为link
+		    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+		    success: function () {
+		        // 用户确认分享后执行的回调函数
+		    	$(".share-layer2").hide();
+		    	$.post("<?php echo U('WechatPacket/relay',array('companyid'=>$companyid)).'&time=';?>"+Math.random(),function(data){},"json");
+		    },
+		    cancel: function () { 
+		        // 用户取消分享后执行的回调函数
+		    }
+		});
+	});
+}else{
+	wx.config({
+		  debug: false,
+		  appId: "<?php echo $signPackage['appId'];?>",
+		  timestamp: "<?php echo $signPackage['timestamp'];?>",
+		  nonceStr: "<?php echo $signPackage['nonceStr'];?>",
+		  signature: "<?php echo $signPackage['signature'];?>",
+		  jsApiList: [   
+			'hideMenuItems'  
+		  ]
+		});
+	wx.ready(function(){
+		//隐藏右上角菜单接口
+		wx.hideOptionMenu();
+	});
+}
+$(function(){
+	$('.packet').click(function(){
+		var id = '<?php echo $id?>';
+		var openid = '<?php echo $openid?>';  //'oKtwoxO6ivHFPhahcbasyRjSVUNI';<?php echo $openid?>'
+		var acttype = <?php echo $type['activitytype']?>;
+		if(acttype == '1'){
+			alert('该活动已关闭，请等待新的活动');
+			return false;
+		}else if(acttype == '3'){
+			alert('该活动已到期，敬请期待更多活动');
+			return false;
+		}else if(acttype == '4'){
+			alert('该活动还未开始请等待');
+			return false;
+		}else if(acttype == '2'){
+			$('.loading').show();
+			$.post("<?php echo U('WechatPacket/ajaxSendPacket',array('companyid'=>$companyid));?>",{aid:id,reOpenid:openid},
+					function(data){
+						$('.loading').hide();
+						if(data.code == '200'){
+							alert(data.msg,2000);
+							window.location.href="<?php echo U('WechatPacket/success',array('companyid'=>$companyid,'id'=>$id)).'&time='; ?>"+Math.random();
+						}else if(data.code == '300'){
+							alert(data.msg,2000);
+						}else{
+							alert(data.msg2,2000);
+						}
+					},"json"
+			);
+		}
+	});
+});
+</script>

@@ -1,0 +1,46 @@
+<include file="Public:head"/>
+<div class="content">
+	<div class="cLineB">
+		<h4>微信文字回复</h4>
+		<label class="fr"><a href="javascript:history.go(-1);" class="btn btn-small btn-gray"><?php echo L('Back');?></a></label>
+	</div>
+	<div class="pageNav"><a href="{lanrain::U('Text/add',array('token'=>$token))}" class="btn btn-primary"><i class="icon-plus"></i>创建</a></div>
+	<div class="panel panel-default">
+		<div class="panel-body table-content">
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped" border="0" cellSpacing="0" cellPadding="0" width="100%">
+					<thead>
+						<tr>
+							<th class="offset3">文字回复内容</th>
+							<th class="offset2">{lanrain::L('TrigKw')}</th>
+							<th class="offset2">被触发次数</th>
+							<th class="offset2">{lanrain::L('Manage')}</th>
+						</tr>
+					</thead>
+					<?php if($list){ ?>
+					<tbody>
+						<?php foreach($list as $lKey=>$lVal){ ?>
+						<tr>
+							<td><div class="break-all"><?php echo $lVal['content']; ?></div></td>
+							<td><?php echo $lVal['keyword']; ?></td>
+							<td><?php echo $lVal['shownum']; ?></td>
+							<td algin="center"><a href="<?php echo U('Text/edit',array('id'=>$lVal['id'],'token'=>$token)); ?>" class="btn btn-mini btn-primary"><?php echo L('Edit');?></a> <a href="<?php echo U('Text/del',array('id'=>$lVal['id'],'token'=>$token)); ?>" onclick="return confirm('{lanrain::L('DelConfirm')}')" class="btn btn-mini btn-red-dark"><?php echo L('Del');?></a></td>
+						</tr>
+						<?php } ?>
+					</tbody>
+				</table>
+				<div class="pageNavigator">
+					<div class="pages">{lanrain:$page}</div>
+				</div>
+				<?php }else{ ?>
+				<tbody class="noContent" >
+					<tr>
+						<td colspan="4"><p class="seek"><i class="seek-icon"></i>暂无</p></td>
+					</tr>
+				</tbody>
+				<?php } ?>
+			</div>
+		</div>
+	</div>
+</div>
+<include file="Public:footer"/>

@@ -1,0 +1,131 @@
+<include file="Public:scrm5Head" />
+<link href="{lanrain::RES}/Member_Center/css/wap.css?<?php echo C('site_system_file_version'); ?>" rel="stylesheet" type="text/css" />
+<section class="content_app ifoot_padding fzs_bgcolor_f1f0f5">
+	<?php if($info['leftintegral'] > 0){?>
+	<h6 class="Cumulative_integral_h6">距离下次升级，还需获得<?php echo $info['leftintegral'];?>累计积分</h6>
+	<?php }?>
+	<div class="Cumulative_integral_chart">
+		<img class="Lower_triangle_img" src="{lanrain::RES}/Member_Center/img/menber-xsj.png" alt="">
+		<div class="canvas_box" <?php if($info['cardmaincolor']){ echo 'style="background: '.$info['cardmaincolor'].';"';}?>><canvas id="myCanvas" class="Sector_canvas" width="280" height="280"></canvas></div>
+		<div class="integral_chart_box">
+			<div class="js-chart_box">
+				<p>累计积分</p>
+				<p><?php if($info['totalintegration']>$info['totalexperiencevalue']){ echo $info['totalintegration'];}else{ echo $info['totalexperiencevalue'];} ?></p>
+				<p><?php echo $info['rankname'];?></p>
+			</div>
+		</div>
+	</div>
+	<div class="available_integral_box">
+		<h6>可用积分</h6>
+		<span><?php echo $info['totalintegration'];?></span>
+	</div>
+	<?php if($info['list']){?>
+	<div class="integral_History mt-15">
+		<div class="available_integral_box">
+			<h6>积分历史</h6>
+		</div>
+		<ul class="integral_History_ul">
+			<?php foreach($info['list'] as $key=>$val){?>
+			<li>
+				<p><?php if($val['type']=='101'){echo '完善会员资料';}elseif($val['type']=='102'){ echo '注册';}elseif($val['type']=='103'){ echo '点评奖励';}elseif($val['type']=='104'){ echo '后台手动加积分';}elseif($val['type']=='105'){ echo '摇摇签到';}elseif($val['type']=='106'){echo '闪惠支付';}elseif($val['type']=='107'){ echo '风助手门店收银';}elseif($val['type']=='108'){ echo '微信关注';}elseif($val['type']=='109'){ echo '首次消费';}elseif($val['type']=='110'){ echo 'eshop支付';}elseif($val['type']=='111'){ echo '拉卡拉门店收银';}elseif($val['type']=='112'){ echo '充值';}elseif($val['type']=='113'){ echo '手机预订支付';}elseif($val['type']=='114'){ echo '微信外卖支付';}elseif($val['type']=='115'){ echo '手机点单支付';}elseif($val['type']=='116'){ echo '风助手手动加积分';}elseif($val['type']=='117'){ echo '手机预订奖励';}elseif($val['type']=='201'){ echo '后台手动减积分';}elseif($val['type']=='202'){ echo '积分到期自动清零';}elseif($val['type']=='203'){ echo '会员WAP积分换储值';}elseif($val['type']=='204'){ echo '积分商城';}elseif($val['type']=='205'){ echo '风助手手动减积分';}elseif($val['type']=='118'){ echo '预订(SPA)支付';}elseif($val['type']=='119'){ echo '预订支付';}elseif($val['type']=='125'){ echo '快捷储值收银(风助手)';}elseif($val['type']=='126'){ echo '快捷储值收银(拉卡拉)';}?></p>
+				<p><?php echo format_time($val['createtime'],'ymdhi');?></p>
+				<?php if($val['type']=='201' || $val['type']=='202' || $val['type']=='203' || $val['type']=='204' || $val['type']=='205'){?>
+				<span class="cl_span_l"><span>-</span><?php echo $val['integralnum'];?></span>
+				<?php }else{?>
+				<span class="cl_span_r"><span>+</span><?php echo $val['integralnum'];?><?php if($val['status'] == 2){echo '(已退还)';}?></span>
+				<?php }?>
+			</li>
+			<?php }?>
+		</ul>
+	</div>
+	<?php }else{?>
+	<div class="No-credit-history-iconbox mt-15">
+		<img src="{lanrain::RES}/Member_Center/img/menber-jflszw.png">
+	</div>
+	<?php }?>
+	<script type="text/javascript">
+	$(function(){
+	    //滑动加载
+	    var lengthnum = "<?php echo $info['limit'];?>"; //每次加载的数目
+	    var totalnum = "<?php echo $info['count'];?>"; //库里面的总数目
+	    var totalpage; //一共要加载多少页
+	    var currentpage = 0; //当前页
+	    totalpage = Math.ceil(totalnum / lengthnum);  //计算总页数
+	    $(window).scroll(function () {
+	    	var h2 = $(window).height();
+	        h1 = $(document).height();
+	        scollTop = $(document).scrollTop();
+	        if ((h1 - h2) <= scollTop) {   //滚动条滚到浏览器底部执行的事假
+	            if (currentpage == totalpage) {   // 等于总页数
+	                currentpage = totalpage;
+	            } else if (currentpage < totalpage) {  // 小于总页数
+	                currentpage++;
+	                var startNumber = currentpage * lengthnum;
+	               	if(currentpage >= totalpage){
+		                return false;
+	                }
+	                $(".loading").show();
+	                $.post("<?php echo U('Member/ajaxMoreTotalintegral',array('companyid'=>$companyid)).'&time=time()';?>"+Math.random(),{startNumber:startNumber},function(data){
+	                	$(".loading").hide();
+                 		$('.integral_History_ul').append(data.html);
+	                 }, "json");
+	            }
+	        }
+	    });
+	});
+	</script>
+	<script type="text/javascript">
+		$(window).load(function(){
+			CanvasRenderingContext2D.prototype.sector = function (x, y, radius, sDeg, eDeg) {
+				// 初始保存
+				this.save();
+				// 位移到目标点
+				this.translate(x, y);
+				this.beginPath();
+				// 画出圆弧
+				this.arc(0,0,radius,sDeg, eDeg);
+				// 再次保存以备旋转
+				this.save();
+				// 旋转至起始角度
+				this.rotate(eDeg);
+				// 移动到终点，准备连接终点与圆心
+				this.moveTo(radius,0);
+				// 连接到圆心
+				this.lineTo(0,0);
+				// 还原
+				this.restore();
+				// 旋转至起点角度
+				this.rotate(sDeg);
+				// 从圆心连接到起点
+				this.lineTo(radius,0);
+				this.closePath();
+				// 还原到最初保存的状态
+				this.restore();
+				return this;
+			}
+			var c=document.getElementById("myCanvas");
+			var deg = Math.PI/180;
+			var Percentage=c.getContext("2d");
+			var zd = "<?php echo $info['angle'];?>";
+			var i = -90;
+			Percentage.fillStyle="#000000";
+			Percentage.globalAlpha=.15;
+			var timer=setInterval(function(){
+				if(i<zd){
+					i++;
+					Percentage.sector(140,140,140,(i-1)*deg,i*deg).fill();
+				}else{
+					clearInterval(timer);
+					$(".js-chart_box").show();
+				}
+			},1)
+		})
+	</script>
+	<!-- ========公共底部======== -->
+    <div class="eshopv_fotter_logo">
+        <include file="Public:navFooter" />
+    </div>
+</section>
+<include file="Public:loginBox" />
+<include file="Public:weiXinNotShareSet" />
+<include file="Public:scrm5Foot" />

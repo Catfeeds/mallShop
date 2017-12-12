@@ -1,0 +1,199 @@
+<include file="Public:head"/>
+<include file="Public:UEditorJS" />
+<include file="Public:UEditorSuperBig" />
+<?php echo $makeTopUrl;?>
+<!-- 设置V1等级权益 2016-10-26 12:20 -->
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>升级V<?php echo $Info['number'];?>触发权益</h4></div>
+    <div class="mod-body">
+        <div class="content">
+            <div class="alert style-pink mb-15">注：<strong>【应用列表】</strong>当顾客首次到达本会员等级时，系统自动触发相应权益。相应权益直达顾客卡券包，同时顾客将收到相应的微信消息模板通知</div>
+            <div class="group pb-10 js-voucher-sort"><a class="btn-small btn-white js-new-goods-btn">添加触发权益</a></div>
+            <?php if($List){ foreach($List as $key=>$val){?>
+            <div class="alert style-gray mb-15 clearfix">
+                <div class="size1of3 fl"><h4 class="inline"><?php echo $val['vouchername']?$val['vouchername']:'-';?></h4><br><h5 class="inline"><?php if($val['type'] == '1'){echo 'eshop优惠券';}elseif($val['type'] == '2'){echo '门店使用优惠券';}elseif($val['type'] == '3'){echo '兑换券';}elseif($val['type'] == '4'){echo '红包';}elseif($val['type'] == '5'){echo '计次卡';}elseif($val['type'] == '6'){echo '团购';}elseif($val['type'] == '7'){echo '门票';}elseif($val['type'] == '8'){echo '权益卡';}elseif($val['type'] == '40'){echo '通用券';}else{echo '-';}?></h5></div>
+                <p class="size1of3 fl pt-10"><?php echo $val['skuname']?$val['skuname']:'-';?><?php if($val['type'] == '5'){echo '次';}?> <span class="fr"><?php echo $val['num']?$val['num']:'0';?>张</span></p>
+                <p class="size1of3 fl pt-10"><a class="tips fr js-ajax-deletevoucher" data-id="<?php echo $val['id'];?>">删除</a></p>
+            </div>
+            <?php }}?>
+        </div>
+    </div>
+</div> 
+<!-- 新增触发权益 弹窗 -->
+<div class="popup-wrap js-new-goods-popup-wrap" style="display: none;">
+    <div class="mod middle-popup type-2">
+        <div class="mod-header">
+            <h4 class="fl">添加触发权益</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+            <div class="content">
+                <div class="group pb-15">
+                    <h6 class="inline w100">添加触发权益：</h6>
+                    <select class="inline w100 js-voucher">
+                        <option value="0">卡券类型</option>
+                        <option value="1">eshop优惠券</option>
+                        <option value="2">门店使用优惠券</option>
+                        <option value="3">兑换券</option>
+                        <option value="4">红包</option>
+                        <option value="5">计次卡</option>
+                        <option value="6">团购</option>
+                        <option value="7">门票</option>
+                        <option value="8">权益卡</option>
+                        <option value="40">通用券</option>
+                    </select>
+                    <select class="inline w100 js-vouchername" style="display:none">
+                    </select>
+                    <select class="inline w100 js-vouchersku" style="display:none">
+                    </select>
+                </div>
+                <div class="group pb-15">
+                    <h6 class="inline w100">数量：</h6>
+                    <input class="inline w100" type="text" placeholder="0" onchange="this.value=this.value.replace(/[^\d]/ig,'')" name="vouchernum" value=""></input> <h6 class="inline">张</h6>
+                </div>
+                <p class="text-center">
+                    <input class="btn-small btn-purple w100 pointer" id="id-ajax-addVoucher" type="submit" value="添加">
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(".js-new-goods-btn").click(function(){
+	$('.js-voucher option').eq(0).prop('selected',true);
+	$('.js-vouchername').hide().html('');
+	$('.js-vouchersku').hide().html('');
+	$('input[name="vouchernum"]').val('');
+    $(".js-new-goods-popup-wrap").fadeIn(120);
+});
+//选择券类型
+$(document).on('change',".js-voucher",function(){
+	$('.js-vouchername').hide();
+	$('.js-vouchersku').hide();
+	var vouchertype = $(this).val();
+	if(vouchertype == false){
+		$('.js-vouchername').html('').hide();
+		$('.js-vouchersku').html('').hide();
+	}else{
+		$.post("<?php echo U('MemberCardRank/ajaxVoucherName').'&time='; ?>"+Math.random(),
+			{vouchertype:vouchertype},
+			function(data){
+				if(data.code == 200){
+					$('.js-vouchername').html(data.html).show();
+				}else{
+					alertTan(data.msg,'error');
+				}
+			},"json");
+	}
+});
+//选择券名称
+$(document).on('change',".js-vouchername",function(){
+	$('.js-vouchersku').hide();
+	var vouchertype = $('.js-voucher').val();
+	var voucherid = $(this).val();
+	if(voucherid == false ||vouchertype == '1' ||vouchertype == '2' ||vouchertype == '3' ||vouchertype == '4'||vouchertype == '8'||vouchertype == '40'){
+		$('.js-vouchersku').html('').hide();
+	}else{
+		$.post("<?php echo U('MemberCardRank/ajaxVoucherSku').'&time='; ?>"+Math.random(),
+			{voucherid:voucherid},
+			function(data){
+				if(data.code == 200){
+					$('.js-vouchersku').html(data.html).show();
+				}else{
+					alertTan(data.msg,'error');
+				}
+			},"json");
+	}
+});
+$('#id-ajax-addVoucher').on('click',function(){
+	var type = $('.js-voucher option:selected').val();
+	var voucherid = $('.js-vouchername option:selected').val();
+	var sku = $('.js-vouchersku option:selected').val();
+	var num = $('input[name="vouchernum"]').val();
+	var text = '';
+	var skuname = '-';
+	if(type == false){
+		alertTan('请选择卡券类型','warn');
+		return false;
+	}
+	if(voucherid == false){
+		alertTan('请选择卡券名称','warn');
+		return false;
+	}
+	if(type == '5'||type == '6'||type == '7'){
+		if(sku == false){
+			alertTan('请选择卡券规格','warn');
+			return false;
+		}else if(sku != 'no'){
+			skuname = $('.js-vouchersku option:selected').text();
+		}
+	}
+	if(num == false){
+		alertTan('请填写数量','warn');
+		return false;
+	}
+	$(".js-new-goods-popup-wrap").fadeOut(120);
+	$.post("<?php echo U('MemberCardRank/ajaxAddVoucher',array('id'=>$Info['id'])).'&time='; ?>"+Math.random(),
+		{voucherid:voucherid,type:type,sku:sku,num:num},
+		function(data){
+			if(data.code == 200){
+				if(type == '5'){
+					text = '次';
+				}
+				html = ' <div class="alert style-gray mb-15 clearfix js-slideDown" style="display:none">';
+				html += ' <div class="size1of3 fl"><h4 class="inline">'+$('.js-vouchername option:selected').text()+'</h4><br><h5 class="inline">'+$('.js-voucher option:selected').text()+'</h5></div>';
+				html += ' <p class="size1of3 fl pt-10">'+skuname+text+' <span class="fr">'+num+'张</span></p>';
+				html += ' <p class="size1of3 fl pt-10"><a class="tips fr js-ajax-deletevoucher" data-id="'+data.id+'">删除</a></p>';
+				html += ' </div>';
+				$('.js-voucher-sort').after(html);
+				$('.js-slideDown').first().slideDown(500);
+			}else{
+				alertTan(data.msg,'error');
+			}
+		},"json");
+});
+$(document).on('click','.js-ajax-deletevoucher',function(){
+	var id = $(this).attr('data-id');
+	var $this = $(this);
+	$.post("<?php echo U('MemberCardRank/ajaxDelVoucher').'&time='; ?>"+Math.random(),
+			{id:id},
+			function(data){
+				if(data.code == 200){
+					$this.parent().parent().slideUp(380,function(){ $this.parent().parent().remove();});
+				}else{
+					alertTan(data.msg,'error');
+				}
+			},"json");
+});
+</script>
+
+<!-- 设置V1等级权益说明 2016-10-27 12:50 -->
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>V<?php echo $Info['number'];?>等级权益说明</h4></div>
+    <div class="mod-body">
+        <div class="content">
+        	<div class="alert mb-15 w865">注意！本编辑器不会自动保存第三方平台中的图片，如果您的图文是从其他编辑器上直接复制粘贴过来的（如秀米等），请确保秀米等外来编辑器的原始图片文件不会被删除！否则，图文中的图片会在源图片文件被删除后无法查看！  *秀米编辑器会定期清理非秀米VIP账号的图文，请谨慎使用！</div>
+          	<script id="SuperBig" name="content" type="text/plain" class="inline w350"><?php echo htmlspecialchars_decode(htmlspecialchars_decode($Info['desc']));?></script>
+        </div>
+        <div class="group form-footer text-center">
+            <input class="btn-small btn-purple w100" type="submit" id="id-ajax-desc" value="保存">
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$('#id-ajax-desc').on('click',function(){
+	$(".loading").show();
+	var info = SuperBig.getContent();
+	$.post("<?php echo U('MemberCardRank/ajaxSaveDesc',array('id'=>$Info['id'])).'&time='; ?>"+Math.random(),
+		{desc:info},
+		function(data){
+			$(".loading").hide();
+			if(data.code == 200){
+				alertTan(data.msg);
+			}else{
+				alertTan(data.msg,'error');
+			}
+		},"json");
+});
+</script>
+<include file="Public:footer"/>

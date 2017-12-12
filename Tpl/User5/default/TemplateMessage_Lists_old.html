@@ -1,0 +1,175 @@
+<include file="Public:head"/>
+<style>
+   .mb20 a:nth-child(5){ color:#d0474f;}
+</style>
+<div class="content">
+<include file="Public:wechatsManage"/>
+    <div class="cLineB ">
+        <h4>触发事件类型和触发事件列表</h4>
+    </div>
+    <form class="form-horizontal widget-body mb20 dinw-fr" style="min-height: 600px; padding: 30px 30px 30px 30px; " method="post" action="javascript:void(0);" novalidate="novalidate">
+        <div class="control-group ">
+            <label class="control-label" style="width: 108px;">微信消息模板类型：</label>
+            <div class="controls" style="margin-left: 108px;">
+                <select class="span3">
+                    <option>请选择</option>
+                    <option>优惠券</option>
+                    <option>手机订座</option>
+                    <option>微信外卖</option>
+                </select>
+            </div>
+        </div>
+
+         <ul class="wewhat_muban">
+             <li class="wewhat_muban_lli">
+                 <div class="wewhat_muban_box">
+                     <strong>优惠券即将过期通知</strong>
+                     <i class="wx_mub_timea">6月17日</i>
+                     <p class="wx_mub_red">恭喜，您已获得一张来自、品牌名称的、电子券</p>
+                     <p class="wx_mub_back">卡券号：</p>
+                     <p class="wx_mub_back">券名称：</p>
+                     <p class="wx_mub_back">卡券信息：</p>
+                     <p class="wx_mub_back">发放人：</p>
+                     <p class="wx_mub_back">发放时间：</p>
+                     <p class="wx_mub_back">感谢您的使用，请继续关注我们新的优惠活动！</p>
+                 </div>
+                 <div class="wewhat_muban_biltid">
+                     <a href="javascript:void(0);">详情</a>
+                 </div>
+                 <div class="wmg_mnb_bnx">
+                     <div class="controls" style="margin-left: 5px; width: 80%; display: block; float: left;    margin-top: 5px;">
+                         <label class="radio inline" style="color: #ffffff;"><input name="isshow" checked="checked" value="1" type="radio" >启用</label>
+                         <label class="radio inline" style="color: #ffffff;"><input name="isshow" value="0" type="radio">禁用</label>
+                     </div>
+                     <a href="javascript:void(0);" class="wmg_mnb_bnx_bjlo">编辑</a>
+                 </div>
+             </li>
+             <li class="wewhat_muban_lli">
+                 <div class="wewhat_muban_box">
+                     <strong>优惠券即将过期通知</strong>
+                     <i class="wx_mub_timea">6月17日</i>
+                     <p class="wx_mub_red">您的优惠券已经领取成功</p>
+                     <p class="wx_mub_back">优惠券：</p>
+                     <p class="wx_mub_back">优惠券：</p>
+                     <p class="wx_mub_back">兑换码：</p>
+                     <p class="wx_mub_back">消费日：</p>
+                     <p class="wx_mub_back">感谢您的使用，请继续关注我们新的优惠活动！</p>
+                 </div>
+                 <div class="wewhat_muban_biltid">
+                     <a href="javascript:void(0);">详情</a>
+                 </div>
+                 <div class="wmg_mnb_bnx">
+                     <div class="controls" style="margin-left: 5px; width: 80%; display: block; float: left;    margin-top: 5px;">
+                         <label class="radio inline" style="color: #ffffff;"><input name="isshow" checked="checked" value="1" type="radio" >启用</label>
+                         <label class="radio inline" style="color: #ffffff;"><input name="isshow" value="0" type="radio">禁用</label>
+                     </div>
+                     <a href="<?php echo U('TplNews/Info');?>" class="wmg_mnb_bnx_bjlo">编辑</a>
+                 </div>
+             </li>
+             <li class="wewhat_muban_lli">
+                 <div class="wewhat_muban_box">
+                     <strong>优惠券即将过期通知</strong>
+                     <i class="wx_mub_timea">6月17日</i>
+                     <p class="wx_mub_red">您有优惠券即将失效</p>
+                     <p class="wx_mub_back">优惠券：</p>
+                     <p class="wx_mub_back">到期时间：</p>
+                     <p class="wx_mub_back">请点击查看优惠券</p>
+                 </div>
+                 <div class="wewhat_muban_biltid">
+                     <a href="javascript:void(0);">详情</a>
+                 </div>
+                 <div class="wmg_mnb_bnx">
+                     <div class="controls" style="margin-left: 5px; width: 80%; display: block; float: left;    margin-top: 5px;">
+                         <label class="radio inline" style="color: #ffffff;"><input name="isshow" checked="checked" value="1" type="radio" >启用</label>
+                         <label class="radio inline" style="color: #ffffff;"><input name="isshow" value="0" type="radio">禁用</label>
+                     </div>
+                     <a href="<?php echo U('TplNews/Info');?>" class="wmg_mnb_bnx_bjlo">编辑</a>
+                 </div>
+             </li>
+         </ul>
+
+
+
+
+
+        <!--<div style="position:absolute; bottom:10px; left:340px;">
+            <a href="javascript:void(0);" class="btn btn-success ml20 submit">保存并发布</a>
+        </div>-->
+
+        <input type="hidden" name="__hash__" value="6bd769c2d06086fbe96b467b232270d9_3022ad6b958d6a10751e85e5336c487e">
+    </form>
+
+   <!-- <script>
+        $(function () {
+          $(".wewhat_muban_lli").mouseenter(function(){
+                 $(".wmg_mnb_bnx").show();
+
+          });
+            $(".wewhat_muban_lli").mouseleave(function(){
+                $(".wmg_mnb_bnx").hide();
+                return false
+            });
+
+        });
+    </script>-->
+
+    <!--<div class="panel panel-default">
+        <div class="panel-body table-content" style="overflow-y: auto;">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped" border="0" cellspacing="0" cellpadding="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th class="offset2">触发事件类型</th>
+                        <th class="offset3">触发事件</th>
+                        <th class="offset2">消息链接</th>
+                        <th class="offset5">模板ID</th>
+                        <th class="offset2">是否启用</th>
+                        <th class="offset3">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    &lt;!&ndash;
+                    <tr>
+                        <td>优惠券</td>
+                        <td>优惠券领取成功通知</td>
+                        <td>我的电子劵</td>
+                        <td>1iiJMvs2g7QrVPtbaJNhi8KtCuB_iV951PF9SsZCu4Y</td>
+                        <td><p>尊敬的<-姓名->,您的优惠券已经领取成功</p>
+                            <p>优惠券：<-优惠标题-></p>
+                            <p>来源：<-营销活动名称-></p>
+                            <p>劵号：<-优惠劵号-></p>
+                            <p>有效期：<-生效日期->至<-有效期->，</p>
+                            <p>请查收，如有任何疑问,欢迎拨打电话XXX-88888888咨询</p>
+                        </td>
+                        <td><a href="<?php echo U('TplNews/Info');?>" class="btn btn-mini btn-primary bianj-t">编辑</a></td>
+                    </tr>
+                    &ndash;&gt;
+                    <?php foreach($booklist as $key=>$val){?>
+
+                    <tr>
+                        <td><?php if($val['type'] == '1'){ echo '手机订座';}elseif($val['type'] == '2'){ echo '外卖管理';}?></td>
+                        <td><?php echo $val['typename'];?></td>
+                        <td><?php echo $val['urlname'];?></td>
+                        <td><?php echo $val['tplid'];?></td>
+                        <td><?php if($val['isopen'] == '1'){ echo '是';}else{ echo '否';} ?></td>
+                        <td><a href="<?php echo U('TemplateMessage/Info',array('id'=>$val['id']));?>" class="btn btn-mini btn-primary bianj-t">编辑</a></td>
+                    </tr>
+                    
+                    <?php }?>
+                    </tbody>
+                </table>
+                <?php if($page){ ?>
+					<div class="pageNavigator">
+						<div class="pages"><?php echo $page;?></div>
+					</div>
+					<?php }else{ ?>
+					<div class="noContent">
+						<p class="seek"><i class="seek-icon"></i>暂无</p>
+					</div>
+				<?php } ?>
+            </div>
+        </div>
+    </div>-->
+</div>
+
+<include file="Public:footer"/> 

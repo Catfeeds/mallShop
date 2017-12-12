@@ -1,0 +1,53 @@
+	<!-- 不含eshop黑色底部的通用底 -->
+	<include file="Public:loading"/>
+	<?php if($isshowsystemdiymen != 2){ ?>
+	<include file="Public:menu"/>
+	<?php } ?>
+	<div class="eshopv_fotter_logo">
+		<include file="Public:navFooter" />
+	</div>
+</div>
+<script>
+  $(function(){
+    $(".controls .form-control").focus(function(e) {
+      var $this = $(this);
+      $this.removeClass("text-right");
+    }).focusout(function(e) {
+      var $this = $(this),
+        pl = $this.attr("placeholder");
+      if($this.val() === pl){
+        $this.val("");
+      }
+      $this.addClass("text-right");
+    });
+  });
+  $(function(){
+    $(".form-right .form-control").focus(function(e) {
+      var $this = $(this);
+      $this.removeClass("text-right");
+    }).focusout(function(e) {
+      var $this = $(this),
+        pl = $this.attr("placeholder");
+      if($this.val() === pl){
+        $this.val("");
+      }
+      $this.addClass("text-right");
+    });
+  });
+</script>
+<!--<script src="{lanrain::RES}/js/jquery.lazyload.min.js"></script>-->
+<script src="{lanrain::RES}/js/jquery.scrollLoading.min.js"></script>
+<script type="text/javascript">
+  $(function() {
+    /*$("img.lazy").lazyload({
+      effect : "fadeIn"
+    });*/
+    $("img").load(function () {
+      $(this).hide();
+      $(this).fadeIn("3000");
+    });
+    $(".scrollLoading").scrollLoading();
+  });
+</script>
+</body>
+</html>

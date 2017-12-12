@@ -1,0 +1,147 @@
+<include file="Public:head"/>
+<?php echo $makeTopUrl;?>
+<!--场景 > 代理 > 代理管理-->
+<div class="group inline-btn-group mb-10">
+	<a class="btn-small btn-white" href="<?php echo U('MallExhibitionPartner/partnerApplyList');?>">代理申请管理</a>
+    <a class="btn-small btn-purple" href="<?php echo U('MallExhibitionPartner/partnerList');?>">代理管理</a>
+    <a class="btn-small btn-white" href="<?php echo U('MallExhibitionPartner/index');?>">代理基础设置</a>
+    <!-- <a class="btn-small btn-white" href="<?php echo U('MallExhibitionPartner/invitationPoster');?>">邀请海报设置</a> -->
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>筛选条件</h4></div>
+    <form class="mod-body" action="<?php echo U('MallExhibitionPartner/partnerList');?>" method="post">
+        <ul class="content ">
+            <li class="clearfix pb-15">
+                <div class="group size1of3 fl">
+                    <h6 class="inline w100">代理手机号：</h6>
+                    <input class="inline w150" type="text" name="mobile" value="<?php echo $mobile;?>">
+                </div>
+            </li>
+        </ul>
+        <div class="group form-footer text-center">
+            <input class="btn-small btn-purple w100" type="submit" value="筛选">
+            <input class="btn-small btn-white w100 ml-80" type="reset" value="重置">
+        </div>
+    </form>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>代理管理</h4></div>
+    <div class="mod-body">
+        <div class="content">
+			<table class="table type-1 w-auto">
+                <thead>
+                <tr>
+                    <th>代理</th>
+                    <th>累计订单<a href="javascript:void(0);" class="sort-icon"></a></th>
+                    <th>累计佣金<a href="javascript:void(0);" class="sort-icon"></a></th>
+                    <th>可提现佣金<a href="javascript:void(0);" class="sort-icon"></a></th>
+					<th>申请提现中佣金<a href="javascript:void(0);" class="sort-icon"></a></th>
+                    <th>清退状态</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php if($list){ foreach($list as $key=>$val){?>
+                <tr>
+                    <td>
+                    	<p><?php echo $val['nickname'];?></p>
+                    	<a href="<?php echo U('Member/memberInfo',array('id'=>$val['mid']));?>" class="tips"><?php echo $val['moblie'];?></a>
+                    </td>
+                    <td><a href="<?php echo U('MallExhibitionPartner/achievement',array('companyid'=>$companyid,'mid'=>$val['mid']))?>" class="tips"><?php echo $val['totalorder']?$val['totalorder']:'0';?></a></td>
+                    <td><?php echo $val['totalmoney']?$val['totalmoney']:'0.00';?></td>
+                    <td><?php echo $val['availablemoney']?$val['availablemoney']:'0.00';?></td>
+					<td><a href="<?php echo U('MallExhibitionPartner/totalMoney',array('companyid'=>$companyid,'mid'=>$val['mid']))?>" class="tips"><?php echo $val['withcashing']?$val['withcashing']:'0.00';?></a></td>
+                    <td><?php if($val['isclear'] == 1){echo '已清退';}else{echo '正常';}?></td>
+                    <td>
+                    	<?php if($val['isclear'] == 2){?>
+                        <a href="javascript:void(0);" class="tips js-clear" data-mid="<?php echo $val['mid'];?>">清退</a>
+						<a href="<?php echo U('MallExhibitionPartner/manage',array('companyid'=>$companyid,'mid'=>$val['mid']));?>" class="tips">代理区域街道管理</a>
+                        <!-- <a href="javascript:void(0);" class="tips js-add-bonus-btn" data-mid="<?php echo $val['mid'];?>">增加奖金</a> -->
+                    	<?php }?>
+                    </td>
+                </tr>
+                <?php }}else{?>
+                <tr class="text-center not-hover">
+                    <td colspan="7">暂无</td>
+                </tr>
+                <?php }?>
+                </tbody>
+            </table>
+        </div>
+        <div class="group form-footer clearfix">
+           <?php echo $page;?>
+        </div>
+    </div>
+</div>
+<!--增加奖金-->
+<div class="popup-wrap js-add-bonus-wrap">
+    <div class="mod small-popup">
+        <div class="mod-header">
+            <h4 class="fl">增加奖金</h4>
+            <i class="fr icon-close-dark js-icon-close"></i></div>
+        <div class="mod-body">
+            <ul class="content">
+                <li class="group pb-15">
+                    <h6 class="inline w80">金额</h6>
+                    <input class="inline w150" type="text" name="reward" value="">
+                </li>
+                <li class="group">
+                    <h6 class="inline w80 text-top">备注</h6>
+                    <textarea class="inline w150" cols="30" rows="3" name="remark"></textarea>
+                </li>
+            </ul>
+            <div class="group text-center pb-15">
+                <a class="btn-middle btn-purple w60 js-submit">保存</a>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(".js-add-bonus-btn").click(function(){
+        	var mid = $(this).attr("data-mid");
+        	$('.js-submit').attr("data-mid",mid);
+            $(".js-add-bonus-wrap").fadeIn(120);
+        });
+        $('.js-submit').click(function(){
+        	var mid = $(this).attr("data-mid");
+        	var reward = $('input[name="reward"]').val();
+        	if(reward.trim() == '' || !(/^(\+|-)?\d+$/.test(reward))){
+        		alertTan('请填写正确金额','warn');
+        		return false;
+        	}
+        	var remark = $('[name="remark"]').val();
+        	if(remark.trim() == ''){
+        		alertTan('请填写备注','warn');
+        		return false;
+        	}
+        	$('.loading').show();
+        	$.post("<?php echo U('MallExhibitionPartner/ajaxAddReward',array('companyid'=>$companyid)).'&time='?>"+Math.random(),{'mid':mid,'reward':reward,'remark':remark},function(data){
+        		$('.loading').hide();
+        		if(data.code == 200){
+        			alertTan(data.tips);
+        			window.location.href=location.href;
+        		}else{
+        			alertTan(data.tips,'error');
+        		}
+        	},'json');
+        });
+    </script>
+</div>
+<script>
+$(function(){
+	//-------------------- 清退 --------------------//
+	$('.js-clear').click(function(){
+		var mid = $(this).attr("data-mid");
+		$('.loading').show();
+		$.post("<?php echo U('MallExhibitionPartner/ajaxClear',array('companyid'=>$companyid)).'&time='?>"+Math.random(),{'mid':mid},function(data){
+			$('.loading').hide();
+			if(data.code == 200){
+				alertTan(data.tips);
+				window.location.href=location.href;
+			}else{
+				alertTan(data.tips,'error');
+			}
+		},'json');
+	});
+});
+</script>
+<include file="Public:footer"/>

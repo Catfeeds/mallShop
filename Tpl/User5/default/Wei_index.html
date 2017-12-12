@@ -1,0 +1,499 @@
+<include file="Public:head"/>
+<?php echo $makeTopUrl;?>
+<div class="group inline-btn-group mb-10">
+    <a class="btn-small btn-purple js-S5Permissions" data-Permissionsid="13" data-link="<?php echo U('Wei/index');?>">微页面</a>
+    <a class="btn-small btn-white js-S5Permissions" data-Permissionsid="14" data-link="<?php echo U('Wei/Wapmenu');?>">WAP页面通底设置</a>
+</div>
+<!-- 微页面分组 2016-08-24 10:00 -->
+<div class="mod WeiPage mb-30 resource-bank add-pic add-WeiPage">
+    <h5 class="homepage-box-L2 pb-10 clearfix">
+        <select class="fl w150 weiSelect-asa">
+        	<?php foreach($weiSelect as $key=>$val){?>
+        	<option value="<?php echo $key;?>" <?php if($key == $wtype){echo 'selected="selected"';}?>><?php echo $val;?></option>
+        	<?php }?>
+        </select>
+        <?php if($wtype == '1'||$wtype == '2'||$wtype == '3'||$wtype == '4'){?><a href="<?php echo U('Wei/info',array('companyid'=>$companyid)); ?>" class="btn-small btn-purple fr">新建页面</a><?php }?>
+    </h5>
+    <script>
+	$(function(){
+		$(".weiSelect-asa").change(function(){
+			var type = $(this).val();
+			window.location.href = "<?php echo U('Wei/index',array('wtype'=>'"+type+"'));?>";
+		});
+	})
+	</script>
+    <div class="mod-header radius-top"><h4>微页面</h4></div>
+    <div class="mod-body">
+        <div class="js-tab-box add-pic-tab-wrap">
+            <div class="bd" <?php if($wtype!=1){echo 'style="margin: 0;"';}?>>
+                <div class="inner" >
+                    <div class="inner-top clearfix">
+                        <div class="inner-top-group-name fl">
+                            <?php if($gid){?>
+	                            <h4 class="inline"> <?php echo $grouptitle['title'];?> </h4>&nbsp;&nbsp;&nbsp;
+	                            <h4 class="inline"><a class="tips js-rename-group-btn"> 重命名 </a></h4>&nbsp;&nbsp;&nbsp;
+	                            <h4 class="inline"><a class="tips js-delete-group-btn"> 删除分组 </a></h4>
+                            <?php }else{?>
+                            	<h4 class="inline"> 全部 </h4>
+                            <?php }?>
+                            <!-- rename popup -->
+                            <div class="rename-group-popup js-rename-group">
+                                <span class="triangle-up-b"></span>
+                                <span class="triangle-up-a"></span>
+                                <h3>编辑名称</h3>
+                                <div class="input-group">
+                                    <input class="w200 js-value" type="text">
+                                </div>
+                                <div class="move-btn-group">
+                                    <button class="btn-middle btn-purple js-sure editgroup">
+                                        &nbsp;&nbsp;确认&nbsp;&nbsp;</button>
+                                    &nbsp;
+                                    <button class="btn-middle btn-white js-cancel">
+                                        &nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+                                </div>
+                            </div>
+                            <!-- delete popup -->
+                            <div class="delete-group-popup js-delete-group-popup-top">
+                                <span class="triangle-up-b"></span>
+                                <span class="triangle-up-a"></span>
+                                <h3>仅删除分组，不删除微页面，确定删除此分组吗？</h3>
+                                <div class="move-btn-group">
+                                    <button class="btn-middle btn-purple js-sure delgroup">
+                                        &nbsp;&nbsp;确认&nbsp;&nbsp;</button>
+                                    &nbsp;
+                                    <button class="btn-middle btn-white js-cancel">
+                                        &nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="inner-body">
+                        <table class="table type-1 w-auto mb-15">
+                            <thead>
+                                <tr>
+                                    <th class="w50">
+                                        <label class="checkbox inline"><input type="checkbox" class="check-sale check-all-sale">全选</label>
+                                    </th>
+                                    <th>微页面类型</th>
+                                    <th class="w150">网页标题</th>
+                                    <th class="min-w70"><a href="javascript:void(0);" class="sort-icon <?php if($sortclass1==1){ echo 'sort-icon-ascending';}elseif($sortclass1==2){ echo 'sort-icon-descending';}?>" data-sorttype="1" data-sortclass="<?php echo $sortclass1;?>"></a>更新时间</th>
+                                    <?php if($wtype == '18' ||$wtype == '21'||$wtype == '22'||$wtype == '23'||$wtype == '24'||$wtype == '80'){}else{?><th class="min-w80"><a href="javascript:void(0);" class="sort-icon <?php if($sortclass2==1){ echo 'sort-icon-ascending';}elseif($sortclass2==2){ echo 'sort-icon-descending';}?>" data-sorttype="2" data-sortclass="<?php echo $sortclass2;?>"></a>页面浏览量</th><?php }?>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+					            <?php if($list){ foreach($list as $Key1=>$Val1){?>
+							      <tr>
+									<td><input type="checkbox" class="check-sale" name="isencrypt-asa" value="<?php echo $Val1['id'];?>"></td>
+                                    <td class="js-name">
+                                    	<?php foreach($weiSelect as $key=>$val){
+                                    		if($key == $wtype){
+                                    			echo $val;
+                                    		}
+							        	}?>
+                                    </td>
+							        <td><?php if($wtype == '27'||$wtype == '17'||$wtype == '33'||$wtype == '35'){echo $Val1['shopname']?$Val1['shopname']:$Val1['bookname'];}else{echo $Val1['title']?$Val1['title']:$Val1['name'];}?></td>
+							        <td><?php echo date('Y-m-d H:i:s',$Val1['updatetime']);?></td>
+							        <?php if($wtype == '18' ||$wtype == '21'||$wtype == '22'||$wtype == '23'||$wtype == '24'||$wtype == '80'){}else{?><td><?php echo $Val1['pv']?$Val1['pv']:$Val1['viewnum'];?></td><?php }?>
+							        <td>
+							        	<?php if($wtype == '1'||$wtype == '2'||$wtype == '3'||$wtype == '4'||$wtype == '16'||$wtype == '17'){?>
+							          	<a href="<?php if($wtype == '1'){echo U('Wei/info',array('companyid'=>$companyid,'id'=>$Val1['id']));}elseif($wtype=='16'){echo U('UserDeployment/shops',array('type'=>'1'));}elseif($wtype=='17'){echo U('UserDeployment/shops',array('type'=>'1','id'=>$Val1['id']));} ?>" class="tips">编辑</a>
+							           	<?php }?> 
+							            <a class="tips js-clip-btn"  data-url="<?php echo C('site_url').$url.$Val1['id'];?>" href="javascript:void(0);">复制链接</a>
+							          	<a class="tips QR-code-down js-QR-code-down js-QR-code-hide">手机预览
+					                        <div class="QR-code-box-down has-border-img" >
+					                            <img data-src="<?php echo U('Wei/erweima',array('link'=>base64_encode(C('site_url').$url.$Val1['id'].'&mcode=1')));?>">
+					                            <h6>微信扫码<br>手机预览</h6>
+					                            <span id="triangle-up-b"></span>
+					                            <span id="triangle-up-a"></span>
+					                        </div>
+					                    </a>
+					                    <?php if($wtype == '1'){?>
+										<a class="tips <?php if($Val1['ishomepage']==1){echo '';}else{ echo ' text-red';} ?> sethomepage-asa" data-id="<?php echo $Val1['id']; ?>" data-type="<?php echo $Val1['ishomepage']; ?>"><?php if($Val1['ishomepage']==1){echo '设为首页';}else{ echo '取消首页';} ?></a>
+							            <?php }?>
+							            <?php if($wtype == '1'||$wtype == '2'||$wtype == '3'||$wtype == '4'){?>
+							            <a class="tips copy-asa" data-id="<?php echo $Val1['id']; ?>">复制页面</a>
+							            <a class="tips del-click-asa" data-id="<?php echo $Val1['id']; ?>">删除</a>
+							            <?php }?>
+							        </td>
+							      </tr>
+							      <?php } }else{?>
+							      <tr class="not-hover text-center">
+					                <td colspan="6">暂无</td>
+					              </tr>
+							  <?php } ?>
+					        </tbody>
+                        </table>
+                        <div class="inner-body-hd <?php if($wtype!=1){echo 'hide';}?>">
+                            <a class="btn-small btn-default js-hd-move-item">移动分组</a>
+                            <a href="javascript:void(0);" class="btn-small btn-default jiami-click-asa">批量加密</a>
+                            <a class="btn-small btn-default js-hd-remove-item">删除</a>
+
+                            <!-- move group popup -->
+                            <div class="move-group-popup js-hd-move-item-popup">
+                                <span class="triangle-up-b"></span>
+                                <span class="triangle-up-a"></span>
+                                <h3>移动到分组</h3>
+                                <div class="label-group-group">
+                                    <?php if($group){ foreach($group as $key=>$val){?>
+										<label class="radio inline groupids" data-id="<?php echo $val['id'];?>"><input type="radio" name="groups-<?php echo $lval['id'];?>" <?php if($lval['gid'] == $val['id']){echo 'checked="true"';}?>><?php echo $val['title'];?></label>
+									<?php }}?>
+                                </div>
+                                <?php if($group){?>
+                                <div class="move-btn-group">
+                                    <button class="btn-middle btn-purple js-sure groupedit">
+                                        &nbsp;&nbsp;确认&nbsp;&nbsp;</button>
+                                    &nbsp;
+                                    <button class="btn-middle btn-white js-cancel">
+                                        &nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+                                </div>
+                                <?php }?>
+                            </div>
+                            <!-- delete popup -->
+                            <div class="delete-group-popup js-hd-remove-item-popup">
+                                <span class="triangle-up-b"></span>
+                                <span class="triangle-up-a"></span>
+                                <h3>确定删除此微页面吗？</h3><br>
+                                <div class="move-btn-group">
+                                    <button class="btn-middle btn-purple js-sure groupdel">
+                                        &nbsp;&nbsp;确认&nbsp;&nbsp;</button>
+                                    &nbsp; &nbsp;
+                                    <button class="btn-middle btn-white js-cancel">
+                                        &nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hd <?php if($wtype!=1){echo 'hide';}?>" >
+                <ul>
+                    <li class="imggroup" data-id=""><h5><span class="js-new-group-name">全&nbsp; &nbsp;部</span><span class="text-gray">(<?php echo $counts?$counts:'0';?>)</span></h5></li>
+					<?php if($group){ foreach($group as $key=>$val){?>
+						<li class="imggroup <?php if($gid == $val['id']){echo 'on';}?>" data-id="<?php echo $val['id'];?>"><h5><span class="js-new-group-name"><?php echo $val['title'];?></span><span class="text-gray">(<?php echo $val['count']?$val['count']:0;?>)</span></h5></li>
+					<?php }}?>
+					<li class="add-new-group">
+						<h5 class="js-add-new-group"><b>+</b>&nbsp;新建分组</h5>
+						<div class="add-new-group-popup js-add-new-group-popup">
+							<h3>新建分组</h3>
+							<input class="add-new-group-popup-input js-add-new-group-popup-input" type="text">
+							<div class="add-new-group-popup-btn text-center">
+								<a class="btn-middle btn-purple js-sure">&nbsp;&nbsp;确认&nbsp;&nbsp;</a>
+								<a class="btn-middle btn-white js-cancel">&nbsp;&nbsp;取消&nbsp;&nbsp;</a>
+							</div>
+							<span id="triangle-up-b"></span>
+							<span id="triangle-up-a"></span>
+						</div>
+					</li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- 分页组件 -->
+        <?php if($page){?>
+        <div class="group form-footer clearfix">
+            <div class="group pagination fr">
+                <?php echo $page;?>
+            </div>
+        </div>
+        <?php }?>
+    </div>
+</div>
+
+
+
+<!-- ==============================    批量加密弹窗    ============================== -->
+<div class="popup-wrap wrap-middle-2 jiami-tan-asa" style="display: none;">
+    <div class="mod middle-popup type-2">
+        <div class="mod-header">
+            <h4 class="fl">批量加密</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+            <div class="content">
+                <div class="control-group">
+					<div class="group pb-20">
+		                <h6 class="inline w100">是否开启加密：</h6>
+		                <label class="radio inline"><input type="radio" name="isencrypt" value="2" checked="checked">启用</label>
+		                <label class="radio inline"><input type="radio" name="isencrypt" value="1">禁用</label>
+		            </div>
+                   <div class="group pb-20">
+		                <h6 class="inline w100">加密口令：</h6>
+		                <input class="inline w150 DiscoukeyCheck" type="text" name="encryptinfo" value=""  placeholder="请输入4位数字密码">
+		            </div>
+                </div>
+                <p class="text-center">
+                    <a class="btn-small btn-purple js-ok sub-asa" data-id=''>确 认</a> &nbsp;
+                    <a class="btn-small btn-white js-cancel quxiao">取 消</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ==============================    删除弹窗    ============================== -->
+<div class="popup-wrap del-tan-asa" style="display: none;">
+    <div class="mod small-popup type-1">
+        <div class="mod-header">
+            <h4 class="fl">删除微页面</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+            <div class="content">
+                <h5 class="pb-20">确认删除当前微页面么？</h5>
+                <p class="text-center">
+                    <a class="btn-small btn-purple w60 js-ok del-asa" data-id=''>确 认</a> &nbsp;
+                    <a class="btn-small btn-white w60 js-cancel quxiao">取 消</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+//排序功能
+$('.sort-icon').click(function(){
+	var sorttype = $(this).attr('data-sorttype');
+	var sortclass = $(this).attr('data-sortclass');
+	var type = "<?php echo $wtype;?>";
+	window.location.href = "<?php echo U('Wei/index',array('wtype'=>'"+type+"','gid'=>$gid,'sorttype'=>'"+sorttype+"','sortclass'=>'"+sortclass+"'));?>";
+});
+$(document).ready(function(){
+	$('.check-sale').prop("checked", false);
+});
+$(function(){
+	// 顶部的全选移动分组
+    $(".js-hd-move-item").click(function () {
+    	var group = "<?php echo $group;?>";
+        if ($(this).hasClass('btn-white')) {
+        	if(group){
+	            $(this).parent().children(".js-hd-move-item-popup").fadeToggle(120);
+	            $(this).parent().children(".js-hd-remove-item-popup").fadeOut(120);
+        	}else{
+        		alertTan('请先新建分组','warn');
+        	}
+        }
+    });
+	//批量删除
+	$('.groupdel').click(function(){
+		var id = $('.js-hd-remove-item').attr('data-ids');
+		$('.loading').show();
+	  	$.post("<?php echo U('Wei/dellist');?>",{id:id},
+				function(data){
+	  			$('.loading').hide();
+	  				window.location.reload();
+				},"json"
+		);
+	});
+	//批量移动
+	$(document).on("click", ".groupids", function () {
+		$('.groupedit').attr('data-gid',$(this).attr('data-id'));
+	});
+	$('.groupedit').click(function(){
+		var id = $('.js-hd-move-item').attr('data-ids');
+		var gid = $(this).attr('data-gid');
+		$('.loading').show();
+	  	$.post("<?php echo U('Wei/editgroupid');?>",{gid:gid,id:id},
+				function(data){
+	  				$('.loading').hide();
+	  				window.location.reload();
+				},"json"
+		);
+	});
+	/* 删除分组 */
+	$(document).on("click", ".delgroup", function () {
+	  	var gid = '<?php echo $gid?>';
+	  	$('.loading').show();
+	  	$.post("<?php echo U('Wei/delgroup');?>",{gid:gid},
+				function(data){
+	  				$('.loading').hide();
+	  				window.location.href="<?php echo U('Wei/index')?>";
+				},"json"
+		);
+	});
+	/* 编辑分组名称 */
+	$(document).on('click','.js-rename-group-btn',function(){
+		$('.js-value').val($(this).parent().prev().text());
+	});
+	$(document).on("click", ".editgroup", function () {
+		var name = $(this).parent().prev().find('.w200').val();
+		var id = '<?php echo $gid;?>';
+		$('.loading').show();
+	  	$.post("<?php echo U('Wei/editname');?>",{type:'group',name:name,id:id},
+				function(data){
+	  				$('.loading').hide();
+	  				window.location.reload();
+				},"json"
+		);
+	});
+	/* 点击跳转链接 */
+	$(document).on("click", ".imggroup", function () {
+		var gid = $(this).attr('data-id');
+		if(gid == ''){
+			window.location.href="<?php echo U('Wei/index',array('wtype'=>$wtype))?>";
+		}else{
+			window.location.href='<?php echo U("Wei/index",array("gid"=>"'+gid+'","wtype"=>$wtype))?>';
+		}
+	});
+	// 确认按钮
+    $(document).on("click", ".add-new-group .js-sure", function () {
+        var addNewGruopName = $(this).parents(".js-add-new-group-popup").find(".js-add-new-group-popup-input").val();
+        if (addNewGruopName == "") {
+            addNewGruopName = "新建分组";
+        }
+        $(this).parents(".add-new-group").before('<li><h5><span class="js-new-group-name">' + addNewGruopName + '</span><span class="text-gray">(0)</span></h5></li>');
+        //$(this).parents(".add-pic-tab-wrap").find(".bd").append('<div class="inner" style="display: none;"><div class="inner-top clearfix"><div class="inner-top-group-name fl"><h4 class="inline"> 分组一 </h4><h4 class="inline"><a class="tips"> 重命名 </a></h4><h4 class="inline"><a class="tips"> 删除分组 </a></h4></div><a href="javascript:void(0);" class="tips fr"><i class="icon-upload"></i>上传图片</a> </div><div class="inner-body"><div class="inner-body-hd"><label class="checkbox inline js-check-all"><input type="checkbox">全选</label><a class="btn-middle btn-default">移动分组</a><a class="btn-middle btn-default">删除</a></div><div class="add-pic-tab"></div></div></div>');
+        $(this).parents(".js-add-new-group-popup").fadeOut(120).find(".js-add-new-group-popup-input").val("");
+        $('.loading').show();
+        $.post("<?php echo U('Wei/addgroup');?>",{name:addNewGruopName},
+			function(data){
+        		$('.loading').hide();
+        		window.location.reload();
+			},"json"
+		);
+    });
+    $(document).on("click", ".js-jiami-click-asa", function () {
+	//$(".js-jiami-click-asa").on("click",function(evt){
+		/* if($('input[name=isencrypt-asa]:checked').length==0){
+				 alertTan('请先选择需要加密的页面');
+				 return false;
+		} */
+	    $(".jiami-tan-asa").show();
+    });
+	/* $(".check-all-sale").click(function(){
+		if($(this).prop('checked')==true){
+			$("input[name='isencrypt-asa']").prop('checked',true);	
+		}else{
+			$("input[name='isencrypt-asa']").prop('checked',false);
+		}
+	}) */
+	//全选
+	$('.check-all-sale').click(function(){
+	    if ($(this).is(":checked")){
+	      	$('.check-sale').prop("checked", true);
+	    }else{
+	      	$('.check-sale').prop("checked", false);
+	    }
+	});
+	$('.check-sale').click(function(){
+		var id = [];
+		$('input:checkbox:checked').each(function(){
+			id.push($(this).val());
+		});
+		if(id == '' || id == 'on'){
+			$('.js-hd-move-item').removeClass('btn-white').addClass('btn-default');
+			$('.js-hd-remove-item').removeClass('btn-white').addClass('btn-default');
+			$('.jiami-click-asa').removeClass('btn-white').addClass('btn-default').removeClass('js-jiami-click-asa');
+			$('.check-sale').prop("checked", false);
+		}else{
+			$('.js-hd-move-item').removeClass('btn-default').addClass('btn-white');
+			$('.js-hd-remove-item').removeClass('btn-default').addClass('btn-white');
+			$('.jiami-click-asa').removeClass('btn-default').addClass('btn-white').addClass('js-jiami-click-asa');
+		}
+		$('.js-hd-move-item').attr('data-ids',id);
+		$('.js-hd-remove-item').attr('data-ids',id);
+	});
+	
+	
+	$(".sub-asa").click(function(){
+		var isencrypt = $('input[name=isencrypt]:checked').val();
+		var encryptinfo = $('input[name=encryptinfo]').val();
+		var id =new Array();
+		var i=0;
+		$('input[name=isencrypt-asa]:checked').each(function(){
+			id[i]=$(this).val();
+			i++;
+		});
+		if(isencrypt==1){
+			if(confirm('确定取消加密当前选中的页面么？')){
+				$('.loading').show();
+				$.post("<?php echo U('Wei/ajaxSetEncrtpy').'&time=';?>"+Math.random(),{id:id,isencrypt:isencrypt,encryptinfo:encryptinfo},function(data){
+					$('.loading').hide();
+					if(data.code == 200){
+						alertTan(data.msg);
+						setTimeout(function(){
+						  window.location.href=location.href+'&id='+data.id;	
+						},1500);
+					}else{
+						alertTan(data.msg,'error');
+					}
+				},'json')
+			}else{
+				
+			}
+		}else{
+			if(encryptinfo.length!=4){
+				alertTan('请输入四位数字',"warn");
+				return false;
+			}
+			$('.loading').show();
+			$.post("<?php echo U('Wei/ajaxSetEncrtpy').'&time=';?>"+Math.random(),{id:id,isencrypt:isencrypt,encryptinfo:encryptinfo},function(data){
+				$('.loading').hide();
+				if(data.code == 200){
+					alertTan(data.msg);
+					setTimeout(function(){
+					   window.location.href=location.href+'&id='+data.id;	
+					},1500);
+				}else{
+					alertTan(data.msg,'error');
+				}
+			},'json')
+		}
+	});
+	//设为首页
+	$(".sethomepage-asa").click(function(){
+		var id=$(this).attr('data-id');
+		var type = $(this).attr("data-type");
+		if(type==1){
+			type = 2;
+		}else{
+			type = 1;
+		}
+		$(".loading").show();
+		$.post("<?php echo U('Wei/setIndex').'&time=';?>"+Math.random(),{id:id,type:type},function(data){
+			$('.loading').hide();
+			if(data.code == 200){
+				alertTan(data.msg);
+				setTimeout('window.location.href=location.href',1500);
+			}else{
+				alertTan(data.msg,'error');
+			}
+		},'json');
+	})
+	//复制页面  copy-asa
+	$(".copy-asa").click(function(){
+		var id=$(this).attr('data-id');
+		$('.loading').show();
+		$.post("<?php echo U('Wei/clonePage').'&time=';?>"+Math.random(),{id:id},function(data){
+			$('.loading').hide();
+			if(data.code == 200){
+				alertTan(data.msg);
+				setTimeout('window.location.href=location.href',1500);
+			}else{
+				alertTan(data.msg,'error');
+			}
+		},'json');
+	});
+	//------------------------------ 删除微页面 ------------------------------
+	$(".del-click-asa").click(function(){
+		var id = $(this).attr('data-id');
+		$('.del-asa').attr('data-id',id);
+		$(".del-tan-asa").show();
+	});
+	$(".del-asa").click(function(){
+		var id = $(this).attr('data-id');
+		$('.loading').show();
+		$.post("<?php echo U('Wei/ajaxDel').'&time=';?>"+Math.random(),{id:id},function(data){
+			$('.loading').hide();
+			if(data.code == 200){
+				alertTan(data.msg);
+				setTimeout('window.location.href=location.href',1500);
+			}else{
+				alertTan(data.msg,'error');
+			}
+		},'json');
+	});
+})
+
+</script>
+<include file="Public:footer"/>

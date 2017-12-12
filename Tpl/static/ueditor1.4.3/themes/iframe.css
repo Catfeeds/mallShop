@@ -1,0 +1,26 @@
+/*可以在这里添加你自己的css*/
+img {  
+ max-width: 99%; /*图片自适应宽度*/  
+	-webkit-max-width: 99%;
+}  
+body {
+ /* overflow-y: hidden; */ 
+ font-family: Helvetica, "STHeiti STXihei", "Microsoft JhengHei", "Microsoft YaHei", Tohoma, Arial;
+}
+.view { 
+-webkit-word-break: break-all; 
+  
+}
+.view > img {  
+ max-width: 99%; /*图片自适应宽度*/  
+-webkit-max-width: 99%;
+}
+.vote_area {  
+ display: block;  
+}  
+.vote_iframe {  
+ background-color: transparent;  
+ border: 0 none;  
+ height: 100%;  
+}
+/* #edui1_imagescale{display:none !important;} */

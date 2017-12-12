@@ -1,0 +1,28 @@
+<include file="Public:memberCenterHeader"/>
+<include file="Public:memberMallhead"/>
+<link href="{lanrain::RES}/css/app.css?<?php echo C('site_system_file_version'); ?>" rel="stylesheet">
+<style>
+.content-pdbt{padding-top:0px;padding-bottom:60px;}
+</style>
+<div class="eshop-content address-bj content-pdbt">
+	<?php if($list){?>
+	<ul class="eshop-address-ul">
+		<?php foreach($list as $key=>$val){?>
+		<li>
+			<input class="eshop-address-ckb isdefault" type="radio" name="isdefault" value="1" <?php if($val['isdefault'] == 1){ echo 'checked="checked"';}?>/>
+			<div class="eshop-address-dz">
+				<p class="eshop-address-mzdh"><span><?php echo $val['mobile'];?></span><?php echo $val['name'];?></p>
+				<p class="eshop-address-dzp"><?php echo $val['address'];?></p>
+			</div>
+			<a href="<?php echo U('MemberShopAddress/set',array('companyid'=>$companyid,'addressid'=>$val['id']));?>"><i class="eshop-address-i"><img src="{lanrain::RES}/Eshop/eshop_bj.png"></i></a>
+		</li>
+		<?php }?>
+	</ul>
+	<?php }else{?>
+	<div class="No-content"><img src="{lanrain::RES}/Eshop/no-dzicon.png" alt=""></div>
+	<!--<include file="Public:blank" />-->
+	<?php }?>
+	<div class="eshop-address-dw"><a href="<?php echo U('MemberShopAddress/set',array('companyid'=>$companyid));?>"><img src="{lanrain::RES}/Eshop/eshop_jia.png"> 新增收货地址</a></div>
+</div>
+<include file="Public:weiXinNotShareSet" />
+<include file="Public:footer" />

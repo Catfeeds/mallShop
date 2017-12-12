@@ -1,0 +1,244 @@
+<include file="Public:head" />
+<div class="mod mb-15 WeiPage">
+<?php echo $makeTopUrl;?>
+<!-- 账号部署的公共头部 -->
+    <div class="mod-header radius-top"><h4></h4><div class="inner-header fr"><a href="javascript:void(0);" class="tips js-check-add-new-user" data-shopInfo='<?php echo $shopList?str_replace("'",'`',json_encode($shopList,true)):""; ?>'>新增子账号</a></div></div>
+    <div class="mod-body">
+        <div class="inner-header"><h5>超级管理员账号</h5></div>
+        <div class="content js-userinfo-asa" data-id="<?php echo $bossInfo['id']; ?>">
+        <input type="hidden" name="isboss" value="1" />
+            <dt class="clearfix pb-15">
+                <dl class="child-sum-3 fl">
+                    <h6 class="inline w100">账号类型：</h6> <h6 class="inline w150">超级管理员</h6>
+                </dl>
+                <dl class="child-sum-3 fl">
+                    <h6 class="inline w100">登录名：</h6> <input class="inline w150" type="text" name="username" readonly="readonly" value="<?php echo $bossInfo['username']; ?>">
+                </dl>
+                <dl class="child-sum-3 fl">
+                    <h6 class="inline w100">密码：</h6> <input class="inline w150" type="text" name="truePassword" value="<?php echo $bossInfo['truePassword']; ?>">
+                </dl>
+            </dt>
+
+            <dt class="clearfix pb-15">
+                <dl class="child-sum-3 fl">
+                    <h6 class="inline w100">姓名：</h6> <input class="inline w150" type="text" name="truename" value="<?php echo $bossInfo['truename']; ?>">
+                </dl>
+                <dl class="child-sum-3 fl">
+                    <h6 class="inline w100">手机：</h6> <input class="inline w150" type="text" name="phone" value="<?php echo $bossInfo['phone']; ?>">
+                </dl>
+                <dl class="child-sum-3 fl">
+                    <h6 class="inline w100">工作座机：</h6> <input class="inline w150" type="text" name="telephone" value="<?php echo $bossInfo['telephone']; ?>">
+                </dl>
+            </dt>
+            <dt class="clearfix pb-15">
+                <dl class="child-sum-3 fl">
+                    <h6 class="inline w100">工作邮箱：</h6> <input class="inline w150" type="text" name="email" value="<?php echo $bossInfo['email']; ?>">
+                </dl>
+        </div>
+        <ul class="js-check-user-list">
+        	<?php if($userInfo2){ ?>
+    		<?php foreach($userInfo2 as $key =>$userInfo){  ?>
+    		<li class="js-userinfo-asa" data-id="<?php echo $userInfo['id']; ?>">
+    		<input type="hidden" name="isboss" value="2" />
+                <div class="inner-header"><h5>子用户账号 <a href="javascript:void(0);" data-parentid="<?php echo $bossInfo['id']; ?>" data-id="<?php echo $userInfo['id']; ?>" class="tips js-check-del-new-user">删除子账号</a></h5></div>
+                <div class="content">
+                    <dt class="clearfix pb-15">
+                        <dl class="child-sum-3 fl">
+                            <h6 class="inline w100">账号类型：</h6> <h6 class="inline w150">子用户账号</h6>
+                        </dl>
+                        <dl class="child-sum-3 fl">
+                            <h6 class="inline w100">登录名：</h6> <input class="inline w150" type="text" name="username" readonly="readonly" value="<?php echo $userInfo['username']; ?>">
+                        </dl>
+                        <dl class="child-sum-3 fl">
+                            <h6 class="inline w100">密码：</h6> <input class="inline w150" type="text" name="truePassword" value="<?php echo $userInfo['truePassword']; ?>">
+                        </dl>
+                    </dt>
+                    <dt class="clearfix pb-15">
+                        <dl class="child-sum-3 fl">
+                            <h6 class="inline w100">姓名：</h6> <input class="inline w150" type="text" name="truename" value="<?php echo $userInfo['truename']; ?>">
+                        </dl>
+                        <dl class="child-sum-3 fl">
+                            <h6 class="inline w100">手机：</h6> <input class="inline w150" type="text" name="phone" value="<?php echo $userInfo['phone']; ?>">
+                        </dl>
+                        <dl class="child-sum-3 fl">
+                            <h6 class="inline w100">工作座机：</h6> <input class="inline w150" type="text" name="telephone" value="<?php echo $userInfo['telephone']; ?>">
+                        </dl>
+                    </dt>
+                    <dt class="clearfix pb-15">
+                        <dl class="child-sum-3 fl">
+                            <h6 class="inline w100">工作邮箱：</h6> <input class="inline w150" type="text" name="email" value="<?php echo $userInfo['email']; ?>" >
+                        </dl>
+                    </dt>
+                </div>
+            </li>
+    		<?php } ?>
+    		<?php }else{ ?>
+            <li class="js-userinfo-asa" data-id=''>
+            <input type="hidden" name="isboss" value="2" />
+                <div class="inner-header"><h5>子用户账号 <a href="javascript:void(0);" data-id="" class="tips js-check-del-new-user">删除子账号</a></h5></div>
+                <div class="content">
+                    <dt class="clearfix pb-15">
+                        <dl class="child-sum-3 fl">
+                            <h6 class="inline w100">账号类型：</h6> <h6 class="inline w150">子用户账号</h6>
+                        </dl>
+                        <dl class="child-sum-3 fl">
+                            <h6 class="inline w100">登录名：</h6> <input class="inline w150" type="text" name="username">
+                        </dl>
+                        <dl class="child-sum-3 fl">
+                            <h6 class="inline w100">密码：</h6> <input class="inline w150" type="text" name="truePassword">
+                        </dl>
+                    </dt>
+                    <dt class="clearfix pb-15">
+                        <dl class="child-sum-3 fl">
+                            <h6 class="inline w100">姓名：</h6> <input class="inline w150" type="text" name="truename">
+                        </dl>
+                        <dl class="child-sum-3 fl">
+                            <h6 class="inline w100">手机：</h6> <input class="inline w150" type="text" name="phone">
+                        </dl>
+                        <dl class="child-sum-3 fl">
+                            <h6 class="inline w100">工作座机：</h6> <input class="inline w150" type="text" name="telephone">
+                        </dl>
+                    </dt>
+                    <dt class="clearfix pb-15">
+                        <dl class="child-sum-3 fl">
+                            <h6 class="inline w100">工作邮箱：</h6> <input class="inline w150" type="text" name="email">
+                        </dl>
+                    </dt>
+                </div>
+            </li>
+            <?php } ?>
+        </ul>
+
+        <div class="group form-footer text-center">
+        	<input  class="btn-small js-check-add-new-user btn-white w100" data-shopInfo='<?php echo $shopList?str_replace("'",'`',json_encode($shopList,true)):""; ?>' type="button" value="新增子账号" />
+            &nbsp; &nbsp; &nbsp; <input class="btn-small btn-purple w100 js-sub-asa" type="button" value="保存">
+        </div>
+    </div>
+</div>
+<!-- ==============================    删除弹窗    ============================== -->
+<div class="popup-wrap del-tan-asa" style="display: none;">
+    <div class="mod small-popup type-1">
+        <div class="mod-header">
+            <h4 class="fl">删除微页面</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body"> 
+            <div class="content">
+                <h5 class="pb-20">确认删除当前子账号么？</h5>
+                <p class="text-center">
+                    <a class="btn-small btn-purple w60 js-ok del-asa" data-id=''>确 认</a> &nbsp;
+                    <a class="btn-small btn-white w60 js-cancel quxiao">取 消</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+$(function(){
+	var ismsg = 1;
+	$(".js-sub-asa").click(function(){
+		if(ismsg==2){
+			alertTan("请检查用户名是否重复",'warn');
+			return false;
+		}
+		var $this = $(this);
+		var status = 1;
+		var userarr = "[";
+		$(".js-userinfo-asa").each(function(){
+			if($(this).find("input[name='username']").val()!=''&&$(this).find("input[name='truePassword']").val()!=''){
+				//只有新增账号才会去判断这个问题，为了不去判断以前不合格的数据
+				if($(this).attr("data-id")==''){
+					var loginname = $(this).find('input[name="username"]').val();
+					var reg = /^[\w]{6,16}$/   //这个是正则表达式
+			        if(loginname.length<6 || loginname.length>16 || loginname == false){
+			        	$(".loading").hide();
+		        		status = 2;
+		        		alertTan('提交失败登录名不能小于6位大于16位','warn');
+		        		$("html,body").animate({ scrollTop: $(this).find('input[name="username"]').offset().top-$().height() }, 500);
+			        }else if(!loginname.match(reg)){
+			        	$(".loading").hide();
+			        	status = 2;
+			        	alertTan('提交失败登录名只能包含字母数字下滑线','warn');
+			        	$("html,body").animate({ scrollTop: $(this).find('input[name="username"]').offset().top-$().height() }, 500);
+			        }
+				}
+				if(status!=2)
+				if($(this).find("input[name='truename']").val()==''){
+					$(".loading").hide();
+		        	status = 2;
+		        	alertTan('账号的姓名不能为空','warn');
+		        	$(this).find('input[name="truename"]').focus();
+		        	$("html,body").animate({ scrollTop: $(this).find('input[name="truename"]').offset().top-$().height()-250 }, 500);
+				}
+				var isboss = $(this).find("input[name='isboss']").val();
+				userarr +='{"id":"'+$(this).attr("data-id")+'",';
+				userarr +='"isboss":"'+$(this).find("input[name='isboss']").val()+'",';
+				userarr +='"truename":"'+$(this).find("input[name='truename']").val()+'",';
+				userarr +='"email":"'+$(this).find("input[name='email']").val()+'",';
+				userarr +='"username":"'+$(this).find("input[name='username']").val()+'",';
+				userarr +='"phone":"'+$(this).find("input[name='phone']").val()+'",';
+				userarr +='"truePassword":"'+$(this).find("input[name='truePassword']").val()+'",';
+				userarr +='"telephone":"'+$(this).find("input[name='telephone']").val()+'"},';
+			}
+		});
+		userarr = userarr.substring(0,userarr.length-1);
+		userarr += "]";
+		if(status == 2) return false;
+		$('.loading').show();
+		$.post("<?php echo U('UserDeployment/enterTwo'); ?>",{userarr:userarr},function(data){
+			$(".loading").hide();
+			if(data.code==200){
+				alertTan(data.msg);
+				setTimeout("window.location.href='<?php echo U('UserDeployment/enterTwo'); ?>'",1500);
+			}else{
+				alertTan(data.msg,'error');
+			}
+		},'json')
+	});
+	$(document).on("blur","input[name='username']",function(){
+		var $this = $(this);
+		var username = $this.val();
+		if(username!=''){
+			var id = $(this).parents(".js-userinfo-asa").attr("data-id");
+			$.post("<?php echo U('UserDeployment/ajaxUser'); ?>",{id:id,username:username},function(data){
+				if(data.code==300){
+					ismsg = 2;
+					alertTan(data.msg,'warn');
+					$this.focus();
+				}else{
+					ismsg = 1;
+				}
+			},'json');
+		}
+	});
+	$(document).on('click',".js-check-del-new-user",function(){
+		if($(this).attr('data-id')==''){
+			$(this).parents("li").slideUp(120,function(){
+	            $(this).remove();
+	        });
+		}else{
+			var id = $(this).attr('data-id');
+			var parentid = $(this).attr("data-parentid");
+			$('.del-asa').attr('data-id',id);
+			$('.del-asa').attr('data-parentid',parentid);
+			$(".del-tan-asa").show();
+		}
+	})
+	$(".del-asa").click(function(){
+		var id = $(this).attr("data-id");
+		var parentid = $(this).attr("data-parentid");
+		$('.loading').show();
+		$.post("<?php echo U('UserDeployment/ajaxDelUser'); ?>",{id:id,parentid:parentid},function(data){
+			$(".loading").hide();
+			if(data.code==200){
+				
+				alertTan(data.msg);
+				setTimeout("window.location.href='<?php echo U('UserDeployment/enterTwo'); ?>'",1500);
+			}else{
+				alertTan(data.msg,'error');
+			}
+		},'json');
+	});
+})
+</script>
+<include file="Public:footer" />

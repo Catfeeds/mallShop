@@ -1,0 +1,306 @@
+<include file="Public:head"/>
+<include file="Public:smallEditor"/>
+<!-- 页面内容 begin -->
+<?php echo $makeTopUrl;?>
+<include file="Public:wechatsManage"/>
+<!-- 微信自动回复设置 微信关注时回复-->
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>微信自动回复设置</h4></div>
+    <div class="mod-body WeChat-auto-reply-set">
+        <div class="content">
+            <div class="tab-box type-2">
+                <div class="hd">
+                    <ul>
+                        <li class="on" style="color:#5c228a"><h5>微信关注时回复</h5></li>
+                        <li class="Other"><h5>微信无匹配回复</h5></li>
+                        <li class="Keyword"><h5>微信关键词回复</h5></li>
+                    </ul>
+                </div>
+                <div class="no-attention">
+                    <h5 class="auto-reply-tips">微信关注时回复只可回复一条消息，若文字回复与图文回复，同时设置，系统将默认回复图文。</h5>
+                </div>
+            </div>
+            <div class="tab-box type-3 Wechat-menu-tabs js-tab-box-pro">
+                <div class="hd">
+                    <ul>
+                        <li data-value="1" data-scvalue="" <?php if($text || (!$news && !$image && !$voice && !$video && !$text)){echo 'class="on"';}?>><i class="icon-msg icon-text"></i>文字</li>
+                        <li data-value="2" data-scvalue="<?php echo $news['id'];?>" <?php if($news){echo 'class="on"';}?>><i class="icon-msg icon-text-pic"></i>图文</li>
+                        <li data-value="3" data-scvalue="<?php echo $image['id'];?>" <?php if($image){echo 'class="on"';}?>><i class="icon-msg icon-pic"></i>图片</li>
+                        <li data-value="4" data-scvalue="<?php echo $voice['id'];?>" <?php if($voice){echo 'class="on"';}?>><i class="icon-msg icon-audio"></i>语音</li>
+                        <li data-value="5" data-scvalue="<?php echo $video['id'];?>" <?php if($video){echo 'class="on"';}?>><i class="icon-msg icon-video"></i>视频</li>
+                    </ul>
+                </div>
+                <div class="bd">
+                    <!-- 新建文字 -->
+                    <div class="Wechat-menu-msg-inner js-emoji-into" <?php if($text ||(!$news && !$image && !$voice && !$video && !$text)){echo 'style="display: block;"';}else{echo 'style="display:none"';}?>>
+                        <textarea class="Wechat-menu-msg-msg js-Wechat-menu-msg-msg"><?php echo emoji_decode($text);?></textarea>
+                        <div class="Wechat-menu-msg-tools-wrap clearfix">
+							<include file="Public:emojiUP"/>
+                            <h5 class="fr">剩余<span>600</span>字</h5>
+                            <i class="icon-help-tips text-top fr mr-10 js-help-tips"></i>
+                        </div>
+                    </div>
+
+                    <!-- 新建图文 -->
+                    <div class="Wechat-menu-pic-msg-inner js-Wechat-menu-pic-msg-inner" <?php if(!$news){echo ' style="display:none"';}else{echo 'style="display: block;"';}?>>
+                        <!-- 无图文 -->
+                        <div class="Wechat-menu-no-con js-Wechat-menu-no-con <?php if($news){echo 'hide';}?>">
+                            <div class="create-access text-gray js-WeChat-file-add-pic-msg">
+                                <i class="icon-add-btn"></i><h5>从素材库中选择</h5>
+                            </div>
+                            <div class="create-access text-gray js-newmanylist">
+                                <i class="icon-add-btn"></i><h5>新建图文消息</h5>
+                            </div>
+                        </div>
+                       <!-- 有图文 -->
+                        <div class="Wechat-menu-con" id="tuwenshow" <?php if(!$news){echo ' style="display:none"';}?>>
+                            <div class="Wechat-menu-pic-msg-box js-Wechat-menu-pic-msg-box">
+                                <div class="Wechat-menu-pic-msg-con">
+                                    <?php
+										foreach($news['news'] as $key=>$val){
+             									if($key == 0){
+             						?>
+             							<h5 class="add-tit-date"><?php echo format_time($val['updatetime'],'ymd');?></h5>
+	                                    <div class="pic-msg-con-tit">
+	                                        <i class="pic-msg-con-tit-img" style="background-image:url('<?php echo $val['thumb_media'];?>')"></i>
+	                                        <h3><span><?php echo emoji_decode($val['title']);?></span></h3>
+	                                    </div>
+                                    <?php }else{?>
+										<div class="L2-pic-msg">
+	                                        <h4><span><?php echo emoji_decode($val['title']);?></span></h4>
+	                                        <img src="<?php echo $val['thumb_media'];?>">
+	                                    </div>
+									<?php }}?>
+                                </div>
+                                <a class="tips del-cur-pic-msg-con js-del-cur-pic-msg-con" href="javascript:void(0);">删除</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 新建图片 -->
+                    <div class="Wechat-menu-pic-inner js-Wechat-menu-pic-inner" <?php if(!$image){echo ' style="display:none"';}else{echo 'style="display: block;"';}?>>
+                        <!-- 无图片 -->
+                        <div class="Wechat-menu-no-con js-Wechat-menu-no-con <?php if($image){echo 'hide';}?>">
+                            <div class="create-access text-gray  js-WeChat-file-add-pic">
+                                <i class="icon-add-btn"></i><h5>从素材库中选择</h5>
+                            </div>
+                            <div class="create-access text-gray js-pic-click">
+                                <i class="icon-add-btn"></i><h5>上传图片</h5>
+                                <input id="js-demo-fileInput-img-tan2" type="file" name="files[]" class="hide demo-fileInput-img-tan2" multiple="multiple">
+                            </div>
+                        </div>
+                        <!-- 有图片 -->
+                        <div class="Wechat-menu-con " id="tupianshow" <?php if(!$image){echo ' style="display:none"';}?>>
+                            <div class="Wechat-menu-pic-box">
+                                <i class="pic-img" style="background-image:url('<?php echo $image['imageurl'];?>');"></i>
+                                <a class="tips del-cur-img js-del-cur-img" href="javascript:void(0);">删除</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 新建语音 -->
+                    <div class="Wechat-menu-audio-inner js-Wechat-menu-audio-inner" <?php if(!$voice){echo ' style="display:none"';}else{echo 'style="display: block;"';}?>>
+                        <!-- 无语音 -->
+                        <div class="Wechat-menu-no-con js-Wechat-menu-no-con <?php if($voice){echo 'hide';}?>">
+                            <div class="create-access text-gray js-WeChat-file-add-audio">
+                                <i class="icon-add-btn"></i><h5>从素材库中选择</h5>
+                            </div>
+                            <div class="create-access text-gray js-voice-click">
+                                <i class="icon-add-btn"></i><h5>新建语音</h5>
+                                <input id="js-demo-fileInput-voices-tan2" type="file" name="files[]" class="hide demo-fileInput-voices-tan2" multiple="multiple">
+                            </div>
+                        </div>
+                        <!-- 有语音 -->
+                        <div class="Wechat-menu-con" id="voiceshow" <?php if(!$voice){echo ' style="display:none"';}?>>
+                            <div class="Wechat-menu-audio-box js-Wechat-menu-audio-box">
+                                <div class="Wechat-menu-audio-con clearfix">
+                                    <i class="icon-menu-audio js-icon-menu-audio"></i>
+                                    <audio class="aa" src="<?php echo $voice['voicesurl']?>">您的浏览器不支持播放音频</audio>
+                                    <div class="con-cover">
+                                        <h5><?php echo $voice['title']?></h5>
+                                        <h5 class="text-gray">时长：<span><?php echo $voice['time']?></span></h5>
+                                        <h5 class="text-gray">大小：<span><?php echo $voice['size']?></span></h5>
+                                    </div>
+                                </div>
+                                <a class="tips del-cur-audio js-del-cur-audio" href="javascript:void(0);">删除</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 新建视频 -->
+                    <div class="Wechat-menu-video-inner js-Wechat-menu-video-inner" <?php if(!$video){echo ' style="display:none"';}else{echo 'style="display: block;"';}?>>
+                        <!-- 无视频 -->
+                        <div class="Wechat-menu-no-con js-Wechat-menu-no-con <?php if($video){echo 'hide';}?>">
+                            <div class="create-access text-gray js-WeChat-file-add-video">
+                                <i class="icon-add-btn"></i><h5>从素材库中选择</h5>
+                            </div>
+                            <div class="create-access text-gray js-video-click">
+                                <i class="icon-add-btn"></i><h5>新建视频</h5>
+                                <input id="js-demo-fileInput-videos-tan2" type="file" name="files[]" class="hide demo-fileInput-videos-tan2" multiple="multiple">
+                            </div>
+                        </div>
+                        <!-- 有视频 -->
+                        <div class="Wechat-menu-con" id="videoshow" <?php if(!$video){echo ' style="display:none"';}?>>
+                            <div class="Wechat-menu-video-box js-Wechat-menu-video-box">
+                                <div class="Wechat-menu-video-con">
+                                    <div class="video-con-tit">
+                                        <video src="<?php echo $video['videosurl'];?>" height="114" width="206">您的浏览器不支持视频播放。</video>
+                                    </div>
+                                    <h5 class="con-tit"><?php echo $video['title'];?></h5>
+                                    <h5 class="con-date"><?php echo format_time($video['updatetime'],'ymd');?></h5>
+                                </div>
+                                <a class="tips del-cur-video js-del-cur-video" href="javascript:void(0);">删除</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="Wechat-msg-bottom text-center">
+            <a class="btn-middle btn-white" href="javascript:void(0);" id="savemenu">保存并发布</a>
+        </div>
+    </div>
+</div>
+<!-- 文本提示弹窗 -->
+<div class="popup-wrap js-help-tips-wrap">
+    <div class="mod middle-popup type-2">
+        <div class="mod-header">
+            <h4 class="fl">Tips</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+            <div class="content">
+                <ul class="decimal">
+                    <li class="pb-10">
+                        <h5 class="pb-10">如需在文字回复中加入文字链，请复制以下格式，并替成您的链接地址以及相应的内容进行设置。例：请点击 <a class="tips" href="http://www.mobiwind.cn">人来风首页</a> 访问我们的官方网站！<br>文字超链接效果：</h5>
+                        <img class="inline text-top" src="./Tpl/User/default/common/images/text/chaolianjie.jpg" alt="文字超链接效果">
+                    </li>
+                    <li class="mb-20">
+                        <h5>如需在文字回复中加入粉丝昵称，请加入以下代码：#nikename#。如“Hi，#nikename#，感谢你的关注”</h5>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(".js-help-tips").click(function(){
+            $(".js-help-tips-wrap").fadeIn(120);
+        });
+    </script>
+</div>
+
+<script>
+$(document).ready(function(){
+	$(document).delegate('.js-pic-click','click',function(){
+		document.getElementById("js-demo-fileInput-img-tan2").click();
+	});
+	$(document).delegate('.js-voice-click','click',function(){
+		document.getElementById("js-demo-fileInput-voices-tan2").click();
+	});
+	$(document).delegate('.js-video-click','click',function(){
+		document.getElementById("js-demo-fileInput-videos-tan2").click();
+	});
+});
+$(function(){
+	/* 新建图文 */
+	$('.Other').click(function(){
+		window.location.href = "<?php echo U('Other/set',array('wechatid'=>$wechatid));?>";
+	});
+	/* 新建图文 */
+	$('.Keyword').click(function(){
+		window.location.href = "<?php echo U('Keyword/lists',array('wechatid'=>$wechatid));?>";
+	});
+	/* 新建图文 */
+	$('.js-newmanylist').click(function(){
+		window.open('<?php echo U('MessageWechats/manyNewsSet');?>');
+	});
+	$('#savemenu').click(function(){
+		var type = $(".js-tab-box-pro .hd").find('.on').attr('data-value');
+		var scvalue = '';
+		if(type==1){
+			scvalue = $(".js-Wechat-menu-msg-msg").val();
+		}else{
+			scvalue = $(".js-tab-box-pro .hd").find('.on').attr('data-scvalue');
+		}
+		$(".loading").show();
+		$.post("<?php echo U('Areply/subset',array('companyid'=>$companyid)).'&time='?>"+Math.random(),{type:type,scvalue:scvalue},function(data){
+    		$(".loading").hide();
+    		alertTan(data.msg);
+        },'json');
+	});
+	/* 新建图文 */
+	$('.js-newmanylist').click(function(){
+		window.open('<?php echo U('MessageWechats/manyNewsSet');?>');
+	});
+	//播放音频
+	$(document).on("click", ".js-icon-menu-audio", function () {
+    	var player = $(this).next(".aa")[0];
+    	if($(this).hasClass('on')){
+    		player.play ();
+    	}else{
+    		player.pause ();
+    	}
+	});
+  	//选中视频点击确定
+    $(document).on("click", "#clickvideook", function () {
+    	var sucaicoutent = $(this).attr("data-videoid");
+    	selectSucai('5',sucaicoutent,'');
+    });
+ 	//选中音频点击确定
+    $(document).on("click", "#clickvoiceok", function () {
+    	var sucaicoutent = $('input:radio[name="audio-item"]:checked').val();
+    	selectSucai('4',sucaicoutent,'');
+    });
+  	//选中图片点击确定
+    $(document).on("click", "#clickimgok", function () {
+    	var sucaicoutent = $(this).attr("data-imgid");
+    	selectSucai('3',sucaicoutent,'');
+    });
+	//选中素材点击确定
+    $(document).on("click", "#clicktextok", function () {
+    	var sucaicoutent = $(this).attr("data-imgtext");
+    	selectSucai('2',sucaicoutent,'');
+    });
+	function selectSucai(val1,val2,val3){
+		var datanum = '';
+		var menutype = $('input[name="menutype"]').val();
+        if(menutype == '2'){
+        	datanum = $('input[name="datanums_zi"]').val();
+        }else{
+        	datanum = $('input[name="datanums"]').val();
+        }
+        $(".loading").show();
+		$.post("<?php echo U('Diymen/sucaiCoutent',array('companyid'=>$companyid)).'&time='?>"+Math.random(),{contenttype:val1,sucaicoutent:val2},function(data){
+    		$(".loading").hide();
+        	if(data.code == 200){
+        		if(val1 == '2'){
+        			$('#tuwenshow').html(data.html);
+        			$('#tuwenshow').prev().addClass('hide');
+        			$('#tuwenshow').fadeIn(120);
+        		}else if(val1 == '3'){
+        			$('#tupianshow').html(data.html);
+        			$('#tupianshow').prev().addClass('hide');
+        			$('#tupianshow').fadeIn(120);
+        		}else if(val1 == '4'){
+        			$('#voiceshow').html(data.html);
+        			$('#voiceshow').prev().addClass('hide');
+        			$('#voiceshow').fadeIn(120);
+        		}else if(val1 == '5'){
+        			$('#videoshow').html(data.html);
+        			$('#videoshow').prev().addClass('hide');
+        			$('#videoshow').fadeIn(120);
+        		}
+        		$(".js-tab-box-pro .hd li").eq(val1-1).attr('data-scvalue',val2);
+        	}
+        },'json');
+	}
+	//	切换回复消息类型开始
+	$(".js-tab-box-pro .hd li").on("click", function () {
+        if ($(this).not(".on")[0]) {
+    		$(".js-tab-box-pro .hd li").eq($(this).index()).addClass("on").siblings().removeClass("on");
+            $(".js-tab-box-pro .bd>div").hide().eq($(this).index()).fadeIn(120);
+        }
+    });
+});
+</script>
+<include file="Public:footer"/>

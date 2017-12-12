@@ -1,0 +1,477 @@
+<include file="Public:scrm5Head"/>
+<link href="{lanrain::RES}/activity_wap/css/wap.css?1215<?php echo C('site_system_file_version'); ?>" rel="stylesheet" type="text/css" />
+<!-- =================== 计次卡 ===================== -->
+<!--<style>
+	.ifoot_padding{padding-bottom: 140px;}
+	body{padding-bottom: 0.8rem;}
+	/*.eshopv_fotter_logo{bottom: 0.85rem;}*/
+</style>-->
+<section class="content_app ifoot_padding ifoot_padding_190">
+	<?php if($info['vouchertype'] == 2){?>
+	<div class="meter_card_box">
+		<div class="meter_card_cont voucher_card">
+			<img src="{lanrain::RES}/activity_wap/img/kaquan_bg2.png" />
+			<div class="meter_card_conts  ">
+				<div class="meter_card_inside">
+					<p class="meter_card_cp">优惠券
+						<?php if(strpos($info['info']['useissite'],'2') !== FALSE){?>
+						<span>eshop使用</span>
+						<?php }else{?>
+						<span>门店使用</span>
+						<?php }?>
+					</p>
+					<ul class="meter_card_cp2  masterY_middle">
+						<!-- <?php if(strstr($info['info']['useissite'],'2') == true){?>
+							<?php if($info['info']['shopcanuserspend'] > 0){?>
+							<li>满 <?php echo $info['info']['shopcanuserspend'];?> 元减 <?php echo $info['info']['parvalue'];?> 元</li>
+							<?php }else{?>
+							<li>立减 <?php echo $info['info']['parvalue'];?> 元</li>
+							<?php }?>
+						<?php }else{?>
+						<li>价值 <?php echo $info['info']['parvalue'];?> 元</li>
+						<?php }?> -->
+						<li style="font-size:0.38rem;"><?php echo $info['info']['title'];?></li>
+					</ul>
+					<p class="meter_card_cp4"><?php echo format_time($info['usestarttime'],'ymdhi');?> 至 <?php echo format_time($info['useendtime'],'ymdhi');?></p>
+				</div>
+			</div>
+		</div>
+		<div class="meter_card_btnt voucher_card_btnt">
+			<?php if($info['isused'] == 2){?>
+				<?php if($info['useendtime'] < $info['nowTime']){?>
+					<a href="javascript:void(0)" class="meter_card_noactive">已过期</a>
+				<?php }else{?>
+					<a href="javascript:void(0)" class="popup_embtn_active meter_card_blink js-quick-use" style="cursor:pointer;">立即使用</a>
+					<a href="javascript:void(0)" class="meter_card_noactive js-is-used" style="display:none;">已使用</a>
+				<?php }?>
+			<?php }elseif($info['isused'] == 1){?>
+			<a href="javascript:void(0)" class="meter_card_noactive">已使用</a>
+			<?php }?>
+		</div>
+		<h6 class="meter_card_bnum">卡券号：<?php echo $info['sn'];?></h6>
+	</div>
+	<?php }elseif($info['vouchertype'] == 3){?>
+	<div class="meter_card_box">
+		<div class="meter_card_cont">
+			<img src="{lanrain::RES}/activity_wap/img/jicika_bg.png" />
+			<div class="meter_card_conts">
+				<div class="meter_card_inside">
+					<p class="meter_card_cp">计次卡<span>门店使用</span></p>
+					<ul class="meter_card_cp2 masterY_middle">
+						<li><?php echo $info['vouchername'];?></li>
+						<li class="meter_card_jck"><button class="Specifications_sp Specifications_sp-cl2"><?php echo $info['usenumberlimit'];?></button></li>
+						<li class="meter_card_sycs">
+							<p class="meter_card_cp3">剩余次数</p>
+							<span><b class="js-usednumber"><?php echo $info['usenumberlimit']-$info['usednumber'];?></b><!--/<?php echo $info['usenumberlimit'];?>--></span>
+						</li>
+					</ul>
+					<p class="meter_card_cp4"><?php echo format_time($info['usestarttime'],'ymdhi');?> 至 <?php echo format_time($info['useendtime'],'ymdhi');?></p>
+				</div>
+			</div>
+		</div>
+		<div class="meter_card_btnt">
+			<?php if($info['isused'] == 2){?>
+				<?php if($info['useendtime'] < $info['nowTime']){?>
+					<a href="javascript:void(0)" class="meter_card_noactive">已过期</a>
+				<?php }else{?>
+					<a href="javascript:void(0)" class="popup_embtn_active meter_card_blink js-quick-use" style="cursor:pointer;">立即使用</a>
+					<a href="javascript:void(0)" class="meter_card_noactive js-is-used" style="display:none;">已使用</a>
+				<?php }?>
+			<?php }elseif($info['isused'] == 1){?>
+			<a href="javascript:void(0)" class="meter_card_noactive js-is-used">已使用</a>
+			<?php }?>
+		</div>
+		<h6 class="meter_card_bnum">卡券号：<?php echo $info['sn'];?></h6>
+	</div>
+	<?php }elseif($info['vouchertype'] == 4){?>
+	<div class="meter_card_box">
+		<div class="meter_card_cont  purchase_card">
+			<img src="{lanrain::RES}/activity_wap/img/tuangou_bg.png" />
+			<div class="meter_card_conts  ">
+				<div class="meter_card_inside">
+					<p class="meter_card_cp">团购券<span>门店使用</span></p>
+					<ul class="meter_card_cp2  masterY_middle">
+						<li><?php echo $info['vouchername'];?></li>
+						<li><button class="Specifications_sp Specifications_sp-cl4"><?php echo $info['voucherskuname'];?></button></li>
+					</ul>
+					<p class="meter_card_cp4"><?php echo format_time($info['usestarttime'],'ymdhi');?> 至 <?php echo format_time($info['useendtime'],'ymdhi');?></p>
+				</div>
+			</div>
+		</div>
+		<div class="meter_card_btnt purchase_card_btnt">
+			<?php if($info['isused'] == 2){?>
+				<?php if($info['useendtime'] < $info['nowTime']){?>
+					<a href="javascript:void(0)" class="meter_card_noactive">已过期</a>
+				<?php }else{?>
+					<a href="javascript:void(0)" class="popup_embtn_active meter_card_blink js-quick-use" style="cursor:pointer;">立即使用</a>
+					<a href="javascript:void(0)" class="meter_card_noactive js-is-used" style="display:none;">已使用</a>
+				<?php }?>
+			<?php }elseif($info['isused'] == 1){?>
+			<a href="javascript:void(0)" class="meter_card_noactive">已使用</a>
+			<?php }?>
+		</div>
+		<h6 class="meter_card_bnum">卡券号：<?php echo $info['sn'];?></h6>
+	</div>
+	<?php }elseif($info['vouchertype'] == 5){?>
+	<div class="meter_card_box">
+		<div class="meter_card_cont  admission_card">
+			<img src="{lanrain::RES}/activity_wap/img/piao_men2.png" />
+			<div class="meter_card_conts  ">
+				<div class="meter_card_inside">
+					<p class="meter_card_cp">门票<span>门店使用</span></p>
+					<ul class="meter_card_cp2  masterY_middle">
+						<li><?php echo $info['vouchername'];?></li>
+						<li><button class="Specifications_sp Specifications_sp-cl1"><?php echo $info['voucherskuname'];?></button></li>
+					</ul>
+					<p class="meter_card_cp4"><?php echo format_time($info['usestarttime'],'ymdhi');?> 至 <?php echo format_time($info['useendtime'],'ymdhi');?></p>
+				</div>
+			</div>
+		</div>
+		<div class="meter_card_btnt admission_card_btnt">
+			<?php if($info['isused'] == 2){?>
+				<?php if($info['useendtime'] < $info['nowTime']){?>
+					<a href="javascript:void(0)" class="meter_card_noactive">已过期</a>
+				<?php }else{?>
+					<a href="javascript:void(0)" class="popup_embtn_active meter_card_blink js-quick-use" style="cursor:pointer;">立即使用</a>
+					<a href="javascript:void(0)" class="meter_card_noactive js-is-used" style="display:none;">已使用</a>
+				<?php }?>
+			<?php }elseif($info['isused'] == 1){?>
+			<a href="javascript:void(0)" class="meter_card_noactive">已使用</a>
+			<?php }?>
+		</div>
+		<h6 class="meter_card_bnum">卡券号：<?php echo $info['sn'];?></h6>
+	</div>
+	<?php }elseif($info['vouchertype'] == 6){?>
+	<div class="meter_card_box">
+		<div class="meter_card_cont power_card">
+			<img src="{lanrain::RES}/activity_wap/img/quanyi_bg2.png" />
+			<div class="meter_card_conts  ">
+				<div class="meter_card_inside">
+					<p class="meter_card_cp">权益卡<span>门店使用</span></p>
+					<ul class="meter_card_cp2  masterY_middle">
+						<li><?php echo $info['vouchername'];?></li>
+						<li></li>
+					</ul>
+					<p class="meter_card_cp4"><?php echo format_time($info['usestarttime'],'ymdhi');?> 至 <?php echo format_time($info['useendtime'],'ymdhi');?></p>
+				</div>
+			</div>
+		</div>
+		<div class="meter_card_btnt power_card_btnt">
+			<?php if($info['isused'] == 2){?>
+			<?php if($info['useendtime'] < $info['nowTime']){?>
+			<a href="javascript:void(0)" class="meter_card_noactive">已过期</a>
+			<?php }else{?>
+			<a href="javascript:void(0)" class="popup_embtn_active meter_card_blink js-quick-use" style="cursor:pointer;">立即使用</a>
+			<a href="javascript:void(0)" class="meter_card_noactive js-is-used" style="display:none;">已使用</a>
+			<?php }?>
+			<?php }elseif($info['isused'] == 1){?>
+			<a href="javascript:void(0)" class="meter_card_noactive">已使用</a>
+			<?php }?>
+		</div>
+		<h6 class="meter_card_bnum">卡券号：<?php echo $info['sn'];?></h6>
+	</div>
+	<?php }elseif($info['vouchertype'] == 7){?>
+	<div class="meter_card_box">
+		<!-- =================== 优惠  券 eshop使用 ===================== -->
+		<div class="meter_card_cont voucher_card">
+			<img src="{lanrain::RES}/activity_wap/img/kaquan_bg2.png" />
+			<div class="meter_card_conts  ">
+				<div class="meter_card_inside">
+					<p class="meter_card_cp">优惠券<span>eshop使用</span></p>
+					<ul class="meter_card_cp2  masterY_middle">
+						<li style="font-size:0.38rem;"><?php echo $info['vouchername'];?></li>
+					</ul>
+					<p class="meter_card_cp4"><?php echo format_time($info['usestarttime'],'ymdhi');?> 至 <?php echo format_time($info['useendtime'],'ymdhi');?></p>
+				</div>
+			</div>
+		</div>
+		<div class="meter_card_btnt voucher_card_btnt">
+			<?php if($info['isused'] == 2){?>
+				<?php if($info['useendtime'] < $info['nowTime']){?>
+					<a href="javascript:void(0)" class="meter_card_noactive">已过期</a>
+				<?php }else{?>
+					<a href="javascript:void(0)" class="popup_embtn_active meter_card_blink js-quick-use" style="cursor:pointer;">立即使用</a>
+					<a href="javascript:void(0)" class="meter_card_noactive js-is-used" style="display:none;">已使用</a>
+				<?php }?>
+			<?php }elseif($info['isused'] == 1){?>
+			<a href="javascript:void(0)" class="meter_card_noactive">已使用</a>
+			<?php }?>
+		</div>
+		<h6 class="meter_card_bnum">卡券号：<?php echo $info['sn'];?></h6>
+	</div>
+	<?php }elseif($info['vouchertype'] == 8){?>
+	<div class="meter_card_box">
+		<!-- =================== 优惠  券 门店使用 ===================== -->
+		<div class="meter_card_cont voucher_card">
+			<img src="{lanrain::RES}/activity_wap/img/kaquan_bg2.png" />
+			<div class="meter_card_conts  ">
+				<div class="meter_card_inside">
+					<p class="meter_card_cp">优惠券<span>门店使用</span></p>
+					<ul class="meter_card_cp2  masterY_middle">
+						<li style="font-size:0.38rem;"><?php echo $info['vouchername'];?></li>
+					</ul>
+					<p class="meter_card_cp4"><?php echo format_time($info['usestarttime'],'ymdhi');?> 至 <?php echo format_time($info['useendtime'],'ymdhi');?></p>
+				</div>
+			</div>
+		</div>
+		<div class="meter_card_btnt voucher_card_btnt">
+			<?php if($info['isused'] == 2){?>
+				<?php if($info['useendtime'] < $info['nowTime']){?>
+					<a href="javascript:void(0)" class="meter_card_noactive">已过期</a>
+				<?php }else{?>
+					<a href="javascript:void(0)" class="popup_embtn_active meter_card_blink js-quick-use" style="cursor:pointer;">立即使用</a>
+					<a href="javascript:void(0)" class="meter_card_noactive js-is-used" style="display:none;">已使用</a>
+				<?php }?>
+			<?php }elseif($info['isused'] == 1){?>
+			<a href="javascript:void(0)" class="meter_card_noactive">已使用</a>
+			<?php }?>
+		</div>
+		<h6 class="meter_card_bnum">卡券号：<?php echo $info['sn'];?></h6>
+	</div>
+	<?php }elseif($info['vouchertype'] == 9){?>
+	<div class="meter_card_box">
+		<!-- =================== 兑换  券 门店使用 ===================== -->
+		<div class="meter_card_cont exchange_card">
+			<img src="{lanrain::RES}/activity_wap/img/duihuan_bg2.png" />
+			<div class="meter_card_conts">
+				<div class="meter_card_inside">
+					<p class="meter_card_cp">兑换券<span>门店使用</span></p>
+					<ul class="meter_card_cp2  masterY_middle">
+						<li style="font-size:0.38rem;"><?php echo $info['vouchername'];?></li>
+					</ul>
+					<p class="meter_card_cp4"><?php echo format_time($info['usestarttime'],'ymdhi');?> 至 <?php echo format_time($info['useendtime'],'ymdhi');?></p>
+				</div>
+			</div>
+		</div>
+		<div class="meter_card_btnt exchange_card_btnt">
+			<?php if($info['isused'] == 2){?>
+				<?php if($info['useendtime'] < $info['nowTime']){?>
+					<a href="javascript:void(0)" class="meter_card_noactive">已过期</a>
+				<?php }else{?>
+					<a href="javascript:void(0)" class="popup_embtn_active meter_card_blink js-quick-use" style="cursor:pointer;">立即使用</a>
+					<a href="javascript:void(0)" class="meter_card_noactive js-is-used" style="display:none;">已使用</a>
+				<?php }?>
+			<?php }elseif($info['isused'] == 1){?>
+			<a href="javascript:void(0)" class="meter_card_noactive">已使用</a>
+			<?php }?>
+		</div>
+		<h6 class="meter_card_bnum">卡券号：<?php echo $info['sn'];?></h6>
+	</div>
+	<?php }elseif($info['vouchertype'] == 40){?>
+	<div class="meter_card_box">
+		<!-- =================== 通用券  ===================== -->
+		<div class="meter_card_cont voucher_card">
+			<img src="{lanrain::RES}/activity_wap/img/kaquan_bg2.png" />
+			<div class="meter_card_conts  ">
+				<div class="meter_card_inside">
+					<p class="meter_card_cp">优惠券<span>通用券</span></p>
+					<ul class="meter_card_cp2  masterY_middle">
+						<li style="font-size:0.38rem;"><?php echo $info['vouchername'];?></li>
+					</ul>
+					<p class="meter_card_cp4"><?php echo format_time($info['usestarttime'],'ymdhi');?> 至 <?php echo format_time($info['useendtime'],'ymdhi');?></p>
+				</div>
+			</div>
+		</div>
+		<div class="meter_card_btnt voucher_card_btnt">
+			<?php if($info['isused'] == 2){?>
+				<?php if($info['useendtime'] < $info['nowTime']){?>
+					<a href="javascript:void(0)" class="meter_card_noactive">已过期</a>
+				<?php }else{?>
+					<a href="javascript:void(0)" class="popup_embtn_active meter_card_blink js-quick-use" style="cursor:pointer;">立即使用</a>
+					<a href="javascript:void(0)" class="meter_card_noactive js-is-used" style="display:none;">已使用</a>
+				<?php }?>
+			<?php }elseif($info['isused'] == 1){?>
+			<a href="javascript:void(0)" class="meter_card_noactive">已使用</a>
+			<?php }?>
+		</div>
+		<h6 class="meter_card_bnum">卡券号：<?php echo $info['sn'];?></h6>
+	</div>
+	<?php }?>
+	<div class="meter_card_explain">
+		<h4 class="btn_border_img">使用说明</h4>
+		<div class="meter_card_expcont">
+			<p><?php echo htmlspecialchars_decode(htmlspecialchars_decode($info['useinfo']));?></p >
+		</div>
+	</div>
+	<?php if($info['vouchertype'] == 3 || $info['vouchertype'] == 4 || $info['vouchertype'] == 5 || $info['vouchertype'] == 6 || $info['vouchertype'] == 8 || $info['vouchertype'] == 9 ){?>
+	<?php if(!empty($useShops)){?>
+	<div class="meter_card_explain mt10">
+		<h4 class="btn_border_img">使用门店</h4>
+		<div class="js-ajax-shopInfo">
+			<?php foreach($useShops as $iKey=>$iVal){?>
+			<?php if($iKey <= 2){?>
+			<div class="meter_card_expcont btn_border_img">
+				<div class="meter_card_eleft">
+					<h3><?php echo $iVal['shopname'];?></h3>
+					<p class="meter_card_elep"><?php echo $iVal['address'];?></p>
+					<p class="meter_card_eletell"><a href="tel:<?php echo $iVal['tel'];?>"><?php echo $iVal['tel'];?></a></p>
+				</div>
+				<div class="meter_card_eright">
+					<a href="javascript:void(0);">
+						<b class="meter_card_ericn"></b>
+						<p><?php echo $iVal['distanceshow']?></p>
+					</a>
+				</div>
+			</div>
+			<?php }?>
+			<?php }?>
+		</div>
+		<div class="meter_card_eshop">
+			<a href="<?php echo U('MemberDining/shops',array('companyid'=>$companyid,'id'=>$info['useshopslimitset']))?>" class="meter_card_elinks">查看全部适用门店</a>
+		</div>
+	</div>
+	<?php }?>
+	<?php }?>
+<!-- ======= 弹出的二维码 ======= -->
+	<div class="popup_emzbg" style="cursor:pointer;"></div>
+	<div class="popup_emz  popup_emz_active">
+		<div class="popup_emz_head">
+			<h5 class="btn_border_img">请向店员出示<b class="popup_emz_close" style="cursor:pointer;"></b></h5>
+			<div class="popup_emz_img">
+				<img class="rd-url" src="<?php echo U('MemberVouchers/erweima',array('companyid'=>$companyid,'url'=>base64_encode($info['sn'])))?>"/><!--C('site_url').U('MemberVouchers/myVouchers',array('companyid'=>$companyid,'id'=>$info['id']))  -->
+			</div>
+			<!-- <p>每分钟自动刷新</p>
+			<div class="popup_emz_ilinks"><a href="javascript:void(0);" onClick="RefreshQRcode();">刷新</a></div> -->
+		</div>
+	</div>
+	<div style="height: 0.8rem;"></div>
+	<div class="meter_card_showp">
+		<a href="javascript:void(0)">请向店员出示</a>
+	</div>
+	<input type="hidden" name="usednumber" value="<?php echo $info['usednumber'];?>"/>
+	<script>
+	 /* ========================搜索效果======================== */
+	 $(function(){
+		//二维码
+		$(".popup_embtn_active").click(function(){
+			$(".popup_emz_active").addClass("popup_emz_showw");
+			$(".popup_emzbg").show();
+		 });
+		$(".popup_emzbg , .popup_emz_close").click(function(){
+			$(".popup_emz_active").removeClass("popup_emz_showw");
+			$(".popup_emzbg").hide();
+			return false;
+		 });
+	 });
+	</script>
+<script>
+$(function(){
+	var vouchertype = "<?php echo $info['vouchertype'];?>"
+	if(vouchertype == 3){
+		window.iJiStatus = setInterval("QueryJiStatus()",3000);   // 3秒刷新一次
+	}else if(vouchertype != 6){
+		window.iStatus = setInterval("QueryStatus()",3000);   // 3秒刷新一次
+	}
+});
+//判断核销状态
+function QueryStatus(){
+	var id = "<?php echo $info['id']?>";
+	if(id.length>0){
+       	$.post("<?php echo U('MemberVouchers/QueryArrangedStatus',array('companyid'=>$companyid)); ?>",{'id':id},function(data){
+       		if(data.code == 200){
+	       		$(".popup_emz_active").removeClass("popup_emz_showw");
+				$(".popup_emzbg").hide();
+				$('.js-is-used').show();
+				$('.js-quick-use').hide();
+       			clearInterval(iStatus);
+       		}
+       	},"json");
+	}
+}
+//判断计次卡核销状态
+function QueryJiStatus(){
+	var id = "<?php echo $info['id']?>";
+	var usednumber = $('input[name="usednumber"]').val();
+	if(id.length>0){
+       	$.post("<?php echo U('MemberVouchers/QueryJiArrangedStatus',array('companyid'=>$companyid)); ?>",{'id':id,'usednumber':usednumber},function(data){
+       		if(data.code == 200){
+	       		$(".popup_emz_active").removeClass("popup_emz_showw");
+				$('.js-usednumber').text(data.iscanusenumber);
+				$('input[name="usednumber"]').val(data.usednumber);
+				if((parseInt(usednumber)+1) == data.usenumberlimit){
+					$('.js-is-used').show();
+					$('.js-quick-use').hide();
+				}
+				$(".popup_emzbg").hide();
+       		}
+       	},"json");
+	}
+}
+//一分钟刷新二维码
+/* function RefreshQRcode(){
+	var urls = "<?php echo U('MemberVouchers/erweima',array('companyid'=>$companyid,'url'=>base64_encode($info['sn'])))?>";
+	$('.rd-url').attr('src',urls);
+} */
+</script>
+<script src="./Tpl/Wap/default/common/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript">
+var　vouchertype = "<?php echo $info['vouchertype'];?>";
+var useShops = "<?php echo $useShops;?>"
+var latitude = '';
+var longitude = '';
+var speed = '';
+var accuracy = '';
+var addressid = '';
+var addresstype = '';
+var title = '';
+$(function(){
+	wx.config({
+	  debug: false,
+	  appId: "<?php echo $signPackage['appId'];?>",
+	  timestamp: "<?php echo $signPackage['timestamp'];?>",
+	  nonceStr: "<?php echo $signPackage['nonceStr'];?>",
+	  signature: "<?php echo $signPackage['signature'];?>",
+	  jsApiList: [   
+	          	'hideMenuItems'  
+	            ]
+	});
+	wx.ready(function(){
+		wx.getLocation({
+			type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+			success: function (res) {
+				latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+				longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+				speed = res.speed; // 速度，以米/每秒计
+				accuracy = res.accuracy; // 位置精度
+			}
+		});
+		//显示右上角菜单接口
+		wx.hideOptionMenu();
+	});
+	if(vouchertype == 3 || vouchertype == 4 || vouchertype == 5 ||vouchertype == 6 ||  vouchertype == 8 || vouchertype == 9){
+		if(useShops.length > 0){
+			setTimeout("ajaxAsa();",1000);
+		}
+	}
+});
+function ajaxAsa(){
+	var a = 1;
+	var condition ='';
+	var id = "<?php echo $id;?>";
+	if(latitude&&longitude||addressid||addresstype){
+		$.post("<?php echo U('MemberVouchers/ajaxShopInfo',array('companyid'=>$companyid));?>",{
+			id:id,lat:latitude,lng:longitude},function(data){
+				if(data.code == '200'){
+					$(".js-ajax-shopInfo").html(data.msg);
+				}else{
+					$(".js-ajax-shopInfo").html('');
+					alert(data.msg,2000);
+				}
+			},"json");
+	}else{
+		a++;
+		if(a<=3)
+		setTimeout("ajaxAsa();",3000);
+	}
+}
+</script>
+<!-- ========公共底部======== -->
+    <div class="eshopv_fotter_logo">
+        <include file="Public:navFooter" />
+    </div>
+</section>
+
+<!--手势缩放-->
+<include file="Public:Imagezoom" />
+<include file="Public:loginBox" />
+<include file="Public:scrm5Foot"/>

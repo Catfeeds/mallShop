@@ -1,0 +1,31 @@
+<!--Mobiwein系统-自定义菜单-->
+<?php if($systemDiymenu['parent']){ ?>
+<div data-role="widget" data-widget="nav4" class="custom-nav">
+	<nav>
+	 <div id="nav4_ul">
+      <ul class="box">
+        <!--<a class="nav-home" href="javascript:history.go(-1);"><span>返回</span></a>-->
+        <?php foreach($systemDiymenu['parent'] as $Kay=>$Val){?>
+        <li>
+          <?php if($Val['child']){?>
+          <a href="javascript:void(0);"><span><?php echo $Val['title'];?></span></a>
+          <dl>
+            <?php foreach($Val['child'] as $cKay=>$cVal){?>
+            <dd><a href="<?php echo $cVal['url'];?>"><span><?php echo $cVal['title'];?></span></a></dd>
+            <?php }?>
+          </dl>
+          <?php }else{?>
+          <a href="<?php echo $Val['url'];?>"><span><?php echo $Val['title'];?></span></a>
+          <?php } ?>
+        </li>
+        <?php }?>
+      </ul>
+    </div>
+	</nav>
+	<div id="nav4_masklayer" class="masklayer_div">&nbsp;</div>
+</div>
+<script src="{lanrain::RES}/js/ft-nav.js"></script>
+<script type="text/javascript">
+nav4.bindClick(document.getElementById("nav4_ul").querySelectorAll("li>a"), document.getElementById("nav4_masklayer"));
+</script>
+<?php } ?>

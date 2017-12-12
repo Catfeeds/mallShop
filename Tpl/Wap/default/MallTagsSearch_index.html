@@ -1,0 +1,68 @@
+<include file="Public:memberCenterHeader"/>
+<style type="text/css">
+.eshopv_fotter_logo {
+    bottom: 0px;
+}
+</style>
+<section class="app-content ifoot_padding">
+  <section class="header">
+    <ul class="shop-hd">
+      <li><img class="logo" src="<?php echo session('clogo'); ?>" /></li>
+      <li class="add-follow"><a class="add-weixin" href="<?php echo $wechatfollowlink; ?>">关注</a></li>
+    </ul>
+    <!-- <section class="header-small mb10">
+      筛选
+      <aside class="bar-cate">
+        <a class="" href="<?php echo U('MallTagsSearch/index',array('companyid'=>$companyid));?>"></a>
+      </aside>
+      筛选
+      <form class="search-shop cf" method="post" action="<?php echo U('MallTagsSearch/lists',array('companyid'=>$companyid));?>">
+        <input class="search" type="text" name="title" placeholder="请输入商品名称">
+        <button class="inquiry-yes btn-search" style="display:none;">搜索 <i class="english">Search</i></button>
+		<span class="inquiry-no btn-search">搜索 <i class="english">Search</i></span>
+      </form>
+    </section> -->
+  </section>
+  <form method="post" action="<?php echo U('MallTagsSearch/lists',array('companyid'=>$companyid));?>">
+  <section class="mod-item" id="myform">
+    <div class="mod-header">
+      <label class="ui-checkbox checkbox-r"><input type="checkbox" name="tidAll" id="checkall" value="-1"><span>全部</span></label>
+      <h3 class="hd icons-set"><strong>商品分类</strong> <i class="english c2">Category</i></h3>
+    </div>
+    <article class="bd checkboxes">
+      <?php if($list){?>
+      <ul id="slaves">
+        <?php foreach($list as $key=>$val){?>
+        <li><label class="ui-tag"><input type="checkbox" name="tid[]" value="<?php echo $val['id'];?>"><span><?php echo $val['name'];?></span></label></li>
+        <?php }?>
+      </ul>
+      <?php }else{?>
+      <include file="Public:blank" />
+      <?php }?>
+    </article>
+  </section>
+  <section class="btn-cent">
+    <button type="submit" class="btn btn-primary">筛选 Filter</button>
+  </section>
+  </form>
+</section>
+<script src="{lanrain::RES}/js/jquery.checkall.js"></script>
+<script>
+$(document).ready(function(){
+  $('#checkall').checkAll('#slaves input:checkbox');
+	//商品查询
+	$('.inquiry-yes').hide();
+	$('input[name="title"]').bind('keyup',function(){
+		var num = $.trim($(this).val());
+		if(num.length>0){
+			$('.inquiry-yes').show();
+			$('.inquiry-no').hide();
+		}else{
+			$('.inquiry-yes').hide();
+			$('.inquiry-no').show();
+		}
+	});
+});
+</script>
+<include file="Public:weiXinShareSet"/>
+<include file="Public:memberCenterFooter"/>

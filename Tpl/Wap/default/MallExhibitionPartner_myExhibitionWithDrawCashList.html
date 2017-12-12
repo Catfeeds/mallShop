@@ -1,0 +1,13 @@
+<include file="Public:S5NewHead" />
+<div class="title_top">提现记录</div>
+<div class="dl_subnavbg">
+	<?php if($withDrawCashList){foreach($withDrawCashList as $key=>$val){?>
+    <div class="jx_txjl">
+        <div class="jx_txdate"><?php echo format_time($val['createtime'],'ymd');?></div>
+       <div class="jx_txnum"><p>提现金额</p><span><?php echo $val['wages'];?></span></div> 
+        <div class="line"></div>
+    </div>
+	<?php }}?>
+</div>
+<include file="Public:weiXinNotShareSet"/>
+<include file="Public:footer" />

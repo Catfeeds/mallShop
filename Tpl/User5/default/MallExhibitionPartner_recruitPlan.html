@@ -1,0 +1,119 @@
+<include file="Public:head"/>
+<include file="Public:UEditorJS" />
+<include file="Public:UEditorBig" />
+<?php echo $makeTopUrl;?>
+<!--场景 > 展业伙伴 > 展业伙伴管理-->
+<div class="group inline-btn-group mb-10">
+    <a class="btn-small btn-white" href="<?php echo U('MallExhibitionPartner/partnerApplyList');?>">代理申请管理</a>
+    <a class="btn-small btn-white" href="<?php echo U('MallExhibitionPartner/partnerList');?>">代理管理</a>
+    <a class="btn-small btn-purple" href="<?php echo U('MallExhibitionPartner/index');?>">代理基础设置</a>
+    <!-- <a class="btn-small btn-white" href="<?php echo U('MallExhibitionPartner/invitationPoster');?>">邀请海报设置</a> -->
+</div>
+<div class="mod mb-15">
+   	<div class="mod-header radius-top">
+       <h4>招募计划</h4>
+       <div class="coupons-Help-box mt-3">
+           <i class="coupons-Help-icon"></i>
+           <div class="help-tips-box" style="width: 240px;z-index:2;">
+                <h5 class="text-dark">须将申请条件、如何推广、推广后展业伙伴可获得的奖励以及展业规则写在招募计划中，实现招募伙伴的目的。</h5>
+                <span class="triangle-left-b"></span>
+                <span class="triangle-left-a"></span>
+            </div>
+        </div>
+        <a class="tips fr ml-10 js-plan-btn">招募计划模板</a>
+       	<a class="tips fr  QR-code-down js-QR-code-hide">手机预览
+	        <div class="QR-code-box-down w100 pt-2" style="top:30px;">
+				<img data-src="<?php echo U('MallExhibitionPartner/erweima',array('link'=>base64_encode(C('site_url').U('Wap/MallExhibitionPartner/recruitPlan',array('companyid'=>$companyid)))));?>">
+			    <h6>微信扫码<br>手机预览</h6>
+			</div>
+        </a>
+    </div>
+    <div class="mod-body">
+        <div class="content">
+            <div class="group pb-15">
+            	<div class="alert mb-15 w694">注意！本编辑器不会自动保存第三方平台中的图片，如果您的图文是从其他编辑器上直接复制粘贴过来的（如秀米等），请确保秀米等外来编辑器的原始图片文件不会被删除！否则，图文中的图片会在源图片文件被删除后无法查看！  *秀米编辑器会定期清理非秀米VIP账号的图文，请谨慎使用！</div>
+                <script type="text/plain" class="w-auto" id="info2" name="recruitplan"><?php echo htmlspecialchars_decode($info['recruitplan']);?></script>
+            </div>
+        </div>
+        <div class="group form-footer text-center">
+            <input class="btn-middle btn-purple pointer js-submit" type="submit" value="保存">
+        </div>
+    </div>
+</div>
+<!--招募计划模板-->
+<div class="popup-wrap js-plan-wrap">
+    <div class="mod bigger-popup">
+        <div class="mod-header"><h4 class="fl">招募计划模板</h4><i class="fr icon-close-dark js-icon-close"></i></div>
+        <div class="mod-body">
+            <div class="content">
+                <h3 class="pb-15">以下招募计划模板，请根据情况自行修改，仅供参考。</h3>
+                <h6 class="pb-15">小伙伴，欢迎加入我们</h6>
+                <h6 class="pb-15">我们是XXX运营团队，竭诚为你的销售工作提供完善的支持。</h6>
+                <h6 class="pb-15">我们诚挚邀请你加入我们的展业伙伴推广计划，无任何成本即可成为XXX的展业伙伴，一起分享收获的喜悦。你只需将高品质商品分享推荐给他人，收获他人的感谢的同时，挣得属于自己的利润。</h6>
+                <ol class="decimal promote-business-decimal">
+                    <li class="pb-15">
+                        <h5> 业绩说明</h5>
+                        <ol>
+                            <li><h5>买家通过销展业伙伴分享链接成交，即算作展业伙伴的业绩；</h5></li>
+                            <li><h5>订单交易完成前发生退款的订单，相应的展业伙伴业绩将扣除相应的退款金额；</h5></li>
+                            <li><h5>卡券商品中，仅非过期退的商品订单算作业绩，过期退商品订单不算做业绩。</h5></li>
+                        </ol>
+                    </li>
+                    <li class="pb-15">
+                        <h5>结算说明</h5>
+                        <ol>
+                            <li><h5>成功推广订单后（客户确认签收），获得X%的业绩提成；</h5></li>
+                            <li><h5>每月XX号前，我们将会和各展业伙伴核算业绩；</h5></li>
+                            <li><h5>每月XX号前，我们会将业绩奖励打入各展业伙伴提供的银行账号。</h5></li>
+                        </ol>
+                    </li>
+                    <li class="pb-15">
+                        <h5>其他说明</h5>
+                        <ol>
+                            <li><h5>分享前，请确定商品页面有【···】按钮；</h5></li>
+                            <li><h5>销售过程中有任何疑问，请直接在微信公众号内询问或直接致电；</h5></li>
+                            <li><h5>已售出商品的任何售后问题，由本商城处理；</h5></li>
+                            <li><h5>不传播或者扩散有关于政治、色情等任何违法的信息，一经发现，直接踢你出局，如果触犯任何法律相关问题，商城不负任何责任；</h5></li>
+                            <li><h5>以上内容解释权归本商城所有。</h5></li>
+                        </ol>
+                    </li>
+                    <li>
+                        <h5>联系方式</h5>
+                        <ol>
+                            <li><h5>联络人：XXX</h5></li>
+                            <li><h5>手机：1234567889</h5></li>
+                            <li><h5>展业伙伴QQ交流群：12345678</h5></li>
+                            <li><h5>邮箱：xxx@xxx.com</h5><h6 class="text-gray">无论是销售、对账，还是结算问题，请通过以上方式咨询。</h6></li>
+                        </ol>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(".js-plan-btn").click(function(){
+            $(".js-plan-wrap").fadeIn(120);
+        })
+    </script>
+</div>
+<script>
+$(function(){
+	$('.js-submit').click(function(){
+		var id = "<?php echo $info['id'];?>";
+		var info = jQuery.trim(ue2.getContent());
+		$('.loading').show();
+		$.post("<?php echo U('MallExhibitionPartner/recruitPlan',array('companyid'=>$companyid)).'&time='?>"+Math.random(),{'id':id,'info':info},function(data){
+			$('.loading').hide();
+			if(data.code == 200){
+				alertTan(data.tips);
+				setTimeout(function(){
+					window.location.href=location.href;
+				},'2000')
+			}else{
+				alertTan(data.tips,'error');
+			}
+		},'json');
+	});
+});
+</script>
+<include file="Public:footer"/>

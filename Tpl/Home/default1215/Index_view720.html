@@ -1,0 +1,77 @@
+<include file="Public:header" />
+	<div class="index-wrap wrap-default">
+		<div class="view720_content">
+			<div class="logo_cover">
+				<div id="view720_banner" ><!-- This content requires HTML5/CSS3, WebGL, or Adobe Flash Player Version 9 or higher. --></div>
+				<img class="banner_tips" src="./Tpl/Home/default0831/common/new_img/view720_banner_tips.png" draggable="false" />
+				<div class="logo_inner">
+					<img src="./Tpl/Home/default0831/common/new_img/view720_bannerlogo.png" draggable="false" />
+					<a href="/index.php?m=Index&a=Buy720" class="buynow_btn">立即购买</a>
+				</div>
+			</div>
+			<div class="cooperation_demo">
+				<h1 class="mod_tit">合作案例</h1>
+				<ul class="demo_shop_list clearfix">
+					<li>
+						<img class="demo_shop" src="./Tpl/Home/default0831/common/new_img/demoshop_10cc.png" draggable="false" />
+					</li>
+					<li>
+						<img class="demo_shop" src="./Tpl/Home/default0831/common/new_img/demoshop_RIV.png" draggable="false" />
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+
+<script src="./Tpl/Home/default0831/common/js/pano/pano2vr_player.js"></script>
+<script>
+	// create the panorama player with the container
+	pano=new pano2vrPlayer("view720_banner");
+	pano.readConfigUrl("./Tpl/Home/default0831/common/js/pano/thumb_out.xml");			
+</script>
+
+<!-- 预约弹窗 -->
+<div class="pupop-wrap">
+	<form class="login-form subscribe-form">
+		<i class="icon-close js-icon-close"></i>
+		<div class="input-box">
+			<span class="info-tit">姓名</span>
+			<input class="info-input" name="truename" type="text" placeholder="请输入您的姓名">
+		</div>
+		<div class="input-box">
+			<span class="info-tit">手机</span>
+			<input class="info-input" name="mobile" type="tel" placeholder="请输入您的手机">
+		</div>
+		<div class="input-box">
+			<span class="info-tit">公司名称</span>
+			<input class="info-input" name="companyname" type="text" placeholder="请输入您的公司名称或品牌简称">
+		</div>
+		<div class="input-box">
+			<span class="info-tit2">所属行业</span>
+			<select class="info-select pointer" name="industry">
+				<option>请选择行业</option>
+				<option>餐饮</option>
+				<option>电商</option>
+				<option>运动健身</option>
+				<option>酒店</option>
+				<option>美业</option>
+				<option>SPA</option>
+				<option>酒吧</option>
+				<option>时尚</option>
+				<option>快消</option>
+				<option>教育</option>
+				<option>旅游</option>
+				<option>婚庆</option>
+				<option>媒体</option>
+				<option>PR</option>
+				<option>公共事业</option>
+				<option>其他</option>
+			</select>
+		</div>
+		<input class="submit-btn js-sub-asa" type="button" value="立即预约">
+	</form>
+</div>
+
+
+<include file="Public:footer" />

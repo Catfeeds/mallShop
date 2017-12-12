@@ -1,0 +1,46 @@
+<include file="Public:S5NewHead" />
+<div class="title_top">申请成为营销伙伴</div>
+<div class="pt_btn" id="yjsq_btn">一键申请区域代理</div>
+<div class="dl_subnavbg">
+    <a href="#">
+        <div class="dl_subnav js-apply-area-daili">
+        <img src="{lanrain::RES}/weixinfeng/images/jx_ico1.png" >
+        自助申请区域代理<span class="fs24">（填写资料）</span>
+        <div class="line"></div>
+    </div>
+    </a>
+    <a href="#">
+        <div class="dl_subnav">
+        <img src="{lanrain::RES}/weixinfeng/images/jx_ico3.png" >
+        申请成为经销
+    </div>
+    </a>
+</div>
+<p class="pt_tel">咨询电话: <a href="tel:40088886666">400-8888-6666</a></p>
+<!--提交成功浮层-->
+<div class="sqcg_box">
+		<div class="sqcg_centent"><span class="js-close-box"></span></div>
+	 <div class="sqcg_black_opacity"></div>
+</div>
+<script>
+$(function(){
+	$('#yjsq_btn').click(function(){
+		$.post("<?php echo U('MallExhibitionPartner/ajaxApply')?>",{},function(data){
+			if(data.code == 200){
+				$(".sqcg_box").fadeIn(); 
+			}else{
+				alert(data.tips);
+			}
+		},'json');
+	});
+	$('.sqcg_centent span').click(function () {
+		$(".sqcg_box").fadeOut();
+	});
+	// 申请区域代理
+	$('.js-apply-area-daili').click(function(){
+		window.location.href="<?php echo U('MallExhibitionPartner/apply')?>";
+	});
+});
+</script>
+<include file="Public:weiXinNotShareSet"/>
+<include file="Public:footer"/>

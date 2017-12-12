@@ -1,0 +1,63 @@
+<include file="Public:memberCenterHeader"/>
+<link href="{lanrain::RES}/css/app.css?<?php echo C('site_system_file_version'); ?>" rel="stylesheet">
+<section class="app-content">
+	<div class="login-bg">
+		<div class="app-content">
+		    <div class="logo-frame">
+		        <img src="{lanrain::RES}/img/defaul120@120.jpg" width="80" height="80" >
+		        <div> <p id="shiti-card">实体卡绑定</p></div>
+		    </div>
+		    <!-- binding实体卡 -->
+			<div class="binding form-horizontal">
+			<fieldset>
+			    <section class="control-group">
+			        <div class="control-label">实体卡卡号:</div>
+			        <div class="controls">
+			            <input type="text" class="form-control text-right" name="entitynumber" placeholder="请输入您的实体卡卡号">
+			        </div>
+			    </section>
+			</fieldset>
+			<div class="form-actions mb20">
+			    <button type="submit" class="submit btn btn-primary">立即绑定 </button>
+			</div>
+			</div>
+			<!-- binding实体卡 -->
+			<!-- binding成功 -->
+			<div class="mb20 pb0 binding-success" style=" margin-top: 30px">
+				<p class="f14 mb5" style="text-align: center">恭喜，您已成功绑定实体卡</p>
+				<p class="f14 mb5" style="text-align: center; color: #008a00"><strong id="number"></strong></p>
+				<p class="f14 mb5" style="text-align: center; color: #008a00; margin-top: 40px "><a href="<?php echo U('Member/center',array('companyid'=>$companyid));?>">前往  我的会员中心</a></p>
+			</div>
+			<!-- binding成功 -->
+		</div>
+	</div>
+</section>
+<script type="text/javascript">
+$(function(){
+	$('.binding-success').hide();
+	$('.submit').click(function(){
+		var number = $('input[name="entitynumber"]').val();
+		if(number.length<1){
+			alert('实体卡号不能为空',2000);
+			return false;
+		}
+		if(number.length>15){
+			alert('最多支持含字母数字的15字节卡号限位',2000);
+			return false;
+		}
+		$('.loading').show();
+		$.post("<?php echo U('Member/binding',array('companyid'=>$companyid)).'&time='; ?>"+Math.random(),{number:number},function(data){
+            if(data.code == 200){
+            	$('.binding').hide();
+            	$('.binding-success').show();
+            	$('#number').text(data.number);
+            }else{
+                alert(data.tips,2000);
+            }
+            $('.loading').hide();
+        },"json");
+	});
+});
+</script>
+<include file="Public:weiXinNotShareSet" />
+<include file="Public:memberCenterFooter"/>

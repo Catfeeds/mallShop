@@ -1,0 +1,23 @@
+<include file="Public:S5NewHead" />
+<div class="title_top">账号管理</div>
+<div class="dl_subnavbg">
+    <div class="dl_subnav">
+    <span class="user_info_left"><?php echo $memberInfo['mobile'];?></span>
+    <span class="user_info_right js-update"><?php if($memberInfo['mobile']){echo '修改手机号';}else{echo '绑定手机号';} ?></span>
+    </div>
+</div>
+<div class="user_info_out">退出当前账号</div>
+<script>
+$(function(){
+	// 修改
+	$('.js-update').click(function(){
+		window.location.href="<?php echo U('Member/updateMobile',array('mid'=>$memberInfo['id']))?>";
+	});
+    $(".user_info_out").click(function(){
+        window.location.href="<?php echo U('Member/loginOut',array('mid'=>$memberInfo['id']))?>";
+    })
+});
+</script>
+</body> 
+</html>
+

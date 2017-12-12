@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="format-detection"content="telephone=no, email=no" />
+  <title><?php echo $info['sharefriendstitle'];?></title>
+  <link rel="stylesheet" href="{lanrain::RES}/duoli/common/css/base.css?<?php echo C('site_system_file_version'); ?>">
+  <script type="text/javascript" src="{lanrain::RES}/duoli/common/js/jquery1.7.2.js"></script>
+  
+</head>
+<body>
+<!--<input type="button" value="Reload page" onclick="reloadPage()" class="shua">-->
+
+<input type="submit" class="submit_box" value="扫码支付" />
+
+<input type="submit" class="submit_box2" value="扫码支付1" />
+
+<div class="box2" style="display:none;"><img src="" /></div>
+
+<div class="box" style="display:none;"><img class="img" src="" /></div>
+<!-- ./Payapi/Wxpay/qrcode.php?data=<?php echo urlencode($url);?> -->
+
+<script>
+$(function(){
+	// 扫码支付2
+	$('.submit_box2').on("click",function(){
+		$('.box2').show();	
+	});
+	
+	// 扫码支付
+	$('.submit_box').on("click",function(){
+		$.post('./Payapi/Wxpay/payAct/testQRCode.php?companyid=1170',{'pay':'12'},function(data){
+			if(data.code == '200'){
+				// $('.img').attr('src','./Payapi/Wxpay/qrcode.php?data='+data.url);
+				// $('.box').show();
+				var url = "<?php echo U('testQRCode/getScanQRcode',array('companyid'=>$companyid,'url'=>'"+data.url+"'))?>";
+        		$('.img').attr('src',url);
+        		$('.box').show();	
+				// urlQEcode(data.url);
+			}else{
+				alert(data.tips);
+    		}
+		},"json");
+	});
+	function urlQEcode(url){
+		$.post("<?php echo U('testQRCode/getScanQRcode1',array('companyid'=>$companyid));?>",{'url':url},function(data){
+					if(data.code == '200'){
+						$('.box').append(data.img);
+						$('.box').show();
+					}else{
+						alert('抱歉，服务器繁忙，请稍后重试');
+					}
+		},"json");
+	}
+});
+</script>
+</body>
+</html>

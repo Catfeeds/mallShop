@@ -1,0 +1,36 @@
+/* base begin
+john@renlaifeng.cn
+2016/12/15 12:00 */
+html {height:100%;}
+body {font-family:"Microsoft Yahei",helvetica,Arial,sans-serif;font-weight:normal;height:100%;min-width:1200px;position:relative;}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td {margin:0;padding:0;outline:0;}
+input,textarea,select {font-family:Arial,helvetica,"Microsoft Yahei",sans-serif;font-weight:normal;color:#333;}
+img {border:none;}
+ul,ol {list-style:none;}
+li {list-style-type:inherit;}
+h1,h2,h3,h4,h5,h6 {font-weight:normal;}
+a {text-decoration:none;color:#333;cursor:pointer;-webkit-transition:all .1s ease-in;transition:all .1s ease-in;}
+a:active,a:focus,a:link {outline:none;}
+button,select {text-transform:none;outline:none;}
+
+
+/* clear float */
+.fl {float:left;}
+.fr {float:right;}
+.clear {clear:both;overflow:hidden;}
+.clearfix:after {clear:both;content:' ';display:block;font-size:0;line-height:0;visibility:hidden;height:0;overflow:hidden;}
+.clearfix {*zoom:1;}
+
+
+/* padding margin */
+.mr5{margin-right: 5px}
+.mr10{margin-right: 10px}
+.mr15{margin-right: 15px}
+.mr20{margin-right: 20px}
+.mr50{margin-right: 50px}
+.mt10{margin-top: 10px;}
+.mt15{margin-top: 15px;}
+.mb20{margin-bottom: 20px}
+.mb20{margin-bottom: 20px}
+.mb20{margin-bottom: 20px}
+.mb40{margin-bottom: 40px}

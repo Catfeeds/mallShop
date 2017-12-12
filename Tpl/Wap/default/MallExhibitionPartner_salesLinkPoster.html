@@ -1,0 +1,70 @@
+<include file="Public:S5NewHead" />
+<script type="text/javascript" src="{lanrain::RES}/weixinfeng/js/qrcode.js"></script> 
+<script src="{lanrain::RES}/weixinfeng/js/public.js"></script> 
+<div class="title_top"><div style="float:left;">专属销售海报</div>
+	<img src="{lanrain::RES}/weixinfeng/images/share_icotext.png" style="float:left; margin:50px 20px 50px 240px" id="share_btn" >
+	<img src="{lanrain::RES}/weixinfeng/images/download_icotext.png"  style="margin:50px 50px 50px 0px;float:right" id="download_btn">
+</div>
+<div class="share_kv">
+	<canvas id="canvas" width="622" height="934" style="opacity: 0;position: absolute;"></canvas>
+	<img src="" id="share_kv" style="z-index: 10;position: relative;">
+	<div id="qrcode_box" style="opacity: 0">
+	<!--这是二维码-->
+	<div id="qrcode_zs"></div>
+	</div>
+</div>
+<div class="share_box">
+		<div class="share_centent"></div>
+	 <div class="share_black_opacity"></div>
+</div>
+<script>
+	//分享浮层
+	$('#share_btn').click(function () {$(".share_box").fadeIn(); });
+	$('.share_box').click(function () {$(".share_box").fadeOut(); });
+	// 二维码图片点击下载
+	var qrcodeImg = null;
+	(function() {
+		var qrcode = new QRCode('qrcode_zs', {
+			text: '<?php echo $shareLink;?>',//这里修改二维码链接
+			width: 214,
+			height: 214,
+			colorDark : '#000000',
+			colorLight : '#ffffff',
+			correctLevel : QRCode.CorrectLevel.H
+		});
+		console.log(qrcode);
+		qrcodeImg = qrcode;
+	})();
+	
+	var canvas = document.getElementById("canvas");
+	var ctx = canvas.getContext('2d');
+
+	var qrcode = new Image();
+	var share_kv = new Image();
+	share_kv.src = './Tpl/Wap/default/common/weixinfeng/images/share_kv.jpg'
+	var left = 311;
+	var y = 450;
+	var marginLeft = 110;
+	var x = left-marginLeft;	
+
+	function update(){
+		ctx.drawImage(share_kv,0,0,canvas.width,canvas.height);
+		var src = $("#qrcode_box img").prop("src");
+		qrcode.src = src;
+		ctx.drawImage(qrcode,x,y,214,214);
+		var dataURL = canvas.toDataURL("image/png", 1.0);
+		$("#share_kv").prop("src",dataURL);
+	}
+
+	setInterval(function(){
+		ctx.clearRect(0,0,canvas.width,canvas.height);
+		update();
+	},500)
+		
+	// 下载按钮弹出层
+	$('#download_btn').click(function() {
+		layer.msg('长按保存图片下载', {time:2000});
+	})
+</script>
+<include file="Public:weiXinNotShareSet"/>
+<include file="Public:footer"/>

@@ -1,0 +1,131 @@
+<include file="Public:head" />
+<?php echo $makeTopUrl;?>
+<div class="group inline-btn-group mb-10">
+    <a href="<?php echo U('MallGoods/index',array('isoffshelves'=>2,'issoldout'=>2));?>" class="btn-small btn-white">商品管理</a>
+    <a href="<?php echo U('EshopClass/index');?>" class="btn-small btn-purple">商品品类管理</a>
+    <a href="<?php echo U('EshopTag/index');?>" class="btn-small btn-white">商品标签管理</a>
+</div>
+<div class="group clearfix pb-10">
+    <a href="<?php echo U('EshopClass/set');?>" class="btn-small btn-purple">创建商品品类</a>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>商品品类管理</h4></div>
+    <div class="mod-body mb-15 WeChat-auto-reply-set">
+        <table class="table type-1 w-auto">
+            <thead>
+            <tr>
+                <th>排序</th>
+                <th>品类名称</th>
+                <th>关联标签</th>
+                <th>商品排序方式</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <?php if($list){?>
+            <tbody>
+            	<?php foreach($list as $key=>$val){?>
+	            <tr>
+	                <td><?php echo $val['sort'];?></td>
+	                <td><?php echo $val['name'];?></td>
+	                <td>
+	                	<?php if($val['tags2']){ foreach($val['tags2'] as $key2=>$val2){?>
+						<?php echo $val2['title'].' ';?>
+						<?php }}?>
+					</td>
+	                <td><?php if($val['ordertype'] == 1){ echo '最新排序';}elseif($val['ordertype'] == 2){ echo '最热排序';}elseif($val['ordertype'] == 3){ echo '最旺排序';}elseif($val['ordertype'] == 4){ echo '自定义排序';}?></td>
+	                <td>
+	                    <a href="<?php echo U('EshopClass/set',array('id'=>$val['id']));?>" class="tips">编辑</a>
+	                    <?php if(!$val['child']){?>
+	                    <a class="QR-code-down tips mobilePreviewButton js-QR-code-hide">手机预览
+							<div class="QR-code-box-down w100 pt-2">
+								<img  data-src="<?php echo U('EshopClass/erweima',array('link'=>base64_encode(C('site_url').U('Wap/MallTagsSearch/lists',array('companyid'=>$companyid,'id'=>$val['id'])))));?>">
+							    <h6>微信扫码<br>手机预览</h6>
+							</div>
+	                    </a>
+	                    <a href="javascript:void(0);" class="tips js-clip-btn" data-url="<?php echo C('site_url').U('Wap/MallTagsSearch/lists',array('companyid'=>$companyid,'id'=>$val['id']));?>">复制链接</a>
+	                    <?php }?>
+	                    <a href="javascript:void(0);" class="tips delSubmitButton" data-id="<?php echo $val['id'];?>">删除</a>
+	                </td>
+	            </tr>
+	            <?php if($val['child']){ foreach($val['child'] as $ckey=>$cval){?>
+	            <tr>
+	            	<td><?php echo $cval['sort'];?></td>
+	                <td><?php echo '-- '.$cval['name'];?></td>
+	                <td>
+						<?php if($cval['tags2']){ foreach($cval['tags2'] as $ckey2=>$cval2){?>
+						<?php echo $cval2['title'].' ';?>
+						<?php }}?>
+					</td>
+	                <td><?php if($cval['ordertype'] == 1){ echo '最新排序';}elseif($cval['ordertype'] == 2){ echo '最热排序';}elseif($cval['ordertype'] == 3){ echo '最旺排序';}elseif($cval['ordertype'] == 4){ echo '自定义排序';}?></td>
+	                <td>
+	                    <a href="<?php echo U('EshopClass/set',array('id'=>$cval['id']));?>" class="tips">编辑</a>
+	                    <a class="QR-code-down tips mobilePreviewButton js-QR-code-hide">手机预览
+							<div class="QR-code-box-down w100 pt-2">
+								<img  data-src="<?php echo U('EshopClass/erweima',array('link'=>base64_encode(C('site_url').U('Wap/MallTagsSearch/lists',array('companyid'=>$companyid,'id'=>$cval['id'])))));?>">
+							    <h6>微信扫码<br>手机预览</h6>
+							</div>
+	                    </a>
+	                    <a href="javascript:void(0);" class="tips js-clip-btn" data-url="<?php echo C('site_url').U('Wap/MallTagsSearch/lists',array('companyid'=>$companyid,'id'=>$cval['id']));?>">复制链接</a>
+	                    <a href="javascript:void(0);" class="tips delSubmitButton" data-id="<?php echo $cval['id'];?>">删除</a>
+	                </td>
+	            </tr>
+            	<?php }}?>
+            	<?php }?>
+            </tbody>
+            <?php }?>
+        </table>
+        <?php if($list){ echo $page;}else{?>
+        <h5 class="text-center table-footer-h5">暂无数据</h5>
+        <?php }?>
+    </div>
+</div>
+<!-- 删除弹框 -->
+<div class="popup-wrap wrap-small-1 delSubmitBox">
+    <div class="mod small-popup type-1" style="width: 378px;">
+        <div class="mod-header"><h4 class="fl">删除</h4><i class="quxiao fr icon-close-dark js-icon-close"></i></div>
+        <div class="mod-body">
+            <div class="content">
+                <h5 class="mb-15">数据删除后不能恢复，你确认删除么？</h5>
+                <p class="text-center">
+                    <a class="btn-small btn-purple delButton">确 认</a> &nbsp;
+                    <a class="btn-small btn-white js-cancel">取 消</a>
+                </p>
+            </div>
+        </div>
+    </div>
+	<script>
+	$(function(){
+		$(".delSubmitButton").click(function(){
+			var id = $(this).attr('data-id');
+			$('.delButton').attr('data-id',id);
+			$('.delSubmitBox').fadeIn(120);
+	    });
+		$(".delButton").click(function(){
+			$(".loading").show();
+			var id = $(this).attr('data-id');
+			$.post("<?php echo U('EshopClass/ajaxDelClass').'&time=';?>"+Math.random(),{id:id},function(data){
+				$(".loading").hide();
+				alertTan(data.tips,data.code);
+				if(data.code == 'success'){
+					setTimeout('window.location.href=location.href',2000);
+				}
+			},'json');
+		});
+	});
+	</script>
+</div>
+<script type="text/javascript">
+$(function(){
+	//------------------------------ 控制网页效果 ------------------------------
+	//手机预览
+	$(".mobilePreviewButton").on("click",function(){
+		$(".app-code1").hide();
+        $(this).parent().children(".app-code1").toggle();
+        return false;
+    });
+    document.onclick = function(){
+        $(".app-code1").hide();
+    }
+});
+</script>
+<include file="Public:footer" />

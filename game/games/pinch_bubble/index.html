@@ -1,0 +1,44 @@
+
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>捏泡泡</title>
+  <style>
+    html,body,canvas {
+      margin: 0;
+      padding: 0;
+      border: none;
+      text-align: center;
+      background-color: black;
+    }
+    canvas {
+      background-color: white;
+    }
+    #spn{position: fixed; left: 50%!important; margin-left: -160px; width: 320px; height: 50px; bottom: 0; z-index: 100;}
+    .hide{display: none;}
+  </style>
+  <script>
+    var _czc = _czc || [];
+  </script>
+</head>
+<body style="padding-bottom: 60px;">
+<canvas id="stage" width="640" height="960">
+  您的浏览器不支持html5, 请换用高端一点的浏览器试试吧。
+</canvas>
+</body>
+<script src="js/app.min.js"></script>
+<script src="../../js/ad-pic.js"></script>
+</html>
+<script type="text/javascript">
+  var AD266 = new adwojs({
+    eid:'spn', //节点id
+    aid: '316a0284415b4aada3d0aa0567923456', //android安卓PID
+    pid: '2b029f1e733c49e1adebdbb2a85074ae', //iOS PID
+    bt: false,
+    width: 320, //图片宽
+    height: 50 //图片高
+  });
+  AD266.send();
+</script>

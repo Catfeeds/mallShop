@@ -1,0 +1,250 @@
+<include file="Public:head"/>
+<include file="Public:smallmaterial" />
+<?php echo $makeTopUrl;?>
+<!-- 会员卡页面设计 2016-10-26 12:20 -->
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>会员卡页面设计</h4></div>
+    <div class="mod-body new-pic-msg js-new-pic-msg">
+        <div class="content clearfix">
+            <!-- 显示区 -->
+            <div class="menu-preview-area fl">
+                <div class="mobile-menu-preview">
+                    <div class="mobile-hd">会员中心</div>
+                    <div class="mobile-card-bd">
+                        <div class="mobile-card-con js-scroll">
+                            <div class="bgi-vipcard">
+                                <i class="bgi-vipcard-cover" id="js-cardbodybackground" style="background-image:url(<?php echo $Info['cardbodybackground']?$Info['cardbodybackground']:'/Tpl/User5/default/common/img/bgi_vipcard.jpg';?>)"></i>
+                                <div class="vipcard js-vipcard-bgc" id="js-cardbackground" style="color:#<?php echo $Info['cardtextcolor']?$Info['cardtextcolor']:'FFFFFF';?>">
+                                    <img class="vipcard-logo" id="js-cardlogo" src="<?php echo $Info['cardlogo']?$Info['cardlogo']:session('logourl');?>">
+                                    <span class="vipcard-tit1 js-vipcard-tit1"><?php echo $Info['cardname'];?></span>
+                                    <span class="vipcard-tit2 js-vipcard-tit2"><?php echo $Info['cardvicename'];?></span>
+                                    <span class="vipcard-no">130 **** 1234</span>
+									<i class="fa fa-qrcode vipcard-qrcode"></i>
+                                    <i class="fa fa-exclamation-circle vipcard-exclamation-circle"></i>
+                                </div>
+                                <ul class="con-area clearfix">
+                                    <li class="tit-tips clear">距离下次升级，还需600积分</li>
+                                    <li class="group-type-3"><span class="mod-tit">累计积分</span><span class="mod-con js-mod-con-color" style="color:#<?php echo $Info['cardmaincolor']?$Info['cardmaincolor']:'BD9746';?>">0</span></li>
+                                    <li class="group-type-3"><span class="mod-tit">会员等级</span><span class="mod-con js-mod-con-color" style="color:#<?php echo $Info['cardmaincolor']?$Info['cardmaincolor']:'BD9746';?>">暂无</span></li>
+                                    <li class="group-type-3"><span class="mod-tit">可用积分</span><span class="mod-con js-mod-con-color" style="color:#<?php echo $Info['cardmaincolor']?$Info['cardmaincolor']:'BD9746';?>">0</span></li>
+                                </ul>
+                                <ul class="con-area2 clearfix">
+                                    <li class="group-type-2"><i class="icon-card-box"></i><span class="mod-tit">卡券包</span><span class="mod-con">0</span></li>
+                                    <li class="group-type-2"><i class="icon-card-coin"></i><span class="mod-tit">储值卡</span></li>
+                                </ul>
+                            </div>
+                            <ul class="vipcard-list">
+                                <li>交易订单</li>
+                                <li>个人资料</li>
+                                <li>在线客服</li>
+                                <li>会员制说明</li>
+                            </ul>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <!-- 编辑区 -->
+            <div class="menu-form-area">
+                <div class="vipcard-portable-editor">
+                    <ul class="vipcard-editor-inner js-scroll">
+                        <li class="group pb-20">
+                            <h5 class="inline w100">卡名：</h5>
+                            <input class="inline w350 js-vipcard-tit1-set" type="text" name="cardname" value="">
+                        </li>
+                        <li class="group pb-20">
+                            <h5 class="inline w100">副名：</h5>
+                            <input class="inline w350 js-vipcard-tit2-set" type="text" name="cardvicename" value="">
+                        </li>
+                        <li class="group pb-20">
+                            <h5 class="inline w100 text-top">卡LOGO：</h5>
+							<div class="inner-group inline">
+                                <img class="inline text-middle js-cardlogo" width="60px" height="60px" src="">
+                                <a class="btn-small btn-white imageselect" data-type="js-cardlogo">选择图片</a>
+                                <h6 class="text-gray pt-5">120*120px,小于50k</h6>
+                            </div>
+                        </li>
+                        <li class="group pb-20">
+                            <h5 class="inline w100">卡背景：</h5>
+                            <div class="inline">
+                                <label class=" radio inline mr-20 js-card-bgc"><input type="radio" value="1" name="cardbacktype" checked="checked">卡背景色</label>
+                                <label class=" radio inline js-card-bgi"><input type="radio" value="2" name="cardbacktype">卡背景图</label>
+                            </div>
+                            <div class="group pt-10 js-card-bgc-wrap ml-100 pl-5">
+                                <input class="w50 color js-vipcard-bgc-set" type="text" name="cardbackcolor" value="" placeholder="">
+                            </div>
+                            <div class="group pt-10 js-card-bgi-wrap ml-100 pl-5" style="display: none;">
+                                <div>
+                                    <img class="inline text-middle js-cardbackground" width="100px" height="60px" src="./Tpl/User5/default/common/img/WeiPage-temp-width-img.png">
+                                    <a class="btn-small btn-white imageselect" data-type="js-cardbackground">选择图片</a>
+                                    <h6 class="text-gray pt-5">325*194px，小于200k</h6>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="group pb-20">
+                            <h5 class="inline w100">卡文字色：</h5>
+                            <input class="inline w50 color js-vipcard-color-set" name="cardtextcolor" value="" type="text">
+                        </li>
+                        <li class="group pb-20">
+                            <h5 class="inline w100 text-top">页面背景图：</h5>
+                           	<div class="inner-group inline">
+                                <img class="inline text-middle js-cardbodybackground" width="120px" height="60px" src="/Tpl/User5/default/common/img/bgi_vipcard.jpg">
+                                <a class="btn-small btn-white imageselect" data-type="js-cardbodybackground">选择图片</a>
+                                <h6 class="text-gray pt-5">宽640px高度不限，小于200k</h6>
+                            </div>
+                        </li>
+                        <li class="group pb-20">
+                            <h5 class="inline w100">品牌主色：</h5>
+                            <input class="inline w50 color js-mod-con-color-set" name="cardmaincolor" value="" type="text" autocomplete="off" style="background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);">
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="group form-footer text-center">
+            <input class="btn-small btn-purple w100" id="id-cardRank-set" type="submit" value="保存并发布">
+        </div>
+    </div>
+</div>
+<script>
+$(function(){
+	$(document).on("input",".js-vipcard-tit1-set",function(){
+        var setVal = $(this).val();
+        $(".js-vipcard-tit1").text(setVal);
+    });
+    $(document).on("input",".js-vipcard-tit2-set",function(){
+        var setVal = $(this).val();
+        $(".js-vipcard-tit2").text(setVal);
+    });
+    $(document).on("blur",".js-vipcard-bgc-set",function(){
+        var setVal = $(this).css("backgroundColor");
+        // console.log(setVal);
+        $(".js-vipcard-bgc").css("backgroundColor",setVal);
+    });
+    $(document).on("blur",".js-vipcard-color-set",function(){
+        var setVal = $(this).css("backgroundColor");
+        // console.log(setVal);
+        $(".js-vipcard-bgc").css("color",setVal);
+    });
+    $(document).on("blur",".js-mod-con-color-set",function(){
+        var setVal = $(this).css("backgroundColor");
+        // console.log(setVal);
+        $(".js-mod-con-color").css("color",setVal);
+    });
+	$('input[name="cardname"]').val("<?php echo $Info['cardname'];?>");
+	$('input[name="cardvicename"]').val("<?php echo $Info['cardvicename'];?>");
+	$('.js-cardlogo').attr('src',"<?php echo $Info['cardlogo']?$Info['cardlogo']:session('logourl');?>");
+	$('input[name="cardbackcolor"]').val("<?php echo $Info['cardbackcolor']?$Info['cardbackcolor']:'BD9746';?>");
+	$('.js-cardbackground').attr('src',"<?php echo $Info['cardbackground']?$Info['cardbackground']:'./Tpl/User5/default/common/img/WeiPage-temp-width-img.png';?>");
+	var cardbacktype = "<?php echo $Info['cardbacktype'];?>";
+	if(cardbacktype == '2'){
+		$('input[name="cardbacktype"]').eq(1).prop('checked',true);
+		$('input[name="cardbacktype"]').eq(0).prop('checked',false);
+		$(".js-card-bgc-wrap").hide();
+	    $(".js-card-bgi-wrap").show();
+	    $('.js-vipcard-bgc').css("background-image","url(<?php echo $Info['cardbackground']?$Info['cardbackground']:'./Tpl/User5/default/common/img/WeiPage-temp-width-img.png';?>)");
+	}else{
+		$('input[name="cardbacktype"]').eq(0).prop('checked',true);
+		$('input[name="cardbacktype"]').eq(1).prop('checked',false);
+		$(".js-card-bgi-wrap").hide();
+	    $(".js-card-bgc-wrap").show();
+	    $('.js-vipcard-bgc').css("background-color","#<?php echo $Info['cardbackcolor']?$Info['cardbackcolor']:'BD9746';?>");
+	}
+	$('input[name="cardtextcolor"]').val("<?php echo $Info['cardtextcolor']?$Info['cardtextcolor']:'FFFFFF';?>");
+	$('.js-cardbodybackground').attr('src',"<?php echo $Info['cardbodybackground']?$Info['cardbodybackground']:'/Tpl/User5/default/common/img/bgi_vipcard.jpg';?>");
+	$('input[name="cardmaincolor"]').val("<?php echo $Info['cardmaincolor']?$Info['cardmaincolor']:'BD9746';?>");
+});
+//打开图片弹框
+$(document).on("click",'.imageselect',function(){
+	$("#clickimgok").attr("data-type",$(this).attr('data-type'));
+})
+//确定图片
+$(document).on("click","#clickimgok",function(){
+	var type = $(this).attr('data-type');
+	var img = $(this).attr("data-imgsrc");
+	$("."+type).attr("src",'<?php echo C('site_url');?>'+img);
+	if(type=="js-cardlogo"){
+		$("#"+type).attr("src",'<?php echo C('site_url');?>'+img);
+	}else{
+		$("#"+type).css("background-image","url(<?php echo C('site_url');?>"+img+")");
+	}
+});
+//卡背景切换
+$(".js-card-bgc").click(function(){
+    $(".js-card-bgi-wrap").hide();
+    $(".js-card-bgc-wrap").show();
+    $('.js-vipcard-bgc').css("background-image",'');
+    $('.js-vipcard-bgc').css("background-color",$('input[name="cardbackcolor"]').val());
+});
+$(".js-card-bgi").click(function(){
+    $(".js-card-bgc-wrap").hide();
+    $(".js-card-bgi-wrap").show();
+    $('.js-vipcard-bgc').css("background-color",'');
+    $('.js-vipcard-bgc').css("background-image","url("+$('.js-cardbackground').attr('src')+")");
+});
+//保存
+$('#id-cardRank-set').on('click',function(){
+	var cardname = $('input[name="cardname"]').val();
+	var cardvicename = $('input[name="cardvicename"]').val();
+	var cardlogo = $('.js-cardlogo').attr('src');
+	var cardbacktype = $('input[name="cardbacktype"]:checked').val();
+	var cardbackcolor = $('input[name="cardbackcolor"]').val();
+	var cardbackground = $('.js-cardbackground').attr('src');
+	var cardtextcolor = $('input[name="cardtextcolor"]').val();
+	var cardbodybackground = $('.js-cardbodybackground').attr('src');
+	var cardmaincolor = $('input[name="cardmaincolor"]').val();
+	if(cardlogo == false){
+		alertTan('请选择卡LOGO','warn');
+		return false;
+	}
+	if(cardbacktype == '1'){
+		if(cardbackcolor == false){
+			if(cardbackcolor != '000000'){
+				alertTan('请选择卡背景色','warn');
+				return false;
+			}
+		}
+	}else if(cardbacktype == '2'){
+		if(cardbackground == false){
+			alertTan('请选择卡背景图','warn');
+			return false;
+		}
+	}else{
+		alertTan('请选择卡背景','warn');
+		return false;
+	}
+	if(cardtextcolor == false){
+		if(cardtextcolor != '000000'){
+			alertTan('请选择卡文字色','warn');
+			return false;
+		}
+	}
+	if(cardbodybackground == false){
+		alertTan('请选择页面背景图','warn');
+		return false;
+	}
+	if(cardmaincolor == false){
+		if(cardmaincolor != '000000'){
+			alertTan('请选择品牌主色','warn');
+			return false;
+		}
+	}
+	$(".loading").show();
+	$.post("<?php echo U('MemberCardRank/ajaxSaveCardset',array('id'=>$Info['id'])).'&time='; ?>"+Math.random(),
+		{cardname:cardname,cardvicename:cardvicename,cardlogo:cardlogo,cardbacktype:cardbacktype,cardbackcolor:cardbackcolor,
+		cardbackground:cardbackground,cardtextcolor:cardtextcolor,cardbodybackground:cardbodybackground,cardmaincolor:cardmaincolor},
+			function(data){
+			$(".loading").hide();
+			if(data.code == 200){
+				alertTan(data.msg);
+			}else{
+				alertTan(data.msg,'error');
+			}
+		},"json");
+});
+</script>
+<include file="Public:footer"/>
+<link rel="stylesheet" href="./Tpl/User5/default/common/fonts/font-awesome-4.6.3/css/font-awesome.min.css">

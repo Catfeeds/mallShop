@@ -1,0 +1,393 @@
+<include file="Public:memberCenterHeader"/>
+<script src="{lanrain::RES}/js/jquery-1.7.2.min.js" type="text/javascript" ></script>
+<link href="{lanrain::RES}/css/jfsc.css?fff<?php echo C('site_system_file_version'); ?>" rel="stylesheet">
+<link href="{lanrain::RES}/css/you.css?f1<?php echo C('site_system_file_version'); ?>" rel="stylesheet">
+<link rel="stylesheet" href="{lanrain::RES}/template/css/app.css?<?php echo C('site_system_file_version'); ?>" />
+<link rel="stylesheet" href="{lanrain::RES}/template/css/jquery.swiper.css"/>
+<!--<script src="js/jquery-1.8.3.min.js"></script>-->
+<script src="{lanrain::RES}/js/baguetteBox.js"></script>
+<link rel="stylesheet" href="{lanrain::RES}/css/baguetteBox.css">
+<include file="Public:loading"/>
+<script>
+    $(function(){
+        baguetteBox.run('.baguetteBox');
+    });
+</script>
+    <style>
+
+    </style>
+<div class="liuyan">
+<?php foreach($mescontop as $val){ ?>
+	<div class="way">
+        <div class="top">
+            <div class="hesd_box">
+                <i class="userp"><img src="<?php echo $val['headimgurl']?$val['headimgurl']:'./Tpl/Wap/default/common/image/Yep.jpg'; ?>" alt=""/></i>
+                <dl>
+                    <dd><?php echo $val['nickname']; ?></dd>
+                    <dt><?php echo date("Y-m-d H:i",$val['createtime']); ?></dt>
+                </dl>
+            </div>
+        </div>
+        <div class="content">
+            <div class="conep_box" style="clear:both"><p class="textRow"><a href="<?php echo U('MessageBoard/info',array('companyid'=>$companyid,'topid'=>$pp['id'],'id'=>$val['id'])); ?>" style="color:#666;"><?php echo $val['content']; ?></a></p></div>
+            <a class="moreText" style="display: block; color: darkgray;" onclick=""></a>
+
+            <ul class="contenga baguetteBox">
+                <?php for($g=1;$g<=9;$g++){
+					if($val['imgurl'.$g]){ ?>
+				<li class=""><a href="<?php echo $val['imgurl'.$g]; ?>"  data-at-1366="<?php echo $val['imgurl'.$g]; ?>" class="img_box_wh"><img src="<?php echo $val['imgurl'.$g]; ?>" alt=""  class="img_hopol"/></a></li>
+				 <?php } } ?>
+                	
+            </ul>
+        </div>
+        <div class="shanchu" style='position:relative;top:1px;' id="a<?php echo $val['id']; ?>">
+            <?php if($val['openid']==session('Aopenid'.session('wapcid'))){ ?><a href="javascript:void(0)" class="shanchu1 del-asa" data-id="<?php echo $val['id']; ?>">删除</a><?php } ?>
+                <span>
+                    <a href="javascript:void(0)" class="dinda-lufu"  data-parentid="<?php echo $val['id']; ?>" data-peoid="" ><i class="ly_pen"></i>回复(<g class='huifunum'><?php if($val['answernum']){if($val['answernum']>99){echo '99+';}else{ echo $val['answernum'];}}else{echo '0';} ?></g>)</a>
+                    <a href="javascript:void(0)" class="starns btn_dianzan" data-conid="<?php echo $val['id']; ?>" data-clickid="<?php echo $val['clickid']; ?>"><?php if($val['clickstatus']==1){echo "<i class='ly_hxin'></i>";}else{ echo "<i class='ly_huixin'></i>";}  ?>
+                        赞(<e><?php if($val['clicknum']){if($val['clicknum']>99){echo '99+';}else{ echo $val['clicknum'];}}else{echo '0';} ?></e>)</a>
+                </span>
+        </div>
+        	<div class="huifu" <?php if($val['answernum']==0){ ?> style="display:none" <?php } ?> >
+            <img src="{lanrain::RES}/image/tu6.jpg" alt="" class="jiao"/>
+            <div class="huifuye">
+		                <ul>
+		                    <li id="<?php echo $val['id']; ?>">
+		                    <?php foreach($mesconhui as $val2){ if($val2['parentid']==$val['id']){ ?>
+		                        <div class="huifu1">
+		                            <div class="top">
+		                                <div>
+		                                    <i class="userp"><img src="<?php echo $val2['headimgurl']?$val2['headimgurl']:'./Tpl/Wap/default/common/image/Yep.jpg'; ?>" alt=""/></i>
+		                                    <dl>
+		                                        <dd><?php echo $val2['nickname'];if($val2['peoid']){echo " 回复  ".$val2['nickname2'].'';} ?></dd>
+		                                        <dt><?php echo date('Y-m-d H:i',$val2['createtime']); ?></dt>
+		                                    </dl>
+		                                </div>
+		                            </div>
+		                            <div style="clear:both;" class="huifu_maina"><?php echo $val2['content']; ?></div>
+		                            <span class="hfs dinda-lufu" data-parentid="<?php echo $val['id']; ?>" data-peoid="<?php echo $val2['id']; ?>"><i class="ly_pen"></i><a href="javascript:void(0)">回复</a></span>
+									<?php if($val2['openid']==session('Aopenid'.session('wapcid'))){ ?>
+                                    	<a href='javascript:void(0)' class='del2-asa' data-id="<?php echo $val2['id']; ?>"><i class="hf_scu_icon">删除</i></a>
+                                    <?php } ?>
+                                </div>
+		                        <?php } } ?>
+		                    </li>
+            	 </ul>
+		       </div>
+        	</div>
+    </div>
+<?php } ?>
+</div>
+    <!--更多留言-->
+    <?php if($countasa>10){ ?>
+    <a href="javascript:void(0)" class="more more-asa">更多留言...</a>
+    <?php } ?>
+
+<?php if(!$mescontop){ ?>
+    <!--暂无留言-->
+    <div class="Leave-a-message"><img src="{lanrain::RES}/image/liuyan-zw.png" alt=""></div>
+<?php } ?>
+
+	<div style='margin-top:39px;'>
+    </div>
+    <!--新留言-->
+    <div class="new" style='z-index:10'>
+        <a href="<?php echo U('MessageBoard/addmes',array('companyid'=>$companyid,'topid'=>$pp['id'])); ?>"><button>撰写新留言</button></a>
+    </div>
+    <div style="height:1px;"></div>
+<div class="fb_huiful_box huifu_tcl" style="display: none;z-index:10;">
+    <div class="fb_huiful_son">
+    <input type='hidden' name='parentid' id='parid-hui' value='' />
+    <input type='hidden' name='peoid' id='peoid-hui'  value='' />
+        <textarea name='content' id='con-hui' placeholder="输入要回复的内容..."  onfocus="if (placeholder =='输入要回复的内容...'){placeholder =''}" onblur="if (placeholder ==''){placeholder='输入要回复的内容...'}"></textarea>
+        <div class="fb_butt_icon">
+            <a href="javascript:void(0);" class="dzxq-thad">取消</a>
+            <button class='sub-hui-asa'>发布回复</button>
+        </div>
+    </div>
+</div>
+   <!--图片的居中-->
+<script type="text/javascript">
+    jQuery(window).load(function() {
+        var img_box_h=$(".img_box_wh").height();
+        var img_box_w=$(".img_box_wh").width();
+        $(".img_box_wh").height(img_box_w);
+        var lang=$(".img_hopol").length;
+        for (var i=0; i <=lang; i++) {
+            var img_height=$(".img_hopol").eq(i).height();
+            var img_width=$(".img_hopol").eq(i).width();
+            if(img_height > img_width){
+                $(".img_hopol").eq(i).width(img_box_w);
+                var new_heitht=$(".img_hopol").eq(i).height();
+                $(".img_hopol").eq(i).css({"margin-top": - new_heitht/2});
+                $(".img_hopol").eq(i).css({"margin-left":  - img_box_w/2});
+
+            }else{
+                $(".img_hopol").eq(i).height(img_box_w);
+                var new_width=$(".img_hopol").eq(i).width();
+                $(".img_hopol").eq(i).css({"margin-top": - img_box_w/2});
+                $(".img_hopol").eq(i).css({"margin-left": - new_width/2});
+            }
+        };
+    });
+</script>
+
+<!--回复弹窗-->
+<script>
+    //展开收起
+    $(document).ready(function(){
+        var lg=$(".textRow").length;
+        for(var i=0;i<lg;i++){
+            var textHeight=$(".textRow").eq(i).height();
+            if(textHeight>63){
+                $(".moreText").eq(i).text("展开 >>");
+                $(".textRow").eq(i).height(63);
+            }
+        }
+        $(document).on("click",'.moreText',function() {
+            var trigger =$(this).text();
+            if(trigger=="展开 >>"){
+                $(this).parent().find('.textRow').css("height","auto");
+                $(this).text("<< 收起");
+            }else{
+                $(this).parent().find('.textRow').css("height",63);
+                $(this).text("展开 >>");
+            }
+        })
+    })
+</script>
+<script>
+    $(function(){
+        $(document).on("click",'.dinda-lufu',function() {
+        	$('#parid-hui').val($(this).attr('data-parentid'));
+        	$('#peoid-hui').val($(this).attr('data-peoid'));
+        	$('#con-hui').val('');
+            $(".huifu_tcl").show();
+            return false;
+        });
+        $(".sub-hui-asa").click(function(){
+        	var parentid= $('#parid-hui').val();
+        	var peoid= $('#peoid-hui').val();
+        	var content= $('#con-hui').val();
+        	if(content==''){
+        		alert("请输入回复内容");
+        		return false;
+        	}
+
+        	$(".loading").show();
+        	$.post("<?php echo U('MessageBoard/messageAdd',array('companyid'=>$companyid)); ?>",{
+        		parentid:parentid,peoid:peoid,content:content,type:'2',topid:<?php echo $pp['id']; ?>
+        		},function(data){
+	        		$(".loading").hide();
+
+	        		alert(data.msg);
+	        		if(peoid==''&&parentid!=''){$("#"+parentid).parent().parent().parent('div').show()}
+	        		if(data.asa!=400){var nickname=data.nickname+' 回复  '+data.nickname2}
+	        		else{nickname = data.nickname}
+	        		$("#"+parentid).append("<div class='huifu1'><div class='top'><div><i class='userp'><img src='"+data.headimgurl+"' alt=''/></i><dl><dd>"+nickname+"</dd><dt>"+data.createtime+"</dt></dl></div> </div><div style='clear:both;'><p>"+data.content+"</p></div><span class='hfs dinda-lufu' data-parentid='"+data.parentid+"' data-peoid='"+data.id+"'><i class='ly_pen'></i><a href='javascript:void(0)'>回复</a></span><a href='javascript:void(0)' data-id='"+data.id+"' class='del2-asa' ><i class='hf_scu_icon'>删除</i></a></div>");
+	        		$("#a"+parentid).find('g').html(data.annum);
+	        		$(".huifu_tcl").hide();
+        	},'json');
+        })
+        $('.dzxq-thad').click(function(){
+        	$(".huifu_tcl").hide();
+        })
+    });
+</script>
+<script type="text/javascript">
+    (function ($) {
+        $.extend({
+            tipsBox: function (options) {
+                options = $.extend({
+                    obj: null,  //jq对象，要在那个html标签上显示
+                    str: "+1",  //字符串，要显示的内容;也可以传一段html，如: "<b style='font-family:Microsoft YaHei;'>+1</b>"
+                    startSize: "12px",  //动画开始的文字大小
+                    endSize: "20px",    //动画结束的文字大小
+                    interval: 600,  //动画时间间隔
+                    color: "red",    //文字颜色
+                    callback: function () { }    //回调函数
+                }, options);
+                $("body").append("<span class='num'>" + options.str + "</span>");
+                var box = $(".num");
+                var left = options.obj.offset().left + options.obj.width() / 1;
+                var top = options.obj.offset().top - options.obj.height();
+                box.css({
+                    "position": "absolute",
+                    "left": left - 65 + "px",
+                    "top": top + 15 + "px",
+                    "z-index": 9999,
+                    "font-size": options.startSize,
+                    "line-height": options.endSize,
+                    "color": options.color
+                });
+                box.animate({
+                    "font-size": options.endSize,
+                    "opacity": "0",
+                    "top": top - parseInt(options.endSize)+15 + "px",
+                    "left": left - parseInt(options.endSize)-20 + "px"
+                }, options.interval, function () {
+                    box.remove();
+                    options.callback();
+                });
+            }
+        });
+    })(jQuery);
+    function niceIn(prop){
+        prop.find('i').addClass('niceIn');
+        setTimeout(function(){
+            prop.find('i').removeClass('niceIn');
+        },1000);
+    }
+    $(function () {
+    	$(document).on("click",'.btn_dianzan',function() {
+        	var $this = $(this);
+        	var num = $(this).children('e').html();
+        	num = parseInt(num);
+
+        	if($(this).children('i').attr('class')=='ly_huixin'){
+        		$.post("<?php echo U('MessageBoard/ajaxClick',array('companyid'=>$companyid)); ?>",
+        				{conid:$(this).attr('data-conid'),clickid:$(this).attr('data-clickid'),status:'1'},
+        				function(data){
+	        			$this.attr('data-clickid',data.msg);
+	        			$this.children('e').html(data.num);
+	        		},'json');
+	        	$(this).children('i').removeClass('ly_huixin').addClass('ly_hxin')
+	            $.tipsBox({
+	                obj: $(this),
+	                str: "+1",
+	                callback: function () {
+	                }
+	            });
+	            niceIn($(this));
+        	}else{
+        		$.post("<?php echo U('MessageBoard/ajaxClick',array('companyid'=>$companyid)); ?>",
+        				{conid:$(this).attr('data-conid'),clickid:$(this).attr('data-clickid'),status:'2'},
+        				function(data){
+        					$this.children('e').html(data.num);
+	        		},'json');
+	        	$(this).children('i').removeClass('ly_hxin').addClass('ly_huixin')
+	            $.tipsBox({
+	                obj: $(this),
+	                str: "",
+	                callback: function () {
+	                }
+	            });
+        	}
+        });
+        $(document).on("click",'.del-asa',function() {
+        	var $this = $(this);
+        	$.post("<?php echo U('MessageBoard/ajaxInfoDel',array('companyid'=>$companyid)); ?>",{
+    				id:$(this).attr('data-id')
+    			},function(data){
+    			$this.parent().parent().remove();
+    			alert(data.msg,1000);
+    		},'json');
+        });
+        $(document).on("click",'.del2-asa',function() {
+        	var $this = $(this);
+        	 $.post("<?php echo U('MessageBoard/ajaxInfoDel2',array('companyid'=>$companyid)); ?>",{
+    				id:$(this).attr('data-id')
+    			},function(data){
+    				$("#a"+data.parentid).find('g').html(data.annum);
+	    			if($this.parent().siblings('.huifu1').length==0){
+	    				$this.parent().parent().parent().parent().parent().hide();
+	    			}
+	    			$this.parent().remove();
+	    			alert(data.msg,1000);
+    		},'json');
+        });
+    });
+</script>
+<script type="text/javascript" charset="utf-8">
+$(function(){
+    //滑动加载
+    var lengthnum = 10; //每次加载的数目
+    var totalnum = "<?php echo $countasa;?>"; //库里面的总数目
+    var totalpage; //一共要加载多少页
+    var currentpage = 0; //当前页
+    totalpage = Math.ceil(totalnum / lengthnum);  //计算总页数more-asa
+    //alert(totalnum);
+    $(document).on("click",'.more-asa',function() {
+            if (currentpage == totalpage) {   // 等于总页数
+                currentpage = totalpage;
+
+            } else if (currentpage < totalpage) {  // 小于总页数
+                currentpage++;
+                var startNumber = currentpage * lengthnum;
+                if(currentpage >= totalpage){
+	                return false;
+                }
+                $(".loading").show();
+                $.post("<?php echo U('MessageBoard/ajaxMoreList123',array('companyid'=>$companyid,'topid'=>$pp['id'])); ?>", {'startNumber':startNumber}, function (data) {
+                	if (data.code == 200) {
+                 		$('.liuyan').append(data.tips);
+                 		baguetteBox.run('.baguetteBox');
+                 		var lg=$(".textRow").length;
+                        for(var i=0;i<lg;i++){
+                            var textHeight=$(".textRow").eq(i).height();
+                            if(textHeight>63){
+                                $(".moreText").eq(i).text("展开 >>");
+                                $(".textRow").eq(i).height(63);
+                            }
+                        }
+                        var img_box_h=$(".img_box_wh").height();
+                        var img_box_w=$(".img_box_wh").width();
+                        $(".img_box_wh").height(img_box_w);
+                        var lang=$(".img_hopol").length;
+                        for (var i=0; i <=lang; i++) {
+                            var img_height=$(".img_hopol").eq(i).height();
+                            var img_width=$(".img_hopol").eq(i).width();
+                            if(img_height > img_width){
+                                $(".img_hopol").eq(i).width(img_box_w);
+                                var new_heitht=$(".img_hopol").eq(i).height();
+                                $(".img_hopol").eq(i).css({"margin-top": - new_heitht/2});
+                                $(".img_hopol").eq(i).css({"margin-left":  - img_box_w/2});
+
+                            }else{
+                                $(".img_hopol").eq(i).height(img_box_w);
+                                var new_width=$(".img_hopol").eq(i).width();
+                                $(".img_hopol").eq(i).css({"margin-top": - img_box_w/2});
+                                $(".img_hopol").eq(i).css({"margin-left": - new_width/2});
+                            }
+                        };
+                 	}
+                 	$(".loading").hide();
+                 }, "json");
+                if(currentpage==(totalpage-1)){
+                	$(this).hide();
+                }
+            }
+    });
+});
+</script>
+<div class="tupifsabox" style='display:none' >
+    <div class="tupifsabson">
+        <img src="{lanrain::RES}/chaoren/cjm_first_bg.png">
+    </div>
+</div>
+<script type="text/javascript">
+
+    jQuery(document).ready(function($) {
+        $(document).on("click",'.imgadclick',function(event) {
+            event.preventDefault();
+            $('.tupifsabson').children('img').attr('src',$(this).children('a').children('img').attr('src'));
+            $('.tupifsabson').addClass('showaaa1');
+            $('.tupifsabox').show();
+        });
+        $(document).on("click",'.tupifsabox',function(event) {
+            if($(event.target).is('.tupifsabson img') || $(event.target).is('.tupifsabox')) {
+                event.preventDefault();
+                $(this).hide();
+            };
+        });
+        $(document).keyup(function(event){
+            if(event.which=='27') {
+                $('.tupifsabson').removeClass('showaaa1');
+                $('.tupifsabox').hide();
+            }
+        });
+    });
+</script>
+
+
+<include file="Public:weiXinShareSet"/>

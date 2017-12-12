@@ -1,0 +1,1664 @@
+<!-- 微页面分类弹窗 2016-08-24 16:00 -->
+<div class="popup-wrap wrap-small-1 js-add-new-class-popup" style="display: none;">
+    <div class="mod small-popup type-1">
+        <div class="mod-header">
+            <h4>新建微页面分类</h4>
+            <i class="fr icon-close-dark js-icon-close"></i></div>
+        <div class="mod-body">
+            <div class="content">
+                <h5 class="w80 inline">分类名称：</h5>
+                <input class="w150 inline js-add-new-class-input" type="text">
+            </div>
+            <div class="text-center pb-10"><a class="btn-small btn-white w80 text-cneter js-add-new-class-btn">创建</a></div>
+        </div>
+    </div>
+</div>
+<!-- 新建微页面 添加文章列表组件 弹窗 -->
+<div class="popup-wrap wrap-middle-1 WeiPage-popup-wrap article-tan-asa" style="display: none;">
+    <div class="mod middle-popup type-1">
+        <div class="mod-header">
+            <h4 class="fl mr-6">添加文章列表组件</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+            <div class="tab-box js-tab-box">
+                <div class="hd">
+                    <ul class="clearfix">
+                        <li>常规</li>
+                        <li>高级</li>
+                    </ul>
+                </div>
+                <div class="bd content">
+                    <div class="inner-wrap js-show-article">
+                        <h5 class="group pb-20">
+                            <span class="inline w120">文章标题：</span>
+                            <input class="inline w150" type="text" name="articletitle">
+                        </h5>
+                        <h5 class="group pb-20">
+                            <span class="inline w120 text-top">封面图片：</span>
+                            <img class="inline text-middle js-article-thumbnail" src="./Tpl/User5/default/common/img/WeiPage-temp-img.png" width="50px" height="50px">
+                            <a href="javascript:void(0)" class="btn-middle btn-white inline imageselect" data-type="articleimg">选择图片</a>
+                            <div class="group">
+                                <h5 class="inline w120 text-left"><!-- Null --></h5>
+                                <h6 class="inline text-gray">*仅支持JPG、JPEG、PNG、GIF格式，推荐尺寸300px*300px</h6>
+                            </div>
+                        </h5>
+                        <h5 class="group pb-20">
+                            <span class="inline w120 text-top">文章摘要：</span>
+                            <textarea class="inline no-resize w300 js-articledigest" rows="5" maxlength="50"></textarea>
+                            <div class="group">
+                                <h5 class="inline w120"><!-- Null --></h5>
+                                <h6 class="inline text-gray">*仅限50个汉字，100个字节；不支持换行</h6>
+                            </div>
+                        </h5>
+                        <h5 class="group pb-20">
+                            <span class="inline w120">关联网页：</span>
+                            <input type="text" class="inline w200 article-url-asa" name="article-url-asa">
+                            <a class="btn-small btn-white select-url-asa" data-urltype="article-url-asa">选择网页链接</a>
+                        </h5>
+                    </div>
+
+                    <div class="inner-wrap js-hide-article">
+                        <h5 class="group pb-20">
+                            <span class="inline w120">是否显示日期：</span>
+                            <label class="radio inline mr-20"><input type="radio" name="isshowtime" value="1" checked="checked">是</label>
+                            <label class="radio inline"><input type="radio" name="isshowtime" value="2">否</label>
+                            <div class="group">
+                            	<span class="inline w120"><!-- Null --></span>
+                            	<h6 class="inline text-gray">*显示的时间为微页面更新时间</h6>
+                            </div>
+                        </h5>
+                        <h5 class="group pb-20 js-goods-toggle">
+                            <span class="inline w120">样式：</span>
+                            <label class="radio inline mr-20">
+                                <input type="radio" name="articletype" value="1" checked="checked">
+                                样式1
+                                <img class="block w100" src="./Tpl/User5/default/common/img/WeiPage-page-list-big.png">
+                            </label>
+                            <label class="radio inline mr-20">
+                                <input type="radio" name="articletype" value="2">
+                                样式2
+                                <img class="block w100" src="./Tpl/User5/default/common/img/WeiPage-page-list-small.png">
+                            </label>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            <div class="group form-footer text-center">
+                <input class="btn-middle btn-purple sub-article-asa" data-id="" type="submit" value="确认">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input class="btn-middle btn-white js-cancel" type="button" value="取消">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 新建微页面 添加Banner组件 弹窗 -->
+<div class="popup-wrap wrap-middle-1 WeiPage-popup-wrap Banner-tan-asa" style="display: none;">
+    <div class="mod middle-popup type-1">
+        <div class="mod-header">
+            <h4 class="fl mr-6">添加Banner组件</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+            <div class="tab-box js-tab-box">
+                <div class="hd">
+                    <ul class="clearfix">
+                        <li class="on">常规</li>
+                        <!--<li>高级</li>-->
+                        <!--<li>终极</li>-->
+                    </ul>
+                </div>
+                <div class="bd content">
+                    <div class="inner-wrap">
+                        <div class="group pb-20">
+                            <div class="inline">
+                                <h5 class="pb-10">
+                                    <span class="inline w120">图片上传：</span>
+                                    <img class="inline text-middle js-Banner-thumbnail" width="40px" height="40px" src="./Tpl/User5/default/common/img/WeiPage-temp-img.png">
+                                    <a class="btn-small btn-white imageselect" data-type="Bannerimg">选择图片</a>
+                                    <div>
+                                        <span class="inline w120"><!-- Null --></span>
+                                        <h6 class="inline text-gray">*仅支持JPG、JPEG、PNG、GIF格式，推荐宽度640px</h6>
+                                    </div>
+                                </h5>
+                                <h5 class="pb-10">
+                                    <span class="inline w120">关联网页：</span>
+                                    <input class="inline span2 Banner-url-asa" type="text" name="Banner-url-asa">
+                                    <a class="btn-small btn-white select-url-asa" data-urltype="Banner-url-asa">选择网页链接</a>
+                                    <div>
+                                        <span class="inline w120"><!-- Null --></span>
+                                        <h6 class="inline text-gray">*Banner和图片组件的区别在于，banner周边没有留白，图片组件有留白。</h6>
+                                    </div>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="group form-footer text-center">
+                <input class="btn-middle btn-purple sub-Banner-asa" data-id="" type="submit" value="确认">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input class="btn-middle btn-white js-cancel" type="button" value="取消">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 添加通头组件 弹窗 -->
+<div class="popup-wrap wrap-middle-1 WeiPage-popup-wrap header-tan-asa" style="display: none;">
+    <div class="mod middle-popup type-1">
+        <div class="mod-header">
+            <h4 class="fl mr-6">添加通头组件</h4>
+            <div class="inline tips-wrap">
+                <i class="icon-help"></i>
+                <div class="help-tips-box">
+                    <h5 class="text-dark">通头固定在页面顶部，每个页面只能设置一个通头。</h5>
+                    <span class="triangle-left-b"></span>
+                    <span class="triangle-left-a"></span>
+                </div>
+            </div>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+            <div class="tab-box js-tab-box">
+                <div class="hd">
+                    <ul class="clearfix">
+                        <li>常规</li>
+                        <li>高级</li>
+                        <!--<li>终极</li>-->
+                    </ul>
+                </div>
+                <div class="bd content">
+                    <div class="inner-wrap">
+                        <div class="group pb-10">
+                            <h5 class="inline w120">通头logo设置：</h5>
+                            <i class="icon-top-logo text-middle js-head-logo-asa" data-img="" style="background-color:#000"></i>
+                            <div class="inline text-middle">
+                                <h5>
+                                    <a class="btn-small btn-white imageselect" data-type="headlogo">选择logo</a> &nbsp;
+                                    <a href="javascript:void(0);" class="tips js-result-headlogo-asa">重置</a>
+                                </h5>
+                                <h6 class="text-gray">*请上传通头LOGO，PNG格式，150px*50px</h6>
+                            </div>
+                        </div>
+                        <div class="group pb-10">
+                            <h6 class="inline w120">通头导航设置：</h6>
+                            <label class="radio inline mr-6"><input type="radio" value="1" name="headnavstatus">开启</label>
+                            <label class="radio inline"><input type="radio" value="2" name="headnavstatus" checked="checked">关闭</label>
+                        </div>
+                        <div class="group pb-10 js-headnavstatus-asa" style="display:none">
+                            <span class="inline w120"><!-- Null --></span>
+                            <h5 class="inline">
+                                <a class="btn-small btn-white header-nav-asa" data-id="">创建新通头导航</a>
+                            </h5>
+                        </div>
+                        <div class="group pb-10 js-headnavstatus-asa" style="display:none">
+                            <span class="inline w120"></span>
+                            <table class="inline table type-1" style="overflow: initial;">
+                                <thead>
+                                <tr>
+                                    <th class="w50">排序</th>
+                                    <th class="w300">导航名称</th>
+                                    <th class="span1">是否启用</th>
+                                    <th class="w80">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody class="js-headnav-info-asa">
+                                <tr class="text-center js-nav-zanwu-asa">
+                                    <td colspan="5">暂无</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="group pb-10">
+                            <h6 class="inline w120">搜索栏设置：</h6>
+                            <label class="radio inline mr-6 js-search-toggle-on">
+                            <input type="radio" name="headsearchstatus" value="1">开启</label>
+                            <label class="radio inline "><input type="radio" value="2" name="headsearchstatus" checked="checked">关闭</label>
+                            <div class="group js-headsearchstatus-asa" style="display:none">
+                                <span class="inline w120"></span>
+                                <span class="inline js-search-inner">
+                                    <label class="radio inline"><input type="radio" value="1" name="headsearchclass" checked="checked">商品搜索栏</label>
+                                    <label class="radio inline"><input type="radio" value="2" name="headsearchclass" >微页面搜索栏</label>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="inner-wrap">
+                        <h5 class="group pb-20 js-color-tit-toggle">
+                            <span class="inline w120">样式：</span>
+                            <label class="radio inline mr-20 color-tit-1">
+                                <input type="radio" name="headclasstype" value="1" checked="checked">
+                                底色式
+                                <img class="block w100" src="./Tpl/User5/default/common/img/WeiPage-page-list-big.png">
+                            </label>
+                            <label class="radio inline mr-20 color-tit-2">
+                                <input type="radio" name="headclasstype" value="2">
+                                浮层式
+                                <img class="block w100" src="./Tpl/User5/default/common/img/WeiPage-page-list-small.png">
+                            </label>
+                        </h5>
+                        <!-- <div class="group pb-20 js-color-toggle" style="display: none;">
+                            <h5 class="inline w120">icon颜色：</h5>
+                            <label class="radio inline mr-20"><input class="inline" type="radio" name="group-defult-color" checked="checked">深空黑</label>
+                            <label class="radio inline mr-20"><input class="inline" type="radio" name="group-defult-color">象牙白</label>
+                        </div> -->
+                        <div class="group pb-20 js-headcolor-asa">
+                            <h5 class="inline w120 js-test-asa">请选择底色：</h5>
+                            <label class="radio inline mr-20"><input class="inline" type="radio" name="headcolor" value="000000" checked="checked">黑色 <span style="display: inline-block; width: 30px; height: 30px; background-color: #000; vertical-align: middle;"></span></label>
+                            <label class="radio inline mr-20"><input class="inline" type="radio" name="headcolor" value="ff6700">橙色 <span style="display: inline-block; width: 30px; height: 30px; background-color: #ff6700; vertical-align: middle;"></span></label>
+                            <label class="radio inline mr-20"><input class="inline" type="radio" name="headcolor" value="bf1520">红色 <span style="display: inline-block; width: 30px; height: 30px; background-color: #bf1520; vertical-align: middle;"></span></label>
+                            <label class="radio inline mr-20"><input class="inline" type="radio" name="headcolor" value="006ac9">蓝色 <span style="display: inline-block; width: 30px; height: 30px; background-color: #006ac9; vertical-align: middle;"></span></label>
+                            <label class="radio inline mr-20"><input class="inline js-headcolor-info-input" type="radio" name="headcolor" value="7">自定义 <input class="inline w50 text-middle js-headcolor-info color" name="headcolorinfo" value="f00" type="text"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="group form-footer text-center">
+                    <input class="btn-middle btn-purple sub-header-asa" data-id="" type="submit" value="确认">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input class="btn-middle btn-white js-cancel" type="button" value="取消">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 创建新通头导航 弹窗 -->
+<div class="popup-wrap wrap-middle-1 WeiPage-popup-wrap-small header-nav-tan-asa" style="display: none;">
+    <div class="mod middle-popup type-1">
+        <div class="mod-header">
+            <h4 class="fl">创建新通头导航</h4>
+            <i class="fr icon-close-dark header-quxiao"></i>
+        </div>
+        <div class="mod-body">
+            <div class="content">
+                <div class="group pb-20">
+                    <h5 class="inline w100">导航名称：</h5>
+                    <input class="inline w300" type="text" name="navtitle" maxlength='17' />
+                    <h6 class="group">
+                        <span class="inline w100"><!-- Null --></span>
+                        <span class="inline text-gray">最多支持17个字符</span>
+                    </h6>
+                </div>
+                <div class="group pb-20">
+                    <h5 class="inline w100">所属一级导航：</h5>
+                    <select class="inline w300" name="navparentid">
+                        <option value="">全部</option>
+                    </select>
+                    <h6 class="group">
+                        <span class="inline w100"><!-- Null --></span>
+                        <span class="inline text-gray">如不选择，此菜单将默认成为一级菜单</span>
+                    </h6>
+                </div>
+                <div class="group pb-20">
+                    <h5 class="inline w100">关联网页：</h5>
+                    <input class="inline span2 navurl" type="text" name="navurl">
+                    <input class="btn-middle btn-white select-url-asa" type="button" data-urlType="navurl" value="选择网页连接">
+                </div>
+                <div class="group pb-20">
+                    <h5 class="inline w100">是否启用：</h5>
+                    <label class="radio inline mr-6"><input type="radio" name="navisstatus" checked="checked" value="1">开启</label>
+                    <label class="radio inline"><input type="radio" name="navisstatus" value="2">禁用</label>
+                </div>
+                <div class="group pb-20">
+                    <h5 class="inline w100">导航排序：</h5>
+                    <input class="inline span2" type="text" name="navsort" value="50">
+                    <h6 class="inline text-gray">序号越小导航排列越靠前</h6>
+                </div>
+            </div>
+            <div class="group form-footer text-center">
+                <input class="btn-middle btn-purple sub-nav-asa" data-id="" type="button" value="确认">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input class="btn-middle btn-white header-quxiao" type="button" value="取消">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 选择网页链接 弹窗 -->
+<include file="Public:WeiTanSelect" />
+<!-- 添加通底组件 弹窗 -->
+<div class="popup-wrap wrap-middle-1 WeiPage-popup-wrap footer-tan-asa" style="display: none;">
+    <div class="mod middle-popup type-1">
+        <div class="mod-header">
+            <h4 class="fl mr-6">添加通底组件</h4>
+            <div class="inline tips-wrap">
+                <i class="icon-help"></i>
+                <div class="help-tips-box">
+                    <h5 class="text-dark">通底固定在页面底部，每个页面只能设置一个通底</h5>
+                    <span class="triangle-left-b"></span>
+                    <span class="triangle-left-a"></span>
+                </div>
+            </div>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+            <div class="content">
+                <div class="group pb-10">
+                    <h5 class="inline w120">通底导航样式：</h5>
+                    <label class="radio inline mr-20"><input type="radio" name="footisstatus" value="1" checked="checked" class="footer-toggle-on">开启</label>
+                    <!-- <label class="radio inline"><input type="radio" name="footisstatus" value="2" class="footer-toggle-off">关闭</label> -->
+                </div>
+
+                <div class="group pb-20 footer-nav-style js-footer-nav-style js-footer-nav-isshow-asa">
+                    <h5 class="inline w120 footer-nav-style-tit"><!-- Null --></h5>
+                    <label class="radio inline"><input type="radio" name="footclass" value="1" checked="checked">
+                        <i class="img-Eshop-style mb-5"></i>
+                        <h6 class="text-gray footer-nav-style-tips">eshop通底</h6>
+                    </label>
+                </div>
+            </div>
+            <div class="group form-footer text-center">
+                <input class="btn-middle btn-purple sub-footer-asa" data-id="" type="submit" value="确认">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input class="btn-middle btn-white js-cancel" type="reset" value="取消">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 添加图片组件 弹窗 -->
+<div class="popup-wrap wrap-middle-1 WeiPage-popup-wrap photo-tan-asa" style="display: none;">
+    <div class="mod middle-popup type-1">
+        <div class="mod-header">
+            <h4 class="fl mr-6">添加图片组件</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+            <div class="tab-box js-tab-box">
+                <div class="hd">
+                    <ul class="clearfix">
+                        <li>常规</li>
+                        <!--<li>高级</li>-->
+                        <!--<li>终极</li>-->
+                    </ul>
+                </div>
+                <div class="bd content">
+                    <div class="inner-wrap">
+                        <div class="group pb-20 display-style-wrap js-display-style-wrap">
+                            <h5 class="inline w120 text-top temp-padding">陈列样式：</h5>
+                            <div class="inline phototype">
+                                <i class="display-style type-1 on" data-type="9" data-num="1"></i>
+                                <i class="display-style type-2" data-type="4" data-num="2"></i>
+                                <i class="display-style type-3" data-type="3" data-num="3"></i>
+                                <i class="display-style type-4" data-type="2" data-num="4"></i>
+                            </div>
+                        </div>
+                        <div class="group pb-20 uploading-wrap js-uploading-wrap">
+                            <h5 class="inline w120">上传图片</h5>
+                            <div class="inline photourl">
+                                <i class="uploading type-1 on" data-url="" data-img="">一号位</i>
+                                <i class="uploading type-2" data-url="" data-img="" style="display: none;">二号位</i>
+                                <i class="uploading type-3" data-url="" data-img="" style="display: none;">三号位</i>
+                                <i class="uploading type-4" data-url="" data-img="" style="display: none;">四号位</i>
+                            </div>
+                            <div>
+                                <span class="inline w120"><!-- Null --></span>
+                                <h6 class="inline text-gray text-info-asa">请上传相同尺寸的图片，仅支持JPG、JPEG、PNG、GIF格式，推荐宽度640px</h6>
+                            </div>
+                        </div>
+                        <div class="group pb-20">
+                            <span class="inline w120"><!-- Null --></span>
+                            <div class="inline">
+                                <h5 class="pb-10">
+                                    <span class="inline w120">图片上传：</span>
+                                    <a class="btn-small btn-white imageselect" data-type="photoimg">选择图片</a>
+                                </h5>
+                                <h5 class="pb-10">
+                                    <span class="inline w120">关联网页：</span>
+                                    <input type="text" class="inline w200 photo-url-asa">
+                                    <a class="btn-small btn-white select-url-asa" data-urlType="photo-url-asa">选择网页链接</a>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="group form-footer text-center">
+                <input class="btn-middle btn-purple sub-photo-asa" data-id="" type="submit" value="确认">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input class="btn-middle btn-white js-cancel" type="button" value="取消">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 添加幻灯片组件 弹窗 -->
+<div class="popup-wrap wrap-middle-1 WeiPage-popup-wrap slide-tan-asa" style="display: none;">
+    <div class="mod middle-popup type-1">
+        <div class="mod-header">
+            <h4 class="fl mr-6">添加幻灯片组件</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+            <div class="tab-box js-tab-box">
+                <div class="hd">
+                    <ul class="clearfix">
+                        <li class="on">常规</li>
+                        <!--<li>高级</li>-->
+                        <!--<li>终极</li>-->
+                    </ul>
+                </div>
+                <div class="bd content">
+                    <div class="inner-wrap">
+                        <div class="group slide-img-group js-slide-img-group mb-20 slidelist">
+                            <i class="uploading on slideinfo" data-url="" data-img="" >
+                                <ul class="edit-group-wrap clearfix js-edit-group-wrap">
+                                    <li><i class="icon-edit to-left"></i> </li>
+                                    <li><i class="icon-edit to-right"></i> </li>
+                                    <li><i class="icon-edit be-remove js-be-remove"></i> </li>
+                                </ul>
+                            </i>
+                            <i class="uploading WeiPage-img-add"></i>
+                            <h6 class="text-gray">请上传相同尺寸的图片（最多5张），仅支持JPG、JPEG、PNG、GIF格式，推荐宽度640px</h6>
+                        </div>
+                        <div class="group pb-20">
+                            <!--<span class="inline w120">&lt;!&ndash; Null &ndash;&gt;</span>-->
+                            <div class="inline">
+                                <h5 class="pb-10">
+                                    <span class="inline w120">图片上传：</span>
+                                    <a class="btn-small btn-white imageselect" data-type="slideimg">选择图片</a>
+                                </h5>
+                                <h5 class="pb-10">
+                                    <span class="inline w120">关联网页：</span>
+                                    <input type="text" class="inline w200 slide-url-asa">
+                                    <a class="btn-small btn-white select-url-asa" data-urlType="slide-url-asa">选择网页链接</a>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="group form-footer text-center">
+                <input class="btn-middle btn-purple sub-slide-asa" data-id="" type="submit" value="确认">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input class="btn-middle btn-white js-cancel" type="button" value="取消">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 添加富文本组件 弹窗 -->
+<style>
+/* 只是富文本弹窗用 */
+.bigtext-class-asa #edui1 {margin:auto;}
+</style>
+<div class="popup-wrap wrap-middle-1 WeiPage-popup-wrap bigtext-tan-asa" style="display: none;z-index:7;">
+    <div class="mod middle-popup type-1">
+        <div class="mod-header">
+            <h4 class="fl mr-6 assembly-title-bigtext-asa">添加富文本组件</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+            <div class="bigtext-class-asa content" style="height: 400px;">
+            	<div class="alert mb-15 w694">注意！本编辑器不会自动保存第三方平台中的图片，如果您的图文是从其他编辑器上直接复制粘贴过来的（如秀米等），请确保秀米等外来编辑器的原始图片文件不会被删除！否则，图文中的图片会在源图片文件被删除后无法查看！  *秀米编辑器会定期清理非秀米VIP账号的图文，请谨慎使用！</div>
+            	<script id="info2" name="info2" type="text/plain"></script>
+            </div>
+            <div class="group form-footer text-center">
+                <input class="btn-middle btn-purple sub-bigtext-asa" type="submit" value="确认">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input class="btn-middle btn-white js-cancel" type="button" value="取消">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 添加辅助空白组件 弹窗 -->
+<div class="popup-wrap wrap-middle-1 WeiPage-popup-wrap-small blank-tan-asa" style="display: none;">
+    <div class="mod middle-popup type-1">
+        <div class="mod-header">
+            <h4 class="fl assembly-title-blank-asa">添加辅助空白组件</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+            <div class="content" style="height:auto">
+                <h5 class="group pb-20">
+                    <span class="inline w100">高度：</span>
+                    <input class="inline span2 blank-height-asa" type="text"> px
+                </h5>
+            </div>
+            <div class="group form-footer text-center">
+                <input class="btn-middle btn-purple sub-blank-asa" data-id="" type="submit" value="确认">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input class="btn-middle btn-white js-cancel" type="button" value="取消">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 添加商品组件 弹窗 -->
+<div class="popup-wrap wrap-middle-1 WeiPage-popup-wrap goods-tan-asa" style="display: none;">
+    <div class="mod middle-popup type-1">
+        <div class="mod-header">
+            <h4 class="fl mr-6">添加商品组件</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+            <div class="tab-box js-tab-box">
+                <div class="hd">
+                    <ul class="clearfix">
+                        <li>常规</li>
+                        <li>高级</li>
+                    </ul>
+                </div>
+                <div class="bd content">
+                    <div class="inner-wrap">
+                        <div class="group pb-20 goods-style-wrap js-goods-style-wrap">
+                            <h5 class="inline w120 text-top temp-padding">陈列样式：</h5>
+                            <div class="inline goodstype-asa">
+                                <i class="goods-style type-1 on" data-type="1"></i>
+                                <i class="goods-style type-2" data-type="2"></i>
+                                <i class="goods-style type-3" data-type="3"></i>
+                            </div>
+                        </div>
+                        <div class="group goods-choose-wrap clearfix js-goods-choose-wrap">
+
+                            <div class="goods-choose-left fl">
+                                <!-- <div class="input-search pb-10">
+                                    <input type="text" class="inline goodstitle-asa" placeholder="请输入商品名称">
+                                    <button type="submit" class="btn sub-goods-title-asa">搜索</button>
+                                </div> -->
+
+                                <div class="group mb-15 select-input-search">
+                                    <div class="input-box clearfix js-input-box">
+                                        <div class="selector fl js-selector">
+                                            <h6 class="item-selected js-item-selected"><span>全部</span><i class="icon-arrow"></i></h6>
+                                            <ul>
+                                                <li data-goodtype="1" class="js-goodtype-search">实物商品</li>
+                                                <li data-goodtype="2" class="js-goodtype-search">券商品</li>
+                                                <li data-goodtype="3" class="js-goodtype-search">计次卡商品</li>
+                                                <li data-goodtype="4" class="js-goodtype-search">团购商品</li>
+                                                <li data-goodtype="5" class="js-goodtype-search">门票商品</li>
+                                                <!-- <li data-goodtype="6" class="js-goodtype-search">权益卡商品</li> -->
+                                            </ul>
+                                        </div>
+                                        <input class="fl goodstitle-asa" type="text" style="width: 134px;">
+                                    </div>
+                                    <button type="submit" class="btn btn-small btn-white sub-goods-title-asa" data-goodtype="">搜索</button>
+                                </div>
+
+                                <ul class="goods-name-choose js-goods-name-choose goods-list-left-asa">
+                                </ul>
+                            </div>
+
+                            <i class="fl icon-goods-choose-to"></i>
+
+                            <div class="goods-choose-right fr">
+                                <ul class="goods-name-choose goods-list-right-asa">
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="inner-wrap">
+                        <h5 class="group pb-20">
+                            <span class="inline w120">显示商品名称：</span>
+                            <label class="radio inline mr-20"><input type="radio" name="goodname" value="1" checked>是</label>
+                            <label class="radio inline"><input type="radio" name="goodname" value="2">否</label>
+                        </h5>
+                        <h5 class="group pb-20">
+                            <span class="inline w120">显示商品价格：</span>
+                            <label class="radio inline mr-20"><input type="radio" name="goodprice" value="1" checked>是</label>
+                            <label class="radio inline"><input type="radio" name="goodprice" value="2">否</label>
+                        </h5>
+                        <h5 class="group pb-20">
+                            <span class="inline w120">显示购物车图标：</span>
+                            <label class="radio inline mr-20 js-goods-toggle-on"><input type="radio" name="goodshopcart" value="1" checked>是</label>
+                            <label class="radio inline js-goods-toggle-off"><input type="radio" name="goodshopcart" value="2">否</label>
+                        </h5>
+                        <h5 class="group pb-20 js-goods-toggle">
+                            <span class="inline w120"><!-- Null --></span>
+                            <label class="radio inline mr-20">
+                                <input type="radio" name="goodshopcartclass" value="1" checked>
+                                <i class="demo-background-color"></i>
+                                默认样式
+                            </label>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            <div class="group form-footer text-center">
+                <input class="btn-middle btn-purple sub-goods-asa" data-id="" type="submit" value="确认">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input class="btn-middle btn-white js-cancel" type="button" value="取消">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--添加拼团组件 弹窗-->
+<div class="popup-wrap wrap-middle-1 WeiPage-popup-wrap groupon-goods-box " style="display: none">
+    <div class="mod middle-popup type-1">
+        <div class="mod-header">
+            <h4 class="fl mr-6">选择商品</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+            <div class="content choice-content">
+                <div class="inner-wrap">
+                    <div class="group goods-choose-wrap clearfix js-groupon-goods-choose-wrap">
+                        <div class="goods-choose-left fl">
+                            <div class="input-search pb-10">
+                                <input type="text" class="inline groupongoodstitle-asa" placeholder="请输入商品名称"><button type="submit" class="btn sub-groupon-goods-title-asa">搜索</button>
+                            </div>
+                            <ul class="goods-name-choose js-groupon-goods-name-choose groupon-goods-list-left-asa"></ul>
+                        </div>
+                        <i class="fl icon-goods-choose-to"></i>
+                        <div class="goods-choose-right fr">
+                            <ul class="goods-name-choose groupon-goods-list-right-asa"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="group form-footer text-center">
+                <input class="btn-middle btn-purple sub-groupon-goods-asa" data-id="" type="submit" value="确认">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input class="btn-middle btn-white js-cancel" type="button" value="取消">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ==============================    删除弹窗    ============================== -->
+<div class="popup-wrap del-assembly-tan-asa" style="display: none;">
+    <div class="mod small-popup type-1">
+        <div class="mod-header">
+            <h4 class="fl">删除组件</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+            <div class="content">
+                <h5 class="pb-20">确认删除当前组件么？</h5>
+                <p class="text-center">
+                    <a class="btn-small btn-purple w60 js-ok" data-type="" id="del-assembly-asa" data-id=''>确 认</a> &nbsp;
+                    <a class="btn-small btn-white w60 js-cancel quxiao">取 消</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var pagetypeasa = $("input[name='pagetype-asa']").val();
+    /* ============================          所有提交类的JS在这              ==================================== */
+    $(function(){
+    	//新增分类
+    	$(".js-add-new-class").click(function(){
+    	    $(".js-add-new-class-popup").fadeIn(120);
+    	    $(".js-add-new-class-input").focus();
+    	});
+    	$(".js-add-new-class-btn").click(function(){
+    	    $(".js-add-new-class-popup").fadeOut(120);
+    	    if($(".js-add-new-class-input").val() != ""){
+    	        var classVal = $(".js-add-new-class-input").val();
+    	        $.post("<?php echo U('Wei/addgroup');?>",{name:classVal},
+    					function(data){
+    	        			if(data.code == '200'){
+    	        				$(".js-add-new-class-option").append('<option value="'+data.gid+'">'+classVal+'</option>');
+    	        			}
+    					},"json"
+    				);
+    	        $(".js-add-new-class-input").val("");
+    	    }
+    	});
+    	
+    	$(".open-window-attr-url").bind("click",function(){
+    		open_window($(this).attr('title'),$(this).attr('url'));
+    	});
+    	//article文章列表组件
+    	$(".sub-article-asa").click(function(){
+    		id=$("input[name='id']").val();
+    		var aid = $(this).attr('data-id');
+    		var type = 13;
+    		/* article组件插件信息  */
+    		var articletitle = $('input[name="articletitle"]').val();
+    		if(articletitle == ''){
+    			alertTan('请输入文章标题',"warn");
+    			return false;
+    		}
+    		var articlepic = $('.js-article-thumbnail').attr('src');
+    		var articledigest = $('.js-articledigest').val();
+    		if(articledigest == ''){
+    			alertTan('请输入文章摘要',"warn");
+    			return false;
+    		}
+    		var articleurl = $('input[name="article-url-asa"]').val();
+    		var isshowtime = $('input[name="isshowtime"]:checked').val();
+    		var articletype = $('input[name="articletype"]:checked').val();
+    		
+    		if(id==''){
+    			/* 页面信息  */
+    			var title = $('input[name=title]').val();
+    			var isencrypt = $('input[name=isencrypt]:checked').val();
+    			var encryptinfo = $('input[name=encryptinfo]').val();
+    			var gid = $('.js-add-new-class-option').val();
+    			/* 微信分享信息  */
+    			var shareimg = $('input[name=shareimg]').val();
+    			var sharefriendstitle = $('input[name=sharefriendstitle]').val();
+    			var sharedes = $('.sharedes').val();
+    			var iswechat = $('input[name="iswechat"]:checked').val();
+    			if(isencrypt==2){
+    				if(encryptinfo.length!=4){
+    					alertTan('请输入四位数字密码',"warn");$('input[name=encryptinfo]').focus();
+    					return false;
+    				}
+    			}
+    			if(title==''){
+    				title = '网页标题';
+    				$('input[name=title]').val('网页标题');
+    			}else{
+    				$(".title-html-asa").html(title);
+    			}
+    			$.post("<?php echo U('Wei/addInfo',array('companyid'=>$companyid)); ?>",{
+    				/* 页面信息  */
+    				id:id,title:title,isencrypt:isencrypt,encryptinfo:encryptinfo,gid:gid,
+    				/* 微信分享信息  */
+    				iswechat:iswechat,shareimg:shareimg,sharefriendstitle:sharefriendstitle,sharedes:sharedes,
+    				/* 页面类型 */
+    				pagetypeasa:pagetypeasa
+    			},function(data){
+    				if(data.code==200){
+    					$("input[name='id']").val(data.id);
+    					//组件信息
+    					$.post("<?php echo U('Wei/addAssembly').'&time=';?>"+Math.random(),{
+    						id:aid,parentid:data.id,type:type,
+    						articletitle:articletitle,banner:articlepic,textinfo:articledigest,blink:articleurl,isshowtime:isshowtime,articletype:articletype
+    					},function(data2){
+    						if(data2.code == 200){
+	    						alertTan(data2.msg);
+    							$("#info-html-asa").append(data2.html);
+    							$(".article-tan-asa").hide();
+    						}else{
+    							alertTan(data2.msg,'error');
+    						}
+    					},'json');
+    				}
+    				
+    			},'json');
+    		}else{
+    			
+    			//组件信息
+    			$.post("<?php echo U('Wei/addAssembly').'&time=';?>"+Math.random(),{
+    				id:aid,type:type,parentid:id,
+    				articletitle:articletitle,banner:articlepic,textinfo:articledigest,blink:articleurl,isshowtime:isshowtime,articletype:articletype
+    			},function(data2){
+    				if(data2.code == 200){
+	    				alertTan(data2.msg);
+    					if(aid==''){
+    						$("#info-html-asa").append(data2.html);
+    					}else{
+    						if(articletype == '2'){
+    							$(".a"+aid).removeClass('mod-page-list-big').addClass('mod-page-list-small');
+    						}else{
+    							$(".a"+aid).removeClass('mod-page-list-small').addClass('mod-page-list-big');
+    						}
+    						$(".a"+aid).html(data2.html);
+    					}
+    					$(".article-tan-asa").hide();
+    				}else{
+						alertTan(data2.msg,'error');
+					}
+    			},'json');
+    		}
+    	});
+    	//Banner组件 =============================================
+    	$(".sub-Banner-asa").click(function(){
+    		id=$("input[name='id']").val();
+    		var aid = $(this).attr('data-id');
+    		var type = 1;
+    		/* Banner组件插件信息  */
+    		var Bannerimg = $('.js-Banner-thumbnail').attr('src');
+    		var Bannerurl = $("input[name='Banner-url-asa']").val();
+    		if(id==''){
+    			/* 页面信息  */
+    			var title = $('input[name=title]').val();
+    			var isencrypt = $('input[name=isencrypt]:checked').val();
+    			var encryptinfo = $('input[name=encryptinfo]').val();
+    			var gid = $('.js-add-new-class-option').val();
+    			/* 微信分享信息  */
+    			var shareimg = $('input[name=shareimg]').val();
+    			var sharefriendstitle = $('input[name=sharefriendstitle]').val();
+    			var sharedes = $('.sharedes').val();
+    			var iswechat = $('input[name="iswechat"]:checked').val();
+    			if(isencrypt==2){
+    				if(encryptinfo.length!=4){
+    					alertTan('请输入四位数字密码',"warn");$('input[name=encryptinfo]').focus();
+    					return false;
+    				}
+    			}
+    			if(title==''){
+    				title = '网页标题';
+    				$('input[name=title]').val('网页标题');
+    			}else{
+    				$(".title-html-asa").html(title);
+    			}
+    			$.post("<?php echo U('Wei/addInfo',array('companyid'=>$companyid)); ?>",{
+    				/* 页面信息  */
+    				id:id,title:title,isencrypt:isencrypt,encryptinfo:encryptinfo,gid:gid,
+    				/* 微信分享信息  */
+    				iswechat:iswechat,shareimg:shareimg,sharefriendstitle:sharefriendstitle,sharedes:sharedes,
+    				/* 页面类型 */
+    				pagetypeasa:pagetypeasa
+    			},function(data){
+    				if(data.code==200){
+    					$("input[name='id']").val(data.id);
+    					//组件信息
+    					$.post("<?php echo U('Wei/addAssembly').'&time=';?>"+Math.random(),{
+    						id:aid,parentid:data.id,type:type,
+    						banner:Bannerimg,blink:Bannerurl
+    					},function(data2){
+    						if(data2.code == 200){
+	    						alertTan(data2.msg);
+    							$("#info-html-asa").append(data2.html);
+    							$(".Banner-tan-asa").hide();
+    						}else{
+    							alertTan(data2.msg,'error');
+    						}
+    					},'json');
+    				}
+    				
+    			},'json');
+    		}else{
+    			//组件信息
+    			$.post("<?php echo U('Wei/addAssembly').'&time=';?>"+Math.random(),{
+    				id:aid,type:type,parentid:id,
+    				banner:Bannerimg,blink:Bannerurl
+    			},function(data2){
+    				if(data2.code == 200){
+	    				alertTan(data2.msg);
+    					if(aid==''){
+    						$("#info-html-asa").append(data2.html);
+    					}else{
+    						$(".a"+aid).html(data2.html);
+    					}
+    					$(".Banner-tan-asa").hide();
+    				}else{
+						alertTan(data2.msg,'error');
+					}
+    			},'json');
+    		}
+    	});
+    	
+
+    	//图片插件提交       ====================================================
+    	$(".sub-photo-asa").click(function(){
+    		id=$("input[name='id']").val();
+    		/* 图片插件信息  */
+    		var aid = $(this).attr('data-id');
+    		var type = '';
+    		var num = '';
+    		$(".phototype").find("i").each(function(){
+    			if($(this).hasClass("on")){
+    				type = $(this).attr("data-type");
+    				num = $(this).attr("data-num");
+    			}
+    		});
+    		var link = new Array();
+    		var small = new Array();
+    		for(var i=1;i<=num;i++){
+    			link[i] = $('.photourl i:eq("'+(i-1)+'")').attr("data-url");
+    			small[i] = $('.photourl i:eq("'+(i-1)+'")').attr("data-img");
+    			if(!small[i]){
+    				alertTan('请上传'+i+'号位图片',"warn");
+    				return false;
+    			}
+    		}
+    		
+    		if(id==''){
+    			/* 页面信息  */
+    			var title = $('input[name=title]').val();
+    			var isencrypt = $('input[name=isencrypt]:checked').val();
+    			var encryptinfo = $('input[name=encryptinfo]').val();
+    			var gid = $('.js-add-new-class-option').val();
+    			/* 微信分享信息  */
+    			var shareimg = $('input[name=shareimg]').val();
+    			var sharefriendstitle = $('input[name=sharefriendstitle]').val();
+    			var sharedes = $('.sharedes').val();
+    			var iswechat = $('input[name="iswechat"]:checked').val();
+    			if(isencrypt==2){
+    				if(encryptinfo.length!=4){
+    					alertTan('请输入四位数字密码',"warn");$('input[name=encryptinfo]').focus();
+    					return false;
+    				}
+    			}
+    			if(title==''){
+    				title = '网页标题';
+    				$('input[name=title]').val('网页标题');
+    			}else{
+    				$(".title-html-asa").html(title);
+    			}
+    			$.post("<?php echo U('Wei/addInfo',array('companyid'=>$companyid)); ?>",{
+    				/* 页面信息  */
+    				id:id,title:title,isencrypt:isencrypt,encryptinfo:encryptinfo,gid:gid,
+    				/* 微信分享信息  */
+    				iswechat:iswechat,shareimg:shareimg,sharefriendstitle:sharefriendstitle,sharedes:sharedes,
+    				/* 页面类型 */
+    				pagetypeasa:pagetypeasa
+    			},function(data){
+    				if(data.code==200){
+    					$("input[name='id']").val(data.id);
+    					$.post("<?php echo U('Wei/addAssembly').'&time=';?>"+Math.random(),{
+    						id:aid,
+    						parentid:data.id,type:type,
+    						small1:small['1'],link1:link['1'],
+    						small2:small['2'],link2:link['2'],
+    						small3:small['3'],link3:link['3'],
+    						small4:small['4'],link4:link['4']
+    					},function(data2){
+    						if(data2.code == 200){
+	    						alertTan(data2.msg);
+    							$("#info-html-asa").append(data2.html);
+    							$(".photo-tan-asa").hide();
+    						}else{
+    							alertTan(data2.msg,'error');
+    						}
+    					},'json');
+    				}
+    				
+    			},'json');
+    		}else{
+    			$.post("<?php echo U('Wei/addAssembly').'&time=';?>"+Math.random(),{
+    				id:aid,
+    				parentid:id,type:type,
+    				small1:small['1'],link1:link['1'],
+    				small2:small['2'],link2:link['2'],
+    				small3:small['3'],link3:link['3'],
+    				small4:small['4'],link4:link['4']
+    			},function(data2){
+    				if(data2.code == 200){
+	    				alertTan(data2.msg);
+    					if(aid==''){
+    						$("#info-html-asa").append(data2.html);
+    					}else{
+    						if(data2.type!=type){
+    							$(".a"+aid).removeClass("mod-img-"+type);
+    							$(".a"+aid).addClass("mod-img-"+data2.type);
+    						}
+    						$(".a"+aid).html(data2.html);
+    					}
+    					$(".photo-tan-asa").hide();
+    				}else{
+						alertTan(data2.msg,'error');
+					}
+    			},'json');
+    		}
+    	});
+    	
+    	//幻灯片插件提交       ====================================================
+    	$(document).on("click",".sub-slide-asa",function(){
+    		id=$("input[name='id']").val();
+    		var type = 5;
+    		/* 图片插件信息  */
+    		var aid = $(this).attr('data-id');
+    		var link = new Array();
+    		var small = new Array();
+    		var num = $('.slidelist').children("i.slideinfo").length;
+    		for(var i=1;i<=5;i++){
+    			link[i] = $('.slidelist i.slideinfo:eq("'+(i-1)+'")').attr("data-url");
+    			if($('.slidelist i.slideinfo:eq("'+(i-1)+'")').attr("data-img")!=undefined&&$('.slidelist i.slideinfo:eq("'+(i-1)+'")').attr("data-img")!=""){
+    				small[i] = $('.slidelist i.slideinfo:eq("'+(i-1)+'")').attr("data-img");
+    			}else{
+    				small[i] = '';
+    				link[i] = '';
+    			}
+    		}
+    		if(!small['1']){
+    			alertTan('请上传至少一张图片',"warn");
+    			return false;
+    		}
+    		console.log(num+'--'+small[4]+'--'+small[5]);
+    		if(id==''){
+    			/* 页面信息  */
+    			var title = $('input[name=title]').val();
+    			var isencrypt = $('input[name=isencrypt]:checked').val();
+    			var encryptinfo = $('input[name=encryptinfo]').val();
+    			var gid = $('.js-add-new-class-option').val();
+    			/* 微信分享信息  */
+    			var shareimg = $('input[name=shareimg]').val();
+    			var sharefriendstitle = $('input[name=sharefriendstitle]').val();
+    			var sharedes = $('.sharedes').val();
+    			var iswechat = $('input[name="iswechat"]:checked').val();
+    			if(isencrypt==2){
+    				if(encryptinfo.length!=4){
+    					alertTan('请输入四位数字密码',"warn");$('input[name=encryptinfo]').focus();
+    					return false;
+    				}
+    			}
+    			if(title==''){
+    				title = '网页标题';
+    				$('input[name=title]').val('网页标题');
+    			}else{
+    				$(".title-html-asa").html(title);
+    			}
+    			$.post("<?php echo U('Wei/addInfo',array('companyid'=>$companyid)); ?>",{
+    				/* 页面信息  */
+    				id:id,title:title,isencrypt:isencrypt,encryptinfo:encryptinfo,gid:gid,
+    				/* 微信分享信息  */
+    				iswechat:iswechat,shareimg:shareimg,sharefriendstitle:sharefriendstitle,sharedes:sharedes,
+    				/* 页面类型 */
+    				pagetypeasa:pagetypeasa
+    			},function(data){
+    				if(data.code==200){
+    					$("input[name='id']").val(data.id);
+    					$.post("<?php echo U('Wei/addAssembly').'&time=';?>"+Math.random(),{
+    						id:aid,
+    						parentid:data.id,type:type,
+    						small1:small['1'],link1:link['1'],
+    						small2:small['2'],link2:link['2'],
+    						small3:small['3'],link3:link['3'],
+    						small4:small['4'],link4:link['4'],
+    						small5:small['5'],link5:link['5']
+    					},function(data2){
+    						if(data2.code == 200){
+	    						alertTan(data2.msg);
+    							$("#info-html-asa").append(data2.html);
+    							$(".slide-tan-asa").hide();
+    						}else{
+    							alertTan(data2.msg,'error');
+    						}
+    					},'json');
+    				}
+    				
+    			},'json');
+    		}else{
+    			$.post("<?php echo U('Wei/addAssembly').'&time=';?>"+Math.random(),{
+    				id:aid,type:type,parentid:id,
+    				small1:small['1'],link1:link['1'],
+    				small2:small['2'],link2:link['2'],
+    				small3:small['3'],link3:link['3'],
+    				small4:small['4'],link4:link['4'],
+    				small5:small['5'],link5:link['5']
+    			},function(data2){
+    				if(data2.code == 200){
+	    				alertTan(data2.msg);
+    					if(aid==''){
+    						$("#info-html-asa").append(data2.html);
+    					}else{
+    						$(".a"+aid).html(data2.html);
+    					}
+    					$(".slide-tan-asa").hide();
+    				}else{
+						alertTan(data2.msg,'error');
+					}
+    			},'json');
+    		}
+    	});
+    	//辅助空白 ==============================
+    	$(".sub-blank-asa").click(function(){
+    		id=$("input[name='id']").val();
+    		/* 图片插件信息  */
+    		var aid = $(this).attr('data-id');
+    		var type = 7;
+    		var blank = $(".blank-height-asa").val();
+    		
+    		if(id==''){
+    			/* 页面信息  */
+    			var title = $('input[name=title]').val();
+    			var isencrypt = $('input[name=isencrypt]:checked').val();
+    			var encryptinfo = $('input[name=encryptinfo]').val();
+    			var gid = $('.js-add-new-class-option').val();
+    			/* 微信分享信息  */
+    			var shareimg = $('input[name=shareimg]').val();
+    			var sharefriendstitle = $('input[name=sharefriendstitle]').val();
+    			var sharedes = $('.sharedes').val();
+    			var iswechat = $('input[name="iswechat"]:checked').val();
+    			if(isencrypt==2){
+    				if(encryptinfo.length!=4){
+    					alertTan('请输入四位数字密码',"warn");$('input[name=encryptinfo]').focus();
+    					return false;
+    				}
+    			}
+    			if(title==''){
+    				title = '网页标题';
+    				$('input[name=title]').val('网页标题');
+    			}else{
+    				$(".title-html-asa").html(title);
+    			}
+    			$.post("<?php echo U('Wei/addInfo',array('companyid'=>$companyid)); ?>",{
+    				/* 页面信息  */
+    				id:id,title:title,isencrypt:isencrypt,encryptinfo:encryptinfo,gid:gid,
+    				/* 微信分享信息  */
+    				iswechat:iswechat,shareimg:shareimg,sharefriendstitle:sharefriendstitle,sharedes:sharedes,
+    				/* 页面类型 */
+    				pagetypeasa:pagetypeasa
+    			},function(data){
+    				if(data.code==200){
+    					$("input[name='id']").val(data.id);
+    					$.post("<?php echo U('Wei/addAssembly').'&time=';?>"+Math.random(),{
+    						id:aid,parentid:data.id,type:type,
+    						blank:blank
+    					},function(data2){
+    						if(data2.code == 200){
+	    						alertTan(data2.msg);
+    							$("#info-html-asa").append(data2.html);
+    							$(".blank-tan-asa").hide();
+    						}else{
+    							alertTan(data2.msg,'error');
+    						}
+    					},'json');
+    				}
+    				
+    			},'json');
+    		}else{
+    			$.post("<?php echo U('Wei/addAssembly').'&time=';?>"+Math.random(),{
+    				id:aid,type:type,parentid:id,
+    				blank:blank
+    			},function(data2){
+    				if(data2.code == 200){
+	    				alertTan(data2.msg);
+    					if(aid==''){
+    						$("#info-html-asa").append(data2.html);
+    					}else{
+    						$(".a"+aid).html(data2.html);
+    					}
+    					$(".blank-tan-asa").hide();
+    				}else{
+						alertTan(data2.msg,'error');
+					}
+    			},'json');
+    		}
+    	});
+    	//富文本编辑器。 ============================================================
+    	$(".sub-bigtext-asa").click(function(){
+    		$(".loading").show();
+    		id=$("input[name='id']").val();
+    		/* 富文本插件信息  */
+    		var aid = $(this).attr('data-id');
+    		var type = 10;
+    		var textinfo = ue2.getContent();
+    		
+    		if(id==''){
+    			/* 页面信息  */
+    			var title = $('input[name=title]').val();
+    			var isencrypt = $('input[name=isencrypt]:checked').val();
+    			var encryptinfo = $('input[name=encryptinfo]').val();
+    			var gid = $('.js-add-new-class-option').val();
+    			/* 微信分享信息  */
+    			var shareimg = $('input[name=shareimg]').val();
+    			var sharefriendstitle = $('input[name=sharefriendstitle]').val();
+    			var sharedes = $('.sharedes').val();
+    			var iswechat = $('input[name="iswechat"]:checked').val();
+    			if(isencrypt==2){
+    				if(encryptinfo.length!=4){
+    					$(".loading").hide();
+    					alertTan('请输入四位数字密码',"warn");$('input[name=encryptinfo]').focus();
+    					return false;
+    				}
+    			}
+    			if(title==''){
+    				title = '网页标题';
+    				$('input[name=title]').val('网页标题');
+    			}else{
+    				$(".title-html-asa").html(title);
+    			}
+    			$.post("<?php echo U('Wei/addInfo',array('companyid'=>$companyid)); ?>",{
+    				/* 页面信息  */
+    				id:id,title:title,isencrypt:isencrypt,encryptinfo:encryptinfo,gid:gid,
+    				/* 微信分享信息  */
+    				iswechat:iswechat,shareimg:shareimg,sharefriendstitle:sharefriendstitle,sharedes:sharedes,
+    				/* 页面类型 */
+    				pagetypeasa:pagetypeasa
+    			},function(data){
+    				if(data.code==200){
+    					$("input[name='id']").val(data.id);
+    					$.post("<?php echo U('Wei/addAssembly').'&time=';?>"+Math.random(),{
+    						id:aid,parentid:data.id,type:type,
+    						textinfo:textinfo
+    					},function(data2){
+    						$(".loading").hide();
+    						if(data2.code == 200){
+	    						alertTan(data2.msg);
+    							$("#info-html-asa").append(data2.html);
+    							$(".bigtext-tan-asa").hide();
+    						}else{
+    							alertTan(data2.msg,'error');
+    						}
+    					},'json');
+    				}
+    				
+    			},'json');
+    		}else{
+    			$.post("<?php echo U('Wei/addAssembly').'&time=';?>"+Math.random(),{
+    				id:aid,type:type,parentid:id,
+    				textinfo:textinfo
+    			},function(data2){
+    				$(".loading").hide();
+    				if(data2.code == 200){
+	    				alertTan(data2.msg);
+    					if(aid==''){
+    						$("#info-html-asa").append(data2.html);
+    					}else{
+    						$(".a"+aid).html(data2.html);
+    					}
+    					$(".bigtext-tan-asa").hide();
+    				}else{
+						alertTan(data2.msg,'error');
+					}
+    			},'json');
+    		}
+    	});
+    	
+    	
+    	//商品组件 =============================================
+    	$(".sub-goods-asa").click(function(){
+    		id=$("input[name='id']").val();
+    		/* 商品组件插件信息  */
+    		var aid = $(this).attr('data-id');
+    		var type = 6;
+    		var display = $(".goodstype-asa").children("i.on").attr("data-type");
+    		var goodid ='';
+    		$('.goods-list-right-asa li').each(function(){
+    			goodid +=$(this).attr('data-id')+',';
+    		});
+    		if(goodid==''){
+    			alertTan("至少选择一个商品","warn");
+    			return false;
+    		}
+    		var goodname = $("input[name='goodname']:checked").val();
+    		var goodprice = $("input[name='goodprice']:checked").val();
+    		var goodshopcart = $("input[name='goodshopcart']:checked").val();
+    		var goodshopcartclass = $("input[name='goodshopcartclass']:checked").val();
+    		if(id==''){
+    			/* 页面信息  */
+    			var title = $('input[name=title]').val();
+    			var isencrypt = $('input[name=isencrypt]:checked').val();
+    			var encryptinfo = $('input[name=encryptinfo]').val();
+    			var gid = $('.js-add-new-class-option').val();
+    			/* 微信分享信息  */
+    			var shareimg = $('input[name=shareimg]').val();
+    			var sharefriendstitle = $('input[name=sharefriendstitle]').val();
+    			var sharedes = $('.sharedes').val();
+    			var iswechat = $('input[name="iswechat"]:checked').val();
+    			if(isencrypt==2){
+    				if(encryptinfo.length!=4){
+    					alertTan('请输入四位数字密码',"warn");$('input[name=encryptinfo]').focus();
+    					return false;
+    				}
+    			}
+    			if(title==''){
+    				title = '网页标题';
+    				$('input[name=title]').val('网页标题');
+    			}else{
+    				$(".title-html-asa").html(title);
+    			}
+    			$.post("<?php echo U('Wei/addInfo',array('companyid'=>$companyid)); ?>",{
+    				/* 页面信息  */
+    				id:id,title:title,isencrypt:isencrypt,encryptinfo:encryptinfo,gid:gid,
+    				/* 微信分享信息  */
+    				iswechat:iswechat,shareimg:shareimg,sharefriendstitle:sharefriendstitle,sharedes:sharedes,
+    				/* 页面类型 */
+    				pagetypeasa:pagetypeasa
+    			},function(data){
+    				if(data.code==200){
+    					$("input[name='id']").val(data.id);
+    					$.post("<?php echo U('Wei/addAssembly').'&time=';?>"+Math.random(),{
+    						id:aid,parentid:data.id,type:type,
+    						display:display,goodid:goodid,goodname:goodname,goodprice:goodprice,goodshopcart:goodshopcart,
+    						goodshopcartclass:goodshopcartclass
+    					},function(data2){
+    						if(data2.code == 200){
+	    						alertTan(data2.msg);
+    							$("#info-html-asa").append(data2.html);
+    							$(".goods-tan-asa").hide();
+    						}else{
+    							alertTan(data2.msg,'error');
+    						}
+    					},'json');
+    				}
+    				
+    			},'json');
+    		}else{
+    			$.post("<?php echo U('Wei/addAssembly').'&time=';?>"+Math.random(),{
+    				id:aid,type:type,parentid:id,
+    				display:display,goodid:goodid,goodname:goodname,goodprice:goodprice,goodshopcart:goodshopcart,
+    				goodshopcartclass:goodshopcartclass
+    			},function(data2){
+    				if(data2.code == 200){
+	    				alertTan(data2.msg);
+    					if(aid==''){
+    						$("#info-html-asa").append(data2.html);
+    					}else{
+    						$(".a"+aid).html(data2.html);
+    					}
+    					$(".goods-tan-asa").hide();
+    				}else{
+						alertTan(data2.msg,'error');
+					}
+    			},'json');
+    		}
+    	});
+    	//拼团商品组件 =============================================
+    	$(".sub-groupon-goods-asa").click(function(){
+    		id = $("input[name='id']").val();
+    		/* 拼团商品组件插件信息  */
+    		var aid = $(this).attr('data-id');
+    		var type = 14;
+    		var goodid ='';
+    		$('.groupon-goods-list-right-asa li').each(function(){
+    			goodid +=$(this).attr('data-id')+',';
+    		});
+    		if(goodid==''){
+    			alertTan("至少选择一个商品","warn");
+    			return false;
+    		}
+    		if(id==''){
+    			/* 页面信息  */
+    			var title = $('input[name=title]').val();
+    			var isencrypt = $('input[name=isencrypt]:checked').val();
+    			var encryptinfo = $('input[name=encryptinfo]').val();
+    			var gid = $('.js-add-new-class-option').val();
+    			/* 微信分享信息  */
+    			var shareimg = $('input[name=shareimg]').val();
+    			var sharefriendstitle = $('input[name=sharefriendstitle]').val();
+    			var sharedes = $('.sharedes').val();
+    			var iswechat = $('input[name="iswechat"]:checked').val();
+    			if(isencrypt==2){
+    				if(encryptinfo.length!=4){
+    					alertTan('请输入四位数字密码',"warn");$('input[name=encryptinfo]').focus();
+    					return false;
+    				}
+    			}
+    			if(title==''){
+    				title = '网页标题';
+    				$('input[name=title]').val('网页标题');
+    			}else{
+    				$(".title-html-asa").html(title);
+    			}
+    			$.post("<?php echo U('Wei/addInfo',array('companyid'=>$companyid)); ?>",{
+    				/* 页面信息  */
+    				id:id,title:title,isencrypt:isencrypt,encryptinfo:encryptinfo,gid:gid,
+    				/* 微信分享信息  */
+    				iswechat:iswechat,shareimg:shareimg,sharefriendstitle:sharefriendstitle,sharedes:sharedes,
+    				/* 页面类型 */
+    				pagetypeasa:pagetypeasa
+    			},function(data){
+    				if(data.code==200){
+    					$("input[name='id']").val(data.id);
+    					$.post("<?php echo U('Wei/addAssembly').'&time=';?>"+Math.random(),{
+    						id:aid,parentid:data.id,type:type,goodid:goodid
+    					},function(data2){
+    						alertTan(data2.msg);
+    						if(data2.code == 200){
+    							$("#info-html-asa").append(data2.html);
+    							$(".groupon-goods-box").hide();
+    						}
+    					},'json');
+    				}
+    				
+    			},'json');
+    		}else{
+    			$.post("<?php echo U('Wei/addAssembly').'&time=';?>"+Math.random(),{
+    				id:aid,type:type,parentid:id,goodid:goodid
+    			},function(data2){
+    				alertTan(data2.msg);
+    				if(data2.code == 200){
+    					if(aid==''){
+    						$("#info-html-asa").append(data2.html);
+    					}else{
+    						$(".a"+aid).html(data2.html);
+    					}
+    					$(".groupon-goods-box").hide();
+    				}
+    			},'json');
+    		}
+    	});
+    	//通底 ===============================================sub-footer-asa
+    	$(".sub-footer-asa").click(function(){
+    		id=$("input[name='id']").val();
+    		/* 商品组件插件信息  */
+    		var aid = $(this).attr('data-id');
+    		var type = 12;
+    		var footisstatus = $("input[name='footisstatus']:checked").val();
+    		var footclass = $("input[name='footclass']:checked").val();
+    		if(id==''){
+    			/* 页面信息  */
+    			var title = $('input[name=title]').val();
+    			var isencrypt = $('input[name=isencrypt]:checked').val();
+    			var encryptinfo = $('input[name=encryptinfo]').val();
+    			var gid = $('.js-add-new-class-option').val();
+    			/* 微信分享信息  */	
+    			var shareimg = $('input[name=shareimg]').val();
+    			var sharefriendstitle = $('input[name=sharefriendstitle]').val();
+    			var sharedes = $('.sharedes').val();
+    			var iswechat = $('input[name="iswechat"]:checked').val();
+    			if(isencrypt==2){
+    				if(encryptinfo.length!=4){
+    					alertTan('请输入四位数字密码',"warn");$('input[name=encryptinfo]').focus();
+    					return false;
+    				}
+    			}
+    			if(title==''){
+    				title = '网页标题';
+    				$('input[name=title]').val('网页标题');
+    			}else{
+    				$(".title-html-asa").html(title);
+    			}
+    			$.post("<?php echo U('Wei/addInfo',array('companyid'=>$companyid)); ?>",{
+    				/* 页面信息  */
+    				id:id,title:title,isencrypt:isencrypt,encryptinfo:encryptinfo,gid:gid,
+    				/* 微信分享信息  */
+    				iswechat:iswechat,shareimg:shareimg,sharefriendstitle:sharefriendstitle,sharedes:sharedes,
+    				/* 页面类型 */
+    				pagetypeasa:pagetypeasa
+    			},function(data){
+    				if(data.code==200){
+    					$("input[name='id']").val(data.id);
+    					$.post("<?php echo U('Wei/addAssembly').'&time=';?>"+Math.random(),{
+    						id:aid,parentid:data.id,type:type,
+    						footisstatus:footisstatus,footclass:footclass
+    					},function(data2){
+    						if(data2.code == 200){
+	    						alertTan(data2.msg);
+    							if(!$("#info-html-asa").hasClass("has-mod-footer")){
+    								$("#info-html-asa").addClass("has-mod-footer");
+    							}
+    							$("#info-html-asa").after(data2.html);
+    							$(".footer-tan-asa").hide();
+    						}else{
+    							alertTan(data2.msg,'error');
+    						}
+    					},'json');
+    				}
+    				
+    			},'json');
+    		}else{
+    			$.post("<?php echo U('Wei/addAssembly').'&time=';?>"+Math.random(),{
+    				id:aid,type:type,parentid:id,
+    				footisstatus:footisstatus,footclass:footclass
+    			},function(data2){
+    				if(data2.code == 200){
+	    				alertTan(data2.msg);
+    					if(aid==''){
+    						if(!$("#info-html-asa").hasClass("has-mod-footer")){
+    							$("#info-html-asa").addClass("has-mod-footer");
+    						}
+    						$("#info-html-asa").after(data2.html);
+    					}else{
+    						$(".a"+aid).html(data2.html);
+    					}
+    					$(".footer-tan-asa").hide();
+    				}else{
+						alertTan(data2.msg,'error');
+					}
+    			},'json');
+    		}
+    	});
+    	//通头 ======================================================sub-header-asa
+    	$(".sub-header-asa").click(function(){
+    		$(".js-nav-zanwu-asa").remove();
+    		id=$("input[name='id']").val();
+    		/* 通头组件插件信息  */
+    		var aid = $(this).attr('data-id');
+    		var type = 11;
+    		
+    		var navi = 1;
+    		
+    		var headlogo = $('.js-head-logo-asa').attr("data-img");
+    		var headnavstatus = $('input[name="headnavstatus"]:checked').val();
+    		var headsearchstatus = $('input[name="headsearchstatus"]:checked').val();
+    		var headsearchclass = $('input[name="headsearchclass"]:checked').val();
+    		var headclasstype = $('input[name="headclasstype"]:checked').val();
+    		var headcolor = $('input[name="headcolor"]:checked').val();
+    		if(headcolor == 7 ){
+    			headcolor = $('input[name="headcolorinfo"]').val();
+    		}
+    		/* if(headlogo==''){
+    			alertTan("请上传LOGO图","warn");
+    			return false;
+    		} */
+    		var navlength = $(".js-headnav-info-asa").children("tr").length;
+    		var navarr = "[";
+    		for(navi=1;navi<=navlength;navi++){
+    			var navobj = $(".js-headnav-info-asa").children("tr:eq("+(navi-1)+")");
+    			navarr +='{"id":"'+navobj.attr("data-id")+'","sort":"'+navobj.attr("data-sort")+'",';
+    			navarr +='"url":"'+navobj.attr("data-url")+'","title":"'+navobj.attr("data-title")+'","type":"'+navobj.attr("data-type")+'",';
+    			navarr +='"isstatus":"'+navobj.attr("data-isstatus")+'","parentid":"'+navobj.attr("data-parentid")+'"},';
+    		}
+    		navarr = navarr.substring(0,navarr.length-1);
+    		navarr += "]";
+    		if(id==''){
+    			/* 页面信息  */
+    			var title = $('input[name=title]').val();
+    			var isencrypt = $('input[name=isencrypt]:checked').val();
+    			var encryptinfo = $('input[name=encryptinfo]').val();
+    			var gid = $('.js-add-new-class-option').val();
+    			/* 微信分享信息  */	
+    			var shareimg = $('input[name=shareimg]').val();
+    			var sharefriendstitle = $('input[name=sharefriendstitle]').val();
+    			var sharedes = $('.sharedes').val();
+    			var iswechat = $('input[name="iswechat"]:checked').val();
+    			if(isencrypt==2){
+    				if(encryptinfo.length!=4){
+    					alertTan('请输入四位数字密码',"warn");$('input[name=encryptinfo]').focus();
+    					return false;
+    				}
+    			}
+    			if(title==''){
+    				title = '网页标题';
+    				$("input[name='title']").val('网页标题');
+    			}else{
+    				$(".title-html-asa").html(title);
+    			}
+    			$.post("<?php echo U('Wei/addInfo',array('companyid'=>$companyid)); ?>",{
+    				/* 页面信息  */
+    				id:id,title:title,isencrypt:isencrypt,encryptinfo:encryptinfo,gid:gid,
+    				/* 微信分享信息  */
+    				iswechat:iswechat,shareimg:shareimg,sharefriendstitle:sharefriendstitle,sharedes:sharedes,
+    				/* 页面类型 */
+    				pagetypeasa:pagetypeasa
+    			},function(data){
+    				if(data.code==200){
+    					$("input[name='id']").val(data.id);
+    					$.post("<?php echo U('Wei/addAssembly').'&time=';?>"+Math.random(),{
+    						id:aid,parentid:data.id,type:type,
+    						headlogo:headlogo,headnavstatus:headnavstatus,
+    						headsearchstatus:headsearchstatus,headsearchclass:headsearchclass,navarr:navarr,
+    						headclasstype:headclasstype,headcolor:headcolor
+    					},function(data2){
+    						if(data2.code == 200){
+    							
+    							//改变浮层式的颜色
+    							//clossColor = data.headcolor;
+	    						alertTan(data2.msg);
+    							if(!$("#info-html-asa").hasClass("has-mod-top")){
+    								$("#info-html-asa").addClass("has-mod-top");
+    							}
+    							$("#info-html-asa").before(data2.html);
+    							$(".header-tan-asa").hide();
+    						}else{
+    							alertTan(data2.msg,'error');
+    						}
+    					},'json');
+    				}
+    				
+    			},'json');
+    		}else{
+    			$.post("<?php echo U('Wei/addAssembly').'&time=';?>"+Math.random(),{
+    				id:aid,type:type,parentid:id,
+    				headlogo:headlogo,headnavstatus:headnavstatus,
+    				headsearchstatus:headsearchstatus,headsearchclass:headsearchclass,navarr:navarr,
+    				headclasstype:headclasstype,headcolor:headcolor
+    			},function(data2){
+    				if(data2.code == 200){
+	    				alertTan(data2.msg);
+    					if(aid==''){
+    						if(!$("#info-html-asa").hasClass("has-mod-top")){
+    							$("#info-html-asa").addClass("has-mod-top");
+    						}
+							$("#info-html-asa").before(data2.html);
+							$(".header-tan-asa").hide();
+    					}else{
+    						$(".a"+aid).html(data2.html);
+    						
+							if(data2.headertype==2){
+								$(".a"+aid).addClass("js-scroll-top-opt top-has-opt");
+								$(".a"+aid).css("background-color",'');
+							}else{
+								$(".a"+aid).removeClass("js-scroll-top-opt");
+								$(".a"+aid).removeClass("top-has-opt");
+								$(".a"+aid).css("background-color",'#'+data2.headcolor);
+							}
+    					}
+    					$(".header-tan-asa").hide();
+    				}else{
+						alertTan(data2.msg,'error');
+					}
+    			},'json');
+    		}
+    	});
+    	//删除组件   ==================================================
+    	$(document).on("click",'.del-assembly-asa',function(){
+    		var id = $(this).attr('data-id');
+    		var type = $(this).attr('data-type');
+    		$("#del-assembly-asa").attr("data-id",id);
+    		$("#del-assembly-asa").attr("data-type",type);
+    		$(".del-assembly-tan-asa").show();
+    	})
+    	$("#del-assembly-asa").click(function(){
+    		var id = $(this).attr('data-id');
+    		var type = $(this).attr('data-type');
+    		$.post("<?php echo U('Wei/ajaxDelAssembly').'&time=';?>"+Math.random(),{id:id},function(data){
+    			if(data.code == 200){
+	    			alertTan(data.tips);
+    				if(type==12){
+    					$("#info-html-asa").removeClass("has-mod-footer");
+    				}
+    				if(type==11){
+    					$("#info-html-asa").removeClass("has-mod-top");
+    				}
+    				$(".a"+id).remove();
+    			}else{
+					alertTan(data.tips,'error');
+				}
+    		},'json');
+    	});
+    });
+    $(".slideinfo .to-left,.js-to-left").click(toUp1());
+    $(".slideinfo .to-right,.js-to-right").click(toDown1());
+
+    function toUp1() {
+        $(document).delegate(".to-left,.js-to-left", "click", function () {
+            var onThis = $(this).parents(".slideinfo");
+            var toUp = onThis.prev(".slideinfo");
+            console.log("onThis : " + onThis);
+            console.log("toUp : " + toUp);
+            $(onThis).after(toUp);
+        });
+    }
+    function toDown1() {
+        $(document).delegate(".to-right,.js-to-right", "click", function () {
+            var onThis = $(this).parents(".slideinfo");
+            var toDown = onThis.next(".slideinfo");
+            console.log("onThis : " + onThis);
+            console.log("toDown : " + toDown);
+            $(toDown).after(onThis);
+        });
+    }
+    //js-slide-img-group
+    //to-left
+    //to-right
+
+    // 通头的背景色
+    $(function(){
+        $(document).on("click",".js-color-tit-toggle .color-tit-1",function(){
+            $(".js-color-toggle").fadeOut(120);
+        });
+        $(document).on("click",".js-color-tit-toggle .color-tit-2",function(){
+            $(".js-color-toggle").fadeIn(120);
+        });
+    })
+</script>

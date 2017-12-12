@@ -1,0 +1,13 @@
+document.writeln('<script src="http://www.mobiwind.cn/game/js/jquery-1.11.1.min.js"></script>');
+document.writeln('<script src="http://www.mobiwind.cn/game/js/bootstrap-alert.js"></script>');
+document.writeln('<style>');
+document.writeln('  .ad{position: fixed;bottom: 0;width: 100%;z-index: 9999;}');
+document.writeln('  .alert{position: relative;padding:0;border-radius:0;margin:0;}');
+document.writeln('  .alert .close{position: absolute;top: 0;right: 0;font-size: 16px;width: 20px;padding-left:10px;height: 30px;line-height: 25px;text-align: center;background: rgba(0,0,0,.5);border-radius: 0 0 0 30px;color: #eee;text-decoration: none;}');
+document.writeln('</style>');
+document.writeln('<div class="ad">');
+document.writeln('  <div class="alert fade in">');
+document.writeln('    <a class="close" data-dismiss="alert" href="#">×</a>');
+document.writeln('    <a href="http://mp.weixin.qq.com/s?__biz=MzA4MDIxMDgwOQ==&mid=203230403&idx=1&sn=103aba86657030e9e6f98fea49856cfa#rd"><img src="http://www.renlaifeng.cn/game/images/ad.gif" width=\'100%\' style=\'vertical-align: middle;\' /></a> ');
+document.writeln('  </div>');
+document.writeln('</div>');

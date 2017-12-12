@@ -1,0 +1,136 @@
+<?php
+$weiPageList = M("wei_list")->where(array('companyid'=>$companyid,'type'=>1))->order('createtime desc')->limit(0,7)->field('id,title')->select();
+$pageCount = M("wei_list")->where(array('companyid'=>$companyid,'type'=>1))->order('createtime desc')->field('id,title')->count();
+$pageList = ceil($pageCount/7);
+foreach ($weiPageList as $key => $val){
+	$weiPageList[$key]['url']= C('site_url').U('Wap/Wei/index',array('companyid'=>$companyid,'id'=>$val['id']));
+}
+?>
+
+<div class="popup-wrap wrap-middle-1 popup-wrap-2 WeiPage-popup-wrap-small select-url-tan-asa" style="display: none;z-index:20">
+    <div class="mod middle-popup type-1">
+        <div class="mod-header">
+            <h4 class="fl">选择网页链接</h4>
+            <i class="fr icon-close-dark js-icon-close-2"></i> 
+        </div>
+        <div class="mod-body">
+            <div class="content" style="height:auto;">
+                <div class="group pb-10 temp-select-width">
+	                <select class="weiSelect-asa">
+					    <option value="">全部</option>
+					    <option value="微页面">微页面</option>
+					</select>
+                </div>
+                <div class="group">
+                    <table class="table type-1 w-auto mb-15">
+                        <thead>
+                        <tr>
+                            <th>网页标题</th>
+                            <th class="w100">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tbody id="weiSelectUrl">
+					    <?php foreach($weiPageList as $Key2=>$Val2){?>
+					    <tr>
+					        <td><?php echo $Val2['title'];?></td>
+					        <td>
+					          <a href="javascript:void(0);" data-url="<?php echo $Val2['url'];?>" data-title="<?php echo $Val2['title'];?>" data-info="" class="useUrl tips">使用</a>
+					          <a href="javascript:void(0);" url="<?php echo $Val2['url'];?>" class="open-window-attr-url tips">在线预览</a>
+					        </td>
+					    </tr>
+					    <?php }?>
+                        </tbody>
+                    </table>
+                    <div class="group pagination mb-15">
+                    
+					    <ul><li><a href="javascript:void(0);" id="page-count">共<?php echo $pageCount?$pageCount:'0'; ?>条</a></li></ul>
+					    <?php if($pageList>=1){ ?>
+					    <ul class="fr" id="page-info-asa">
+					        <li class="item-active"><a href="javascript:void(0);">1</a></li>
+					        <?php for($i=2;$i<=$pageList;$i++){ ?>
+					        <li data-page="<?php echo $i; ?>" class="pageNow"><a href="javascript:void(0);"><?php echo $i; ?></a></li>
+					        <?php } ?>
+					        <li class="page-next-asa" data-page="2"><a href="javascript:void(0);"><i class="page-next-icon"></i></a></li>
+					    </ul>
+					    <?php } ?>
+					</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+$.post("<?php echo U('WeiSelect/getPage',array('companyid'=>$companyid)) ?>",{count:"<?php echo $pageCount; ?>"},function(data){
+   	$("#page-info-asa").html(data.page);
+},'json');
+var urlType = "";
+$(function(){
+	var str='';
+	$.post("<?php echo U('WeiSelect/lists',array('companyid'=>$companyid)) ?>",{},function(data){
+        //str +='<option value="">全部</option>';
+		$.each(data,function(n,v) {   
+	        str +='<option value="'+n+'">'+v+'</option>';
+	    });
+   	    $(".weiSelect-asa").html(str);
+   	    str = '';
+	},'json');
+	$(".weiSelect-asa").change(function(){
+		var val = $(this).val();
+       	$.post("<?php echo U('WeiSelect/getUrl',array('companyid'=>$companyid)) ?>",{val:val},function(data){
+   	   	    $("#weiSelectUrl").html(data.html);
+   	   	    $("#page-info-asa").html(data.page);
+   	   	    $("#page-count").html('共'+data.pageCount+'条');
+   			$(".loading").hide();
+   		},'json');
+	});
+	$(document).on('change','.weiFind-asa',function(){
+		$(".loading").show();
+		var value = $(this).val();
+		var val = $(".weiSelect-asa").val();
+		$.post("<?php echo U('WeiSelect/getUrl',array('companyid'=>$companyid)) ?>",{value:value,val:val},function(data){
+	   	    $("#weiSelectUrl").html(data.html);
+	   	    $("#page-info-asa").html(data.page);
+	   	    $("#page-count").html('共'+data.pageCount+'条');
+			$(".loading").hide();
+		},'json');
+	});
+
+	//网页链接分页的JS ==================================================
+	$(document).on("click",".page-next-asa,.page-prev-asa,.pageNow",function(){
+		var page = $(this).attr("data-page");
+		var val = $(".weiSelect-asa").val();
+		var value = $('.weiFind-asa').val();
+		$.post("<?php echo U('WeiSelect/getUrl',array('companyid'=>$companyid)) ?>",{value:value,val:val,page:page},function(data){
+	   	    $("#weiSelectUrl").html(data.html);
+	   	    $("#page-info-asa").html(data.page);
+	   	    $("#page-count").html('共'+data.pageCount+'条');
+		},'json');
+	});
+	//选择链接的js
+	$(document).on("click",".select-url-asa",function(){
+		urlType = $(this).attr('data-urlType');
+		$(".select-url-tan-asa").show();
+	});
+	$(document).on("click",'.useUrl',function(){
+		$(".js-slide-img-group").children("i.on").attr("data-url",$(this).attr('data-url')); //积分商城顶部幻灯片链接
+		$('.'+urlType).val($(this).attr('data-url'));
+		$(".select-url-tan-asa").hide();
+	});
+	$(document).on("click",'.open-window-attr-url',function(){
+		var url = $(this).attr('url');
+		open_win(url);
+	});
+})
+</script>
+<script>
+function open_win(url) {
+    window.open(url,
+        "_blank",
+        "toolbar=yes, location=yes, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=no, copyhistory=yes, width=400, height=600, top=100px, left=500")
+}
+    </script>

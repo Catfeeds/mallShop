@@ -1,0 +1,20 @@
+<include file="Public:memberCenterHeader"/>
+<link href="{lanrain::RES}/css/app.css?<?php echo C('site_system_file_version'); ?>" rel="stylesheet">
+<section class="app-content ">
+	<section class="final-page mb20">
+		<img class="mb20" src="{lanrain::RES}/img/icon-ok.png" width="25%" alt=""/>
+	    <p class="f20">感谢支持</p>
+	    <p class="f16 mb15">您的电子券已使用成功</p>
+	    <p class="f16 c2">Thanks for your support</p>
+	    <p class="f12 c2">Your e-voucher was used successfully</p>
+	</section>
+	<section class="get-back">
+		<?php if($companyid == 1){?>
+		<a href="<?php echo U('Index/wapIndex',array('companyid'=>'1'));?>">返回首页 <i class="english c2">Home page</i></a>
+		<?php }else{?>
+		<a href="<?php echo U('Index/index',array('companyid'=>$companyid));?>">返回首页 <i class="english c2">Home page</i></a>
+		<?php }?>
+	</section>
+</section>
+<include file="Public:weiXinNotShareSet" />
+<include file="Public:memberCenterFooter"/>

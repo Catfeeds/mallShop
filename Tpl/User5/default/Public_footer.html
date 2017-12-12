@@ -1,0 +1,66 @@
+        </div>
+        <!-- 页面内容 end -->
+    </div>
+    <!--scrm5-body end-->
+    <div class="hiddenft"><!-- 页面不足一屏时 页脚置屏浏览器底 足一屏时至于页底 --></div>
+</div>
+<!-- footer begin -->
+<!-- <div class="common-footer">
+	<p class="copyright-cover">沪<span class="font-Hel">ICP</span>备<span class="font-Hel">13036393</span>号<span class="font-Hel">-3 © 2014 - 2017</span> 上海晨泛网络科技有限公司 版权所有 <span class="font-Hel">All Rights Reserved</span></p>
+</div> -->
+
+
+<!-- 报表生成提示 弹窗 -->
+<div class="popup-wrap wrap-small-1 js-export-popup">
+    <div class="mod small-popup type-1" style="width:360px;margin-left:-180px;">
+	    <div class="mod-header">
+	        <h4 class="fl">提示</h4>
+	        <i class="fr icon-close-dark js-icon-close"></i>
+	    </div>
+        <div class="mod-body">
+	        <div class="content">
+	            <h5 class="text-center">报表正在生成中...<br/>请在5分钟后前往“管理-我的导出任务”下载CSV文件</h5>
+	        </div>
+    	</div>
+	</div>
+</div>
+<include file="Public:loading"/>
+<script>
+	/* 复制插件 */  //http://9iphp.com/web/javascript/js-copy-library-clipboard-js.html 文档中还有多种调用方法  请大家自行参考
+	var clipboard = new Clipboard('.js-clip-btn', {
+		text: function(trigger) {
+			return trigger.getAttribute('data-url');     //复制的内容   相当于$(this).attr('data-url')
+		}
+	});
+	//成功事件
+	clipboard.on('success', function(e) {    
+		alertTan("复制成功");
+	});
+	//失败事件
+	clipboard.on('error', function(e) {
+		alertTan("复制失败",'error');
+	});
+	$('.js-S5Permissions').click(function(){
+		var id = $(this).attr('data-Permissionsid');
+		var link = $(this).attr('data-link');
+		var companyS5Permissions = '<?php echo implode(',',session('companyS5Permissions'));?>';
+		var S5permissions = '<?php echo implode(',',session('S5permissions'));?>';
+		var target = $(this).attr('data-target');
+		if (companyS5Permissions){
+			if ((companyS5Permissions.indexOf(','+id+',')>0) && (S5permissions.indexOf(','+id+',')>0)){
+				if(target == '_blank'){
+					window.open(link,'_blank');
+				}else{
+					window.location.href= link;
+				}
+			}else{
+				alertTan('您没有访问权限','warn');
+			}
+		}else{
+			alertTan('您没有访问权限','warn');
+		}
+	});
+</script>
+<include file="Public:uploads"/>
+</body>
+</html>

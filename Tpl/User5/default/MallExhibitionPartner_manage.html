@@ -1,0 +1,187 @@
+<include file="Public:head"/>
+<?php echo $makeTopUrl;?>
+<!--场景 > 代理 > 代理管理-->
+<div class="group inline-btn-group mb-10">
+	<a class="btn-small btn-white" href="<?php echo U('MallExhibitionPartner/partnerApplyList');?>">代理申请管理</a>
+    <a class="btn-small btn-white" href="<?php echo U('MallExhibitionPartner/partnerList');?>">代理管理</a>
+    <a class="btn-small btn-purple" href="<?php echo U('MallExhibitionPartner/index');?>">代理基础设置</a>
+    <!-- <a class="btn-small btn-white" href="<?php echo U('MallExhibitionPartner/invitationPoster');?>">邀请海报设置</a> -->
+</div>
+<!--场景 > 代理 > 代理街道管理-->
+
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>代理街道管理</h4></div>
+    <div class="mod-body">
+		<div class="content">
+			<!-- 2017-11-28新增html -->
+			<script type="text/javascript" src="{lanrain::RES}/js/jquery.citys.js"></script>
+			<div class="citys-box">
+				<div class="address1 demo1 citys" style="margin-bottom:10px;" data-num="1">
+					<p style="margin-bottom: 15px;">
+						<select name="province" id="province1" style="margin-top: -4px;"></select>
+						<select name="city" id="city1" style="margin-top: -4px;"></select>
+						<select name="area" id="area1" style="margin-top: -4px;"></select>
+						<select name="town" id="town1" style="margin-top: -4px;"></select>
+						<a class="add-a" href="javascript:;" title="添加地址" style="width:15px; height:15px; margin-left: 15px; padding: 4px 10px; background: #5c228a; border-radius: 5px; color: #fff;">+</a>
+					</p>
+				</div>
+			</div>
+			<table class="table type-1 w-auto">
+				<thead>
+				<tr>
+					<th>省份</th>
+					<th>城市<a href="javascript:void(0);" class="sort-icon"></a></th>
+					<th>区域<a href="javascript:void(0);" class="sort-icon"></a></th>
+					<th>街道<a href="javascript:void(0);" class="sort-icon"></a></th>
+					<th>操作</th>
+				</tr>
+				</thead>
+				<tbody>
+				<?php if($list){ foreach($list as $key=>$val){?>
+				<tr>
+					<td><p><?php echo $val['province'];?></p></td>
+					<td><?php echo $val['city']=='undefined'?'/':$val['city'];?></td>
+					<td><?php echo $val['area']==' - 请选择 - '?'/':$val['area'];?></td>
+					<td><?php echo $val['town']?$val['town']:'';?></td>
+					<td>
+						<a href="javascript:void(0);" class="tips js-delete-address" data-id="<?php echo $val['id'];?>">删除</a>
+					</td>
+				</tr>
+				<?php }}else{?>
+				<tr class="text-center not-hover">
+					<td colspan="7">暂无</td>
+				</tr>
+				<?php }?>
+				</tbody>
+			</table>
+			<script type="text/javascript">
+				var $town = $('.address1 select[name="town"]');
+				var townFormat = function(info){
+					$town.hide().empty();
+					if(info['code']%1e4&&info['code']<7e5){ //是否为“区”且不是港澳台地区
+						$.ajax({
+							url:'http://passer-by.com/data_location/town/'+info['code']+'.json',
+							dataType:'json',
+							success:function(town){
+								$town.show();
+								for(i in town){
+										$town.append('<option value="'+i+'">'+town[i]+'</option>');
+								}
+							}
+						});
+					}
+				};
+				
+				// 地址设置
+				$('.address1').citys({
+					province:'',
+					city:'',
+					area:'',
+					town:'',
+					required:false,
+					nodata:'disabled',
+
+					onChange:function(info){
+						townFormat(info);
+					}
+				},function(api){
+					var info = api.getInfo();
+					townFormat(info);
+				});
+				
+				var addNum = 1;
+				$('.citys-box').on('click','a',function() {
+					addNum ++
+					//console.log(addNum);
+					var addData = '<div class="address'+addNum+' citys" style="margin-bottom:10px;" data-num="'+addNum+'">' +
+						'<p style="margin-bottom: 15px;">' +
+							'<select name="province" id="province'+addNum+'" style="margin: -4px 5px 0 0;"></select>' +
+							'<select name="city" id="city'+addNum+'" style="margin: -4px 5px 0 0;"></select>' +
+							'<select name="area" id="area'+addNum+'" style="margin: -4px 5px 0 0;"></select>' +
+							'<select name="town" id="town'+addNum+'" style="margin: -4px 5px 0 0;"></select>' +
+						'</p>' +
+					'</div>';
+					$('.citys-box').append(addData);
+					$('.address'+addNum+'').citys({
+						province:'',
+						city:'',
+						area:'',
+						town:'',
+						required:false,
+						nodata:'disabled',
+
+						onChange:function(info){
+							townFormat2(info);
+						}
+					},function(api){
+						var info = api.getInfo();
+						townFormat2(info);
+					});
+
+					var $town2 = $('.address'+addNum+' select[name="town"]');
+					var townFormat2 = function(info){
+						$town2.hide().empty();
+						if(info['code']%1e4&&info['code']<7e5){ //是否为“区”且不是港澳台地区
+							$.ajax({
+								url:'http://passer-by.com/data_location/town/'+info['code']+'.json',
+								dataType:'json',
+								success:function(town){
+									$town2.show();
+									for(i in town){
+											$town2.append('<option value="'+i+'">'+town[i]+'</option>');
+									}
+								}
+							});
+						}
+					};
+				})
+			</script>
+			<!-- 2017-11-28新增html -->
+		</div>
+        <div class="group form-footer text-center">
+            <input class="btn-middle btn-purple pointer js-submit-set" type="submit" value="保存">
+        </div>
+    </div>
+</div>
+<script>
+$(function(){
+	$('.js-submit-set').click(function(){
+		var mid = "<?php echo $mid;?>";
+		var citysinfo = '';
+		$('.citys-box').find('.citys').each(function(){
+			var num = $(this).attr("data-num");
+			citysinfo +='num|'+$(this).attr("data-num")+'/'; 
+			citysinfo +='province|'+$('#province'+num+'').find("option:selected").html()+'/'; 
+			citysinfo +='city|'+$('#city'+num+'').find("option:selected").html()+'/'; 
+			citysinfo +='area|'+$('#area'+num+'').find("option:selected").html()+'/'; 
+			citysinfo +='town|'+$('#town'+num+'').find("option:selected").html()+';'; 
+		});
+		//alert(citysinfo);
+		//return false;
+		$.post("<?php echo U('MallExhibitionPartner/manage')?>",{'mid':mid,'citysinfo':citysinfo},function(data){
+			if(data.code == 200){
+	            alertTan(data.tips);
+	            setTimeout(function(){
+	            	window.location.href = location.href;
+	            },2000);
+            }else{
+            	alertTan(data.tips,'error');
+            }
+		},'json');
+	});
+	$('.js-delete-address').click(function(){
+		var id = $(this).attr("data-id");
+		$.post("<?php echo U('MallExhibitionPartner/ajaxDel')?>",{'id':id},function(data){
+			if(data.code == 200){
+	            alertTan(data.tips);
+	            setTimeout(function(){
+	            	window.location.href = location.href;
+	            },2000);
+            }else{
+            	alertTan(data.tips,'error');
+            }
+		},'json');
+	});
+});
+</script>
+<include file="Public:footer"/>

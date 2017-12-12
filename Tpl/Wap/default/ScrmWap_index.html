@@ -1,0 +1,75 @@
+<script type="text/javascript">
+	if(/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent))){
+		if(window.location.href.indexOf("?mobile")<0){
+			try{
+				if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)){
+
+				}else if(/iPad/i.test(navigator.userAgent)){
+				}else{
+
+				}
+			}catch(e){
+			}
+		}
+	}else{
+		window.location.href="http://www.mobiwind.cn/index.php?m=Index&a=index";
+	}
+</script>
+<include file="Public:S5NewHead" />
+<include file="Public:weiXinShareSet"/>
+<!--页面css-->
+<link rel="stylesheet" type="text/css" href="{lanrain::RES}/ScrmWap/css/ScrmWap.css?515<?php echo C('site_system_file_version'); ?>">
+<script src="{lanrain::RES}/ScrmWap/js/ScrmWap.js"></script>
+<!--使命-->
+<div class="ScrmWap-header">
+	<a href="<?php echo U('ScrmWap/index',array('companyid'=>$companyid));?>"><img class="ScrmWap-lg" src="{lanrain::RES}/ScrmWap/img/renlaifeng-lg.png" alt=""></a>
+	<i class="Navigation-icon js-Navigation-btn"></i>
+</div>
+<div class="ScrmWap-ctt Scrm_index_content">
+
+	<div class="ScrmWap-kv ScrmWap-kv-bj1">
+		<div class="Navigation-two">
+			<div class="Navigation-two-nc">
+				<span>为价值而生</span>
+				<h6>首页·了解SCRM5 </h6>
+			</div>
+		</div>
+		<div class="ScrmWap-kv-box"><img src="{lanrain::RES}/ScrmWap/img/renlaifeng-kv1.png" alt="使命必达"></div>
+	</div>
+	<div class="ScrmWap-li bcl-f9f7fb">
+		<div class="ScrmWap-li-nc">
+			<img class="img-w30" src="{lanrain::RES}/ScrmWap/img/smbd-1.png" alt="">
+			<h6>态度品牌</h6>
+			<p>人来风是有态度的温情品牌<br/>口碑拓展，客群关系很温暖</p>
+		</div>
+	</div>
+	<div class="ScrmWap-li bcl-ffffff">
+		<div class="ScrmWap-li-nc">
+			<img class="img-w30" src="{lanrain::RES}/ScrmWap/img/smbd-2.png" alt="">
+			<h6>你的产品</h6>
+			<p>由客户领导的平台产品<br/>杜绝功能累加，商户用不起来的功能剔除下架</p>
+		</div>
+	</div>
+	<div class="ScrmWap-li bcl-f9f7fb">
+		<div class="ScrmWap-li-nc">
+			<img class="img-w30" src="{lanrain::RES}/ScrmWap/img/smbd-3.png" alt="">
+			<h6>AE服务</h6>
+			<p>N对1的AE部署服务<br/>售后服务群里我们比你捉急</p>
+		</div>
+	</div>
+	<div class="ScrmWap-li bcl-ffffff li-borbt">
+		<div class="ScrmWap-li-nc">
+			<img class="img-w30" src="{lanrain::RES}/ScrmWap/img/smbd-4.png" alt="">
+			<h6>效果绩效</h6>
+			<p>AE绩效同商户运营数据息息相关</p>
+		</div>
+	</div>
+	<include file="Public:ScrmWapOnthebottom" />
+</div>
+<include file="Public:ScrmWapNavigation" />
+
+<!--向上箭头-->
+<div id="ScreenSF" class="screen-scroll-first"><img src="{lanrain::RES}/ScrmWap/img/screen-scroll-first.png" alt="Rolling"></div>
+<div id="ScreenSS" class="screen-scroll-second"><img src="{lanrain::RES}/ScrmWap/img/screen-scroll-second.png" alt="Rolling"></div>
+</body>
+</html>

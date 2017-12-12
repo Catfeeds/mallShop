@@ -1,0 +1,246 @@
+<!-- 底部 -->
+<div class="Choose-dish-bottom">
+	<?php if($onbusiness == '1'){?>
+	<div class="Shopping-Cart-box">
+		<div class="shopCart" style="position: absolute;bottom: 0.25rem;width: 0.5rem;left: 0.35rem;"></div>
+		<div class="takeout_shopp_cart Shopping-Cart-icon" style="cursor:pointer; display:none;">
+			<span class="takeout_number_total number-Shopping-Cart" data-number="0">0</span>
+			<img class="js-Shopping-Cart-btn" src="{lanrain::RES}/Takeout_food/img/Takeout-gwc.png" alt="购物车(有商品)">
+		</div>
+		<div class="takeout_shopp_cart_null Shopping-Cart-icon" style="display:none;">
+			<!-- <img class="js-Shopping-Cart-btn" src="{lanrain::RES}/Takeout_food/img/Takeout-gwcq.png" alt="购物车(无商品)"> -->
+			<img class="js-Shopping-Cart-btn" src="{lanrain::RES}/Takeout_food/img/Takeout-gwc.png" alt="购物车(无商品)">
+		</div>
+		<p class="Shopping-Cart-Price">合计<i>￥</i><span class="takeout_price_total" data-price="0.00">0.00</span></p>
+	</div>
+	<a href="javascript:void(0)" class="takeout_submit Shopping-Cart-button" style="display:none;">去结算<i class="fa fa-angle-right"></i></a>
+	<a href="javascript:void(0)" class="takeout_no_pay Shopping-Cart-button Settlement-af"><span><?php echo $info['startingprice'];?></span>元起订</a>
+	<?php }else{?>
+		<div class="Shopping-Cart-box">
+			<div class="takeout_shopp_cart_null Shopping-Cart-icon">
+				<img class="js-Shopping-Cart-btn" src="{lanrain::RES}/Takeout_food/img/Takeout-gwcq.png" alt="商家休息中">
+			</div>
+			<p class="Shopping-Cart-Price cart-hui">合计<i>￥</i><span>0.00</span></p>
+		</div>
+		<a href="javascript:void(0)" class="Shopping-Cart-button Settlement-af">商家休息中</a>
+	<?php }?>
+
+</div>
+
+<script>
+$(function(){
+	// 去结算
+	$('.takeout_submit').on("click", function(){
+		var price = $('.takeout_price_total').attr('data-price');
+		if(parseFloat(price) > 0){
+			var setid = "<?php echo $setid;?>";
+			if(setid.length > 0){
+				$.post("<?php echo U('TakeOut/ajaxSettlementOrder',array('companyid'=>$companyid)); ?>",{'setid':setid},function(data){
+					if(data.code == 200){
+						window.location.href="<?php echo U('TakeOut/confirmOrder',array('companyid'=>$companyid, 'orderid'=>'"+data.orderid+"'));?>";	
+					}else{
+						alert(data.tips);
+					}	
+				},"json");
+			}else{
+				alert('抱歉，服务器繁忙，请稍后重试');
+			}
+		}else{
+			alert('订单金额不能为零');
+		}
+	});
+	
+	// 显示/隐藏购物车
+	$(document).on("click", '.takeout_shopp_cart', function(){
+		if($(".Shopping-Cart-Popup").is(':hidden')){
+			$(".Shopping-Cart-Mask").show();
+			$(".Shopping-Cart-Popup").slideDown();
+		}else {
+			$(".Shopping-Cart-Mask").hide();
+			$(".Shopping-Cart-Popup").slideUp();
+		}
+	});
+	// 点击阴影购物车消失
+	$(".Shopping-Cart-Mask").click(function(){
+		$(".Shopping-Cart-box").removeClass("Shopping-Cart-show");
+		$(".Shopping-Cart-Mask").hide();
+		$(".Shopping-Cart-Popup").slideUp();
+	});
+	// 清空购物车
+	$('.takeout_shopcart_empty').on("click", function(){
+		$('.takeout_shopcart_empty_box').show();
+	});
+});
+</script>
+
+<!-- 购物车列表 -->
+<div class="Shopping-Cart-Mask" style="display:none;"></div>
+<div class="Shopping-Cart-Popup" style="position: fixed">
+	<div class="Cart-Popup-head">
+		<h6>购物车</h6>
+		<span class="takeout_shopcart_empty">清空</span>
+	</div>
+	<ul class="shopping_cart_menu_list Cart-Popup-ul">
+		<!--
+		<li class="shopping_cart_menu_box shopping_cart_menu_box_'id'">
+			<p class="the-dishes-p">招牌小龙虾</p>
+			<div class="dishes-Add-subtract">
+				<p class="Add-subtract-Price">￥<span class="shopping_cart_menu_price">0.00</span></p>
+				<div class="dishes-Add-icon-box">
+					<img class="shopping_cart_menu_reduce" src="{lanrain::RES}/Takeout_food/img/Takeout-j.png">
+					<span class="shopping_cart_menu_number">0</span>
+					<img class="shopping_cart_menu_plus" src="{lanrain::RES}/Takeout_food/img/Takeout-jia.png"> 
+				</div>
+			</div>
+		</li>
+		-->
+		<!-- 打包盒 -->
+		<li class="shopping_cart_mealfee_box" style="display:none;">
+			<p class="the-dishes-p">打包盒</p>
+			<div class="dishes-Add-subtract">
+				<p class="Add-subtract-Price">￥<span class="shopping_cart_mealfee_price">0.00</span></p>
+			</div>
+		</li>
+	</ul>
+</div>
+
+<!-- 清空购物车弹窗 -->
+<div class="takeout_shopcart_empty_box wind-Popup">
+	<div class="wind-Popup-mod">
+		<div class="wind-Popup-mod-head">
+			<h6>清空购物车</h6>
+			<img class="js-close-Popup" src="{lanrain::RES}/Takeout_food/img/fzs_close.png">
+		</div>
+		<div class="wind-Popup-mod-ctt">
+			<h6 class="Cancellation-of-order-h6">确认清空购物车？</h6>
+		</div>
+		<div class="wind-Popup-mod-footer">
+			<button class="cl-333 js-close-Popup">取消</button>
+			<button class="takeout_shopcart_empty_submit cl-5d0c8b">清空</button>
+		</div>
+	</div>
+</div>
+<script>
+$(".js-close-Popup").click(function(){
+	$(this).parents(".wind-Popup").hide();
+})
+</script>
+
+<!-- 遮罩 -->
+<div class="loadingTransparent1" style="position:fixed; width:100%; left:0; height:100%; z-index:9999; top:0; display:none;"></div>
+<input type="hidden" name="menustr" value="" />
+<input type="hidden" name="skustr" value="" />
+<script>
+function ChoiceMenu(){
+	var setid = "<?php echo $setid;?>";
+	if(setid.length > 0){
+		$('.loadingTransparent').show();
+		$.post("<?php echo U('TakeOut/ajaxColData',array('companyid'=>$companyid)).'&time='; ?>"+Math.random(),{'setid':setid},function(data){
+			$("input[name='menustr']").val(data.menujson);  // 菜品
+			$("input[name='skustr']").val(data.skujson);    // SKU
+			// var menustr = $("input[name='menustr']").val();
+			// var skustr = $("input[name='skustr']").val();
+			var menujson = eval('(' + $("input[name='menustr']").val() + ')');
+			var skujson = eval('(' + $("input[name='skustr']").val() + ')');
+
+			var mealfee = data.mealfee;             // 打包盒费用
+			var number_total = data.number_total;   // 菜品总数量
+			var price_total = data.price_total;     // 菜品总价格
+			
+			if( parseFloat(mealfee) > 0 ){
+				$('.shopping_cart_mealfee_price').text(parseFloat(mealfee).toFixed(2));
+				$('.shopping_cart_mealfee_box').show();
+			}else{
+				$('.shopping_cart_mealfee_price').text('0.00');
+				$('.shopping_cart_mealfee_box').hide();
+			}
+			if(parseFloat(number_total) > 0){
+				$('.takeout_number_total').attr('data-number', number_total);
+				$('.takeout_number_total').text(number_total);
+				$('.takeout_shopp_cart').show();
+			}else{
+				$('.takeout_number_total').attr('data-number', '0');
+				$('.takeout_number_total').text('0');
+				$('.takeout_shopp_cart_null').show();
+			}
+			$.each(menujson,function(key, val){
+				if(val > 0){
+					$('.menu_number_'+key).text(val);
+					$('.menu_number_'+key).show();
+					$('.menu_reduce_'+key).show();
+				}
+			});	
+			
+			$.each(menujson,function(mkey, mval){
+				menustr = mval;
+				// 数据格式: menuid * skuid * 名称 * 是否是优惠菜品 * 是否限购 * 限购数量 * 优惠后价格(单价) * 优惠前价格(单价) * 总价 * 餐盒费 * 数量
+				menuarr = menustr.split("*");
+				if(menuarr[1] > 0){
+					$('.menu_plus_'+menuarr[0]).attr('data-cartnumber', menuarr[1]);
+					$('.menu_number_'+menuarr[0]).text( menuarr[1]);
+					$('.menu_number_'+menuarr[0]).show();
+					$('.menu_reduce_'+menuarr[0]).attr('data-cartnumber', menuarr[1]);
+					$('.menu_reduce_'+menuarr[0]).show();
+				}
+				skustr = '';
+				skuarr = '';
+				sku_add_html = '';
+			});
+			
+			var skustr = sku_add_html = '';
+			var skuarr = [];
+			$.each(skujson,function(key, val){
+				skustr = val;
+				// 数据格式: menuid * skuid * 名称 * 是否是优惠菜品 * 是否限购 * 限购数量 * 优惠后价格(单价) * 优惠前价格(单价) * 总价 * 餐盒费 * 数量
+				skuarr = skustr.split("*");
+				if(skuarr[10] > 0){
+					sku_add_html = '';
+					// $('.menu_reduce_'+skuarr[1]).attr('data-cartnumber', skuarr[10]);
+					// $('.menu_plus_'+skuarr[1]).attr('data-cartnumber', skuarr[10]);
+					sku_add_html += '<li class="shopping_cart_menu_box shopping_cart_menu_box_'+skuarr[1]+'"> <p class="shopping_cart_menu_name_'+skuarr[1]+' the-dishes-p">'+ skuarr[2] +'</p> <div class="dishes-Add-subtract"> <p class="Add-subtract-Price">￥<span class="shopping_cart_menu_price shopping_cart_menu_price_'+skuarr[1]+'">'+ skuarr[8] +'</span></p> <div class="dishes-Add-icon-box"> ';
+					sku_add_html += '<img data-menuid='+skuarr[0]+' data-skuid='+skuarr[1]+' data-isurl="2" data-ispromotion="'+skuarr[3]+'" data-islimit="'+skuarr[4]+'" data-limitnumber="'+skuarr[5]+'" data-now="'+skuarr[6]+'" data-price="'+skuarr[7]+'" data-mealfee="'+skuarr[9]+'" data-cartnumber="'+skuarr[10]+'" class="shopping_cart_menu_reduce shopping_cart_menu_reduce_'+skuarr[1]+'" src="{lanrain::RES}/Takeout_food/img/Takeout-j.png"> ';
+					sku_add_html += '<span class="shopping_cart_menu_number shopping_cart_menu_number_'+skuarr[1]+'">'+skuarr[10]+'</span> ';
+					sku_add_html += '<img data-menuid="'+skuarr[0]+'" data-skuid="'+skuarr[1]+'" data-isurl="2" data-ispromotion="'+skuarr[3]+'" data-islimit="'+skuarr[4]+'" data-limitnumber="'+skuarr[5]+'" data-now="'+skuarr[6]+'" data-price="'+skuarr[7]+'" data-mealfee="'+skuarr[9]+'" data-cartnumber="'+skuarr[10]+'" data-name="'+skuarr[2]+'" class="shopping_cart_menu_plus shopping_cart_menu_plus_'+skuarr[1]+'" src="{lanrain::RES}/Takeout_food/img/Takeout-jia.png"> ';
+					sku_add_html += '</div> </div> </li> ';
+					$('.shopping_cart_menu_list').prepend(sku_add_html);
+					$('.takeout_spec_sku_skuid_'+skuarr[1]).attr('data-cartnumber', skuarr[10]);
+					if($('.takeout_spec_sku_skuid_'+skuarr[1]).hasClass("active-Specifications-btn")){
+						$('.takeout_spec_shopp_menuid_'+skuarr[0]).attr('data-cartnumber', skuarr[10]);
+					}
+				}
+				skustr = '';
+				skuarr = '';
+				sku_add_html = '';
+			});
+			
+			if(parseFloat(data.mealfee) > 0){
+				$('.shopping_cart_mealfee_price').text(parseFloat(data.mealfee).toFixed(2));
+				$('.shopping_cart_mealfee_box').show();
+			}
+			if(parseFloat(price_total) > 0){
+				var startingprice = "<?php echo $info['startingprice'];?>";   // 起订价格
+				$('.takeout_price_total').text(parseFloat(price_total).toFixed(2));
+				$('.takeout_price_total').attr('data-price', price_total);
+				if( parseFloat(price_total) >= parseFloat(startingprice) ){
+					$('.takeout_no_pay').hide();
+					$('.takeout_submit').show();   
+				}else{
+					$('.takeout_submit').hide();   
+					$('.takeout_no_pay').show();	
+				}
+			}else{
+				$('.takeout_price_total').text('0.00');
+				$('.takeout_price_total').attr('data-price', '0.00');
+				$('.takeout_submit').hide();   
+				$('.takeout_no_pay').show();
+			}
+		},"json");
+		$('.loadingTransparent').hide();
+	}
+}
+
+var onbusiness = "<?php echo $onbusiness?$onbusiness:'2';?>";
+if(onbusiness == 1){
+	window.onload = ChoiceMenu;    // 页面加载完成之后自动执行
+}
+</script>

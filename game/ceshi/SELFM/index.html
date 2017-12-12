@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>准确率98%的心理测验</title>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+  <meta content="width=device-width" name="viewport">
+  <meta content="198201,流传,很广,心理测验,很准,准确率,98%,潜意识" name="keywords">
+  <meta content="198201,网上流传很广的心理测验，号称很准，据说准确率达到98%，据说与人的潜意识有关。" name="description">
+  <meta name="viewport" content="target-densitydpi=320,width=640,user-scalable=no">
+  <script src="../../js/config.js"></script>
+  <style type="text/css">
+    html, body{background: #eaf2e5;padding: 0;margin: 0 auto;}
+    .text{font-size:20px;background: #eaf2e5;max-width: 640px;height: 100%;padding: 40px;}
+    .header{font-size:40px;text-align:center;margin:10px auto;}
+    .cen{text-align:center;}
+    .nr{font-size:20px;}
+    .clear{clear: both;}
+    .an{
+      margin:0 7px;
+      padding:10px 25px;
+      width:100px;
+      font-size:25px;
+      color:#ffffff;
+      background:#fcfcfc;
+      cursor:pointer;
+      border-radius: 10px;
+      border: solid 1px #0076a3;
+      background: #0095cd;
+      background: -webkit-gradient(linear, left top, left bottom, from(#00adff), to(#0078a5));
+      background: -moz-linear-gradient(top,  #00adff,  #0078a5);
+    }
+    p{text-indent: 2em;}
+    .buttons a{width: 100%;display: block;text-decoration: none;color: #000;
+      text-align: center;
+      background: #9DCB80;
+      padding: 10px;
+      border-radius: 5px;
+      box-sizing: border-box;}
+    #mcover {position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); display: none; z-index: 20000; }
+    #mcover img {position: fixed; right: 18px; top: 5px; width: 260px!important; height: 180px!important; z-index: 20001; }
+  </style>
+  <script type="text/javascript">
+    var tit = "";
+
+    var dataForWeixin = {
+      appId: "",
+      TLImg: siteurl + "/ceshi/SELFM/img/21.gif",
+      url: siteurl + "/ceshi/SELFM/",
+      title: "准确率98%的心理测验。",
+      desc: "网上流传很广的心理测验，号称很准，据说准确率达到98%，据说与人的潜意识有关。"
+    };
+
+
+    var onBridgeReady = function () {
+      WeixinJSBridge.on('menu:share:appmessage', function (argv) {
+        WeixinJSBridge.invoke('sendAppMessage', {
+          "appid": dataForWeixin.appId,
+          "img_url": dataForWeixin.TLImg,
+          "img_width": "120",
+          "img_height": "120",
+          "link": dataForWeixin.url,
+          "title": dataForWeixin.title + tit,
+          "desc": dataForWeixin.desc
+        },home_test);
+      });
+      WeixinJSBridge.on('menu:share:timeline', function (argv) {
+        WeixinJSBridge.invoke('shareTimeline', {
+          "appid": dataForWeixin.appId,
+          "img_url": dataForWeixin.TLImg,
+          "img_width": "120",
+          "img_height": "120",
+          "link": dataForWeixin.url,
+          "title": dataForWeixin.title + tit,
+          "desc": dataForWeixin.desc
+        }, home_test);
+      });
+    };
+    if (document.addEventListener) {
+      document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+    } else if (document.attachEvent) {
+      document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+      document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+    }
+  </script>
+</head>
+<body>
+<div class="text">
+  <div class="header"><strong>准确率98%的心理测验</strong></div>
+  <div class="nr" id="j1" style="display: ;">
+    <div class="cen"><img src="img/21.gif"></div>
+    <p>有个男人叫M，他要过河去和未婚妻F相会结婚，但两人一河相隔，M必须要借船过河才能见到F，于是他开始四处找船。</p>
+    <p>这时见一个女子L刚好有船，M跟L借，L遇到M后爱上了他，就问：我爱上你了，你爱我吗？M比较诚实，说：对不起，我有未婚妻，我不能爱你。这么一来，L死活是不把船借给M，她的理由是：我爱你，你不爱我，这不公平，我不会借你的！</p>
+    <p>M很沮丧，继续找船，刚好见一位叫S的女子，就向她借船，S说：我借给你没问题，但有个条件，我很喜欢你，你是不是喜欢我无所谓，但你必须留下陪我一晚，不然我不借你。M很为难，L不借他船，S如果再不借他的话就过不去河与F相见了，据说这个地方只有这两条船。为了彼岸的未婚妻，他不得不同意了S的要求，与S有了一夜情。次日，S遵守承诺把船借给了M。</p>
+    <p>见到未婚妻F后，M一直心里有事，考虑了很久，终于决定把向L和S借船的故事跟F说了。可惜，F听了非常伤心，一气之下与M分了手，她觉得M不忠，不能原谅。M失恋了，很受打击。 </p>
+    <p>这时他的生活里出现了位女子E，两人也开始恋爱了，但之前的故事一直让他耿耿于坏，E问M是不是有什么话要跟她说，于是，M一五一十地把他和L、S、F之间的故事讲了一遍。E听了后，说，我不会介意的，这些跟我没关系。</p>
+    <p style="color:#880088">故事讲完了，问题来了，请点击把这几个人排列个次序，标准是你认为谁最好，谁第二，谁第三，第四，第五？这个M男也算在内的。建议不要想太复杂，也不需要考虑大众看法，你认为谁做得好就是好。 </p>
+    <div style="text-align:center;margin:10px 0;">
+      <span class="an" id="s1" onClick="an('M',this)">&nbsp;&nbsp;M</span>
+      <span class="an" id="s2" onClick="an('F',this)">&nbsp;&nbsp;F</span>
+      <span class="an" id="s3" onClick="an('L',this)">&nbsp;&nbsp;L</span>
+      <span class="an" id="s4" onClick="an('S',this)">&nbsp;&nbsp;S</span>
+      <span class="an" id="s5" onClick="an('E',this)">&nbsp;&nbsp;E</span>
+    </div>
+  </div>
+  <div class="nr" id="j2" style="display: none;">
+    <p id="lie" style="color:#0000ff;"></p>
+    <p>一定有人看了这个答案觉得很失望，就这个呀，这能说明什么呀？别看答案简单，其实这里面既包含这你的价值观，也是对你人生有预示的。 </p>
+    <p>“用你的潜意识告诉你最想要的是什么。” </p>
+    <p>不知道自己要什么。这是很普遍的问题，因为什么都挺重要的，舍弃什么都不成体统，只是每个人的人生追求确实差异很大，看别人追求事业，你也羡慕也很想这样，但不知道为什么总做不到；看别人婚姻幸福，你也很想，可实现起来确实不容易，这和运气也不是太有 关系，而是你需要的决定了很多。 </p>
+    <div class="buttons">
+      <a href="javascript:void(0)" class="btn-success" style="width:100%" onclick="document.getElementById('mcover').style.display='block';">分享给朋友(圈)</a>
+    </div>
+  </div>
+</div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div class="clear"></div>
+<div id="mcover" onclick="document.getElementById('mcover').style.display='';" style="display:none;">
+  <img src="../../img/guide.png">
+</div>
+<script type="text/javascript">
+  var i = 1;
+  var st = "";
+  function an(str, obj) {
+    if (obj.innerHTML.indexOf("&nbsp;") == 0) {
+      obj.innerHTML = i + "&nbsp;" + str;
+      st = st + str;
+      i++;
+      if (i == 6) {
+        document.getElementById("j1").style.display = "none";
+        tit = "我测出的是" + st;
+        st = st.replace("M", "金钱 > ");
+        st = st.replace("L", "爱情 > ");
+        st = st.replace("S", "性 > ");
+        st = st.replace("F", "家庭 > ");
+        st = st.replace("E", "事业 > ");
+        st = st.substring(0, st.length - 2);
+        document.getElementById("lie").innerHTML = st;
+        document.getElementById("j2").style.display = "";
+      }
+    } else {
+      if (i - parseInt(obj.innerHTML.substring(0, 1)) == 1) {
+        obj.innerHTML = "&nbsp;&nbsp;" + str;
+        i = i - 1;
+        st = st.substring(0, i - 1);
+      }
+    }
+  }
+</script>
+<script src="../../js/ad-pic.js"></script>
+
+</body></html>

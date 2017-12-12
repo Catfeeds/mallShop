@@ -1,0 +1,63 @@
+<include file="Public:head"/>
+<!-- 页面内容 begin -->
+    <!-- 微信公众号API管理 -->
+    <?php echo $makeTopUrl;?>
+    <include file="Public:wechatsManage"/>
+    <!-- 编辑微信消息通知模板 -->
+    <div class="mod mb-15">
+        <div class="mod-header radius-top"><h4>编辑微信消息通知模板</h4></div>
+        <div class="mod-body">
+            <div class="content">
+                <h5 class="group pb-10">
+                    <span class="inline w150 text-left">触发事件：</span>
+                    <span class="inline w350"><?php echo $info['triggering'];?></span>
+                </h5>
+                <div class="group pb-10">
+                    <h5 class="inline w150 text-left">模板ID：</h5>
+                    <input class="group inline w350 tplid" <?php if($info['type'] == '2'){echo 'readonly';}?> type="text" value="<?php echo $info['tplid'];?>">
+                </div>
+                <div class="group pb-30">
+                    <h6 class="inline w150 text-left"><!-- Null --></h6>
+                    <h6 class="inline text-red">*本框建议您请您的专属AE进行修改！错误修改将导致本微信消息通知模板无法正常使用</h6>
+                </div>
+                <div class="group pb-30">
+                    <h5 class="inline w150 text-left">详情指向页：</h5>
+                    <h5 class="inline"><?php echo $info['page'];?></h5>
+                </div>
+            </div>
+            <div class="Wechat-msg-bottom text-center">
+                <a class="btn-middle btn-white jade-wechat-event-submit">保存并发布</a>
+            </div>
+        </div>
+    </div>
+<!-- 页面内容 end -->
+<script>
+$(function(){
+	// 保存
+	$(".jade-wechat-event-submit").on("click", function(){
+		var id = "<?php echo $info['id']; ?>";
+		var tplid = $('.tplid').val();
+		if(id){
+			if(tplid.length>0){
+				$('.loading').show();
+				$.post("<?php echo U('TemplateMessage/Info').'&time=time()'; ?>"+Math.random(),{'id':id, 'tplid':tplid},
+					function(data){	   
+					$('.loading').hide();
+					if(data.code == 200){
+						alertTan(data.tips,'success',1500);
+						setTimeout(function(){
+						    // JS 操作代码
+							window.location.href="<?php echo U('TemplateMessage/Lists',array('wechatid'=>$_GET['wechatid']));?>";
+						},1500);
+					}else{
+						alertTan(data.tips,'error');
+					}
+				},"json");
+			}else{
+				alertTan('请输入模板ID','warn');
+			}
+		}
+	});
+});
+</script>
+<include file="Public:footer"/>

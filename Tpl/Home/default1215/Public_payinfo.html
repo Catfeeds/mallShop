@@ -1,0 +1,145 @@
+<!-- 服务协议弹窗 -->
+<div class="pupop-wrap js_clause_list_wrap" id="">
+	<div class="mod big_popup">
+        <div class="mod_header">
+            <span class="tit">人来风短信通道服务协议</span>
+            <i class="icon_close js-icon-close"></i>
+        </div>
+        <div class="mod_body clause_list_cover">
+	    	<dl class="clause_list">
+	    		<dt>一、短息服务基本规则：</dt>
+	    		<dd>1．短信费用：短信费用为0.08元／条。</dd>
+	    		<dd>2．70个字符为一条计费，最多支持500个字符，实际支持的最大字符根据通道方限制为准(一般是300—500个字符不等)。</dd>
+	    		<dd>3．发布短信息应提前3天向专属AE提交相关内容进行审核。</dd>
+
+	    		<dt>二、短信内容规则，禁止发布以下内容：</dt>
+	    		<dd>1．教育、移民、股票、房产，彩票，中奖，招聘、催付类、办理信用卡，加群，加微信，骂人威胁，以及与运营商业务相冲突的短信内容，如：赠送/卖手机，充值话费，短信推销等信息涉及到这几个类型信息都不允许发送。</dd>
+	    		<dd>2．违反中华人民共和国宪法所确定的基本原则的。</dd>
+	    		<dd>3．危害国家安全、泄露国家秘密、颠覆国家政权、破坏国家统一的。</dd>
+	    		<dd>4．损害国家荣誉和利益。</dd>
+	    		<dd>5．煽动民族仇恨、民族歧视、破坏民族团结的。</dd>
+	    		<dd>6．破坏国家宗教政策、宣扬邪教和封建迷信的。</dd>
+	    		<dd>7．造谣中伤、扰乱社会秩序、破坏社会稳定的。</dd>
+	    		<dd>8．反动、色情、淫秽、赌博、暴力、凶杀、恐怖、恐吓或者教唆犯罪的。</dd>
+	    		<dd>9．侮辱、谩骂、诽谤他人合法权益的。</dd>
+	    		<dd>10．中华人民共和国法律、行政法规所禁止的其他内容的。</dd>
+
+	    		<dt>三、免责条件</dt>
+	    		<dd>1．双方任一方由于火灾、自然灾害，战争或政策等不可抗力因素不能履行合同时，均应及时以书面形式通报对方并可以免除责任。</dd>
+	    		<dd>2．因骨干网或传输网故障及国家或移动运营商政策变化导致双方合作没办法继续的，双方互不追究责任。</dd>
+	    	</dl>
+    	</div>
+    </div>
+    <script type="text/javascript">
+    	$(".js_clause_list").click(function(){
+    		$(".js_clause_list_wrap").fadeIn(120);
+    	})
+    </script>
+</div>
+<!-- 支付弹窗 -->
+<div class="pupop-wrap js-pay-pupop-wrap" id="popup_wechat_login">
+	<div class="mod small-popup">
+        <div class="mod-header">
+            <span class="tit">微信支付</span>
+            <i class="icon-close js-icon-close"></i>
+        </div>
+    	<dl class="mod-body">
+    		<dt class="shouldbe-pay">应付金额</dt>
+    		<dt class="pay-num"><span id="rd-should-pay">1000</span>.00元</dt>
+    		<dt><img class="pay-qrcode pay_WeChat" src="./Tpl/Home/default1215/common/img/img_demo_qrcode.png"></dt>
+    		<dt class="text-tips">*本二维码2分钟自动刷新一次</dt>
+    		<dt>
+    			<img class="pay-tips pay_WeChat_tips" src="./Tpl/Home/default1215/common/img/WeChat_tips.png">
+    			<img class="pay-tips" src="./Tpl/Home/default1215/common/img/Ali_tips.png" style="display: none;">
+   			</dt>
+    	</dl>
+    </div>
+</div>
+<!-- 支付成功 -->
+<div class="pupop-wrap" id="pay_success">
+	<div class="mod small-popup">
+        <div class="mod-header">
+            <span class="tit">微信支付</span>
+            <i class="icon-close js-icon-close"></i>
+        </div>
+    	<dl class="mod-body">
+    		<dt class="pay-success">支付成功</dt>
+    		<dt class="thx-for">感谢您的支持！<br>您可以联系您的AM/AE了解订单状态。</dt>
+    		<dt class="btn-cover"><a class="btn-ok rd-pay-success" href="javascript:void(0);">确认</a></dt>
+    	</dl>
+    </div>
+</div>
+<input type="hidden" class="orderid" value="" />
+<script type="text/javascript">
+$(function(){
+	$('.rd-pay-success').click(function(){
+		$(this).parents(".pupop_wrap").fadeOut(120);
+		window.location.href=location.href;
+	});
+	// 关闭弹窗
+	$(".js-icon-close").click(function(){
+		$(this).parents(".pupop-wrap").fadeOut(120);
+	});
+});
+</script>
+<script>
+// 判断支付状态
+function OrderStatus(){
+	var orderid = $('.orderid').val();
+	var companyid = "<?php echo session('cid');?>";
+	if(companyid>0 && orderid.length>0){
+       	$.post("<?php echo U('Order/QueryOrderState'); ?>",{'companyid':companyid,'orderid':orderid},function(data){
+       		if(data.code == 200){
+       			//已经支付成功了
+       			$('#popup_wechat_login').hide();
+       			$('#pay_success').show();
+       			clearInterval(iCount);	
+       			clearInterval(iQRcode);
+       			clearInterval(AliQRcode);
+       		}else if(data.code == 201){
+       			$('#popup_wechat_login').hide();
+       			alert(data.tips);
+       			clearInterval(iCount);
+       			clearInterval(iQRcode);
+       			clearInterval(AliQRcode);
+       		}
+       	},"json");
+	}
+}
+// 加载微信支付二维码
+function OrderPayQRcode(){
+	var orderid = $('.orderid').val();
+	if(orderid.length>0){
+		$.post('./Payapi/Wxpay/payAct/OrderStone.php',{'orderid':orderid},function(datas){
+			if(datas.code == '200'){
+				if(datas.url.length>0){
+	 				var urls = "<?php echo U('Order/getScanQRcode',array('url'=>'"+datas.url+"'));?>";
+	 				$('.pay_WeChat').attr('src',urls);
+				}else{
+					alert('支付链接错误，请稍后重试');
+				}
+			}else{
+				alert(datas.tips);
+	 		}
+		},"json");
+	}
+}
+//刷新支付宝支付二维码
+function RefreshAliQRcode(){
+	var orderid = $('.orderid').val();
+	if(orderid.length > 0){
+		$.post("<?php echo U('Order/ajaxAliPayQRcode');?>",{'orderid':orderid},function(data){
+			if(data.code == '200'){
+				var url = "<?php echo U('Order/getScanQRcode',array('url'=>'"+data.url+"'))?>";
+				$('.pay_WeChat').attr('src',url);
+			}else{
+				$('.pay_WeChat').attr('src','');
+				alert(data.tips);
+			}
+		},"json");	
+		
+	}else{
+		alert('订单号错误，请稍后重试');
+	}
+}
+</script>

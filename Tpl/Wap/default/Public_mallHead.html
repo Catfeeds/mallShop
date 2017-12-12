@@ -1,0 +1,79 @@
+<?php if($isshow != 2){?>
+<div class="neweshop-Through-head pc-fixed">
+	<i class="fl neweshop-Navigation-icon js-Navigation-Popup-btn"></i>
+	<i class="fr neweshop-search-icon js-search-Popup-btn"></i>
+	<?php if(session('eshopheadlogo')){?><img class="Through-head-lg" src="<?php echo session('eshopheadlogo');?>" alt=""><?php }?>
+</div> 
+<div class="neweshop-Through-head-height"></div>
+<?php }?>
+<!--导航-->
+<div class="eshopv_zhezhao js-eshopv-zhezhao js-Navigation-Popup-close">
+	<div class="eshopv_subNavBox eshopv_subNavBox_show js-Navigation-Popup">
+		<h6 class="eshopv_subNavBox_h6">选择分类</h6>
+		<div class="eshopv_subNav  eShopv_navLeft"><a href="<?php echo U('MallTagsSearch/lists',array('companyid'=>$companyid,'id'=>$val['id']));?>" class="">全部商品</a></div>
+		<?php if($menuBar){ foreach($menuBar as $key=>$val){?>
+		<div class="eshopv_subNav"><i><a href="<?php echo $val['child'] ? 'javascript:void(0);' : U('MallTagsSearch/lists',array('companyid'=>$companyid,'id'=>$val['id']));?>"><?php echo $val['name'];?></a></i>
+			<?php if($val['child']){?>
+			<ul class="eshopv_navContent" >
+				<?php foreach($val['child'] as $ckey=>$cval){?>
+				<li class="eShopv_navLeft2"><a href="<?php echo U('MallTagsSearch/lists',array('companyid'=>$companyid,'id'=>$cval['id']));?>"><?php echo $cval['name'];?></a></li>
+				<?php }?>
+			</ul>
+			<?php }?>
+		</div>
+	    <?php }}?>
+	</div>
+</div>
+<script>
+	/*导航弹窗显示隐藏*/
+
+		$(".eshopv_subNav").click(function(){
+			var nume=1;
+			if(nume%2!=0){
+				$(this).next(".eshopv_navContent").children("li").css({"height":"50px"});
+			}else{
+				$(this).next(".eshopv_navContent").children("li").css({"height":"0px"});
+			}
+			nume++;
+		});
+//			$(this).next(".eshopv_navContent").slideToggle(300).siblings(".eshopv_navContent").slideUp(500);
+	$(".js-Navigation-Popup-btn").click(function(){
+		$(".js-Navigation-Popup").css({"left":"0px"});
+		$(".js-eshopv-zhezhao").show();
+
+	});
+	$(".js-Navigation-Popup-close").click(function(){
+		$(".js-Navigation-Popup").css({left:"-250px"});
+		setTimeout(function () {
+			$(".js-eshopv-zhezhao").hide();
+		},500);
+	});
+	$(".eshopv_subNavBox").click(function(e){
+
+		event.stopPropagation();
+	});
+</script>
+<!--搜索-->
+<div class="eshop_search_boxn js-search-Popup">
+	<div class="eshopv_search">
+		<div class="eshopv_search_input">
+			<span class="eshopv_search_ispan eshop_search_boxn_hide js-search-Popup-close">取消</span>
+			<form method="post" action="<?php echo U('MallTagsSearch/lists',array('companyid'=>$companyid));?>" class="eshopv_search_infom">
+				<input type="search" name="title" value="<?php echo $title;?>" placeholder="请输入搜索内容" class="eshopv_search_cont">
+				<input type="submit" class="eshopv_search_submit">
+			</form>
+		</div>
+	</div>
+</div>
+<script>
+	/*搜索弹窗显示隐藏*/
+	$(".js-search-Popup-btn").click(function(){
+		$(".js-search-Popup").show();
+		$(".js-search-Popup").removeClass("right-Eject");
+		$(".js-search-Popup").addClass("right-bomb");
+	});
+	$(".js-search-Popup-close").click(function(){
+		$(".js-search-Popup").removeClass("right-bomb");
+		$(".js-search-Popup").addClass("right-Eject");
+	});
+</script>

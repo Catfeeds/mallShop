@@ -1,0 +1,101 @@
+<include file="Public:scrm5Head" />
+<link rel="stylesheet" href="./Tpl/User5/default/common/fonts/font-awesome-4.6.3/css/font-awesome.min.css"><!-- 图标字体库 -->
+<link href="{lanrain::RES}/Member_Center/css/wap.css?<?php echo C('site_system_file_version'); ?>" rel="stylesheet" type="text/css" />
+<section class="content_app ifoot_padding fzs_bgcolor_f1f0f5">
+	<div class="member_center_bn" <?php if($memberCardInfoSetInfo['cardbodybackground']){ echo 'style="background: url('.$memberCardInfoSetInfo['cardbodybackground'].') no-repeat center center;background-size: cover;"';}?>>
+		<div class="member_center_card_pd">
+			<div class="member_center_card" <?php if($memberCardInfoSetInfo['cardbacktype'] == '2'){ echo 'style="background: url('.$memberCardInfoSetInfo['cardbackground'].') no-repeat center center;background-size: cover;"';}else{echo 'style="background-color:'.$memberCardInfoSetInfo['cardbackcolor'].'"';}?>>
+				<div class="member_center_line">
+					<div class="member_center_headimg"><img src="<?php echo $memberCardInfoSetInfo['cardlogo'];?>" alt=""></div>
+					<div class="member_center_p" style="color:<?php echo $memberCardInfoSetInfo['cardtextcolor'];?>;">
+						<p class="member_center_p_cpn"><?php echo $memberCardInfoSetInfo['cardname'];?></p>
+						<p class="member_center_p_card"><?php echo $memberCardInfoSetInfo['cardvicename'];?></p>
+					</div>
+					<i class="qr_payment_icon masterY_middle js_qr_payment_icon fa fa-qrcode vipcard-qrcode" style="color:<?php echo $memberCardInfoSetInfo['cardtextcolor'];?>;"></i>
+				</div>
+				<div class="member_center_line mt_100" style="color:<?php echo $memberCardInfoSetInfo['cardtextcolor'];?>;">
+					<a href="<?php echo U('Member/rankExplain',array('companyid'=>$companyid,'id'=>$memberInfo['rankid']));?>" class="link_Grade"><i class="fa fa-exclamation-circle vipcard-exclamation-circle" style="color:<?php echo $memberCardInfoSetInfo['cardtextcolor'];?>;"></i></a>
+					<p class="card_number"><?php echo substr_replace($memberInfo['moblie'],'****',3,4);?></p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="Member_points_box">
+		<?php if($memberInfo['leftintegral'] > 0){?>
+		<p class="points_box_p">距离下次升级，还需获得<?php echo $memberInfo['leftintegral'];?>累计积分</p>
+		<?php }?>
+		<ul class="points_box_ul mt_40">
+			<li>
+				<a href="<?php echo U('Member/totalintegral',array('companyid'=>$companyid));?>">
+				<p>累计积分</p><p style="color:<?php echo $memberCardInfoSetInfo['cardmaincolor'];?>;"><?php if($memberInfo['totalintegration']>$memberInfo['totalexperiencevalue']){ echo $memberInfo['totalintegration'];}else{ echo $memberInfo['totalexperiencevalue'];} ?></p>
+				</a>
+			</li>
+			<li>
+				<a href="<?php echo U('Member/rankExplain',array('companyid'=>$companyid,'id'=>$memberInfo['rankid']));?>">
+				<p>会员等级</p><p class="Grade_cn_font" style="color:<?php echo $memberCardInfoSetInfo['cardmaincolor'];?>;"><?php echo $memberCardInfoSetInfo['rankname']?$memberCardInfoSetInfo['rankname']:'-';?></p>
+				</a>
+			</li>
+			<li>
+				<a href="<?php echo U('Member/integralUse',array('companyid'=>$companyid));?>">
+				<p>可用积分</p><p style="color:<?php echo $memberCardInfoSetInfo['cardmaincolor'];?>;"><?php echo $memberInfo['totalintegration'];?></p>
+				</a>
+			</li>
+		</ul>
+	</div>
+	<div class="card_package">
+		<a href="<?php echo U('MemberVouchers/myVouchers',array('companyid'=>$companyid));?>"><p class="card_package_li Card_coupons_icon_bj">卡券包<br/><span><?php echo $memberInfo['canUse'];?></span></p></a>
+		<a href="<?php echo U('Storedvalue/index',array('companyid'=>$companyid));?>"><p class="card_package_li Stored_value_icon_bj">储值卡<br/><span><?php echo $memberInfo['accountbalance'];?></span></p></a>
+	</div>
+	<ul class="card_package_ul mt-15">
+		<?php if($zyisshow == 1){?>
+		<li>
+			<a href="<?php echo U('MallExhibitionPartner/index',array('companyid'=>$companyid));?>"><p>展业伙伴</p></a>
+		</li>
+		<?php }?>
+		<?php if($isinvite>0){ ?>
+		<li>
+			<a href="<?php echo U('MemberInviteVoucher/index',array('companyid'=>$companyid));?>"><p>邀请送礼</p></a>
+		</li>
+		<?php } ?>
+		<!-- <li>
+			<a href="<?php echo U('MemberMallOrder/index',array('companyid'=>$companyid,'isshow'=>2));?>"><p>交易订单</p></a>
+		</li> -->
+		<li>
+			<a href="<?php echo U('Member/orderList',array('companyid'=>$companyid));?>"><p>交易订单</p></a>
+		</li>
+		<li>
+			<a href="<?php echo U('Member/editMyInformation',array('companyid'=>$companyid));?>"><p>个人资料</p></a>
+		</li>
+		<li>
+			<a href="<?php echo U('MallNotices/customer',array('companyid'=>$companyid));?>"><p>在线客服</p></a>
+		</li>
+		<li>
+			<a href="<?php echo U('Member/rankExplain',array('companyid'=>$companyid));?>"><p>会员制说明</p></a>
+		</li>
+	</ul>
+<include file="Public:loginBox" />
+<include file="Public:weiXinNotShareSet" />
+<!-- ========公共底部======== -->
+    <div class="eshopv_fotter_logo">
+        <include file="Public:navFooter" />
+    </div>
+</section> 
+<include file="Public:scrm5Foot" />
+<!-- =================== 二维码弹窗===================== -->
+<section class="qr_member_Popup fzs_bgcolor_fff" style="display:none;">
+    <div class="qr_member_Popup_head"><img class="js-qr-close" src="{lanrain::RES}/Member_Center/img/menber-qr-close.png"></div>
+    <div class="qr_member_Popup_ctt">
+        <div class="qr_member_Popup_headimg"><img src="<?php echo session('whead'.$companyid) ? session('whead'.$companyid) : session('clogo');?>"></div>
+        <img class="qr_member_Popup_qr" src='<?php echo C("site_url").U("Member/erweima",array("companyid"=>$companyid,"link"=>base64_encode(json_encode(array("mobile"=>$memberInfo["moblie"])))));?>'>
+        <p class="qr_member_Popup_nb"><?php echo substr_replace($memberInfo['moblie'],'****',3,4);?></p>
+        <p class="qr_member_Popup_lb">请向店员出示</p>
+    </div>
+    <script>
+    $(".js_qr_payment_icon").click(function(){
+        $(".qr_member_Popup").show();
+    });
+    $(".js-qr-close").click(function(){
+        $(this).parents(".qr_member_Popup").hide();
+    });
+    </script>
+</section>

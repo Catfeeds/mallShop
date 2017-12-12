@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>商场</title>
+	<meta name="format-detection" content="telephone=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" href="{lanrain::RES}/weixinfeng/css/reset.css">
+	<link rel="stylesheet" href="{lanrain::RES}/weixinfeng/css/swiper-3.2.7.min.css">
+	<link rel="stylesheet" href="{lanrain::RES}/weixinfeng/css/style.css">
+	<script src="{lanrain::RES}/weixinfeng/js/jquery-2.1.4.min.js"></script>
+	<script src="{lanrain::RES}/weixinfeng/js/zepto.js"></script>
+	<script src="{lanrain::RES}/weixinfeng/js/common.js"></script>
+</head>
+<body>
+<!-- 首页 -->
+<div class="page payment">
+
+	<div class="payment-all-set">
+		<div class="fl-name"><img src="{lanrain::RES}/weixinfeng/images/icon_02.png"><?php echo $goods_type[$status]; ?>订单</div>
+		<?php if($status!=2){ ?>
+		<div class="fr-set">
+			<b></b>
+			全选
+		</div>
+		<?php } ?>
+	</div>
+
+	<!-- 商品信息框 -->
+	<div class="payment-big-box">
+		<?php foreach($lists as $key => $val){  ?>
+		<div class="payment-set-box">
+			<div class="order-set">
+				<?php if($status!=2){ ?><b data-id="<?php echo $val['id']; ?>"></b><?php } ?>
+				<span> &nbsp; 订单编号:
+						<strong><?php echo $val['orderid']; ?></strong>
+					</span>
+				<em><?php echo $goods_type[$val['orderstatus']]; ?></em>
+			</div>
+			<div class="product-wrap">
+				<dl class="product-box">
+					<dt>
+						<img src="<?php echo $val['goodpic']; ?>" title="产品">
+					</dt>
+					<dd>
+						<p class="name"><?php echo $val['goodname']; ?></p>
+						<p class="other">
+							<strong><?php echo $val['saleprice']; ?></strong>
+							<span><?php echo $val['name']; ?> x <?php echo $val['goodnum']; ?></span>
+						</p>
+					</dd>
+				</dl>
+				<div class="total-box">
+					<span>合计：</span>
+					<strong><?php echo $val['goodprice']; ?></strong>
+				</div>
+			</div>
+			<div class="info-wrap">
+				<div class="info_title">配送信息：</div>
+				<div class="info_text"><?php echo $val['consigneeaddress']; ?></div>
+				<div class="info_text">收件人:<span><?php echo $val['consigneename']; ?></span><span><?php echo $val['consigneephone']; ?></span></div>
+				<?php if($val['postid']){ ?><div class="info_text">邮编: <span><?php echo $val['postid']; ?></span></div><?php } ?>
+			</div>
+			<?php if($val['orderstatus']==1){ ?>
+				<div class="choice-wrap">
+					<a class="payment-btn" href="<?php echo U('MemberMallOrder/selectPayType',array('orderid'=>$val['orderid'])) ?>" title="付款">付款</a>
+					<a class="cancel-btn js-del-order" href="javascript:;" data-id="<?php echo $val['id']; ?>" title="取消">取消订单</a>
+				</div>
+			<?php }elseif($val['orderstatus']==2||$val['orderstatus']==3||$val['orderstatus']==5){ ?>
+				<?php if($val['orderstatus']==5){ ?>
+					<div class="choice-wrap ">
+						<a class="payment-btn" href="<?php echo U('MallGoods/goodInfo',array('id'=>$val['goodid'])) ?>" title="付款">再次购买</a>
+					</div>
+				<?php } ?>
+
+			<?php } ?>
+
+		</div>
+		<?php } ?>
+	</div>
+	<?php if($status!=2){ ?>
+	<div class="public-set">
+		<a class="delete-btn" href="javascript:;" title="删除">删除</a>
+		<a class="cancel-btn" href="javascript:;" title="取消">取消</a>
+	</div>
+	<?php } ?>
+
+</div>
+<script>
+	$(function(){
+        $(".js-del-order").click(function(){
+
+            var $this = $(this);
+            var id = $(this).attr("data-id")+",";
+            layer.confirm('您是是否取消付款？', {
+                btn: ['确定','取消'] //按钮
+            }, function(){
+                $.post("<?php echo U('Member/delOrder'); ?>",{id:id},function(data){
+                    layer.msg('取消付款成功！', {time:1000});
+                    $this.parents(".payment-set-box").remove();
+                },"json");
+            }, function(){
+                // layer.msg('暂不需要', {icon: 1});
+            });
+
+//            var id = $(this).attr("data-id");
+//            var $this = $(this);
+//            $.post("<?php echo U('Member/delOrder'); ?>",{id:id},function(data){
+//                $this.parents(".payment-set-box").remove();
+//            },"json");
+        })
+
+        $(".delete-btn").click(function(){
+
+            layer.confirm('您是是否删除订单？', {
+                btn: ['确定','取消'] //按钮
+            }, function(){
+                var id = '';
+                $(".payment-set-box b.selected").each(function(){
+                    id += $(this).attr("data-id") + ",";
+                })
+                $.post("<?php echo U('Member/delOrder'); ?>",{id:id},function(data){
+                    $('.selected').parent('.order-set').parent('.payment-set-box').remove();
+                    $('.public-set').animate({
+                        'bottom': '-2.75rem'
+                    });
+                    $('.payment-big-box').animate({
+                        'padding-bottom': '0rem'
+                    });
+                    layer.msg('订单删除成功！', {time:1000});
+                },"json");
+            }, function(){
+                // layer.msg('暂不需要', {icon: 1});
+            });
+        });
+
+
+
+        // 下放的删除按钮
+//        $('.public-set .delete-btn').click(function() {
+//
+//            $('.selected').parent('.order-set').parent('.payment-set-box').remove();
+//            $('.public-set').animate({
+//                'bottom': '-2.75rem'
+//            });
+//            $('.payment-big-box').animate({
+//                'padding-bottom': '0rem'
+//            });
+//            layer.msg('订单删除成功！', {time:1000});
+//
+//        })
+
+    })
+</script>
+<script src="{lanrain::RES}/weixinfeng/js/layer.js"></script>
+<script src="{lanrain::RES}/weixinfeng/js/swiper-3.3.1.jquery.min.js"></script>
+<script src="{lanrain::RES}/weixinfeng/js/public2.js"></script>
+</body>
+</html>

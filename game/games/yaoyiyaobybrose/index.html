@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=320px,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="description" content="@fmRADIO8">
+    <meta name="format-detection" content="telephone=no">
+<title>摇出Luck幸运一下</title>
+    <link href="css/yaoyiyao.css" rel="stylesheet" type="text/css?a=b">
+    <link href="css/animate.min.css" rel="stylesheet" type="text/css?a=b">
+    <script src="js/jquery-1.8.2.min.js" type="text/javascript"></script>
+</head>
+
+<body>
+<div class="app-content">
+    <!--first page-->
+    <div class="luck-header">
+        <img src="images/7-27-header.png">
+    </div>
+    <div class="luck-rice">
+        <img src="images/puffed-rice.png" class="wow wobble wobble1" data-wow-delay="1s" data-wow-duration="2s" >
+        <img src="images/puffed-rice.png" class="wow wobble wobble2"  data-wow-delay="1s"  >
+    </div>
+    <div class="luck-footer">
+        <img src="images/2-27-footer.png">
+    </div>
+
+    <!--摇出奖-->
+    <div class="luck-succ wow bounceInDown" >
+        <img src="images/7-27-succuss.png" >
+    </div>
+    <p class="lxfs  wow swing" > >>联系方式<< </p>
+    <!--end 要出奖-->
+
+
+    <!--失败-->
+    <div class="luck-fail  wow bounceInDown"  data-wow-delay="2s">
+        <img src="images/7-29-fail.png"  >
+		<a class="gfwb " id = "playagain"> >>再摇一次<< </a>
+    </div>
+    <div  class = "wow swing"  data-wow-delay="2s">
+    <p class="gfwb "> <a href="http://weibo.com/trendiano"> >>TRENDIANO 官方微博<< </a></p>
+    
+    </div>
+    <!--end失败-->
+
+
+    <!--联系方式-->
+    <div class="luck-tel wow bounceInDown">
+        <img src="images/7-27-gongxi.png">
+        <div  class="luck-tel2">
+            <label>电话:</label><input type="tel">
+        </div>
+    </div>
+    <div class="luck-botton"><input type="button" value="确定"></div>
+    <!--over-->
+</div>
+<audio id="musicBox" controls="true" src = "audio/shake_sound.mp3"></audio>
+<audio id="musicBox2" controls="true" src = "audio/output2.mp3" ></audio>
+
+<script type="text/javascript" src="js/wow.min.js" ></script>
+<script type="text/javascript">
+    $(function(){
+        //页面重新加载
+        $('#playagain').click(function() {
+            location.reload();
+        });
+        //先定义一个success和fail
+        var state = 0 ; //0表示success;1表示fail
+        //<!--先隐藏部分dom-->
+        $("#musicBox").hide();
+        $("#musicBox2").hide();
+        $(".wobble2").hide();
+        //图片初始化动画
+        new WOW().init();
+       $(".lxfs").click(function(){
+            $(".luck-succ").hide();
+            $(".lxfs").hide();
+            $(".luck-tel").show();
+            $(".luck-botton").show();
+        });
+        //摇一摇事件
+        //事件准备工作
+        var SHAKE_THRESHOLD=3000;//定义一个摇动的阈值
+        var last_update=0;//定义一个变量记录上一次摇动的时间
+        var x=y=z=last_x=last_y=last_z=0;//定义x、y、z记录三个轴的数据以及上一次触发的时间
+        if(window.DeviceMotionEvent){
+            //添加一个事件监听器
+            window.addEventListener('devicemotion',deviceMotionHandler,false);
+        }else{
+            alert('not support mobile event');
+        }
+       // 摇一摇触发的事件
+        function deviceMotionHandler(eventData) {
+            //获取含重力加速
+            var acceleration = eventData.accelerationIncludingGravity;
+            var curTime = new Date().getTime();//获取当前时间戳
+            var diffTime = curTime - last_update;
+            if(diffTime> 80) {
+                last_update = curTime;//记录上一次摇动的时间
+                x = acceleration.x;//获取加速度X方向
+                y = acceleration.y;//获取加速度Y方向
+                z = acceleration.z;//获取加速度垂直方向
+                var speed = Math.abs(x + y + z - last_x - last_y - last_z) / diffTime * 10000;//计算阈值
+                // if(speed>SHAKE_THRESHOLD && luck1 == '1' && fail1=='1' && tel1=='1'){
+                if (speed > SHAKE_THRESHOLD) {
+                    var media = document.getElementById("musicBox");//获取音频控件
+                    //  media.setAttribute("src","audio/shake_sound.mp3");
+                    media.load();//加载音频
+                    media.play();//播放音频
+                    $(".wobble1").hide();
+                    $(".wobble2").show();
+                  //下面是执行php ajax http访问  判断state的值是0还是1
+
+
+
+
+                    if(state == 0){//0表示success
+                        //弹出success的页面
+                        setTimeout(function () {
+                            var media2=document.getElementById("musicBox2");//获取音频控件
+                            media2.load();//加载音频
+                            media2.play();//播放音频
+                            $('.luck-footer').hide();
+                            $('.luck-succ').show();
+                            $('.lxfs').show();
+
+                        }, 2000);
+                        setTimeout(function () {
+                            $(".wobble2").hide();
+                        }, 5000);
+                    }else {  //非0 表示 fail
+                        //跳转到fail页面
+                        setTimeout(function () {
+                            var media2=document.getElementById("musicBox2");//获取音频控件
+                            media2.load();//加载音频
+                            media2.play();//播放音频*/
+                            $('.luck-footer').hide();
+                            $(".luck-fail").show();
+                            $(".gfwb").show();
+
+                        }, 2000);
+
+                        setTimeout(function () {
+                            $(".wobble2").hide();
+                        }, 5000);
+                    }
+
+                }
+            }
+         }
+     });
+    </script>
+</body>
+</html>

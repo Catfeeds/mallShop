@@ -1,0 +1,496 @@
+/*通底定位*/
+.eshopv_fotter_logo {
+    bottom: 0;
+}
+.store-bottom-51 .eshopv_fotter_logo {
+    bottom: 51px;
+}
+.store-bottom-44 .eshopv_fotter_logo {
+    bottom: 44px;
+}
+/*解决蓝色边框*/
+body {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    background: #f2f3f4;
+    -webkit-overflow-scrolling: touch;
+}
+
+* {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-appearance: none;
+}
+/*首页*/
+.paidstore-ctt{width: 100%;min-height:100%;position: relative;box-sizing: border-box;}
+.swiper-pagination span.swiper-pagination-bullet {
+    width: 20px;
+    height: 3px;
+    display: inline-block;
+    background: #FFFFff;
+    opacity: 0.5;
+    border-radius: 0px;
+}
+
+.swiper-pagination span.swiper-pagination-bullet-active {
+    width: 20px;
+    height: 3px;
+    /* display: inline-block; */
+    background: #FFFFff;
+    opacity: 1;
+    border-radius: 0px;
+}
+.home-plate-box{
+    background: #fff;
+    padding: 0 10px;
+    margin-bottom: 10px;
+}
+.home-plate-box h5{
+    line-height: 30px;
+    color: #000;
+    font-size: 14px;
+}
+.home-plate-ul li{
+    padding: 12px 0;
+    display: block;
+    border-top: 1px solid #f3f3f3;}
+.home-plate-left{
+    width:80px;
+    height: 55px;
+    float: left;
+    overflow: hidden;
+}
+.home-plate-right{
+    margin-left: 85px;
+    position: relative;
+}
+.home-plate-right-zw{min-height: 45px;}
+.home-plate-right-zw h6{
+    color: #000;
+    font-size: 12px;
+    line-height: 14px;
+    overflow : hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient: vertical;
+}
+.home-plate-right-zw p{
+    font-size: 10px;
+    color: #333;
+    padding-top: 3px;
+    line-height: 1;
+}
+.home-plate-right-zw p span:nth-child(1){
+    padding-left: 12px;
+    display: inline-block;
+    margin-right: 14px;
+    background: url("../img/paid-icongk.png") no-repeat left center;
+    background-size: 10px;
+}
+.home-plate-right-zw p span:nth-child(2){
+    padding-left: 12px;
+    display: inline-block;
+    margin-right: 12px;
+    background: url("../img/paid-iconpl.png") no-repeat left center;
+    background-size: 8px;
+}
+.home-plate-Cost{
+    font-size: 9px;
+    color: #bd9746;
+}
+.home-plate-Cost span{font-size: 12px;}
+.home-plate-date{
+    position: absolute;
+    right:0;
+    bottom:0px;
+    color: #333;
+    font-size: 9px;
+}
+.home-plate-footer{
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    background: #bd9746;
+    overflow: hidden;
+    bottom:0;
+    left: 0;
+    padding: 6px 0;
+}
+.home-plate-footer a{
+    width: 50%;
+    float: left;
+}
+.home-plate-footer a i{
+    width: 20px;
+    height: 20px;
+    display: block;
+    margin: 0 auto;
+}
+.home-plate-footer a p{
+    font-size: 9px;
+    line-height: 12px;
+    color: #fff;
+    text-align: center;
+}
+.link-home i{
+    background: url("../img/paid-iconsy1.png") no-repeat;
+    background-size: 20px;
+}
+.link-home.active i{
+    background: url("../img/paid-iconsy.png") no-repeat;
+    background-size: 20px;
+}
+.link-History i{
+    background: url("../img/paid-iconxq1.png") no-repeat;
+    background-size: 20px;
+}
+.link-History.active i{
+    background: url("../img/paid-iconxq.png") no-repeat;
+    background-size: 20px;
+}
+.home-plate-footer a.active p{color: #ffdb90}
+.home-plate-footer span{
+    height: 30px;
+    position: absolute;
+    left: 50%;
+    border-left: 1px solid #fff;
+    top:7px;
+}
+/*付费文章详情*/
+.Paid-articles-head{
+    background: #fff;
+}
+.Paid-articles-head img{width: 100%;display: block;}
+.Paid-articles-text{padding: 10px 12px;}
+.Paid-articles-text h6{
+    padding: 2px 0;
+    font-size: 15px;
+    line-height: 21px;
+    color: #000000;
+}
+.Paid-articles-text p{
+    padding: 2px 0;
+    font-size: 12px;
+    line-height: 18px;
+    color: #333;
+}
+.Paid-articles-text p.Reading-nb{
+    color: #999;
+}
+.Paid-articles-text p span{
+    margin-right: 10px;
+}
+.Paid-articles-theme{
+    background: #fff;
+    margin-top: 10px;
+    padding: 14px 12px;
+}
+.articles-theme-box{
+    font-size: 12px;
+    color: #666;
+    line-height: 1.5;
+    overflow: hidden;
+}
+.Spread-out{
+    display: block;
+    margin: 0 auto;
+    line-height: 20px;
+    font-size: 10px;
+    color: #666;
+    width: 44px;
+}
+.Spread-out i{
+    float: left;
+    width: 15px;
+    height: 20px;
+    background: url("../img/paid-sjt.png") no-repeat left center;
+    background-size: 10px;
+}
+.Spread-out span{line-height: 20px}
+.Spread-out.rotate-icon i{
+    transform: rotate(180deg);
+}
+.Paid-articles-bottom{
+    padding: 6px 25px;
+    background: #fff;
+    border-top:1px solid #f2f3f4;
+    position: fixed;
+    bottom:0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 1;
+}
+.Paid-articles-Open{
+    width: 100%;
+    border-radius: 3px;
+    border: 1px solid #bd9746;
+    background: #bd9746;
+    color: #fff;
+    line-height: 26px;
+    font-size: 16px;
+	padding: 5px;
+}
+.Paid-No{
+    padding: 33% 0;
+    text-align: center;
+}
+.Paid-No img{
+    display: block;
+    width: 90px;
+    margin: 0 auto;
+}
+.Paid-No p{
+    font-size: 13px;
+    color: #999;
+    line-height: 1.5;
+    text-align: center;
+}
+.Paid-No a{
+    font-size: 13px;
+    color: #bd9746;
+    line-height: 1.5;
+    text-align: center;
+}
+.paid-history-ul{
+    background: #fff;
+}
+.paid-history-ul li{
+    padding: 10px 12px;
+    border-bottom: 1px solid #eaeaea;
+}
+.paid-history-ul li h6{
+    font-size: 13px;
+    padding: 2px 0;
+    line-height: 19px;
+    color: #000;
+}
+.paid-history-ul li p{
+    padding: 5px;
+    color: #666666;
+    font-size: 12px;
+    overflow: hidden;
+}
+.paid-history-ul li p span:first-child{
+    float: left;
+    color: #bd9746;
+}
+.paid-history-ul li p span:last-child{
+    float: right;
+    color: #666;
+}
+
+/*付费音频*/
+.paid-audio-box{
+    background: #fff;
+}
+.paid-audio-bn {
+    position: relative;
+}
+.paid-audio-bn img{
+    width: 100%;
+}
+.paid-audio-bn p{
+    position: absolute;
+    bottom:0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    line-height: 30px;
+    padding: 0 15px;
+    background-color: rgba(0,0,0,0.5);
+    color: #fff;
+    font-size: 12px;
+}
+.paid-audio-ui{
+    padding: 0 12px;
+}
+.paid-audio-progress{
+    overflow: hidden;
+    padding: 5px 0;
+}
+.paid-audio-progress .current-time{
+    float: left;
+    line-height: 30px;
+    color: #666;
+    font-size: 10px;
+}
+.paid-audio-progress .total-time{
+    float: right;
+    line-height: 30px;
+    color: #666;
+    font-size: 10px;
+}
+.audio-progress-drag{
+    margin-left: 40px;
+    margin-right: 40px;
+    cursor: pointer;
+    padding: 14px 0;
+}
+.audio-progress-Shell{
+    height: 2px;
+    background-color: #cccccc;
+}
+.audio-progress-core{
+    position: relative;
+    height: 2px;
+    background-color: #bd9746;
+    width:0;
+}
+.audio-progress-core i{
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: url("../img/paid-jd-icon.png") no-repeat center center;
+    background-size: 16px;
+    right:-8px;
+    top:-7px;
+}
+.audio-operation{
+    text-align: center;
+    padding-bottom: 15px;
+}
+.audio-operation i{
+    display: inline-block;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+}
+.audio-operation i.last-audio{
+    background: url("../img/paid-sys-icon.png") no-repeat center center;
+    background-size: 14px;
+    margin-right: 10%;
+}
+.audio-operation i.Play-pause-audio{
+    background: url("../img/paid-bf-icon.png") no-repeat center center;
+    background-size: 40px;
+}
+.audio-operation i.next-audio{
+    background: url("../img/paid-xys-icon.png") no-repeat center center;
+    background-size: 14px;
+    margin-left: 10%;
+}
+.wonderful-comments-box{
+    background: #fff;
+    margin-top: 10px;
+    padding: 0 12px;
+}
+.wonderful-comments-h6{
+    line-height: 35px;
+    color: #666666;
+    font-size: 12px;
+}
+.Comment-list li{
+    border-top: 1px solid #f3f3f3;
+}
+.Comment-people{
+    padding: 18px 0;
+    overflow: hidden;
+    border-bottom: 1px solid #f3f3f3;
+}
+.Comment-Head{
+    width: 30px;
+    height: 30px;
+    border-radius: 3px;
+    float: left;
+}
+.Comment-Head img{
+    width: 100%;
+}
+.Comment-ctt{
+    margin-left: 40px;
+}
+.Comment-ctt h6{
+    font-size: 14px;
+    color: #576b95;
+    line-height: 1;
+}
+.Comment-p{
+    margin-top: 6px;
+    font-size: 12px;
+    color: #666;
+    line-height: 16px;
+}
+.Comment-time-p{
+    margin-top: 4px;
+    font-size: 10px;
+    line-height: 1;
+    color: #999999;
+}
+.Reply-box{
+    padding: 14px 0  14px 40px;
+}
+.Reply-box p{
+    border: 1px solid #f3f3f3;
+    font-size: 10px;
+    line-height: 1.4;
+    padding: 6px 8px;
+}
+/*弹窗*/
+.Review-Popup{
+    position: fixed;
+    z-index: 10;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    display: none;
+}
+.Review-Popup-ctt{
+    width: 84%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #fff;
+}
+.Review-Popup-input{
+    padding: 0 10px 15px 10px;
+    border-bottom: 1px solid #dadade;
+}
+.Review-Popup-input h6{
+    padding: 15px 0;
+    line-height: 1;
+    font-size: 13px;
+    color: #333333;
+    text-align: center;
+}
+.Review-Popup-input textarea{
+    border-radius: 3px;
+    border: 1px solid #cccccc;
+    display: block;
+    padding: 6px 8px;
+    font-size: 12px;
+    line-height: 16px;
+    color: #333;
+    width: 100%;
+    height: 80px;
+    box-sizing: border-box;
+    resize: none;
+}
+.Review-Popup-btn{
+    overflow: hidden;
+}
+.Review-Popup-btn button{
+    width: 50%;
+    padding: 0 ;
+    margin: 0;
+    font-size: 16px;
+    line-height: 44px;
+    border: none;
+    box-sizing: border-box;
+    background: none;
+}
+.Review-Popup-btn button:first-child{
+    float: left;
+    color: #666;
+    border-right:1px solid #dadade;
+}
+.Review-Popup-btn button:first-child{
+    float: left;
+    color: #bd9746;
+}
+

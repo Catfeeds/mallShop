@@ -1,0 +1,26 @@
+<include file="Public:S5NewHead" />
+<div class="title_top">我的经销用户</div>
+<div class="dl_subnavbg">
+	<?php foreach($salesList as $skey=>$sVal){?>
+    <dl class="dl_user">
+    	<dt><img src="<?php echo $sVal['headimgurl']?$sVal['headimgurl']:'./Tpl/Wap/default/common/weixinfeng/images/tx.jpg';?>" ></dt>
+    	<dd>
+            <strong class="nikename"><?php echo $sVal['nickname'];?></strong>
+    		<p class="tel"><?php echo $sVal['mobile'];?></p>
+			<span class="date">加入时间：<?php echo format_time($sVal['bangtime'],'ymd');?></span>
+		</dd>
+		<dd class="js-click-order" data-mid="<?php echo $sVal['mid'];?>">已完成订单数量:<p class="work_num"><span><?php echo $sVal['ordernum']?$sVal['ordernum']:'0';?></span>单</p></dd>
+		<div class="line fl"></div>
+    </dl>
+	<?php }?>
+</div>
+<script>
+$(function(){
+	$('.js-click-order').click(function(){
+		var mid = $(this).attr("data-mid");
+		window.location.href="<?php echo U('MallExhibitionPartner/completedOrder',array('companyid'=>$companyid,'mid'=>'"+mid+"'))?>";
+	});
+})
+</script>
+<include file="Public:weiXinNotShareSet"/>
+<include file="Public:footer"/>

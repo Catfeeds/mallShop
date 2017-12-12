@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>{lanrain:$replyInfo.title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta charset="utf-8">
+
+    <link href="{lanrain::RES}/css/base.css?a" rel="stylesheet">
+    <link href="{lanrain::RES}/css/you.css?a" rel="stylesheet">
+</head>
+
+<body>
+<div class="content-pck">
+    <h6 class="game-name">红包送送送送!</h6>
+    <div class="receive-d">
+        <img class="receive" src="{lanrain::RES}/images/receive.png">
+        <p class="receive-p">已有<span>1000</span>人领取</p>
+    </div>
+    <div class="red-btn-d">
+        <img class="red-btn" src="{lanrain::RES}/images/red-btn.png">
+        <p class="red-btn-p">活动规则</p>
+    </div>
+    <div class="transparent"></div>
+    <div class="triangle-d1">
+        <img class="triangle-1" src="{lanrain::RES}/images/triangle-1.png">
+    </div>
+    <div class="activity-rule">
+        <img class="triangle-2" src="{lanrain::RES}/images/triangle-gold .png">
+        <ul class="fortune">
+            <li>恭喜发财，大吉大利！</li>
+        </ul>
+        <img class="close-btn" src="{lanrain::RES}/images/close-btn.png">
+    </div>
+    <script>
+        var rule=document.getElementsByClassName("red-btn-p")[0];
+        var transparent=document.getElementsByClassName("transparent")[0];
+        var activity=document.getElementsByClassName("activity-rule")[0];
+        var triangle=document.getElementsByClassName("triangle-d1")[0];
+        var cls=document.getElementsByClassName("close-btn")[0];
+        rule.onclick =function(){
+            transparent.style.display ="block";
+            activity.style.display ="block";
+            triangle.style.display ="block";
+        }
+       cls.onclick=function(){
+           transparent.style.display="none";
+           activity.style.display ="none";
+           triangle.style.display ="none";
+       }
+    </script>
+</div>
+</body>
+</html>

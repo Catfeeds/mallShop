@@ -1,0 +1,29 @@
+<include file="Public:loading"/>
+<?php if(!in_array( MODULE_NAME.'/'.ACTION_NAME,array('Index/index'))){?>
+<!--<div class="coating">
+	<?php if (session('wapcid') && in_array(2,session('permissions'))){ ?>
+	<a href="<?php echo U('MemberNotices/customer',array('companyid'=>$companyid));?>" class="icons-message"><?php if($noticeCount>0){?><em><?php echo $noticeCount<99?$noticeCount:'99+';?></em><?php }?></a>
+	<i class="line"></i>
+	<?php } ?>
+	<a class="refresh" href="javascript:location.reload()"></a>
+</div>-->
+<?php }?>
+<script src="{lanrain::STATICS}/jquery-alert/alert.js" type="text/javascript" ></script>
+<script>
+  $('.quit').click(function(){
+    $.post("<?php echo U('Login/safeQuit').'&time=';?>"+Math.random(),function(data){
+      if(data['code'] == 200){
+        alert(data['tips'],2000,'success');
+        setTimeout("window.location.href='<?php echo U('Login/login',array('companyid'=>$companyid));?>'",2000);
+      }else{
+        alert(data['tips'],2000);
+      }
+    },"json");
+  });
+</script>
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F4e9f0b9e0dafddcb1d8ae2528867b1f3' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>

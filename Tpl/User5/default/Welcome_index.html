@@ -1,0 +1,32 @@
+<include file="Public:head"/>
+<!-- 欢迎页 version-3 -->
+<div class="breadcrumb clearfix">
+    <h5 class="breadcrumb-nav fl">
+        <a class="nav-L3 curr-nav">欢迎页</a> 
+    </h5>
+    <div class="back fr">
+        <a href="javascript:history.go(-1);" class="text-purple"><i class="icon-breadcrumb-back"></i> 返回</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="javascript:history.go(0);" class="text-purple"><i class="icon-breadcrumb-F5"></i> 刷新</a>
+    </div>
+</div>
+<div class="mod mb-15">
+    <div class="welcome-v2-wrap">
+        <div class="wel-top-v3">
+            <img class="wel-logo-v3" src="./Tpl/User5/default/common/img/wel-logo-v3.png">
+        </div>
+        <ul class="clearfix welcome-index">
+            <li class="size1of3 fl">
+                <p class="index-tit"><i class="icon-wel-count hide"></i>您当前的登录次数</p>
+                <p class="index-con"><span class="num_Hel"><?php echo $loginInfo['loginnum'];?></span> 次</p>
+            </li>
+            <li class="size1of3 fl">
+                <p class="index-tit"><i class="icon-wel-score hide"></i>您当前的累积积分</p>
+                <p class="index-con"><span class="num_Hel"><?php echo $info['myCuInt']['CanUseIntegral']?$info['myCuInt']['CanUseIntegral']:'0';?></span> 分</p>
+            </li>
+            <li class="size1of3 fl">
+                <p class="index-tit"><i class="icon-wel-score hide"></i>您当前的可用积分</p>
+                <p class="index-con"><span class="num_Hel"><?php echo $info['myInt']['CanUseIntegral']?$info['myInt']['CanUseIntegral']:'0';?></span> 分</p>
+            </li>
+        </ul>
+    </div>
+</div>
+<include file="Public:footer"/>

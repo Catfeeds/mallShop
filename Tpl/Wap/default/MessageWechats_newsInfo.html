@@ -1,0 +1,21 @@
+<include file="Public:memberCenterHeader"/>
+<style>
+.img-cover img {
+	width:100%;
+}
+</style>
+<div class="rich_media">
+<h2 class="rich_media_title">
+    <?php echo emoji_decode($newsInfo['title']);?>
+</h2>
+	<div class="rich_media_meta_list">
+	    <em id="post-date" class="rich_media_meta rich_media_meta_text"><?php echo format_time($newsInfo['updatetime'],zhymd);?></em>
+	    <span class="rich_media_meta rich_media_meta_text rich_media_meta_nickname"><?php echo $newsInfo['author'];?></span>
+	</div>
+	<?php if($newsInfo['show_cover_pic']==1){ ?>
+	<img src="<?php echo $newsInfo['thumb_media']; ?>" style="width:100%" />
+	<?php } ?>
+	<div class="img-cover">
+	<?php echo htmlspecialchars_decode($newsInfo['content']);?>
+	</div>
+</div>

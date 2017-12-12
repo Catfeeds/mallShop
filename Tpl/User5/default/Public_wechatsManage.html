@@ -1,0 +1,110 @@
+<!-- 微信公众号API管理 已导入 -->
+<style>
+	span.fans-tips span{
+		color: #e97200;
+	}
+</style>
+    <div class="mod mb-15">
+        <div class="mod-body clearfix radius-all">
+            <div class="left-col wechat-control">
+                <div class="content clearfix">
+                    <div class="text-center fl wechat-control-img">
+                        <img src="<?php echo $wechatsInfo['headerpic']?$wechatsInfo['headerpic']:'./Tpl/User5/default/common/img/user-logo.jpg';?>">
+                       <!--  <a class="btn-small btn-white js-call-AE">接入配置</a> -->
+                    </div>
+                    <div class="fl wechat-control-con">
+                        <p><label>API类型：</label><span>微信公众号</span></p>
+                        <p><label>接入API名称：</label><span><?php echo $wechatsInfo['wxname'];?></span></p>
+                        <p><label>公众号类型：</label><span>
+                        	<?php if($wechatsInfo['wechattype'] == 1){ 
+									echo '订阅号';
+								}elseif($wechatsInfo['wechattype'] == 2){ 
+									echo '认证订阅号';
+								}elseif($wechatsInfo['wechattype'] == 3){ 
+									echo '服务号';
+								}elseif($wechatsInfo['wechattype'] == 4){ 
+									echo '认证服务号';
+								}
+							?>
+                        </span></p>
+                        <p><label>接入时间：</label><span><?php echo format_time($wechatsInfo['createtime'],zhymd);?></span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="right-col wechat-fans">
+                <div class="content clearfix">
+                    <p class="fans-current">当前粉丝数</p>
+                    <p class="fans-sum"><?php echo $wechatsInfo['fansnumber']?$wechatsInfo['fansnumber']:'-';?></p>
+                    <p class="clearfix">
+                    	<?php if($wechatsInfo['wechattype']==4 && $wechatsInfo['appid'] && $wechatsInfo['appsecret'] && $wechatsInfo['isgetfans']==0 ){ ?>
+                        	<a class="btn-small btn-white fl" data-token="<?php echo $wechatsInfo['token']; ?>" href="javascript:void(0);" title="本功能仅限认证服务号">导入粉丝</a>
+                        <?php }else{ ?>
+                        	<a class="btn-small btn-default fl" href="javascript:void(0);" title="本功能仅限认证服务号">导入粉丝</a><span class="fans-tips fl"><?php echo $wechatsInfo['html']; ?></span>
+                    	<?php } ?>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 筛选条件 -->
+    <div class="group inline-btn-group mb-10">
+        <a data-Permissionsid="6" data-link="{lanrain::U('Wechat/manage',array('wechatid'=>$wechatid))}" class="js-S5Permissions btn-small <?php if($Permissionsid == '6'){echo 'btn-purple';}else{echo 'btn-white';}?>">微信粉丝</a>
+        <a data-Permissionsid="7" data-link="{lanrain::U('Diymen/index',array('wechatid'=>$wechatid))}" class="js-S5Permissions btn-small <?php if($Permissionsid == '7'){echo 'btn-purple';}else{echo 'btn-white';}?>">微信自定义菜单管理</a>
+        <a data-Permissionsid="8" data-link="{lanrain::U('Other/set',array('wechatid'=>$wechatid))}" class="js-S5Permissions btn-small <?php if($Permissionsid == '8'){echo 'btn-purple';}else{echo 'btn-white';}?>">微信自动回复设置</a>
+       <!--  <a href="{lanrain::U('Report/wechatSubscribe',array('wechatid'=>$wechatid))}" class="js-S5Permissions btn-small btn-white">微信运营报表</a>-->
+        <a data-Permissionsid="9" data-link="{lanrain::U('TemplateMessage/Lists',array('wechatid'=>$wechatid))}" class="js-S5Permissions btn-small  <?php if($Permissionsid == '9'){echo 'btn-purple';}else{echo 'btn-white';}?>">微信消息通知模板管理</a>
+        <a data-Permissionsid="10" data-link="{lanrain::U('MemberCustomService/wechatsNew',array('wechatid'=>$wechatid))}" class="js-S5Permissions btn-small <?php if($Permissionsid == '10'){echo 'btn-purple';}else{echo 'btn-white';}?>">微信客服</a>
+        <a data-Permissionsid="11" data-target="_blank" data-link="{lanrain::U('MessageWechats/imageText')}" class="js-S5Permissions btn-small btn-white">微信素材库</a>
+    </div>
+    <!--  API接入页 当点击所有API时的弹窗 -->
+	<div class="popup-wrap wrap-small-1">
+	    <div class="mod small-popup type-1">
+	        <div class="mod-body">
+	            <div class="content text-center">
+	                <h4 class="pb-10">请联系您的专属AE执行</h4>
+	                <h3 class="pb-10"><span id="aename">Crystal</span> : <i class="icon-CallYrAE"></i><span id="aemobile">15026482623</span></h3>
+	                <a class="js-icon-close btn-small btn-white">我知道了</a>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+<script type="text/javascript">
+$('div').on('click','.get-wechat-fans-button',function(){
+	var $this = this;
+	$($this).removeClass('btn-white');
+	$($this).addClass('btn-default');
+	var token = $($this).attr('data-token');
+	$('.wechat-api-nup').html('导入中...');
+	$('.loading').show();
+	$.post("<?php echo U('AutoGetWechatsFans/getWechatFansInfo').'&time='; ?>"+Math.random(),
+			{ token: token},
+			function(data) {
+				$('.loading').hide();
+				if(data.code == 200){
+					$($this).next().html(data.html);
+				}else{
+					$($this).removeClass('btn-default');
+					$($this).addClass('btn-white');
+					$($this).next().html(data.html);
+				}
+		},"json");
+});
+$(".js-call-AE").on("click", function () {
+	$('.loading').show();
+	$.post("<?php echo U('Wechat/ajaxAE').'&time=time()'; ?>"+Math.random(),
+		{},
+		function(data){	  
+			$('.loading').hide();
+			if(data.code == 200){
+				$('#aename').text(data.aename);
+				$('#aemobile').text(data.aemobile);
+				$(".wrap-small-1").fadeIn(120);
+			}else{
+				$(".wrap-small-1").hide();
+				alertTan(data.msg,'error');
+			}
+	},"json");
+    
+})
+</script> 

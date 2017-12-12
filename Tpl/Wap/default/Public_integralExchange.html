@@ -1,0 +1,16 @@
+<div class="float-div span" id="shopCart">
+    <a href="<?php echo U('MallIntegral/shoppCart',array('companyid'=>$companyid));?>"><img class="float-icon" src="{lanrain::RES}/jfsc-img/float-icon.png"></a>
+    <a href="<?php echo U('MallIntegral/shoppCart',array('companyid'=>$companyid));?>"><img class="float-icon1" src="{lanrain::RES}/jfsc-img/float-icon1.png"></a>
+</div>
+<script type="text/javascript">
+$(function(){
+	var cartCou = "<?php echo $cartCou;?>";
+	if(cartCou > 0){
+		$(".float-icon").hide();
+		$(".float-icon1").show();
+	}else{
+		$(".float-icon").show();
+		$(".float-icon1").hide();
+	}
+});
+</script>

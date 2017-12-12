@@ -1,0 +1,279 @@
+<include file="Public:head"/>
+<include file="Public:upload"/>
+ <!--sms短信管理  开始-->
+<div class="content">
+    <!--<a href="javascript:void(0);" style="margin-bottom: 0px;" class=" btn btn-small  btn-primary active">短信账户信息</a>
+    <a href="javascript:void(0);" style="margin-bottom: 0px;" class=" btn btn-small btn-primary ml5">通知类短信</a>
+    <a href="javascript:void(0);" style="margin-bottom: 0px;" class=" btn btn-small btn-primary ml5">营销类短信</a>-->
+    <div id="stats-tab" class="tabpanel js-um-tab mb10">
+        <ul id="tabpanel_items" class="borders">
+            <li particle="install" class="active">短信账户信息</li>
+            <li particle="install_uniq">通知类短信</li>
+            <li particle="active">营销类短信</li>
+
+            <!--v-repeat-->
+        </ul>
+    </div>
+    <!--标签管理-->
+    <div class="tab_actbox_om">
+    <div class="tab_cili_bonx" style="display: block">
+            <div class="wehat_mony mt15">
+                <div class="wehat_moleft">
+                    <div class="wehat_lt_head">
+                        <p class="sendtime">此数据统计截止至：<?php echo format_time($list['sendtime'],ymdhis); ?></p>
+                    </div>
+                    <div class="wehat_lt_main">
+                        <strong>当前剩余短信充值金额：</strong>
+                        <b class="balance"><?php echo $money['0']; ?><i>.<?php echo $money['1']; ?></i></b>
+                        <p>可发送短信条数：<i class="smsnum"><?php echo $list['smsnum']; ?></i>条</p>
+                    </div>
+                </div>
+                <div class="wehat_moright">
+                          <p>0.08<i>元/条</i></p>
+                           <a href="<?php echo U('Home/Order/sms'); ?>" target="_blank" style="margin-bottom: 0px;" class=" btn btn-small btn-primary ml5">立即充值</a>
+                </div>
+            </div>
+            <div class="row-fluid mt15">
+                <div class="span12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">发送历史（最多显示最近30条记录）
+                            <div class="fr"><a class="refresh_history btn-link dunn-reload" href="javascript:void(0);">刷新</a></div>
+                        </div>
+                        <div class="panel-body table-content">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th>发送模板</th>
+                                        <th>短信类型</th>
+                                        <th>发送时间</th>
+                                        <th>送达手机号</th>
+                                        <th>发送状态</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="refresh_history_box">
+                                    <?php foreach($sms as $sKey=>$sVal){ ?>
+                                    <tr>
+                                        <td><?php if($sVal['smstype']==1){ echo $sVal['content'];}else{ if($sVal['noticetype']==3){ echo '注册验证码';}elseif($sVal['noticetype']==2){echo '找回密码验证';}elseif($sVal['noticetype']==1){echo 'DMS绑定银行卡验证';} } ?></td>
+                                        <td><?php if($sVal['smstype']==1){ echo '营销类';}else{echo '通知类';} ?></td>
+                                        <td><div class="offset3"><?php echo format_time($sVal['createtime'],ymdhis); ?></div></td>
+                                        <td><?php echo $sVal['mobile']; ?></td>
+                                        <td><?php if($sVal['smsstate']==2){ echo '成功';}else{echo '失败';} ?></td>
+                                    </tr>
+                                    <?php } ?>
+                                    </tbody>
+                                </table>
+                                <?php if($sms==''){ ?>
+								<div class="noContent">
+									<p class="seek"><i class="seek-icon"></i>暂无</p>
+								</div>
+								<?php } ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="tab_cili_bonx">
+        <div class="row-fluid mt15">
+            <div class="span12">
+            <?php foreach($sendList as $sKey=>$sVal){ ?>
+                <div class="panel panel-default">
+                    <div class="panel-heading"><?php echo $sVal['templetname'];?>
+                        <div class="fr"><span class="mr20 sms_num sms_num_<?php echo $sVal['id'];?>">累计送达：<?php echo $sVal['count']?$sVal['count']:'0';?>条</span><a class="btn-link sms" data-type="<?php echo $sVal['id']; ?>" href="javascript:void(0);">刷新</a></div>
+                    </div>
+                    <div class="panel-body table-content">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" width="100%">
+
+                                <tbody>
+                                <tr>
+                                    <td style="padding: 25px; width:60px;"><div class="offset1">例</div></td>
+                                    <td style="padding: 25px;"><?php echo $sVal['content'];?></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <?php } ?>
+            </div>
+        </div>
+      
+    </div>
+    <div class="tab_cili_bonx">
+        <div class="service-unopen service-unopen-game">
+            注：受工信部政策法规规定，所有营销类短信均需上报审核通过后，方可发送。
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">营销类短信<div class="fr"><a class="btn-link dunn" href="javascript:void(0);"><i class="qjian-plus ">+</i>创建营销类短信任务</a></div></div>
+                    <div class="panel-body table-content">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" border="0" cellspacing="0" cellpadding="0" width="100%">
+                                <thead>
+                                <tr>
+                                    <th>短信内容</th>
+                                    <th>手机号数量</th>
+                                    <th>任务创建时间</th>
+                                    <th>任务状态</th>
+                                    <th>实际扣费</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php foreach($send as $key=>$val){ ?>
+                                <tr>
+                                    <td><div class="offset9b">
+                                        <?php echo $val['content']; ?>
+                                    </div></td>
+                                    <td><?php echo $val['mobilenum'] ?><br /><a href="<?php echo $val['file']; ?>" class="btn-link">下载csv</a></td>
+                                    <td><div class="offset3"><?php echo format_time($val['createtime'],ymdhis); ?></div></td>
+                                    <td><?php if($val['state']==4){ echo '审核成功';}elseif($val['state']==3){echo '审核失败';}elseif($val['state']==2){echo '已完成';}else{echo '人工审核中';}?></td>
+                                    <td><?php if($val['state']==2){ echo $val['money'];}else{ echo '--';}?></td>
+                                </tr>
+								<?php } ?>
+                                </tbody>
+                            </table>
+                            <?php if($page){ ?>
+		                        <div class="pageNavigator">
+								<div class="pages"><?php echo $page;?></div>
+							</div>
+							<?php }else{ ?>
+							<div class="noContent">
+								<p class="seek"><i class="seek-icon"></i>暂无</p>
+							</div>
+							<?php } ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <!--}end:门店设置-->
+
+    </div>
+    </div>
+    <script type="text/javascript">
+        $(function(){
+            $('ul.borders li').click(function(){
+                $(this).addClass('active').siblings().removeClass('active');
+                $('.tab_actbox_om>div.tab_cili_bonx:eq('+$(this).index()+')').show().siblings().hide();
+            });
+           /*  $('.dunn-reload').click(function(){
+        		window.location.reload();
+        	}) */
+        	$('.refresh_history').on("click",function(){
+        		$(".loading").show();
+                $.post("<?php echo U('Sms/ajaxRefreshHistory'); ?>",{},function(data){
+    	           	$(".loading").hide();
+    	            if(data.code == 200){
+    	            	$('.refresh_history_box').empty().append(data.html);
+    	            	$('.balance').empty().append(data.balance);
+    	            	$('.smsnum').text(data.smsnum);
+    	            	$('.sendtime').text(data.sendtime);
+    	            }else{
+    	            	alertTan(data.tips,'error');
+    	            }
+    			}, 'json');
+        	});
+        	$('.sms').on("click",function(){
+        		var type=$(this).attr('data-type');
+        		$(".loading").show();
+                $.post("<?php echo U('Sms/ajaxCount'); ?>",{type:type},function(data){
+                	$(".loading").hide();
+    	            if(data.code == 200){
+    	            	$('.sms_num_'+type).text(data.tips);
+    	            }else{
+    	            	alertTan(data.tips,'error');
+    	            }
+    			}, 'json');
+        	});
+        });
+</script>
+</div>
+
+  <!--弹窗-->
+<div class="new-bomb-box box-menu-tan" style="display: none;">
+    <div class="ui-dialog bomb-animal" style="margin-top: -300px;">
+        <div class="ui-dialog-titlebar">
+            <span class="ui-dialog-title">创建营销类短信任务</span>
+            <a href="javascript:void(0);" class="ui-dialog-titlebar-close quxiao"><span class="ui-icon ui-icon-closethick"></span></a>
+        </div>
+        <div class="ui-dialog-content">
+            <div class="form-horizontal" >
+                <div class="control-group" style="overflow:hidden;">
+                    <label class="control-label" style="text-align:right;">短信内容：</label>
+                    <div class="controls controls1">
+                        <textarea rows="" cols="" style="height:80px;width:280px;" name="rank" id="dunn-content"></textarea>
+
+                    </div>
+                    <p class="help-block" style="margin-left: 125px;">短信内容最多<i class="red">65</i>字一条，且每条短信系统会自动添加“退订回N【签名】”*签名调取您SCRM5中的品牌名称</p>
+                </div>
+
+				<div class="control-group">
+	                <label class="control-label">导入手机号：</label>
+	                <div class="controls">
+	                    <div class="input-prepend">
+	                    	<input type="hidden" name="file" value="" />
+	                        <a href="javascript:void(0);" class="mr5 btn btn-small btn-mint addfile" data-content="37"><i class="icon-cloud-download"></i>上传CSV</a>
+	                        <a href="./Tpl/static/smscellphonenumberlist.csv" class="btn-link">下载导入CSV模板</a>
+	                    </div>
+	                </div>
+	            </div>
+                <!--  <div class="form-actions">
+                          <button type="submit" class="tip_tip_tip4">保存</button><button type="button" class="tip_tip_tip4 ml10 quxiao">取消</button>
+                  </div>-->
+                </div>
+        </div>
+        <div class="ui-dialog-buttonpane">
+            <div class="fr">
+                <button type="submit" class="btn btn-success btn-small mr10 dunn-sub" form="form1">保存</button>
+                <a class="btn btn-gray btn-small quxiao" href="javascript:void(0);">取消</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--.......................-->
+<script>
+    $(function(){
+        $('.dunn').click(function(){
+            $('.new-bomb-box').show();
+        })
+        $('.dunn-hide,.quxiao').click(function(){
+            $('.new-bomb-box').hide();
+        });
+    })
+</script>
+<script type="text/javascript">
+    $(function () {
+        $(".dunn-sub").click(function () {
+            var content = $('#dunn-content').val();
+            var file = $('input[name=file]').val();
+            var bname = "<?php echo $brandname; ?>";
+            var len=bname.length+6;
+            if(content.length+len>70){
+            	alertTan('短信内容最多70字','warn');
+            	return false;
+            }
+            if(file.length<1){
+            	alertTan('请上传csv文件','warn');
+            	return false;
+            }
+            $(".loading").show();
+            $.post("<?php echo U('Sms/ajaxSms'); ?>",{content:content,file:file},function(data){
+	           	$(".loading").hide();
+	            if(data.code == 200){
+		            alertTan(data.msg);
+	            	$('.new-bomb-box').hide();
+	            	setTimeout(function(){
+					    // JS 操作代码
+	            		window.location.href=location.href;
+					},1500);
+	            }else{
+	            	alertTan(data.ms,'error');
+	            }
+			}, 'json');
+        });
+})
+</script>
+<include file="Public:footer"/>

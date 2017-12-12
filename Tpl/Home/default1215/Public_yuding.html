@@ -1,0 +1,113 @@
+<!-- 预约弹窗 -->
+<div class="pupop-wrap js_guide_dredges_link_wrap">
+	<form class="login-form subscribe-form">
+		<i class="icon-close js-icon-close"></i>
+		<div class="input-box">
+			<span class="info-tit">姓名</span>
+			<input class="info-input" name="name" type="text" placeholder="请输入您的姓名">
+		</div>
+		<div class="input-box">
+			<span class="info-tit">手机</span>
+			<input class="info-input" name="mobile" type="tel" placeholder="请输入您的手机">
+		</div>
+		<div class="input-box">
+			<span class="info-tit">公司名称</span>
+			<input class="info-input" name="companyname" type="text" placeholder="请输入您的公司名称或品牌简称">
+		</div>
+		<div class="input-box">
+			<span class="info-tit2">所属行业</span>
+			<select class="info-select pointer" name="industry">
+				<option>请选择行业</option>
+				<option>餐厅</option>
+				<option>酒店旅游</option>
+				<option>亲子</option>
+				<option>教育培训</option>
+				<option>商业地产</option>
+				<option>内容电商</option>
+				<option>食品快消</option>
+				<option>服装</option>
+				<option>咖啡蛋糕</option>
+				<option>公共事业</option>
+				<option>生态优品</option>
+				<option>宠物</option>
+				<option>酒吧会所</option>
+				<option>保健品</option>
+				<option>运动健身</option>
+				<option>美容SPA</option>
+				<option>丽人丽妆</option>
+				<option>3C家电</option>
+				<option>家居生活</option>
+				<option>其他</option>
+			</select>
+		</div>
+		<input class="submit-btn js-sub-asa" type="button" value="立即预约">
+	</form>
+</div>
+<script>
+	$(function(){
+		/* 提交信息 */
+		$(".js-sub-asa").click(function(){
+    	var name = $('input[name="name"]').val();
+        if(name.length<1 || name == false){
+        	alert('请填写真实姓名');
+            return false;
+        }
+        var mobile = $('input[name="mobile"]').val();
+        var yzp = /^(((13[0-9]{1})|(14[579]{1})|(15[012356789]{1})|(17[0135678]{1})|(18[0-9]{1}))+\d{8})$/;
+        if( mobile.length<1 || !yzp.test(mobile)){
+        	alert('请填写正确的手机号');
+            return false;
+        }
+        var companyName = $('input[name="companyname"]').val();
+        if(companyName.length<1 || companyName == false){
+        	alert('请填写正确的公司名称');
+            return false;
+        }
+        var industry = $("select[name='industry']").find("option:selected").text();
+        if(industry == '请选择行业'){
+        	alert('请选择正确的行业');
+            return false;
+        }
+        var businesstype = $(this).attr("data-type");
+        
+        $('.loading').show();
+        $.post("<?php echo U('Index/bookBusiness').'&time='?>"+Math.random(),{businesstype:businesstype,mobile:mobile,name:name,companyname:companyName,industry:industry},function(data){
+        	$('.loading').hide();
+            if(data.code == 200){
+          	  	alert('提交成功');
+          	  	$(".js_guide_dredges_link_wrap").hide();
+          	  	window.location.href=location.href;
+            }else{
+          	  	alert('提交失败网络繁忙<br/>请稍后重试');
+            }
+          },"json");
+	    });
+	});
+
+	$(function(){
+		// 预约开通 
+		$(".js_guide_dredges_link").click(function(){
+			$('input[name="mobile"]').val('');
+			$('input[name="companyname"]').val('');
+			$('input[name="name"]').val('');
+			$("select[name='industry']").find("option:eq(0)").prop("selected",true);
+			$(".js-sub-asa").attr("data-type",$(this).attr("data-type"));
+			$(".js_guide_dredges_link_wrap").fadeIn(120);
+		});
+
+		// 点击Esc 关闭模态框
+		$(document).ready(function () {
+		    $(this).keydown(function (e) {
+		        var escCode = e.keyCode || e.which;
+		        if (escCode == 27) {
+		            $(".popup-wrap").fadeOut(120);
+		        }
+		    })
+		});
+
+        // 关闭按钮
+        $(".js-icon-close").click(function(){
+            $(".pupop-wrap").fadeOut(120);
+        })
+	})
+</script>

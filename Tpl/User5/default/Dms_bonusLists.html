@@ -1,0 +1,41 @@
+<include file="Public:head"/>
+<?php echo $makeTopUrl;?>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4><?php echo $title;?></h4></div>
+    <div class="mod-body">
+        <div class="content">
+            <table class="table type-1 w-auto">
+                <thead>
+                <tr>
+                    <th>时间</th>
+                    <th>金额</th>
+                    <th>备注</th>
+                    <th>操作人</th>
+                </tr>
+                </thead>
+                <?php if($list){?>
+	                <tbody>
+	                	<?php foreach($list as $key=>$val){ ?>
+			                <tr>
+			                    <td><?php echo format_time($val['createtime'], 'ymdhis');?></td>
+			                    <td><?php echo $val['wages'];?></td>
+			                    <td><?php echo $val['note'];?></td>
+			                    <td><?php echo $val['username'];?></td>
+			                </tr>
+		                <?php }?>
+	                </tbody>
+	             <?php }else{?>
+	            	 <tbody><tr><td class="content text-center" colspan="4">暂无</td></tr></tbody>
+	             <?php }?>
+             </table>
+             <?php if($page){ ?>
+             	<div class="group form-footer clearfix">
+					 <div class="pageNavigator">
+						 <div class="pages"><?php echo $page;?></div>
+					 </div>
+	         	</div>
+	         <?php }?>
+        </div>
+    </div>
+</div>
+<include file="Public:footer"/>

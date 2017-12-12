@@ -1,0 +1,50 @@
+.eshopv_fotter_logo {
+    width: 90%;
+    position: absolute;
+    left: 5%;
+}
+
+.eshopv_fotter_logo .eshopv_fotter_lnavit {
+    width: 100%;
+    border-bottom: 2px solid #bfbcc1;
+    -webkit-border-image: url("../img/boe-der.png") 2 stretch;
+    border-top-width: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 1px;
+    overflow: hidden;
+    text-align: center
+}
+
+.eshopv_fotter_logo .eshopv_fotter_lnavit a {
+    padding:15px 6px;
+    display: inline-block;
+    color: #333;
+    font-size: 12px;
+    line-height: 16px;
+}
+.eshopv_fotter_logo .eshopv_fotter_logor {
+    width: 60px;
+    height: 40px;
+    margin: 0 auto;
+    background: url("../img/foot_logo_poi.png") no-repeat;
+    background-size: contain;
+    background-position: 50% 100%;
+}
+
+.eshopv_fotter_logo .eshopv_fotter_logPa {
+    color: #bfbcc1;
+    line-height: 16px;
+    font-size: 10px;
+    padding-top:5px;
+    padding-bottom: 20px;
+    text-align: center;
+    width: 100%;
+    display: block;
+}
+
+
+
+/*编辑器*/
+.list-paddingleft-1,.list-paddingleft-2{padding-left: 16px;}
+ol.list-paddingleft-1 li,ol.list-paddingleft-2 li,ul.list-paddingleft-1 li,ul.list-paddingleft-2 li{list-style-type: inherit;}

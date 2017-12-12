@@ -1,0 +1,64 @@
+<include file="Public:head"/>
+<?php echo $makeTopUrl;?>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>导出任务</h4></div>
+    <div class="mod-body">
+        <table class="table type-1 w-auto">
+            <thead>
+            <tr>
+                <th>时间</th>
+                <th>导出任务名称</th>
+                <th>任务状态</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php if($list){ foreach($list as $key=>$val){?>
+	            <tr>
+	                <td><?php echo format_time($val['createtime'],'ymdhi');?></td>
+	                <td><?php echo $val['name'];?></td>
+	                <td><?php echo $val['state'];?></td>
+	                <td>
+	                	<?php if($val['state'] === 已完成){?>
+	                    	<a class="tips" href="<?php echo $val['downloadpath'];?>" download="<?php echo $val['name'].date('YmdHi',time()).'.csv';?>">下载到本地</a>
+	                   	<?php }?>
+	                    <a href="javascript:void(0);" class="tips delButton" data-id="<?php echo $val['id'];?>">删除</a>
+	                </td>
+	            </tr>
+            <?php }}else{?>
+	            <tr class="text-center not-hover">
+	                <td colspan="4">暂无</td>
+	            </tr>
+            <?php }?>
+            </tbody>
+        </table>
+        <?php if($page){?>
+        <div class="group form-footer clearfix">
+            <div class="group pagination fr">
+            	<?php echo $page;?>
+            </div>
+        </div>
+        <?php }?>
+    </div>
+</div>
+<script type="text/javascript">
+$(function(){
+	// 删除
+    $(".delButton").click(function(){
+    	$(".loading").show();
+    	var id = $(this).attr('data-id');
+       	$.post("<?php echo U('ExportTask/del');?>",{id:id},
+       			function(data){
+	       			$(".loading").hide();
+           			if(data.code == '200'){
+           				alertTan(data.msg);
+           				window.location.reload();
+           			}else{
+           				alertTan(data.msg,'error');
+           			}
+   				},"json"
+   		);
+    });
+});    
+</script>
+<include file="Public:footer"/>

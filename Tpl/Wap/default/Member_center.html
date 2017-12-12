@@ -1,0 +1,47 @@
+<include file="Public:S5NewHead" />
+<div class="usercenter_top">
+	<dl class="userinfo">
+    		<dt><img src="<?php echo session('whead'.$companyid); ?>" ></dt>
+         <dd><?php echo session("wname".$companyid); ?></dd>
+         <dd class="tel"><?php echo $memberInfo['mobile'];?></dd>
+    </dl>
+    <div class="changeinfo js-change-account">账户设置</div>
+</div>
+<div class="shopingstate">
+    <div class="state_box"><a style="color:#fff;" href="<?php echo U('Member/orderList',array('status'=>1)); ?>">待付款<?php if($count['unPay']){ ?><span class="tips1"><?php echo $count['unPay']; ?></span><?php } ?></a></div>
+    <div class="state_box"><a style="color:#fff;" href="<?php echo U('Member/orderList',array('status'=>2)); ?>">待配送<?php if($count['usePay']){ ?><span class="tips2"><?php echo $count['usePay']; ?></span><?php } ?></a></div>
+    <div class="state_box"><a style="color:#fff;" href="<?php echo U('Member/orderList',array('status'=>4)); ?>">已完成<?php if($count['payOk']){ ?><span class="tips3"><?php echo $count['payOk']; ?></span><?php } ?></a></div>
+</div>
+<div class="dl_subnavbg">
+    <a href="<?php echo U('Member/orderList'); ?>"><div class="dl_subnav">
+    <img src="{lanrain::RES}/weixinfeng/images/usercenter_ico1.png" >
+    全部订单
+    <div class="line"></div>
+    </div></a>
+    <a href="<?php echo U('Member/myVouchers'); ?>"><div class="dl_subnav">
+    <img src="{lanrain::RES}/weixinfeng/images/usercenter_ico2.png" >
+    我的优惠券
+    <div class="line"></div>
+    </div></a>
+    <a href="<?php if($remindCount2){ echo U('Remind/index');}else{ echo 'javascript:void(0);';} ?>"><div class="dl_subnav">
+    <?php if($remindCount){ ?><span class="tips4"><?php echo $remindCount; ?></span><?php } ?>
+    <img src="{lanrain::RES}/weixinfeng/images/usercenter_ico3.png" >
+    产品使用提醒
+    </div></a>   
+</div>
+
+<div class="usercenter_bottom_zwf"></div>
+<div class="usercenter_bottom js-mallExhibition-index"><img src="{lanrain::RES}/weixinfeng/images/yxhbzx_banner.jpg" ></div>
+<script>
+$(function(){
+	// 账户设置
+	$('.js-change-account').click(function(){
+		window.location.href="<?php echo U('Member/accountSet',array('mid'=>$memberInfo['id']))?>";
+	});
+	$('.js-mallExhibition-index').click(function(){
+		window.location.href = "<?php echo U('MallExhibitionPartner/index')?>";
+	});
+});
+</script>
+</body> 
+</html>

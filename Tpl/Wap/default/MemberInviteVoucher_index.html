@@ -1,0 +1,228 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1,minimum-scale=1,maximum-scale=1" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta content="telephone=no" name="format-detection">
+    <!-- apple devices fullscreen -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<title><?php echo $pageTitle; ?></title>
+    <!-- ============================公用css+js============================  -->
+	<link href="{lanrain::RES}/public_scrm5/css/font-awesome.min.css?<?php echo C('site_system_file_version'); ?>" rel="stylesheet" type="text/css" />
+	<link href="{lanrain::RES}/public_scrm5/css/new_base.css?sdsd<?php echo C('site_system_file_version'); ?>" rel="stylesheet" type="text/css" />
+	<!-- ============================通底css============================  -->
+	<link href="{lanrain::RES}/public_scrm5/css/bottom.css?<?php echo C('site_system_file_version'); ?>" rel="stylesheet" type="text/css" />
+	<script src="{lanrain::RES}/public_scrm5/js/jquery-1.11.0.min.js" type="text/javascript" ></script>
+    <!-- ============================页面css============================  -->
+	<link href="{lanrain::RES}/Member_Center/css/wap.css?sdlsd<?php echo C('site_system_file_version'); ?>" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+		(function () {
+			document.addEventListener('DOMContentLoaded', function () {
+				var html = document.documentElement;
+				var windowWidth = html.clientWidth;
+				if(windowWidth > 319 && windowWidth <= 330 ){
+					html.style.fontSize = 52 + 'px';
+				} else  if ( windowWidth > 330 && windowWidth < 420 ){
+					html.style.fontSize = 58 + 'px';
+				}else {
+					html.style.fontSize = 50 + 'px';
+				}
+				// alert(windowWidth);
+				// 等价于html.style.fontSize = windowWidth / 640 * 100 + 'px';
+			}, false);
+		})();
+</script>
+</head>
+
+<body>
+<!-- ============================轮播css+js============================  -->
+<link href="{lanrain::RES}/public_scrm5/css/swiper.min.css?<?php echo C('site_system_file_version'); ?>" rel="stylesheet" type="text/css" />
+<script src="{lanrain::RES}/public_scrm5/js/swiper.min.js" type="text/javascript" ></script>
+
+<?php if($iswang==1){ ?>
+<!-- 活动结束的时候 -->
+<section class="content_app  ifoot_padding fzs_bgcolor_f1f0f5 Not-start-ctt" style="">
+	<div class="Invitation-Not-start">
+		<div class="Not-start-box">
+			<img src="{lanrain::RES}/Member_Center/img/yaoqing-yl.png" alt="">
+			<p>本期活动还未开始哟!</p>
+			<a href="<?php echo U('MemberInviteVoucher/index',array('companyid'=>$companyid,'iswang'=>2)); ?>">查看上期奖励</a>
+		</div>
+	</div>
+	<!-- ========公共底部========  -->
+	<div class="eshopv_fotter_logo">
+		<include file="Public:navFooter" />
+	</div>
+</section>
+<?php }elseif($iswang==2){ ?>
+<!-- 下期奖励的 -->
+<section class="content_app  ifoot_padding fzs_bgcolor_f5f5f5" >
+	<div class="Invitation-details">
+		<div class="Invitation-details-Speed">
+			<h6 class="details-Speed-h6">已成功邀请<span><?php echo $yixiaofei; ?></span>好友消费<br/>共获得 <?php echo $info['voucherinfojifen']; ?> 份奖励</h6>
+			<div class="Speed-of-progress">
+				<div class="Speed-Progress-bar"><div style="width:<?php echo $info['voucherinfochae4']?$info['voucherinfochae4']:'0'; ?>%;"></div></div>
+				<img src="{lanrain::RES}/Member_Center/img/yaoqing-lp.png" alt="">
+			</div>
+		</div>
+		<div class="Invitation-Detailed">
+			<h6>邀请明细</h6>
+			
+			<ul>
+			<?php if($info['yixiaofeilist']){ ?>
+			<?php foreach($info['yixiaofeilist'] as $key => $val){ ?>
+				<li>
+					<span><?php if($val['spendingamount']>0){echo '已消费';}else{echo '已注册';} ?></span>
+					<p><?php echo hideLittleMobile($val['moblie']); ?></p>
+				</li>
+			<?php } ?>
+			<?php }else{ ?>
+			<div class="Not-Friends-box">
+				<img src="{lanrain::RES}/Member_Center/img/yaoqing-yl.png" alt="">
+				<p>还未邀请任何好友噢！</p>
+			</div>
+			</ul>
+			<?php } ?>
+		</div>
+	</div>
+
+<!-- ========公共底部========  -->
+	<div class="eshopv_fotter_logo">
+		<include file="Public:navFooter" />
+	</div>
+</section>
+<?php }else{ ?>
+<!-- =================== 邀请送礼===================== -->
+<section class="content_app  ifoot_padding fzs_bgcolor_f5f5f5 footer-bottom-50" >
+	<div class="Invitation-header">
+		<h6>邀请好友加入<?php echo session("cname"); ?></h6>
+		<p>好友可获得以下<?php echo count($info['voucherinfo']); ?>张礼券</p>
+		<a href="javascript:void(0)" class="Invitation-rule-link js-Invitation-rule-link">活动细则<i class="fa fa-angle-right"></i></a>
+	</div>
+	<div class="Invitation-Voucher-fl">
+		<div class="swiper-container Invitation-Voucher">
+			<div class="swiper-wrapper">
+			<?php foreach($info['voucherinfo'] as $key => $val){ ?>
+				<div class="swiper-slide">
+					<div class="Voucher-shadow">
+						<div class="Voucher-border">
+							<div class="Voucher-ctt">
+								<h6 class="Voucher-h6"><?php echo $val['title']; ?></h6>
+								<div class="Voucher-effective">
+									<span><?php echo $vouchertype[$val['vouchertype']]; ?></span>
+									<?php if($val['usetimetype']==1){ ?>
+									<p>在收到券后<?php echo $val['usetimedeferred']; ?>日内有效</p>
+									<?php }elseif($val['usetimetype']==2){ ?>
+									<p><?php echo format_time($val['usestarttime'],'ymd'); ?> 至 <?php echo format_time($val['useendtime'],'ymd'); ?></p>
+									<?php }elseif($val['usetimetype']==3){ ?>
+									<p>本券在<?php echo format_time($val['usestarttime'],'ymd'); ?>当日内有效</p>
+									<?php }else{ ?>
+                                	<p class="con-part-date"><?php if($val['vouchertype']==4){ ?>红包收到后直接进入储值余额<?php } ?></p>
+                                	<?php } ?>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<?php } ?>
+			</div>
+			<div class="swiper-pagination"></div>
+		</div>
+	</div>
+	<img  class="Invitation-sj-img" src="{lanrain::RES}/Member_Center/img/yaoqing-janj.png" alt="">
+	<div class="Invitation-details">
+		<div class="Invitation-details-Speed">
+			<h6 class="details-Speed-h6">已成功邀请<span><?php echo $yixiaofei; ?></span>好友消费<br/>共获得 <?php echo $info['voucherinfojifen']; ?> 份奖励</h6>
+			<div class="Speed-of-progress">
+				<div class="Speed-Progress-bar"><div style="width:<?php echo $info['voucherinfochae4']?$info['voucherinfochae4']:($yixiaofei>0?'100':'0'); ?>%;"></div></div>
+				<img src="{lanrain::RES}/Member_Center/img/yaoqing-lp.png" alt="">
+			</div>
+			<?php if($info['voucherinfochae']==100000){ ?>
+			<p class="details-Speed-p1">您已经获得全部的奖励啦</p>
+			<?php }else{ ?>
+			<p class="details-Speed-p1">再邀请<?php echo $info['voucherinfochae']; ?>位好友消费<br/>可获得<?php echo $info['voucherinfochae2']; ?><?php echo $vouchertype[$info['voucherinfochae3']]; ?></p>
+			<?php } ?>
+		</div>
+		<ul class="Speed-rule-ul">
+		<?php foreach($info['voucherinfo2'] as $key => $val){ ?>
+			<li class="<?php if($yixiaofei>=$val['cansendmaxnum']){echo 'active';} ?>">
+				<span><?php echo $val['cansendmaxnum']; ?>人</span>
+				<p><?php echo $val['vouchername']; ?></p>
+			</li>
+		<?php } ?>
+		</ul>
+		<div class="Invitation-Detailed">
+			<h6>邀请明细</h6>
+			
+			<ul>
+			<?php if($info['yixiaofeilist']){ ?>
+			<?php foreach($info['yixiaofeilist'] as $key => $val){ ?>
+				<li>
+					<span><?php if($val['ismoney']==1){echo '已消费';}else{echo '已注册';} ?></span>
+					<p><?php echo hideLittleMobile($val['moblie']); ?></p>
+				</li>
+			<?php } ?>
+			<?php }else{ ?>
+			<div class="Not-Friends-box">
+				<img src="{lanrain::RES}/Member_Center/img/yaoqing-yl.png" alt="">
+				<p>还未邀请任何好友噢！</p>
+			</div>
+			</ul>
+			<?php } ?>
+		</div>
+	</div>
+<script>
+	var swiper = new Swiper('.swiper-container', {
+		initialSlide:0,
+		pagination : '.swiper-pagination',
+		speed:800,
+		centeredSlides:true,
+		loop: false,
+	});
+</script>
+	<a style="color:#fff" href="<?php echo U('MemberInviteVoucher/info',array('companyid'=>$companyid)); ?>"><div class="Invitation-btn-box"><p><i class="fa fa-heart"></i>邀请好友</p></div></a>
+	<div style="height: 50px;"></div>
+	<!-- ========公共底部========  -->
+	<div class="eshopv_fotter_logo">
+		<include file="Public:navFooter" />
+	</div>
+</section>
+<?php } ?>
+<div class="Invitation-Activity-rules js-Invitation-rule-box">
+	<div class="Invitation-Activity-rules-box">
+		<div class="Invitation-Activity-rules-li">
+			<h6>如何邀请好友？</h6>
+			<p>方法1：<br/>进入会员中心-邀请送礼-邀请好友，分享邀请页面给好友，好友打开后输入手机号即可领取礼券。</p>
+			<!-- <p>方法2：<br/>进入会员中心-邀请送礼-邀请好友，长按保存邀请图片并发送给好友，好友通过邀请图片上的二维码关注公众号，关注后即可获得礼券。</p> -->
+		</div>
+		<div class="Invitation-Activity-rules-li">
+			<h6>怎样算作邀请成功？</h6>
+			<p>通过以上<!-- 两 -->种方式，邀请好友注册成为会员，好友完成首单消费即算作邀请成功，根据你邀请的好友的数量，可获得不同层次的奖励。</p>
+		</div>
+		<div class="Invitation-Activity-rules-li">
+			<h6>奖励何时发放？</h6>
+			<p>当邀请人数达到获奖要求时，系统将在24小时内自动发放相应奖励。</p>
+		</div>
+
+	</div>
+	<div style="text-align: center;"><span class="Invitation-Activity-rules-close js-Invitation-rule-close">关闭</span></div>
+</div>
+<script>
+	$(".js-Invitation-rule-link").click(function(){
+		$(".js-Invitation-rule-box").show();
+		$(".js-Invitation-rule-box").removeClass("right-Eject");
+		$(".js-Invitation-rule-box").addClass("right-bomb");
+	});
+	$(".js-Invitation-rule-close").click(function(){
+		/*$(this).parents(".js-Navigation-box").hide();*/
+		$(".js-Invitation-rule-box").removeClass("right-bomb");
+		$(".js-Invitation-rule-box").addClass("right-Eject");
+	});
+</script>
+
+<include file="Public:weiXinNotShareSet"/>
+<include file="Public:loginBox" />
+</body>
+</html>

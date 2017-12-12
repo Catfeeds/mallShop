@@ -1,0 +1,36 @@
+<include file="Public:S5NewHead" />
+<!--页面css-->
+<link rel="stylesheet" type="text/css" href="{lanrain::RES}/zhanye/css/wap.css?515<?php echo C('site_system_file_version'); ?>">
+<!--展业伙伴海报-->
+<div class="promote-ctt Scrm_index_content js-html2canvas-asa" style="background: url(<?php echo $info['invitationposter']?$info['invitationposter']:'./Tpl/Wap/default/common/zhanye/img/coupons-zbj.jpg'; ?>) no-repeat left top;background-size: 110%;">
+	<div class="invitation-poster">
+		<div class="invitation-poster-logo"><div style="background:url('<?php echo $info['headimgurl']?$info['headimgurl']:'./Tpl/Wap/default/common/zhanye/img/zhanye-mrtx.png'; ?>') no-repeat left top;background-size: 100% 100%;" ></div></div>
+		<div class="invitation-poster-head"><p class="invitation-poster-p1"><span><?php echo $info['name']?$info['name']:$info['nickname']; ?></span>邀请你加入<br/><span><?php echo session("cname"); ?></span></p></div>
+		<div class="invitation-poster-qr-box" style=""><!-- height:246px; -->
+			<img class="invitation-poster-qr" src="<?php echo $info['codeurl']; ?>" alt="">
+			<p class="invitation-poster-p2">扫一扫有惊喜</p>
+			<p class="invitation-poster-p3">长按识别二维码 关注公众号</p>
+		</div>
+	</div>
+</div>
+<!-- 生成网页图片的 -->
+<script src="{lanrain::RES}/html2canvas/html2canvas.js"  type="text/javascript"></script>
+<script>
+	$(window).load(function(){
+		$(".loading").show();
+		setTimeout(function(){
+			test();
+		},2000);
+	});
+	function test(){
+		html2canvas($('.js-html2canvas-asa'), {
+			onrendered: function(canvas) {
+				var data=canvas.toDataURL("image/jpg",1.0);//生成的格式
+				$('.js-html2canvas-asa').html("<img src='"+data+"' />");
+				$(".loading").hide();
+			},
+		});
+	}
+</script>
+<include file="Public:weiXinNotShareSet"/>
+<include file="Public:footer" />

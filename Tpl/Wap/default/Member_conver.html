@@ -1,0 +1,95 @@
+<include file="Public:scrm5Head" />
+<link href="{lanrain::RES}/Member_Center/css/wap.css?<?php echo C('site_system_file_version'); ?>" rel="stylesheet" type="text/css" />
+<!-- =================== 会员中心会员WAP积分换储值===================== -->
+<section class="content_app ifoot_padding fzs_bgcolor_f1f0f5" id="id-conver" >
+	<div class="Membership_head">
+		<p>可用积分：<span><?php echo $info['totalintegration'];?></span></p>
+		<p>储值余额：<span><?php echo $info['accountbalance'];?></span>元</p>
+	</div>
+	<div class="Membership_ipt mt-15">
+		<input type="text" name="Integral"><!--  onkeyup="this.value=this.value.replace(/[^\d]/ig,'')" -->
+	</div>
+	<p class="Membership_rule">会员WAP积分换储值规则：<?php echo $integralconvertmoneyconversion;?>积分=1元</p>
+	<div class="Rank_equity_czbtn"><button class="Stored_value_btn btn_color_yl js_Membership_show">立即换储值</button></div>
+	<!-- ========公共底部======== -->
+    <div class="eshopv_fotter_logo">
+        <include file="Public:navFooter" />
+    </div>
+</section>
+<!-- =================== 会员WAP积分换储值弹窗===================== -->
+<div class="member_Popup Membership_Popup">
+	<div class="member_Popup_ctt">
+		<div class="login_register_Head_portrait Membership_pd">
+			<p class="Membership_p1 js-Membership_p1">0积分可兑换</p>
+			<p class="Membership_p2"><span class="js-Membership_p2">0.00</span>元 储值</p>
+		</div>
+		<div class="login_register_href">
+			<a href="javascript:void(0);" class="register_href cl_hui js_Membership_close">取消</a>
+			<a href="javascript:void(0);" class="login_href" id="js-ajax-ship">立即换储值</a>
+		</div>
+	</div>
+</div>
+<section class="content_Stored_Popup fzs_bgcolor_fff" id="id-conver-success" style="display:none;z-index:10;">
+	<div class="Stored_value_card">
+		<div class="login_register_Head_portrait border_none">
+			<div class="Head_portrait_box"><img src="{lanrain::RES}/Member_Center/img/menber-cccg.png" alt=""></div>
+			<p class="Head_portrait_p color_font_ls">兑换成功</p>
+			<p class="Head_portrait_p color_font_33 mt-85">本次兑换储值</p>
+			<p class="Stored_value_nb color_font_80 js-conver-tips"><span>￥</span>0.00</p>
+		</div>
+		<div class="Stored_value_btn_box mt-55">
+			<button class="Stored_value_btn btn_color_hs">关闭窗口</button>
+		</div>
+		<div class="Stored_value_hst mt-20"><a href="<?php echo U('Storedvalue/historicalValue',array('companyid'=>$companyid));?>">储值历史<img src="{lanrain::RES}/Member_Center/img/menber-rjt1.png" alt=""></a></div>
+	</div>
+</section>
+<script>
+$(".js_Membership_show").click(function(){
+	var totalintegration = "<?php echo $info['totalintegration'];?>";
+	var Integral = jQuery.trim($('input[name="Integral"]').val());
+	if(/[^\d]/ig.test(Integral) || !Integral){
+		alert('请填写正确的积分',3000);
+		return false;
+	}
+	if(totalintegration-Integral < 0){
+		alert('您的积分不足，请重新输入',3000);
+		return false;
+	}
+	$('.loading').show();
+	$.post("<?php echo U('Member/conver',array('companyid'=>$companyid)).'&time=';?>"+Math.random(),{Integral: Integral},function(data){
+		$('.loading').hide();
+        if(data.code == 200){
+        	$(".js-Membership_p1").text(Integral+'积分可兑换');
+        	$(".js-Membership_p2").text(data.tips);
+        	$(".Membership_Popup").show();
+        }else{
+        	alert(data.msg,3000);
+        }
+    },"json");
+});
+// 积分兑换储值
+$("#js-ajax-ship").click(function(){
+	var Integral = jQuery.trim($('input[name="Integral"]').val());
+	$('.loading').show();
+	$.post("<?php echo U('Member/ajaxconver',array('companyid'=>$companyid)).'&time=';?>"+Math.random(),{Integral: Integral},function(data){
+       	$('.loading').hide();
+        if(data.code == 200){
+        	$(".Membership_Popup").hide();
+        	$('.js-conver-tips').html('<span>￥</span>'+data.tips);
+        	$("#id-conver-success").show();
+        }else{
+        	alert(data.msg,3000);
+        }
+    },"json");
+});
+$(".js_Membership_close").click(function(){
+	$(".Membership_Popup").hide();
+});
+$(".btn_color_hs").click(function(){
+	$("#id-conver-success").hide();
+});
+</script>
+<include file="Public:loading"/>
+<include file="Public:scrm5Foot" />
+<include file="Public:weiXinNotShareSet" />
+<include file="Public:loginBox" />

@@ -1,0 +1,60 @@
+<include file="Public:memberCenterHeader"/>
+<include file="Public:memberMallhead"/>
+<link href="{lanrain::RES}/css/app.css?<?php echo C('site_system_file_version'); ?>" rel="stylesheet">
+<style>
+.content-pdbt{padding-top:0px;padding-bottom:60px;}
+</style>
+<div class="eshop-content address-bj content-pdbt">
+	<?php if($opentionList || $notOpentionList){?>
+	<ul class="eshop-address-ul">
+		<?php foreach($opentionList as $key=>$val){?>
+		<li>
+			<input class="eshop-address-ckb isdefault" type="radio" name="isdefault" value="1" data-id="<?php echo $val['id'];?>" <?php if($val['id'] == $addressid){ echo 'checked="checked"';}?>/>
+			<div class="eshop-address-dz">
+				<p class="eshop-address-mzdh"><span><?php echo $val['mobile'];?></span><?php echo $val['name'];?></p>
+				<p class="eshop-address-dzp"><?php echo $val['address'];?></p>
+			</div>
+			<a href="<?php echo U('MemberShopAddress/orderaddressset',array('companyid'=>$companyid,'goodsid'=>$goodsid,'goodsskuid'=>$goodsskuid,'goodsnum'=>$goodsnum,'ordertype'=>$ordertype,'goodtype'=>$goodtype,'addressid'=>$val['id'],'groupid'=>$groupid,'groupinfoid'=>$groupinfoid));?>"><i class="eshop-address-i"><img src="{lanrain::RES}/Eshop/eshop_bj.png"></i></a>
+		</li>
+		<?php }?>
+	</ul>
+	<?php if($notOpentionList){?>
+	<div class="Forbidden-check-box">
+		<h6 class="Forbidden-check-h6">以下地址超出配送范围</h6>
+		<ul class="eshop-address-ul Forbidden-check-ul">
+			<?php foreach($notOpentionList as $notkey=>$notval){?>
+			<li>
+				<input class="eshop-address-ckb isdefault" type="radio" disabled="disabled" />
+				<div class="eshop-address-dz">
+					<p class="eshop-address-mzdh"><span><?php echo $notval['mobile'];?></span><?php echo $notval['name'];?></p>
+					<p class="eshop-address-dzp"><?php echo $notval['address'];?></p>
+				</div>
+				<a href="<?php echo U('MemberShopAddress/orderaddressset',array('companyid'=>$companyid,'goodsid'=>$goodsid,'goodsskuid'=>$goodsskuid,'goodsnum'=>$goodsnum,'ordertype'=>$ordertype,'goodtype'=>$goodtype,'addressid'=>$notval['id'],'groupid'=>$groupid,'groupinfoid'=>$groupinfoid));?>"><i class="eshop-address-i"><img src="{lanrain::RES}/Eshop/eshop_bj.png"></i></a>
+			</li>
+			<?php }?>
+		</ul>
+	</div>
+	<?php }?>
+	<?php }else{?>
+	<div class="No-content"><img src="{lanrain::RES}/Eshop/no-dzicon.png" alt=""></div>
+	<!--<include file="Public:blank" />-->
+	<?php }?>
+	<div class="eshop-address-dw"><a href="<?php echo U('MemberShopAddress/orderaddressset',array('companyid'=>$companyid,'goodsid'=>$goodsid,'goodsskuid'=>$goodsskuid,'goodsnum'=>$goodsnum,'ordertype'=>$ordertype,'goodtype'=>$goodtype,'groupid'=>$groupid,'groupinfoid'=>$groupinfoid));?>"><img src="{lanrain::RES}/Eshop/eshop_jia.png"> 新增收货地址</a></div>
+</div>
+<script>
+$(function(){
+    //设置默认地址
+	$('.isdefault').click(function(){
+		$('.loading').show();
+		var id = $(this).attr('data-id');
+		var ordertype = '<?php echo $ordertype; ?>';
+		if(ordertype == 1){
+			window.location.href="<?php echo C('site_url').U('MemberMallOrder/createOrder',array('companyid'=>$companyid,'goodsid'=>$goodsid,'vouchersid'=>$vouchersid)); ?>"+'&addressid='+id;
+		}else if(ordertype == 2){
+			window.location.href="<?php echo C('site_url').U('MemberMallOrder/createBuyNowOrder',array('companyid'=>$companyid,'goodsid'=>$goodsid,'goodsskuid'=>$goodsskuid,'goodsnum'=>$goodsnum,'goodtype'=>$goodtype,'vouchersid'=>$vouchersid,'groupid'=>$groupid,'groupinfoid'=>$groupinfoid)); ?>"+'&addressid='+id;
+		}
+	});
+});
+</script>
+<include file="Public:weiXinNotShareSet" />
+<include file="Public:footer" />

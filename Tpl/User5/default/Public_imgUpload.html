@@ -1,0 +1,60 @@
+<script src="{lanrain::RES}/js/dist/lrz.bundle.js" type="text/javascript"></script>
+<script>
+$(function(){
+    $('input[name=imgUpload]').on('change', function(){
+    	var width_val = $(this).attr('data-width');
+    	var quality_val = $(this).attr('data-quality');
+    	if(width_val.length<1 || !/^[0-9]*[1-9][0-9]*$/.test(width_val)){   // 默认 120px
+    		width_val = 640;	
+    	}
+    	if(quality_val.length > 0){
+    		if(quality_val < 0 || quality_val > 1 || !/^[0-9]*(\.[0-9]{1,2})?$/.test(quality_val)){
+    			quality_val = 0.7;	
+    		}
+    	}else{
+    		quality_val = 0.7;	
+    	}
+        lrz(this.files[0], {width: width_val, quality: quality_val})
+            .then(function (rst) {
+            	// 成功后执行
+            
+                console.log(rst);
+
+                $.ajax({
+                    url: "<?php echo U('MessageWechats/imgUpload')?>",
+                    type: 'post',
+                    data: {img: rst.base64},
+                    dataType: 'json',
+                    timeout: 200000,
+                    success: function (response) {
+                        if (response.code == 200) {
+                            $("#img").attr('src', rst.base64);
+                        } else {
+                            // return alert(response.msg);
+                            alert('error');
+                            return false;
+                        }
+                    },
+
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        
+                        if (textStatus == 'timeout') {
+                            a_info_alert('请求超时');
+
+                            return false;
+                        }
+
+                        alert(jqXHR.responseText);
+                    }
+                });
+                    
+            })
+            .catch(function (err) {
+				// 失败后执行
+            })
+            .always(function () {
+				// 成功/失败后执行
+            });
+    });
+});
+</script>

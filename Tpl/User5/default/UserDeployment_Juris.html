@@ -1,0 +1,74 @@
+<include file="Public:head" />
+<!-- 管理 > 账号部署 > 账号部署 > ryann的权限设置 -->
+<?php echo $makeTopUrl;?>
+<div class="mod mb-15">
+    <div class="mod-header radius-top clearfix"><h4>SCRM PC权限设置</h4></div>
+    <form class="mod-body" action="javascript:void(0);">
+        <div class="content">
+            <div class="tab-box type-2 js-tab-box pb-20">
+                <div class="hd">
+                    <ul>
+                        <a href="<?php echo U('UserDeployment/Juris',array('id'=>$id));?>"><li <?php if(!$type){echo 'class="on"';}?>><h5>SCRM5权限设置</h5></li></a>
+                        <a href="<?php echo U('UserDeployment/Juris',array('id'=>$id,'type'=>'2'));?>"><li <?php if($type=='2'){echo 'class="on"';}?>><h5>SCRM2.0权限设置</h5></li></a>
+                        <a href="<?php echo U('UserDeployment/Juris',array('id'=>$id,'type'=>'3'));?>"><li <?php if($type=='3'){echo 'class="on"';}?>><h5>风助手权限设置</h5></li></a>
+                    </ul>
+                </div>
+            </div>
+            <ul class="check-list-1-4">
+            	<?php if($type == '2'||$type == '3'){?>
+            	<?php foreach($list as $lkey=>$lval){?>
+            		<li class="group pb-20 js-check-cover">
+	                    <label class="checkbox inline"><input AUTOCOMPLETE="off" class="js-check-all" type="checkbox" name="quanxian" value="<?php echo $lval['id'];?>" <?php if($type=='3'){ if($lval['list']){if(implode(',',array_intersect(explode(',', $userInfo['permissions']),array_map('array_shift',$lval['list']))) == implode(',',array_map('array_shift',$lval['list']))){echo 'checked="checked"';}}else{if(in_array($lval['id'],explode(',', $userInfo['permissions']))){ echo 'checked="checked"';}}}else{if(in_array($lval['id'],explode(',', $userInfo['permissions']))){ echo 'checked="checked"';}}?>><?php echo $lval['name'];?></label>
+	                    <?php if($lval['list']){?>
+	                    <div class="ml-50">
+	                    	<?php foreach($lval['list'] as $key0=>$val0){ if($val0['info']){ foreach($val0['info'] as $key1=>$val1){?>
+	                        <label class="checkbox inline mr-20"><input AUTOCOMPLETE="off" class="js-check-item" name="quanxian" type="checkbox" value="<?php echo $val1['id'];?>" <?php if(in_array($val1['id'],explode(',', $userInfo['permissions']))){ echo 'checked="checked"';}?>><?php echo $val1['name'];?></label>
+	                        <?php }}else{?>
+	                        <label class="checkbox inline mr-20"><input AUTOCOMPLETE="off" class="js-check-item" name="quanxian" type="checkbox" value="<?php echo $val0['id'];?>" <?php if(in_array($val0['id'],explode(',', $userInfo['permissions']))){ echo 'checked="checked"';}?>><?php echo $val0['name'];?></label>
+	                        <?php }}?>
+	                    </div>
+	                    <?php }?>
+	                </li>
+	            <?php }?>    
+                <?php }else{?>
+	            <?php foreach($list as $lkey=>$lval){ ?>
+	            	<div class="inner-header"><h5><?php echo $lval['name'];?></h5></div>
+	            	<?php if($lval['list']){ foreach($lval['list'] as $key0=>$val0){?>
+	                <li class="group pb-20 js-check-cover">
+	                    <label class="checkbox inline"><input AUTOCOMPLETE="off" class="js-check-all" type="checkbox" name="quanxian" value="<?php echo $val0['id'];?>" <?php if(in_array($val0['id'],explode(',', $userInfo['permissions']))){ echo 'checked="checked"';}?>><?php echo $val0['name'];?></label>
+	                    <?php if($val0['info']){?>
+	                    <div class="ml-50">
+	                    	<?php foreach($val0['info'] as $key1=>$val1){?>
+	                        <label class="checkbox inline mr-20"><input AUTOCOMPLETE="off" class="js-check-item" name="quanxian" type="checkbox" value="<?php echo $val1['id'];?>" <?php if(in_array($val1['id'],explode(',', $userInfo['permissions']))){ echo 'checked="checked"';}?>><?php echo $val1['name'];?></label>
+	                        <?php }?>
+	                    </div>
+	                    <?php }?>
+	                </li>
+	            <?php }}}?>
+                <?php }?>
+            </ul>
+        </div>
+        <div class="group form-footer text-center">
+            <input class="btn-small btn-purple w100" id="id-submit" type="submit" value="保存">
+        </div>
+    </form>
+</div>
+<script>
+$('#id-submit').click(function(){
+	var quanxian = ',';
+	$('input[name="quanxian"]:checked').each(function(){
+		quanxian += $(this).val()+',';
+	});
+	$('.loading').show();
+	$.post("<?php echo U('UserDeployment/ajaxJuris',array('id'=>$id,'type'=>$type)).'&time='; ?>"+Math.random(),
+				{quanxian:quanxian},
+				function(data){	
+				$('.loading').hide();
+					alertTan(data.msg,data.type);
+					if(data.type == 'success'){
+   					setTimeout('window.location.reload() ;',1500);
+					}
+			},"json");
+});
+</script>
+<include file="Public:footerV5" />

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="baidu-site-verification" content="pTtbhaXu8t"/>
+    <meta name="baidu-site-verification" content="cMTtIdn0Uv"/>
+    <meta name="sogou_site_verification" content="zCrmegVsvk"/>
+    <meta name="keywords" content="人来风，MobiWind，人来风-MobiWind，会员制移动营销，移动O2O">
+    <meta name="description" content="人来风帮助着超过500家企业和近80万的消费者通过微信进行着沟通。在人来风的管理下，企业每天和消费者在微信上会发生超过10万次的互动。">
+    <title><?php if($title){echo $title;}else{ echo C('site_title');} ?></title>
+    <link rel="shortcut icon" href="{lanrain::RES}/img/favicon.ico"/>
+    <link rel="stylesheet" href="{lanrain::RES}/css/public/scrm5-base.css?<?php echo C('site_system_file_version'); ?>">
+    <link rel="stylesheet"
+          href="{lanrain::RES}/css/public/scrm5-common.css?<?php echo C('site_system_file_version'); ?>">
+    <link rel="stylesheet" href="{lanrain::RES}/css/scrm5-style.css?<?php echo C('site_system_file_version'); ?>">
+    <link rel="stylesheet"
+          href="{lanrain::RES}/js/jQuery-Validation-Engine-2.6.2/css/validationEngine.jquery.css?<?php echo C('site_system_file_version'); ?>">
+    <script src="{lanrain::STATICS}/SCRM5-PlugIn/jquery-1.11.3.min.js"></script>
+    <script src="{lanrain::RES}/js/laydate/laydate.js"></script><!-- 日期选择器 -->
+    <script src="{lanrain::STATICS}/SCRM5-PlugIn/jQuery-Validation-Engine-2.6.2/js/jquery.validationEngine.js"></script>
+    <!-- 表单验证 -->
+    <script src="{lanrain::STATICS}/SCRM5-PlugIn/jQuery-Validation-Engine-2.6.2/js/jquery.validationEngine-zh_CN.js"></script>
+    <!-- 表单验证 -->
+    <script src="{lanrain::STATICS}/SCRM5-PlugIn/Highcharts-4.2.5/js/highcharts.js"></script><!-- 图表  -->
+    <script src="{lanrain::STATICS}/SCRM5-PlugIn/Highcharts-4.2.5/js/modules/exporting.js"></script><!-- 图表  -->
+    <script type="text/javascript" src="http://cdn.hcharts.cn/highcharts-plugins/highcharts-zh_CN.js"></script><!-- 图表  -->
+    <script src="{lanrain::STATICS}/SCRM5-PlugIn/jquery.nicescroll.js"></script><!-- 滚动条 -->
+    <script src="{lanrain::RES}/js/scrm5-common-backups.js"></script><!-- 页面内容 -->
+    <!--<script src="{lanrain::RES}/js/scrm5-common.js"></script>&lt;!&ndash; 页面内容 &ndash;&gt;-->
+    <script src="{lanrain::STATICS}/SCRM5-PlugIn/jquery.SuperSlide.2.1.1.source.js"></script><!-- 交互组件 -->
+    <script src="{lanrain::STATICS}/SCRM5-PlugIn/masonry-docs.js"></script> <!--瀑布流插件-->
+    <script src="{lanrain::STATICS}/SCRM5-PlugIn/clipboard/clipboard.min.js"></script> <!-- 复制 -->
+    <script src="{lanrain::STATICS}/SCRM5-PlugIn/jscolor/jscolor.js"></script> <!--取色器-->
+</head>
+<body>
+<div class="scrm5-wrap">
+    <!-- header begin -->
+    <div class="scrm5-header clearfix">
+        <div class="nav-left">
+            <a class="logo-scrm5" href="javascript:void(0);"><img src="{lanrain::RES}/img/logo-scrm5.png"></a>
+            <a class="logo-company" href="javascript:void(0);">
+                <!-- <span class="logo-company-img" style="background-image:url('{lanrain::RES}/img/favicon.png');"></span> -->
+                <img class="logo-company-img" src="{lanrain::RES}/img/favicon.png">
+                <span class="logo-company-name">公司名称</span>
+            </a>
+        </div>
+        <div class="nav-right">
+            <div class="scrm2-into">
+                <span><a href="http://www.mobiwind.cn/index.php?g=User&m=System&a=systemInfo">SCRM2.0入口</a></span>
+            </div>
+            <div class="fengzhushou">
+                <span>风助手</span>
+                <div class="p-list">
+                    <img class="weichat-code" src="{lanrain::RES}/img/fzs-wechat-code.png">
+                    <span>微信扫码<br>关注风助手</span>
+                </div>
+            </div>
+            <div class="help-center">
+                <span>帮助中心</span>
+            </div>
+            <div class="user-name">
+                <div>
+                    <i class="noti-icon">
+                        <div class="noti-dot">
+                            <span class="dot"></span>
+                            <span class="pulse"></span>
+                        </div>
+                    </i>
+                    <span id="userName">Felix Jiao</span><i class="top-icon"></i>
+                </div>
+                <div class="p-list">
+                    <p>账户管理 <i class="account-icon"></i></p>
+                    <p>系统通知 <i class="message-icon"></i><span class="message-num">6</span></p>
+                    <p>我的导出任务 <i class="mission-icon"></i><span class="mission-num">7</span></p>
+                    <p>退出 <i class="exit-icon"></i></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <include file="Public:StyleHeader"/>

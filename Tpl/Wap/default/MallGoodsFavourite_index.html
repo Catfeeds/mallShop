@@ -1,0 +1,102 @@
+<include file="Public:memberCenterHeader"/>
+<link href="{lanrain::RES}/css/shop-app.css" rel="stylesheet" type="text/css" />
+<section class="app-content">
+  <header class="page-header widget-hd page-header mb15">
+  	<a href="javascript:history.go(-1);"><span class="am-icon-chevron-left" id="btn-back"></span></a>
+  	<h1>我的收藏 My wish list</h1>
+  </header>
+  <section class="pro-item">
+  	<?php if($list){?>
+    <ul id="thelist" class="get-more-list">
+      <?php foreach($list as $val){?>
+      <li>
+        <a href="<?php echo U('MallGoods/goodInfo',array('id'=>$val['goodid'],'companyid'=>$companyid));?>">
+          <div class="pro-img">
+          	<?php if($val['goodtype'] == 1){?>
+          	<img class="scrollLoading" src="<?php echo $val['pic'];?>" />
+          	<?php }else{?>
+          	<?php if($val['vouchertype'] == 1){?>
+	       <article class="virtual-ticket coupon-bg">
+	         <aside class="">
+	           <img src="<?php if(session('clogo')){ echo session('clogo');}else{ echo './Tpl/User/Default/common/images/home/default-share.jpg';}?>" />
+	           <p class="face-value">¥<strong><?php echo $val['pic']['israndom']==1 ? $val['pic']['minparvalue'].' ~ '.$val['pic']['maxparvalue'] : $val['pic']['parvalue'];?></strong></p>
+	           <p class="label">优惠券 <i class="english">Coupon</i></p>
+	         </aside>
+	       </article>
+	       <?php }elseif($val['vouchertype'] == 2){?>
+	       <article class="virtual-ticket gift-bg">
+	         <aside class="">
+	           <img src="<?php if(session('clogo')){ echo session('clogo');}else{ echo './Tpl/User/Default/common/images/home/default-share.jpg';}?>" />
+	           <p class="label">赠品 <i class="english">Gift Voucher</i></p>
+	         </aside>
+	       </article>
+	       <?php }elseif($val['vouchertype'] == 3){?>
+	       <article class="virtual-ticket prepaid-bg">
+	         <aside class="">
+	           <img src="<?php if(session('clogo')){ echo session('clogo');}else{ echo './Tpl/User/Default/common/images/home/default-share.jpg';}?>" />
+	           <p class="face-value">¥<strong><?php echo $val['pic']['parvalue'];?></strong></p>
+	           <p class="label">充值卡 <i class="english">Prepaid card</i></p>
+	         </aside>
+	       </article>
+	       <?php }?>
+          	<?php }?>
+          </div>
+          <article class="pro-txt">
+          	<h2 class="pro-tit"><?php echo $val['title'];?></h2>
+          	<p class="pro-price">
+          		<?php if($val['pricetype'] == 1){?>
+	       		<span>￥<?php echo $val['saleprice'];?></span>
+	       		<?php }else{?>
+	       		<span><?php echo $val['intprice'];?>积分</span>
+	       		<?php }?>
+          	</p>
+          </article>
+        </a>
+        <article class="por-sundry"><span class="delFavourite pro-delete" data-id="<?php echo $val['id']?>">删除 <i class="english">Delete</i></span></article>
+      </li>
+      <?php }?>
+    </ul>
+	<?php if($pages > 1){?>
+	<div class="show-more get-more-button">
+	<a href="javascript:void(0);" class="btn btn-default get-more" data-maxpage="<?php echo $pages;?>" data-page="1">显示更多</a>
+	</div>
+	<?php }}else{?>
+    <include file="Public:blank" />
+    <?php }?>
+  </section>
+</section>
+<script type="text/javascript">
+//显示更多
+$('.get-more').click(function(){
+	var $this = this;
+	var maxpage = $(this).attr('data-maxpage');
+    var page = $(this).attr('data-page');
+    $('.loading').show();
+	$.post("<?php echo U('MallGoodsFavourite/getMoreList',array('companyid'=>$companyid)).'&time=';?>"+Math.random(),{maxpage:maxpage,page:page},function(data){
+		if(data.code == 200){
+			$('.get-more-list').append(data.html);
+	        $($this).attr('data-page',data.page);
+	        if(data.isshow == '2'){
+	        	$('.get-more-button').hide();
+	        }
+	        $('.loading').hide();
+	    }
+	},"json");
+});
+//删除
+$(document).on('click','.delFavourite',function(){
+	var id = $(this).attr('data-id');
+	var $this = this;
+	$.post("<?php echo U('MallGoodsFavourite/delFavourite',array('companyid'=>$companyid)).'&time=';?>"+Math.random(),{id:id},function(data){
+		if(data.code == 200){
+			alert(data.tpis,2000);
+			setTimeout("window.location.href=location.href;",1000);
+			//$($this).parent().parent().remove();
+	    }else{
+	    	alert(data.tips,2000);
+	    }
+	},"json");
+});	 
+</script>
+<include file="Public:weiXinNotShareSet" />
+<include file="Public:memberCenterFooter"/>

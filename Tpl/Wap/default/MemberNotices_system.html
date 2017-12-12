@@ -1,0 +1,89 @@
+<include file="Public:memberCenterHeader"/>
+<link href="{lanrain::RES}/css/message.css?<?php echo C('site_system_file_version'); ?>" rel="stylesheet" type="text/css">
+<div class="message-inform">
+  <ul class="hd">
+    <li class="active"><a href="<?php echo U('MemberNotices/system',array('companyid'=>$companyid))?>"><p>系统通知</p><p>System notification</p></a></li>
+    <li><a href="<?php echo U('MemberNotices/customer',array('companyid'=>$companyid))?>"><p>官方客服</p><p>Customer service</p></a></li>
+  </ul>
+  <div class="message-item">
+    <?php if($list['list']){?>
+    <ul class="system-list">
+      <?php foreach($list['list'] as $val){?>
+      <li>
+        <img src="{lanrain::RES}/img/icon-horn.png" alt=""/>
+        <p class="cent"><?php echo $val['info'];?></p>
+        <time><?php echo format_time($val['createtime'],'ymdhi');?></time>
+        <span class="btn-delete system-delete" data-id="<?php echo $val['id'];?>"><i>×</i></span>
+      </li>
+      <?php }?>
+    </ul>
+    <?php if($list['pages']>1){?>
+    <a class="btn btn-default" href="javascript:void(0);" id="show-more" data-pages="<?php echo $list['pages'];?>" data-page="1">更多</a>
+    <?php }}else{?>
+    <section class="not-info">您当前没有系统通知 No messages available</section>
+    <?php }?>
+  </div>
+</div>
+<script>
+  $(function(){
+    //显示更多
+    $(document).on('click','#show-more',function(){
+      var $pages = $(this).attr('data-pages');
+      var $page = $(this).attr('data-page');
+      var $this = this;
+	  $('.loading').show();
+      $.post("<?php echo U('MemberNotices/ajaxSystemList',array('companyid'=>$companyid)).'&time=';?>"+Math.random(),{pages:$pages,page:$page},function(data){
+        if(data.code == 200){
+		  $($this).attr('data-page',data.page);
+          $('.system-list').append(data.html);
+          if(data.isshow == '2'){
+            $($this).hide();
+          }
+        }
+		$('.loading').hide();
+      },"json");
+    });
+    //领取电子券
+    $('.getVoucher').click(function(){
+      $('.loading').show();
+      var vSendid = $(this).attr('vSendid');
+      var vFrommid = $(this).attr('vFrommid');
+      $.post("<?php echo U('MemberNotices/ajaxGetVoucher',array('companyid'=>$companyid)).'&time=';?>"+Math.random(),
+        {vSendid:vSendid,vFrommid:vFrommid},
+        function(data){
+          if(data.code  == '200'){
+            $('.loading').hide();
+            alert(data.tips,2000,'success');
+          }else if(data.code  == '300'){
+            $('.loading').hide();
+            alert(data.tips,2000);
+          }
+        },"json");
+    });
+    //删除li
+    $(document).on("click",".system-delete",function(){
+    	var id = $(this).attr('data-id');
+    	var $this = this;
+    	$('.loading').show();
+    	$.post("<?php echo U('MemberNotices/removeNotices',array('companyid'=>$companyid)).'&time=';?>"+Math.random(),{id:id},function(data){
+			if(data.code == '200'){
+				alert(data.tips,2000);
+				$($this).parent().remove('li');
+				setTimeout("window.location.href=location.href;",2000);
+			}else if(data.code == '300'){
+			  	alert(data.tips,2000);
+			}
+			$('.loading').hide();
+		},"json");
+    });
+});
+</script>
+<include file="Public:loading" />
+<include file="Public:weiXinNotShareSet" />
+<include file="Public:rightIcon"/>
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F4e9f0b9e0dafddcb1d8ae2528867b1f3' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</body>
+</html>

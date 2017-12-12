@@ -1,0 +1,16 @@
+<include file="Public:loginBoxNoSession" />
+<script>
+$(function(){
+    <?php if(!session('mid'.session('wapcid'))){ ?>
+        $("#id-not-logged-in-box").css("display","block");
+	    $("#id-not-logged-in-box").css("transform","translateY(0)");
+	    $(".js-top-animate").css("transform","translateY(0)");
+	    $(".js-keyboard-animate").css("transform","translateY(0)");
+	    $(".js-login-pop").bind("touchmove",function(e){
+				e.preventDefault();
+		})
+	<?php }else{ ?>
+	   $("#id-not-logged-in-box").css("display","none");
+	<?php } ?>
+});
+</script>

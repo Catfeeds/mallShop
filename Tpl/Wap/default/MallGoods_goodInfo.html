@@ -1,0 +1,303 @@
+<include file="Public:S5NewHead" />
+<!-- 首页 -->
+<div class="page index" style="background:#fff;">
+	<!-- 轮播 -->
+	<div class="swiper-container">
+		<div class="swiper-wrapper">
+			<?php if($info['pic']){ foreach($info['pic'] as $val){?>
+				<div class="swiper-slide slide-01"><img src="<?php echo $val['pic'];?>"></div>
+			<?php }}?>
+		</div>
+		<div class="swiper-pagination"></div>
+	</div>
+	<!-- 产品介绍 -->
+	<div class="product-introduce">
+		<h2><?php echo $info['title'];?></h2>
+		<p><?php echo $info['saleprice'];?></p>
+	</div>
+
+	<!-- 产品选择 -->
+	<div class="product-choice">
+		<p class="freight">
+			<span>运费 :</span><strong>免运费</strong>
+		</p>
+		<p class="choice-inf">
+			<a href="javascript:;" title="更多参数">
+				<span class="js-check-sku-ago">请选择规格 :</span>
+				<span class="js-check-sku-after" style="display:none;">已选 :</span><strong class="assignment-color js-check-sku-after js-check-sku-name" style="display:none;">金色</strong><strong class="assignment-number js-check-sku-after js-check-sku-num" style="display:none;">2台</strong>
+				<b></b>
+			</a>
+		</p>
+	</div>
+	<!-- 立即购买 -->
+	<div class="buy-immediately-btn btn">
+		<a class="js-goods-buy-now" href="javascript:;" title="立即购买">立即购买</a>
+	</div>
+
+	<div class="bjq_style">
+		<?php echo  htmlspecialchars_decode($info['info']); ?>
+	</div>
+	<?php if($indexVoucher<=0){ ?>
+	<!-- 新人见面礼 -->
+
+	<div class="meeting-etiquette-wrap" style="display:;">
+		<div class="meeting-etiquette-box">
+			<h1><?php echo $indexVoucherInfo['title'] ?></h1>
+			<b class="close"></b>
+			<div class="deductible-box">
+				<dl>
+					<dd>
+						<span>￥</span>
+						<strong><?php echo $indexVoucherInfo['reduce'] ?></strong>
+						<em>使用规则：<?php echo $indexVoucherInfo['info']; ?></em>
+					</dd>
+					<dt>
+						<strong><?php if($indexVoucherInfo['type'] == 2){echo '满减券';}elseif($indexVoucherInfo['type'] == 1){echo '立减券';}?></strong>
+						<span>有效期至:  <?php echo $indexVoucherInfo['end_time'] ?></span>
+					</dt>
+				</dl>
+			</div>
+			<a class="close js-add-voucher" href="javascript:;" title="立即收下">立即收下</a>
+		</div>
+	</div>
+	<?php } ?>
+	<!--规格图放大弹窗-->
+	<div class="Zoom-window-Popup" style="display: none;"><img class="Sku-big-img" src="" alt=""></div>
+	<!-- 详情选择 -->
+	<div class="details-choice-wrap">
+		<div class="shade-box"></div>
+		<div class="details-box">
+			<div class="explain">
+				<div class="pic-and-name">
+					<div class="pic-left">
+						<img class="js-sku-img" src="<?php echo $info['pic']['0']['pic'];?>" title="产品">
+					</div>
+					<div class="name-right">
+						<h2><?php echo $info['title'];?></h2>
+						<p class="price js-sku-price"><?php echo $info['saleprice'];?></p>
+					</div>
+				</div>
+				<div class="color-choice clearfix">
+					<span>颜色:</span>
+					<ul>
+						<?php if($info['sku']){ foreach($info['sku'] as $val){?>
+							<li class="skugg-asa" data-price="<?php echo $val['saleprice'];?>" data-stockamount="<?php echo $val['stockamount'];?>" data-originalprice= "<?php echo $val['originalprice'];?>" data-imgurl="<?php echo $val['imgurl'];?>"><?php echo $val['name'];?><input type="radio" name="skuid" value="<?php echo $val['id'];?>"  style="opacity: 0;position:absolute"/><input type="radio" name="skuname" value="<?php echo $val['name'];?>"  style="opacity: 0;position:absolute"/></li>
+						<?php }}?>
+					</ul>
+				</div>
+				<div class="number-choice clearfix">
+					<span>数量:</span>
+					<div>
+						<b class="reduce">-</b>
+						<strong class="number">1</strong>
+						<b class="add">+</b>
+					</div>
+				</div>
+				<a class="next-step-btn js-goods-buy-now" href="javascript:;" title="下一步">下一步</a>
+			</div>
+		</div>
+	</div>
+	<!-- 返回顶部 -->
+	<div class="return-top"><a href="###"></a></div>
+</div>
+<input type="hidden" name="goodnum" value="1"/>
+<script>
+	$(function(){
+	    $(".js-add-voucher").click(function(){
+	        $.post("<?php echo U('MallGoods/addVoucher') ?>",{},function(data){},"json");
+		})
+		// 点击增加数量
+		var number = 0;
+		$('.number-choice').on('click', '.add', function() {
+			number ++
+			if (number >= 99) {
+				number = 99;
+			};
+			$('.number').html(number);
+			$('input[name="goodnum"]').val(number);
+		});
+		// 点击减少数量
+		$('.number-choice').on('click', '.reduce', function() {
+			number --
+			if (number <= 1) {
+				number = 1;
+			};
+			$('.number').html(number);
+			$('input[name="goodnum"]').val(number);
+		});
+		// 开启更多商品参数选项
+		$('.choice-inf').on('click', 'a', function() {
+			$('.details-choice-wrap').fadeIn();
+			$('.details-box').animate({'bottom': '0rem'});
+		});
+		// 关闭更多商品参数选项
+		$('.details-choice-wrap').on('click', '.shade-box', function() {
+			$('.details-choice-wrap').fadeOut();
+			$('.details-box').animate({'bottom': '-13.32rem'});
+			// 获取选择规格 关闭弹窗时显示选择规格以及购买数量
+			var skuid = $('input[name="skuid"]:checked').val();
+			var skuname = $('input[name="skuname"]:checked').val();
+			if(skuid && skuname){
+				$('.js-check-sku-name').text(skuname);
+				$('.js-check-sku-after').show();
+				$('.js-check-sku-ago').hide();
+			}
+			
+			var goodnum = $('input[name="goodnum"]').val();
+			$('.js-check-sku-num').text(goodnum+'台');
+		});
+		// 选择规格
+		$(".skugg-asa").click(function(){
+			$(this).addClass("current").siblings('li').removeClass('current');
+			$('input[name="skuid"]').prop('checked',false);
+			$(this).children('input').prop('checked',true);
+			var imgurl = $(this).attr('data-imgurl');
+			$(".js-sku-price").text($(this).attr('data-price'));
+			$('.js-change-stock').text('库存：'+($(this).attr("data-stockamount")));
+			$('input[name="stockamount"]').val($(this).attr("data-stockamount"));
+			$('.js-sku-originalprice').text($(this).attr("data-originalprice"));
+			if(imgurl){
+				$(".js-sku-img").attr('src',imgurl);
+			}else{
+				$(".js-sku-img").attr('src',"<?php echo $info['pic']['0']['pic'];?>");
+			}
+			// 将商品数量置为1 并且input中的数值改为1
+			$('input[name="goodnum"]').val(1);
+			$('.number').text(1);
+		});
+		/*规格图*/
+		$(".color-choice").css({"max-height":$(window).height()/2});
+		$(document).on("click",".pic-left img",function(){
+			$(".Sku-big-img").attr({"src":$(this).attr("src")});
+			$(".Zoom-window-Popup").show();
+		});
+		$(".Zoom-window-Popup").click(function(){
+			$(this).hide();
+		});
+		// 立即购买
+		$(document).on("click",'.js-goods-buy-now',function(){
+			var goodsid = "<?php echo $info['id'];?>";
+			if(!goodsid || goodsid < 1){
+				layer.msg('<span style="font-size: 30px;">请选择需要购买的商品规格</span>', {time:1000});
+				return false;
+			}
+			var skuid = $('input[name="skuid"]:checked').val();
+			skuid =  skuid ? skuid : '0';
+			if((goodtype=='1')&& (!skuid || skuid<1)){
+				layer.msg('<span style="font-size: 30px;">请选择商品规格</span>', {time:1000});
+				return false;
+			}
+			var goodnum = $('input[name="goodnum"]').val();
+			goodnum = parseInt(goodnum);
+			if(!goodnum || goodnum <1){
+				layer.msg('<span style="font-size: 30px;">请选择需要购买的商品数量</span>', {time:1000});
+				return false;
+			}
+			// 清除规格选中状态，当返回时需要重新选中规格
+			$("input[name='skuid']").removeAttr('checked');
+			window.location.href="<?php echo U('MemberMallOrder/createBuyNowOrder',array('companyid'=>$companyid)); ?>"+'&goodsid='+goodsid+'&goodsskuid='+skuid+"&goodsnum="+goodnum+"&goodtype="+goodtype;
+		});
+		$(window).scroll(function() {
+			var scrollTop = $(this).scrollTop();
+			var scrollHeight = $(document).height();
+			var windowHeight = $(this).height();
+			if ($(document).scrollTop() > 50) {
+				$('.return-top').fadeIn();
+			} else {
+				$('.return-top').fadeOut();
+			}
+		});
+		$('.return-top').click(function() {
+			$('html, body').stop().animate({
+				'scrollTop' : '0'
+			},500);
+		});
+	});
+</script>
+<script src="{lanrain::RES}/weixinfeng/js/layer.js"></script>
+<script src="{lanrain::RES}/weixinfeng/js/swiper-3.3.1.jquery.min.js"></script>
+<script src="{lanrain::RES}/weixinfeng/js/public2.js"></script>
+<script>
+	window.onload = function(){
+	// 功能：-------------------sweiper框架开始----------------------
+		var mySwiper = new Swiper ('.swiper-container', {
+			direction: 'horizontal',  //水平
+			loop: true,
+			pagination: '.swiper-pagination',		// 如果需要分页器
+			nextButton: '.swiper-button-next',		// 如果需要前进后退按钮
+			prevButton: '.swiper-button-prev',		// 如果需要前进后退按钮
+			scrollbarHide: true,
+			autoplay: 5000,							//可选选项，自动滑动
+		})
+	// 功能：-------------------sweiper框架结束----------------------    
+	} 
+</script>
+<script src="./Tpl/Wap/default/common/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript">
+var goodtype = "<?php echo $info['goodtype'];?>";
+var latitude = '';
+var longitude = '';
+var speed = '';
+var accuracy = '';
+var addressid = '';
+var addresstype = '';
+var title = '';
+$(function(){
+	wx.config({
+	  debug: false,
+	  appId: "<?php echo $signPackage['appId'];?>",
+	  timestamp: "<?php echo $signPackage['timestamp'];?>",
+	  nonceStr: "<?php echo $signPackage['nonceStr'];?>",
+	  signature: "<?php echo $signPackage['signature'];?>",
+	  jsApiList: [
+		'getLocation',
+		'onMenuShareTimeline',    
+		'onMenuShareAppMessage',    
+		'onMenuShareQQ',    
+		'onMenuShareWeibo',    
+		'hideMenuItems',    
+		'showMenuItems'
+	  ]
+	});
+	wx.ready(function(){
+		//显示右上角菜单接口
+		wx.showOptionMenu();
+	    // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+	    var diytitle = "<?php echo  $info['sharefriendstitle'] ? htmlspecialchars_decode($info['sharefriendstitle']) : ' ';?>";
+	    var diylink = "<?php echo $info['shareurl'] ? $info['shareurl'] : 'http://' . $_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];?>";
+	    var diyimgUrl = "<?php echo $info['shareimg'] ? $info['shareimg'] : 'http://www.mobiwind.cn/Tpl/Wap/default/common/img/common.jpg'; ?>";
+	    var diydesc = "<?php echo $info['sharedes'] ? htmlspecialchars_decode($info['sharedes']) : ' ';?>";
+	    //获取“分享到朋友圈”
+		wx.onMenuShareTimeline({
+		    title: diytitle, // 分享标题
+		    link: diylink, // 分享链接
+		    imgUrl: diyimgUrl, // 分享图标
+		    success: function (){ 
+		        // 用户确认分享后执行的回调函数
+		    },
+		    cancel: function () { 
+		        // 用户取消分享后执行的回调函数
+		    },
+	        fail: function (res) {
+	         	$('#ceshicontent').html(JSON.stringify(res));
+	        }
+		});
+	    //获取“分享给朋友”
+		wx.onMenuShareAppMessage({
+		    title: diytitle, // 分享标题
+		    link: diylink, // 分享链接
+		    imgUrl: diyimgUrl, // 分享图标
+		    desc: diydesc, // 分享描述
+		    type: '', // 分享类型,music、video或link，不填默认为link
+		    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+		    success: function () { 
+		        // 用户确认分享后执行的回调函数
+		    },
+		    cancel: function () { 
+		        // 用户取消分享后执行的回调函数
+		    }
+		});
+	});
+});
+</script>
+<include file="Public:footer" />

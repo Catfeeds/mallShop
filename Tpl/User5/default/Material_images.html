@@ -1,0 +1,348 @@
+<include file="Public:head"/>
+<include file="Public:upload"/>
+<?php echo $makeTopUrl;?>
+<div class="group inline-btn-group mb-10">
+	<a href="javascript:void(0);" class="btn-small btn-purple">图片</a>
+	<a href="<?php echo U('Material/voices');?>" class="btn-small btn-white">音频</a>
+</div>
+<div class="mod mb-15 resource-bank add-pic">
+	<div class="mod-header radius-top"><h4>图片</h4></div>
+	<div class="mod-body">
+		<div class="js-tab-box add-pic-tab-wrap">
+			<div class="bd">
+				<div class="inner">
+					<div class="inner-top clearfix">
+						<div class="inner-top-group-name fl">
+							<?php if($gid){?>
+							<h4 class="inline"> <?php echo $grouptitle['title'];?></h4>
+							<h4 class="inline"><a class="tips js-rename-group-btn" href="javascript:void(0);"> 重命名 </a></h4>
+							<h4 class="inline"><a class="tips js-delete-group-btn" href="javascript:void(0);"> 删除分组 </a></h4>
+							<?php }else{?>
+							<h4 class="inline"> 全部 </h4>
+							<?php }?>
+							<!-- 编辑分组 -->
+							<div class="rename-group-popup js-rename-group">
+                                <span class="triangle-up-b"></span>
+                                <span class="triangle-up-a"></span>
+                                <h3>编辑名称</h3>
+                                <div class="input-group">
+                                    <input class="w200" type="text" value="<?php echo $grouptitle['title'];?>">
+                                </div>
+                                <div class="move-btn-group">
+                                    <button class="btn-middle btn-purple js-sure editgroup">
+                                        &nbsp;&nbsp;确认&nbsp;&nbsp;</button>
+                                    &nbsp;
+                                    <button class="btn-middle btn-white js-cancel">
+                                        &nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+                                </div>
+                            </div>
+                            <!-- 删除分组 -->
+                            <div class="delete-group-popup js-delete-group-popup-top">
+                                <span class="triangle-up-b"></span>
+                                <span class="triangle-up-a"></span>
+                                <h3>此动作仅能删除分组，组内图片会自动归入“全部”。</h3>
+                                <div class="move-btn-group">
+                                    <button class="btn-middle btn-purple js-sure delgroup">
+                                        &nbsp;&nbsp;确认&nbsp;&nbsp;</button>
+                                    &nbsp;
+                                    <button class="btn-middle btn-white js-cancel">
+                                        &nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+                                </div>
+                            </div>
+						</div>
+						<input type="file" name="files[]" class="js-fileInput-img" multiple="multiple">
+					</div>
+					<div class="inner-body">
+						<div class="inner-body-hd">
+							<label class="checkbox inline js-check-all"><input type="checkbox" class="check-all-sale check-sale" value="">全选</label>
+							<a class="btn-middle btn-default js-hd-move-item" data-ids="" href="javascript:void(0);">移动分组</a>
+							<a class="btn-middle btn-default js-hd-remove-item" data-ids="" href="javascript:void(0);">删除</a>
+							<!-- move group popup -->
+                            <div class="move-group-popup js-hd-move-item-popup">
+                                <span class="triangle-up-b"></span>
+                                <span class="triangle-up-a"></span>
+                                <h3>移动到分组</h3>
+                                <div class="label-group-group">
+                               		<?php if($group){ foreach($group as $key=>$val){?>
+										<label class="radio inline groupids" data-id="<?php echo $val['id'];?>"><input type="radio" name="groups-<?php echo $lval['id'];?>" <?php if($lval['gid'] == $val['id']){echo 'checked="true"';}?>><?php echo $val['title'];?></label>
+									<?php }}?>
+                                </div>
+                                <?php if($group){?>
+                                <div class="move-btn-group">
+                                    <button class="btn-middle btn-purple js-sure groupedit">
+                                        &nbsp;&nbsp;确认&nbsp;&nbsp;</button>
+                                    &nbsp;
+                                    <button class="btn-middle btn-white js-cancel">
+                                        &nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+                                </div>
+                                <?php }?>
+                            </div>
+                            <!-- delete popup -->
+                            <div class="delete-group-popup js-hd-remove-item-popup">
+                                <span class="triangle-up-b"></span>
+                                <span class="triangle-up-a"></span>
+                                <h3>确定删除此素材吗？</h3><br>
+                                <div class="move-btn-group">
+                                    <button class="btn-middle btn-purple js-sure groupdel">
+                                        &nbsp;&nbsp;确认&nbsp;&nbsp;</button> &nbsp;
+                                    <button class="btn-middle btn-white js-cancel">
+                                        &nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+                                </div>
+                            </div>
+						</div>
+						<div class="add-pic-tab">
+							<?php if($lists){ foreach($lists as $lkey=>$lval){?>
+							<div class="edit-pic-box js-inner-box">
+								<i class="edit-pic-box-img" <?php echo 'style="background-image:url('.C('site_url').$lval['imageurl'].')"';?>></i>
+								<label class="checkbox"><input class="check-sale" type="checkbox" name="id[]" value="<?php echo $lval['id'];?>"><?php echo $lval['title'];?></label>
+								<div class="pic-msg-edit clearfix">
+									<a class="edit js-rename-pic" href="javascript:void(0);" title="修改"><i class="icon-resource-bank"></i></a>
+									<span></span>
+									<a class="move js-move-group-to" title="移动分组" href="javascript:void(0);"><i class="icon-resource-bank"></i></a>
+									<span></span>
+									<a class="del js-del" href="javascript:void(0);" title="删除"><i class="icon-resource-bank"></i></a>
+									
+									<!-- 编辑名字 -->
+									<div class="rename-group-popup js-rename-group-popup ">
+                                        <span class="triangle-up-b"></span>
+                                        <span class="triangle-up-a"></span>
+                                        <h3>编辑名称</h3>
+                                        <div class="input-group">
+                                            <input class="w200" type="text" value="<?php echo $lval['title']?>">
+                                        </div>
+                                        <div class="move-btn-group">
+                                            <button class="btn-middle btn-purple js-sure editimgname" data-id="<?php echo $lval['id'];?>">
+                                                &nbsp;&nbsp;确认&nbsp;&nbsp;</button>
+                                            &nbsp;
+                                            <button class="btn-middle btn-white js-cancel">
+                                                &nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+                                        </div>
+                                    </div>
+                                    <!-- 移动分组 -->
+									<div class="move-group-popup js-move-group-popup">
+										<span class="triangle-up-b"></span>
+										<span class="triangle-up-a"></span>
+										<h3>移动到分组</h3>
+										<div class="label-group-group">
+											<?php if($group){ foreach($group as $key=>$val){?>
+												<label class="radio inline groupid" data-id="<?php echo $val['id'];?>"><input type="radio" name="group-<?php echo $lval['id'];?>" <?php if($lval['gid'] == $val['id']){echo 'checked="true"';}?>><?php echo $val['title'];?></label>
+											<?php }}?>
+										</div>
+										<?php if($group){?>
+										<div class="move-btn-group text-center">
+											<button class="btn-middle btn-purple js-sure editgroupid" data-id="<?php echo $lval['id'];?>" data-gid="<?php echo $lval['gid'];?>">
+												&nbsp;&nbsp;确认&nbsp;&nbsp;</button>
+											<button class="btn-middle btn-white js-cancel">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+										</div>
+										<?php }?>
+									</div>
+									<!-- 删除 -->
+									<div class="delete-group-popup js-delete-group-popup">
+                                        <span class="triangle-up-b"></span>
+                                        <span class="triangle-up-a"></span>
+                                        <h3>确定删除此素材吗？</h3><br>
+                                        <div class="move-btn-group">
+                                            <button class="btn-middle btn-purple js-sure delimg" data-id="<?php echo $lval['id'];?>">
+                                                &nbsp;&nbsp;确认&nbsp;&nbsp;</button>
+                                            &nbsp;
+                                            <button class="btn-middle btn-white js-cancel">
+                                                &nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+                                        </div>
+                                    </div>
+								</div>
+							</div>
+							<?php }}?>							
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="hd">
+				<ul>
+					<li class="imggroup" data-id=""><h5><span class="js-new-group-name">全&nbsp; &nbsp;部</span><span class="text-gray">(<?php echo $counts?$counts:'0';?>)</span></h5></li>
+					<?php if($group){ foreach($group as $key=>$val){?>
+						<li class="imggroup <?php if($gid == $val['id']){echo 'on';}?>" data-id="<?php echo $val['id'];?>"><h5><span class="js-new-group-name"><?php echo $val['title'];?></span><span class="text-gray">(<?php echo $val['count']?$val['count']:0;?>)</span></h5></li>
+					<?php }}?>
+					<li class="add-new-group">
+						<h5 class="js-add-new-group"><b>+</b>&nbsp;新建分组</h5>
+						<div class="add-new-group-popup js-add-new-group-popup">
+							<h3>新建分组</h3>
+							<input class="add-new-group-popup-input js-add-new-group-popup-input" type="text">
+							<div class="add-new-group-popup-btn text-center">
+								<a class="btn-middle btn-purple js-sure">&nbsp;&nbsp;确认&nbsp;&nbsp;</a>
+								<a class="btn-middle btn-white js-cancel">&nbsp;&nbsp;取消&nbsp;&nbsp;</a>
+							</div>
+							<span id="triangle-up-b"></span>
+							<span id="triangle-up-a"></span>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- 分页组件 -->
+		<?php if($page){?>
+        <div class="group form-footer clearfix">
+            <div class="group pagination fr">
+                <?php echo $page;?>
+            </div>
+        </div>
+        <?php }?>
+	</div>
+</div>
+<script>
+$(function () {
+	// 顶部的全选移动分组
+    $(".js-hd-move-item").click(function () {
+    	var group = "<?php echo $group;?>";
+        if ($(this).hasClass('btn-white')) {
+        	if(group){
+	            $(this).parent().children(".js-hd-move-item-popup").fadeToggle(120);
+	            $(this).parent().children(".js-hd-remove-item-popup").fadeOut(120);
+        	}else{
+        		alertTan('请先新建分组','warn');
+        	}
+        }
+    });
+ // 移动分组按钮
+    $(document).on("click", ".js-move-group-to", function () {
+    	var group = "<?php echo $group;?>";
+    	if(group){
+    		$(this).parents(".js-inner-box").find(".js-move-group-popup").fadeToggle(120);
+    	}else{
+    		alertTan('请先新建分组','warn');
+    	}
+        
+    });
+	$(document).ready(function(){
+		$('.check-sale').prop("checked", false);
+	});
+	//全选
+	$('.check-all-sale').click(function(){
+	    if ($(this).is(":checked")){
+	      	$('.check-sale').prop("checked", true);
+	    }else{
+	      	$('.check-sale').prop("checked", false);
+	    }
+	});
+	$('.check-sale').click(function(){
+		var id = [];
+		$('input:checkbox:checked').each(function(){
+			id.push($(this).val());
+		});
+		if(id == '' || id == 'on'){
+			$('.js-hd-move-item').removeClass('btn-white').addClass('btn-default');
+			$('.js-hd-remove-item').removeClass('btn-white').addClass('btn-default');
+			$('.check-sale').prop("checked", false);
+		}else{
+			$('.js-hd-move-item').removeClass('btn-default').addClass('btn-white');
+			$('.js-hd-remove-item').removeClass('btn-default').addClass('btn-white');
+		}
+		$('.js-hd-move-item').attr('data-ids',id);
+		$('.js-hd-remove-item').attr('data-ids',id);
+	});
+	//批量删除
+	$('.groupdel').click(function(){
+		$(".loading").show();
+		var id = $('.js-hd-remove-item').attr('data-ids');
+	  	$.post("<?php echo U('Material/delimg');?>",{id:id,type:'image'},
+				function(data){
+	  				window.location.reload();
+				},"json"
+		);
+	});
+	//批量移动
+	$(document).on("click", ".groupids", function () {
+		$('.groupedit').attr('data-gid',$(this).attr('data-id'));
+	});
+	$('.groupedit').click(function(){
+		var id = $('.js-hd-move-item').attr('data-ids');
+		var gid = $(this).attr('data-gid');
+		$(".loading").show();
+		$.post("<?php echo U('Material/editgroupid');?>",{gid:gid,id:id},
+				function(data){
+	  				window.location.reload();
+				},"json"
+		);
+	});
+	/* 点击跳转链接 */
+	$(document).on("click", ".imggroup", function () {
+		var gid = $(this).attr('data-id');
+		if(gid == ''){
+			window.location.href="<?php echo U('Material/images')?>";
+		}else{
+			window.location.href='<?php echo U("Material/images",array("gid"=>"'+gid+'"))?>';
+		}
+	});
+	$(document).on("click", ".delimg", function () {
+		var id = $(this).attr('data-id');
+		$(".loading").show();
+		$.post("<?php echo U('Material/delimg');?>",{id:id,type:'image'},
+				function(data){
+	  				window.location.reload();
+				},"json"
+		);
+	});
+	/* 移动分组 */
+	$(document).on("click", ".groupid", function () {
+		$('.editgroupid').attr('data-gid',$(this).attr('data-id'));
+	});
+	$(document).on("click", ".editgroupid", function () {
+		var id = $(this).attr('data-id');
+		var gid = $(this).attr('data-gid');
+		$(".loading").show();
+		$.post("<?php echo U('Material/editgroupid');?>",{gid:gid,id:id},
+				function(data){
+	  				window.location.reload();
+				},"json"
+		);
+	});
+	/* 编辑分组名称 */
+	$(document).on("click", ".editgroup", function () {
+		var name = $(this).parent().prev().find('.w200').val();
+		var id = '<?php echo $gid;?>';
+		$(".loading").show();
+		$.post("<?php echo U('Material/editname');?>",{type:'group',name:name,id:id},
+				function(data){
+	  				window.location.reload();
+				},"json"
+		);
+	});
+	/* 编辑图片名称 */
+	$(document).on("click", ".editimgname", function () {
+		var name = $(this).parent().prev().find('.w200').val();
+		var id = $(this).attr('data-id');
+		$(".loading").show();
+		$.post("<?php echo U('Material/editname');?>",{type:'img',name:name,id:id},
+				function(data){
+	  				window.location.reload();
+				},"json"
+		);
+	});
+	/* 删除 */
+	$(document).on("click", ".delgroup", function () {
+	  	var gid = '<?php echo $gid?>';
+	  	$(".loading").show();
+	  	$.post("<?php echo U('Material/delgroup');?>",{gid:gid},
+				function(data){
+	  				window.location.href="<?php echo U('Material/images')?>";
+				},"json"
+		);
+	});
+	// 确认按钮
+    $(document).on("click", ".add-new-group .js-sure", function () {
+        var addNewGruopName = $(this).parents(".js-add-new-group-popup").find(".js-add-new-group-popup-input").val();
+        if (addNewGruopName == "") {
+            addNewGruopName = "新建分组";
+        }
+        $(this).parents(".add-new-group").before('<li><h5><span class="js-new-group-name">' + addNewGruopName + '</span><span class="text-gray">(0)</span></h5></li>');
+        //$(this).parents(".add-pic-tab-wrap").find(".bd").append('<div class="inner" style="display: none;"><div class="inner-top clearfix"><div class="inner-top-group-name fl"><h4 class="inline"> 分组一 </h4><h4 class="inline"><a class="tips"> 重命名 </a></h4><h4 class="inline"><a class="tips"> 删除分组 </a></h4></div><a href="javascript:void(0);" class="tips fr"><i class="icon-upload"></i>上传图片</a> </div><div class="inner-body"><div class="inner-body-hd"><label class="checkbox inline js-check-all"><input type="checkbox">全选</label><a class="btn-middle btn-default">移动分组</a><a class="btn-middle btn-default">删除</a></div><div class="add-pic-tab"></div></div></div>');
+        $(this).parents(".js-add-new-group-popup").fadeOut(120).find(".js-add-new-group-popup-input").val("");
+        $(".loading").show();
+        $.post("<?php echo U('Material/addgroup');?>",{name:addNewGruopName},
+			function(data){
+        		window.location.reload();
+			},"json"
+		);
+    });
+});
+</script>
+<include file="Public:footer"/>

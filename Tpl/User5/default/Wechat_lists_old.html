@@ -1,0 +1,109 @@
+<include file="Public:head"/>
+<div class="content">
+	<div class="cLineB">
+		<h4>API接入管理</h4>
+		<label class="fr"><a href="javascript:history.go(-1);" class="btn btn-small btn-gray"><?php echo L('Back');?></a></label>
+	</div>
+	<div class="mb20">
+        <a href="<?php if(!$list){echo C('site_url').U('Wechat/set');}else{echo C('site_url').U('Wechat/set',array('id'=>$list['0']['id']));}?>" class="btn btn-default stopInsertbtn btn-grass">接入微信公众号</a>
+        <span class="btn btn-default no-active stopOpen">接入QQ公众号</span>
+        <span class="btn btn-default no-active stopOpen">接入支付宝窗口</span>
+        <span class="btn btn-default no-active stopOpen">接入百度直达号</span>
+        <span class="btn btn-default no-active stopOpen">接入小米服务号</span>
+    </div>
+		 <div class="row-fluid">
+         <div class="span12">
+             <div class="panel panel-default">
+                 <div class="panel-heading">已接入API</div>
+                 <div class="panel-body table-content">
+                 	<?php if($list){?>
+                     <div class="table-responsive">
+                         <table class="table table-bordered table-striped" border="0" cellspacing="0" cellpadding="0" width="100%">
+                             <thead>
+                             <tr>
+                                 <th>API类型</th>
+                                 <th>接入API名称</th>
+                                 <th>接入时间</th>
+                                 <th>当前粉丝数</th>
+                                 <th>操作</th>
+                             </tr>
+                             </thead>
+                             <tbody>
+                             <volist name="list" id="info">
+                             <tr>
+                                 <td>微信公众号</td>
+                                 <td>
+                                 	<div class="headPic" style="text-align: left">
+										<a href="<?php echo U('Wechat/set',array('id'=>$info['id']));?>"><img src="<?php echo $info['headerpic']; ?>" width="60" height="60"></a>
+										<p class="number" style="text-align: left"><?php echo $info['wxname']; ?></p>
+									</div>
+                                 </td>
+                                 <td><?php echo format_time($info['createtime'],'zhymd');?></td> 
+                                 <td><?php echo $info['fansnumber'];?></td>
+                                 <td style="position: relative">
+                                     <a href="<?php echo U('Wechat/manage',array('companyid'=>$companyid,'id'=>$info['id']))?>" class="btn btn-primary btn-mini app-yu">API管理</a>
+                                     <a href="javascript:void(0);" data-url="<?php echo C('site_url').'/index.php/api/'.$info['token']; ?>" class="btn btn-primary btn-mini app-yu copy-content-button">复制URL</a>
+                                     <a href="javascript:void(0);" data-url="<?php echo $info['token']; ?>" class="btn btn-primary btn-mini app-yu copy-content-button">复制Token</a>
+                                 	 <span class="copyText hide" style="left:-240px;top:32%">{lanrain::L('CopySuc')}</span>
+                                 </td>
+                             </tr>
+                             </volist>
+                             </tbody>
+                         </table>
+                     </div>
+                     <?php }else{?>
+						<div class="noContent">
+							<p class="seek"><i class="seek-icon"></i>当前没有接入任何API</p>
+						</div>
+					<?php } ?>
+					<a href="javascript:void(0);" data-url="<?php echo C('site_url').'/index.php/api/'.$info['token']; ?>" class="btn btn-primary btn-mini app-yu copy-content-button">复制URL</a>
+                                     <a href="javascript:void(0);" data-url="<?php echo $info['token']; ?>" class="btn btn-primary btn-mini app-yu copy-content-button">复制Token</a>
+                                 	
+                 </div>
+             </div>
+         </div>
+     </div>
+</div>
+<!--维护升级弹框-->
+<div class="new-bomb-box bomb-up" style="display: none">
+    <div class="bomb-maintain bomb-animal">
+         <p>本功能维护升级中<br /> 暂停开放</p>
+    </div>
+</div>
+ <!--已接入API提示弹框-->
+<div class="new-bomb-box bomb-up2" style="display: none">
+    <div class="bomb-maintain bomb-animal">
+         <p>本系统已接入API</p>
+    </div>
+</div>
+<script src="{lanrain::STATICS}/zclip/js/jquery.zclip.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function(){
+	$('.copy-content-button').zclip({
+		path: "{lanrain::STATICS}/zclip/js/ZeroClipboard.swf",
+		copy: function(){
+			return $(this).attr('data-url');
+		},
+		afterCopy: function(){
+			$(this).siblings('.copyText').show().fadeOut(2000);
+		}
+	});
+    $('.stopOpen').click(function(){
+        $('.bomb-up').show();
+        setTimeout(function(){
+            $('.bomb-up').hide();
+        },2000);
+    });
+
+});
+$(function(){
+    $('.stopInsert').click(function(){
+        $('.bomb-up2').show();
+        setTimeout(function(){
+            $('.bomb-up2').hide();
+        },2000);
+    });
+
+});
+</script> 
+<include file="Public:footer"/>

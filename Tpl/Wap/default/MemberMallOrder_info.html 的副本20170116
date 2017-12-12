@@ -1,0 +1,103 @@
+<include file="Public:mallHead" />
+<style>
+.content-pdbt{padding-top:0px;}
+.eshop_old_footer.eshopv_fotter_logo{bottom:0;}
+</style>
+<div class="eshop-content">
+	<div class="address_details_ment">
+		<!-- 券商品订单详情 门票计次卡、团购订单详情页 -->
+		<!-- <div class="address_details_cardq">
+			<p class="address_details_state">订单状态：卡券已发送</p>
+		</div> -->
+		<div class="address_details">
+			<p class="address_details_state">订单状态：<?php if($info['orderstatus']==1){ echo '待付款';}elseif($info['orderstatus']==2){ echo '待发货';}elseif($info['orderstatus']==3){ echo '已发货';}elseif($info['orderstatus']==4){ echo '已签收';}elseif($info['orderstatus']==5){ echo '已取消';}elseif($info['orderstatus']==6){ echo '卡券已发送';}elseif($info['orderstatus']==7){ echo '确认到账中';}elseif($info['orderstatus']==8){ echo '退货/退款';}elseif($info['orderstatus']==9){ echo '到期退单';}elseif($info['orderstatus']==10){ echo '随时退单';}elseif($info['orderstatus']==11){ echo '待成团';}?>
+			<?php if($info['orderstatus']==11){?>
+				<a class="address_details_stlink" href="<?php echo U('MallGroupGoods/index',array('companyid'=>$companyid,'groupinfoid'=>$info['groupinfoid']))?>">邀请好友参团</a>
+			<?php }?>
+			</p>
+			<?php if($info['ordertype'] == 1){?>
+			<p class="address_details_mess">物流信息：<?php if($info['logisticsid'] == 1){ echo '顺丰速运';}elseif($info['logisticsid'] == 2){ echo '韵达货运';}elseif($info['logisticsid'] == 3){ echo '圆通速递';}elseif($info['logisticsid'] == 4){ echo '申通快递';}elseif($info['logisticsid'] == 5){ echo '天天快递';}elseif($info['logisticsid'] == 6){ echo '中通速递';}elseif($info['logisticsid'] == 7){ echo '汇通快运';}elseif($info['logisticsid'] == 8){ echo '全峰快递';}elseif($info['logisticsid'] == 9){ echo 'EMS';}elseif($info['logisticsid'] == 10){ echo '宅急送快运';}elseif($info['logisticsid'] == 11){ echo '中国邮政';}elseif($info['logisticsid'] == 12){ echo '黑猫宅急便';}?></p>
+			<p class="address_details_numb">快递单号：<em class="num_Arial"><?php echo $info['logisticsnum'];?></em></p>
+			<?php }?>
+		</div>
+		<?php if($info['ordertype'] == 1){?>
+		<div class="address_details address_details_excep">
+			<p class="address_details_state">收货人：<?php echo $info['consigneename'];?><a href="javascript:void(0);" class="num_tell"><?php echo $info['consigneephone'];?></a></p>
+			<p class="address_details_mess">收货地址：<?php echo $info['consigneeaddress'];?></p>
+		</div>
+		<?php }?>
+	</div>
+	<div class="address_details_remark">
+		<label class="address_details_rtitle">留言：</label><span class="address_details_rCont"><?php echo $info['membernote'];?></span>
+	</div>
+	<div class="details_address_order">
+		<div class="order_myself_cont">
+			<div class="order_myself_num">
+				<p class="order_myself_nmp"><span>订单详情</span></p>
+			</div>
+			<ul class="order_myself_ping">
+				<?php if($info['ordertype']==1 && $info['truegoodtype']==2){foreach( $info['mall'] as $aomKey=>$aomVal){?>
+				<li>
+					<div class="order_myself_drawing"><img src="http://www.mobiwind.cn/Tpl/User/default/common/images/default-ticket.jpg" /></div>
+					<div class="order_myself_pdetail">
+						<p class="order_myself_pname"><?php echo $aomVal['name']; ?></p>
+						<p class="order_myself_pnorms"></p>
+						<p class="order_myself_pprice"><i>￥<em class="num_Arial">0.00</em></i>X<em class="num_Arial">1</em></p>
+					</div>
+				</li>
+				<?php }}else{foreach($info['mall'] as $aomKey=>$aomVal){?>
+				<li>
+					<div class="order_myself_drawing"><img src="<?php echo $aomVal['goodpic'];?>" /></div>
+					<div class="order_myself_pdetail">
+						<p class="order_myself_pname"><?php echo $aomVal['goodname'];?></p>
+						<p class="order_myself_pnorms"></p>
+						<?php if($aomVal['pricetype'] == 1){?>
+						<p class="order_myself_pprice"><i>￥<em class="num_Arial"><?php echo $aomVal['goodprice'] ? $aomVal['goodprice'] : '0.00';?></em></i>X<em class="num_Arial"><?php echo $aomVal['goodnum'] ? $aomVal['goodnum'] : '0';?></em></p>
+						<?php }else{?>
+						<p class="order_myself_pprice"><i>积分<em class="num_Arial"><?php echo $aomVal['goodint'] ? $aomVal['goodint'] : '0.00';?></em></i>X<em class="num_Arial"><?php echo $aomVal['goodnum'] ? $aomVal['goodnum'] : '0';?></em></p>
+						<?php }?>
+					</div>
+					<?php if($info['ordertype']==1 && $info['orderstatus']!=1 && $aomVal['pricetype']==1){?>
+					<div class="order_myself_salebtn">
+						<?php if($aomVal['seid']){?>
+						<a href="<?php echo U('MemberMallOrder/service',array('companyid'=>$companyid,'id'=>$aomVal['seid']));?>" class="order_myself_salsq">售后信息</a>
+						<?php }else{?>
+						<a href="<?php echo U('MemberMallOrder/service',array('companyid'=>$companyid,'orid'=>$info['id'],'ogid'=>$aomVal['id']));?>" class="order_myself_salsq">申请售后</a>
+						<?php }?>
+						<!--  2016-10-24  new  end  -->
+						<!--<a href="javascript:void(0);" class="order_myself_salsq">查看卡券</a>-->
+					</div>
+					<?php }?>
+				</li>
+				<?php }}?>
+			</ul>
+			<div class="details_address_money">
+				<?php if($info['ordertype'] == 1){?>
+				<p class="details_freight_money"><span>运费：</span>￥<em class="num_Arial"><?php echo $info['orderfreight'] ? $info['orderfreight'] : '0.00';?></em></p>
+				<?php }?>
+				<p class="details_order_money"><span>订单总价：</span>
+					<?php if($info['orderint'] > 0){?>
+					<em class="num_Arial"><?php echo $info['orderint'];?></em> 积分
+					<?php }else{?>
+					￥<em class="num_Arial"><?php echo $info['orderprice'];?></em>
+					<?php }?>
+				</p>
+			</div>
+		</div>
+	</div>
+	<div class="details_address_odetel">
+		<ul class="details_address_odeul">
+			<li>订单号：<em class="num_Arial"><?php echo $info['orderid'];?></em></li>
+			<li>下单时间：<em class="num_Arial"><?php echo format_time($info['createtime'],'ymdhi');?></em></li>
+			<li>付款时间：<em class="num_Arial"><?php echo format_time($info['paytime'],'ymdhi');?></em></li>
+			<?php if($info['ordertype'] == 1){?>
+			<li>发货时间：<em class="num_Arial"><?php echo format_time($info['shippingtime'],'ymdhi');?></em></li>
+			<li>签收时间：<em class="num_Arial"><?php echo format_time($info['receivaltime'],'ymdhi');?></em></li>
+			<?php }?>
+		</ul>
+	</div>
+</div>
+<include file="Public:memberActiviesFission"/>
+<?php memberFissionA(array('companyid'=>$companyid,'orderid'=>$info['orderid'],'money'=>$info['orderprice'],'type'=>1,'mid'=>$info['mid'],'paytime'=>$info['paytime'])) ?>
+<include file="Public:weiXinNotShareSet" />
+<include file="Public:mallFooter" />

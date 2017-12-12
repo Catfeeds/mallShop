@@ -1,0 +1,171 @@
+<include file="Public:head"/>
+<?php echo $makeTopUrl;?>
+<div class="group inline-btn-group mb-10">
+    <a class="btn-small btn-white" href="<?php echo U('Member/myClients');?>">我的注册会员</a>
+    <a class="btn-small btn-purple" href="javascript:void(0);">会员标签</a>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>自定义标签</h4></div>
+    <div class="mod-body">
+        <div class="content">
+            <div class="group pb-15">
+                <a class="label_add btn-small btn-white js-Custom-tags">添加自定义标签</a>
+            </div>
+            <div class="mod ticket-destroy-table">
+                <table class="table type-1 w-auto mb-15">
+                    <thead>
+	                    <tr>
+	                        <th>自定义标签名称</th>
+	                        <th>被贴上的会员数量</th>
+	                        <th>操作</th>
+	                    </tr>
+                    </thead>
+                    <?php if($list){?>
+	                    <tbody>
+	                    	<?php foreach($list as $key=>$val){ ?>
+			                    <tr>
+			                        <td><?php echo $val['name'];?></td>
+			                        <td><a href="<?php echo U('Member/myClients',array('membertagsid'=>','.$val['id'].','));?>" class="tips"><?php echo $val['membernum']?$val['membernum']:'0';?></a></td>
+			                        <td>
+			                            <a data-id="<?php echo $val['id'];?>" data-name="<?php echo $val['name'];?>" class="label_update tips" href="javascript:void(0);">编辑</a>
+			                            <a data-id="<?php echo $val['id'];?>" class="label_delete tips" href="javascript:void(0);">删除</a>
+			                        </td>
+			                    </tr>
+		                    <?php }?>
+	                    </tbody>
+                    <?php }else{?>
+                    	<tbody><tr><td class="content text-center" colspan="3">暂无数据</td></tr></tbody>
+                    <?php }?>
+                </table>
+            </div>
+        </div>
+        <?php if($page){?>
+	        <div class="group form-footer clearfix">
+	            <div class="group pagination fr">
+					<?php echo $page;?>
+	            </div>
+	        </div>
+        <?php }?>
+    </div>
+</div>
+
+<script>
+$(function(){
+	// 删除
+	$('.label_delete').on('click', function(){
+		$('.delId').val('');
+		var id = $(this).attr('data-id');
+		if(id.length > 0){
+			$('.delId').val(id);
+			$(".label_delete_box").fadeIn(120);
+		}else{
+			alertTan('抱歉，服务器繁忙，请稍后重试', "warn");
+		}
+	});
+	// 确认删除
+	$('.label_delete_submit').on("click", function(){
+		var id = $('.delId').val();
+		if(id.length > 0){
+			$.post("<?php echo U('MemberGroup/ajaxDeleteLabel',array('companyid'=>$companyid)).'&time='; ?>"+Math.random(),{'id':id},function(data){
+				$(".label_delete_box").fadeOut(120);
+				if(data.code == 200){
+					alertTan(data.tips);
+					setTimeout('location.reload();',1500);
+				}else{
+					alertTan(data.tips, "warn");
+				}
+			},"json");
+		}else{
+			$(".label_delete_box").fadeOut(120);
+			alertTan('抱歉，服务器繁忙，请稍后重试', "warn");
+		}
+	});
+	// 编辑自定义标签
+	$('.label_add').on('click', function(){
+		$('.label_edit_type').text('添加');
+		$('.eidtId').val('');
+		$('.name').val('');
+		$(".label_edit_box").fadeIn(120);
+	});
+    $('.label_update').on("click", function(){
+    	$('.label_edit_type').text('编辑');
+		$('.eidtId').val('');
+		$('.name').val('');
+    	var id = $(this).attr('data-id');
+    	var name = $(this).attr('data-name');
+    	if(id.length > 0){
+    		$('.eidtId').val(id);
+    		$('.name').val(name);
+    		$(".label_edit_box").fadeIn(120);	
+    	}else{
+    		alertTan('抱歉，服务器繁忙', "warn");
+    	}
+    });
+    // 确认编辑
+    $('.label_edit_submit').on("click", function(){
+    	var id = $('.eidtId').val();
+    	var name = $('.name').val();
+    	$.post("<?php echo U('MemberGroup/ajaxEditLabel',array('companyid'=>$companyid)).'&time='; ?>"+Math.random(),{'id':id, 'name':name},function(data){
+    		$(".label_edit_box").fadeOut(120);
+    		if(data.code == 200){
+				alertTan(data.tips);
+				setTimeout('location.reload();',1500);
+			}else{
+				alertTan(data.tips, "warn");
+			}
+		},"json");
+    });
+	
+});
+</script>
+<!-- 删除弹窗 -->
+<div class="label_delete_box popup-wrap wrap-small-1">
+    <div class="mod small-popup type-1">
+        <div class="mod-header"><h4 class="fl">确认删除自定义标签</h4><i class="fr icon-close-dark js-icon-close"></i></div>
+        <div class="mod-body">
+            <input type="hidden" class="delId" />
+            <div class="content">
+                <h5 class="mb-15">确认删除此自定义标签吗?</h5>
+                <p class="mb-15 text-center">
+                    <a class="label_delete_submit btn-small btn-purple js-ok">确 认</a> &nbsp;
+                    <a class="btn-small btn-white js-cancel">取 消</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 添加/修改自定义标签 -->
+<div class="label_edit_box popup-wrap wrap-small-1 js-create-label-popup">
+    <div class="mod small-popup type-1 popup-width400">
+        <div class="mod-header">
+            <h4 class="fl"><span class="label_edit_type">编辑</span>自定义标签</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+            <input type="hidden" class="eidtId" />
+            <div class="content">
+                <div class="group pb-30">
+                    <h6 class="inline w100">自定义标签名称：</h6>
+                    <input class="name inline" style="width:230px;" type="text" placeholder="">
+                    <div class="group">
+                        <span class="inline w100"></span>
+                        <h6 class="inline text-gray">*仅限6个汉字，12个字节</h6>
+                    </div>
+                </div>
+                <p class="text-center mb-15">
+                    <a class="label_edit_submit btn-middle  btn-purple">保 &nbsp;&nbsp; 存</a>
+                    <a class="btn-middle btn-white js-create-label-close">取&nbsp;&nbsp; 消</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(".js-create-label").on("click",function(){
+            $(".js-create-label-popup").fadeIn(120);
+        });
+        $(".js-create-label-close").on("click",function(){
+            $(".js-create-label-popup").fadeOut(120);
+        });
+    </script>
+</div>
+<include file="Public:footer"/>

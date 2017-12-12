@@ -1,0 +1,71 @@
+<include file="Public:head"/>
+<!-- CRM-卡券中心-后台卡券核销 2016-10-26 18:40 -->
+<?php echo $makeTopUrl;?>
+<div class="group inline-btn-group mb-10">
+    <a class="btn-small btn-purple" href="<?php echo U('Vouchers/useVouchers');?>">后台卡券核销</a>
+    <a class="btn-small btn-white" href="<?php echo U('Vouchers/useVouchersList');?>">后台卡券核销记录</a>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>后台卡券核销</h4></div>
+    <div class="mod-body">
+        <div class="content min-h400">
+            <div class="group mb-30 mt-15">
+                <span class="input-search">
+                    <input type="text" class="span2 inline" name="sn" value="<?php echo $sn;?>" placeholder="请输入卡券号">
+                    <button type="submit" class="btn js-ajax-search-voucher">查找卡券</button>
+                </span>
+                <h6 class="text-gray pt-10">支持核销eshop优惠券、门店使用优惠券、兑换券、红包、计次卡、门票、团购、权益卡</h6>
+            </div>
+            <table class="table type-1 w-auto mb-15 ajax-html"></table>
+        </div>
+    </div>
+</div>
+<script>
+	$('.js-ajax-search-voucher').click(function(){
+		var sn = $('input[name="sn"]').val();
+		if(sn.trim() == ''){
+			alertTan('请输入券号','warn');
+			return false;
+		}
+		$('.loading').show();
+		$.post("<?php echo U('Vouchers/ajaxSearchVouchers').'&time='; ?>"+Math.random(),{'sn':sn},function(data){
+			$('.loading').hide();
+			if(data.code == '200'){
+				$(".ajax-html").html(data.html);
+			}else{
+				alertTan(data.tips,'error');
+			}
+		},"json");
+	});
+	$(document).on("click",'.js-confirm-useVouchers',function(){
+		var sn = $(this).attr("data-sn");
+		$('.loading').show();
+		$.post("<?php echo U('Vouchers/ajaxConfirmVouchers').'&time='; ?>"+Math.random(),{'sn':sn},function(data){
+			$('.loading').hide();
+			if(data.code == '200'){
+				alertTan(data.tips);
+				setTimeout(function(){
+					window.location.href="<?php echo U('Vouchers/useVouchersList')?>";
+				},1500);
+			}else{
+				alertTan(data.tips,'error');
+			}
+		},"json");
+	});
+	$(document).on("click",'.js-cancel-useVouchers',function(){
+		var sn = $(this).attr("data-sn");
+		$('.loading').show();
+		$.post("<?php echo U('Vouchers/ajaxCancelVouchers').'&time='; ?>"+Math.random(),{'sn':sn},function(data){
+			$('.loading').hide();
+			if(data.code == '200'){
+				alertTan(data.tips);
+				setTimeout(function(){
+					window.location.href="<?php echo U('Vouchers/useVouchersList')?>";
+				},1500);
+			}else{
+				alertTan(data.tips,'error');
+			}
+		},"json");
+	});
+</script>
+<include file="Public:footer"/>

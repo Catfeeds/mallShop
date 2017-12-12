@@ -1,0 +1,282 @@
+<include file="Public:head"/>
+<?php echo $makeTopUrl;?>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4><?php echo $info['id'] ? '编辑' : '创建';?>整单优惠活动</h4></div>
+    <div class="mod-body">
+        <div class="content">
+            <div class="group pb-10">
+                <h6 class="inline w100">活动名称：</h6>
+                <input class="inline w150" type="text" name="title" value="<?php echo $info['title'];?>">
+            </div>
+            <div class="group laydate-box pb-10">
+                <h6 class="inline w100">*生效时间：</h6>
+                <input class="laydate-input" id="pay-date-3" name="starttime" value="<?php echo format_time($info['starttime'],'ymdhi');?>" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" placeholder="YYYY-MM-DD hh:mm:ss">
+                <i class="icon-laydate" onclick="laydate({elem:'#pay-date-1'});"></i>
+                <span> - </span>
+                <input class="laydate-input" id="pay-date-4" name="endtime" value="<?php echo format_time($info['endtime'],'ymdhi');?>" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" placeholder="YYYY-MM-DD hh:mm:ss">
+                <i class="icon-laydate" onclick="laydate({elem:'#pay-date-2'});"></i>
+            </div>
+            <div class="group pb-10">
+			    <h6 class="inline w100">活动开启关闭：</h6>
+			    <input class="ios-btn" type="checkbox" <?php if($info['isoff'] == 1){ echo 'checked="checked"';}?>>
+			</div>
+            <div class="group pb-10">
+                <h6 class="inline w100">参与人群：</h6>
+                <label class="radio inline"><input type="radio" name="memberclass" value="1" <?php if($info['memberclass'] == 1){ echo 'checked="checked"';}?>>全体会员</label> &nbsp; &nbsp;
+                <label class="radio inline"><input type="radio" name="memberclass" value="2" <?php if($info['memberclass'] == 2){ echo 'checked="checked"';}?>>新注册会员首次下单</label>
+            </div>
+            <div class="group pb-10 ">
+                <h6 class="inline w100 text-top">立享优惠：</h6>
+                <ul class="inline sale-token js-sale-token">
+                	<li>
+	                    <label class="radio pb-10"><input type="radio" name="type" value="1" <?php if($info['type'] == 1){ echo 'checked="checked"';}?>>立减优惠</label>
+	                    <div class="group pb-10" <?php if($info['type'] == 1){ echo 'style="display: block;"';}?>>
+	                        <h6 class="inline w100 text-right">立减：</h6><input class="inline w150" type="text" name="money" value="<?php echo $info['money'] ? $info['money'] : '0.00';?>"> 元
+	                    </div>                	
+                	</li>
+                	<li>
+	                    <label class="radio pb-10"><input type="radio" name="type" value="2" <?php if($info['type'] == 2){ echo 'checked="checked"';}?>>立折优惠</label>
+	                    <div class="group pb-10" <?php if($info['type'] == 2){ echo 'style="display: block;"';}?>>
+	                        <h6 class="inline w100 text-right">立折： </h6><input class="inline w150" type="text" name="discount" value="<?php echo $info['discount'] ? $info['discount'] : '0';?>"> %
+	                    </div>                	
+                	</li>
+                	<li>
+	                    <label class="radio pb-10"><input type="radio" name="type" value="3" <?php if($info['type'] == 3){ echo 'checked="checked"';}?>>满减优惠</label>
+	                    <?php $fulljian = explode('|',$info['fulljian']); foreach($fulljian as $key=>$val){ $val = explode(',',$val);?>
+	                    <div class="group pb-10 activity-1 activity-settings" <?php if($info['type'] == 3){ echo 'style="display: block;"';}?>>
+	                        <h6 class="inline w100 text-right">满：</h6>
+	                        <input class="inline w60" type="text" name="fulljianm<?php echo $key+1;?>" value="<?php echo $val[0] ? $val[0] : '0.00';?>"> 元，减 
+	                        <input class="inline w60" type="text" name="fulljianj<?php echo $key+1;?>" value="<?php echo $val[1] ? $val[1] : '0.00';?>"> 元
+	                        <?php if($key>0){?>
+	                        <a href="javascript:void(0);" class="tips js-del-btn">删除</a>
+	                        <?php }?>
+	                    </div>
+	                    <?php }?>
+	                    <div class="group pb-10" <?php if($info['type'] == 3){ echo 'style="display: block;"';}?>>
+	                        <a class="btn-small btn-white js-add-activity-1">新增一级优惠</a>
+	                        <span class="inline text-gray"> *每级优惠不能累计，最多设置三级优惠</span>
+	                    </div>                	
+                	</li>
+                	<li>
+	                    <label class="radio pb-10"><input type="radio" name="type" value="4" <?php if($info['type'] == 4){ echo 'checked="checked"';}?>>满折优惠</label>
+	                    <?php $fullzhe = explode('|',$info['fullzhe']); foreach($fullzhe as $key=>$val){ $val = explode(',',$val);?>
+	                    <div class="group pb-10 activity-2 activity-settings" <?php if($info['type'] == 4){ echo 'style="display: block;"';}?>>
+	                        <h6 class="inline w100 text-right">满：</h6>
+	                        <input class="inline w60" type="text" name="fullzhem<?php echo $key+1;?>" value="<?php echo $val[0] ? $val[0] : '0.00';?>"> 元，折 
+	                        <input class="inline w60" type="text" name="fullzhez<?php echo $key+1;?>" value="<?php echo $val[1] ? $val[1] : '0';?>"> %
+	                    	<?php if($key>0){?>
+	                        <a href="javascript:void(0);" class="tips js-del-btn">删除</a>
+	                        <?php }?>
+	                    </div>
+	                    <?php }?>
+	                    <div class="group pb-10" <?php if($info['type'] == 4){ echo 'style="display: block;"';}?>>
+	                        <a class="btn-small btn-white js-add-activity-2">新增一级优惠</a>
+	                        <span class="inline text-gray"> *每级优惠不能累计，最多设置三级优惠</span>
+	                    </div>               	
+                	</li>
+                	<li>
+	                    <label class="radio pb-10"><input type="radio" name="type" value="5" <?php if($info['type'] == 5){ echo 'checked="checked"';}?>>满件减优惠</label>
+	                    <?php $fullnumjian = explode('|',$info['fullnumjian']); foreach($fullnumjian as $key=>$val){ $val = explode(',',$val);?>
+	                    <div class="group pb-10 activity-3 activity-settings" <?php if($info['type'] == 5){ echo 'style="display: block;"';}?>>
+	                        <h6 class="inline w100 text-right">满：</h6>
+	                        <input class="inline w60" type="text" name="fullnumjianm<?php echo $key+1;?>" value="<?php echo $val[0] ? $val[0] : '0';?>"> 件，减 
+	                        <input class="inline w60" type="text" name="fullnumjianj<?php echo $key+1;?>" value="<?php echo $val[1] ? $val[1] : '0.00';?>"> 元
+	                    	<?php if($key>0){?>
+	                        <a href="javascript:void(0);" class="tips js-del-btn">删除</a>
+	                        <?php }?>
+	                    </div>
+	                    <?php }?>
+	                    <div class="group pb-10" <?php if($info['type'] == 5){ echo 'style="display: block;"';}?>>
+	                        <a class="btn-small btn-white js-add-activity-3">新增一级优惠</a>
+	                        <span class="inline text-gray"> *每级优惠不能累计，最多设置三级优惠</span>
+	                    </div>
+                	</li>
+                	<li>
+	                    <label class="radio pb-10"><input type="radio" name="type" value="6" <?php if($info['type'] == 6){ echo 'checked="checked"';}?>>满件折优惠</label>
+	                    <?php $fullnumzhe = explode('|',$info['fullnumzhe']); foreach($fullnumzhe as $key=>$val){ $val = explode(',',$val);?>
+	                    <div class="group pb-10  activity-4 activity-settings" <?php if($info['type'] == 6){ echo 'style="display: block;"';}?>>
+	                        <h6 class="inline w100 text-right">满：</h6>
+	                        <input class="inline w60" type="text" name="fullnumzhem<?php echo $key+1;?>" value="<?php echo $val[0] ? $val[0] : '0';?>"> 件，折 
+	                        <input class="inline w60" type="text" name="fullnumzhez<?php echo $key+1;?>" value="<?php echo $val[1] ? $val[1] : '0';?>"> %
+	                        <?php if($key>0){?>
+	                        <a href="javascript:void(0);" class="tips js-del-btn">删除</a>
+	                        <?php }?>
+	                    </div>
+	                    <?php }?>
+	                    <div class="group pb-10" <?php if($info['type'] == 6){ echo 'style="display: block;"';}?>>
+	                        <a class="btn-small btn-white js-add-activity-4">新增一级优惠</a>
+	                        <span class="inline text-gray"> *每级优惠不能累计，最多设置三级优惠</span>
+	                    </div>                	
+                	</li>
+                </ul>
+            </div>
+        </div>
+        <div class="Wechat-msg-bottom text-center">
+            <a class="btn-middle btn-white discouEditButton">下一步</a>
+        </div>
+    </div>
+</div>
+<script>
+$(function(){
+	//-------------------- 保存 ----------------------------------------
+	$(document).on("click",".discouEditButton",function(){
+		var id = "<?php echo $info['id'];?>";
+		var title = $("input[name=title]").val();
+		if(title.trim() == ''){
+			alertTan("请填写活动名称",'warn');
+			return false;
+		}
+		var starttime = $("input[name=starttime]").val();
+		if(starttime.trim() == ''){
+			alertTan("请填写活动开始时间",'warn');
+			return false;
+		}
+		var endtime = $("input[name=endtime]").val();
+		if(endtime.trim() == ''){
+			alertTan("请填写活动结束时间",'warn');
+			return false;
+		}
+		if(starttime >= endtime){
+			alertTan("活动期限有误，请重新填写",'warn');
+			return false;
+		}
+		var isoff = '';
+		var liClass = $('.ios-btn').next().attr('class');
+		if(liClass.indexOf("lcs_on") > 0){
+			isoff = 1; 
+		}else{
+			isoff = 2;
+		}
+		var memberclass = $("input[name=memberclass]:checked").val();
+		var type = $("input[name=type]:checked").val();
+		if(!type){
+			alertTan("请选择优惠类型",'warn');
+			return false;
+		}
+		var money = $("input[name=money]").val();
+		if(type==1 && !money){
+			alertTan("请填写金额",'warn');
+			return false;
+		}
+		var discount = $("input[name=discount]").val();
+		if(type==2 && !discount){
+			alertTan("请填写折扣",'warn');
+			return false;
+		}
+		//满减优惠
+		var fulljianm1 = $("input[name=fulljianm1]").val();
+		var fulljianj1 = $("input[name=fulljianj1]").val();
+		var fulljianm2 = $("input[name=fulljianm2]").val();
+		var fulljianj2 = $("input[name=fulljianj2]").val();
+		var fulljianm3 = $("input[name=fulljianm3]").val();
+		var fulljianj3 = $("input[name=fulljianj3]").val();
+		if(type==3 && (!fulljianm1 || !fulljianj1)){
+			alertTan("请填写满减优惠",'warn');
+			return false;
+		}
+		//满折优惠
+		var fullzhem1 = $("input[name=fullzhem1]").val();
+		var fullzhez1 = $("input[name=fullzhez1]").val();
+		var fullzhem2 = $("input[name=fullzhem2]").val();
+		var fullzhez2 = $("input[name=fullzhez2]").val();
+		var fullzhem3 = $("input[name=fullzhem3]").val();
+		var fullzhez3 = $("input[name=fullzhez3]").val();
+		if(type==4 && (!fullzhem1 || !fullzhez1)){
+			alertTan("请填写满折优惠",'warn');
+			return false;
+		}
+		//满件减优惠
+		var fullnumjianm1 = $("input[name=fullnumjianm1]").val();
+		var fullnumjianj1 = $("input[name=fullnumjianj1]").val();
+		var fullnumjianm2 = $("input[name=fullnumjianm2]").val();
+		var fullnumjianj2 = $("input[name=fullnumjianj2]").val();
+		var fullnumjianm3 = $("input[name=fullnumjianm3]").val();
+		var fullnumjianj3 = $("input[name=fullnumjianj3]").val();
+		if(type==5 && (!fullnumjianm1 || !fullnumjianj1)){
+			alertTan("请填写满件减优惠",'warn');
+			return false;
+		}
+		//满件折优惠
+		var fullnumzhem1 = $("input[name=fullnumzhem1]").val();
+		var fullnumzhez1 = $("input[name=fullnumzhez1]").val();
+		var fullnumzhem2 = $("input[name=fullnumzhem2]").val();
+		var fullnumzhez2 = $("input[name=fullnumzhez2]").val();
+		var fullnumzhem3 = $("input[name=fullnumzhem3]").val();
+		var fullnumzhez3 = $("input[name=fullnumzhez3]").val();
+		if(type==6 && (!fullnumzhem1 || !fullnumzhez1)){
+			alertTan("请填写满件折优惠",'warn');
+			return false;
+		}
+		$('.loading').show();
+		$.post("<?php echo U('EshopDiscount/set').'&time=';?>"+Math.random(),{
+			id:id,
+			title:title,
+			starttime:starttime,
+			endtime:endtime,
+			isoff:isoff,
+			memberclass:memberclass,
+			type:type,
+			money:money,
+			discount:discount,
+			fulljianm1:fulljianm1,fulljianj1:fulljianj1,
+			fulljianm2:fulljianm2,fulljianj2:fulljianj2,
+			fulljianm3:fulljianm3,fulljianj3:fulljianj3,
+			fullzhem1:fullzhem1,fullzhez1:fullzhez1,
+			fullzhem2:fullzhem2,fullzhez2:fullzhez2,
+			fullzhem3:fullzhem3,fullzhez3:fullzhez3,
+			fullnumjianm1:fullnumjianm1,fullnumjianj1:fullnumjianj1,
+			fullnumjianm2:fullnumjianm2,fullnumjianj2:fullnumjianj2,
+			fullnumjianm3:fullnumjianm3,fullnumjianj3:fullnumjianj3,
+			fullnumzhem1:fullnumzhem1,fullnumzhez1:fullnumzhez1,
+			fullnumzhem2:fullnumzhem2,fullnumzhez2:fullnumzhez2,
+			fullnumzhem3:fullnumzhem3,fullnumzhez3:fullnumzhez3
+		},function(data){
+            $('.loading').hide();
+            alertTan(data.tips, data.code);
+            if(data.code == 'success'){
+				window.location.href = "<?php echo U('EshopDiscount/goodSet',array('companyid'=>$companyid,'id'=>'"+data.id+"'));?>";
+            }
+        }, "json");
+	});
+	//-------------------- 添加优惠 ----------------------------------------
+    $(document).on("click",".js-add-activity-1",function(){
+        var activityLen = $(".activity-1").length;
+        if(activityLen<3){
+            activityLen = activityLen+1;
+            $(this).before(' <div class="group pb-10 activity-1 activity-settings"> <h6 class="inline w100 text-right">满：</h6> <input class="inline w60" type="text" name="fulljianm'+activityLen+'" value="0.00"> 元，减 <input class="inline w60" type="text" name="fulljianj'+activityLen+'" value="0.00"> 元 <a href="javascript:void(0);" class="tips js-del-btn">删除</a> </div>');
+        };
+        $(this).parent().parent().find(".group").show();
+    });
+    $(document).on("click",".js-add-activity-2",function(){
+        var activityLen = $(".activity-2").length;
+        if(activityLen<3){
+            activityLen = activityLen+1;
+            $(this).before('<div class="group pb-10 activity-2 activity-settings"> <h6 class="inline w100 text-right">满：</h6> <input class="inline w60" type="text" name="fullzhem'+activityLen+'" value="0.00"> 元，折 <input class="inline w60" type="text" name="fullzhez'+activityLen+'" value="0"> % <a href="javascript:void(0);" class="tips js-del-btn">删除</a> </div>');
+        };
+        $(this).parent().parent().find(".group").show();
+    });
+    $(document).on("click",".js-add-activity-3",function(){
+        var activityLen = $(".activity-3").length;
+        if(activityLen<3){
+            activityLen = activityLen+1;
+            $(this).before('<div class="group pb-10 activity-3 activity-settings"> <h6 class="inline w100 text-right">满：</h6> <input class="inline w60" type="text" name="fullnumjianm'+activityLen+'" value="0"> 件，减 <input class="inline w60" type="text" name="fullnumjianj'+activityLen+'" value="0.00"> 元 <a href="javascript:void(0);" class="tips js-del-btn">删除</a> </div>');
+        };
+        $(this).parent().parent().find(".group").show();
+    });
+    $(document).on("click",".js-add-activity-4",function(){
+        var activityLen = $(".activity-4").length;
+        if(activityLen<3){
+            activityLen = activityLen+1;
+            $(this).before('<div class="group pb-10  activity-4 activity-settings"> <h6 class="inline w100 text-right">满：</h6> <input class="inline w60" type="text" name="fullnumzhem'+activityLen+'" value="0"> 件，折 <input class="inline w60" type="text" name="fullnumzhez'+activityLen+'" value="0"> % <a href="javascript:void(0);" class="tips js-del-btn">删除</a> </div>');
+        };
+        $(this).parent().parent().find(".group").show();
+    });
+	//-------------------- 移除优惠 ----------------------------------------
+    $(document).ready(function(){
+        $(document).delegate(".js-del-btn","click",function(){
+            $(this).parents(".activity-settings").remove();
+        });
+    });
+});
+</script>
+<include file="Public:footer"/>

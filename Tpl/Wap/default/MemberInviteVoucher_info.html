@@ -1,0 +1,99 @@
+<include file="Public:S5NewHead"/>
+<link rel="stylesheet" type="text/css" href="{lanrain::RES}/Coupons_index/Coupons_index.css?515<?php echo C('site_system_file_version'); ?>">
+<!--邀请好友页面-->
+<section class="Invitation-ctt Scrm_index_content js-html2canvas-asa" style="display:block;background: url('<?php echo $info['bgurl']; ?>') repeat-y;background-size: 100%;">
+	<div class="Invitation-pdbox">
+		<div class="Invitation-area">
+			<div class="Invitation-qr-Head">
+				<div class="Invitation-Head" style="background:url('<?php echo $info['headimgurl']?$info['headimgurl']:'./Tpl/Home/default1215/common/img/avatar.jpg'; ?>') no-repeat;background-size: 60px;"></div>
+				<p class="Invite-people-p"><?php echo $info['name']?$info['name']:($info['nickname']?$info['nickname']:'匿名'); ?>邀您加入<?php echo session("cname"); ?></p>
+				<p class="Invite-people-describes"><?php echo $info['invitlanguage']; ?></p>
+				<img class="Invitation-qr-img" src="<?php echo $info['codeurl']; ?>" alt="">
+				<p class="Invite-qr-p">关注公众号可获得<?php echo count($info['voucherinfo']); ?>张礼券</p>
+			</div>
+			<div class="Invitation-Voucher-head">
+				<img src="<?php echo session('clogo'); ?>" alt="">
+				<h6><?php echo session("cname"); ?></h6>
+			</div>
+			<ul class="Invitation-Voucher-ul">
+			<?php foreach($info['voucherinfo'] as $key => $val){ ?>
+				<li>
+					<div class="Invitation-Voucher-box">
+						<h6><?php echo $val['title']; ?></h6>
+						<div class="Invitation-Voucher-Term">
+							<span><?php echo $vouchertype[$val['vouchertype']]; ?></span>
+							<?php if($val['usetimetype']==1){ ?>
+							<p>在收到券后<?php echo $val['usetimedeferred']; ?>日内有效</p>
+							<?php }elseif($val['usetimetype']==2){ ?>
+							<p><?php echo format_time($val['usestarttime'],'ymd'); ?> 至 <?php echo format_time($val['useendtime'],'ymd'); ?></p>
+							<?php }elseif($val['usetimetype']==3){ ?>
+							<p>本券在<?php echo format_time($val['usestarttime'],'ymd'); ?>当日内有效</p>
+							<?php } ?>
+						</div>
+					</div>
+					<i class="icon-Half-left"></i>
+					<i class="icon-Half-right"></i>
+				</li>
+				<?php } ?>
+			</ul>
+		</div>
+	</div>
+</section>
+<ul class="Save-share-ul">
+	<li class="js-Save-btn">
+		<span>保存图片</span>
+	</li>
+	<li class="js-share-btn">
+		<span>分享链接</span>
+	</li>
+</ul>
+
+
+
+
+<!--提示保存图片弹窗-->
+<div class="save-img-Popup js-save-Popup">
+	<img class="save-img-Prompt" src="{lanrain::RES}/S5_img/Coupons_img/Invitation-ts.jpg" alt="">
+</div>
+
+<!--提示保存图片弹窗-->
+<div class="save-img-Popup js-share-Popup">
+	<img class="share-img-Prompt" src="{lanrain::RES}/S5_img/Coupons_img/Invitation-ts1.jpg" alt="">
+</div>
+<script>
+	$(".js-Save-btn").click(function(){
+		//alert("功能开发中，敬请期待",2000);
+		alert("长按保存图片,发送给好友",2000);
+		//$(".js-save-Popup").fadeIn();
+	})
+	$(".js-share-btn").click(function(){
+		$(".js-share-Popup").fadeIn();
+	})
+	$(".save-img-Popup").click(function(){
+		$(this).fadeOut();
+	})
+</script>
+
+
+<!-- 生成网页图片的 -->
+<script src="{lanrain::RES}/html2canvas/html2canvas.js"  type="text/javascript"></script>
+
+<script>
+ $(function(){
+	$(".loading").show();
+	setTimeout(test(),1000);
+});
+
+function test(){
+	html2canvas($('.js-html2canvas-asa'), {
+	    onrendered: function(canvas) {
+	      var data=canvas.toDataURL("image/png");//生成的格式
+	      $('.js-html2canvas-asa').html("<img src='"+data+"' />");
+	      $(".loading").hide();
+	    }
+	});
+}
+</script>
+<include file="Public:loginBox" />
+<include file="Public:weiXinShareSet"/>
+<include file="Public:footer"/>

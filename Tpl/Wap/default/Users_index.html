@@ -1,0 +1,45 @@
+<include file="Public:packetHeader"/>
+<div class="shield-index">
+    <div class="shield-header">
+        <img src="{lanrain::RES}/images/sucee-icon.png">
+        <p>管理员个人微信验证已成功，您可以
+            通过个人微信安全登录了</p>
+    </div>
+    <div class="shield-code">
+        <img src="{lanrain::RES}/images/feng-er.png">
+        <p>长按以上二维码关注风助手</p>
+    </div>
+    <a href="javascript:void(0);" class="shield-btn">关闭窗口</a>
+</div>
+ <script>
+     document.addEventListener('touchmove', function (event) {event.preventDefault();});
+</script>
+<script src="../../Tpl/Wap/default/common/js/jweixin-1.0.0.js"></script>
+<script>
+	wx.config({
+		  debug: false,
+		  appId: "<?php echo $signPackage['appId'];?>",
+		  timestamp: "<?php echo $signPackage['timestamp'];?>",
+		  nonceStr: "<?php echo $signPackage['nonceStr'];?>",
+		  signature: "<?php echo $signPackage['signature'];?>",
+		  jsApiList: [
+		'onMenuShareTimeline',    
+		'onMenuShareAppMessage',    
+		'onMenuShareQQ',    
+		'onMenuShareWeibo',    
+		'hideMenuItems',    
+		'showMenuItems'
+		  ]
+		});
+		wx.ready(function(){
+			//显示右上角菜单接口
+			wx.hideOptionMenu();
+			$('.shield-btn').click(function(){
+				wx.closeWindow();
+				});
+		});
+</script>
+<include file="Public:weiXinNotShareSet"/>
+<include file="Public:packetFooter"/>
+</body>
+</html>

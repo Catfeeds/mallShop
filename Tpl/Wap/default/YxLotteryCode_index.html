@@ -1,0 +1,145 @@
+<include file="Public:memberCenterHeader"/>
+<style>
+        .custom-nav{ display: none;}
+        body{ background: #d02d48;}
+</style>
+<?php if($start['tips'] == '200' && $lotteryToday['typeid'] == '6'){?>
+<!-- 新加页面-->
+<div class="yx_cj_first">
+    <div class="yx_cj_firbg">
+        <div class="yx_mzj_hywz">
+            <i><img src="{lanrain::RES}/two_mony/yx_mzj_hywz.png"></i>
+        </div>
+    </div>
+    <div class="yx_ewm_box">
+        <div class="yx_ewm_bson">
+            <div class="yx_ewm_img">
+                <i><img src="{lanrain::RES}/two_mony/yx_erm_img.jpg"></i>
+            </div>
+            <div class="yx_ewm_iwe">
+                <span>长按上方二维码关注亚新生活广场公众号,下期活动更精彩</span>
+            </div>
+        </div>
+    </div>
+    <div class="yx_foot_bg">
+        <i><img src="{lanrain::RES}/two_mony/yx_city_bg.png"></i>
+    </div>
+</div>
+ <!--活动未开始页面-->
+<?php }elseif($start['tips'] == '200' && $start['code'] == '300'){?>
+<!--页面开始（没中奖页面）-->
+<div class="yx_cj_first">
+    <div class="yx_cj_firbg">
+        <div class="yx_cj_mwenzi">
+            <i><img src="{lanrain::RES}/two_mony/yx_mzj_wz.png"></i>
+        </div>
+    </div>
+    <div class="yx_ewm_box">
+        <div class="yx_ewm_bson">
+            <div class="yx_ewm_img">
+                <i><img src="{lanrain::RES}/two_mony/yx_erm_img.jpg"></i>
+            </div>
+            <div class="yx_ewm_iwe">
+                <span>长按上方二维码关注亚新生活广场公众号,下期活动更精彩</span>
+            </div>
+        </div>
+    </div>
+    <div class="yx_foot_bg">
+        <i><img src="{lanrain::RES}/two_mony/yx_city_bg.png"></i>
+    </div>
+</div>
+<?php }elseif($start['tips'] == '200'){?>
+<!--中奖页面但是没有关注-->
+<div class="yx_lottery_win">
+    <div class="yx_lott_box">
+        <div class="yx_lott_b1">
+            <i>
+            <img src="{lanrain::RES}/two_mony/<?php if($lotteryToday['typeid']=='1'){echo 'yx_mzj_wz1.png';}elseif($lotteryToday['typeid']=='2'){echo 'yx_mzj_wz2.png';}elseif($lotteryToday['typeid']=='3'){echo 'yx_mzj_wz3.png';}elseif($lotteryToday['typeid']=='4'){echo 'yx_mzj_wz4.png';}elseif($lotteryToday['typeid']=='5'){echo 'yx_mzj_wz5.png';}?>">
+            </i>
+        </div>
+        <div class="yx_alaott_b1">
+            <strong><?php echo $lotteryToday['typename'];?></strong>
+        </div>
+    </div>
+    <?php if($lotteryToday['wxtype'] != '1'){?>
+    <div class="yx_lott_embox">
+        <div class="yx_lott_emb1">
+            <div class="yx_lott_embig2">
+                <span>长按下方二维码关注亚新生活广场微信公众号方可领奖</span>
+            </div>
+            <div class="yx_lott_embig">
+                <i><img src="{lanrain::RES}/two_mony/yx_erm_img.jpg"></i>
+            </div>
+        </div>
+    </div>
+    <?php }if($lotteryToday['status'] == '1'){?>
+    <div class="yx_lott_jqbox">
+        <div class="yx_lott_jqbson">
+            <i><img src="{lanrain::RES}/two_mony/yx_huangbg.png"></i>
+            <div class="yx_lott_jqbig">
+                <strong>兑奖码</strong>
+            </div>
+            <div class="yx_lott_jqbig2">
+                <span><?php echo $lotteryToday['lotterycode'];?></span>
+            </div>
+        </div>
+    </div>
+    <?php }else{?>
+    <div class="yxa_lott_jqbox">
+        <div class="yxa_lott_jqbson">
+            <i><img src="{lanrain::RES}/two_mony/yx_huisbg.png"></i>
+            <div class="yxa_lott_jqbig">
+                <strong>兑奖码</strong>
+            </div>
+            <div class="yxa_lott_jqbig2">
+                <span><?php echo $lotteryToday['lotterycode'];?></span>
+            </div>
+            <div class="yxa_lott_jqbfis">
+               <i><img src="{lanrain::RES}/two_mony/yx_huissxa.png"></i>
+            </div>
+        </div>
+    </div>
+    <?php }?>
+    <div class="yx_lott_conwebox">
+        <div class="yx_lott_conwean">
+            <p style="font-size: 18px;">活动时间：</p>
+            <p>3月12日、3月13日、3月19日、3月20日、3月26日、3月27日、4月02日、3月03日。14点和16点</p>
+            <p style="font-size: 18px;">活动细则：</p>
+            <p>*每场每人每微信号仅限领取一件奖品,需出示本人有效身份证件及亚新专用收银条消费满199元及以上方可领奖。</p>
+            <p>*赠品以现场实样为准，数量有限，赠完即止。</p>
+            <p>*奖品及购物金需在参加活动当日领取，购物金限当日使用</p>
+            <p>*购物金需充入亚新VIP卡中，领奖时需出示该VIP卡及对应的本人有效身份证件，每人每日每卡仅限充购物金一次，不可代领。若无VIP卡，可凭本人有效身份证件现场办理。</p>
+            <p>*中奖者凭中奖活动页面至亚新生活广场1F服务台领取奖品</p>
+        </div>
+    </div>
+    <div class="yx_foot_bg">
+        <i><img src="{lanrain::RES}/two_mony/yx_city_bg.png"></i>
+    </div>
+</div>
+<?php }else{?>
+<div class="yx_cj_first">
+    <div class="yx_cjwks_firbg">
+        <div class="yx_cjwks_mwzi">
+            <i><img src="{lanrain::RES}/two_mony/yx_hdwks.png"></i>
+        </div>
+        <div class="yxa_alaott_b1">
+            <strong>时间:3/12,13 14:00;16:00</strong>
+        </div>
+    </div>
+    <div class="yx_ewm_box">
+        <div class="yx_ewm_bson">
+            <div class="yx_ewm_img">
+                <i><img src="{lanrain::RES}/two_mony/yx_erm_img.jpg"></i>
+            </div>
+            <div class="yx_ewm_iwe">
+                <span>长按上方二维码关注亚新生活广场公众号,下期活动更精彩</span>
+            </div>
+        </div>
+    </div>
+    <div class="yx_foot_bg">
+        <i><img src="{lanrain::RES}/two_mony/yx_city_bg.png"></i>
+    </div>
+</div>
+<?php }?>
+<include file="Public:weiXinNotShareSet" />
+<include file="Public:footer"/>

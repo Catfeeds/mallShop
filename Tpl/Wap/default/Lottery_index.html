@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<meta name="description" content="">
+<title>{lanrain:$lotteryInfo.title}</title>
+<link href="{lanrain::RES}/css/guajiang/css/activity-style.css" rel="stylesheet" type="text/css">
+</head>
+<body class="activity-lottery-winning" >
+<div  class="main" > 
+<if condition="$myType eq 1">
+	<div id="outercont">
+		<div id="outermost">
+			<div id="most"><img src="{lanrain::RES}/images/lottery/activity-lottery-bg1.png"></div>
+		</div>
+		<div id="outer-cont">
+			<div id="outer"><img src="{lanrain::RES}/images/lottery/activity-lottery-5_<?php echo L('NowLang');?>.png"></div>
+		</div>
+		<div id="inner-cont">
+			<div id="inner"><img src="{lanrain::RES}/images/lottery/activity-lottery-2_<?php echo L('NowLang');?>.png"></div>
+		</div>
+	</div>
+	<div class="content">
+		<div class="boxcontent boxwhite"  id="result"  style="display:none"  >
+			<div class="box">
+				<div class="titleRed"><span>{lanrain::L('CongratulationsYouWon')}</span></div>
+				<div class="Detail">
+					<p>{lanrain::L('YouWon')}：<span class="red" id="prizetype" ></span></p>
+					<p>{lanrain:$lotteryInfo.renamesn}：<span class="red" id="sncode" ></span></p>
+					<p>{lanrain::L('WinTime')}：<span class="red" id="snTime"><?php echo date('Y-m-d H:i:s',time());?></span></p>
+					<p class="red" id="red">{lanrain:$lotteryInfo.txt}</p>
+					<p>
+						<input name=""  class="form-control" id="phone" value="<?php echo session('phone'); ?>" type="text" placeholder="{lanrain::L('PlsInputPhNum')}">
+						<input name=""  id="snValue" value="" type="hidden">
+					</p>
+					<p>
+						<input class="btn btnGreen" name="{lanrain::L('Submit')}"  id="save-btn" type="button" value="{lanrain::L('UserSubmit')}">
+					</p>
+					<if condition="$lotteryInfo['parssword']">
+					<p>
+						<input name="" class="form-control" id="parssword" value="" type="text" placeholder="{lanrain::L('BizInputClaimCode')}">
+					</p>
+					<p>
+						<input class="btn btnGreen" name="{lanrain::L('Submit')}" id="submit_password_btn" type="button" value="{lanrain::L('BizSubmit')}">
+					</p>
+					</if>
+				</div>
+			</div>
+		</div>
+			<div class="boxcontent boxwhite">
+				<div class="box">
+					<div class="titleRed"><span>{lanrain::L('PrizeSetting')}：</span></div>
+					<div class="Detail"> 
+						<?php if ($lotteryInfo['fist']){?>
+						<p>{lanrain::L('FirstPrize')}: {lanrain:$lotteryInfo.fist}
+							<if condition="$lotteryInfo['displayjpnums'] eq 1">&nbsp;&nbsp;{lanrain::L('PrizeAmount')}：{lanrain:$lotteryInfo.fistnums}</if>
+						</p>
+						<?php } ?>
+						<?php if ($lotteryInfo['second']){?>
+							<p>{lanrain::L('2ndPrize')}：{lanrain:$lotteryInfo.second}
+								<if condition="$lotteryInfo['displayjpnums'] eq 1">&nbsp;&nbsp;{lanrain::L('PrizeAmount')}：{lanrain:$lotteryInfo.secondnums}</if>
+							</p>
+						<?php } ?>
+						<?php if ($lotteryInfo['third']){?>
+							<p>{lanrain::L('3rdPrize')}：{lanrain:$lotteryInfo.third}
+								<if condition="$lotteryInfo['displayjpnums'] eq 1">&nbsp;&nbsp;{lanrain::L('PrizeAmount')}：{lanrain:$lotteryInfo.thirdnums}</if>
+							</p>
+						<?php } ?>
+						<?php if ($lotteryInfo['four']){?>
+							<p>{lanrain::L('FourthPrize')}：{lanrain:$lotteryInfo.four}
+								<if condition="$lotteryInfo['displayjpnums'] eq 1">&nbsp;&nbsp;{lanrain::L('PrizeAmount')}：{lanrain:$lotteryInfo.fournums}</if>
+							</p>
+						<?php } ?>
+						<?php if ($lotteryInfo['five']){?>
+							<p>{lanrain::L('FifthPrize')}：{lanrain:$lotteryInfo.five}
+								<if condition="$lotteryInfo['displayjpnums'] eq 1">&nbsp;&nbsp;{lanrain::L('PrizeAmount')}：{lanrain:$lotteryInfo.fivenums}</if>
+							</p>
+						<?php } ?>
+						<?php if ($lotteryInfo['six']){?>
+							<p>{lanrain::L('SixthPrize')}：{lanrain:$lotteryInfo.six}
+								<if condition="$lotteryInfo['displayjpnums'] eq 1">&nbsp;&nbsp;{lanrain::L('PrizeAmount')}：{lanrain:$lotteryInfo.sixnums}</if>
+							</p>
+						<?php } ?>
+					</div>
+				</div>
+			</div>
+			<div class="boxcontent boxwhite">
+				<div class="box">
+					<div class="titleRed"><span>{lanrain::L('ActInstru')}：</span></div>
+					<div class="Detail">
+						<p class="red">{lanrain::L('SpinTheWheelTriesPrompt1')}{lanrain:$lotteryInfo.canrqnums}{lanrain::L('SpinTheWheelTriesPrompt2')}<if condition="$lotteryRecordInfo['usenums']">{lanrain:$lotteryRecordInfo.usenums}<else/>0</if>{lanrain::L('Times')}</p>
+						<p>{lanrain:$lotteryInfo.info}</p>
+						<p>{lanrain::L('ActTime')}：{lanrain:$lotteryInfo.statdate|date="Y-m-d H:i:s",###}{lanrain::L('Until')}{lanrain:$lotteryInfo.enddate|date="Y-m-d H:i:s",###}</p>
+					</div>
+				</div>
+			</div>
+	</div>
+<elseif condition="$myType eq 2" />
+<div id="outercont">
+		<div id="outermost">
+			<div id="most"><img src="{lanrain::RES}/images/lottery/activity-lottery-bg1.png"></div>
+		</div>
+		<div id="outer-cont">
+			<div id="outer"><img src="{lanrain::RES}/images/lottery/activity-lottery-5_<?php echo L('NowLang');?>.png"></div>
+		</div>
+		<div id="inner-cont">
+			<div id="inner"><img src="{lanrain::RES}/images/lottery/activity-lottery-2_<?php echo L('NowLang');?>.png"></div>
+		</div>
+	</div>
+	<div  class="main" >
+	<div class="content" style=" margin-top:10px">
+		<div class="boxcontent boxwhite">
+			<div class="box">
+				<div class="titleRed"><span>{lanrain::L('Congratulations')}：</span></div>
+				<div class="Detail">
+					<?php if ($lotterySnInfo['status'] == 1){?>
+						<p>{lanrain::L('YouAlreadyWon')}<font color='red'> {lanrain:$lotterySnInfo.sntype} </font>，{lanrain::L('PrizeIs')}：<font color='red'> {lanrain:$lotterySnInfo.snname} </font>，{lanrain:$lotteryInfo.renamesn}:<font color='red'> {lanrain:$lotterySnInfo.sn} </font> {lanrain:$lotteryInfo.txt} </p>
+						<?php if ($lotterySnInfo['phone'] == ''){?>
+						<p>
+						<input name=""  class="form-control" id="phone" value="<?php echo session('phone'); ?>" type="text" placeholder="{lanrain::L('PlsInputPhNum')}">
+						<input name=""  id="snValue" value="" type="hidden">
+						</p>
+						<p>
+							<input class="btn btnGreen" name="{lanrain::L('Submit')}"  id="save-btn" type="button" value="{lanrain::L('UserSubmit')}">
+						</p>
+						<?php }?>
+						<if condition="$lotteryInfo['parssword']">
+						<p>
+							<input name="" class="form-control" id="parssword" value="" type="text" placeholder="{lanrain::L('BizInputClaimCode')}">
+						</p>
+						<p>
+							<input class="btn btnGreen" name="{lanrain::L('Submit')}" id="submit_password_btn" type="button" value="{lanrain::L('BizSubmit')}">
+						</p>
+						</if>
+					<?php }elseif($lotterySnInfo['status'] == 2){ ?>
+						<p>{lanrain::L('PrizeClaimedSuccessful')}，<font color='red'> {lanrain:$lotterySnInfo.sntype} </font>，{lanrain::L('PrizeIs')}：<font color='red'> {lanrain:$lotterySnInfo.snname} </font></p>
+					<?php }elseif($lotterySnInfo['status'] == 3){ ?>
+						<p>{lanrain:$lotteryInfo.renamesn}{lanrain::L('PrizeClaimeFailed')}{lanrain:$lotteryInfo.renamesn}:<font color='red'> {lanrain:$lotterySnInfo.sn} </font></p>
+					<?php }?>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	<div class="content">
+			<div class="boxcontent boxwhite">
+				<div class="box">
+					<div class="titleRed"><span>{lanrain::L('PrizeSetting')}：</span></div>
+					<div class="Detail"> 
+						<?php if ($lotteryInfo['fist']){?>
+						<p>{lanrain::L('FirstPrize')}: {lanrain:$lotteryInfo.fist}
+							<if condition="$lotteryInfo['displayjpnums'] eq 1">&nbsp;&nbsp;{lanrain::L('PrizeAmount')}：{lanrain:$lotteryInfo.fistnums}</if>
+						</p>
+						<?php } ?>
+						<?php if ($lotteryInfo['second']){?>
+							<p>{lanrain::L('2ndPrize')}：{lanrain:$lotteryInfo.second}
+								<if condition="$lotteryInfo['displayjpnums'] eq 1">&nbsp;&nbsp;{lanrain::L('PrizeAmount')}：{lanrain:$lotteryInfo.secondnums}</if>
+							</p>
+						<?php } ?>
+						<?php if ($lotteryInfo['third']){?>
+							<p>{lanrain::L('3rdPrize')}：{lanrain:$lotteryInfo.third}
+								<if condition="$lotteryInfo['displayjpnums'] eq 1">&nbsp;&nbsp;{lanrain::L('PrizeAmount')}：{lanrain:$lotteryInfo.thirdnums}</if>
+							</p>
+						<?php } ?>
+						<?php if ($lotteryInfo['four']){?>
+							<p>{lanrain::L('FourthPrize')}：{lanrain:$lotteryInfo.four}
+								<if condition="$lotteryInfo['displayjpnums'] eq 1">&nbsp;&nbsp;{lanrain::L('PrizeAmount')}：{lanrain:$lotteryInfo.fournums}</if>
+							</p>
+						<?php } ?>
+						<?php if ($lotteryInfo['five']){?>
+							<p>{lanrain::L('FifthPrize')}：{lanrain:$lotteryInfo.five}
+								<if condition="$lotteryInfo['displayjpnums'] eq 1">&nbsp;&nbsp;{lanrain::L('PrizeAmount')}：{lanrain:$lotteryInfo.fivenums}</if>
+							</p>
+						<?php } ?>
+						<?php if ($lotteryInfo['six']){?>
+							<p>{lanrain::L('SixthPrize')}：{lanrain:$lotteryInfo.six}
+								<if condition="$lotteryInfo['displayjpnums'] eq 1">&nbsp;&nbsp;{lanrain::L('PrizeAmount')}：{lanrain:$lotteryInfo.sixnums}</if>
+							</p>
+						<?php } ?>
+					</div>
+				</div>
+			</div>
+			<div class="boxcontent boxwhite">
+				<div class="box">
+					<div class="titleRed"><span>{lanrain::L('ActInstru')}：</span></div>
+					<div class="Detail">
+						<p class="red">{lanrain::L('SpinTheWheelTriesPrompt1')}{lanrain:$lotteryInfo.canrqnums}{lanrain::L('SpinTheWheelTriesPrompt2')}<if condition="$lotteryRecordInfo['usenums']">{lanrain:$lotteryRecordInfo.usenums}<else/>0</if>{lanrain::L('Times')}</p>
+						<p>{lanrain:$lotteryInfo.info}</p>
+						<p>{lanrain::L('ActTime')}：{lanrain:$lotteryInfo.statdate|date="Y-m-d H:i:s",###}{lanrain::L('Until')}{lanrain:$lotteryInfo.enddate|date="Y-m-d H:i:s",###}</p>
+					</div>
+				</div>
+			</div>
+	</div>
+<elseif condition="$myType eq 3" />
+	<div class="content">
+		<div class="boxcontent boxwhite">
+			<div class="box">
+				<div class="titleRed"><span>{lanrain::L('ActInstru')}：</span></div>
+				<div class="Detail">
+					<p> {lanrain:$lotteryInfo.endinfo} </p>
+				</div>
+			</div>
+		</div>
+	</div>
+<elseif condition="$myType eq 4" />
+	<div class="activity-lottery-end" >
+		<div  class="main" >
+			<div class="banner"><img src="<if condition="$lotteryInfo['endpicurl']">{lanrain:$lotteryInfo.endpicurl}<else/>{lanrain::RES}/images/lottery/activity-lottery-end-flat_<?php echo L('NowLang');?>.jpg</if>" /></div>
+		</div>
+	</div>
+	<div class="content">
+		<div class="boxcontent boxwhite">
+			<div class="box">
+				<div class="titleRed"><span>{lanrain::L('ActEndAnnoTCon')}：</span></div>
+				<div class="Detail">
+					<p> {lanrain:$lotteryInfo.endinfo} </p>
+				</div>
+			</div>
+		</div>
+	</div>
+</if>
+</div>
+<div style="height:60px;"></div>
+<!--<div class="footFix" id="footReturn"><a href="javascript:void(0)" onClick="location.href='{lanrain::U('Wap/Index/index',array('wecha_id'=>$_GET['wecha_id']))}';"><span>返回3G网站</span></a></div>-->
+<script src="{lanrain::RES}/css/guajiang/js/jquery.js" type="text/javascript"></script> 
+<script src="{lanrain::RES}/css/guajiang/js/alert.js" type="text/javascript"></script> 
+<script type="text/javascript">
+
+$(function() {
+    window.requestAnimFrame = (function() {
+        return window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function(callback) {
+            window.setTimeout(callback, 1000 / 60)
+        }
+    })();
+
+    var totalDeg = 360 * 3 + 0;
+    var steps = []; 
+    var lostDeg = [36, 96, 156, 216, 276,336];
+    var prizeDeg = [6, 66, 126,186,246,306];
+    var prize, sncode;
+	var usenums = 0;
+    var count = 0; 
+    var now = 0;
+    var a = 0.01;
+    var outter, inner, timer, running = false;
+
+    function countSteps() {
+        var t = Math.sqrt(2 * totalDeg / a);
+        var v = a * t;
+        for (var i = 0; i < t; i++) {
+            steps.push((2 * v * i - a * i * i) / 2)
+        }
+        steps.push(totalDeg)
+    }
+     
+    function step() {
+        outter.style.webkitTransform = 'rotate(' + steps[now++] + 'deg)';
+        outter.style.MozTransform = 'rotate(' + steps[now++] + 'deg)';
+        if (now < steps.length) { 
+            running = true;
+            requestAnimFrame(step) 
+        } else {
+            running = false;            
+            setTimeout(function() {
+                if (prize != null) {  //中奖
+                    $("#sncode").text(sncode);
+                    var type = "";
+                    if (prize == 1) {
+                        type = "{lanrain::L('FirstPrize')}"
+                    } else if (prize == 2) {
+                        type = "{lanrain::L('2ndPrize')}"
+                    } else if (prize == 3) {
+                        type = "{lanrain::L('3rdPrize')}"
+                    }
+                    else if (prize == 4) {
+                        type = "{lanrain::L('FourthPrize')}"
+                    }
+                    else if (prize == 5) {
+                        type = "{lanrain::L('FifthPrize')}"
+                    }
+                    else if (prize == 6) {
+                        type = "{lanrain::L('SixthPrize')}"
+                    }
+                    $("#prizetype").text(type);
+                    $("#snValue").val(sncode);
+                    $("#result").slideToggle(500);  
+                    $("#outercont").slideUp(500)
+                } else { //不中奖
+					$("#usenums").text(usenums);
+                    alert("{lanrain:$lotteryInfo.aginfo}")
+                }
+            }, 200)
+        }
+    }
+    
+    function start(deg) {       
+        deg = deg || lostDeg[parseInt(lostDeg.length * Math.random())];
+        running = true;
+        clearInterval(timer);
+        totalDeg = 360 * 5 + deg;
+        steps = [];
+        now = 0;
+        countSteps();
+        requestAnimFrame(step)
+    }
+    
+    window.start = start;
+    outter = document.getElementById('outer'); 
+    inner = document.getElementById('inner'); 
+    i = 10;
+    var end = 0;
+    $("#inner").click(function() {
+        if (running) return;
+        if (count >= {lanrain:$lotteryInfo.canrqnums}) {
+            alert("Oh~No~{lanrain::L('AlreadyTriedPrompt1')}{lanrain:$lotteryRecordInfo.canrqnums}{lanrain::L('AlreadyTriedPrompt2')}!");
+            return
+        }
+        if (prize != null) {
+            alert("{lanrain::L('CanNotJoinAgainPrompt')}");
+            return
+        }
+       $.ajax({
+         url     : "index.php?g=Wap&m=Lottery&a=startLottery&md5=<?php echo md5(time().sound);?>",
+         dataType: "json",
+         type    : "POST",
+         data    : {
+            id     : {lanrain:$lotteryInfo.id},
+            rid    : {lanrain:$lotteryRecordInfo.id} 
+         },
+         beforeSend : function(){
+            running = true;
+            timer = setInterval(function() {
+                i += 5;
+                outter.style.webkitTransform = 'rotate(' + i + 'deg)';
+                outter.style.MozTransform = 'rotate(' + i + 'deg)'
+            },1)
+         },
+         success    : function(backdata){
+            if (backdata.norun == 1) {      
+                    alert(backdata.msg);
+                    count = 5; //原来是 5 
+                    clearInterval(timer);
+                    return
+            }
+            if (backdata.norun == 2) {  
+                    alert("{lanrain::L('AlreadyTriedPrompt1')}"+backdata.canrqnums+"{lanrain::L('AlreadyTriedPrompt2')}!");
+                    count = backdata.canrqnums;
+                    clearInterval(timer);
+                    return
+            }
+            if (backdata.success) {
+                prize = backdata.prizetype;
+                 if(prize!=''){
+                    sncode = backdata.sn;
+                    start(prizeDeg[backdata.prizetype - 1])
+                 }else{
+                    prize = null;
+					usenums=backdata.usenums;
+                    start()
+                }               
+            }else{
+                    prize = null;
+					usenums=backdata.usenums;
+                    start()
+            }
+            running = false;
+            count++;
+         },
+         error      : function(){
+                prize = null;
+				usenums=backdata.usenums;
+                start();
+                running = false;
+                count++;
+         },
+         complete   : function(XMLHttpRequest, textStatus){
+            //console.log('当请求完成之后调用这个函数，无论成功或失败.  请求类型:'+textStatus);  
+         },
+         timeout    : 3000       
+        
+       })
+    })
+});
+
+//中奖提交
+$("#save-btn").bind("click",
+function() {
+    var btn = $(this);
+    var phone = $("#phone").val();
+    var sn  = $("#snValue").val();
+    var lid  = {lanrain:$lotteryInfo.id};
+    if (phone == '') {
+        alert("{lanrain::L('PlsInputMobileNum')}");
+        return
+    }
+    var submitData = {
+        phone: phone,
+        sn:sn,
+        lid:lid
+    };
+    $.post('index.php?g=Wap&m=Lottery&a=saveSn&md5=<?php echo md5(time().sound);?>', submitData,
+    function(data) {
+        if (data.success == true) {
+            alert(data.msg);
+            setTimeout("window.location.href='index.php?g=Wap&m=Lottery&a=index&id={lanrain:$lotteryInfo.id}&md5=<?php echo md5(time().sound);?>'",2000);
+            return
+        }
+    },
+    "json")
+});
+//商家兑换奖品
+$("#submit_password_btn").bind("click",
+		function() {
+			var password = $("#parssword").val();
+			if(password==''){
+				alert("{lanrain::L('PlsInputClaimCode')}");
+				return
+			}
+			var submitData = {
+				password:password
+			};
+			$.post('index.php?g=Wap&m=Lottery&a=exchange&id={lanrain:$lotteryInfo.id}&md5=<?php echo md5(time().sound);?>',submitData,
+	        function(data){
+	            if (data.success == true) {
+	                alert(data.msg);
+	                setTimeout("window.location.href='index.php?g=Wap&m=Lottery&a=index&id={lanrain:$lotteryInfo.id}&md5=<?php echo md5(time().sound);?>'",2000);
+	            	return
+	            }else{
+	            	 alert(data.msg);
+	            	 return
+	            }
+	        },
+	        "json")
+			
+	});
+</script>
+</body>
+</html>

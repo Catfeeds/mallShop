@@ -1,0 +1,144 @@
+<include file="Public:header" />
+<style type="text/css">
+	.common-header.header-default{border-bottom: 1px solid #e0e0e0}
+</style>
+	<div class="index-wrap wrap-default">
+		<div class="requestInvoice-wrap">
+			<h1 class="page-tit">申请开票</h1>
+			<div class="page-content">
+			<?php if(session('uid') == ''){ ?>
+				<div class="alert-cover mb40">
+					<i class="icon-alert"></i>
+					<b>您尚未登录！</b>
+					<p>请先登录</p>
+					<a class="login-btn fr" href="<?php echo U('Index/login')?>">立即登录</a>
+				</div>
+				<?php } ?>
+				<div class="clearfix border-bottom">
+					<label class="cont-left-120">开票信息</label>
+					<ul class="cont-right-150 invoice-type">
+						<li>
+							<label class="js_invoice_type1"><input type="radio" name="invoice_type" value="1" checked="true">普票</label>
+							<label class="js_invoice_type2"><input type="radio" name="invoice_type" value="2">增票</label>
+						</li>
+						<li>
+							<input class="item_320 js-info-1" type="text" name="" placeholder="*开票抬头">
+						</li>
+						<li>
+							<select class="item_320 js-info-2" style="width: 302px;">
+								<option disabled="" selected="" hidden="">*开票内容</option>
+								<option value="1">信息咨询服务费</option>
+								<option value="2">系统开发服务费</option>
+							</select>
+						</li>
+						<li>
+							<input class="item_320 js-info-3" type="text" name="" placeholder="*发票金额">
+						</li>
+						<li class="js_invoice_type2_li" style="display: none;">
+							<input class="item_320 js-info-4" type="text" name="" placeholder="*税号">
+						</li>
+						<li class="js_invoice_type2_li" style="display: none;">
+							<input class="item_320 js-info-5" type="text" name="" placeholder="*账号">
+						</li>
+						<li class="js_invoice_type2_li" style="display: none;">
+							<input class="item_320 js-info-6" type="text" name="" placeholder="*开户行">
+						</li>
+						<li class="js_invoice_type2_li" style="display: none;">
+							<input class="item_320 js-info-7" type="text" name="" placeholder="*地址">
+						</li>
+						<li class="no_mb js_invoice_type2_li" style="display: none;">
+							<input class="item_320 js-info-8" type="text" name="" placeholder="*电话">
+						</li>
+					</ul>
+				</div>
+				<div class="clearfix border-bottom">
+					<label class="cont-left-120">发票快递信息</label>
+					<p class="cont-right-150">
+						<span class="span-con">快递配送（免运费）</span>
+					</p>
+				</div>
+
+				<div class="clearfix border-bottom">
+					<label class="cont-left-120">发票快递信息</label>
+					<ul class="cont-right-150 invoice-type">
+						<li>
+							<input class="item_320 js-info-9" type="text" name="" placeholder="*收件人姓名">
+							<input class="item_320 js-info-10" type="text" name="" placeholder="*收件人手机">
+						</li>
+						<li>
+							<input class="item_320 js-info-12" type="text" name="" placeholder="*省（直辖市）">
+							<input class="item_320 js-info-13" type="text" name="" placeholder="*市（区）">
+						</li>
+						<li style="margin-bottom: 0">
+							<input class="item_320 js-info-11" style="width:652px" type="text" name="" placeholder="*详细地址（街道）">
+						</li>
+					</ul>
+				</div>
+				<div class="submit_btn_cover">
+					<a class="submit_btn <?php if(session('cid')!=''){ echo 'js-sub-asa';}else{ echo 'js-error-asa';} ?>">提交申请</a>
+				</div>
+			</div>
+			<div class="fqa_content">
+				<h2 class="fqa_tit">开票申请FAQ</h2>
+				<dl class="fqa_cont">
+					<dt>Q: 申请提交后，商户多久才能收到发票？</dt>
+					<dd>A: 在您提交发票后我们将核对开票信息，并在最近的固定日内开具发票，并通过顺丰快递向您寄出，一般在10个工作日内您将会受到发票</dd>
+				</dl>
+			</div>
+		</div>
+	</div>
+	
+<script type="text/javascript">
+	// 普票增票切换
+	var testnum = 1;
+	$(function(){
+		$(document).on("click",".js_invoice_type1",function(){
+			$(".js_invoice_type2_li").hide();
+		});
+		$(document).on("click",".js_invoice_type2",function(){
+			$(".js_invoice_type2_li").show();
+		});
+		$(".js-sub-asa").click(function(){
+			if(testnum==1){
+				testnum = 2;
+				var type=$("input[name='invoice_type']:checked").val();
+				var arr = new Array();
+				for(i=1;i<=13;i++){
+					arr[i] = $(".js-info-"+i).val();
+					if(type == 1 && ( i<=3 ||i>=9 ) ){
+						if($(".js-info-"+i).val()==''){
+							alert("请完整填写相应申请信息");
+							$(".js-info-"+i).focus();
+							return false;
+						}
+					}else if(type == 2){
+						if($(".js-info-"+i).val()==''){
+							alert("请完整填写相应申请信息");
+							$(".js-info-"+i).focus();
+							return false;
+						}
+					}
+				}
+				$.post("/index.php?m=Index&a=requestInvoice",{
+					type:type,
+					name:arr['1'],info:arr['2'],money:arr['3'],dutycard:arr['4'],
+					brandcard:arr['5'],brandname:arr['6'],brandaddress:arr['7'],brandtel:arr['8'],
+					sname:arr['9'],stel:arr['10'],sprovince:arr['12'],scity:arr['13'],saddress:arr['11']
+				},function(data){
+					alert(data.msg);
+					if(data.code==200){
+						setTimeout("window.location.href='/index.php?m=Index&a=index'",1500);
+					}
+				},'json')
+			}
+			
+		});
+		$(".js-error-asa").click(function(){
+			alert("请先登录");
+		})
+	})
+</script>
+
+
+
+<include file="Public:footer" />

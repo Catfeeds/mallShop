@@ -1,0 +1,87 @@
+<script src="./Tpl/Wap/default/common/js/jweixin-1.0.0.js"></script>
+<script>
+wx.config({
+  debug: false,
+  appId: "<?php echo $signPackage['appId'];?>",
+  timestamp: "<?php echo $signPackage['timestamp'];?>",
+  nonceStr: "<?php echo $signPackage['nonceStr'];?>",
+  signature: "<?php echo $signPackage['signature'];?>",
+  jsApiList: [
+'onMenuShareTimeline',    
+'onMenuShareAppMessage',    
+'onMenuShareQQ',    
+'onMenuShareWeibo',    
+'hideMenuItems',    
+'showMenuItems'
+  ]
+});
+wx.ready(function(){
+	//显示右上角菜单接口
+	wx.showOptionMenu();
+    // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+    var diytitle = "来外滩五号品世界美食，赢iphone6s等百款好礼";
+    var diylink = "<?php echo C('site_url').U('TheBund5Activity/share',array('companyid'=>$companyid));?>";
+    var diyimgUrl = "<?php echo C('site_url').'/Tpl/Wap/default/common/image/theBund5Share.jpg';?>";
+    var diydesc = "开启10扇世界美食之门，抽iPhone 6S、Apple Watch，以及百款餐厅精致好礼！";
+    //获取“分享到朋友圈”
+	wx.onMenuShareTimeline({
+	    title: diytitle, // 分享标题
+	    link: diylink, // 分享链接
+	    imgUrl: diyimgUrl, // 分享图标
+	    success: function () { 
+	        // 用户确认分享后执行的回调函数
+        	$.post("<?php echo U('TheBund5Activity/updateshare',array('companyid'=>$companyid)).'&time=';?>"+Math.random(),{openid:sessionStorage.openid,keys:sessionStorage.keys,isshare:sessionStorage.isshare},function(data){
+	            if(data.code == 200){
+	            	sessionStorage.keys = data.keys;
+	            	sessionStorage.isshare = data.isshare;
+	            	window.location.href="<?php echo U('TheBund5Activity/elevator',array('companyid'=>$companyid));?>";
+	            }
+	        },"json");
+	    },
+	    cancel: function () { 
+	        // 用户取消分享后执行的回调函数
+	    },
+        fail: function (res) {
+          $('#ceshicontent').html(JSON.stringify(res));
+        }
+	});
+    //获取“分享给朋友”
+	wx.onMenuShareAppMessage({
+	    title: diytitle, // 分享标题
+	    link: diylink, // 分享链接
+	    imgUrl: diyimgUrl, // 分享图标
+	    desc: diydesc, // 分享描述
+	    type: '', // 分享类型,music、video或link，不填默认为link
+	    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+	    success: function () { 
+	        // 用户确认分享后执行的回调函数
+	    	$.post("<?php echo U('TheBund5Activity/updateshare',array('companyid'=>$companyid)).'&time=';?>"+Math.random(),{openid:sessionStorage.openid,keys:sessionStorage.keys,isshare:sessionStorage.isshare},function(data){
+	            if(data.code == 200){
+	            	sessionStorage.keys = data.keys;
+	            	sessionStorage.isshare = data.isshare;
+	            	window.location.href="<?php echo U('TheBund5Activity/elevator',array('companyid'=>$companyid));?>";
+	            }
+	        },"json");
+	    },
+	    cancel: function () { 
+	        // 用户取消分享后执行的回调函数
+	    }
+	});
+});
+</script>
+
+<div class="tanchuan-1" style="display: none;">
+    <div class="tc-img1">
+        <img src="{lanrain::RES}/bundimg/tanchuan-2.jpg">
+        <div class="yaoshi-dw">
+            <div class="yaoshi-div">
+                <img src="{lanrain::RES}/bundimg/yaoshi-1.png">
+                <span>× 2</span>
+            </div>
+            <div class="zdl-ipt">
+                <img src="{lanrain::RES}/bundimg/zz-zd.png">
+                <!--<button>知道了</button>-->
+            </div>
+        </div>
+    </div>
+</div>

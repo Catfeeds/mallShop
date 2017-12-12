@@ -1,0 +1,145 @@
+<include file="Public:memberCenterHeader"/>
+<link href="{lanrain::RES}/css/app.css?<?php echo C('site_system_file_version'); ?>" rel="stylesheet">
+<section class="app-content">
+  <?php if($info['vouchertype']==1){?>
+  <!--优惠券-->
+  <div class="ticket-face red-bg mb20">
+    <div class="hd">
+      <img src="<?php if(session('clogo')){ echo session('clogo');}else{ echo './Tpl/User/Default/common/images/home/default-share.jpg';}?>" />
+      <h4><?php echo $info['title'];?></h4>
+    </div>
+    <p class="deadline">使用期限：<?php echo format_time($info['usestarttime'],'.ymd').' - '.format_time($info['useendtime'],'.ymd');?></p>
+    <p class="label">￥<?php echo $info['israndom']==1 ? $info['vparvalue'] : $info['parvalue'];?></p>
+    <!-- <p class="info"><?php if($info['useismall']==1 && $info['useisrestrict']==1 && in_array("2",explode(',',$info['']))){?>满<i>¥</i><?php echo $info['fullmanycanuse'];?>可用<?php }elseif($info['useismall']==1 && $info['useisrestrict']==2){ echo '无限制';}?></p> -->
+    <p class="variety mb10"><strong>优惠券</strong> <i class="english">Coupon</i></p>
+    <?php if($info['isused']==1){?>
+    <span class="icons-start">已使用<i class="en">Used</i></span>
+    <?php }elseif($info['isused']==2 && $info['useendtime']<time()){?>
+    <span class="icons-start">已过期<i class="en">Expired</i></span>
+    <?php }?>
+    <p class="ticket-num">券号 <i class="english">Coupon no</i>：<span class="num"><?php echo substr($info['sn'],'0','-7').' '.substr($info['sn'],'-7','3').' '.substr($info['sn'],'-4');?></span></p>
+  </div>
+  <?php }elseif($info['vouchertype']==2){?>
+  <!--赠品-->
+  <div class="ticket-face blue-bg mb20">
+    <div class="hd">
+      <img src="<?php if(session('clogo')){ echo session('clogo');}else{ echo './Tpl/User/Default/common/images/home/default-share.jpg';}?>" />
+      <h4><?php echo $info['title'];?></h4>
+    </div>
+    <p class="deadline">使用期限：<?php echo format_time($info['usestarttime'],'.ymd').' - '.format_time($info['useendtime'],'.ymd');?></p>
+    <p class="variety mb10"><strong>赠品</strong> <i class="english">Gift voucher</i></p>
+    <?php if($info['isused']==1){?>
+    <span class="icons-start">已使用<i class="en">Used</i></span>
+    <?php }elseif($info['isused']==2 && $info['useendtime']<time()){?>
+    <span class="icons-start">已过期<i class="en">Expired</i></span>
+    <?php }?>
+    <p class="ticket-num">券号 <i class="english">Coupon no</i>：<span class="num"><?php echo substr($info['sn'],'0','-7').' '.substr($info['sn'],'-7','3').' '.substr($info['sn'],'-4');?></span></p>
+  </div>
+  <section class="member-info mb20">
+    <ul>
+      <?php if($info['url']){?>
+      <li class="arrow"><a href="<?php echo $info['url'];?>">赠品价值 <span class="english">Value</span>：<?php echo $info['parvalue'];?><span class="label">查看赠品</span></a></li>
+      <?php }else{?>
+	  <li><a href="<?php echo $info['url'];?>">赠品价值 <span class="english">Value</span>：<?php echo $info['parvalue'];?></a></li>
+	  <?php }?>
+	</ul>
+  </section>
+  <?php }elseif($info['vouchertype']==3){?>
+  <!--微信支付-->
+  <section class="payment-hd">
+    <ul>
+      <li><img src="{lanrain::RES}/img/icons-gold.png" alt=""/></li>
+      <li>当前卡内余额 <i class="english f12">Current credit</i></li>
+      <li><span class="number">￥<?php echo $info['accountbalance'];?></span></li>
+    </ul>
+  </section>
+  <!--<section class="annotation p10 mb10 f12">线上充值说明（数据源是来自于“线上充值管理"）,线上充值说明（数据源是来自于“线上充值管理"）</section>-->
+  <section class="mod-info-list">
+    <ul>
+      <li>充值密码 <i class="english c2">Serial no.</i></li>
+      <li class="form-right"><input type="number" class="form-control text-right" name="usepassword" value="<?php echo $info['password'];?>" placeholder="请输入充值密码" data-rule-required="true" data-rule-maxlength="10" /></li>
+    </ul>
+  </section>
+  <?php }?>
+  <?php if($info['vouchertype']==1||$info['vouchertype']==2){?>
+  <section class="mod-info-list mb10">
+    <div class="annotation p10">
+      <p class="mb5">请店员前来确认，即可使用本券</p>
+      <p class="c2 f12">To use your e-voucher, please ask a staff member to enter the confirmation pass code.</p>
+    </div>
+    <ul>
+      <li>使用门店 <i class="english c2">Branch</i></li>
+      <li>
+        <div class="select-group">
+          <select class="form-control" id="shopid">
+            <option value="0">请选择使用门店</option>
+            <?php if($info['shops']){foreach($info['shops'] as $sKey=>$sVal){?>
+            <option value="<?php echo $sVal['id'];?>"><?php echo $sVal['shopname'];?></option>
+            <?php }}?>
+          </select>
+        </div>
+      </li>
+    </ul>
+    <ul>
+      <li>确认密码 <i class="english c2">Password</i></li>
+      <li><input type="password" class="form-control" name="password" placeholder="请输入确认密码" /></li>
+    </ul>
+  </section>
+  <?php }?>
+</section>
+<section class="footer">
+  <section class="footer-nav">
+    <ul>
+      <li><a class="btn btn-mini btn-default" href="javascript:history.go(-1);">取消 <i class="english">Cancel</i></a></li>
+      <?php if($info['vouchertype']==1||$info['vouchertype']==2){?>
+      <li><a class="btn btn-mini btn-primary" id="submit" href="javascript:void(0);">提交 <i class="english">Submit</i></a></li>
+      <?php }else{?>
+      <!-- <li><a class="btn btn-mini btn-default" href="javascript:void(0);">提交<i class="english">Submit</i></a></li> -->
+      <li><a class="btn btn-mini btn-success" id="recharge" href="javascript:void(0);">提交 <i class="english">Submit</i></a></li>
+      <?php }?>
+    </ul>
+  </section>
+  <div class="footer-blank"></div>
+</section>
+<script>
+  //1：优惠券；2：赠品券；
+  $('#submit').click(function(){
+    var shopid = $('#shopid').val();
+    if(shopid.length > 0){
+    	shopid = shopid;
+    }else{
+    	shopid = 0;
+    }
+    var password = $('input[name="password"]').val();
+    if(password.length < 1){
+      alert('请输入正确密码',2000);
+      return;
+    }
+    $.post("<?php echo U('MemberVouchers/ajaxVouchersUse',array('companyid'=>$companyid,'id'=>$info['id'],'infoId'=>$info['infoId'])).'&time='; ?>"+Math.random(),{password: password,shopid:shopid},function(data){
+      if(data.code == 200){
+        window.location.href="<?php echo U('MemberVouchers/vouchersUseSuccess',array('companyid'=>$companyid));?>";
+      }else{
+        $('.loading').hide();
+        alert(data.tips,2000);
+      }
+    },"json");
+  });
+  //3：充值卡；
+  $('#recharge').click(function(){
+    var password = $('input[name="usepassword"]').val();
+    if(password.length < 1){
+      alert('请输入正确密码',2000);
+      return;
+    }
+    $.post("<?php echo U('MemberVouchers/ajaxVouchersUse2',array('companyid'=>$companyid)).'&time='; ?>"+Math.random(),{password: password},function(data){
+      if(data.code == 200){
+        window.location.href="<?php echo U('MemberVouchers/vouchersUseSuccess',array('companyid'=>$companyid,'infoid'=>'"+data.infoid+"'));?>";
+      }else{
+        $('.loading').hide();
+        alert(data.tips,2000);
+      }
+    },"json");
+  });
+</script>
+<include file="Public:weiXinNotShareSet" />
+<include file="Public:memberCenterFooter"/>

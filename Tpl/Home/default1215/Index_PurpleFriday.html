@@ -1,0 +1,87 @@
+<include file="Public:header" />
+	<div class="index-wrap wrap-default">
+		<div class="part-header2">
+			<div class="part-cover">
+				<img class="index-banner-img-purplefriday" src="./Tpl/Home/default1215/common/img/index_banner_img_purplefriday.png" draggable="false">
+				<br><a class="btn btn-login banner-btn" target="_blank"  href="http://bbs.mobiwind.cn/forum.php?mod=viewthread&tid=283&extra="> <i class="fa fa-angle-right icon-arrow-right"></i> 了解详情</a>
+			</div>
+		</div>
+		<div class="part-body2">
+			<ul class="new-product-list">
+				<li class="list-itme"><img src="./Tpl/Home/default1215/common/img/icon_business22.png" draggable="false"><h4>新品发布</h4></li>
+				<li class="list-itme"><img src="./Tpl/Home/default1215/common/img/icon_business23.png" draggable="false"><h4>新品预告</h4></li>
+				<li class="list-itme"><img src="./Tpl/Home/default1215/common/img/icon_business24.png" draggable="false"><h4>功能优化发布</h4></li>
+				<li class="list-itme"><img src="./Tpl/Home/default1215/common/img/icon_business25.png" draggable="false"><h4>功能优化预告</h4></li>
+			</ul>
+			<div class="count-down-cover">
+				<h2 class="tit">距离下期发布还剩</h2>
+				<div class="font-Hel time">
+				  <span id="t_d">00</span>
+				  <span id="t_h">00</span>
+				  <span id="t_m">00</span>
+				  <span id="t_s">00</span>
+				</div>
+			</div>
+			<dl class="news-list-cover">
+				<dd>紫色星期五历史发布：</dd>
+				<dt><a target="_blank"  href="http://bbs.mobiwind.cn/forum.php?mod=viewthread&tid=283&extra=">【紫色星期五 第十四周 更新公告】外卖秒杀功能、关注二维码增加门店统计功能发布<span class="font-Hel">2017/03/17</span></a></dt>
+				<dt><a target="_blank"  href="http://bbs.mobiwind.cn/forum.php?mod=viewthread&tid=271&extra=">【紫色星期五 第十三周 更新公告】声悦传情、快捷储值收银、卡券投放记录功能发布<span class="font-Hel">2017/03/10</span></a></dt>
+				<dt><a target="_blank"  href="http://bbs.mobiwind.cn/forum.php?mod=viewthread&tid=267&extra=">【紫色星期五 第十二周 更新公告】展业伙伴、新版手机预订功能发布<span class="font-Hel">2017/03/04</span></a></dt>
+				<dt><a target="_blank"  href="http://bbs.mobiwind.cn/forum.php?mod=viewthread&tid=265&extra=">【紫色星期五 第十一周 更新公告】【紫色星期五 第十一周 更新公告】付费内容商店、订阅闹钟功能发布<span class="font-Hel">2017/02/24</span></a></dt>
+				<dt><a target="_blank"  href="http://bbs.mobiwind.cn/forum.php?mod=viewthread&tid=255&extra=">【紫色星期五 第十周 更新公告】Eshop微商城2.0、手机预订「SPA行业版」、卡券批量核销功能发布<span class="font-Hel">2017/02/17</span></a></dt>
+			</dl>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		/* 倒计时组件 @John 2016-12-22 17:20 */
+	
+		//发布小时
+		var fabuxiaoshi = 15;
+		//发布周几
+		var fabuzhou = 5;
+		//延迟一周发布么
+		var fabuyan = 0;
+		//实例化倒计时
+		var asadate = FormatDate(fabuxiaoshi,fabuzhou,fabuyan);
+		var EndTime= new Date(asadate);
+
+		setInterval(GetRTime,1000);
+		//倒计时方法
+		function GetRTime(){
+		  var NowTime = new Date();
+		  var t =EndTime.getTime() - NowTime.getTime();
+		  var d=0;
+		  var h=0;
+		  var m=0;
+		  var s=0;
+		  if(t>=0){
+		    d=Math.floor(t/1000/60/60/24);
+		    h=Math.floor(t/1000/60/60%24);
+		    m=Math.floor(t/1000/60%60);
+		    s=Math.floor(t/1000%60);
+		  }
+		
+		  document.getElementById("t_d").innerHTML = (d<10?"0"+d:d);
+		  document.getElementById("t_h").innerHTML = (h<10?"0"+h:h);
+		  document.getElementById("t_m").innerHTML = (m<10?"0"+m:m);
+		  document.getElementById("t_s").innerHTML = (s<10?"0"+s:s);
+		}
+		//实例化倒计时的方法
+		function FormatDate (fabuxiaoshi,fabuzhou,fabuyan){
+			//获取今天是周几
+			var d = new Date();
+			var asahours = d.getHours();
+			var asaday =d.getDay();
+			var asa = d.getDate();
+			var asanum = fabuzhou-asaday;
+			if(asanum<0) asanum = asanum+7;
+			else if(asanum==0&&asahours>=fabuxiaoshi) asanum = asanum+7;
+			asanum = asanum+7*fabuyan;
+			d.setDate(asa+asanum);
+		    var date = new Date(d);
+		    var test = date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate();
+		    return test+' '+fabuxiaoshi+':00:00'
+		}
+	</script>
+<include file="Public:footer" />

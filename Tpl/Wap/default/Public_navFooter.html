@@ -1,0 +1,78 @@
+<style>	
+.ifoot_padding {
+	<?php if($bottomMenuInfo['isopen'] == '1'&& ($bottomMenuInfo['isopen1'] == '1' ||$bottomMenuInfo['isopen2'] == '1'  ||$bottomMenuInfo['isopen3'] == '1'  ||$bottomMenuInfo['isopen4'] == '1' )){ if(session("isshowpoweredby")==1){ ?>   /* 有导航有logo */
+    padding-bottom: 117px;
+	<?php }else{ ?> /* 有导航无logo */
+	padding-bottom: 47px;
+    <?php }}elseif($bottomMenuInfo['isopen'] == '2' || ($bottomMenuInfo['isopen1'] != '1' &&$bottomMenuInfo['isopen2'] != '1'  &&$bottomMenuInfo['isopen3'] != '1'  &&$bottomMenuInfo['isopen4'] != '1' )){ if(session("isshowpoweredby")==1){?>
+	padding-bottom: 70px;   /* 无导航有logo */
+	<?php }else{ ?>
+	padding-bottom: 15px;   /* 无导航无logo */
+	<?php }}?>
+}
+</style>
+<?php if($bottomMenuInfo['isopen'] == '1' && ($bottomMenuInfo['isopen1'] == '1' ||$bottomMenuInfo['isopen2'] == '1'  ||$bottomMenuInfo['isopen3'] == '1'  ||$bottomMenuInfo['isopen4'] == '1' )){?>
+<div class="eshopv_fotter_lnavit">
+	<!-- <?php if($companyid == 1){?>
+	<a href="<?php echo U('Index/wapIndex',array('companyid'=>1));?>">首页</a>
+	<?php }else{?>
+	<a href="<?php echo $homeIndex['url'];?>">首页</a>
+	<?php }?>
+	<a href="javascript:void(0)" class="att_popup_active">关注我们</a>
+	<a href="<?php echo U('MemberDining/shops',array('companyid'=>$companyid));?>">全部门店</a>
+	<a href="<?php echo U('Member/center',array('companyid'=>$companyid));?>" >会员中心</a>-->
+	<a href="<?php if($bottomMenuInfo['relevancetype1'] == '1' && $bottomMenuInfo['relevancetype1'] && $bottomMenuInfo['relevanceurl1'] != '关注二维码弹窗'){echo $bottomMenuInfo['relevanceurl1'];}else{echo 'javascript:void(0);';}?>" <?php if($bottomMenuInfo['relevancetype1'] == '2'){echo 'class="att_popup_active"';}?> <?php if($bottomMenuInfo['isopen1'] == '2'){echo 'style="display:none"';}?>><?php echo $bottomMenuInfo['name1'];?></a>
+	<a href="<?php if($bottomMenuInfo['relevancetype2'] == '1' && $bottomMenuInfo['relevancetype2'] && $bottomMenuInfo['relevanceurl2'] != '关注二维码弹窗'){echo $bottomMenuInfo['relevanceurl2'];}else{echo 'javascript:void(0);';}?>" <?php if($bottomMenuInfo['relevancetype2'] == '2'){echo 'class="att_popup_active"';}?> <?php if($bottomMenuInfo['isopen2'] == '2'){echo 'style="display:none"';}?>><?php echo $bottomMenuInfo['name2'];?></a>
+	<a href="<?php if($bottomMenuInfo['relevancetype3'] == '1' && $bottomMenuInfo['relevancetype3'] && $bottomMenuInfo['relevanceurl3'] != '关注二维码弹窗'){echo $bottomMenuInfo['relevanceurl3'];}else{echo 'javascript:void(0);';}?>" <?php if($bottomMenuInfo['relevancetype3'] == '2'){echo 'class="att_popup_active"';}?> <?php if($bottomMenuInfo['isopen3'] == '2'){echo 'style="display:none"';}?>><?php echo $bottomMenuInfo['name3'];?></a>
+	<a href="<?php if($bottomMenuInfo['relevancetype4'] == '1' && $bottomMenuInfo['relevancetype4'] && $bottomMenuInfo['relevanceurl4'] != '关注二维码弹窗'){echo $bottomMenuInfo['relevanceurl4'];}else{echo 'javascript:void(0);';}?>" <?php if($bottomMenuInfo['relevancetype4'] == '2'){echo 'class="att_popup_active"';}?> <?php if($bottomMenuInfo['isopen4'] == '2'){echo 'style="display:none"';}?>><?php echo $bottomMenuInfo['name4'];?></a>
+</div>
+<?php }?>
+<?php if(session("isshowpoweredby")==1){?>
+<a href="<?php echo U('ScrmWap/index',array('companyid'=>1186)); ?>" class="eshopv_fotter_link">
+	<!--<p class="eshopv_fotter_logor"></p>-->
+	<p class="eshopv_fotter_logPa">人来风SCRM平台支持</p>
+	<p class="eshopv_fotter_logPa">www.mobiwind.cn</p>
+</a>
+<!--<p class="eshopv_fotter_logoa"><a href="<?php echo U('ProblemFeedback/index',array('companyid'=>$companyid))?>">BUG反馈</a></p>-->
+<?php }?>
+
+<!-- 关注弹窗 -->
+<div class="attention_popup att_popup_show" style="display: none;">
+	<div class="attention_content_close">
+		<b class="attention_close_icon  att_popup_close"></b>
+	</div>
+	<div class="attention_content">
+		<h2 class="attention_content_title"></h2>
+		<div class="attention_content_erma">
+			<img src="{lanrain::RES}/Eshop/attention_erma.jpg" class="js-code-asa" />
+			<p>长按图片识别二维码</p>
+		</div>
+		<div class="attention_content_search">
+			<h4>无法识别二维码</h4>
+			<p><em class="num_Arial">1</em>.打开微信,点击"添加朋友"</p>
+			<p><em class="num_Arial">2</em>.搜索微信号:<span class="js-info-asa">XXXXXX</span></p>
+			<p><em class="num_Arial">3</em>.点击"关注",完成</p>
+		</div>
+
+	</div>
+</div>
+<script>
+	$(function(){
+		$(".att_popup_active").click(function(){
+			$.post("<?php echo U('Wei/ajaxWechatCode',array('companyid'=>$companyid)); ?>",{},function(data){
+				if(!data.qrcodeurl){
+					data.qrcodeurl="./Tpl/Wap/default/common/Eshop/attention_erma.jpg";
+				}
+				$(".js-code-asa").attr("src",data.qrcodeurl);
+				$(".js-info-asa").html(data.weixin);
+				$(".att_popup_show").show();
+			},"json");
+		});
+		$(".att_popup_close").click(function(){
+			$(".att_popup_show").hide();
+		});
+	});
+</script>
+
+
+

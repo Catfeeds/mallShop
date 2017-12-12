@@ -1,0 +1,737 @@
+<include file="Public:head"/>
+<?php if($info['vouchertype'] == 1 || $info['vouchertype'] == 2 || $info['vouchertype'] == 3 || $info['vouchertype'] == 40){?>
+<include file="Public:UEditorJS" />
+<include file="Public:UEditorSuperMiNi" />
+<?php }?>
+<?php echo $makeTopUrl;?>
+<!-- 新建券 2016-10-31 10:50 -->
+<div class="mod mb-15">
+    <div class="mod-header radius-top">
+    	<h4><?php if($info['id']){echo '编辑';}else{echo '新建';}?>
+    		<?php 
+			if($info['vouchertype'] == 1){
+				echo 'eshop优惠券';
+			}elseif($info['vouchertype'] == 2){
+				echo '门店使用优惠券';
+			}elseif($info['vouchertype'] == 3){
+				echo '兑换券';
+			}elseif($info['vouchertype'] == 4){
+				echo '红包';
+			}elseif($info['vouchertype'] == 40){
+				echo '通用券';
+			}?>
+		</h4>
+	</div>
+    <div class="mod-body new-pic-msg js-new-pic-msg">
+    	<input type="hidden" name="id" value="<?php echo $info['id'];?>"/>
+    	<?php if($info['vouchertype'] == 1){?>
+        <div class="content clearfix">
+            <!-- 显示区 -->
+            <div class="menu-preview-area fl">
+                <div class="mobile-menu-preview">
+                    <div class="mobile-hd">eshop优惠券</div>
+                    <div class="mobile-bd">
+                        <div class="new-sell-active js-scroll">
+                            <div class="active-con">
+                                <div class="act-card">
+                                    <div class="act-card-border-1">
+                                        <div class="act-card-border-2">+
+                                            <p class="tit-top clearfix">
+                                                <span class="top-left">优惠券</span>
+                                                <span class="top-right">eshop使用</span>
+                                            </p>
+                                            <!-- .js-tit-name .js-tit-how-to-use-->
+                                            <p class="tit-how-to-use js-tit-name"><?php if($info['title']){echo $info['title'];}else{echo '我是优惠券名称';}?></p>
+                                            <p class="tit-name hide">我是优惠券名称</p>
+                                            <p class="tit-date js-tit-date"><?php if($info['usestarttime'] && $info['useendtime2']){?><?php echo format_time($info['usestarttime'],'ymdhi');?> 至 <?php echo format_time($info['useendtime2'],'ymdhi');?><?php }else{echo '2016-10-1 00:00 至 2060-10-1 23:59';}?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a class="useing-now">立即使用</a>
+                                <p class="card-numb">卡券号：8888888888888</p>
+                            </div>
+                            <ul class="active-list">
+                                <li>使用说明</li>
+                                <li style="height: auto;line-height: normal;border-bottom: 0;padding-top: 10px;font-size: 15px;">
+                                    <dl>
+                                    	<?php if($info['voucherdesc']){ echo htmlspecialchars_decode(htmlspecialchars_decode($info['voucherdesc']));}else{?>
+                                        <dt>法定节假日可用</dt>
+                                        <dt>1.3米以上儿童需要单独购票</dt>
+                                        <?php }?>
+                                    </dl>
+                                </li>
+                            </ul>
+                        </div>
+                        <p class="active-footer">请向店员出示</p>
+                    </div>
+                </div>
+            </div>
+            <!-- 编辑区 -->
+            <div class="menu-form-area">
+                <div class="vipcard-portable-editor">
+                    <ul class="vipcard-editor-inner js-scroll" tabindex="5001" style="overflow: hidden; outline: none;">
+                        <li class="group pb-10"><h4><b>eshop优惠券设置</b></h4></li>
+                        <li class="group pb-20">
+                            <h5 class="inline w150">eshop优惠券名称：</h5><!-- 
+                             --><input class="inline w300 js-tit-name-set" type="text" name="title" value="<?php echo $info['title'];?>">
+                             <h6 class="text-gray pt-5 ml-150">*限15个汉字，30个字符</h6>
+                        </li>
+                        <li class="group pb-20 clearfix">
+                            <h5 class="fl">卡券效用：</h5>
+                            <ul class="ml-150 sale-token js-sale-toggle">
+                                <li>
+                                    <label class="radio w100 pb-10 js-lijian"><input type="radio" name="discounttype" value="1" <?php if($info['discounttype'] == 1){echo 'checked="checked"';}?>>立减</label>
+                                    <div class="group pb-10" style="<?php if($info['discounttype'] == 1){echo 'display:block';}?>">
+                                        <h6 class="inline w80 text-right">立减：</h6><input class="inline w50" type="text" name="minus" value="<?php echo $info['minus'];?>"> 元
+                                    </div>
+                                </li>
+                                <li>
+                                    <label class="radio w100 pb-10 js-lizhe"><input type="radio" name="discounttype" value="2" <?php if($info['discounttype'] == 2){echo 'checked="checked"';}?>>立折</label>
+                                    <div class="group pb-10" style="<?php if($info['discounttype'] == 2){echo 'display:block';}?>">
+                                        <h6 class="inline w80 text-right">立折： </h6><input class="inline w50" type="text" name="discount" value="<?php echo $info['discount'];?>"> %
+                                    </div>
+                                </li>
+                                <li>
+                                    <label class="radio w100 pb-10 js-manjian"><input type="radio" name="discounttype" value="3" <?php if($info['discounttype'] == 3){echo 'checked="checked"';}?>>满减</label>
+                                    <div class="group pb-10" style="<?php if($info['discounttype'] == 3){echo 'display:block';}?>">
+                                        <h6 class="inline w80 text-right">满：</h6>
+                                        <input class="inline w50" type="text" name="fullminus1" value="<?php echo $info['fullminus1'];?>"> 元，减 <input class="inline w50" type="text" name="fullminus2" value="<?php echo $info['fullminus2'];?>"> 元
+                                    </div>
+                                </li>
+                                <li>
+                                    <label class="radio w100 pb-10 js-manzhe"><input type="radio" name="discounttype" value="4" <?php if($info['discounttype'] == 4){echo 'checked="checked"';}?>>满折</label>
+                                    <div class="group pb-10" style="<?php if($info['discounttype'] == 4){echo 'display:block';}?>">
+                                        <h6 class="inline w80 text-right">满：</h6>
+                                        <input class="inline w50" type="text" name="fulldiscount1" value="<?php echo $info['fulldiscount1'];?>"> 元，折 <input class="inline w50" type="text" name="fulldiscount2" value="<?php echo $info['fulldiscount2'];?>"> %
+                                    </div>
+                                </li>
+                                <li>
+                                    <label class="radio w100 pb-10 js-meimanjian"><input type="radio" name="discounttype" value="5" <?php if($info['discounttype'] == 5){echo 'checked="checked"';}?>>每满减</label>
+                                    <div class="group pb-10" style="<?php if($info['discounttype'] == 5){echo 'display:block';}?>">
+                                        <h6 class="inline w80 text-right">每满：</h6>
+                                        <input class="inline w50" type="text" name="eachfullminus1" value="<?php echo $info['eachfullminus1'];?>"> 元，减 <input class="inline w50" type="text" name="eachfullminus2" value="<?php echo $info['eachfullminus2'];?>"> 元
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="group pb-20 clearfix">
+                            <h5 class="fl">使用期限：</h5>
+                            <ul class="ml-150 sale-token">
+                                <li><label class="radio pb-10"><input type="radio" name="usetimelimittype" value="1" <?php if($info['usetimelimittype'] == 1){echo 'checked="checked"';}?>>获得后 
+                                <input class="inline w50 js-currdate-after" type="text" name="usedays" value="<?php echo $info['usedays']?>"> 日内有效</label></li>
+                                <li><label class="radio pb-10"><input type="radio" name="usetimelimittype" value="3" <?php if($info['usetimelimittype'] == 3){echo 'checked="checked"';}?>>
+                                <input class="laydate-input w100 js-someday" id="Card-type-03" name="usetime" value="<?php echo $info['usetime'];?>" onclick="laydate({format: 'YYYY-MM-DD'})" placeholder="YYYY-MM-DD"><i class="icon-laydate" onclick="laydate({format: 'YYYY-MM-DD',elem:'#Card-type-03'});"></i></label></li>
+                                <li><label class="radio pb-10"><input type="radio" name="usetimelimittype" value="2" <?php if($info['usetimelimittype'] == 2){echo 'checked="checked"';}?>>
+                                <input class="laydate-input w100 js-anyday-1" id="Card-type-01" name="usebegintime" value="<?php echo $info['usebegintime'];?>" onclick="laydate({format: 'YYYY-MM-DD'})" placeholder="YYYY-MM-DD"><i class="icon-laydate" onclick="laydate({format: 'YYYY-MM-DD',elem:'#Card-type-01'});"></i> - <input class="laydate-input w100 js-anyday-2" id="Card-type-02" name="useendtime" value="<?php echo $info['useendtime'];?>" onclick="laydate({format: 'YYYY-MM-DD'})" placeholder="YYYY-MM-DD"><i class="icon-laydate" onclick="laydate({format: 'YYYY-MM-DD',elem:'#Card-type-02'});"></i></label></li>
+                            </ul>
+                        </li>
+                        <li class="group pb-20">
+                            <h5 class="inline w150 text-left text-top">使用说明：</h5>
+                            <script type="text/plain" class="ml-150 " id="voucherSet" name="voucherdesc"><?php echo htmlspecialchars_decode(htmlspecialchars_decode($info['voucherdesc']));?></script>
+                            <h6 class="inline ml-150 text-gray">&nbsp; *限200个汉字，400个字符。输入使用说明后，左侧实时<br/> &nbsp; &nbsp;预览暂不支持显示相关内容，请在手机上进行预览</h6>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+		<?php }elseif($info['vouchertype'] == 2){?>
+        <div class="content clearfix">
+            <!-- 显示区 -->
+            <div class="menu-preview-area fl">
+                <div class="mobile-menu-preview">
+                    <div class="mobile-hd">门店使用优惠券</div>
+                    <div class="mobile-bd">
+                        <div class="new-sell-active js-scroll">
+                            <div class="active-con">
+                                <div class="act-card">
+                                    <div class="act-card-border-1">
+                                        <div class="act-card-border-2">
+                                            <p class="tit-top clearfix">
+                                                <span class="top-left">优惠券</span>
+                                                <span class="top-right">门店使用</span>
+                                            </p>
+                                            <!--  .js-tit-name .js-tit-how-to-use -->
+                                       		<p class="tit-how-to-use js-tit-name"><?php if($info['title']){echo $info['title'];}else{echo '我是优惠券名称';}?></p>
+                                            <p class="tit-name hide">我是优惠券名称</p>
+                                            <p class="tit-date"><?php if($info['usestarttime'] && $info['useendtime2']){?><?php echo format_time($info['usestarttime'],'ymdhi');?> 至 <?php echo format_time($info['useendtime2'],'ymdhi');?><?php }else{echo '2016-10-1 00:00 至 2060-10-1 23:59';}?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a class="useing-now">立即使用</a>
+                                <p class="card-numb">卡券号：8888888888888</p>
+                            </div>
+                            <ul class="active-list">
+                                <li>使用说明</li>
+                                <li style="height: auto;line-height: normal;border-bottom: 0;padding-top: 10px;font-size: 15px;">
+                                    <dl>
+                                        <?php if($info['voucherdesc']){ echo htmlspecialchars_decode(htmlspecialchars_decode($info['voucherdesc']));}else{?>
+                                        <dt>法定节假日可用</dt>
+                                        <dt>1.3米以上儿童需要单独购票</dt>
+                                        <?php }?>
+                                    </dl>
+                                </li>
+                            </ul>
+                        </div>
+                        <p class="active-footer">请向店员出示</p>
+                    </div>
+                </div>
+            </div>
+            <!-- 编辑区 -->
+            <div class="menu-form-area">
+                <div class="vipcard-portable-editor">
+                    <ul class="vipcard-editor-inner js-scroll" tabindex="5001" style="overflow: hidden; outline: none;">
+                        <li class="group pb-10"><h4><b>门店使用优惠券设置</b></h4></li>
+                        <li class="group pb-20">
+                            <h5 class="inline w150">门店使用优惠券名称：</h5><!-- 
+                             --><input class="inline w300 js-tit-name-set" type="text" name="title" value="<?php echo $info['title'];?>">
+                             <h6 class="text-gray pt-5 ml-150">*限15个汉字，30个字符</h6>
+                        </li>
+                        <li class="group pb-20 clearfix">
+                            <h5 class="fl">卡券效用：</h5>
+                            <ul class="ml-150 sale-token js-sale-toggle">
+                                <li>
+                                    <label class="radio w100 pb-10 js-lijian"><input type="radio" name="discounttype" value="1" <?php if($info['discounttype'] == 1){echo 'checked="checked"';}?>>立减</label>
+                                    <div class="group pb-10" style="<?php if($info['discounttype'] == 1){echo 'display:block';}?>">
+                                        <h6 class="inline w80 text-right">立减：</h6><input class="inline w50" type="text" name="minus" value="<?php echo $info['minus'];?>"> 元
+                                    </div>
+                                </li>
+                                <li>
+                                    <label class="radio w100 pb-10 js-lizhe"><input type="radio" name="discounttype" value="2" <?php if($info['discounttype'] == 2){echo 'checked="checked"';}?>>立折</label>
+                                    <div class="group pb-10" style="<?php if($info['discounttype'] == 2){echo 'display:block';}?>">
+                                        <h6 class="inline w80 text-right">立折： </h6><input class="inline w50" type="text" name="discount" value="<?php echo $info['discount'];?>"> %
+                                    </div>
+                                </li>
+                                <li>
+                                    <label class="radio w100 pb-10 js-manjian"><input type="radio" name="discounttype" value="3" <?php if($info['discounttype'] == 3){echo 'checked="checked"';}?>>满减</label>
+                                    <div class="group pb-10" style="<?php if($info['discounttype'] == 3){echo 'display:block';}?>">
+                                        <h6 class="inline w80 text-right">满：</h6>
+                                        <input class="inline w50" type="text" name="fullminus1" value="<?php echo $info['fullminus1'];?>"> 元，减 <input class="inline w50" type="text" name="fullminus2" value="<?php echo $info['fullminus2'];?>"> 元
+                                    </div>
+                                </li>
+                                <li>
+                                    <label class="radio w100 pb-10 js-manzhe"><input type="radio" name="discounttype" value="4" <?php if($info['discounttype'] == 4){echo 'checked="checked"';}?>>满折</label>
+                                    <div class="group pb-10" style="<?php if($info['discounttype'] == 4){echo 'display:block';}?>">
+                                        <h6 class="inline w80 text-right">满：</h6>
+                                        <input class="inline w50" type="text" name="fulldiscount1" value="<?php echo $info['fulldiscount1'];?>"> 元，折 <input class="inline w50" type="text" name="fulldiscount2" value="<?php echo $info['fulldiscount2'];?>"> %
+                                    </div>
+                                </li>
+                                <li>
+                                    <label class="radio w100 pb-10 js-meimanjian"><input type="radio" name="discounttype" value="5" <?php if($info['discounttype'] == 5){echo 'checked="checked"';}?>>每满减</label>
+                                    <div class="group pb-10" style="<?php if($info['discounttype'] == 5){echo 'display:block';}?>">
+                                        <h6 class="inline w80 text-right">每满：</h6>
+                                        <input class="inline w50" type="text" name="eachfullminus1" value="<?php echo $info['eachfullminus1'];?>"> 元，减 <input class="inline w50" type="text" name="eachfullminus2" value="<?php echo $info['eachfullminus2'];?>"> 元
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="group pb-20 clearfix">
+                            <h5 class="fl">使用期限：</h5>
+                            <ul class="ml-150 sale-token">
+                                <li><label class="radio pb-10"><input type="radio" name="usetimelimittype" value="1" <?php if($info['usetimelimittype'] == 1){echo 'checked="checked"';}?>>获得后 
+                                <input class="inline w50 js-currdate-after" type="text" name="usedays" value="<?php echo $info['usedays']?>"> 日内有效</label></li>
+                                <li><label class="radio pb-10"><input type="radio" name="usetimelimittype" value="3" <?php if($info['usetimelimittype'] == 3){echo 'checked="checked"';}?>>
+                                <input class="laydate-input w100 js-someday" id="Card-type-03" name="usetime" value="<?php echo $info['usetime'];?>" onclick="laydate({format: 'YYYY-MM-DD'})" placeholder="YYYY-MM-DD"><i class="icon-laydate" onclick="laydate({format: 'YYYY-MM-DD',elem:'#Card-type-03'});"></i></label></li>
+                                <li><label class="radio pb-10"><input type="radio" name="usetimelimittype" value="2" <?php if($info['usetimelimittype'] == 2){echo 'checked="checked"';}?>>
+                                <input class="laydate-input w100 js-anyday-1" id="Card-type-01" name="usebegintime" value="<?php echo $info['usebegintime'];?>" onclick="laydate({format: 'YYYY-MM-DD'})" placeholder="YYYY-MM-DD"><i class="icon-laydate" onclick="laydate({format: 'YYYY-MM-DD',elem:'#Card-type-01'});"></i> - <input class="laydate-input w100 js-anyday-2" id="Card-type-02" name="useendtime" value="<?php echo $info['useendtime'];?>" onclick="laydate({format: 'YYYY-MM-DD'})" placeholder="YYYY-MM-DD"><i class="icon-laydate" onclick="laydate({format: 'YYYY-MM-DD',elem:'#Card-type-02'});"></i></label></li>
+                            </ul>
+                        </li>
+                        <li class="group pb-20">
+                            <h5 class="inline w150 text-left text-top">使用说明：</h5>
+                            <script type="text/plain" class="ml-150 " id="voucherSet" name="voucherdesc"><?php echo htmlspecialchars_decode(htmlspecialchars_decode($info['voucherdesc']));?></script>
+                            <h6 class="inline ml-150 text-gray">&nbsp; *限200个汉字，400个字符。输入使用说明后，左侧实时<br/> &nbsp; &nbsp;预览暂不支持显示相关内容，请在手机上进行预览</h6>
+                        </li>
+                        <li class="group pb-20 clearfix">
+                            <h5 class="fl">适用门店：</h5>
+                            <ul class="ml-150">
+                                <label class="checkbox inline mr-20"><input type="checkbox" class="check-sale check-all-sale" <?php if($info['alluseshops'] == 1){ echo 'checked="checked"'; } ?>>全选</label>
+                                <?php if($shops){foreach($shops as $sKey=>$sVal){?>
+                                <label class="checkbox inline mr-20"><input type="checkbox" name="useshops" class="check-sale" value="<?php echo $sVal['id']?>" <?php if(strpos($info['useshops'] ,$sVal['id'].',') !== FALSE){ echo 'checked="checked"'; } ?>><?php echo $sVal['shopname'];?></label>
+                           		<?php }}?>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+		<?php }elseif($info['vouchertype'] == 3){?>
+		<div class="content clearfix">
+            <!-- 显示区 -->
+            <div class="menu-preview-area fl">
+                <div class="mobile-menu-preview">
+                    <div class="mobile-hd">兑换券</div>
+                    <div class="mobile-bd">
+                        <div class="new-sell-active js-scroll">
+                            <div class="active-con">
+                                <div class="act-card" style="background-color: #eb9532;background-image: url(./Tpl/User5/default/common/img/sell_active_card_bgi2.png);">
+                                    <div class="act-card-border-1">
+                                        <div class="act-card-border-2">
+                                            <p class="tit-top clearfix">
+                                                <span class="top-left">兑换券</span>
+                                                <span class="top-right">门店使用</span>
+                                            </p>
+                                            <p class="tit-how-to-use js-tit-name"><?php if($info['title']){echo $info['title'];}else{echo '我是兑换券名称';}?></p>
+                                            <span class="tit-active-type" style="color: #eb9532;">规格规格</span>
+                                            <p class="tit-date"><?php if($info['usestarttime'] && $info['useendtime2']){?><?php echo format_time($info['usestarttime'],'ymdhi');?> 至 <?php echo format_time($info['useendtime2'],'ymdhi');?><?php }else{echo '2016-10-1 00:00 至 2060-10-1 23:59';}?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a class="useing-now" style="color: #eb9532; border-color: #eb9532;">立即使用</a>
+                                <p class="card-numb">卡券号：8888888888888</p>
+                            </div>
+                            <ul class="active-list">
+                                <li>使用说明</li>
+                                <li style="height: auto;line-height: normal;border-bottom: 0;padding-top: 10px;font-size: 15px;">
+                                    <dl>
+                                        <?php if($info['voucherdesc']){ echo htmlspecialchars_decode(htmlspecialchars_decode($info['voucherdesc']));}else{?>
+                                        <dt>法定节假日可用</dt>
+                                        <dt>1.3米以上儿童需要单独购票</dt>
+                                        <?php }?>
+                                    </dl>
+                                </li>
+                            </ul>
+                        </div>
+                        <p class="active-footer">请向店员出示</p>
+                    </div>
+                </div>
+            </div>
+            <!-- 编辑区 -->
+            <div class="menu-form-area">
+                <div class="vipcard-portable-editor">
+                    <ul class="vipcard-editor-inner js-scroll" tabindex="5001" style="overflow: hidden; outline: none;">
+                        <li class="group pb-10"><h4><b>兑换券设置</b></h4></li>
+                        <li class="group pb-20">
+                            <h5 class="inline w150">兑换券名称：</h5><!-- 
+                             --><input class="inline w300 js-tit-name-set" type="text" name="title" value="<?php echo $info['title'];?>">
+                             <h6 class="text-gray pt-5 ml-150">*限15个汉字，30个字符</h6>
+                        </li>
+                        <li class="group pb-20 clearfix">
+                            <h5 class="fl">使用期限：</h5>
+                            <ul class="ml-150 sale-token">
+                                <li><label class="radio pb-10"><input type="radio" name="usetimelimittype" value="1" <?php if($info['usetimelimittype'] == 1){echo 'checked="checked"';}?>>获得后 
+                                <input class="inline w50 js-currdate-after" type="text" name="usedays" value="<?php echo $info['usedays']?>"> 日内有效</label></li>
+                                <li><label class="radio pb-10"><input type="radio" name="usetimelimittype" value="3" <?php if($info['usetimelimittype'] == 3){echo 'checked="checked"';}?>>
+                                <input class="laydate-input w100 js-someday" id="Card-type-03" name="usetime" value="<?php echo $info['usetime'];?>" onclick="laydate({format: 'YYYY-MM-DD'})" placeholder="YYYY-MM-DD"><i class="icon-laydate" onclick="laydate({format: 'YYYY-MM-DD',elem:'#Card-type-03'});"></i></label></li>
+                                <li><label class="radio pb-10"><input type="radio" name="usetimelimittype" value="2" <?php if($info['usetimelimittype'] == 2){echo 'checked="checked"';}?>>
+                                <input class="laydate-input w100 js-anyday-1" id="Card-type-01" name="usebegintime" value="<?php echo $info['usebegintime'];?>" onclick="laydate({format: 'YYYY-MM-DD'})" placeholder="YYYY-MM-DD"><i class="icon-laydate" onclick="laydate({format: 'YYYY-MM-DD',elem:'#Card-type-01'});"></i> - <input class="laydate-input w100 js-anyday-2" id="Card-type-02" name="useendtime" value="<?php echo $info['useendtime'];?>" onclick="laydate({format: 'YYYY-MM-DD'})" placeholder="YYYY-MM-DD"><i class="icon-laydate" onclick="laydate({format: 'YYYY-MM-DD',elem:'#Card-type-02'});"></i></label></li>
+                            </ul>
+                        </li>
+                        <li class="group pb-20">
+                            <h5 class="inline w150 text-left text-top">使用说明：</h5>
+                            <script type="text/plain" class="ml-150 " id="voucherSet" name="voucherdesc"><?php echo htmlspecialchars_decode(htmlspecialchars_decode($info['voucherdesc']));?></script>
+                            <h6 class="inline ml-150 text-gray">&nbsp; *限200个汉字，400个字符。输入使用说明后，左侧实时<br/> &nbsp; &nbsp;预览暂不支持显示相关内容，请在手机上进行预览</h6>
+                        </li>
+                        <li class="group pb-20 clearfix">
+                            <h5 class="fl">适用门店：</h5>
+                            <ul class="ml-150">
+                                <label class="checkbox inline mr-20"><input type="checkbox" class="check-sale check-all-sale" <?php if($info['alluseshops'] == 1){ echo 'checked="checked"'; } ?>>全选</label>
+                                <?php if($shops){foreach($shops as $sKey=>$sVal){?>
+                                <label class="checkbox inline mr-20"><input type="checkbox" name="useshops" class="check-sale" value="<?php echo $sVal['id']?>" <?php if(strpos($info['useshops'] ,$sVal['id'].',') !== FALSE){ echo 'checked="checked"'; } ?>><?php echo $sVal['shopname'];?></label>
+                           		<?php }}?>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+		<?php }elseif($info['vouchertype'] == 4){?>
+		<div class="content clearfix">
+            <!-- 显示区 -->
+            <div class="menu-preview-area fl">
+                <div class="mobile-menu-preview">
+                    <div class="mobile-hd">红包</div>
+                    <div class="new-sell-active js-scroll">
+                        <div class="active-con" style="height: 100%;">
+                            <div class="act-card">
+                                <div class="act-card-border-1">
+                                    <div class="act-card-border-2">
+                                        <p class="tit-how-to-use js-tit-name" style="top:25px;"><?php if($info['title']){echo $info['title'];}else{echo '100元红包';}?></p>
+                                        <p class="tit-name show" style="position:absolute;top:50px;left:10px;">拆开后计入储值卡</p>
+                                        <p class="tit-date hide">2016.9.9-2016.7.1</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="background-color: #000; position: absolute;width: 280px;height: 100px;top: 140px;left: 50%;margin-left: -140px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 编辑区 -->
+            <div class="menu-form-area">
+                <div class="vipcard-portable-editor">
+                    <ul class="vipcard-editor-inner js-scroll" tabindex="5001" style="overflow: hidden; outline: none;">
+                        <li class="group pb-10"><h4><b>红包设置</b></h4></li>
+                        <li class="group pb-20">
+                            <h5 class="inline w150">红包名称：</h5><!-- 
+                             --><input class="inline w300 js-tit-name-set" type="text" name="title" value="<?php echo $info['title'];?>">
+                             <h6 class="text-gray pt-5 ml-150">*限15个汉字，30个字符</h6>
+                        </li>
+                        <li class="group pb-20 clearfix">
+                            <h5 class="fl">红包面值：</h5>
+                            <ul class="ml-150 sale-token">
+                                <li><label class="radio pb-10"><input type="radio" name="israndom" value="0" <?php if($info['israndom'] == 0){echo 'checked="checked"';}?>>定额 <input class="inline w50" type="text" name="parvalue" value="<?php echo $info['parvalue'];?>"> 元</label></li>
+                                <li><label class="radio pb-10"><input type="radio" name="israndom" value="1" <?php if($info['israndom'] == 1){echo 'checked="checked"';}?>>随机 <input class="inline w50" type="text" name="minparvalue" value="<?php echo $info['minparvalue'];?>"> - <input class="inline w50" type="text" name="maxparvalue" value="<?php echo $info['maxparvalue'];?>"> 元</label></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <?php }elseif($info['vouchertype'] == 40){?>
+        <div class="content clearfix">
+            <!-- 显示区 -->
+            <div class="menu-preview-area fl">
+                <div class="mobile-menu-preview">
+                    <div class="mobile-hd">通用券</div>
+                    <div class="mobile-bd">
+                        <div class="new-sell-active js-scroll">
+                            <div class="active-con">
+                                <div class="act-card">
+                                    <div class="act-card-border-1">
+                                        <div class="act-card-border-2">
+                                            <p class="tit-top clearfix">
+                                                <span class="top-left">优惠券</span>
+                                                <span class="top-right">通用券</span>
+                                            </p>
+                                            <!--  .js-tit-name .js-tit-how-to-use -->
+                                       		<p class="tit-how-to-use js-tit-name"><?php if($info['title']){echo $info['title'];}else{echo '我是优惠券名称';}?></p>
+                                            <p class="tit-name hide">我是优惠券名称</p>
+                                            <p class="tit-date"><?php if($info['usestarttime'] && $info['useendtime2']){?><?php echo format_time($info['usestarttime'],'ymdhi');?> 至 <?php echo format_time($info['useendtime2'],'ymdhi');?><?php }else{echo '2016-10-1 00:00 至 2060-10-1 23:59';}?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a class="useing-now">立即使用</a>
+                                <p class="card-numb">卡券号：8888888888888</p>
+                            </div>
+                            <ul class="active-list">
+                                <li>使用说明</li>
+                                <li style="height: auto;line-height: normal;border-bottom: 0;padding-top: 10px;font-size: 15px;">
+                                    <dl>
+                                        <?php if($info['voucherdesc']){ echo htmlspecialchars_decode(htmlspecialchars_decode($info['voucherdesc']));}else{?>
+                                        <dt>法定节假日可用</dt>
+                                        <dt>1.3米以上儿童需要单独购票</dt>
+                                        <?php }?>
+                                    </dl>
+                                </li>
+                            </ul>
+                        </div>
+                        <p class="active-footer">请向店员出示</p>
+                    </div>
+                </div>
+            </div>
+            <!-- 编辑区 -->
+            <div class="menu-form-area">
+                <div class="vipcard-portable-editor">
+                    <ul class="vipcard-editor-inner js-scroll" tabindex="5001" style="overflow: hidden; outline: none;">
+                        <li class="group pb-10"><h4><b>通用券设置</b></h4></li>
+                        <li class="group pb-20">
+                            <h5 class="inline w150">通用券名称：</h5><!-- 
+                             --><input class="inline w300 js-tit-name-set" type="text" name="title" value="<?php echo $info['title'];?>">
+                             <h6 class="text-gray pt-5 ml-150">*限15个汉字，30个字符</h6>
+                        </li>
+                        <li class="group pb-20 clearfix">
+                            <h5 class="fl">卡券效用：</h5>
+                            <ul class="ml-150 sale-token js-sale-toggle">
+                                <li>
+                                    <label class="radio w100 pb-10 js-lijian"><input type="radio" name="discounttype" value="1" <?php if($info['discounttype'] == 1){echo 'checked="checked"';}?>>立减</label>
+                                    <div class="group pb-10" style="<?php if($info['discounttype'] == 1){echo 'display:block';}?>">
+                                        <h6 class="inline w80 text-right">立减：</h6><input class="inline w50" type="text" name="minus" value="<?php echo $info['minus'];?>"> 元
+                                    </div>
+                                </li>
+                                <li>
+                                    <label class="radio w100 pb-10 js-lizhe"><input type="radio" name="discounttype" value="2" <?php if($info['discounttype'] == 2){echo 'checked="checked"';}?>>立折</label>
+                                    <div class="group pb-10" style="<?php if($info['discounttype'] == 2){echo 'display:block';}?>">
+                                        <h6 class="inline w80 text-right">立折： </h6><input class="inline w50" type="text" name="discount" value="<?php echo $info['discount'];?>"> %
+                                    </div>
+                                </li>
+                                <li>
+                                    <label class="radio w100 pb-10 js-manjian"><input type="radio" name="discounttype" value="3" <?php if($info['discounttype'] == 3){echo 'checked="checked"';}?>>满减</label>
+                                    <div class="group pb-10" style="<?php if($info['discounttype'] == 3){echo 'display:block';}?>">
+                                        <h6 class="inline w80 text-right">满：</h6>
+                                        <input class="inline w50" type="text" name="fullminus1" value="<?php echo $info['fullminus1'];?>"> 元，减 <input class="inline w50" type="text" name="fullminus2" value="<?php echo $info['fullminus2'];?>"> 元
+                                    </div>
+                                </li>
+                                <li>
+                                    <label class="radio w100 pb-10 js-manzhe"><input type="radio" name="discounttype" value="4" <?php if($info['discounttype'] == 4){echo 'checked="checked"';}?>>满折</label>
+                                    <div class="group pb-10" style="<?php if($info['discounttype'] == 4){echo 'display:block';}?>">
+                                        <h6 class="inline w80 text-right">满：</h6>
+                                        <input class="inline w50" type="text" name="fulldiscount1" value="<?php echo $info['fulldiscount1'];?>"> 元，折 <input class="inline w50" type="text" name="fulldiscount2" value="<?php echo $info['fulldiscount2'];?>"> %
+                                    </div>
+                                </li>
+                                <li>
+                                    <label class="radio w100 pb-10 js-meimanjian"><input type="radio" name="discounttype" value="5" <?php if($info['discounttype'] == 5){echo 'checked="checked"';}?>>每满减</label>
+                                    <div class="group pb-10" style="<?php if($info['discounttype'] == 5){echo 'display:block';}?>">
+                                        <h6 class="inline w80 text-right">每满：</h6>
+                                        <input class="inline w50" type="text" name="eachfullminus1" value="<?php echo $info['eachfullminus1'];?>"> 元，减 <input class="inline w50" type="text" name="eachfullminus2" value="<?php echo $info['eachfullminus2'];?>"> 元
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="group pb-20 clearfix">
+                            <h5 class="fl">使用期限：</h5>
+                            <ul class="ml-150 sale-token">
+                                <li><label class="radio pb-10"><input type="radio" name="usetimelimittype" value="1" <?php if($info['usetimelimittype'] == 1){echo 'checked="checked"';}?>>获得后 
+                                <input class="inline w50 js-currdate-after" type="text" name="usedays" value="<?php echo $info['usedays']?>"> 日内有效</label></li>
+                                <li><label class="radio pb-10"><input type="radio" name="usetimelimittype" value="3" <?php if($info['usetimelimittype'] == 3){echo 'checked="checked"';}?>>
+                                <input class="laydate-input w100 js-someday" id="Card-type-03" name="usetime" value="<?php echo $info['usetime'];?>" onclick="laydate({format: 'YYYY-MM-DD'})" placeholder="YYYY-MM-DD"><i class="icon-laydate" onclick="laydate({format: 'YYYY-MM-DD',elem:'#Card-type-03'});"></i></label></li>
+                                <li><label class="radio pb-10"><input type="radio" name="usetimelimittype" value="2" <?php if($info['usetimelimittype'] == 2){echo 'checked="checked"';}?>>
+                                <input class="laydate-input w100 js-anyday-1" id="Card-type-01" name="usebegintime" value="<?php echo $info['usebegintime'];?>" onclick="laydate({format: 'YYYY-MM-DD'})" placeholder="YYYY-MM-DD"><i class="icon-laydate" onclick="laydate({format: 'YYYY-MM-DD',elem:'#Card-type-01'});"></i> - <input class="laydate-input w100 js-anyday-2" id="Card-type-02" name="useendtime" value="<?php echo $info['useendtime'];?>" onclick="laydate({format: 'YYYY-MM-DD'})" placeholder="YYYY-MM-DD"><i class="icon-laydate" onclick="laydate({format: 'YYYY-MM-DD',elem:'#Card-type-02'});"></i></label></li>
+                            </ul>
+                        </li>
+                        <li class="group pb-20">
+                            <h5 class="inline w150 text-left text-top">使用说明：</h5>
+                            <script type="text/plain" class="ml-150 " id="voucherSet" name="voucherdesc"><?php echo htmlspecialchars_decode(htmlspecialchars_decode($info['voucherdesc']));?></script>
+                            <h6 class="inline ml-150 text-gray">&nbsp; *限200个汉字，400个字符。输入使用说明后，左侧实时<br/> &nbsp; &nbsp;预览暂不支持显示相关内容，请在手机上进行预览</h6>
+                        </li>
+                        <li class="group pb-20 clearfix">
+                            <h5 class="fl">适用场景：</h5>
+                            <ul class="ml-150">
+                                <label class="checkbox inline mr-20"><input type="checkbox" class="check-sale-scene check-all-sale-scene" <?php if($info['allusescene'] == 1){ echo 'checked="checked"'; } ?>>全选</label>
+                                <label class="checkbox inline mr-20"><input type="checkbox" name="usescene" class="check-sale-scene" value="1" <?php if(strpos($info['usescene'] ,'1,') !== FALSE){ echo 'checked="checked"'; } ?>>Eshop微商城</label>
+                            	<label class="checkbox inline mr-20"><input type="checkbox" name="usescene" class="check-sale-scene" value="2" <?php if(strpos($info['usescene'] ,'2,') !== FALSE){ echo 'checked="checked"'; } ?>>风外卖</label>
+                            	<label class="checkbox inline mr-20"><input type="checkbox" name="usescene" class="check-sale-scene" value="3" <?php if(strpos($info['usescene'] ,'3,') !== FALSE){ echo 'checked="checked"'; } ?>>闪惠</label>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+		<?php }?>
+        <div class="group form-footer text-center">
+            <input class="btn-small btn-purple w100 js-rd-submit" type="submit" value="保存并发布">
+        </div>
+    </div>
+</div>
+<input type="hidden" name="alluseshops" value="2"/>
+<input type="hidden" name="allusescene" value="2"/>
+<script>
+	$(function(){
+		// 门店使用优惠券、兑换券的使用门店全选
+		$('.check-all-sale').click(function(){
+		    if ($(this).is(":checked")){
+		      $('.check-sale').prop("checked", true);
+		    }else{
+		      $('.check-sale').prop("checked", false);
+		    }
+		 });
+		$('.check-sale').click(function(){
+			var num = $('input[name="useshops"]').length;
+			var nums = $('input[name="useshops"]:checked').length;
+			if(num == nums){
+				$('input[name="alluseshops"]').val(1);
+				$('.check-all-sale').prop("checked", true);
+			}else{
+				$('input[name="alluseshops"]').val(2);
+				$('.check-all-sale').prop("checked", false);
+			}
+		});
+		// 通用券的使用场景全选
+		$('.check-all-sale-scene').click(function(){
+		    if ($(this).is(":checked")){
+		      $('.check-sale-scene').prop("checked", true);
+		    }else{
+		      $('.check-sale-scene').prop("checked", false);
+		    }
+		 });
+		$('.check-sale-scene').click(function(){
+			var num = $('input[name="usescene"]').length;
+			var nums = $('input[name="usescene"]:checked').length;
+			if(num == nums){
+				$('input[name="allusescene"]').val(1);
+				$('.check-all-sale-scene').prop("checked", true);
+			}else{
+				$('input[name="allusescene"]').val(2);
+				$('.check-all-sale-scene').prop("checked", false);
+			}
+		});
+	});
+</script>
+<script>
+$(function(){
+	$('.js-rd-submit').click(function(){
+		var id = $('input[name="id"]').val();
+		var vouchertype = "<?php echo $info['vouchertype'];?>";
+		var title = $('input[name="title"]').val();
+		if(title.trim() == ''){
+			alertTan('请填写卡券名称','warn');
+			return false;
+		}
+		if(zfl.GetLength(title) > 30){
+			alertTan('卡券名称限15汉字','warn');
+			return false;
+		}
+		var discounttype = $('input[name="discounttype"]:checked').val();
+		if(vouchertype == 1 || vouchertype == 2 || vouchertype == 40){
+			if(discounttype == 1){
+				var minus = $('input[name="minus"]').val();
+				if(minus.trim() == ''){
+					alertTan('请填写立减优惠减金额','warn');
+					return false;
+				}
+			}else if(discounttype == 2){
+				var discount = $('input[name="discount"]').val();
+				if(discount.trim() == ''){
+					alertTan('请填写立折优惠折扣','warn');
+					return false;
+				}
+			}else if(discounttype == 3){
+				var fullminus1 = $('input[name="fullminus1"]').val();
+				var fullminus2 = $('input[name="fullminus2"]').val();
+				var fullminus = fullminus1+','+fullminus2;
+				if(fullminus1.trim() == ''){
+					alertTan('请填写满减优惠满金额','warn');
+					return false;
+				}
+				if(fullminus2.trim() == ''){
+					alertTan('请填写满减优惠减金额','warn');
+					return false;
+				}
+			}else if(discounttype == 4){
+				var fulldiscount1 = $('input[name="fulldiscount1"]').val();
+				var fulldiscount2 = $('input[name="fulldiscount2"]').val();
+				var fulldiscount = fulldiscount1+','+fulldiscount2;
+				if(fulldiscount1.trim() == ''){
+					alertTan('请填写满折优惠满金额','warn');
+					return false;
+				}
+				if(fulldiscount2.trim() == ''){
+					alertTan('请填写满折优惠折扣','warn');
+					return false;
+				}
+			}else if(discounttype == 5){
+				var eachfullminus1 = $('input[name="eachfullminus1"]').val();
+				var eachfullminus2 = $('input[name="eachfullminus2"]').val();
+				var eachfullminus = eachfullminus1+','+eachfullminus2;
+				if(eachfullminus1.trim() == ''){
+					alertTan('请填写每满减优惠满金额','warn');
+					return false;
+				}
+				if(eachfullminus2.trim() == ''){
+					alertTan('请填写每满减优惠减金额','warn');
+					return false;
+				}
+			}
+		}else if(vouchertype == 4){
+			var israndom = $('input[name="israndom"]:checked').val();
+			var parvalue = '0.00';
+			var minparvalue = '0.00';
+			var maxparvalue = '0.00';
+			if(israndom == 1){
+				var minparvalue = $('input[name="minparvalue"]').val();
+				var maxparvalue = $('input[name="maxparvalue"]').val();
+				if(minparvalue.trim() == '' || minparvalue < 0){
+					alertTan('请填写正确的最低金额','warn');
+					return false;
+				}
+				if(maxparvalue.trim() == '' || maxparvalue < 0){
+					alertTan('请填写正确的最高金额','warn');
+					return false;
+				}
+			}else{
+				var parvalue = $('input[name="parvalue"]').val();
+				if(parvalue.trim() == '' || parvalue < 0){
+					alertTan('请填写正确的金额','warn');
+					return false;
+				}
+			}
+		}
+		var usetimelimittype = $('input[name="usetimelimittype"]:checked').val();
+		if(usetimelimittype == 1){
+			var usedays = $('input[name="usedays"]').val();
+			if(!usedays){
+				alertTan('请填写有效天数','warn');
+				return false;
+			}
+		}else if(usetimelimittype == 2){
+			var usebegintime = $('input[name="usebegintime"]').val();
+			var useendtime = $('input[name="useendtime"]').val();
+			if(!usebegintime){
+				alertTan('请选择有效起始日期','warn');
+				return false;
+			}
+			if(!useendtime){
+				alertTan('请选择有效终止日期','warn');
+				return false;
+			}
+		}else if(usetimelimittype == 3){
+			var usetime = $('input[name="usetime"]').val();
+			if(!usetime){
+				alertTan('请选择可用有效日期','warn');
+				return false;
+			}
+		}
+		if(vouchertype == 1 || vouchertype == 2 || vouchertype == 3 || vouchertype == 40){
+			var voucherdesc = jQuery.trim(voucherSet.getContent());
+			var voucherdescNum = jQuery.trim(voucherSet.getContentTxt()).length;
+			if(voucherdescNum > 200){
+				alertTan('使用说明不能超过200个字','warn');
+				return false;
+			}
+			// 获取门店
+			var str = document.getElementsByName("useshops");
+			var objarray = str.length;
+			var useshops = ",";
+			for (i = 0;i < objarray;i++){
+				if(str[i].checked == true){
+					useshops += str[i].value+",";
+			  	}
+			}
+			if(useshops == ',' && (vouchertype == 2 || vouchertype == 3)){
+				alertTan('至少选择一个门店','warn');
+				return false;
+			}
+			// 获取使用场景
+			var scenestr = document.getElementsByName("usescene");
+			var scenestrobjarray = scenestr.length;
+			var usescene = ",";
+			for (i = 0;i < scenestrobjarray;i++){
+				if(scenestr[i].checked == true){
+					usescene += scenestr[i].value+",";
+			  	}
+			}
+			if(usescene == ',' && vouchertype == 40){
+				alertTan('至少选择一个使用场景','warn');
+				return false;
+			}
+		}
+		var alluseshops = $('input[name="alluseshops"]').val();
+		var allusescene = $('input[name="allusescene"]').val();
+		$(".loading").show();
+		$.post("<?php echo U('MemberMarketingActivitiesVoucherInfo/set',array('companyid'=>$companyid)).'&time='?>"+Math.random(),{
+			'id':id,
+			'vouchertype':vouchertype,
+			'title':title,
+			'discounttype':discounttype,
+			'minus':minus,
+			'discount':discount,
+			'fullminus':fullminus,
+			'fulldiscount':fulldiscount,
+			'eachfullminus':eachfullminus,
+			'usetimelimittype':usetimelimittype,
+			'usedays':usedays,
+			'usebegintime':usebegintime,
+			'useendtime':useendtime,
+			'usetime':usetime,
+			'voucherdesc':voucherdesc,
+			'useshops':useshops,
+			'israndom':israndom,
+			'parvalue':parvalue,
+			'minparvalue':minparvalue,
+			'maxparvalue':maxparvalue,
+			'alluseshops':alluseshops,
+			'usescene':usescene,
+			'allusescene':allusescene
+		},function(data){
+			$(".loading").hide();
+			if(data.code == 200){
+				alertTan(data.tips);
+				setTimeout('window.location.href="<?php echo U('MemberMarketingActivitiesVoucherInfo/index',array('vouchertype'=>"'+vouchertype+'"))?>"',2000);
+			}else{
+				alertTan(data.tips,'error');
+				setTimeout('window.location.href=location.href',2000);
+			}
+		},'json');
+	});
+});
+</script>
+<include file="Public:CountLength" />
+<include file="Public:footer"/>

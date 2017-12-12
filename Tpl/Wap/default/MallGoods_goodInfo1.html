@@ -1,0 +1,882 @@
+<include file="Public:S5NewHead" />
+<!--页面css-->
+<link rel="stylesheet" type="text/css" href="{lanrain::RES}/new_eshop/css/wap.css?515<?php echo C('site_system_file_version'); ?>">
+<!--<script src="{lanrain::RES}/new_eshop/js/new-eshop.js"></script>-->
+<!-- ============================轮播css+js============================  -->
+<link href="{lanrain::RES}/public_scrm5/css/swiper.min.css?<?php echo C('site_system_file_version'); ?>" rel="stylesheet" type="text/css" />
+<script src="{lanrain::RES}/public_scrm5/js/swiper.min.js" type="text/javascript" ></script>
+<link href="{lanrain::RES}/css/shangcheng.css?<?php echo C('site_system_file_version'); ?>" rel="stylesheet" type="text/css"/>
+<include file="Public:mallHead" />
+<?php if($info){?>
+<!-- 详情页 -->
+<section class="neweshop-ctt ifoot_padding Scrm_index_content neweshop-bottom-92">
+	<div class="Product-details-box">
+		<?php if($info['goodtype'] == 2){?>
+			<div class="Product-details-bn"><img src="<?php echo $info['voucherimgurl']?$info['voucherimgurl']:'http://www.mobiwind.cn/Tpl/Wap/default/common/img/common.jpg';?>" alt=""></div>
+		<?php }elseif($info['goodtype'] == 1 || $info['goodtype'] == 3 || $info['goodtype'] == 4 || $info['goodtype'] == 5 || $info['goodtype'] == 6 || $info['goodtype'] == 7){ ?>
+			<?php if(count($info['pic']) >1){?>
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+					<?php if($info['pic']){ foreach($info['pic'] as $val){?>
+					<div class="swiper-slide"><img src="<?php echo $val['pic'];?>" alt=""></div>
+					<?php }}?>
+				</div>
+				<!-- 如果需要分页器 -->
+				<div class="swiper-pagination"></div>
+			</div>
+			<?php }else{?>
+		     	<?php if($info['pic']){ foreach($info['pic'] as $val){?>
+		     		<div style="width:100%;"><img style="width:100%;" src="<?php echo $val['pic']?$val['pic']:'http://www.mobiwind.cn/Tpl/Wap/default/common/img/common.jpg';?>" /></div>
+		     	<?php }}?>
+     		<?php }?>
+		<?php }?>
+		<?php if($info['group']){?>
+			<!-- 团购时  start 暂时保留 -->
+			<div class="dumpling_numt">
+				<div class="dumpling_numt_moy">
+					<span class="dumpling_numt_moiy"><b>￥</b><?php echo $info['grouponprice'];?><i>￥<?php echo $info['originalprice'];?></i></span>
+					<div class="dumpling_numt_times">
+						<b class="dumpling_numt_timep"></b>
+						<div class="dumpling_numt_tips">
+							<p><?php if($info['group']['status'] == 1){echo '距活动开始仅剩';}elseif($info['group']['status'] == 2){echo '距活动结束仅剩';}elseif($info['group']['status'] == 3){echo '活动已结束';}elseif($info['group']['status'] == 4){echo '活动已终止';}?></p>
+							 <div class="dumpling_numt_tibn">
+								 <span id="time_t_h">00</span>:
+								<span id="time_t_m">00</span>:
+								<span id="time_t_s">00</span>
+							 </div>
+						</div>
+					</div>
+				</div>
+				<div class="dumpling_nucont"><?php echo $info['title'];?></div>
+			</div>
+		<!--拼团规则-->
+		<div class="Product-details-FuWenBen" style="border-top:10px solid #eaeaea;">
+			<h6 class="Product-details-h6">拼团规则</h6>
+			<ul class="new_dumpling_nrule_ul">
+				<li><span>活动时间：<?php echo format_time($info['group']['starttime'],'ymdhi');?>~<?php echo format_time($info['group']['endtime'],'ymdhi');?></span></li>
+				<li><span>支付成功后开团，需在30分钟内成功邀请<?php echo $info['group']['groupnum'];?>人参团，人数不足自动退款</span></li>
+				<li><span>参与拼团活动的商品不可享受其他优惠</span></li>
+			</ul>
+		</div>
+			<!-- 拼团规则  end -->
+			<!-- 倒计时 -->
+			<script>
+				var j=0;
+			  	function GetRTime(){
+				  	var status = "<?php echo $info['group']['status'];?>";
+				  	if(status == 1){
+					  	leaveTime = "<?php echo date('Y/m/d H:i:s',$info['group']['starttime']);?>";
+				  	}else if(status == 2){
+					  	leaveTime = "<?php echo date('Y/m/d H:i:s',$info['group']['endtime']);?>";
+				  	}
+				  	var EndTime= new Date(leaveTime);
+				  	var NowTime = new Date();
+				  	var t =EndTime.getTime() - NowTime.getTime();
+				  	var dayNum=0;
+				  	var hourNum=0;
+				  	var minuteNum=0;
+				  	var secondNum=0;
+				  	if(t>=0){
+					  	dayNum=Math.floor(t/1000/60/60/24);
+					  	hourNum=Math.floor(t/1000/60/60%24 + dayNum * 24) ;
+					  	minuteNum=Math.floor(t/1000/60%60);
+					  	secondNum=Math.floor(t/1000%60);
+					  	if(t < 1000){
+							if(j == 0){
+							  	j=1;
+								//将活动状态 未开始状态至已开始状态，已开始状态至活动结束状态；
+							  	var groupid = "<?php echo $info['group']['groupid']; ?>";
+							  	var goodid = "<?php echo $info['id'];?>";
+								if(groupid.length>0){
+									$.post("<?php echo U('MallGoods/ajaxGroupActivity',array('companyid'=>$companyid)).'&time='?>"+Math.random(),{'groupid':groupid,'status':status,'goodid':goodid},function(data){
+										if(data.code == 200){
+											window.location.href=location.href;
+										}
+									},'json');
+								}
+							}
+						}
+				  	}
+				  	if(hourNum<10 ){
+					  	document.getElementById("time_t_h").innerHTML ="0" + hourNum ;
+				  	}else {
+					  	document.getElementById("time_t_h").innerHTML = hourNum ;
+				  	}
+				  	if( minuteNum<10  ){
+					  	document.getElementById("time_t_m").innerHTML ="0" +  minuteNum ;
+				  	}else {
+					  	document.getElementById("time_t_m").innerHTML = minuteNum ;
+				  	}
+				  	if( secondNum<10 ){
+					  	document.getElementById("time_t_s").innerHTML ="0" +  secondNum ;
+				  	}else {
+					  	document.getElementById("time_t_s").innerHTML = secondNum ;
+				  	}
+			  	}
+			  	GetRTime();
+				setInterval(GetRTime,1000);
+			</script>
+		<?php }else{?>
+		<div class="Product-details-nb">
+			<div class="Product-details-name">
+				<h6><?php echo $info['title'];?></h6>
+				<p class="Product-details-Price">
+					<span class="Discount-price-span"><span>￥</span><?php echo $info['saleprice'];?></span>
+					<?php if($info['originalprice'] > 0){?><span class="Original-price-span"><span>￥</span><?php echo $info['originalprice'];?></span><?php }?>
+				</p>
+				<?php if($info['goodtype'] == 2){?>
+					<i class="fictitious-icon icon_ticket"></i>		<!-- 券 -->
+				<?php }elseif($info['goodtype'] == 3){?>
+					<i class="fictitious-icon icon_next"></i>	    <!-- 计次卡 -->
+				<?php }elseif($info['goodtype'] == 4){?>
+					<i class="fictitious-icon icon_dumpling"></i>   <!-- 团 -->
+				<?php }elseif($info['goodtype'] == 5){?>
+					<i class="fictitious-icon icon_writ"></i>    	<!-- 票 -->
+				<?php }elseif($info['goodtype'] == 6){?>
+					<i class="fictitious-icon icon_power"></i>  	<!-- 权 -->
+				<?php }elseif($info['goodtype'] == 7){?>
+					<i class="fictitious-icon icon_libao"></i>  	<!-- 礼包 -->
+				<?php }?>
+			</div>
+			<div class="Product-details-freight">
+				<p class="fr">销量：<?php echo $info['salenum'];?></p>
+				<?php if($info['goodtype'] == 1){?>
+					<p>运费:
+					<?php if($info['freighttype'] == 2){
+							echo '包邮';
+						}elseif($info['freighttype'] == 3){
+							if($info['frieghtLargestPrice']['firstpiece'] == $info['frieghtSmallestPrice']['firstpiece']){
+								echo $info['frieghtSmallestPrice']['firstpiece'];
+							}else{
+								echo $info['frieghtSmallestPrice']['firstpiece'].'~'.$info['frieghtLargestPrice']['firstpiece'];
+							}
+						}?>
+					</p>
+				<?php }elseif($info['goodtype'] == 2){?>
+					<p>虚拟商品</p>
+				<?php }else{?>
+					<?php if($info['backorderpolicyset'] != ','){?>
+						<?php if(strpos($info['backorderpolicyset'] , '1,') !== FALSE){?>
+							<span>随时退</span>
+						<?php }?>
+						<?php if(strpos($info['backorderpolicyset'] , '2,') !== FALSE){?>
+							<span>过期退</span>
+						<?php }?>
+					<?php }?>
+				<?php }?>
+			</div>
+		</div>
+		<?php }?>
+	</div>
+	<?php if($info['goodtype'] == 2 || $info['goodtype'] == 3 || $info['goodtype'] == 4 || $info['goodtype'] == 5 || $info['goodtype'] == 6){?>
+	<div class="Product-details-FuWenBen">
+		<h6 class="Product-details-h6">使用说明</h6>
+		<div class="FuWenBen Product-details-FuWenBen-box"><?php echo htmlspecialchars_decode($info['useinfo']);?></div>
+	</div>
+	<div class="Duration-of-use">
+		<p><?php if($info['usetimelimittype'] == 1){echo '在收到券后'.$info['usedays'].'日内';}elseif($info['usetimelimittype'] == 2){echo $info['usebegintime'].' 至 '.$info['useendtime'];}elseif($info['usetimelimittype'] == 3){echo '本券在'.$info['usetime'].'当日内';}?>有效</p>
+		<h6>使用期限</h6>
+	</div>
+	<?php }?>
+	<div class="Product-details-FuWenBen">
+		<h6 class="Product-details-h6">商品详情</h6>
+		<div class="FuWenBen Product-details-FuWenBen-box"><?php echo htmlspecialchars_decode($info['info']);?></div>
+	</div>
+	<?php if($shopInfo){?>
+	<div class="Product-details-FuWenBen">
+		<h6 class="Product-details-h6">适用门店</h6>
+		<div class="js-ajax-shopInfo">
+			<div class="distance-box" data-id="<?php echo $shopInfo['id'];?>">
+				<div class="distance-left">
+					<h6><?php echo $shopInfo['shopname'];?></h6>
+					<p><?php echo $shopInfo['address'];?></p>
+					<a href="tel:<?php echo $shopInfo['tel'];?>"><?php echo $shopInfo['tel'];?></a>
+				</div>
+				<p class="distance-number"><?php echo $shopInfo['distanceshow']?></p>
+			</div>
+		</div>
+		<a href="<?php echo U('MemberDining/shops',array('companyid'=>$companyid,'id'=>$info['useshopslimitset']))?>" class="distance-store-link">查看全部适用门店</a>
+	</div>
+	<?php }?>
+	<div style="height: 92px;"></div>
+	<div class="Product-details-bottom pc-fixed">
+		<?php if(!$info['group']){?>
+		<div class="Product-details-Specifications-box">
+			<span class="js-Specifications-btn js-select-sku-btn" data-sku-select-type="1" style="cursor:pointer;">选择规格</span>
+			<p class="js-check-sku-ago">请选择规格</p>
+			<p class="Already-choose js-check-sku-after" style="display: none;">已选择： <span class="js-check-sku-name"></span>  <span class="js-check-sku-num"></span></p>
+		</div>
+		<?php }?>
+		<div class="Product-details-btn-box">
+			<div class="Shopping-Customer-service">
+				<a href="<?php echo U('MallNotices/customer',array('companyid'=>$companyid));?>" class="Shopping-icon">
+				<?php if($eshopServiceCount){?><i class="nunber-i"><?php echo $eshopServiceCount<100 ? $eshopServiceCount : '···';?></i><?php }?>
+				</a>
+				<a href="<?php echo U('MallShoppingCart/index',array('companyid'=>$companyid));?>" class="Customer-service-icon"><i class="js-shoppingcart-num <?php if($shoppingcartgoodsnum>0){ echo 'nunber-i';}?>"><?php echo $shoppingcartgoodsnum<100 ? $shoppingcartgoodsnum : '···';?></i></a>
+			</div>
+			<?php if($info['group']){?>
+			<!-- 拼团底部-->
+			<?php if($info['isoffshelves']==1 || $info['issoldout']==1){?>
+				<div class="purchase-Shopping-Cart btn-Disable">
+					<button class="purchase-btn">立即开团</button>
+					<span class="Line-sp"></span>
+					<button class="Shopping-Cart-btn" data-sku-select-type="3">立即购买</button>
+				</div>
+			<?php }else{ ?>
+				<div class="purchase-Shopping-Cart">
+					<?php if($info['group']['status'] == 1){?>
+						<button class="purchase-btn add-order-remind-button">开团提醒</button>
+						<span class="Line-sp"></span>
+						<button class="Shopping-Cart-btn js-purchase-btn js-select-sku-btn" data-sku-select-type="3">立即购买</button>
+						<button class="Shopping-Cart-btn js-purchase-btn js-select-sku-btn" style="display:none">立即购买</button>
+					<?php }elseif($info['group']['status'] == 2){ ?>
+						<button class="purchase-btn js-purchase-btn js-select-sku-btn" data-sku-select-type="4">立即开团</button>
+						<button class="purchase-btn js-purchase-btn js-select-sku-btn" style="display:none">立即开团</button>
+						<span class="Line-sp"></span>
+						<button class="Shopping-Cart-btn js-purchase-btn js-select-sku-btn" data-sku-select-type="3">立即购买</button>
+						<button class="Shopping-Cart-btn js-purchase-btn js-select-sku-btn" style="display:none">立即购买</button>
+					<?php }?>
+				</div>
+			<?php }?>
+			<script>
+				$(function(){
+					var browserEnvironment = "<?php echo $browserEnvironment;?>";
+					var goodid = "<?php echo $info['id'];?>";
+					var groupid = "<?php echo $info['group']['groupid'];?>";
+					$('.add-order-remind-button').click(function(){
+						if(browserEnvironment == 1){
+							$('.loading').show();
+							$.post("<?php echo U('MallGoods/ajaxOrderRemind',array('companyid'=>$companyid)).'&time='?>"+Math.random(),{'goodid':goodid,'groupid':groupid},function(data){
+								$('.loading').hide();
+								if(data.code == 200){
+									alert(data.tips,2000);
+									if(data.userInfoSub != 1){
+										setTimeout(function(){
+											$(".qr-Popup").show();
+											$(".qr-Popup-box").css({"bottom":"0px","display":"block"});
+										},2000);
+									}
+								}else{
+									alert(data.tips);
+								}
+							},'json');
+						}else{
+							alert('请在微信环境下打开本页面进行开团提醒预约',2000);
+						}
+					});
+				});
+			</script>
+			<?php }else{?>
+			<!-- 底部加入购物车 以及 即可购买按钮 -->
+			<?php if($info['isoffshelves']==1 || $info['issoldout']==1){?>
+				<div class="purchase-Shopping-Cart btn-Disable">
+					<!--拉灰加btn-Disable-->
+					<button class="purchase-btn">加入购物车</button>
+					<span class="Line-sp"></span>
+					<button class="Shopping-Cart-btn">立即购买</button>
+				</div>
+			<?php }else{ ?>
+				<div class="purchase-Shopping-Cart">
+					<button class="purchase-btn js-purchase-btn js-select-sku-btn" data-sku-select-type="2" >加入购物车</button>
+					<span class="Line-sp"></span>
+					<button class="Shopping-Cart-btn js-purchase-btn js-select-sku-btn" data-sku-select-type="3" >立即购买</button>
+				</div>
+			<?php }?>
+		<?php }?>
+		</div>
+	</div>
+	<!-- ========公共底部========  -->
+	<div class="eshopv_fotter_logo">
+		<include file="Public:navFooter" />
+	</div>
+</section>
+<?php }else{?>
+<!--商品已下架-->
+<section class="neweshop-ctt ifoot_padding Scrm_index_content">
+	<div class="No-box">
+		<img class="No-commodity-img" src="{lanrain::RES}/new_eshop/img/neweshop-zwsp.png" alt="">
+		<p class="No-commodity-p">本宝贝已经下架啦<br/>去看看其他宝贝吧</p>
+	</div>
+	<!-- ========公共底部========  -->
+	<div class="eshopv_fotter_logo">
+		<include file="Public:navFooter" />
+	</div>
+</section>
+<?php }?>
+<!--推广-->
+<?php if($zcount){?>
+<a href="javaScript:void (0);" class="eshop-extension-icon js-promotion-of">推广</a>
+<?php }?>
+<!--推广弹窗-->
+<div class="promotion-of-pop js-promotion-of-pop" >
+	<div class="promotion-of-ctt">
+		<img class="promotion-of-starlight" src="{lanrain::RES}/new_eshop/img/neweshop-tg.png" alt="">
+		<div class="promotion-of-center">
+			<h6 class="promotion-h6-img">1.点击右上角</h6>
+			<h6 class="promotion-h6-bd">2.选择推广方式 </h6>
+			<p>发送给朋友</p>
+			<p>分享到朋友圈</p>
+		</div>
+		<div style="padding-bottom:12%;"></div>
+		<button class="promotion-of-btn btn js-close-promotion-of">我知道了</button>
+	</div>
+</div>
+<script>
+	/*推广弹窗显示隐藏*/
+	$(".js-promotion-of").click(function(){
+		$(".js-promotion-of-pop").show();
+	})
+	$(".js-close-promotion-of").click(function(){
+		$(".js-promotion-of-pop").hide();
+	})
+</script>
+<!--拼团活动的二维码弹窗-->
+<div class="qr-Popup" style="display:none;">
+	<div class="qr-Popup-box">
+		<img class="qr-Popup-close js-qr-Popup-close" src="{lanrain::RES}/Eshop/chuzhi3.png" alt="">
+		<h6 class="qr-Popup-h6">关注我们</h6>
+		<p class="qr-Popup-p1">第一时间给您发送开团提醒</p>
+		<img class="qr-Popup-img" src="<?php if($wechatInfo['qrcodeurl']){echo $wechatInfo['qrcodeurl'];}else{echo './Tpl/Wap/default/common/Eshop/Scrm_content_minilogo2.png';}?>" alt="">
+		<p class="qr-Popup-p2">长按识别二维码,关注微信公众号</p>
+	</div>
+</div>
+<script>
+	$(".js-qr-Popup-close").click(function(){
+		$(".qr-Popup-box").slideUp(500);
+		setTimeout(function(){$(".qr-Popup").hide();},500);
+	});
+</script>
+<!--规格图放大弹窗-->
+<div class="Zoom-window-Popup" style="display: none;"><img class="Sku-big-img" src="/Uploads/1/20161220/20161220154439_84501.jpg" alt=""></div>
+<!--选择规格弹窗-->
+<div class="Shopping-Cart-Popup  js-Specifications-index pc-fixed" style="cursor:pointer;"></div>
+<div class="Shopping-Cart-Popup-ctt  js-Specifications-slide pc-fixed">
+	<div class="Shopping-Cart-slide">
+		<div class="Shopping-Cart-img">
+			<?php if($info['goodtype'] == 1 || $info['goodtype'] == 3 || $info['goodtype'] == 4 || $info['goodtype'] == 5 || $info['goodtype'] == 6 || $info['goodtype'] == 7){?>
+				<div class="Shopping-Cart-img-box" style="cursor:pointer;"><img class="js-sku-img" src="<?php echo $info['pic']['0']['pic'];?>" alt=""></div>
+			<?php }else{?>
+				<div class="Shopping-Cart-img-box" style="cursor:pointer;"><img class="js-sku-img" src="<?php echo $info['voucherimgurl'];?>" alt=""></div>
+			<?php }?>
+			<div class="Shopping-Cart-Stock">
+				<p class="Stock-Price"><span class="Stock-Discount-price"><span>￥</span><i class="js-sku-price"><?php echo $info['saleprice'];?></i></span><?php if($info['saleprice'] != $info['originalprice']){?><?php if($info['originalprice'] >0){?><span class="Stock-Original-price"><span>￥</span><i class="js-sku-originalprice"><?php echo $info['originalprice'];?></i></span><?php }}?></p>
+				<p class="Stock-p js-change-stock">总库存：<?php echo $info['stockamount'];?></p>
+			</div>
+		</div>
+		<div class="Shopping-Cart-sku">
+			<?php if($info['goodtype'] == 1 || $info['goodtype'] == 3 || $info['goodtype'] == 4 || $info['goodtype'] == 5){?>
+				<div class="Specifications-box">
+					<h6>规格</h6>
+					<div class="Specifications-ul">
+						<?php if($info['sku']){ foreach($info['sku'] as $val){?>
+							<?php if($val['stockamount'] > 0){?>
+								<button class="skugg-asa"  data-price="<?php echo $val['saleprice'];?>" data-grouponprice="<?php echo $val['grouponprice'];?>" data-stockamount="<?php echo $val['stockamount'];?>" data-originalprice= "<?php echo $val['originalprice'];?>" data-imgurl="<?php echo $val['imgurl'];?>"><?php echo $val['name'];?><input type="radio" name="skuid" value="<?php echo $val['id'];?>"  style="opacity: 0;position:absolute"/><input type="radio" name="skuname" value="<?php echo $val['name'];?>"  style="opacity: 0;position:absolute"/></button>
+							<?php }else{?>
+								<button class="prohibit"><?php echo $val['name'];?></button>
+							<?php }?>
+						<?php }}?>
+					</div>
+				</div>
+			<?php }?>
+			<div class="Specifications-number">
+				<div class="good-count js-good-count fr">
+					<span class="icon icon-minus js-icon-minus" style="cursor:pointer;"></span>
+					<span class="val js-val js-select-goodnum">1</span>
+					<span class="icon icon-add js-icon-add" style="cursor:pointer;"></span>
+				</div>
+				<h6>数量</h6>
+			</div>
+		</div>
+	</div>
+	<?php if($info['issoldout']==1){?>
+	<div class="purchase-Shopping-Cart btn-Disable" style="width: 100%;margin-left: 0;">
+		<button class="purchase-btn">加入购物袋</button>
+		<span class="Line-sp"></span>
+		<button class="Shopping-Cart-btn">即刻购买</button>
+	</div>
+	<?php }else{?>
+	<div class="purchase-Shopping-Cart js-goodnum-enough" style="width: 100%;margin-left: 0;">
+		<button class="purchase-btn js-add-shoppingCart">加入购物袋</button>
+		<span class="Line-sp"></span>
+		<button class="Shopping-Cart-btn js-goods-buy-now">立即购买</button>
+	</div>
+	<div class="purchase-Shopping-Cart js-goodnum-not-enough" style="width: 100%;margin-left: 0;display:none;">
+		<button class="purchase-btn js-please-select-sku">加入购物袋</button>
+		<span class="Line-sp"></span>
+		<button class="Shopping-Cart-btn js-please-select-sku">立即购买</button>
+	</div>
+	<button class="sku-btn js-direct-add-shoppingCart-enough js-add-shoppingCart" style="display:none;">加入购物袋</button>
+	<button class="sku-btn js-direct-add-shoppingCart-not-enough js-please-select-sku" style="display:none;">加入购物袋</button>
+	<button class="sku-btn js-direct-buy-goods-now-enough js-group-buy-html" style="display:none;">立即购买</button>
+	<button class="sku-btn js-direct-buy-goods-now-not-enough js-please-select-sku js-group-buy-html" style="display:none;">立即购买</button>
+	<?php }?>
+</div>
+<input type="hidden" name="grouponpricetype" value="1"/>
+<input type="hidden" name="goodnum" value="1"/>
+<?php if($info['goodtype'] == 2 || $info['goodtype'] == 6 || $info['goodtype'] == 7){?>
+	<input type="hidden" name="stockamount" value="<?php echo $info['stockamount'];?>"/>
+<?php }else{?>
+	<input type="hidden" name="stockamount" value=""/>
+<?php }?> 
+<input type="hidden" name=selectSkuType value=""/>
+<script>
+     <?php if(session('mid'.session('wapcid'))){ ?>
+     // 根据登录session 强制隐藏登录弹框
+     $("#id-not-logged-in-box").css("display","none");
+    <?php } ?>
+	//商品类型
+	var goodtype = "<?php echo $info['goodtype'];?>";
+	/*轮播实例化*/
+	var swiper = new Swiper('.swiper-container', {
+		initialSlide:0,
+		pagination : '.swiper-pagination',
+		speed:800,
+		centeredSlides:true,
+		loop: true,
+		autoplay:2000,
+	});
+	$(".skugg-asa").click(function(){
+		var grouponpricetype = $('input[name="grouponpricetype"]').val();
+		$(this).addClass("active").siblings('button').removeClass('active');
+		$('input[name="skuid"]').prop('checked',false);
+		$(this).children('input').prop('checked',true);
+		var imgurl = $(this).attr('data-imgurl');
+		if(grouponpricetype == 1){
+			$(".js-sku-price").text($(this).attr('data-price'));
+		}else if(grouponpricetype == 2){
+			$(".js-sku-price").text($(this).attr('data-grouponprice'));
+		}
+		$('.js-change-stock').text('库存：'+($(this).attr("data-stockamount")));
+		$('input[name="stockamount"]').val($(this).attr("data-stockamount"));
+		$('.js-sku-originalprice').text($(this).attr("data-originalprice"));
+		if(imgurl){
+			$(".js-sku-img").attr('src',imgurl);
+		}else{
+			$(".js-sku-img").attr('src',"<?php echo $info['pic']['0']['pic'];?>");
+		}
+		// 将商品数量置为1 并且input中的数值改为1
+		$('input[name="goodnum"]').val(1);
+		$('.js-select-goodnum').text(1);
+		inputMax();
+	});
+	/*规格图*/
+	$(".Shopping-Cart-sku").css({"max-height":$(window).height()/2});
+	$(document).on("click",".Shopping-Cart-img-box img",function(){
+		$(".Sku-big-img").attr({"src":$(this).attr("src")});
+		$(".Zoom-window-Popup").show();
+	});
+	$(".Zoom-window-Popup").click(function(){
+		$(this).hide();
+	});
+	/* 直接选择加入购物车  && 直接购买*/
+	/* $(".js-purchase-btn").click(function(){
+		var selectSkuType = $(this).attr("data-select-sku-btn");
+		// 选择确定商品数量并且更新
+		$('.js-select-goodnum').text($('input[name="goodnum"]').val());
+		$('.js-direct-add-shoppingCart').show();	//单按钮加入购物车显示
+		$('.js-direct-buy-goods-now').hide();		//单按钮即刻购买隐藏
+		$('.js-goodnum-enough').hide(); 			//双按钮选择SKU库存足够隐藏
+		$('.js-goodnum-not-enough').hide(); 			//双按钮选择SKU库存不足隐藏
+		$(".js-Specifications-index").show();
+		$(".js-Specifications-ctt").show();
+		$(".js-Specifications-slide").slideDown(500);
+	}); */
+	/* $(".js-Shopping-Cart-Popup").click(function(){
+		$(".js-Shopping-Cart-slide").slideUp(500);
+		setTimeout(function(){
+			$(".js-Shopping-Cart-Popup").hide();
+		},500);
+	}); */
+	/*选择规格*/
+	/* $(".js-Specifications-btn").click(function(){
+		// 选择确定商品数量并且更新
+		$('.js-select-goodnum').text($('input[name="goodnum"]').val());
+		$('.js-goodnum-enough').show(); 			//双按钮选择SKU库存足够显示
+		$('.js-direct-add-shoppingCart').hide();	//单按钮加入购物车显示
+		$('.js-direct-buy-goods-now').hide();		//单按钮即刻购买隐藏
+		$('.js-goodnum-not-enough').hide(); 		//双按钮选择SKU库存不足隐藏
+		$(".js-Specifications-index").show();
+		$(".js-Specifications-ctt").show();
+		$(".js-Specifications-slide").slideDown(500);
+	}); */
+	$(document).on("click",'.js-select-sku-btn',function(){
+		var selectSkuType = $(this).attr("data-sku-select-type");
+		var saleprice = "<?php echo $info['saleprice'];?>";
+		var grouponprice = "<?php echo $info['grouponprice'];?>";
+		if(selectSkuType == 3){
+			$('.js-group-buy-html').text('立即购买');
+			$('.js-sku-price').text(saleprice);
+			$('input[name="grouponpricetype"]').val(1); // 将拼团状态改为1，说明是售价
+		}else if(selectSkuType == 4){
+			$('.js-group-buy-html').text('立即开团');
+			$('.js-sku-price').text(grouponprice);
+			$('input[name="grouponpricetype"]').val(2); // 将拼团状态改为2，说明是拼团价
+		}
+		$('input[name="selectSkuType"]').val(selectSkuType);
+		inputMax();
+		$(".js-Specifications-index").show();
+		$(".js-Specifications-ctt").show();
+		$(".js-Specifications-slide").css({"bottom":"0px","display":"block"});
+	});
+	$(document).on("click",".js-Specifications-index",function(){
+		// 获取选择规格 关闭弹窗时显示选择规格以及购买数量
+		if(goodtype == 1 || goodtype == 3 || goodtype == 4 || goodtype == 5){
+			var skuid = $('input[name="skuid"]:checked').val();
+			var skuname = $('input[name="skuname"]:checked').val();
+			if(skuid && skuname){
+				$('.js-check-sku-name').text(skuname);
+				$('.js-check-sku-after').show();
+				$('.js-check-sku-ago').hide();
+			}
+		}
+		var goodnum = $('input[name="goodnum"]').val();
+		$('.js-check-sku-num').text(goodnum+'件');
+		$(".js-Specifications-slide").css({"bottom":"-100%"});
+		setTimeout(function(){
+			$(".js-Specifications-index").hide();
+		},500);
+	});
+	// 请选择需要购买的规格
+	$('.js-please-select-sku').click(function(){
+		alert('请选择需要购买的商品规格');
+    	return false;
+	});
+	$(document).on("click",'.js-add-shoppingCart',function(){
+	  	var goodsid = "<?php echo $info['id'];?>";
+	  	if(!goodsid || goodsid < 1){
+	      	alert('请选择需要购买的商品');
+	      	return false;
+	  	}
+	  	var skuid = $('input[name="skuid"]:checked').val();
+	  	skuid =  skuid ? skuid : '0';
+	  	if((goodtype=='1' || goodtype=='3' || goodtype=='4' || goodtype=='5')&& (!skuid || skuid<1)){
+	    	alert('请选择需要购买的商品规格');
+	    	return false;
+	  	}
+		var goodnum = parseInt($('input[name="goodnum"]').val());
+		if(!goodnum || goodnum <1){
+	    	alert('请选择需要购买的商品数量');
+	    	return false;
+		}
+		$('.loading').show();
+		$.post("<?php echo U('MallShoppingCart/addShoppingCar',array('companyid'=>$companyid)).'&time=';?>"+Math.random(),{goodid:goodsid,goodskuid:skuid,goodnum:goodnum,goodtype:goodtype},function(data){
+			$('.loading').hide();
+	    	if(data.code == 200){
+	    		// 清除规格选中状态，当返回时需要重新选中规格
+	    	  	$("input[name='skuid']").removeAttr('checked');
+	    	  	$('.skugg-asa').removeClass('active'); //全部移除选中状态
+	    	 	// 将商品数量置为1 并且input中的数值改为1
+	    		$('input[name="goodnum"]').val(1);
+	    		$('.js-select-goodnum').text(1);
+	      		$('.js-shoppingcart-num').html(data.goodsnum);
+	      		$('.js-shoppingcart-num').addClass('nunber-i');
+	      		alert(data.tpis,2000);
+	      		//关闭选择SKU弹窗
+	      		$(".js-Specifications-slide").css({"bottom":"-100%"});
+	    		setTimeout(function(){
+	    			$(".js-Specifications-index").hide();
+	    		},500);
+	    		$("#id-not-logged-in-box").css("display","none"); // 隐藏登录弹框
+	    	}else if(data.code == 201){
+	    		// 这里是显示登录弹窗
+	    		$("#id-not-logged-in-box").css("display","block");// 显示登录弹框
+	    		$("#id-not-logged-in-box").css("transform","translateY(0)");
+				$(".js-top-animate").css("transform","translateY(0)");
+				$(".js-keyboard-animate").css("transform","translateY(0)");
+				$(".js-login-pop").bind("touchmove",function(e){
+					e.preventDefault();
+				})
+	    	}else{
+	      		alert(data.tpis,2000);
+	    	}
+		},"json");
+	});
+	// 立即购买
+	$(document).on("click",'.js-goods-buy-now',function(){
+	  	var goodsid = "<?php echo $info['id'];?>";
+	  	if(!goodsid || goodsid < 1){
+	      	alert('请选择需要购买的商品');
+	      	return false;
+	  	}
+	  	var skuid = $('input[name="skuid"]:checked').val();
+	  	skuid =  skuid ? skuid : '0';
+	  	if((goodtype=='1' || goodtype=='3' || goodtype=='4' || goodtype=='5')&& (!skuid || skuid<1)){
+	    	alert('请选择需要购买的商品规格');
+	    	return false;
+	  	}
+	  	var goodnum = $('input[name="goodnum"]').val();
+	  	goodnum = parseInt(goodnum);
+	  	if(!goodnum || goodnum <1){
+	    	alert('请选择需要购买的商品数量');
+	    	return false;
+	  	}
+	  	// 清除规格选中状态，当返回时需要重新选中规格
+	  	$("input[name='skuid']").removeAttr('checked');
+	  	window.location.href="<?php echo U('MemberMallOrder/createBuyNowOrder',array('companyid'=>$companyid)); ?>"+'&goodsid='+goodsid+'&goodsskuid='+skuid+"&goodsnum="+goodnum+"&goodtype="+goodtype;
+	});
+	// 立即开团
+	$(document).on("click",".js-goods-group-button",function(){
+		var limitbuy = "<?php echo $info['group']['limitbuy'];?>"; // 是否限购 ：1、限购；2、不限购；
+		var limitnum = "<?php echo $info['group']['limitnum'];?>"; // 限购数量
+	  	var goodsid = "<?php echo $info['id'];?>";
+	  	var groupid = "<?php echo $info['group']['groupid'];?>";
+	  	if(!goodsid || goodsid < 1){
+	      	alert('请选择需要购买的商品');
+	      	return false;
+	  	}
+	  	var skuid = $('input[name="skuid"]:checked').val();
+	  	skuid =  skuid ? skuid : '0';
+	  	if((goodtype=='1' || goodtype=='3' || goodtype=='4' || goodtype=='5')&& (!skuid || skuid<1)){
+	    	alert('请选择需要购买的商品规格');
+	    	return false;
+	  	}
+	  	var goodnum = $('input[name="goodnum"]').val();
+	  	goodnum = parseInt(goodnum);
+	  	if(!goodnum || goodnum <1){
+	    	alert('请选择需要购买的商品数量');
+	    	return false;
+	  	}else{
+			if(limitbuy == 1){
+	  			if(goodnum > limitnum){
+	  				alert('每人限购'+limitnum+'件');
+	  				return false;
+	  			}
+	  		}
+	  	}
+	  	//清除规格选中状态，当返回时需要重新选中规格
+	  	$("input[name='skuid']").removeAttr('checked');
+	  	window.location.href="<?php echo U('MemberMallOrder/createBuyNowOrder',array('companyid'=>$companyid)); ?>"+'&goodsid='+goodsid+'&goodsskuid='+skuid+"&goodsnum="+goodnum+"&goodtype="+goodtype+"&groupid="+groupid;
+	});
+	// 选择购买数量
+	$(function(){
+		// 数量加减
+		$(document).on("click",".js-icon-minus",function(){
+			if(goodtype == '1' || goodtype == '3' || goodtype == '4' || goodtype == '5'){
+				var skuId = $('input[name="skuid"]:checked').val();
+				if(!skuId){
+					alert('请选择商品规格',2000);
+			    	return false;
+				}
+			}
+			var val = $(this).next(".js-val").html();
+			if(val<=1){
+				return;
+			}else{
+				$(this).next(".js-val").html(--val);
+				$('input[name="goodnum"]').val(val);
+			}
+			event.stopPropagation();
+			inputMax();
+		});
+		$(document).on("click",".js-icon-add",function(){
+			if(goodtype == '1' || goodtype == '3' || goodtype == '4' || goodtype == '5'){
+				var skuId = $('input[name="skuid"]:checked').val();
+				if(!skuId){
+					alert('请选择商品规格',2000);
+			    	return false;
+				}
+			}
+			var val = $(this).prev(".js-val").html();
+			var num = parseInt($('input[name="goodnum"]').val());
+			var stockamount = $('input[name="stockamount"]').val();
+			if(num >= stockamount){
+				alert('只剩这几件了哟');
+				return false;
+			}
+			$(this).prev(".js-val").html(++val);
+			$('input[name="goodnum"]').val(val);
+		});
+	});
+	//输入数字与库存作对比
+	function inputMax(){
+		var stockamount = $('input[name="stockamount"]').val();
+		var num = parseInt($('input[name="goodnum"]').val());
+		var selectSkuType = $('input[name="selectSkuType"]').val();
+      	if(num > stockamount){
+      		// 购买数量大于库存
+      		if(selectSkuType == 1){
+    			$('.js-goodnum-enough').hide(); 					//双按钮选择SKU库存足够显示
+    			$('.js-goodnum-not-enough').show(); 				//双按钮选择SKU库存不足隐藏
+    			$('.js-direct-add-shoppingCart-enough').hide();		//单按钮加入购物车库存足够隐藏
+    			$('.js-direct-add-shoppingCart-not-enough').hide();	//单按钮加入购物车库存不足隐藏
+    			$('.js-direct-buy-goods-now-enough').hide();		//单按钮即刻购买库存足够隐藏
+    			$('.js-direct-buy-goods-now-not-enough').hide();	//单按钮即刻购买库存不足隐藏
+    		}else if(selectSkuType == 2){
+    			$('.js-direct-add-shoppingCart-enough').hide();		//单按钮加入购物车库存足够显示
+    			$('.js-direct-add-shoppingCart-not-enough').show();	//单按钮加入购物车库存不足隐藏
+    			$('.js-direct-buy-goods-now-enough').hide();		//单按钮即刻购买库存足够隐藏
+    			$('.js-direct-buy-goods-now-not-enough').hide();	//单按钮即刻购买库存不足隐藏
+    			$('.js-goodnum-enough').hide(); 					//双按钮选择SKU库存足够隐藏
+    			$('.js-goodnum-not-enough').hide(); 				//双按钮选择SKU库存不足隐藏
+    		}else if(selectSkuType == 3){
+    			$('.js-direct-buy-goods-now-enough').hide();		//单按钮即刻购买库存足够显示
+    			$('.js-direct-buy-goods-now-not-enough').show();	//单按钮即刻购买库存不足隐藏
+    			$('.js-direct-add-shoppingCart-enough').hide();		//单按钮加入购物车库存足够隐藏
+    			$('.js-direct-add-shoppingCart-not-enough').hide();	//单按钮加入购物车库存不足隐藏
+    			$('.js-goodnum-enough').hide(); 					//双按钮选择SKU库存足够隐藏
+    			$('.js-goodnum-not-enough').hide(); 				//双按钮选择SKU库存不足隐藏
+    			$('.js-direct-buy-goods-now-enough').addClass('js-goods-buy-now');
+    			$('.js-direct-buy-goods-now-enough').removeClass('js-goods-group-button');		
+    		}else if(selectSkuType == 4){
+    			$('.js-direct-buy-goods-now-enough').hide();		//单按钮即刻购买库存足够显示
+    			$('.js-direct-buy-goods-now-not-enough').show();	//单按钮即刻购买库存不足隐藏
+    			$('.js-direct-add-shoppingCart-enough').hide();		//单按钮加入购物车库存足够隐藏
+    			$('.js-direct-add-shoppingCart-not-enough').hide();	//单按钮加入购物车库存不足隐藏
+    			$('.js-goodnum-enough').hide(); 					//双按钮选择SKU库存足够隐藏
+    			$('.js-goodnum-not-enough').hide(); 				//双按钮选择SKU库存不足隐藏
+    			$('.js-direct-buy-goods-now-enough').removeClass('js-goods-buy-now');
+    			$('.js-direct-buy-goods-now-enough').addClass('js-goods-group-button');		
+    		}
+      	}else{
+      		// 购买数量小于库存
+      		if(selectSkuType == 1){
+    			$('.js-goodnum-enough').show(); 					//双按钮选择SKU库存足够显示
+    			$('.js-goodnum-not-enough').hide(); 				//双按钮选择SKU库存不足隐藏
+    			$('.js-direct-add-shoppingCart-enough').hide();		//单按钮加入购物车库存足够隐藏
+    			$('.js-direct-add-shoppingCart-not-enough').hide();	//单按钮加入购物车库存不足隐藏
+    			$('.js-direct-buy-goods-now-enough').hide();		//单按钮即刻购买库存足够隐藏
+    			$('.js-direct-buy-goods-now-not-enough').hide();	//单按钮即刻购买库存不足隐藏
+    		}else if(selectSkuType == 2){
+    			$('.js-direct-add-shoppingCart-enough').show();		//单按钮加入购物车库存足够显示
+    			$('.js-direct-add-shoppingCart-not-enough').hide();	//单按钮加入购物车库存不足隐藏
+    			$('.js-direct-buy-goods-now-enough').hide();		//单按钮即刻购买库存足够隐藏
+    			$('.js-direct-buy-goods-now-not-enough').hide();	//单按钮即刻购买库存不足隐藏
+    			$('.js-goodnum-enough').hide(); 					//双按钮选择SKU库存足够隐藏
+    			$('.js-goodnum-not-enough').hide(); 				//双按钮选择SKU库存不足隐藏
+    		}else if(selectSkuType == 3){
+    			$('.js-direct-buy-goods-now-enough').show();		//单按钮即刻购买库存足够显示
+    			$('.js-direct-buy-goods-now-not-enough').hide();	//单按钮即刻购买库存不足隐藏
+    			$('.js-direct-add-shoppingCart-enough').hide();		//单按钮加入购物车库存足够隐藏
+    			$('.js-direct-add-shoppingCart-not-enough').hide();	//单按钮加入购物车库存不足隐藏
+    			$('.js-goodnum-enough').hide(); 					//双按钮选择SKU库存足够隐藏
+    			$('.js-goodnum-not-enough').hide(); 				//双按钮选择SKU库存不足隐藏
+    			$('.js-direct-buy-goods-now-enough').addClass('js-goods-buy-now');
+    			$('.js-direct-buy-goods-now-enough').removeClass('js-goods-group-button');
+    		}else if(selectSkuType == 4){
+    			$('.js-direct-buy-goods-now-enough').show();		//单按钮即刻购买库存足够显示
+    			$('.js-direct-buy-goods-now-not-enough').hide();	//单按钮即刻购买库存不足隐藏
+    			$('.js-direct-add-shoppingCart-enough').hide();		//单按钮加入购物车库存足够隐藏
+    			$('.js-direct-add-shoppingCart-not-enough').hide();	//单按钮加入购物车库存不足隐藏
+    			$('.js-goodnum-enough').hide(); 					//双按钮选择SKU库存足够隐藏
+    			$('.js-goodnum-not-enough').hide(); 				//双按钮选择SKU库存不足隐藏
+    			$('.js-direct-buy-goods-now-enough').removeClass('js-goods-buy-now');
+    			$('.js-direct-buy-goods-now-enough').addClass('js-goods-group-button');	
+    		}
+      	}
+	}
+</script>
+<!--手势缩放-->
+<include file="Public:Imagezoom" />
+<script src="./Tpl/Wap/default/common/js/jweixin-1.0.0.js"></script>
+<!--  解决ios的点击延迟  -->
+<script src="{lanrain::RES}/js/fastclick.js" type="text/javascript" ></script>
+<script>
+  $(function() {
+      FastClick.attach(document.body);
+   });
+</script>
+<script type="text/javascript">
+var goodtype = "<?php echo $info['goodtype'];?>";
+var vouchertype = "<?php echo $info['vouchertype'];?>";
+var latitude = '';
+var longitude = '';
+var speed = '';
+var accuracy = '';
+var addressid = '';
+var addresstype = '';
+var title = '';
+$(function(){
+	wx.config({
+	  debug: false,
+	  appId: "<?php echo $signPackage['appId'];?>",
+	  timestamp: "<?php echo $signPackage['timestamp'];?>",
+	  nonceStr: "<?php echo $signPackage['nonceStr'];?>",
+	  signature: "<?php echo $signPackage['signature'];?>",
+	  jsApiList: [
+	'getLocation',
+	'onMenuShareTimeline',    
+	'onMenuShareAppMessage',    
+	'onMenuShareQQ',    
+	'onMenuShareWeibo',    
+	'hideMenuItems',    
+	'showMenuItems'
+	  ]
+	});
+	wx.ready(function(){
+		if(goodtype=='3' || goodtype=='4' || goodtype=='5' || goodtype=='6' || (goodtype=='2' && (vouchertype=='2' || vouchertype=='3'))){
+			wx.getLocation({
+				type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+				success: function (res) {
+					latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+					longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+					speed = res.speed; // 速度，以米/每秒计
+					accuracy = res.accuracy; // 位置精度
+				}
+			});
+		}
+		//显示右上角菜单接口
+		wx.showOptionMenu();
+	    // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+	    var diytitle = "<?php echo  $info['sharefriendstitle'] ? htmlspecialchars_decode($info['sharefriendstitle']) : ' ';?>";
+	    var diylink = "<?php echo $info['shareurl'] ? $info['shareurl'] : 'http://' . $_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];?>";
+	    var diyimgUrl = "<?php echo $info['shareimg'] ? $info['shareimg'] : 'http://www.mobiwind.cn/Tpl/Wap/default/common/img/common.jpg'; ?>";
+	    var diydesc = "<?php echo $info['sharedes'] ? htmlspecialchars_decode($info['sharedes']) : ' ';?>";
+	    //获取“分享到朋友圈”
+		wx.onMenuShareTimeline({
+		    title: diytitle, // 分享标题
+		    link: diylink, // 分享链接
+		    imgUrl: diyimgUrl, // 分享图标
+		    success: function (){ 
+		        // 用户确认分享后执行的回调函数
+		    },
+		    cancel: function () { 
+		        // 用户取消分享后执行的回调函数
+		    },
+	        fail: function (res) {
+	         	$('#ceshicontent').html(JSON.stringify(res));
+	        }
+		});
+	    //获取“分享给朋友”
+		wx.onMenuShareAppMessage({
+		    title: diytitle, // 分享标题
+		    link: diylink, // 分享链接
+		    imgUrl: diyimgUrl, // 分享图标
+		    desc: diydesc, // 分享描述
+		    type: '', // 分享类型,music、video或link，不填默认为link
+		    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+		    success: function () { 
+		        // 用户确认分享后执行的回调函数
+		    },
+		    cancel: function () { 
+		        // 用户取消分享后执行的回调函数
+		    }
+		});
+	});
+	if(goodtype=='3' || goodtype=='4' || goodtype=='5' || goodtype=='6' || (goodtype=='2' && (vouchertype=='2' || vouchertype=='3'))){
+		setTimeout("ajaxAsa();",1000);
+	}
+});
+function ajaxAsa(){
+	var a = 1;
+	var condition ='';
+	var id = $('.distance-box').attr("data-id");
+	if(latitude&&longitude||addressid||addresstype){
+		$.post("<?php echo U('MallGoods/ajaxShopInfo',array('companyid'=>$companyid));?>",{
+			id:id,lat:latitude,lng:longitude},function(data){
+				if(data.code == '200'){
+					$(".content_app").show();
+					$(".js-ajax-shopInfo").html(data.msg);
+				}else{
+					$(".js-ajax-shopInfo").html('');
+					alert(data.msg,2000);
+				}
+			},"json");
+	}else{
+		a++;
+		if(a<=3)
+		setTimeout("ajaxAsa();",3000);
+	}
+}
+</script>
+<include file="Public:footer" />
+<include file="Public:eshoploginBoxNoSession" />

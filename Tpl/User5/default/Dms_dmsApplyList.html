@@ -1,0 +1,142 @@
+<include file="Public:head"/>
+<?php echo $makeTopUrl;?>
+<!--场景 > 经销 > 经销用户申请管理-->
+<div class="group inline-btn-group mb-10">
+	<a class="btn-small btn-purple" href="<?php echo U('Dms/dmsApplyList');?>">经销用户申请管理</a>
+    <a class="btn-small btn-white" href="<?php echo U('Dms/dmsList');?>">经销用户管理</a>
+	<a class="btn-small btn-white" href="<?php echo U('Dms/index');?>">经销基础设置</a>
+    <!-- <a class="btn-small btn-white" href="<?php echo U('Dms/invitationPoster');?>">邀请海报设置</a> -->
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>筛选条件</h4></div>
+    <form class="mod-body" action="<?php echo U('Dms/dmsApplyList');?>" method="post">
+        <div class="content clearfix">
+            <div class="child-sum-3 fl">
+                <div class="group pb-10">
+                    <h6 class="inline w100">经销用户手机号：</h6>
+                    <input class="inline w150" type="text" name="mobile" value="<?php echo $mobile;?>">
+                </div>
+            </div>
+            <div class="child-sum-3 fl">
+                <div class="group pb-10">
+                    <h6 class="inline w100">审核状态：</h6>
+                    <select class="inline w150" name="status">
+                        <option value="">全部</option>
+                        <option value="1" <?php if($status == 1){echo 'selected="selected"';}?>>待审核</option>
+                        <option value="2" <?php if($status == 2){echo 'selected="selected"';}?>>已通过</option>
+                        <option value="3" <?php if($status == 3){echo 'selected="selected"';}?>>已拒绝</option>
+                    </select>
+                </div>
+            </div>
+            <div class="group laydate-box">
+                <h6 class="inline w100">申请时间：</h6>
+                <input class="laydate-input" id="pay-date-3" name="createtime1" value="<?php echo $createtime1;?>" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" placeholder="YYYY-MM-DD hh:mm:ss">
+                <i class="icon-laydate" onclick="laydate({elem:'#pay-date-1'});"></i>
+                <span> - </span>
+                <input class="laydate-input" id="pay-date-4" name="createtime2" value="<?php echo $createtime2;?>" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" placeholder="YYYY-MM-DD hh:mm:ss">
+                <i class="icon-laydate" onclick="laydate({elem:'#pay-date-2'});"></i>
+            </div>
+        </div>
+        <div class="group form-footer pb-10 text-center">
+            <input class="btn-middle btn-purple" type="submit" value="提交">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input class="btn-middle btn-white" type="reset" value="重置">
+        </div>
+    </form>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>经销申请管理</h4></div>
+    <div class="mod-body">
+        <div class="content">
+            <table class="table type-1 w-auto">
+                <thead>
+                <tr>
+                    <th>会员信息</th>
+                    <th>申请时间<a href="javascript:void(0);" class="sort-icon"></a></th>
+                    <!-- <th>累计消费笔数<a href="javascript:void(0);" class="sort-icon"></a></th> -->
+                    <!-- <th>累计消费金额<a href="javascript:void(0);" class="sort-icon"></a></th> -->
+                    <th>审核状态<a href="javascript:void(0);" class="sort-icon"></a></th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+              	<?php if($list){ foreach($list as $key=>$val){?>
+                <tr>
+                    <td>
+                    	<p><?php echo $val['nickname'];?></p>
+                    	<a href="<?php echo U('Member/memberInfo',array('id'=>$val['mid']));?>" class="tips"><?php echo $val['moblie'];?></a>
+                    </td>
+                    <td><?php echo format_time($val['createtime'],'ymdhi');?></td>
+                    <!-- <td><?php echo $val['totalspendingfrequency']?$val['totalspendingfrequency']:'0.00';?></td> -->
+                    <!-- <td><?php echo $val['totalspending']?$val['totalspending']:'0.00';?></td> -->
+                    <td>
+                    	<?php
+                    		if($val['status'] == 1){
+								echo '待审核';
+							}elseif($val['status'] == 2){
+								echo '已审核';
+							}elseif($val['status'] == 3){
+								echo '已拒绝';
+							}
+                    	?>
+                    </td>
+                    <td>
+                        <a href="javascript:void(0);" class="tips js-Apply-btn" data-mid="<?php echo $val['mid'];?>" data-id="<?php echo $val['id'];?>">管理</a>
+                    </td>
+                </tr>
+                <?php }}else{?>
+                <tr class="text-center not-hover">
+                    <td colspan="6">暂无</td>
+                </tr>
+                <?php }?>
+                </tbody>
+            </table>
+        </div>
+        <div class="group form-footer clearfix">
+            <?php echo $page;?>
+        </div>
+    </div>
+</div>
+<!--经销申请管理-->
+<div class="popup-wrap js-Apply-wrap">
+    <div class="mod small-popup">
+        <div class="mod-header">
+         	<h4 class="fl">经销申请管理</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+            <ul class="content">
+                <li class="group pb-15">
+                    <h6 class="inline w80">审核结果：</h6>
+                    <label class="radio inline mr-20"><input type="radio" name="status" value="2" checked="checked">通过</label>
+                    <label class="radio inline mr-20"><input type="radio" name="status" value="3">拒绝</label>
+                </li>
+            </ul>
+            <div class="group text-center pb-15">
+                <a class="btn-middle btn-purple w60 js-submit">保存</a>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(".js-Apply-btn").click(function(){
+        	var id = $(this).attr("data-id");
+        	$('.js-submit').attr("data-id",id);
+            $(".js-Apply-wrap").fadeIn(120);
+        });
+        $('.js-submit').click(function(){
+        	var id = $(this).attr("data-id");
+        	var status = $('input[name="status"]:checked').val();
+			$('.loading').show();
+        	$.post("<?php echo U('Dms/ajaxChecked',array('companyid'=>$companyid)).'&time='?>"+Math.random(),{'id':id,'status':status},function(data){
+        		$('.loading').hide();
+        		if(data.code == 200){
+        			alertTan(data.tips);
+        			window.location.href=location.href;
+        		}else{
+        			alertTan(data.tips,'error');
+        		}
+        	},'json');
+        });
+    </script>
+</div>
+<include file="Public:footer"/>

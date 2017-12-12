@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content=" initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="wxm:timeline_title" content="都教授走前，留下了一个秘密">
+    <meta name="wxm:appmessage_title" content="都教授走前，留下了一个秘密">
+    <meta name="wxm:appmessage_desc" content="嘘...快来看留给你的线索！">
+    <meta name="wxm:img_url" content="http://wximg.qq.com/wxp/moment/VJoboTrF/img/share-img.jpg">
+    <meta name="wxm:link" content="http://wximg.qq.com/wxp/moment/VJoboTrF/html/index.html">
+    <title>恒大冰泉</title>
+    <!--<link rel="stylesheet" href="../css/style-promo.css-1.css" tppabs="http://wximg.qq.com/wxp/moment/VJoboTrF/css/style-promo.css?1"/>-->
+    <link rel="stylesheet" href="http://wximg.qq.com/wxp/moment/VJoboTrF/css/style-promo.css?1" />
+    <style>
+        html, body {
+            height: 100%;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            overflow: hidden;
+            background-color: #101010;
+        }
+
+        @-webkit-keyframes roket {
+            0% {
+                -webkit-transform: translate3d(0, 400px, 0);
+            }
+
+            100% {
+                -webkit-transform: translate3d(0, 0, 0);
+            }
+        }
+
+        .loading{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url("../img/bg.jpg")/*tpa=http://wximg.qq.com/wxp/moment/VJoboTrF/img/bg.jpg*//*tpa=http://wximg.qq.com/wxp/moment/VJoboTrF/img/bg.jpg*/ no-repeat;
+            background-size: 420px 4023px;
+            background-position: center 0;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+        }
+
+        .loading__inner{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-left: -50px;
+            margin-top: -50px;
+            width: 100px;
+            height: 50px;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+        }
+
+        .loading__img{
+            width: 39px;
+            height: 154px;
+            background: url("../img/loading-roket.gif")/*tpa=http://wximg.qq.com/wxp/moment/VJoboTrF/img/loading-roket.gif*//*tpa=http://wximg.qq.com/wxp/moment/VJoboTrF/img/loading-roket.gif*/ no-repeat;
+            background-size: 39px 154px;
+            position: absolute;
+            left: 50%;
+            margin-left: -20px;
+            top: -100px;
+            -webkit-transition: .5s ease-in;
+            -webkit-transform: translate3d(0, 400px, 0);
+        }
+
+        .loading-animation {
+            -webkit-transform: translate3d(0, 0, 0);
+            -webkit-transition: 1.5s ease-out;
+        }
+
+        .loading-animation1 {
+            -webkit-transform: translate3d(0, -500px, 0);
+        }
+
+        .loading-num{
+            position: absolute;
+            left: 0;
+            bottom: -20px;
+            width: 100%;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+<div class="loading">
+    <div class="loading__inner">
+        <div class="loading__img"></div>
+        <div class="loading-num">0%</div>
+    </div>
+</div>
+
+<div class="stage">
+    <div class="stage-bg"></div>
+    <div class="speed-line"></div>
+    <div class="first-page">
+        <div class="first-page-txt-box">
+            <div class="first-page-txt1 first-page-txt"></div>
+            <div class="first-page-txt2 first-page-txt"></div>
+            <div class="first-page-txt3 first-page-txt"></div>
+        </div>
+        <div class="du-teacher">
+            <div class="du-btn"></div>
+            <p class="du-btn-tip"></p>
+            <div class="du-body"></div>
+            <div class="du-hand-left"></div>
+            <div class="du-hand-right"></div>
+            <div class="du-foot-left"></div>
+            <div class="du-foot-right"></div>
+            <div class="du-fire"></div>
+        </div>
+        <div class="stone stone1"></div>
+        <div class="stone stone2"></div>
+        <div class="stone stone3"></div>
+        <div class="star star1"></div>
+        <div class="star star2"></div>
+        <div class="star star3"></div>
+        <div class="light-circle">
+            <div class="light-line">
+                <div class="light-arrow"></div>
+            </div>
+        </div>
+    </div>
+    <div class="light-line2">
+        <div class="light-arrow"></div>
+    </div>
+    <div class="second-page">
+        <div class="cloud1"></div>
+        <div class="cloud2"></div>
+        <div class="cloud3"></div>
+        <div class="bottle-btn">
+        </div>
+        <!-- <div class="bottle-box2">
+          <div class="bottle3 bottle">
+              </div>
+        </div> -->
+        <div class="bottle-box">
+              <div class="bottle1 bottle">
+                <div class="little-bottle-cap"></div>
+                <div class="little-bottle-body"></div>
+              </div>
+              <div class="bottle2 bottle">
+                <div class="little-bottle-cap"></div>
+                <div class="little-bottle-body"></div>
+              </div>
+              <div class="bottle3 bottle">
+                <div class="little-bottle-cap"></div>
+                <div class="little-bottle-body"></div>
+              </div>
+              <div class="bottle4 bottle">
+                <div class="little-bottle-cap"></div>
+                <div class="little-bottle-body"></div>
+              </div>
+              </div>
+        <div class="second-earth"></div>
+        <p class="second-page-txt">
+        </p>
+    </div>
+    <div class="light-shot2">
+        <div class="light-shot-line"></div>
+    </div>
+    <div class="light-shot">
+        <div class="light-shot-line"></div>
+    </div>
+    <div class="cap-tip-txt"></div>
+    <div class="cap-tip">
+        <div class="big-bottle-btn"></div>
+    </div>
+    <div class="thrid-page">
+        <div class="cloud1"></div>
+        <div class="cloud2"></div>
+        <div class="cloud3"></div>
+        <!--water 添加id-->
+        <div class="bottle-cap" id="bangai">
+            <div class="bottle-cap-in"></div>
+        </div>
+        <p class="third-page-txt">
+        </p>
+        <div class="bottle-body"></div>
+        <div class="light">
+          <div class="fourth-page-tip"></div>
+        </div>
+        <div class="earth">
+            <div class="qcode"></div>
+            <div class="big-circle"></div>
+        </div>
+        <div class="gift-phone gift-btn">
+            <div class="gift-phone-bulle gift-bulle"></div>
+        </div>
+        <div class="gift-football gift-btn">
+            <div class="gift-football-bulle gift-bulle"></div>
+        </div>
+        <div class="gift-ufo gift-btn">
+            <div class="gift-ufo-bulle gift-bulle"></div>
+        </div>
+        <div class="module-block"></div>
+        <!--water 修改-->
+        <div class="module1 module">
+            <div class="module-close"></div>
+            <img src="../img/qrcode2.png" tppabs="http://wximg.qq.com/wxp/moment/VJoboTrF/img/qrcode2.png" class="qrcode2"/>
+            <img src="../img/gift-phone-module2.png" tppabs="http://wximg.qq.com/wxp/moment/VJoboTrF/img/gift-phone-module2.png" alt="" class="md">
+        </div>
+        <div class="module2 module">
+            <div class="module-close"></div>
+            <img src="../img/qrcode2.png" tppabs="http://wximg.qq.com/wxp/moment/VJoboTrF/img/qrcode2.png" class="qrcode2" />
+            <img src="../img/gift-football-module2.png-0.png" tppabs="http://wximg.qq.com/wxp/moment/VJoboTrF/img/gift-football-module2.png?0" alt="" class="md">
+        </div>
+        <div class="module3 module">
+            <div class="module-close"></div>
+            <img src="../img/qrcode2.png" tppabs="http://wximg.qq.com/wxp/moment/VJoboTrF/img/qrcode2.png" class="qrcode2" />
+            <img src="../img/gift-ufo-module2.png-0.png" tppabs="http://wximg.qq.com/wxp/moment/VJoboTrF/img/gift-ufo-module2.png?0" alt="" class="md">
+        </div>
+        <!--water over-->
+    </div>
+</div>
+<!--<script src="../../../../../cdnjs.gtimg.com/cdnjs/libs/wxmoment/0.0.2-rc2/wxmoment.min.js" tppabs="http://cdnjs.gtimg.com/cdnjs/libs/wxmoment/0.0.2-rc2/wxmoment.min.js"></script>
+<script src="../js/lib.js" tppabs="http://wximg.qq.com/wxp/moment/VJoboTrF/js/lib.js"></script>-->
+<script src="http://cdnjs.gtimg.com/cdnjs/libs/wxmoment/0.0.2-rc2/wxmoment.min.js"></script>
+<script src="http://wximg.qq.com/wxp/moment/VJoboTrF/js/lib.js"></script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!--打自定义标签弹窗-->
+<div class="popup-wrap js-Custom-tags-popup">
+    <div class="mod middle-popup type-2">
+        <div class="mod-header">
+            <h4 class="fl">打自定义标签</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+            <div class="content">
+                <div class="group clearfix pb-10">
+                    <div class="input-search fr clearfix">
+                        <input type="text" class="span2 inline fl" value="">
+                        <button type="submit" class="btn fl js-form-membertag">筛选</button>
+                    </div>
+                </div>
+                <div style="overflow: hidden;overflow-y: auto;height: 300px;margin-bottom: 20px;padding-right: 10px;">
+                    <table class="table type-1 w-auto">
+                        <thead>
+                        <tr>
+                            <th>自定义标签名称</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody class="js-select-membertag">
+                        <?php if($search['alltags']){ foreach($search['alltags'] as $satKey=>$satVal){?>
+                        <tr>
+                            <td><?php echo $satVal['name'];?></td>
+                            <td>
+                                <a href="javascript:void(0);" class="tips js-select-tag" data-id="<?php echo $satVal['id'];?>"><?php if(strpos($memberInfo['membertagsid'],','.$satVal['id'].',') !== false){echo '取消';}else{echo '选取';}?></a>
+                            </td>
+                        </tr>
+                        <?php }}?>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-center mb-15">
+                    <a class="btn-middle btn-purple w80 js-button-membertag" data-id="," data-text=",">保存</a>
+                    <a class="btn-middle btn-white w80 js-Custom-tags-close ml-80">取消</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(".js-Custom-tags").on("click",function(){
+        	var test = "<?php echo $memberInfo['membertagsid'];?>";
+        	if(!test){
+        		$('.js-select-tag').text("选取");
+        	}
+			var memberTag = "<?php echo count($search['alltags']);?>";
+			if(memberTag < 1){
+				alertTan('请先创建标签','warn');				
+			}else{
+				var membertagid = $('input[name="membertagid"]').val();
+	        	if(membertagid == '' || membertagid == 'on'){
+	        		alertTan('请先选择会员','warn');
+	        		return false;
+	        	}
+				$(".js-button-membertag").attr('data-id',"<?php echo $memberInfo['membertagsid']?$memberInfo['membertagsid']:',';?>");
+	            $(".js-Custom-tags-popup").fadeIn(120);
+			}
+        });
+        //点击选择
+        $(document).on('click','.js-select-tag',function(){
+        	var str = $(this).text();
+        	var tagid = $(this).attr("data-id");
+        	var tagids = $('.js-button-membertag').attr('data-id');
+        	if(str == "选取"){
+        		$(this).text("取消");
+        		$('.js-button-membertag').attr('data-id',tagids+tagid+',');
+        	}else{
+        		$(this).text("选取");
+        		if(tagids.indexOf(','+tagid+',')>-1){
+	        		$('.js-button-membertag').attr('data-id',tagids.replace(','+tagid+',',","));
+                }
+        	}
+        });
+        $('.js-button-membertag').click(function(){
+        	var test = "<?php echo $memberInfo['membertagsid'];?>";
+        	var type = 0;
+        	if(test){
+        		type = 1;
+        	}
+        	var tagids = $(this).attr('data-id');
+        	var membertagid = $('input[name="membertagid"]').val();
+        	var type = $('input[name="membertagid"]').attr('data-type');
+        	if(tagids == '' || tagids == ','){
+        		alertTan('请先选择标签','warn');
+        		return false;
+        	}
+        	if(membertagid == '' || membertagid == 'on'){
+        		alertTan('请先选择会员','warn');
+        		return false;
+        	}
+        	$(".loading").show();
+        	$.post("<?php echo U('Member/ajaxAddMemberTags').'&time='; ?>"+Math.random(),{type:type,mid:membertagid,membertagsid:tagids},function(data){
+				$(".loading").hide();
+				$(".js-Custom-tags-popup").fadeOut(120);
+				if(data.code == '200'){
+					alertTan(data.msg);
+					if(type == '1'){
+						setTimeout("window.location.href=location.href;",1500);
+					}
+				}else{
+					alertTan(data.msg,'error');
+				}
+			},"json");
+        });
+        $('.js-form-membertag').click(function(){
+        	$(".loading").show();
+        	var tagname = $(this).prev().val();
+        	$.post("<?php echo U('Member/ajaxSelectMemberTags').'&time='; ?>"+Math.random(),{tagname:tagname},function(data){
+        		$(".loading").hide();
+        		if(data.code == '200'){
+					$('.js-select-membertag').html(data.html);
+				}else{
+					alertTan(data.msg,'error');
+				}
+			},"json");
+        });
+        $(".js-Custom-tags-close").on("click",function(){
+            $(".js-Custom-tags-popup").fadeOut(120);
+        });
+    </script>
+</div>
+<!--创建自定义标签弹窗-->
+<div class="popup-wrap wrap-small-1 js-create-label-popup">
+    <div class="mod small-popup type-1 popup-width400">
+        <div class="mod-header">
+            <h4 class="fl">创建自定义标签</h4>
+            <i class="fr icon-close-dark js-icon-close"></i></div>
+        <div class="mod-body">
+            <div class="content">
+                <div class="group pb-30">
+                    <h6 class="inline w100">自定义标签名称：</h6>
+                    <input class="inline" style="width:230px;" type="text" name="addMemberTag" placeholder="" value="">
+                    <div class="group">
+                        <span class="inline w100"></span>
+                        <h6 class="inline text-gray">*仅限6个汉字，12个字节</h6>
+                    </div>
+                </div>
+                <p class="text-center mb-15">
+                    <a class="btn-middle btn-purple w60 js-add-memberTag mr-20">保存</a>
+                    <a class="btn-middle btn-white w60 js-create-label-close">取消</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(".js-create-label").on("click",function(){
+        	$('input[name="addMemberTag"]').val('');
+            $(".js-create-label-popup").fadeIn(120);
+        });
+        $('.js-add-memberTag').on('click',function(){
+        	var membertag = jQuery.trim($('input[name="addMemberTag"]').val());
+        	if(zfl.GetLength(membertag)<1 || zfl.GetLength(membertag)>12){
+    			alertTan('仅限6个汉字，12个字节','warn');
+    			return false;
+    		}
+        	$(".loading").show();
+        	$.post("<?php echo U('Member/ajaxAddMemberTag').'&time='; ?>"+Math.random(),{membertag:membertag},function(data){
+        		$(".loading").hide();
+        		$(".js-create-label-popup").fadeOut(120);
+				if(data.code == '200'){
+					$('.js-select-membertag').prepend(data.html);
+					alertTan('添加成功');
+				}else{
+					alertTan(data.msg,'error');
+				}
+			},"json");
+        });
+        $(".js-create-label-close").on("click",function(){
+            $(".js-create-label-popup").fadeOut(120);
+        });
+    </script>
+</div>

@@ -1,0 +1,499 @@
+<include file="Public:head"/>
+<include file="Public:WeiTanSelect"/>
+<?php echo $makeTopUrl;?>
+<div class="group inline-btn-group mb-10">
+    <a class="btn-small btn-white js-S5Permissions" data-Permissionsid="17" data-link="<?php echo U('QuickResponseCode/index');?>">自定义网页二维码</a>
+    <a class="btn-small btn-purple js-S5Permissions" data-Permissionsid="18" data-link="<?php echo U('QuickResponseCode/lists');?>">微信关注二维码</a>
+	<a class="btn-small btn-white js-S5Permissions" data-Permissionsid="134" data-link="<?php echo U('QuickResponseCode/statistics');?>">门店拉粉统计</a>
+</div>
+<div class="alert mb-15 alert-font-14"><strong>本功能仅限微信认证服务号</strong><br/><strong>数据统计规则：</strong>实时统计</div>
+<div class="mod mb-15">
+	<?php if($type != '1'){?>
+		<div class="mod-header radius-top"><h4>微信关注二维码</h4><div class="fr"><a class="fl" href="<?php echo U('QuickResponseCode/set');?>">设置风助手出示模板</a><a class="fl ml-10 js-icon-excel">下载表格</a></div></div>
+	<?php }else{?>
+		<div class="mod-header radius-top"><h4>微信关注二维码</h4><div class="fr"><a class="fl js-QR-code">新建微信关注二维码</a><a class="fl ml-10 js-icon-excel">下载表格</a></div></div>
+	<?php }?>
+    
+    <div class="mod-body">
+    	<div class="content">
+    		<div class="tab-box type-2 pb-20 js-tab-box">
+                <div class="hd">
+                    <ul>
+                        <a href="<?php echo U('QuickResponseCode/lists');?>"><li <?php if($type != '1'){echo 'class="on"';}?>><h5>内部拉粉码</h5></li></a>
+                        <a href="<?php echo U('QuickResponseCode/lists',array('type'=>'1'));?>"><li <?php if($type == '1'){echo 'class="on"';}?>><h5>自定义微信关注二维码</h5></li></a>
+                    </ul>
+                </div>
+            </div>
+	        <table class="table type-1 w-auto">
+	            <thead>
+	            <tr>
+	                <th>二维码名称</th>
+	                <th>关联微信名称</th>
+	                <th>所属门店</th>
+	                <th>获取关注数</th>
+	                <th>取消关注数</th>
+	                <th>有效关注数</th>
+	                <th>有效注册数</th>
+	                <?php if($type == '1'){?>
+	                <th>关联微信关键词</th>
+	                <?php }?>
+	                <th>操作</th>
+	            </tr>
+	            </thead>
+	            <tbody>
+	            <?php if($list){ foreach($list as $key=>$val){?>
+	            <tr>
+	                <td><?php echo htmlspecialchars_decode($val['name']);?></td>
+	                <td><?php echo htmlspecialchars_decode($val['wechatName']); ?></td>
+	                <td><?php echo $val['shopname']?$val['shopname']:'无'; ?></td>
+	                <td><?php echo $val['subscribe']; ?></td>
+	                <td><?php echo $val['unsubscribe']; ?></td>
+	                <td><?php echo $val['scannum']; ?></td>
+	                <td><?php echo $val['registernum']; ?></td>
+	                <?php if($type == '1'){?>
+	                <td><?php echo $val['boundkeyword']?$val['boundkeyword']:'-';?></td>
+	                <?php }?>
+	                <td>
+	                    <div class="inline QR-code-position js-QR-code-hide">
+	                        <a class="tips QR-code-cover" href="javascript:void(0);">查看二维码</a>
+	                        <div class="QR-Auxiliary-blank"></div>
+	                        <div class="QR-code-box-down w100">
+	                            <img data-src="<?php echo $val['picurl'];?>">
+	                            <h6 class="mb-10">微信扫码<br/>关注公众号</h6>
+	                            <a class="btn-small btn-white" target="_blank" href="<?php echo $val['picurl'];?>">下载二维码</a>
+	                            <span id="triangle-up-b"></span>
+	                            <span id="triangle-up-a"></span>
+	                        </div>
+	                    </div>
+	                    <a class="tips js-Report-form" href="javascript:void(0);" data-id="<?php echo $val['content'];?>">查看每日业绩明细</a>
+	                    <a class="tips js-Get-fans" href="javascript:void(0);" data-id="<?php echo $val['content'];?>">查看获取粉丝</a>
+	                    <?php if($type == '1'){?>
+	                    	<a href="javascript:void(0);" class="tips js-delete-QR" qrCodeId="<?php echo $val['id'];?>">删除</a>
+	                    <?php }?>
+	                </td>
+	            </tr>
+	            <?php }}else{?>
+	            <tr class="text-center not-hover">
+	                <td colspan="7">暂无</td>
+	            </tr>
+	            <?php }?>
+	            </tbody>
+	        </table>
+        </div>
+        <?php if($page){?>
+        <div class="group form-footer clearfix">
+            <div class="group pagination fr">
+            	<?php echo $page;?>
+            </div>
+        </div>
+        <?php }?>
+    </div>
+</div> 
+<input type="hidden" id="test" value="">
+<!-- 删除 弹窗 -->
+<div class="popup-wrap js-del-or-not-wrap js-delete-QR-popup">
+    <div class="mod small-popup type-1">
+        <div class="mod-body">
+            <div class="content ">
+                <h5 class="text-center">本二维码删除后不可恢复<br/>请谨慎删除！</h5>
+            </div>
+            <div class="group form-footer text-center">
+                <a class="btn-small btn-white w60 js-delete-QR-close">取消</a>
+                &nbsp;&nbsp;&nbsp;
+                <a class="btn-small btn-purple w60 js-ok" id="delqrCodeHref" data-id="">确认删除</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(".js-delete-QR").on("click",function(){
+        	$('#delqrCodeHref').attr('data-id','');
+            $('#delqrCodeHref').attr('data-id',$(this).attr('qrCodeId'));
+            $(".js-delete-QR-popup").fadeIn(120);
+        });
+        $('#delqrCodeHref').on("click",function(){
+        	var type = "1";
+            var qrCodeId = $(this).attr('data-id');
+            $('.loading').show();
+            $.post("<?php echo U('QuickResponseCode/qrCodeDel');?>",{type:type,id:qrCodeId},
+    				function(data){
+            		$('.loading').hide();
+            			if(data.code == '200'){
+            				alertTan(data.msg);
+            			}else{
+            				alertTan(data.msg,'error');
+            			}
+            			setTimeout("window.location.reload();",1500);
+    				},"json"
+    		);
+        });
+        $(".js-delete-QR-close").on("click",function(){
+            $(".js-delete-QR-popup").fadeOut(120);
+        });
+    </script>
+</div>
+<!-- 新建微信关注二维码 弹窗 -->
+<div class="popup-wrap wrap-small-1 js-QR-code-popup">
+    <div class="mod middle-popup type-1" style="width: 500px;margin-left:-250px;">
+        <div class="mod-header"><h4 class="fl">新建微信关注二维码</h4><i class="quxiao fr icon-close-dark js-icon-close"></i></div>
+        <div class="mod-body">
+            <div class="content">
+                <div class="group pb-15">
+                    <h6 class="inline w100">关联微信名称：</h6>
+                    <h6 class="inline"><?php if($wechatList){ foreach($wechatList as $wkey=>$wval){echo $wval['wxname'];}}else{echo '请先接入微信认证服务号!';}?></h6>
+                </div>
+                <div class="group pb-15">
+                    <h6 class="inline w100">二维码名称：</h6>
+                    <input class="inline w200 js-wcode-name" type="text" name="">
+                </div>
+                <div class="group pb-15">
+                    <h6 class="inline w100">所属门店：</h6>
+                    <select class="inline w200 js-boundshopid" autocomplete="off">
+                        <option value="0">请选择门店</option>
+                        <?php if($shopList){foreach($shopList as $skey=>$sval){?>
+                        	<option value="<?php echo $sval['id'];?>"><?php echo $sval['shopname'];?></option>
+                        <?php }}?>
+                    </select>
+                </div>
+                <div class="group">
+                    <h6 class="inline w100">关联微信关键词：</h6>
+                    <h6 class="inline js-keyword-show"></h6>
+                    <a class="btn-small btn-white js-choose-keyword">选择微信关键词</a>
+                    <h6 class="text-gray ml-100 pt-5 pl-5">当用户通过此二维码关注公众号后，微信将自动回复本微信关键词相应的回复内容"</h6>
+                </div>
+            </div>
+            <div class="group form-footer text-center">
+                <a class="btn-small btn-purple js-ok " id='qrCodeadd' data-id="">生成二维码</a> &nbsp;
+                <a class="btn-small btn-white js-QR-code-close">取 消</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(".js-QR-code").on("click",function(){
+        	$('.js-wcode-name').val('');
+        	$('.js-keyword-show').text('');
+            $(".js-QR-code-popup").fadeIn(120);
+        });
+        $(document).on('click','#qrCodeadd',function(){
+        	var name = $('.js-wcode-name').val();
+            var keyword = $('.js-keyword-show').text();
+            if(name == false){
+            	alertTan('请填写二维码名称','warn');
+    	    	return false;
+            }
+            var boundshopid = $('.js-boundshopid').val();
+            $('.loading').show();
+            $.post("<?php echo U('QuickResponseCode/wechatqr');?>",{title:name,keyword:keyword,boundshopid:boundshopid},
+    				function(data){
+            		$('.loading').hide();
+            			if(data.code == '200'){
+            				alertTan(data.msg);
+            			}else{
+            				alertTan(data.msg,'error');
+            			}
+            			setTimeout("window.location.reload();",1500);
+    				},"json"
+    		);
+        });
+        $(".js-QR-code-close").on("click",function(){
+            $(".js-QR-code-popup").fadeOut(120);
+        });
+    </script>
+</div>
+<!-- 选择微信关键词 弹窗 -->
+<div class="popup-wrap js-QR-keyword-popup" style="z-index: 10;">
+    <div class="mod middle-popup type-1">
+        <div class="mod-header"><h4 class="fl">选择微信关键词</h4><i class="quxiao fr icon-close-dark js-icon-close-2"></i></div>
+        <div class="mod-body">
+            <div class="content" style="max-height: 416px;overflow: hidden;overflow-y: auto;">
+                <table class="table type-1 w-auto mb-15">
+                <thead>
+                <tr>
+                    <th>触发关键词</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody class="js-keylog">
+                </tbody>
+            </table>
+            </div>
+            <div class="group form-footer clearfix">
+                <div class="group pagination fr js-ajaxkeypage">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).on("click",".js-choose-keyword",function(){
+        	$('#test').val('js-ajaxkeypage').attr('data-type','3');
+        	$('.js-keyword-show').text('');
+            var type = '3';
+            $('.loading').show();
+        	$.post("<?php echo U('QuickResponseCode/quicklog');?>",{type:type},
+    				function(data){
+        			$('.loading').hide();
+            			if(data.code == '200'){
+            				$('.js-keylog').html(data.html);
+            				if(data.page){
+            					$('.js-ajaxkeypage').parent().show();
+    	        				$('.js-ajaxkeypage').html(data.page);
+            				}else{
+            					$('.js-ajaxkeypage').parent().hide();
+            				}
+            				$(".js-QR-keyword-popup").fadeIn(120);
+            			}else{
+            				alertTan(data.msg,'error');
+            			}
+    				},"json"
+    		);
+        });
+        $(document).on("click",".js-click-keyword",function(){
+            $('.js-keyword-show').text($(this).parent().prev().text()).attr('data-id',$(this).attr('data-id'));
+            $(".js-QR-keyword-popup").fadeOut(120);
+        })
+        $(document).on("click",".js-ok-2,.js-icon-close-2",function(){
+            $(".js-QR-keyword-popup").fadeOut(120);
+        })
+    </script>
+</div>
+<!-- 查看报表 弹窗 -->
+<div class="popup-wrap wrap-small-1 js-Report-form-popup">
+    <div class="mod middle-popup type-1" style="width: 700px;margin-left:-350px;">
+        <div class="mod-header"><h4 class="fl">查看报表</h4><i class="quxiao fr icon-close-dark js-icon-close"></i><a class="fr tips excel-import-out-button1 mr-20">生成报表</a></div>
+        <div class="mod-body">
+            <div class="qr-code-scroll">
+                <div class="mod mt-0">
+                    <div class="mod-header radius-top"><h4>全部</h4></div>
+                    <div class="mod-body">
+                        <table class="table type-1 w-auto">
+                            <thead>
+                            <tr>
+                                <th>时间</th>
+                                <th>获取关注数</th>
+                                <th>取消关注数</th>
+                                <th>有效关注数</th>
+                                <th>有效注册数</th>
+                            </tr>
+                            </thead>
+                            <tbody class="js-log">
+                            </tbody>
+                        </table>
+                        <div class="group form-footer clearfix">
+                            <div class="group pagination fr js-ajaxpage">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="group form-footer text-center"><a class="btn-small btn-white js-Report-form-close">关闭</a></div>
+        </div>
+    </div>
+    <script>
+        $(".js-Report-form").on("click",function(){
+        	var qid = $(this).attr('data-id');
+        	var type = '2';
+        	$('#test').val('js-ajaxpage').attr({'data-type':type,'data-qid':qid});
+        	$('.loading').show();
+        	$.post("<?php echo U('QuickResponseCode/quicklog');?>",{qid:qid,type:type},
+    				function(data){
+        			$('.loading').hide();
+            			if(data.code == '200'){
+            				$('.js-log').html(data.html);
+            				if(data.page){
+            					$('.js-ajaxpage').parent().show();
+    	        				$('.js-ajaxpage').html(data.page);
+            				}else{
+            					$('.js-ajaxpage').parent().hide();
+            				}
+            				$(".js-Report-form-popup").fadeIn(120);
+            			}else{
+            				alertTan(data.msg,'error');
+            			}
+    				},"json"
+    		);
+        });
+       	$('.excel-import-out-button1').click(function(){
+       		var qid = $('#test').attr('data-qid');
+    		var type = $('#test').attr('data-type');
+    		$('.loading').show();
+       		$.post("<?php echo U('QuickResponseCode/export');?>",{qid:qid,type:type},
+       				function(data){
+       				$('.loading').hide();
+       	    			if(data.code == '200'){
+       			            $(".js-export-popup").fadeIn(120);
+       			            //setTimeout("window.location.reload();",2000);
+       	    			}else{
+       	    				alertTan(data.msg,'error');
+       	    			}
+       				},"json"
+       		);
+       	});
+        $(".js-Report-form-close").on("click",function(){
+            $(".js-Report-form-popup").fadeOut(120);
+        });
+    </script>
+</div>
+
+<!-- 查看获取粉丝 弹窗 -->
+<div class="popup-wrap wrap-small-1 js-Get-fans-popup">
+    <div class="mod middle-popup type-1" style="width: 700px;margin-left:-350px;">
+        <div class="mod-header"><h4 class="fl">查看获取粉丝</h4><i class="quxiao fr icon-close-dark js-icon-close"></i><a class="fr tips excel-import-out-button2 mr-20">生成报表</a></div>
+        <div class="mod-body">
+            <div class="qr-code-scroll">
+                <div class="mod mt-0">
+                    <div class="mod-header radius-top"><h4>全部</h4></div>
+                    <div class="mod-body">
+                        <table class="table type-1 w-auto">
+                            <thead>
+                            <tr>
+                                <th>微信昵称</th>
+                                <th>最新关注时间</th>
+                                <th>最近取关时间</th>
+                                <th>关注状态</th>
+                                <th>是否注册</th>
+                            </tr>
+                            </thead>
+                            <tbody class="js-log">
+                            </tbody>
+                        </table>
+                        <div class="group form-footer clearfix">
+                            <div class="group pagination fr js-ajaxpage">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="group form-footer text-center">
+                <a class="btn-small btn-white js-Get-fans-close">关闭</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(".js-Get-fans").on("click",function(){
+            var qid = $(this).attr('data-id');
+        	var type = '4';
+        	$('#test').val('js-ajaxpage').attr({'data-type':type,'data-qid':qid});
+        	$('.loading').show();
+        	$.post("<?php echo U('QuickResponseCode/quicklog');?>",{qid:qid,type:type},
+    				function(data){
+        			$('.loading').hide();
+            			if(data.code == '200'){
+            				$('.js-log').html(data.html);
+            				if(data.page){
+            					$('.js-ajaxpage').parent().show();
+    	        				$('.js-ajaxpage').html(data.page);
+            				}else{
+            					$('.js-ajaxpage').parent().hide();
+            				}
+            				$(".js-Get-fans-popup").fadeIn(120);
+            			}else{
+            				alertTan(data.msg,'error');
+            			}
+    				},"json"
+    		);
+        });
+        $('.excel-import-out-button2').click(function(){
+        	var qid = $('#test').attr('data-qid');
+    		var type = $('#test').attr('data-type');
+    		$('.loading').show();
+    		$.post("<?php echo U('QuickResponseCode/export');?>",{qid:qid,type:type},
+    				function(data){
+    				$('.loading').hide();
+    	    			if(data.code == '200'){
+    			            $(".js-export-popup").fadeIn(120);
+    			           // setTimeout("window.location.reload();",2000);
+    	    			}else{
+    	    				alertTan(data.msg,'error');
+    	    			}
+    				},"json"
+    		);
+    	});
+        $(".js-Get-fans-close").on("click",function(){
+            $(".js-Get-fans-popup").fadeOut(120);
+        });
+    </script>
+</div>
+<!-- 报表生成提示 弹窗 -->
+<div class="popup-wrap wrap-small-1 js-export-popup">
+    <div class="mod small-popup type-1" style="width:360px;margin-left:-180px;">
+	    <div class="mod-header">
+	        <h4 class="fl">提示</h4>
+	        <i class="fr icon-close-dark js-icon-close"></i>
+	    </div>
+        <div class="mod-body">
+	        <div class="content">
+	            <h5 class="text-center">报表正在生成中...<br/>请在5分钟后前往“管理-我的导出任务”下载CSV文件</h5>
+	        </div>
+    	</div>
+	</div>
+</div>
+<script>
+$(function(){
+	$('#test').val('');
+	$(document).on('click','.js-ajaxpage-num',function(){
+		var qid = $('#test').attr('data-qid');
+		var type = $('#test').attr('data-type');
+		var page = $(this).attr('data-page');
+		var test = $('#test').val();
+		$.post("<?php echo U('QuickResponseCode/quicklog');?>",{qid:qid,page:page,type:type},
+				function(data){
+	    			if(data.code == '200'){
+	    				if(test == 'js-ajaxkeypage'){
+	    					$('.js-keylog').html(data.html);
+	    				}else{
+		    				$('.js-log').html(data.html);
+	    				}
+	    				if(data.page){
+	    					$('.'+test).parent().show();
+	        				$('.'+test).html(data.page);
+	    				}else{
+	    					$('.'+test).parent().hide();
+	    				}
+	    			}else{
+	    				alertTan(data.msg,'error');
+	    			}
+				},"json"
+		);
+	});
+	$(document).on('click','.js-page-go-icon',function(){
+		var qid = $('#test').attr('data-qid');
+		var type = $('#test').attr('data-type');
+		var page = $(this).prev().val();
+		var test = $('#test').val();
+		$.post("<?php echo U('QuickResponseCode/quicklog');?>",{qid:qid,page:page,type:type},
+				function(data){
+	    			if(data.code == '200'){
+	    				if(test == 'js-ajaxkeypage'){
+	    					$('.js-keylog').html(data.html);
+	    				}else{
+		    				$('.js-log').html(data.html);
+	    				}
+	    				if(data.page){
+	    					$('.'+test).parent().show();
+	        				$('.'+test).html(data.page);
+	    				}else{
+	    					$('.'+test).parent().hide();
+	    				}
+	    			}else{
+	    				alertTan(data.msg,'error');
+	    			}
+				},"json"
+		);
+	});
+	$('.js-icon-excel').click(function(){
+		var type = "<?php echo $type;?>";
+		$('.loading').show();
+		$.post("<?php echo U('QuickResponseCode/exportall');?>",{type:type},
+				function(data){
+				$('.loading').hide();
+	    			if(data.code == '200'){
+			            $(".js-export-popup").fadeIn(120);
+			           // setTimeout("window.location.reload();",2000);
+	    			}else{
+	    				alertTan(data.msg,'error');
+	    			}
+				},"json"
+		);
+	});
+});
+</script>
+<include file="Public:footer"/>

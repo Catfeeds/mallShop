@@ -1,0 +1,615 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="viewport" content="width=device-width,user-scalable=no" />
+  <title>忧郁指数自测</title>
+
+  <script src="../../js/config.js"></script>
+  <link href="res/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="res/style.css" />
+  <link href="res/jquery.mmenu.all.css" rel="stylesheet">
+
+  <script src="../../js/jquery.min.js"></script>
+  <script src="res/bootstrap.min.js"></script>
+  <script src="res/jquery.hammer.min.js"></script>
+  <script src="res/jquery.mmenu.min.all.js"></script>
+  <script type="text/javascript">
+    var dFW = {
+      img: siteurl + "/ceshi/youyu/res/icon.jpg",
+      url: siteurl + "/ceshi/youyu/"
+    };
+  </script>
+  <style>.form-group{display: none;}</style>
+</head>
+<body id="test1" class="test1">
+<div id="content">
+
+<div class="container">
+<div id="header" class="text-center">
+  <h1 class="bold">忧郁指数自测</h1>
+</div> <!-- E header -->
+
+<div id="bd" class="panel">
+
+<div id="panel1" class="panel-body">
+  <form action="#">
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl>
+      <dd>忧郁症已经成为现代社会很容易出现的心理疾病之一。在年轻人身上出现忧郁症状的可能性要更大一些。你已经开始渐渐忧郁了吗？这个要问你自己才会知道吧？做一下这个测试吧,看看你现在的忧郁指数有多高
+      </dd>
+    </dl>
+    <div class="buttons">
+      <a href="#result" class="btn btn-lg btn-success" style="width:100%" onclick="return next(0);">开始测试</a>
+    </div>
+  </form>
+</div>
+
+<div id="panel2" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>1：觉得对什么都不感兴趣</dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 是                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 否                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div1" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>2：总觉得身体有点儿问题，如头疼等</dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 是                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 否                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div2" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>3：觉得身体很虚、没力气，总感到疲劳</dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 是                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 否                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div3" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>4：觉得食欲不好，不想吃东西</dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 是                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 否                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div4" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>5：觉得不轻松，不舒服</dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 是                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 否                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div5" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>6：觉得心情不好</dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 是                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 否                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div6" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>7：觉得胸口闷闷的</dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 是                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 否                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div7" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>8：觉得自己很没用</dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 是                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 否                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div8" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>9：常常想哭</dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 是                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 否                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div9" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>10：比以前爱发脾气</dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 是                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 否                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div10" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>11：睡眠质量很差</dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 是                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 否                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div11" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>12：老是觉得很烦</dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 是                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 否                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div12" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>13：觉得记忆力不如以前</dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 是                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 否                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div13" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>14：觉得做事常常无法集中注意力</dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 是                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 否                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div14" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>15：总是想不开</dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 是                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 否                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div15" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>16：总是把事情想得一团糟</dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 是                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 否                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div16" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>17：觉得想事情或做事情效率都比以前低</dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 是                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 否                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div17" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>18：总是觉得没信心</dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 是                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 否                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="panel3" class="panel-body js_result" style="display:none;">
+  <form action="#" class="js_result">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">结果</label>
+      <a href="#" class="img-circle">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <h1 class="bold text-danger">你是一个极端乐观、极端快乐的人</h1>
+    <hr />
+    <dl>
+      <dt>详细分析:</dt>
+      <dd>  <p>天底下没有让你不快乐的事，希望你能保持这种积极的心境。</p>
+      </dd>
+    </dl>
+    <div class="buttons">
+      <a href="javascript:void(0)" class="btn btn-lg btn-success" style="width:100%" onclick="document.getElementById('mcover').style.display='block';">分享给朋友(圈)</a>
+    </div>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div18" class="panel-body js_result" style="display:none;">
+  <form action="#" class="js_result">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">结果</label>
+      <a href="#" class="img-circle">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <h1 class="bold text-danger">你感情敏感，一件无关紧要的事都可以让你郁闷</h1>
+    <hr />
+    <dl>
+      <dt>详细分析:</dt>
+      <dd>  <p>你感情敏感，一件无关紧要的事都可以让你郁闷，但你可以很快走出这种郁闷。</p>
+      </dd>
+    </dl>
+    <div class="buttons">
+      <a href="javascript:void(0)" class="btn btn-lg btn-success" style="width:100%" onclick="document.getElementById('mcover').style.display='block';">分享给朋友(圈)</a>
+    </div>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div19" class="panel-body js_result" style="display:none;">
+  <form action="#" class="js_result">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">结果</label>
+      <a href="#" class="img-circle">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <h1 class="bold text-danger">你有轻微的忧郁症</h1>
+    <hr />
+    <dl>
+      <dt>详细分析:</dt>
+      <dd>  <p>你有轻微的忧郁症，应该积极调整心态，否则将更趋严重。</p>
+      </dd>
+    </dl>
+    <div class="buttons">
+      <a href="javascript:void(0)" class="btn btn-lg btn-success" style="width:100%" onclick="document.getElementById('mcover').style.display='block';">分享给朋友(圈)</a>
+    </div>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div20" class="panel-body js_result" style="display:none;">
+  <form action="#" class="js_result">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">结果</label>
+      <a href="#" class="img-circle">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <h1 class="bold text-danger">你的忧郁症已比较严重</h1>
+    <hr />
+    <dl>
+      <dt>详细分析:</dt>
+      <dd>  <p>大多数日子你都比较忧郁。不要丧失信心，要多与朋友、家人、同事沟通，学会释放心中的压力，你便会远离忧郁</p>
+      </dd>
+    </dl>
+    <div class="buttons">
+      <a href="javascript:void(0)" class="btn btn-lg btn-success" style="width:100%" onclick="document.getElementById('mcover').style.display='block';">分享给朋友(圈)</a>
+    </div>
+  </form>
+</div> <!-- E panel-body -->
+
+
+</div> <!-- E bd -->
+</div> <!-- E container -->
+
+<script type="text/javascript">
+
+  var total = 18;
+  var scoreArr = new Array(parseInt(total));
+  scoreArr[0] = new Array(2);
+  scoreArr[0]['min'] = 0;
+  scoreArr[0]['max'] = 4;
+  scoreArr[1] = new Array(2);
+  scoreArr[1]['min'] = 5;
+  scoreArr[1]['max'] = 9;
+  scoreArr[2] = new Array(2);
+  scoreArr[2]['min'] = 10;
+  scoreArr[2]['max'] = 13;
+  scoreArr[3] = new Array(2);
+  scoreArr[3]['min'] = 14;
+  scoreArr[3]['max'] = 18;
+  var tScore = 0;
+  var dataForWeixin = {
+    name: "我的忧郁指数是0",
+    title: "忧郁指数自测，指数10以上就得积极调整",
+    desc: "　忧郁症已经成为现代社会很容易出现的心理疾病之一。在年轻人身上出现忧郁症状的可能性要更大一些。你已经开始渐渐忧郁了吗？这个要问你自己才会知道吧？做一下这个测试吧,看看你现在的忧郁指数有多高",
+  };
+  function next(t) {
+    $("div#bd > div.panel-body").hide();
+    $("div.js_answer").eq(t).show();
+    $("div.js_answer").eq(t).children("input").attr("checked", "");
+    gotoTop();
+  }
+  function result(t) {
+    share_pop("open", 10000);
+    $("div#bd > div.panel-body").hide();
+    dataForWeixin.name = dataForWeixin.name.replace("0", parseInt(t));
+
+    dataForWeixin.title = dataForWeixin.name + "，" + dataForWeixin.title;
+    for (var i = 0; i < parseInt(total) ; i++) {
+      if (parseInt(t) >= parseInt(scoreArr[i]['min']) && parseInt(t) <= parseInt(scoreArr[i]['max'])) {
+        $("div.js_result").eq(i).show();
+        console.log(dataForWeixin.title);
+        // dataForWeixin.desc = $("div.js_result > form > dl > dd > p").eq(i).text();
+        gotoTop();
+      }
+      else
+        continue;
+    }
+  }
+  function toggle(t) {
+    $(t).children("input").attr("checked", "checked");
+    $("li.list-group-item").removeClass('active')
+    var score = $(t).children("input:checked").val();
+    tScore = parseInt(tScore) + parseInt(score);
+    $(t).addClass('active');
+    var t = $("div.js_answer").index($(t).parents("div.js_answer")) + 1;
+    if (t == total) {
+      result(tScore);
+    } else {
+      setTimeout(function () { next(t); }, 500);
+    }
+  }
+  function gotoTop() {
+    $("body,html").animate({ scrollTop: ($("#header").offset().top + $("#header").height()) }, 1000);
+  }
+  $(function () {
+    $("input[name='g']").change(function () {
+      $("li.list-group-item").removeClass('active')
+      $(this).parent("li.list-group-item").addClass('active');
+    });
+  });
+</script>
+
+</div>
+<div id="mcover" onclick="document.getElementById('mcover').style.display='';" style="display:none;">
+  <img src="../../img/guide.png">
+</div>
+
+<script type="text/javascript">
+  (function () {
+    var onBridgeReady = function () {
+      // 发送给好友;
+      WeixinJSBridge.on('menu:share:appmessage', function (argv) {
+        WeixinJSBridge.invoke('sendAppMessage', {
+          "appid": "",
+          "img_url": dFW.img,
+          "img_width": "120",
+          "img_height": "120",
+          "link": dFW.url,
+          "desc": dataForWeixin.desc,
+          "title": dataForWeixin.title
+        }, function (res) { home_test(); });
+      });
+      // 分享到朋友圈;
+      WeixinJSBridge.on('menu:share:timeline', function (argv) {
+        WeixinJSBridge.invoke('shareTimeline', {
+          "img_url": dFW.img,
+          "img_width": "120",
+          "img_height": "120",
+          "link": dFW.url,
+          "desc": dataForWeixin.desc,
+          "title": dataForWeixin.title,
+        }, function (res) { home_test(); });
+      });
+      // 分享到微博;
+      WeixinJSBridge.on('menu:share:weibo', function (argv) {
+        WeixinJSBridge.invoke('shareWeibo', {
+          "content": dataForWeixin.title + ' ' + dFW.url,
+          "url": dFW.url
+        }, function (res) { home_test(); });
+      });
+    };
+    if (document.addEventListener) {
+      document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+        // WeixinJSBridge.call('hideToolbar');
+        WeixinJSBridge.call('showOptionMenu');
+      });
+      document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+    } else if (document.attachEvent) {
+      document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+      document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+    }
+  })();
+</script>
+
+
+<script>
+  $(function () {
+    $("a#close1").click(function () {
+      share_pop("close", 0);
+    });
+  });
+  function shareSuccess() {
+    share_pop("open", 0);
+    $("div#pop_success").show().delay(1000).fadeOut("slow");
+  }
+  function share_pop(t, time) {
+    if (t == "open") {
+      setTimeout('showShare()', 10000);
+    } else {
+      $('#follow').hide();
+    }
+  }
+  function showShare() {
+    $('#follow').show();
+  }
+</script>
+<script src="../../js/ad-pic.js"></script>
+
+</body>
+</html>

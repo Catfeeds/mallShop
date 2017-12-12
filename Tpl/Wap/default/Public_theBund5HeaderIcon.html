@@ -1,0 +1,18 @@
+<div class="tou-jp">
+    <div class="tou-left rd-prizeuse">
+        <a href="javascript:void(0);"><img src="{lanrain::RES}/bundimg/shouye-2.png"></a>
+    </div>
+    <div class="tou-right">
+        <div class="yssl-div">
+            <img class="width-imgs" src="{lanrain::RES}/bundimg/shouye-3.png">
+            <span class="rd-keys">0</span>
+        </div>
+    </div>
+</div>
+<script>
+$(function(){
+	$(".rd-prizeuse").click(function(){
+		window.location.href="<?php echo U('TheBund5Activity/prizeuse',array('companyid'=>$companyid,'openid'=>'"+sessionStorage.openid+"'));?>";
+	});
+});
+</script>

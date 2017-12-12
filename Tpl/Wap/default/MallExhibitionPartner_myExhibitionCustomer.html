@@ -1,0 +1,30 @@
+<include file="Public:S5NewHead" />
+<!--页面css-->
+<link rel="stylesheet" type="text/css" href="{lanrain::RES}/zhanye/css/wap.css?515<?php echo C('site_system_file_version'); ?>">
+<!--我的客户-->
+<div class="promote-ctt ifoot_padding Scrm_index_content promote-bc-fff">
+	<?php if($list){ ?>
+	<ul class="promote-my-client">
+		<?php foreach($list as $key=>$val){?>
+		<li>
+			<div class="my-client-img"><img src="<?php echo $val['headimgurl']?$val['headimgurl']:'./Tpl/Wap/default/common/zhanye/img/zhanye-mrtx.png';?>" alt=""></div>
+			<div class="my-client-text">
+				<div class="my-client-name"><span>上次消费：<?php echo format_time($val['lastSpendingTime'],'ymdhi');?></span><p><?php echo $val['name'];?></p></div>
+				<p>订单：<?php echo $val['totalOrder']?$val['totalOrder']:'0';?></p>
+				<p>消费总金额：<?php echo $val['totalSpending']?$val['totalSpending']:'0.00';?></p>
+			</div>
+		</li>
+		<?php }?>
+	</ul>
+	<?php }else{?>
+	<div class="recent-results-zw">
+		<img src="{lanrain::RES}/zhanye/img/zhanye-iconzw1.png" alt="">
+		<p>暂无客户数据</p>
+	</div>
+	<?php }?>
+	<div class="eshopv_fotter_logo">
+		<include file="Public:navFooter" />
+	</div>
+</div>
+<include file="Public:weiXinNotShareSet"/>
+<include file="Public:footer" />

@@ -1,0 +1,66 @@
+<include file="Public:S5NewHead" />
+<div class="title_top">我的优惠券</div>
+<div class="dl_subnavbg">
+	<input class="yhcode_input" name="sn" type="text" placeholder="请输入兑换码">
+   <div class="yhcode_btn js-save">兑换</div>
+</div>
+
+<?php foreach($vouchers as $key => $val){ ?>
+
+<?php if(strtotime($val['end_time'])>=time()){ ?>
+<div class="code_box">
+	<div class="left_code">￥<span class="number"><?php echo $val['reduce']; ?></span><span class="date"> 使用规则：<?php echo $val['info']; ?></span></div>
+    <div class="right_code">
+        <span class="use"><?php if($val['type'] == 2){echo '满'.$val['full'].'减'.$val['reduce'].'元';}elseif($val['type'] == 1){echo '立减券';}?></span>
+     <span class="date"> 有效期至:<?php echo $val['end_time']; ?></span></div>
+</div>
+
+<?php }elseif(strtotime($val['end_time'])<=time()){ ?>
+<div class="code_box code_box_disable" style="display:">
+    <div class="left_code">￥<span class="number"><?php echo $val['reduce']; ?></span><span class="date"> 使用规则：<?php echo $val['info']; ?></span></div>
+    <div class="right_code">
+        <span class="use"><?php if($val['type'] == 2){echo '满'.$val['full'].'减'.$val['reduce'].'元';}elseif($val['type'] == 1){echo '立减券';}?></span>
+        <span class="date"> 有效期至:<?php echo $val['end_time']; ?></span></div>
+</div>
+
+<?php }else{ ?>
+<div class="code_box code_box_disable" style="display:">
+    <div class="left_code">￥<span class="number"><?php echo $val['reduce']; ?></span><span class="date"> 使用规则：<?php echo $val['info']; ?></span></div>
+    <div class="right_code">
+        <span class="use"><?php if($val['type'] == 2){echo '满'.$val['full'].'减'.$val['reduce'].'元';}elseif($val['type'] == 1){echo '立减券';}?></span>
+        <span class="date"> 有效期至:<?php echo $val['end_time']; ?></span></div>
+</div>
+<?php } } ?>
+
+
+<div class="code_box code_box_disable" style="display:none">
+	<div class="left_code">￥<span class="number">1000</span></div>
+    <div class="right_code">
+    		<span class="use">立即使用</span>
+     <span class="date"> 有效期至:2018.10.18</span></div>
+</div>
+<div class="mb20"></div>
+<script>
+$(function(){
+	// 兑换获得优惠券
+	$(".js-save").click(function(){
+	    var sn = $("input[name='sn']").val();
+	    if(sn){
+            $.post("<?php echo U('MemberMallOrder/addVoucehr') ?>",{sn:sn},function(data){
+                if(data.code==200){
+                    window.location.href=window.location.href;
+
+                }else{
+                    alert(data.msg);
+                }
+            },"json")
+        }
+
+    })
+	
+	// 选择使用优惠券
+	
+});
+</script>
+<include file="Public:weiXinNotShareSet" />
+<include file="Public:footer" />

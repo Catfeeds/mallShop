@@ -1,0 +1,623 @@
+<include file="Public:head"/>
+<!-- CRM>会员画像 -->
+<?php echo $makeTopUrl; ?>
+<div class="alert mb-15 text-center">数据更新时间：<?php echo $consoleInfo['updatetimech'] ? $consoleInfo['updatetimech'] : '-'; ?></div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>会员画像</h4></div>
+    <div class="mod-body">
+        <div class="content">
+            <ul class="console-hader clearfix mb-30">
+                <li>
+                    <h5 class="pt-10">昨日新增会员数</h5>
+                    <h1><?php echo $consoleInfo['yesterdayaddmembernum']>=0 ? $consoleInfo['yesterdayaddmembernum'] : '-'; ?></h1>
+                </li>
+                <li>
+                    <h5 class="pt-10">本月注册会员数</h5>
+                    <h1><?php echo $consoleInfo['thismonthaddmembernum']>=0 ? $consoleInfo['thismonthaddmembernum'] : '-'; ?></h1>
+                </li>
+                <li>
+                    <h5 class="pt-10">会员数</h5>
+                    <h1><?php echo $consoleInfo['membernum']>=0 ? $consoleInfo['membernum'] : '-'; ?></h1>
+                </li>
+            </ul>
+            <!-- 会员等级 -->
+            <div class="chart-wrap mb-30">
+                <div id="container-grade" style="min-width:400px;height:540px"></div>
+                <script type="text/javascript">
+                    $(function () {
+                        $('#container-grade').highcharts({
+                            legend: {
+                                enabled: false //是否启用图例
+                            },
+                            credits: {
+                                enabled: false //是否启用版权信息
+                            },
+                            exporting: {
+                                enabled: false //是否启用导出模块
+                            },
+                            chart: {
+                                backgroundColor: '#f5f5f5',
+                                type: 'column',
+                                marginTop: 100,
+                                marginBottom: 80,
+                                marginLeft: 120,
+                                marginRight: 60
+                            },
+                            title: {
+                                align: 'left', //图表标题水平对齐方式
+                                x: 50, //x坐标偏移量
+                                y: 40, //y坐标偏移量
+                                text: '会员等级',
+                                style: {
+                                    fontFamily:"Microsoft Yahei",
+                                    color: '#000',
+                                    fontSize:'30px'
+                                }
+                            },
+                            xAxis: {
+                                categories: [<?php echo $memberRanksReport['xdata']; ?>],
+                                crosshair: true
+                            },
+                            yAxis: {
+                                min: 0,
+                                title: {
+                                    text: '会员数'
+                                }
+                            },
+                            tooltip: {
+                                headerFormat: '<table>',
+                                pointFormat: '<tr><td style="color:{series.color};padding:0">&nbsp;&nbsp;&nbsp;&nbsp;</td>' +
+                                '<td style="padding:0"><b>{point.y}&nbsp;&nbsp;&nbsp;&nbsp;</b></td></tr>',
+                                footerFormat: '</table>',
+                                shared: true,
+                                useHTML: true
+                            },
+                            plotOptions: {
+                                column: {
+                                    pointPadding: 0.2,
+                                    borderWidth: 0
+                                }
+                            },
+                            series: [{
+                                name: '会员等级',
+                                data: [<?php echo $memberRanksReport['ydata']; ?>]
+                            }]
+                        });
+                    });
+                </script>
+            </div>
+            <div class="clearfix">
+                <!-- 会员性别 -->
+                <div class="chart-wrap type1at2 mb-30">
+                    <div id="container-sex" style="min-width:400px;height:540px"></div>
+                    <script type="text/javascript">
+                        $(function () {
+                            $('#container-sex').highcharts({
+                                credits: {
+                                    enabled: false //是否启用版权信息
+                                },
+                                exporting: {
+                                    enabled: false //是否启用导出模块
+                                },
+                                chart: {
+                                    backgroundColor: '#f5f5f5',
+                                    marginTop: 100,
+                                    marginBottom: 80,
+                                },
+                                title: {
+                                    text: '会员性别',
+                                    y: 40, //y坐标偏移量
+                                    style: {
+                                        fontFamily:"Microsoft Yahei",
+                                        color: '#000',
+                                        fontSize:'30px'
+                                    }
+                                },
+                                tooltip: {
+                                	enabled:false
+                                },
+                                plotOptions: {
+                                    pie: {
+                                        allowPointSelect: true,
+                                        showInLegend: true,
+                                        cursor: 'pointer',
+                                        dataLabels: {
+                                            enabled: true,
+                                            format: '<b>{point.name}</b>: {point.y} ({point.percentage:.2f}%)',
+                                            style: {
+                                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                            }
+                                        }
+                                    }
+                                },
+                                series: [{
+                                    type: 'pie',
+                                    name: '会员性别',
+                                    data: [
+                                        ['女士', <?php echo $consoleInfo['gender2num']; ?>],
+                                        ['男士',   <?php echo $consoleInfo['gender1num']; ?>],
+                                        ['未填写性别',   <?php echo $consoleInfo['gender0num']; ?>]
+                                    ]
+                                }]
+                            });
+                        });
+                    </script>
+                </div>
+                <!-- 会员年龄 -->
+                <div class="chart-wrap type1at2 mb-30">
+                    <div id="container-age" style="min-width:400px;height:540px"></div>
+                    <script type="text/javascript">
+                        $(function () {
+                            $('#container-age').highcharts({
+                                credits: {
+                                    enabled: false //是否启用版权信息
+                                },
+                                exporting: {
+                                    enabled: false //是否启用导出模块
+                                },
+                                chart: {
+                                    backgroundColor: '#f5f5f5',
+                                    marginTop: 100,
+                                    marginBottom: 80,
+                                },
+                                title: {
+                                    text: '会员年龄',
+                                    y: 40, //y坐标偏移量
+                                    style: {
+                                        fontFamily:"Microsoft Yahei",
+                                        color: '#000',
+                                        fontSize:'30px'
+                                    }
+                                },
+                                tooltip: {
+                                    enabled:false
+                                },
+                                plotOptions: {
+                                    pie: {
+                                        allowPointSelect: true,
+                                        showInLegend: true,
+                                        cursor: 'pointer',
+                                        dataLabels: {
+                                            enabled: true,
+                                            format: '<b>{point.name}</b>: {point.y} ({point.percentage:.2f}%)',
+                                            style: {
+                                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                            }
+                                        }
+                                    }
+                                },
+                                series: [{
+                                    type: 'pie',
+                                    name: '会员年龄',
+                                    data: [
+                                        ['未填写年龄',   <?php echo $consoleInfo['agetag0num']; ?>],
+                                        ['10后',   <?php echo $consoleInfo['agetag1num']; ?>],
+                                        ['00后',   <?php echo $consoleInfo['agetag2num']; ?>],
+                                        ['90后',   <?php echo $consoleInfo['agetag3num']; ?>],
+                                        ['80后',   <?php echo $consoleInfo['agetag4num']; ?>],
+                                        ['70后',   <?php echo $consoleInfo['agetag5num']; ?>],
+                                        ['60后',   <?php echo $consoleInfo['agetag6num']; ?>],
+                                        ['50后及以上',   <?php echo $consoleInfo['agetag7num']; ?>],
+                                    ]
+                                }]
+                            });
+                        });
+                    </script>
+                </div>
+            </div>
+            <!-- 会员星座 -->
+            <div class="chart-wrap mb-30">
+                <div id="container-constellation" style="min-width:400px;height:540px"></div>
+                <script type="text/javascript">
+                    $(function () {
+                        $('#container-constellation').highcharts({
+                            legend: {
+                                enabled: false //是否启用图例
+                            },
+                            credits: {
+                                enabled: false //是否启用版权信息
+                            },
+                            exporting: {
+                                enabled: false //是否启用导出模块
+                            },
+                            chart: {
+                                backgroundColor: '#f5f5f5',
+                                type: 'column',
+                                marginTop: 100,
+                                marginBottom: 80,
+                                marginLeft: 120,
+                                marginRight: 60
+                            },
+                            title: {
+                                align: 'left', //图表标题水平对齐方式
+                                x: 50, //x坐标偏移量
+                                y: 40, //y坐标偏移量
+                                text: '会员星座',
+                                style: {
+                                    fontFamily:"Microsoft Yahei",
+                                    color: '#000',
+                                    fontSize:'30px'
+                                }
+                            },
+
+                            xAxis: {
+                                categories: [
+                                    '白羊座',
+                                    '金牛座',
+                                    '双子座',
+                                    '巨蟹座',
+                                    '狮子座',
+                                    '处女座',
+                                    '天秤座',
+                                    '天蝎座',
+                                    '射手座',
+                                    '摩羯座',
+                                    '水瓶座',
+                                    '双鱼座'
+                                ],
+                                crosshair: true
+                            },
+                            yAxis: {
+                                min: 0,
+                                title: {
+                                    text: '会员数'
+                                }
+                            },
+                            tooltip: {
+                            	headerFormat: '<table>',
+                                pointFormat: '<tr><td style="color:{series.color};padding:0">&nbsp;&nbsp;&nbsp;&nbsp;</td>' +
+                                '<td style="padding:0"><b>{point.y}&nbsp;&nbsp;&nbsp;&nbsp;</b></td></tr>',
+                                footerFormat: '</table>',
+                                shared: true,
+                                useHTML: true
+                            },
+                            plotOptions: {
+                                column: {
+                                    pointPadding: 0.2,
+                                    borderWidth: 0
+                                }
+                            },
+                            series: [{
+                                name: '会员星座',
+                                data: [
+                                    {y:<?php echo $consoleInfo['constellationtag3num']; ?>,color:"#e0423e"},
+                                    {y:<?php echo $consoleInfo['constellationtag4num']; ?>,color:"#2ba2df"},
+                                    {y:<?php echo $consoleInfo['constellationtag5num']; ?>,color:"#e07922"},
+                                    {y:<?php echo $consoleInfo['constellationtag6num']; ?>,color:"#906ced"},
+                                    {y:<?php echo $consoleInfo['constellationtag7num']; ?>,color:"#e09701"},
+                                    {y:<?php echo $consoleInfo['constellationtag8num']; ?>,color:"#6fa732"},
+                                    {y:<?php echo $consoleInfo['constellationtag9num']; ?>,color:"#b235a1"},
+                                    {y:<?php echo $consoleInfo['constellationtag10num']; ?>,color:"#8035ad"},
+                                    {y:<?php echo $consoleInfo['constellationtag11num']; ?>,color:"#6db757"},
+                                    {y:<?php echo $consoleInfo['constellationtag12num']; ?>,color:"#2675c5"},
+                                    {y:<?php echo $consoleInfo['constellationtag1num']; ?>,color:"#3eaec3"},
+                                    {y:<?php echo $consoleInfo['constellationtag2num']; ?>,color:"#dbbe44"},
+                                ]
+                            }]
+                        });
+                    });
+                </script>
+            </div>
+            <div class="clearfix">
+                <!-- 会员来源 -->
+                <div class="chart-wrap type1at2 mb-30">
+                    <div id="container-source" style="min-width:400px;height:540px"></div>
+                    <script type="text/javascript">
+                        $(function () {
+                            $('#container-source').highcharts({
+                                credits: {
+                                    enabled: false //是否启用版权信息
+                                },
+                                exporting: {
+                                    enabled: false //是否启用导出模块
+                                },
+                                chart: {
+                                    backgroundColor: '#f5f5f5',
+                                    marginTop: 100,
+                                    marginBottom: 80,
+                                },
+                                title: {
+                                    text: '会员来源',
+                                    y: 40, //y坐标偏移量
+                                    style: {
+                                        fontFamily:"Microsoft Yahei",
+                                        color: '#000',
+                                        fontSize:'30px'
+                                    }
+                                },
+                                tooltip: {
+                                    enabled:false
+                                },
+                                plotOptions: {
+                                    pie: {
+                                        allowPointSelect: true,
+                                        showInLegend: true,
+                                        cursor: 'pointer',
+                                        dataLabels: {
+                                            enabled: true,
+                                            format: '<b>{point.name}</b>: {point.y} ({point.percentage:.2f}%)',
+                                            style: {
+                                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                            }
+                                        }
+                                    }
+                                },
+                                series: [{
+                                    type: 'pie',
+                                    name: '会员来源',
+                                    data: [
+                                        ['网页注册',<?php echo $consoleInfo['registertypetag1num']; ?>],
+                                        ['老会员导入',   <?php echo $consoleInfo['registertypetag2num']; ?>],
+                                    ]
+                                }]
+                            });
+                        });
+                    </script>
+                </div>
+                <!-- 语言 -->
+                <div class="chart-wrap type1at2 mb-30">
+                    <div id="container-language" style="min-width:400px;height:540px"></div>
+                    <script type="text/javascript">
+                        $(function () {
+                            $('#container-language').highcharts({
+                                credits: {
+                                    enabled: false //是否启用版权信息
+                                },
+                                exporting: {
+                                    enabled: false //是否启用导出模块
+                                },
+                                chart: {
+                                    backgroundColor: '#f5f5f5',
+                                    marginTop: 100,
+                                    marginBottom: 80,
+                                },
+                                title: {
+                                    text: '语言',
+                                    y: 40, //y坐标偏移量
+                                    style: {
+                                        fontFamily:"Microsoft Yahei",
+                                        color: '#000',
+                                        fontSize:'30px'
+                                    }
+                                },
+                                tooltip: {
+                                	enabled:false
+                                },
+                                plotOptions: {
+                                    pie: {
+                                        allowPointSelect: true,
+                                        showInLegend: true,
+                                        cursor: 'pointer',
+                                        dataLabels: {
+                                            enabled: true,
+                                            format: '<b>{point.name}</b>: {point.y} ({point.percentage:.2f}%)',
+                                            style: {
+                                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                            }
+                                        }
+                                    }
+                                },
+                                series: [{
+                                    type: 'pie',
+                                    name: '语言',
+                                    data: [
+                                        ['中文',<?php echo $consoleInfo['systemlanguage1num']; ?>],
+                                        ['English',<?php echo $consoleInfo['systemlanguage2num']; ?>]
+                                    ]
+                                }]
+                            });
+                        });
+                    </script>
+                </div>
+                <!-- 多久未消费 -->
+                <div class="chart-wrap type1at2 mb-30">
+                    <div id="container-nct" style="min-width:400px;height:540px"></div>
+                    <script type="text/javascript">
+                        $(function () {
+                            $('#container-nct').highcharts({
+                                credits: {
+                                    enabled: false //是否启用版权信息
+                                },
+                                exporting: {
+                                    enabled: false //是否启用导出模块
+                                },
+                                chart: {
+                                    backgroundColor: '#f5f5f5',
+                                    marginTop: 100,
+                                    marginBottom: 80,
+                                },
+                                title: {
+                                    text: '多久未消费R',
+                                    y: 40, //y坐标偏移量
+                                    style: {
+                                        fontFamily:"Microsoft Yahei",
+                                        color: '#000',
+                                        fontSize:'30px'
+                                    }
+                                },
+
+                                tooltip: {
+                                	enabled:false
+                                },
+                                plotOptions: {
+                                    pie: {
+                                        allowPointSelect: true,
+                                        showInLegend: true,
+                                        cursor: 'pointer',
+                                        dataLabels: {
+                                            enabled: true,
+                                            format: '<b>{point.name}</b>: {point.y} ({point.percentage:.2f}%)',
+                                            style: {
+                                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                            }
+                                        }
+                                    }
+                                },
+                                series: [{
+                                    type: 'pie',
+                                    name: '多久未消费R',
+                                    data: [
+                                        ['从未消费',   <?php echo $consoleInfo['howlongspendingtag0num']; ?>],
+                                        ['2周未消费',   <?php echo $consoleInfo['howlongspendingtag1num']; ?>],
+                                        ['1月未消费',   <?php echo $consoleInfo['howlongspendingtag2num']; ?>],
+                                        ['2月未消费',  <?php echo $consoleInfo['howlongspendingtag3num']; ?>],
+                                        ['3月未消费',   <?php echo $consoleInfo['howlongspendingtag4num']; ?>],
+                                        ['半年未消费',   <?php echo $consoleInfo['howlongspendingtag5num']; ?>],
+                                        ['1年未消费',<?php echo $consoleInfo['howlongspendingtag6num']; ?>]
+                                    ]
+                                }]
+                            });
+                        });
+                    </script>
+                </div>
+                <!-- 消费频次 -->
+                <div class="chart-wrap type1at2 mb-30">
+                    <div id="container-frequentness" style="min-width:400px;height:540px"></div>
+                    <script type="text/javascript">
+                        $(function () {
+                            $('#container-frequentness').highcharts({
+                                credits: {
+                                    enabled: false //是否启用版权信息
+                                },
+                                exporting: {
+                                    enabled: false //是否启用导出模块
+                                },
+                                chart: {
+                                    backgroundColor: '#f5f5f5',
+                                    marginTop: 100,
+                                    marginBottom: 80,
+                                },
+                                title: {
+                                    text: '消费频次F',
+                                    y: 35, //y坐标偏移量
+                                    style: {
+                                        fontFamily:"Microsoft Yahei",
+                                        color: '#000',
+                                        fontSize:'30px'
+                                    }
+                                },
+                                subtitle: {
+                                    text: '（人均频次：<?php echo $consoleInfo['membersconsumetimes']; ?>次/年）'
+                                },
+                                tooltip: {
+                                	enabled:false
+                                },
+                                plotOptions: {
+                                    pie: {
+                                        allowPointSelect: true,
+                                        showInLegend: true,
+                                        cursor: 'pointer',
+                                        dataLabels: {
+                                            enabled: true,
+                                            format: '<b>{point.name}</b>: {point.y} ({point.percentage:.2f}%)',
+                                            style: {
+                                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                            }
+                                        }
+                                    }
+                                },
+                                series: [{
+                                    type: 'pie',
+                                    name: '消费频次F',
+                                    data: [
+                                        ['0次消费',<?php echo $consoleInfo['spendingfrequencytag0num']; ?>],
+                                        ['1次消费',<?php echo $consoleInfo['spendingfrequencytag1num']; ?>],
+                                        [' 2-10次消费',<?php echo $consoleInfo['spendingfrequencytag2num']; ?>],
+                                        [' 11-50次消费',<?php echo $consoleInfo['spendingfrequencytag3num']; ?>],
+                                        [' 51次以上',<?php echo $consoleInfo['spendingfrequencytag4num']; ?>],
+                                    ]
+                                }]
+                            });
+                        });
+                    </script>
+                </div>
+                <!-- 累计消费 -->
+                <div class="chart-wrap type1at2 mb-30">
+                    <div id="container-total" style="min-width:400px;height:540px"></div>
+                    <script type="text/javascript">
+                        $(function () {
+                            $('#container-total').highcharts({
+                                credits: {
+                                    enabled: false //是否启用版权信息
+                                },
+                                exporting: {
+                                    enabled: false //是否启用导出模块
+                                },
+                                chart: {
+                                    backgroundColor: '#f5f5f5',
+                                    marginTop: 100,
+                                    marginBottom: 80,
+                                },
+                                title: {
+                                    text: '累计消费M',
+                                    y: 35, //y坐标偏移量
+                                    style: {
+                                        fontFamily:"Microsoft Yahei",
+                                        color: '#000',
+                                        fontSize:'30px'
+                                    }
+                                },
+                                subtitle: {
+                                    text: '（人均累计消费：<?php echo $consoleInfo['membersconsumptionperperson']; ?>元）'
+                                },
+                                tooltip: {
+                                	enabled:false
+                                },
+                                plotOptions: {
+                                    pie: {
+                                        allowPointSelect: true,
+                                        showInLegend: true,
+                                        cursor: 'pointer',
+                                        dataLabels: {
+                                            enabled: true,
+                                            format: '<b>{point.name}</b>: {point.y} ({point.percentage:.2f}%)',
+                                            style: {
+                                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                            }
+                                        }
+                                    }
+                                },
+                                series: [{
+                                    type: 'pie',
+                                    name: '累计消费M',
+                                    data: [
+                                        ['0元',<?php echo $consoleInfo['totalspendingtag0num']; ?>],
+                                        ['1-200元',<?php echo $consoleInfo['totalspendingtag1num']; ?>],
+                                        ['201-500元',<?php echo $consoleInfo['totalspendingtag2num']; ?>],
+                                        ['501-1000元',<?php echo $consoleInfo['totalspendingtag3num']; ?>],
+                                        ['1001-3000元',<?php echo $consoleInfo['totalspendingtag4num']; ?>],
+                                        ['3001-5000元',<?php echo $consoleInfo['totalspendingtag5num']; ?>],
+                                        ['5001-10000元',<?php echo $consoleInfo['totalspendingtag6num']; ?>],
+                                        ['10001元以上',<?php echo $consoleInfo['totalspendingtag7num']; ?>]
+                                    ]
+                                }]
+                            });
+                        });
+                    </script>
+                </div>
+                <div class="chart-wrap type1at2 mb-30">
+                    <div class="Customer-unit-price">
+                        <div class="group">
+                            <h6 class="unit-price-h6">客单价</h6>
+                        </div>
+                        <ul class="unit-price-ul">
+                            <li class="border-li">
+                                <h6>累积总收入（元）</h6>
+                                <p><?php echo $consoleInfo['nowsalesnum']; ?></p>
+                            </li>
+                            <li>
+                                <h6>总消费次数（次）</h6>
+                                <p><?php echo $consoleInfo['totalconsumetimes']; ?></p>
+                            </li>
+                        </ul>
+                        <div class="group unit-price-group">
+                            <h6>客单价（元）</h6>
+                            <p><?php echo $consoleInfo['membersunitprice']; ?></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="Public:footer"/>

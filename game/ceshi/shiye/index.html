@@ -1,0 +1,874 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="viewport" content="width=device-width,user-scalable=no" />
+  <title>你是事业型的人吗？</title>
+
+  <script src="../../js/config.js"></script>
+  <link href="res/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="res/style.css" />
+  <link href="res/jquery.mmenu.all.css" rel="stylesheet">
+
+  <script src="../../js/jquery.min.js"></script>
+  <script src="res/bootstrap.min.js"></script>
+  <script src="res/jquery.hammer.min.js"></script>
+  <script src="res/jquery.mmenu.min.all.js"></script>
+  <script type="text/javascript">
+    var dFW = {
+      img: siteurl + "/ceshi/shiye/res/icon.jpg",
+      url: siteurl + "/ceshi/shiye/"
+    };
+  </script>
+  <style>.form-group{display: none;}</style>
+</head>
+<body id="test1" class="test1">
+<div id="content">
+
+<div class="container">
+<div id="header" class="text-center">
+  <h1 class="bold">你是事业型的人吗？</h1>
+</div> <!-- E header -->
+
+<div id="bd" class="panel">
+
+<div id="panel1" class="panel-body">
+  <form action="#">
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl>
+      <dd>你是一位居家型人士还是一位事业型人士呢？做完下面的测试，相信你就会对自己有一
+        个更深刻的了解。
+      </dd>
+    </dl>
+    <div class="buttons">
+      <a href="#result" class="btn btn-lg btn-success" style="width:100%" onclick="return next(0);">开始测试</a>
+    </div>
+  </form>
+</div> <!-- E panel-body -->
+
+<div id="panel2" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>1：下面哪一个最能够让你感到满意？</dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 选择的职业有保障并且能让我感到愉快。                     </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="2" /> 事业非常成功，并且在我选择的行业中达到顶峰。                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 被人们尊重，因为他们认为我的工作做得相当出色。                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div1" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>2：你是否会为了获得提升而说谎？</dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 不会。                     </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="2" /> 会                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 也许                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div2" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>3：为了在最后期限之前完成工作，你是否经常把工作带回家里完成？</dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 很少或从不。                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="2" /> 经常                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 有时                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div3" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>4：如果你错过了升职的机会，你会感到很沮丧吗？</dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 一点也不沮丧。                     </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="2" /> 不仅仅是沮丧，感到心灵受到了伤害                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 也许会有些沮丧，但很快就会忘记。                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div4" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>5：下面哪一项对你来说最重要？</dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 拥有真诚的朋友。                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="2" /> 拥有地位                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 被我的同事尊重。                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div5" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>6：你是否认为自己是所从事领域的专家？ </dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 不是                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="2" /> 是的                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 我还有很多需要学习的地方。                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div6" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>7：你是否总是关心你所在的工作单位发生的每一件事情？ </dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 不是                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="2" /> 是的                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 不是所有的事情，但是我对公司的总体状况感兴趣                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div7" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>8：工作和业余爱好你最喜欢哪一个？ </dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 业余爱好                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="2" /> 工作                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 两者一样                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div8" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>9：当参加面试时，你认为下面哪一个最重要？</dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 让人感到我很聪明并且很热情                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="2" /> 看上去不错，并且很有自信                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 非常能干，并且拥有良好的背景。                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div9" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>10：对于一位你认为是公正的人，你是否会不辞劳苦地去结交他？</dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 不会                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="2" /> 会，因为如果想在事业上有所发展，那么认识公正的人十分重要。                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 有时会，因为认识公正的人说不定会对事业有所帮助。                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div10" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>11：对你而言，成功和褒奖有多重要？ </dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 我觉得成功和褒奖能够让我感到满意，而不是极其重要。                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="2" /> 极其重要                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 比较重要。                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div11" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>12：在周末或者假期，你是否很容易从工作中解脱出来？ </dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 很容易                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="2" /> 在周末或假期，我从来没有完全从工作中解脱出来。                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 有时，要想完全解脱出来会很困难。                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div12" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>13： 为了推进自己的事业，你是否会控制自己的社交生活？ </dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 不会                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="2" /> 会                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 可能，但不是所有的。                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div13" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>14：你是否会为了提升自己的事业而去奉承某个你所鄙视的人？ </dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 绝对不会                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="2" /> 会                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 也许，但这样做的确让人感到不舒服                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div14" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>15：为了在工作中树立形象，你花多少时间和心思用于打扮自己？ </dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 对这个问题，我没有考虑太多。                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="2" /> 花了不少时间和心思，因为我在工作中的形象对我而言非常重要。                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 为了让自己看上去精神一些、像样一些，我花费应有的时间和精力。                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div15" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>16：你所在的公司在本国的其他地区开设了一个办公室，打算委派你为分公司经理。假 设你住在总公司所在地区并且对现状十分满意，你的反应最可能是下面哪一个？</dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 我极不愿意迁移。                     </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="2" /> 我愿意迁移，并且希望我的家人能够理解并且支持我的决定。                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 我将会与家人商量，以便和他们达成共识。                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div16" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>17：你是否经常与家人和朋友谈论你的工作？</dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 不是，我认为应当放松，不要拿我的谋生方式作为话题去烦扰别人。                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="2" /> 是的，我可能会。                     </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 我不知道自己会不会。                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div17" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>18：你非常努力地工作吗？ </dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 不如我应当做到的那么努力，人生太短暂。                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="2" /> 为了实现我的抱负，我十分努力。                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 也许比我应当做到的要好一些。                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div18" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>19：那些能够决定你前途的人是否了解你的能力和工作业绩，你觉得这很重要吗？ </dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 不是很重要                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="2" /> 极其重要                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 比较重要。                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div19" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>20：如果你认为参加一项昂贵而费时的培训对于你的事业会有所帮助，你是否会这样 做？ </dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 不会                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="2" /> 会                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 也许会                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div20" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>21：如果突然间你被意外地裁员，下面哪一个可能是你的第一反应？</dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 我究竟该如何向家人诉说这一不幸                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="2" /> 几乎被彻底打垮，因为必须重新寻找工作，而且可能要再次从最底层做起。                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 感到震惊，难以接受                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div21" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>22：．如果从长远的角度来看，暂时的减薪会对你的事业发展有帮助，你是否会接受？</dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 我不会因为期望事业发展而接受减薪。                     </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="2" /> 会，如果我认为这样做从长远来看对我有利的话。                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 不太可能。                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div22" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>23：为了个人事业，站在公正的人那边，这对你有多重要？</dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 不是特别重要。                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="2" /> 非常重要                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 我尽量不得罪任何人。                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div23" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>24：你是否认为自己应当在所选择的行业中达到顶峰？</dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 不是，我宁愿把这种压力留给其他人。                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="2" /> 是的。                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 如果不能达到最顶峰，也许应当比我现在的状况要好一些。                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div24" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>25：如果某天早晨你醒来的时候感到头晕眼花，并且怀疑自己得了流感，你可能会选择 下面哪一项？</dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 我可能会给公司打电话请假说自己病了，如果感觉能够工作时，才会去上班。                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="2" /> 去工作，并且迎难而上。                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 在这种情况下去工作是愚蠢的，因此我可能会请一天假，并且希望第二天能够恢复 健康，继续工作。                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div25" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>26：你认为获得资格证书的主要目的是什么？</dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 拓展和锻炼思想，并且让自己获得一种成就感。                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="2" /> 获得好工作，对事业有帮助。                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 拥有好的个人能力背景。                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div26" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>27：如果有机会，你是否会离开家人和朋友，去国外工作六个月？ </dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 不可能                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="2" /> 会                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 可能会                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div27" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>28：为了登上成功的阶梯，你是否认为应当尔虞我诈？</dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 即使那是必需的，也不适合我，因为在我的本性中没有尔虞我诈。                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="2" /> 基本上是这样。                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 这样有时会有帮助。                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div28" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>29：为了赶在最后期限前完成工作，你是否会取消假期？</dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 除非不这样做会让我丢掉工作，否则我很难想象自己会不过假期                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="2" /> 是的，在特定的情况下，我会认为这样做是我的职责。                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> 尽管不愿意，我还是会这样做                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div29" class="panel-body js_answer" style="display: none;">
+  <form action="#" Method="POST">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">前言</label>
+      <a href="javascript:void(0)" class="img-circle" name="1">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <dl> <dd>30：你是否盼望着有一天退休，并且过着悠闲的生活？</dd></dl>
+    <ul class="list-group  js_group">
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="0" /> 非常渴望。                     </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="2" /> 压根没有，如果能够选择，我希望永远不退休。                    </li>
+      <li class="list-group-item" onclick="return toggle(this);">
+        <input name="g" type="radio" class="" value="1" /> ．那不是我特别盼望的事情，但是如果退休了，我希望能够最大限度地过好退休生 活。                    </li>
+    </ul>
+  </form>
+</div> <!-- E panel-body -->
+<div id="panel3" class="panel-body js_result" style="display:none;">
+  <form action="#" class="js_result">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">结果</label>
+      <a href="#" class="img-circle">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <h1 class="bold text-danger">你不是一位事业型的人，但并不表示你没有或者不能在自己所从事的行业中 取得成功。</h1>
+    <hr />
+    <dl>
+      <dt>详细分析:</dt>
+      <dd>  <p>对于大多数人来讲，事业代表着他们的身份，换言之，事业决定他们是谁。对于你来
+        说，情况却不是这样，事业只是你的一部分，而不是全部。
+      </p>
+      </dd>
+    </dl>
+    <div class="buttons">
+      <a href="javascript:void(0)" class="btn btn-lg btn-success" style="width:100%" onclick="document.getElementById('mcover').style.display='block';">分享给朋友(圈)</a>
+    </div>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div30" class="panel-body js_result" style="display:none;">
+  <form action="#" class="js_result">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">结果</label>
+      <a href="#" class="img-circle">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <h1 class="bold text-danger">你是一位事业型的人，但没有过分沉迷于它。</h1>
+    <hr />
+    <dl>
+      <dt>详细分析:</dt>
+      <dd>  <p>尽管事业对你来说很重要，但它并不像你的家庭价值那么重要，你认为只有拥有牢固的
+        家庭才会带来安稳和幸福的生活，才可以实现人生的长远目标，正是这种家庭价值而不是事
+        业一直激励着你。
+      </p>
+      </dd>
+    </dl>
+    <div class="buttons">
+      <a href="javascript:void(0)" class="btn btn-lg btn-success" style="width:100%" onclick="document.getElementById('mcover').style.display='block';">分享给朋友(圈)</a>
+    </div>
+  </form>
+</div> <!-- E panel-body -->
+<div id="Div31" class="panel-body js_result" style="display:none;">
+  <form action="#" class="js_result">
+    <a name="result" href="javascript:void(0)"></a>
+    <div class="form-group avatar text-center">
+      <label for="" class="sr-only">结果</label>
+      <a href="#" class="img-circle">
+        <span class="icon icon-wand"></span>
+      </a>
+    </div>
+    <h1 class="bold text-danger">你是一位事业心很强的人，事业对于你来说是人生中最重要的事情。</h1>
+    <hr />
+    <dl>
+      <dt>详细分析:</dt>
+      <dd>  <p>你会在力所能及的范围内竭尽全力让自己在所从事的行业中取得成功。你不仅仅将事业
+        看做生活的方式，而且认为它是为你和你的家人谋取财富和名望的通道。
+      </p>
+      </dd>
+    </dl>
+    <div class="buttons">
+      <a href="javascript:void(0)" class="btn btn-lg btn-success" style="width:100%" onclick="document.getElementById('mcover').style.display='block';">分享给朋友(圈)</a>
+    </div>
+  </form>
+</div> <!-- E panel-body -->
+</div> <!-- E bd -->
+</div> <!-- E container -->
+
+<script type="text/javascript">
+
+  var total = 30;
+  var scoreArr = new Array(parseInt(total));
+  scoreArr[0] = new Array(2);
+  scoreArr[0]['min'] = 0;
+  scoreArr[0]['max'] = 27;
+  scoreArr[1] = new Array(2);
+  scoreArr[1]['min'] = 28;
+  scoreArr[1]['max'] = 44;
+  scoreArr[2] = new Array(2);
+  scoreArr[2]['min'] = 45;
+  scoreArr[2]['max'] = 60;
+  var tScore = 0;
+  var dataForWeixin = {
+    name: "我在事业型测试中得到了0分",
+    title: "你是事业型的人吗？",
+    desc: "你是一位居家型人士还是一位事业型人士呢？做完下面的测试，相信你就会对自己有一个更深刻的了解。",
+  };
+  function next(t) {
+    $("div#bd > div.panel-body").hide();
+    $("div.js_answer").eq(t).show();
+    $("div.js_answer").eq(t).children("input").attr("checked", "");
+    gotoTop();
+  }
+  function result(t) {
+    share_pop("open", 10000);
+    $("div#bd > div.panel-body").hide();
+    dataForWeixin.name = dataForWeixin.name.replace("0", parseInt(t));
+    if (parseInt(t) == 100) {
+      dataForWeixin.title = dataForWeixin.name + ",你能和我一样吗？" ;
+    } else {
+      dataForWeixin.title = dataForWeixin.name + ",你能超过我吗？" ;
+    }
+    for (var i = 0; i < parseInt(total) ; i++) {
+      if (parseInt(t) >= parseInt(scoreArr[i]['min']) && parseInt(t) <= parseInt(scoreArr[i]['max'])) {
+        $("div.js_result").eq(i).show();
+        // dataForWeixin.desc = $("div.js_result > form > dl > dd > p").eq(i).text();
+        gotoTop();
+      }
+      else
+        continue;
+    }
+  }
+  function toggle(t) {
+    $(t).children("input").attr("checked", "checked");
+    $("li.list-group-item").removeClass('active')
+    var score = $(t).children("input:checked").val();
+    tScore = parseInt(tScore) + parseInt(score);
+    $(t).addClass('active');
+    var t = $("div.js_answer").index($(t).parents("div.js_answer")) + 1;
+    if (t == total) {
+      result(tScore);
+    } else {
+      setTimeout(function () { next(t); }, 500);
+    }
+  }
+  function gotoTop() {
+    $("body,html").animate({ scrollTop: ($("#header").offset().top + $("#header").height()) }, 1000);
+  }
+  $(function () {
+    $("input[name='g']").change(function () {
+      $("li.list-group-item").removeClass('active')
+      $(this).parent("li.list-group-item").addClass('active');
+    });
+  });
+</script>
+</div>
+<div id="mcover" onclick="document.getElementById('mcover').style.display='';" style="display:none;">
+  <img src="../../img/guide.png">
+</div>
+
+<script type="text/javascript">
+  (function () {
+    var onBridgeReady = function () {
+      // 发送给好友;
+      WeixinJSBridge.on('menu:share:appmessage', function (argv) {
+        WeixinJSBridge.invoke('sendAppMessage', {
+          "appid": "",
+          "img_url": dFW.img,
+          "img_width": "120",
+          "img_height": "120",
+          "link": dFW.url,
+          "desc": dataForWeixin.desc,
+          "title": dataForWeixin.title
+        }, function (res) { home_test(); });
+      });
+      // 分享到朋友圈;
+      WeixinJSBridge.on('menu:share:timeline', function (argv) {
+        WeixinJSBridge.invoke('shareTimeline', {
+          "img_url": dFW.img,
+          "img_width": "120",
+          "img_height": "120",
+          "link": dFW.url,
+          "desc": dataForWeixin.desc,
+          "title": dataForWeixin.title,
+        }, function (res) { home_test(); });
+      });
+      // 分享到微博;
+      WeixinJSBridge.on('menu:share:weibo', function (argv) {
+        WeixinJSBridge.invoke('shareWeibo', {
+          "content": dataForWeixin.title + ' ' + dFW.url,
+          "url": dFW.url
+        }, function (res) { home_test(); });
+      });
+    };
+    if (document.addEventListener) {
+      document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+        // WeixinJSBridge.call('hideToolbar');
+        WeixinJSBridge.call('showOptionMenu');
+      });
+      document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+    } else if (document.attachEvent) {
+      document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+      document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+    }
+  })();
+</script>
+
+
+<script>
+  $(function () {
+    $("a#close1").click(function () {
+      share_pop("close", 0);
+    });
+  });
+  function shareSuccess() {
+    share_pop("open", 0);
+    $("div#pop_success").show().delay(1000).fadeOut("slow");
+  }
+  function share_pop(t, time) {
+    if (t == "open") {
+      setTimeout('showShare()', 10000);
+    } else {
+      $('#follow').hide();
+    }
+  }
+  function showShare() {
+    $('#follow').show();
+  }
+</script>
+<script src="../../js/ad-pic.js"></script>
+
+</body>
+</html>

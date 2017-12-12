@@ -1,0 +1,134 @@
+<include file="Public:S5NewHead" />
+<!-- 修改手机号码 -->
+<div class="page phone-modification">
+	<div class="title-h1">
+		<h1>
+			<span>修改手机号码</span>
+		</h1>
+	</div>
+	<div class="modification-box">
+		<form action="">
+			<div class="phone-label">
+				<label for="">
+					<input class="phone-inp" type="text" name="" maxlength="11" value="" placeholder="请输入手机号码">
+				</label>
+			</div>
+			<div class="code-label">
+				<label for="">
+					<input class="code-inp" type="text" name="" maxlength="6" value="" placeholder="请输入验证码">
+				</label>
+				<a href="javascript:;" class="js-get-code" title="获取验证码">获取验证码</a>
+			</div>
+		</form>
+	</div>
+	<div class="submit-set">
+		<a class="return-btn" href="javascript:;" title="返回">返回</a>
+		<a class="submit-btn" href="javascript:;" title="提交">提交</a>
+	</div>
+</div>
+<script>
+// 手机验证码获取
+	$(document).on('click','.js-get-code',function() {
+		var phoneVal = $('.phone-inp').val();
+		var mobileReg  = /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9]|17[0|1|2|3|5|6|7|8|9])\d{8}$/;
+		if (phoneVal == '') {
+			layer.msg('手机号码不能为空！', {time:1000});
+			return
+		}
+		if (!mobileReg.test(phoneVal)) {
+			layer.msg('您的手机格式错误！<br/>请输入11位数移动电话号码', {time:1000});
+			return
+		}
+		if (phoneVal !== '' && mobileReg.test(phoneVal)) {
+			//var index = layer.load(2, {shade: [0.1,'#fff']});
+			$.post("<?php echo U('Member/ajaxGetCode',array('mid'=>$mid))?>",{'phoneVal':phoneVal},function(data){
+				//layer.close(index);
+				if(data.code == 200){
+					layer.msg('验证码已通过短信<br/>发送您到的手机<br/>请注意查收!', {time:1000});
+				}else{
+					layer.msg('系统错误，请稍后再试！', {time:1000});
+				}
+			},'json');
+		}
+	});
+	// 提交修改的手机号码
+	$('.submit-set').on('click','.submit-btn',function() {
+		var phoneVal = $('.phone-inp').val();
+		var codeVal  = $('.code-inp').val();
+		var mobileReg  = /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9]|17[0|1|2|3|5|6|7|8|9])\d{8}$/;
+		
+		if (phoneVal == '') {
+			layer.msg('手机号码不能为空！', {time:1000});
+			return
+		}
+		if (!mobileReg.test(phoneVal)) {
+			layer.msg('您的手机格式错误！<br/>请输入11位数移动电话号码', {time:1000});
+			return
+		}
+		if (codeVal == '') {
+			layer.msg('验证码不能为空！', {time:1000});
+			return
+		}
+		if (codeVal.length < 6) {
+			layer.msg('请输入6位数的验证码！', {time:1000});
+			return
+		}
+		if (phoneVal !== '' && mobileReg.test(phoneVal) && codeVal !== '' && codeVal.length >= 6) {
+			//var index = layer.load(2, {shade: [0.1,'#fff']});
+			//setTimeout(function() {
+			//	layer.close(index);
+			//	layer.msg('登陆中...', {time:1000});
+			//},1000);
+			// ajax后台
+			// $.ajax({
+			// 	url:'xxxxx&openid=' + openid,
+			// 	type:'POST',
+			// 	dataType: "json",
+			// 	data: 'phoneVal=' + phoneVal + '&codeVal=' + codeVal,
+			// 	success: function(json){
+			// 		if(json.ret==1){
+			//			layer.msg('验证成功，正在登陆中...', {time:1000});
+			// 		}else{
+			//			layer.msg('验证错误，请重新确认！', {time:1000});
+			// 		}
+			// 	}
+			// });
+			var index = layer.load(2, {shade: [0.1,'#fff']});
+			$.post("<?php echo U('Member/updateMobile',array('mid'=>$mid))?>",{'phoneVal':phoneVal,'codeVal':codeVal},function(data){
+				layer.close(index);
+				if(data.code == 200){
+					layer.msg('验证成功，正在登陆中...', {time:1000});
+					
+				}else{
+					layer.msg('验证错误，请重新确认！', {time:1000});
+				}
+			},'json');
+		};
+	});
+	// 倒计时60s
+	function timer(intDiff){
+		objTimer = window.setInterval(function(){
+		var day=0,
+			hour=0,
+			minute=0,
+			second=0;//时间默认值		
+		if(intDiff > 0){
+			day = Math.floor(intDiff / (60 * 60 * 24));
+			hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
+			minute = Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60);
+			second = Math.floor(intDiff) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+		}else {
+			window.clearInterval(objTimer);
+			second = 60;
+			$('.code-label').append('<a href="javascript:;" title="获取验证码">获取验证码</a>');
+			$('.code-label span').remove();
+		}
+		$('.code-label b').html(''+second+'s');
+		intDiff--;
+		}, 1000);
+	}
+</script>
+<script src="{lanrain::RES}/weixinfeng/js/layer.js"></script>
+<script src="{lanrain::RES}/weixinfeng/js/public2.js"></script>
+</body>
+</html>

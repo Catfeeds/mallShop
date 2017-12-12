@@ -1,0 +1,26 @@
+<include file="Public:scrm5Head" />
+<link href="{lanrain::RES}/Member_Center/css/wap.css?<?php echo C('site_system_file_version'); ?>" rel="stylesheet" type="text/css" />
+<section class="content_app ifoot_padding fzs_bgcolor_f1f0f5">
+	<?php if($info['id']){?>
+	<div class="Rank_equity_head">
+		<p>累计积分</p>
+		<p><?php echo $info['totalexperiencevalue'];?></p>
+		<p><?php echo $info['name'];?></p>
+	</div>
+	<?php }?>
+	<div class="Rank_equity_ctt">
+		<h6 class="Rank_equity_h"><?php if($info['id']){echo '等级权益说明';}else{echo '会员制说明';}?></h6>
+		<div class="Rank_equity_Edit_box FuWenBen"><?php echo htmlspecialchars_decode(htmlspecialchars_decode($info['info']));?></div>
+	</div>
+	<div class="Rank_equity_czbtn"><a href="javascript:history.go(-1);"><button class="Stored_value_btn btn_color_wt">返回</button></a></div>
+<!-- ========公共底部======== -->
+    <div class="eshopv_fotter_logo">
+        <include file="Public:navFooter" />
+    </div>
+</section>
+<!--手势缩放-->
+<include file="Public:Imagezoom" />
+
+<include file="Public:loginBox" />
+<include file="Public:weiXinNotShareSet" />
+<include file="Public:scrm5Foot" />

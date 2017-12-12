@@ -1,0 +1,352 @@
+<include file="Public:head"/>
+<include file="Public:uploads"/>
+<link rel="stylesheet" type="text/css" href="{lanrain::STATICS}/SCRM5-PlugIn/html5file/css/jquery.filer.css">
+<script src="{lanrain::STATICS}/SCRM5-PlugIn/html5file/js/jquery.filer.min.js" type="text/javascript"></script>
+<script src="{lanrain::STATICS}/SCRM5-PlugIn/html5file/js/prettify.js" type="text/javascript"></script>
+<script src="{lanrain::STATICS}/SCRM5-PlugIn/html5file/js/scripts.js" type="text/javascript"></script>
+<script src="{lanrain::STATICS}/SCRM5-PlugIn/html5file/js/custom.js" type="text/javascript"></script>
+<?php echo $makeTopUrl;?>
+
+<!-- SMS短信服务 2016-11-11 18:10 -->
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>营销短信</h4></div>
+    <div class="mod-body">
+        <div class="content">
+            <div class="group pb-15">
+                <a class="btn-small btn-white mr-10 js-create-mission">创建营销短信</a> <i class="SMS-Help-icon js-SMS-Help-icon" title="短信内容发送规则"></i>
+            	<!-- <a class="btn-small btn-white fr" target="_blank" href="<?php echo U('Home/Index/SMSBuy'); ?>">短信服务余额充值</a> -->
+            </div>
+            <table class="table type-1 w-auto">
+                <thead>
+                <tr>
+                    <th>短信内容</th>
+                    <th class="min-w70">手机号数量</th>
+                    <th class="min-w70">成功到达量</th>
+                    <th class="min-w70">发送时间</th>
+                    <th class="min-w50">状态</th>
+                    <th class="min-w60">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+	                <?php if($list){ foreach($list as $key=>$val){ ?>
+	                <tr>
+	                    <td><?php echo $val['content']; ?></td>
+	                    <td><?php echo $val['mobilenum']; ?><br><a class="tips" href="<?php echo $val['file']; ?>">下载csv</a></td>
+	                    <td><?php echo $val['successnum']; ?></td>
+	                    <td><?php echo format_time($val['starttime'],ymdhi); ?></td>
+	                    <td>
+	                    <?php if($val['state']==3){ echo '审核失败';}elseif($val['state']==2){ echo '已完成';}elseif($val['state']==5){ echo '已取消';}elseif($val['state']==1){ echo '审核中';}elseif($val['state']==4){ echo '审核成功';}  ?>
+	                    </td>
+	                    <td>
+	                    <?php if($val['state']==1){ ?>
+	                    <a href="javascript:void(0)" data-id="<?php echo $val[id]; ?>" class="tips js-status-asa">取消发送</a>
+	                    <?php }elseif($val['state']==3){ ?>
+	                    <a href="javascript:void(0)" data-id="<?php echo $val[id]; ?>" class="tips js-failure" data-error="<?php echo $val['errorinfo']; ?>">查看审核<br />失败原因</a>
+	                    <?php }elseif($val['state']==2){ ?>
+	                    <a href="javascript:void(0)" data-id="<?php echo $val[id]; ?>" class="tips js-notify">推送日志</a>
+	                    <?php } ?>
+	                    </td>
+	                </tr>
+	                <?php } }else{ ?>
+	                <tr class="text-center not-hover">
+	                	<td colspan="7">暂无</td>
+	                </tr>
+	                <?php } ?>
+                </tbody>
+            </table>
+        </div>
+        <div class="group form-footer clearfix">
+        	<div class="group pagination fr">
+            	<?php echo $page; ?>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 短信内容发送规则弹窗 -->
+<div class="popup-wrap js-SMS-Help-icon-wrap" style="display: none;">
+    <div class="mod bigger-popup">
+        <div class="mod-header"><h4 class="fl">营销短信内容发送规则</h4><i class="fr icon-close-dark js-icon-close"></i></div>
+        <div class="mod-body">
+            <ul class="content rules-popup">
+                <li class="line-1">一、每个短信任务发送手机数不可超过5000，如超过5000需分次提交审核</li>
+                <li class="line-1">二、短信内容将自动提交至工信部进行审核</li>
+                <li class="line-1">三、定时发送时间为起始发送时间</li>
+                <li class="line-1">四、短信计费规则：</li>
+                <li class="line-2">1．70个字为一条计费短信，其中包括中英文、标点符号及空格，请勿使用火星文</li>
+                <li class="line-2">2．超过70个字自动记两条，最多支持350个字。</li>
+                <li class="line-2">3．注意事项：计费字数=【品牌名称】+短信内容字数+退订回N。</li>
+                <li class="line-1">五、禁止发送以下内容：</li>
+                <li class="line-2">1．教育、移民、股票、房产，彩票，中奖，招聘、催付类、办理信用卡，加群，加微信，骂人威胁，以及与运营商<br>&nbsp; &nbsp; &nbsp;业务相冲突的短信内容，如：赠送/卖手机，充值话费，短信推销等信息涉及到这几个类型信息都不允许发送。</li>
+                <li class="line-2">2．违反中华人民共和国宪法所确定的基本原则的。</li>
+                <li class="line-2">3．危害国家安全、泄露国家秘密、颠覆国家政权、破坏国家统一的。</li>
+                <li class="line-2">4．损害国家荣誉和利益。</li>
+                <li class="line-2">5．煽动民族仇恨、民族歧视、破坏民族团结的。</li>
+                <li class="line-2">6．破坏国家宗教政策、宣扬邪教和封建迷信的。</li>
+                <li class="line-2">7．造谣中伤、扰乱社会秩序、破坏社会稳定的。</li>
+                <li class="line-2">8．反动、色情、淫秽、赌博、暴力、凶杀、恐怖、恐吓或者教唆犯罪的。</li>
+                <li class="line-2">9．侮辱、谩骂、诽谤他人合法权益的。</li>
+                <li class="line-2">10．中华人民共和国法律、行政法规所禁止的其他内容的。</li>
+            </ul>
+            <div class="group form-footer text-center">
+                <input class="btn-middle btn-white pointer w100 js-ok" type="submit" value="知道了">
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(".js-SMS-Help-icon").click(function(){
+            $(".js-SMS-Help-icon-wrap").fadeIn(120);
+        })
+    </script>
+</div>
+<!-- 审核失败原因弹窗 -->
+<div class="popup-wrap js-failure-wrap" style="display: none;">
+    <div class="mod small-popup type-1">
+        <div class="mod-header">
+            <h4 class="fl">审核失败原因</h4>
+            <i class="fr icon-close-dark js-icon-close"></i></div>
+        <div class="mod-body">
+            <div class="content">
+                <h5 class="js-error-info">这是失败原因这是失败原因这是失败原因这是失败原因这是失败原因这是失败原因这是失败原因</h5>
+            </div>
+            <div class="group text-center pb-15">
+                <a class="btn-small btn-white w60 js-ok">确定</a>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(".js-failure").click(function(){
+        	$(".js-error-info").html($(this).attr("data-error"));
+            $(".js-failure-wrap").fadeIn(120);
+        })
+    </script>
+</div>
+<!-- 创建SMS短信任务弹窗 -->
+<div class="popup-wrap js-create-mission-wrap" style="display: none;">
+    <div class="mod pro-popup type-1">
+        <div class="mod-header"><h4 class="fl">创建SMS短信任务</h4><i class="fr icon-close-dark js-icon-close"></i></div>
+        <form class="mod-body">
+            <ul class="content">
+                <li class="group pb-15">
+                    <h6 class="inline w80">当前余额：</h6>
+                    <h6 class="inline"><?php echo $companyInfo['balance']; ?>元</h6>
+                    <input type="hidden" class="js-balance-info" value="<?php echo $companyInfo['balance']; ?>" />
+                </li>
+                <!-- <li class="group pb-15">
+                    <h6 class="inline w80 text-top">短信内容：</h6>
+                    <div class="textarea-length">
+                        <textarea class="inline w300 no-resize js-textarea-length js-content-info" data-cname="<?php echo session('cname'); ?>" cols="30" rows="4"></textarea>
+                        <span class="text-len js-text-len">1条短信</span>
+                    </div>
+                    <h6 class="ml-80 pl-5 text-gray">*每70个字符记为一条短信（包括【品牌名称】、退订说明及标点符号），单次发送最多支持350个字符</h6>
+                </li> -->
+                <li class="group pb-15">
+                    <h6 class="inline w80 text-top">短信内容：</h6>
+                    <div class="textarea-length">
+                        <h6 class="pb-5">【<?php echo session('cname'); ?>】</h6>
+                        <textarea class="text-top w350 no-resize js-textarea-length js-content-info" data-cname="【<?php echo session('cname'); ?>】" cols="30" rows="4"></textarea>
+                        <h6 class="pt-5 pb-5">退订回N</h6>
+                        <h6 class="text-len js-text-len">统计条数：0条短信</h6>
+                    </div>
+                    <h6 class="ml-80 pl-5 pt-5 text-gray">*70个字为一条计费短信，其中包括中英文、标点符号及空格。<br>注意事项：计费字数=【品牌名称】+短信内容字数+退订回N。</h6>
+                </li>
+                <li class="group pb-15">
+                    <h6 class="inline w80">发送时间：</h6>
+                    <input class="laydate-input js-starttime-info" name="starttime" id="member-time-05" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" placeholder="YYYY-MM-DD hh:mm:ss"><i class="icon-laydate" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss',elem:'#member-time-05'});"></i>
+                    <h6 class="ml-80 text-gray pt-5">*需提前两天提交审核</h6>
+                </li>
+                <li class="group pb-15">
+                    <h6 class="inline w80 text-top">导入手机号：</h6>
+                    <div class="inline">
+	                    <input type="hidden" value="" class="js-file-info" />
+	                    <div class="inline">
+	                    	<input type="file" name="files[]" class="js-add-csv-asa" data-type="js-file-info" multiple="multiple">
+	                    </div>
+	                    <h6 class="inline"><a href="./Tpl/static/smscellphonenumberlist.csv" class="tips">下载手机号导入模板</a></h6>
+                    </div>
+                    <h6 class="ml-80 pt-5 text-gray">*重新导入手机号后将覆盖原文件</h6>
+                </li>
+                <li class="group">
+                    <h6 class="inline w80">手机号数量：</h6>
+                    <h6 class="inline js-mobnum-info">无</h6>
+                </li>
+            </ul>
+            <div class="text-center pb-20">
+                <a class="btn-middle btn-white w80 js-sub-asa">提交审核</a>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript">
+        $(".js-create-mission").click(function(){
+        	
+            $(".js-create-mission-wrap").fadeIn(120);
+        })
+    </script>
+</div>
+<!-- ==============================    删除弹窗    ============================== -->
+<div class="popup-wrap del-tan-asa" style="display: none;">
+    <div class="mod small-popup type-1">
+        <div class="mod-header">
+            <h4 class="fl">取消发送任务</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body"> 
+            <div class="content">
+                <h5 class="pb-20">确认取消当前发送任务么？</h5>
+                <p class="text-center">
+                    <a class="btn-small btn-purple w60 js-ok js-status-sub" data-id=''>确 认</a> &nbsp;
+                    <a class="btn-small btn-white w60 js-cancel quxiao">取 消</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="popup-wrap js-push-log-wrap">
+    <div class="mod bigger-popup">
+        <div class="mod-header"><h4 class="fl">推送日志</h4><i class="fr icon-close-dark js-icon-close"></i></div>
+        <form class="mod-body">
+            <div class="content">
+                <div style="border-left: 1px solid #e8e8e8; border-right: 1px solid #e8e8e8;">
+                    <table class="table type-1 just-bb w-auto">
+                        <thead>
+                        <tr>
+                            <th colspan="7" style="border-left: none;border-right: none;">短信未成功到达以下手机号： <a data-id="" class="tips fr js-excel-asa">下载表格</a></th>
+                        </tr>
+                        </thead>
+                        <tbody id="js-html-asa">
+                        <tr class="not-hover">
+                            <td>123456748910</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript">
+        $(".js-notify").click(function(){
+        	var $this = $(this);
+        	$(".loading").show();
+        	$.post("<?php echo U('SmsSend/ajaxNotify'); ?>",{id:$this.attr("data-id")},function(data){
+        		$(".loading").hide();
+        		$("#js-html-asa").html(data.msg);
+        		$(".js-push-log-wrap").fadeIn(120);
+        		if(data.code==200){
+        			$(".js-excel-asa").attr("data-id",$this.attr("data-id"));
+        		}else{
+        			$(".js-excel-asa").attr("data-id","");
+        		}
+        	},"json");
+        })
+        $(".js-excel-asa").click(function(){
+        	if($(this).attr("data-id")){
+        		$(".loading").show();
+        		$.post("<?php echo U('AjaxExport/ajaxZsms');?>",
+        				{id:$(this).attr("data-id")},
+        					$(".loading").hide();
+        					function(data){
+        		    			if(data.code == '200'){
+        				            $(".js-export-popup").fadeIn(120);
+        		    			}else{
+        		    				alertTan(data.msg,'error');
+        		    			}
+        					},"json"
+        			);
+        	}
+        })
+    </script>
+</div>
+<script type="text/javascript">
+ $(function () {
+     $(".js-sub-asa").click(function () {
+         var content = $('.js-content-info').val();
+         var file = $(".js-file-info").val();
+         var mobilenum = $(".js-mobnum-info").html();
+         var starttime = uxtime($(".js-starttime-info").val());
+         var balance = $(".js-balance-info").val();
+         $(".loading").show();
+         $.post("<?php echo U('SmsSend/market'); ?>",{content:content,file:file,balance:balance,starttime:starttime,mobilenum:mobilenum},function(data){
+         	 $(".loading").hide();
+	         if(data.code == 200){
+	         	$('.js-create-mission-wrap').hide();
+		        alertTan(data.msg);
+		        setTimeout("window.location.href=window.location.href",1500);
+	         }else{
+			    alertTan(data.msg,"error");
+	         }
+		 }, 'json');
+     });
+     $(".js-status-asa").click(function(){
+    	 var id = $(this).attr('data-id');
+		 $('.js-status-sub').attr('data-id',id);
+		 $(".del-tan-asa").show();
+     });
+     $(".js-status-sub").click(function(){
+ 		var id = $(this).attr("data-id");
+		$(".loading").show();
+ 		$.post("<?php echo U('SmsSend/ajaxStatus'); ?>",{id:id},function(data){
+ 			$(".loading").hide();
+ 			if(data.code==200){
+ 				alertTan(data.msg);
+ 				setTimeout("window.location.href=window.location.href",1500);
+ 			}else{
+ 				alertTan(data.msg,'error');
+ 			}
+ 		},'json');
+ 	});
+})
+function uxtime(timeInfo){
+	var stringTime = timeInfo;
+	var timestamp2 = Date.parse(new Date(stringTime));
+	return timestamp2 = timestamp2 / 1000;
+}
+</script>
+<script>
+$(function(){
+	//文件上传
+	$('.js-add-csv-asa').filer({
+		limit: 40,
+		maxSize: 3,  //文件大小
+        extensions: ['csv'],   //限制类型
+		changeInput: '<a class="btn-small btn-white js-button-asa">上传csv</a>',   //绑定上传样式
+		showThumbs: true,    //是否显示templates
+		theme: "dragdropbox",
+		templates: filer_default_opts.templates,
+		dragDrop: filer_default_opts.dragDrop,
+		uploadFile: {
+			url: "./Tpl/static/SCRM5-PlugIn/html5file/php/upload.php",
+			data: null,
+			type: 'POST',
+			enctype: 'multipart/form-data',
+			beforeSend: function(){},
+			success: function(data, el){
+				var files = JSON.parse(data);
+				if(files['error']){
+					$('.jFiler-items').delay(1000).hide(0);
+					alertTan(files['error'],'error',3000);
+				}else{
+					var a = files.metas;
+					//获取链接
+					var url = files.files;
+					//获取类型
+					var dataType = el.parent().parent().parent().children(".js-add-csv-asa").attr("data-type");
+					el.parent().parent().hide();
+					htmla = "{lanrain::C('site_url')}"+url;
+					$(".loading").show();
+					$.post("<?php echo U('SmsSend/ajaxMobnum') ?>",{file:htmla},function(data2){
+						$("."+dataType).val(htmla);
+						$(".js-mobnum-info").html(data2.msg);
+						$(".js-button-asa").html("重新选择 ");
+						$(".loading").hide();
+					},"json");
+				}
+			},
+			statusCode: true,
+			onProgress: true,
+			onComplete: true,
+			changeInput: true,
+	        showThumbs: true
+		},
+	});
+})
+</script>
+<include file="Public:footer" />

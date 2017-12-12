@@ -1,0 +1,19 @@
+<include file="Public:S5NewHead" />
+<div class="title_top">专属销售链接</div>
+<?php if($goodList){foreach($goodList as $key=>$val){?>
+<div class="pro_list js-link-info" data-id="<?php echo $val['id'];?>">
+    <dl class="pro_info">
+    		<dt><img src="<?php echo $val['pic']?$val['pic']:'./Tpl/Wap/default/common/weixinfeng/images/pro_pic.jpg';?>" ></dt>
+            <dd><?php echo $val['title'];?></dd>
+            <span class="price"><?php echo $val['saleprice'];?></span>
+    </dl>
+</div>
+<?php }}?>
+<script>
+$('.js-link-info').click(function(){
+	var id = $(this).attr("data-id");
+	window.location.href = "<?php echo U('MallExhibitionPartner/salesLinkInfo',array('id'=>'"+id+"'))?>";
+});
+</script>
+<include file="Public:weiXinNotShareSet"/>
+<include file="Public:footer"/>

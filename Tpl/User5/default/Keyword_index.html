@@ -1,0 +1,2715 @@
+<include file="Public:head"/>
+<!-- eshop / eshop商品管理  -->
+<div class="breadcrumb clearfix">
+    <div class="back fl">
+        <a href="javascript:history.go(-1);" class="text-purple"><i class="icon-breadcrumb-back"></i> 返回</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        <a href="javascript:history.go(0);" class="text-purple"><i class="icon-breadcrumb-F5"></i> 刷新</a>
+    </div>
+    <h5 class="breadcrumb-nav fr">
+        <a class="nav-L2 tips" href="javascript:void(0);">eshop</a>&nbsp;&nbsp;/&nbsp;&nbsp;
+        <a class="nav-L3 curr-nav"> eshop商品管理</a>
+    </h5>
+</div>
+<div class="group inline-btn-group mb-10">
+    <a class="btn-small btn-purple">商品管理</a>
+    <a class="btn-small btn-white">商品品类管理</a>
+    <a class="btn-small btn-white">商品标签管理</a>
+</div>
+<div class="group clearfix pb-10">
+    <a class="btn-small btn-purple">创建商品</a>
+    <div class="input-search fr ">
+        <input type="text" class="span2 inline">
+        <button type="submit" class="btn">Search</button>
+    </div>
+    <div class="input-search fr mr-6">
+        <input type="text" class="span2 inline">
+        <button type="submit" class="btn">Search</button>
+    </div>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>售卖中</h4></div>
+    <div class="mod-body WeChat-auto-reply-set">
+        <div class="content">
+            <div class="tab-box type-2 js-tab-box mb-15">
+                <div class="hd">
+                    <ul>
+                        <li class="on"><h5>售卖中</h5></li>
+                        <li class=""><h5>已售罄</h5></li>
+                        <li class=""><h5>仓库</h5></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mb-15">
+                <table class="table type-1 w-auto">
+                    <thead>
+                    <tr>
+                        <th><label class="checkbox inline"><input class="js-check-all" type="checkbox">全选</label></th>
+                        <th>商品名称</th>
+                        <th>商品编码</th>
+                        <th>售价</th>
+                        <th class="min-w80">总库存<a class="sort-icon" href="javascript:void(0);"></a> </th>
+                        <th class="min-w80">总销量<a class="sort-icon" href="javascript:void(0);"></a> </th>
+                        <th class="min-w90">浏览量PV<a class="sort-icon" href="javascript:void(0);"></a> </th>
+                        <th class="min-w90">更新时间<a class="sort-icon" href="javascript:void(0);"></a> </th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td>法兰克福鸭舌帽</td>
+                        <td>5291021</td>
+                        <td>260</td>
+                        <td>51</td>
+                        <td>33</td>
+                        <td>524</td>
+                        <td>2016-07-21 12:22</td>
+                        <td>
+                            <a href="javascript:void(0);" class="tips">编辑</a>
+                            <a href="javascript:void(0);" class="tips">手机预览</a>
+                            <a href="javascript:void(0);" class="tips js-copy-URL">复制链接</a>
+                            <a href="javascript:void(0);" class="tips js-copy-Token">复制商品</a>
+                            <a href="javascript:void(0);" class="tips">下架</a>
+                            <a href="javascript:void(0);" class="tips">删除</a>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+                <h5 class="text-center table-footer-h5">当前没有接入任何API</h5>
+            </div>
+
+
+        </div>
+        <div class="Wechat-msg-bottom clearfix ">
+            <a href="javascript:void(0);" class="btn-small btn-white">下架</a>
+            <a href="javascript:void(0);" class="btn-small btn-white">删除</a>
+            <div class="group pagination fr">
+                <ul>
+                    <li><a href="javascript:void(0);"><i class="page-prev-icon"></i></a></li>
+                    <li><a href="javascript:void(0);">1</a></li>
+                    <li><span><b>···</b></span></li>
+                    <li><a href="javascript:void(0);">3</a></li>
+                    <li><a href="javascript:void(0);">4</a></li>
+                    <li class="item-active"><a href="javascript:void(0);">5</a></li>
+                    <li><a href="javascript:void(0);">6</a></li>
+                    <li><a href="javascript:void(0);">7</a></li>
+                    <li><span><b>···</b></span></li>
+                    <li><a href="javascript:void(0);">99</a></li>
+                    <li><a href="javascript:void(0);"><i class="page-next-icon"></i></a></li>
+                </ul>
+                <label class="page-go">跳转至 <input class="inline text-center" type="text"> 页 <i class="page-go-icon"></i></label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- eshop / eshop商品品类管理  -->
+<div class="breadcrumb clearfix">
+    <div class="back fl">
+        <a href="javascript:history.go(-1);" class="text-purple"><i class="icon-breadcrumb-back"></i> 返回</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        <a href="javascript:history.go(0);" class="text-purple"><i class="icon-breadcrumb-F5"></i> 刷新</a>
+    </div>
+    <h5 class="breadcrumb-nav fr">
+        <a class="nav-L2 tips" href="javascript:void(0);">eshop</a>&nbsp;&nbsp;/&nbsp;&nbsp;
+        <a class="nav-L3 curr-nav">eshop商品品类管理 </a>
+    </h5>
+</div>
+<div class="group inline-btn-group mb-10">
+    <a class="btn-small btn-white">商品管理</a>
+    <a class="btn-small btn-purple">商品品类管理</a>
+    <a class="btn-small btn-white">商品标签管理</a>
+</div>
+<div class="group clearfix pb-10">
+    <a class="btn-small btn-purple">创建商品品类</a>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>商品品类管理</h4></div>
+    <div class="mod-body mb-15 WeChat-auto-reply-set">
+        <table class="table type-1 w-auto">
+            <thead>
+            <tr>
+                <th>品类名称</th>
+                <th>关联标签</th>
+                <th>商品排序方式</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>全部男士上装</td>
+                <td>男士上装</td>
+                <td>最新排序</td>
+                <td>
+                    <a href="javascript:void(0);" class="tips">编辑</a>
+                    <a href="javascript:void(0);" class="tips">手机预览</a>
+                    <a href="javascript:void(0);" class="tips js-copy-URL">复制链接</a>
+                    <a href="javascript:void(0);" class="tips">删除</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="Wechat-msg-bottom clearfix">
+            <div class="group pagination fr">
+                <ul>
+                    <li><a href="javascript:void(0);"><i class="page-prev-icon"></i></a></li>
+                    <li><a href="javascript:void(0);">1</a></li>
+                    <li><span><b>···</b></span></li>
+                    <li><a href="javascript:void(0);">3</a></li>
+                    <li><a href="javascript:void(0);">4</a></li>
+                    <li class="item-active"><a href="javascript:void(0);">5</a></li>
+                    <li><a href="javascript:void(0);">6</a></li>
+                    <li><a href="javascript:void(0);">7</a></li>
+                    <li><span><b>···</b></span></li>
+                    <li><a href="javascript:void(0);">99</a></li>
+                    <li><a href="javascript:void(0);"><i class="page-next-icon"></i></a></li>
+                </ul>
+                <label class="page-go">跳转至 <input class="inline text-center" type="text"> 页 <i class="page-go-icon"></i></label>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- eshop / eshop商品标签管理  -->
+<div class="breadcrumb clearfix">
+    <div class="back fl">
+        <a href="javascript:history.go(-1);" class="text-purple"><i class="icon-breadcrumb-back"></i> 返回</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        <a href="javascript:history.go(0);" class="text-purple"><i class="icon-breadcrumb-F5"></i> 刷新</a>
+    </div>
+    <h5 class="breadcrumb-nav fr">
+        <a class="nav-L2 tips" href="javascript:void(0);">eshop</a>&nbsp;&nbsp;/&nbsp;&nbsp;
+        <a class="nav-L3 curr-nav">eshop商品标签管理 </a>
+    </h5>
+</div>
+<div class="group inline-btn-group mb-10">
+    <a class="btn-small btn-white">商品管理</a>
+    <a class="btn-small btn-white">商品品类管理</a>
+    <a class="btn-small btn-purple">商品标签管理</a>
+</div>
+<div class="group clearfix pb-10">
+    <a class="btn-small btn-purple js-commodity-label">创建商品标签</a>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>商品标签管理</h4></div>
+    <div class="mod-body mb-15 WeChat-auto-reply-set">
+        <table class="table type-1 w-auto">
+            <thead>
+            <tr>
+                <th>标签名称</th>
+                <th>商品数</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>男士上装</td>
+                <td>521</td>
+                <td>
+                    <a href="javascript:void(0);" class="tips">编辑</a>
+                    <a href="javascript:void(0);" class="tips">删除</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="Wechat-msg-bottom clearfix">
+            <div class="group pagination fr">
+                <ul>
+                    <li><a href="javascript:void(0);"><i class="page-prev-icon"></i></a></li>
+                    <li><a href="javascript:void(0);">1</a></li>
+                    <li><span><b>···</b></span></li>
+                    <li><a href="javascript:void(0);">3</a></li>
+                    <li><a href="javascript:void(0);">4</a></li>
+                    <li class="item-active"><a href="javascript:void(0);">5</a></li>
+                    <li><a href="javascript:void(0);">6</a></li>
+                    <li><a href="javascript:void(0);">7</a></li>
+                    <li><span><b>···</b></span></li>
+                    <li><a href="javascript:void(0);">99</a></li>
+                    <li><a href="javascript:void(0);"><i class="page-next-icon"></i></a></li>
+                </ul>
+                <label class="page-go">跳转至 <input class="inline text-center" type="text"> 页 <i class="page-go-icon"></i></label>
+            </div>
+        </div>
+    </div>
+</div>
+<!--创建商品标签弹窗-->
+<div class="popup-wrap wrap-small-1 js-commodity-label-popup">
+    <div class="mod small-popup type-1 popup-width400">
+        <div class="mod-header">
+            <h4 class="fl">Popup Title</h4>
+            <i class="fr icon-close-dark js-icon-close"></i></div>
+        <div class="mod-body">
+            <div class="content">
+                <div class="group pb-30">
+                    <h6 class="inline w100">商品标签名称：</h6>
+                    <input class="inline w150" type="text" placeholder="">
+                    <div class="group">
+                        <span class="inline w100"></span>
+                        <h6 class="inline text-gray">*仅限6个汉字，12个字节</h6>
+                    </div>
+                </div>
+                <p class="text-center pb-10">
+                    <a class="btn-big btn-purple js-ok"> &nbsp; &nbsp; 保存&nbsp; &nbsp;  </a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(".js-commodity-label").on("click", function () {
+            $(".js-commodity-label-popup").fadeIn(120);
+        });
+    </script>
+</div>
+
+<!-- eshop / 创建商品 -->
+<div class="breadcrumb clearfix">
+    <div class="back fl">
+        <a href="javascript:history.go(-1);" class="text-purple"><i class="icon-breadcrumb-back"></i> 返回</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        <a href="javascript:history.go(0);" class="text-purple"><i class="icon-breadcrumb-F5"></i> 刷新</a>
+    </div>
+    <h5 class="breadcrumb-nav fr">
+        <a class="nav-L2 tips" href="javascript:void(0);">eshop </a>/
+        <a class="nav-L3 curr-nav">eshop商品管理</a> /
+        <a class="nav-L3 curr-nav">创建商品</a>
+    </h5>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>创建商品</h4></div>
+    <div class="mod-body">
+        <div class="inner-header"><h5>商品信息设置</h5></div>
+        <div class="content">
+            <div class="group pb-10">
+                <h5 class="inline w150 text-left">*商品名称：</h5>
+                <input class="group inline w350" type="text" value="1iiJMvs2g7QrVPtbaJNhi8KtCuB_iV951PF9SsZCu4Y">
+            </div>
+            <div class="group pb-10">
+                <h5 class="inline w150 text-left">关联商品标签：</h5>
+                <a class="btn-small btn-purple inline">关联商品标签</a>
+                <a class="btn-small btn-purple inline">创建商品标签</a>
+            </div>
+            <div class="group pb-10">
+                <h5 class="inline w150 text-left">*商品名称：</h5>
+                <input class="group inline w350" type="text" value="1iiJMvs2g7QrVPtbaJNhi8KtCuB_iV951PF9SsZCu4Y">
+
+            </div>
+            <div class="group pb-30">
+                <h6 class="inline w150 text-left"><!-- Null --></h6>
+                <h6 class="inline">*若未填写，系统将默认赋值</h6>
+            </div>
+            <div class="group-line pb-10">
+                <h6 class="w150 fl">*SKU：</h6>
+                <div class="group-right ml-150">
+                    <div class="group mb-15"><a class="btn-small btn-purple mr-6">创建SKU</a><h6 class="inline text-gray">*正整数，不能大于50；佣金=订单实际支付金额*佣金比例</h6></div>
+                    <table class="table type-1 w-auto mb-15">
+                        <thead>
+                        <tr>
+                            <th>排序</th>
+                            <th>规格</th>
+                            <th>库存</th>
+                            <th>原价</th>
+                            <th>售价</th>
+                            <th>规格图片</th>
+                            <th>销量</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Demo-1</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>Demo-1</td>
+                            <td>0</td>
+                            <td><img class="table-user-pic" src="./Tpl/User5/default/common/img/user-logo.jpg"></td>
+                            <td>Demo-1</td>
+                            <td>
+                                <a href="javascript:void(0);" class="tips">详情</a>
+                                <a href="javascript:void(0);" class="tips">删除</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="group-line pb-10">
+                <h6 class="w150 fl">*商品图：</h6>
+                <div class="group-right ml-150">
+                    <div class="group mb-15"><a class="btn-middle btn-white">上传商品图</a><h6 class="inline text-gray">*建议图片尺寸：640px*640px，图片大小小于100k，排列第一的商品图将被默认为商品主图</h6></div>
+                    <table class="table type-1 w-auto mb-15">
+                        <thead>
+                        <tr>
+                            <th>排序</th>
+                            <th>预览图</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Demo-1</td>
+                            <td><img class="table-user-pic" src="./Tpl/User5/default/common/img/user-logo.jpg"></td>
+                            <td>
+                                <a href="javascript:void(0);" class="tips">编辑排序</a>
+                                <a href="javascript:void(0);" class="tips">删除</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="group-line pb-10">
+                <h5 class="w150 fl">*商品简介：</h5>
+                <div class="group-right ml-150">
+
+                </div>
+            </div>
+        </div>
+        <div class="inner-header"><h5>运费设置</h5></div>
+        <div class="content">
+            <div class="group pb-10">
+                <h5 class="inline w150 text-left">单件重量：</h5>
+                <input class="group inline w350" type="text" value="">%
+            </div>
+            <div class="group pb-10">
+                <h5 class="inline w150 text-left">*运费设置：</h5>
+                <label class="radio inline mr-6"><input type="radio" name="token-toggle">包邮</label>
+                <label class="radio inline"><input type="radio" name="token-toggle">运费模板</label>
+            </div>
+        </div>
+        <div class="inner-header"><h5>微信分享设置</h5></div>
+        <div class="content">
+            <div class="group mb-30">
+                <h5 class="inline w150 text-left">微信分享小图：</h5>
+                <a class="btn-middle btn-white inline">选择图片</a>
+                <div class="group">
+                    <h5 class="inline w150 text-left"><!-- Null --></h5>
+                    <h6 class="inline text-gray">建议图片尺寸：宽120像素*高120像素，建议图片大小：小于50k</h6>
+                </div>
+            </div>
+            <div class="group mb-30">
+                <h5 class="inline w150 text-left">微信分享标题：</h5>
+                <input class="inline w300" type="text" placeholder="">
+                <div class="group">
+                    <h5 class="inline w150 text-left"><!-- Null --></h5>
+                    <h6 class="inline text-gray">仅限38个汉字，76个字节，多余文字将显示"..."</h6>
+                </div>
+            </div>
+            <div class="group mb-30">
+                <h5 class="inline w150 text-left text-top">微信分享描述：</h5>
+                <textarea class="inline w300" cols="30" rows="5"></textarea>
+                <div class="group">
+                    <h5 class="inline w150 text-left"><!-- Null --></h5>
+                    <h6 class="inline  text-gray">仅限65个汉字，130个字节，多余文字将显示"..."，受微信限制，分享描述不支持回车换行，否则，分享时可能会出现乱码等情况。</h6>
+                </div>
+            </div>
+        </div>
+        <div class="Wechat-msg-bottom text-center">
+            <a class="btn-middle btn-white">保存</a>
+        </div>
+    </div>
+</div>
+<!--创建SKU弹窗-->
+<div class="popup-wrap wrap-small-1">
+    <div class="mod small-popup type-1 popup-width400">
+        <div class="mod-header">
+            <h4 class="fl">Popup Title</h4>
+            <i class="fr icon-close-dark js-icon-close"></i></div>
+        <div class="mod-body">
+            <div class="content">
+                <div class="group pb-10">
+                    <h6 class="inline w100">*排序：</h6>
+                    <input class="inline w150" type="text" placeholder="">
+                </div>
+                <div class="group pb-10">
+                    <h6 class="inline w100">*规格：</h6>
+                    <input class="inline w150" type="text" placeholder="">
+                </div>
+                <div class="group pb-10">
+                    <h6 class="inline w100">*库存：</h6>
+                    <input class="inline w150" type="text" placeholder="">
+                </div>
+                <div class="group pb-10">
+                    <h6 class="inline w100">*原价：</h6>
+                    <input class="inline w150" type="text" placeholder="">
+                </div>
+                <div class="group pb-10">
+                    <h6 class="inline w100">*售价：</h6>
+                    <input class="inline w150" type="text" placeholder="">
+                </div>
+                <div class="group-line pb-30">
+                    <h5 class="fl w100 text-left">微信分享小图：</h5>
+                    <div class="group-right ml-100">
+                        <a class="btn-middle btn-white inline">选择图片</a>
+                        <h6 class="text-gray">建议图片尺寸：宽120像素*高120像素，建议图片大小：小于50k</h6>
+                    </div>
+                </div>
+                <p class="text-center pb-10">
+                    <a class="btn-big btn-purple js-ok"> &nbsp; &nbsp; 保存&nbsp; &nbsp;  </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<!--编辑排序弹窗-->
+<div class="popup-wrap wrap-small-1">
+    <div class="mod small-popup type-1 popup-width400">
+        <div class="mod-header">
+            <h4 class="fl">Popup Title</h4>
+            <i class="fr icon-close-dark js-icon-close"></i></div>
+        <div class="mod-body">
+            <div class="content">
+                <div class="group pb-30">
+                    <h6 class="inline w100">*排序：</h6>
+                    <input class="inline w150" type="text" placeholder="">
+                </div>
+                <p class="text-center pb-10">
+                    <a class="btn-big btn-purple js-ok"> &nbsp; &nbsp; 保存&nbsp; &nbsp;  </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- eshop / eshop商品管理 / 创建商品品类  -->
+<div class="breadcrumb clearfix">
+    <div class="back fl">
+        <a href="javascript:history.go(-1);" class="text-purple"><i class="icon-breadcrumb-back"></i> 返回</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        <a href="javascript:history.go(0);" class="text-purple"><i class="icon-breadcrumb-F5"></i> 刷新</a>
+    </div>
+    <h5 class="breadcrumb-nav fr">
+        <a class="nav-L2 tips" href="javascript:void(0);">eshop </a>/
+        <a class="nav-L3 curr-nav">eshop商品管理</a> /
+        <a class="nav-L3 curr-nav">创建商品品类 </a>
+    </h5>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>创建商品品类</h4></div>
+    <div class="mod-body">
+        <div class="inner-header"><h5>*网页标题：</h5></div>
+        <div class="content">
+            <div class="group">
+                <h5 class="inline w150 text-left">*商品名称：</h5>
+                <input class="group inline w350" type="text" value="">
+            </div>
+            <div class="group pb-10">
+                <h5 class="inline w150 text-left"></h5>
+                <h6 class="inline">*仅限32个汉字，64个字节</h6>
+            </div>
+        </div>
+        <div class="inner-header"><h5>商品品类信息</h5></div>
+        <div class="content">
+            <div class="group">
+                <h5 class="inline w150 text-left">*商品品类名称：</h5>
+                <input class="group inline w350" type="text" value="">
+            </div>
+            <div class="group pb-10">
+                <h5 class="inline w150 text-left"></h5>
+                <h6 class="inline">*仅限6个汉字，12个字节</h6>
+            </div>
+            <div class="group pb-10">
+                <h5 class="inline w150 text-left">关联商品标签：</h5>
+                <a class="btn-small btn-purple inline">关联商品标签</a>
+                <a class="btn-small btn-purple inline">创建商品标签</a>
+            </div>
+            <div class="group-line pb-10">
+                <h6 class="w150 fl">商品排序设置</h6>
+                <div class="group-right ml-150">
+                    <div class="pb-10 choice-lb">
+                        <label class="radio inline mr-6"><input type="radio" name="token-toggle">最新排序：按商品更新时间动态排序</label>
+                        <label class="radio inline mr-6"><input type="radio" name="token-toggle">最热排序：按商品详情页阅读数动态排序</label>
+                        <label class="radio inline mr-6"><input type="radio" name="token-toggle">最旺排序：按商品销量动态排序</label>
+                        <label class="radio inline custom-lb"><input type="radio" name="token-toggle">自定义排序</label>
+                    </div>
+                    <table class="table type-1 w-auto mb-15 custom-tb">
+                        <thead>
+                        <tr>
+                            <th>自定义序号</th>
+                            <th>商品标题</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Demo-1</td>
+                            <td>我想主推的商品</td>
+                            <td>
+                                <a href="javascript:void(0);" class="tips">编辑排序</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <script>
+                        $(".choice-lb>label").click(function(){
+                            if($(this).hasClass("custom-lb")){
+                                $(".custom-tb").show();
+                            }else{
+                                $(".custom-tb").hide();
+                            }
+                        })
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div class="inner-header"><h5>微信分享设置</h5></div>
+        <div class="content">
+            <div class="group mb-30">
+                <h5 class="inline w150 text-left">微信分享小图：</h5>
+                <a class="btn-middle btn-white inline">选择图片</a>
+                <div class="group">
+                    <h5 class="inline w150 text-left"><!-- Null --></h5>
+                    <h6 class="inline text-gray">建议图片尺寸：宽120像素*高120像素，建议图片大小：小于50k</h6>
+                </div>
+            </div>
+            <div class="group mb-30">
+                <h5 class="inline w150 text-left">微信分享标题：</h5>
+                <input class="inline w300" type="text" placeholder="">
+                <div class="group">
+                    <h5 class="inline w150 text-left"><!-- Null --></h5>
+                    <h6 class="inline text-gray">仅限38个汉字，76个字节，多余文字将显示"..."</h6>
+                </div>
+            </div>
+            <div class="group mb-30">
+                <h5 class="inline w150 text-left text-top">微信分享描述：</h5>
+                <textarea class="inline w300" cols="30" rows="5"></textarea>
+                <div class="group">
+                    <h5 class="inline w150 text-left"><!-- Null --></h5>
+                    <h6 class="inline  text-gray">仅限65个汉字，130个字节，多余文字将显示"..."，受微信限制，分享描述不支持回车换行，否则，分享时可能会出现乱码等情况。</h6>
+                </div>
+            </div>
+        </div>
+        <div class="Wechat-msg-bottom text-center">
+            <a class="btn-middle btn-white">保存</a>
+        </div>
+    </div>
+</div>
+<!--选择商品标签弹窗-->
+<div class="popup-wrap wrap-middle-2">
+    <div class="mod middle-popup type-2">
+        <div class="mod-header">
+            <h4 class="fl">Popup Title</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+            <div class="content">
+                <div class="group clearfix pb-10">
+                    <div class="input-search fr clearfix">
+                        <input type="text" class="span2 inline fl">
+                        <button type="submit" class="btn fl">Search</button>
+                    </div>
+                </div>
+                <table class="table type-1 w-auto mb-30">
+                    <thead>
+                    <tr>
+                        <th>商品标签名称</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Demo-1</td>
+                        <td>
+                            <a href="javascript:void(0);" class="tips">选取</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p class="text-center mb-15">
+                    <a class="btn-middle  btn-purple">保 &nbsp;&nbsp; 存</a>
+                    <a class="btn-middle btn-white">取&nbsp;&nbsp; 消</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<!--编辑排序弹窗-->
+<div class="popup-wrap wrap-small-1">
+    <div class="mod small-popup type-1 popup-width400">
+        <div class="mod-header">
+            <h4 class="fl">Popup Title</h4>
+            <i class="fr icon-close-dark js-icon-close"></i></div>
+        <div class="mod-body">
+            <div class="content">
+                <div class="group pb-30">
+                    <h6 class="inline w100">*排序：</h6>
+                    <input class="inline w150" type="text" placeholder="">
+                </div>
+                <p class="text-center mb-15">
+                    <a class="btn-middle  btn-purple">保 &nbsp;&nbsp; 存</a>
+                    <a class="btn-middle btn-white">取&nbsp;&nbsp; 消</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<!--创建商品标签弹窗-->
+<div class="popup-wrap wrap-small-1">
+    <div class="mod small-popup type-1 popup-width400">
+        <div class="mod-header">
+            <h4 class="fl">Popup Title</h4>
+            <i class="fr icon-close-dark js-icon-close"></i></div>
+        <div class="mod-body">
+            <div class="content">
+                <div class="group pb-30">
+                    <h6 class="inline w100">商品标签名称：</h6>
+                    <input class="inline w150" type="text" placeholder="">
+                    <div class="group">
+                        <span class="inline w100"></span>
+                        <h6 class="inline text-gray">*仅限6个汉字，12个字节</h6>
+                    </div>
+                </div>
+                <p class="text-center mb-15">
+                    <a class="btn-middle  btn-purple">保 &nbsp;&nbsp; 存</a>
+                    <a class="btn-middle btn-white">取&nbsp;&nbsp; 消</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- eshop / eshop活动-->
+<div class="breadcrumb clearfix">
+    <div class="back fl">
+        <a href="javascript:history.go(-1);" class="text-purple"><i class="icon-breadcrumb-back"></i> 返回</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        <a href="javascript:history.go(0);" class="text-purple"><i class="icon-breadcrumb-F5"></i> 刷新</a>
+    </div>
+    <h5 class="breadcrumb-nav fr">
+        <a class="nav-L2 tips" href="javascript:void(0);">eshop</a>&nbsp;&nbsp;/&nbsp;&nbsp;
+        <a class="nav-L3 curr-nav">eshop活动</a>
+    </h5>
+</div>
+<div class="group inline-btn-group mb-10">
+    <a class="btn-small btn-purple">整单优惠活动</a>
+</div>
+<div class="group clearfix pb-10">
+    <a class="btn-small btn-purple">创建整单优惠活动</a>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>商品品类管理</h4></div>
+    <div class="mod-body mb-15 WeChat-auto-reply-set">
+        <table class="table type-1 w-auto">
+            <thead>
+            <tr>
+                <th>名称</th>
+                <th>类型</th>
+                <th>开始时间</th>
+                <th>结束时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>新用户活动</td>
+                <td>满减</td>
+                <td>2016-08-01 21:22</td>
+                <td>2016-08-01 21:22</td>
+                <td>
+                    <a href="javascript:void(0);" class="tips">编辑</a>
+                    <a href="javascript:void(0);" class="tips">删除</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="Wechat-msg-bottom clearfix">
+            <div class="group pagination fr">
+                <ul>
+                    <li><a href="javascript:void(0);"><i class="page-prev-icon"></i></a></li>
+                    <li><a href="javascript:void(0);">1</a></li>
+                    <li><span><b>···</b></span></li>
+                    <li><a href="javascript:void(0);">3</a></li>
+                    <li><a href="javascript:void(0);">4</a></li>
+                    <li class="item-active"><a href="javascript:void(0);">5</a></li>
+                    <li><a href="javascript:void(0);">6</a></li>
+                    <li><a href="javascript:void(0);">7</a></li>
+                    <li><span><b>···</b></span></li>
+                    <li><a href="javascript:void(0);">99</a></li>
+                    <li><a href="javascript:void(0);"><i class="page-next-icon"></i></a></li>
+                </ul>
+                <label class="page-go">跳转至 <input class="inline text-center" type="text"> 页 <i class="page-go-icon"></i></label>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- eshop / eshop活动 / 创建整单优惠活动-->
+<div class="breadcrumb clearfix">
+    <div class="back fl">
+        <a href="javascript:history.go(-1);" class="text-purple"><i class="icon-breadcrumb-back"></i> 返回</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        <a href="javascript:history.go(0);" class="text-purple"><i class="icon-breadcrumb-F5"></i> 刷新</a>
+    </div>
+    <h5 class="breadcrumb-nav fr">
+        <a class="nav-L2 tips" href="javascript:void(0);">eshop </a>&nbsp;&nbsp;/&nbsp;&nbsp;
+        <a class="nav-L2 tips" href="javascript:void(0);">eshop活动  </a>&nbsp;&nbsp;/&nbsp;&nbsp;
+        <a class="nav-L3 curr-nav">创建整单优惠活动 </a>
+    </h5>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>创建整单优惠活动</h4></div>
+    <div class="mod-body">
+        <div class="content">
+            <div class="group pb-10">
+                <h6 class="inline w100">活动名称：</h6>
+                <input class="inline w150" type="text">
+            </div>
+            <div class="group pb-10">
+                <h6 class="inline w100">生效时间：</h6>
+                <input class="inline w60" type="text"> - <input class="inline w60" type="text">
+            </div>
+            <div class="group pb-10">
+                <h6 class="inline w100">活动开启关闭：</h6>
+                <input class="ios-btn" type="checkbox" checked="checked">
+            </div>
+            <div class="group pb-10">
+                <h6 class="inline w100">参与人群：</h6>
+                <label class="radio inline"><input type="radio" name="token-toggle">新注册会员首次下单</label> &nbsp; &nbsp;
+                <label class="radio inline"><input type="radio" name="token-toggle" checked="checked">全体会员</label>
+            </div>
+            <div class="group pb-10 ">
+                <h6 class="inline w100 text-top">立享优惠：</h6>
+                <ul class="inline sale-token js-sale-token">
+                    <li><label class="radio inline pb-10"><input type="radio" name="group-2" checked="1">无优惠</label></li>
+
+                    <li>
+                        <label class="radio inline pb-10"><input type="radio" name="group-2">立减优惠</label>
+                        <div class="group pb-10">
+                            <h6 class="inline w100 text-right">立减：</h6><input class="inline w150" type="text"> 元
+                        </div>
+                    </li>
+                    
+                    <li>
+                        <label class="radio inline pb-10"><input type="radio" name="group-2">立折优惠</label>
+                        <div class="group pb-10">
+                            <h6 class="inline w100 text-right">立折： </h6><input class="inline w150" type="text"> %
+                        </div>
+                    </li>
+
+                    <li>
+                        <label class="radio inline pb-10"><input type="radio" name="group-2">满减优惠</label>
+                        <div class="group pb-10">
+                            <h6 class="inline w100 text-right">满：</h6>
+                            <input class="inline w60" type="text"> 元，减 <input class="inline w60" type="text"> 元
+                            <a href="javascript:void(0);" class="tips js-del-curr-sale">删除</a>
+                        </div>
+                        <div class="group pb-10">
+                            <a class="btn-small btn-white js-add-new-sale-1">新增一级优惠</a>
+                            <span class="inline text-gray"> *每级优惠不能累计，最多设置三级优惠</span>
+                        </div>
+                    </li>
+                    
+                    <li>
+                        <label class="radio inline pb-10"><input type="radio" name="group-2">满折优惠</label>
+                        <div class="group pb-10">
+                            <h6 class="inline w100 text-right">满：</h6>
+                            <input class="inline w60" type="text"> 元，折 <input class="inline w60" type="text"> %
+                            <a href="javascript:void(0);" class="tips js-del-curr-sale">删除</a>
+                        </div>
+                        <div class="group pb-10">
+                            <a class="btn-small btn-white js-add-new-sale-2">新增一级优惠</a>
+                            <span class="inline text-gray"> *每级优惠不能累计，最多设置三级优惠</span>
+                        </div>
+                    </li>
+                    
+                    <li>
+                        <label class="radio inline pb-10"><input type="radio" name="group-2">满件折优惠</label>
+                        <div class="group pb-10">
+                            <h6 class="inline w100 text-right">满：</h6>
+                            <input class="inline w60" type="text"> 件，减 <input class="inline w60" type="text"> 元
+                            <a href="javascript:void(0);" class="tips js-del-curr-sale">删除</a>
+                        </div>
+                        <div class="group pb-10">
+                            <a class="btn-small btn-white js-add-new-sale-3">新增一级优惠</a>
+                            <span class="inline text-gray"> *每级优惠不能累计，最多设置三级优惠</span>
+                        </div>
+                    </li>
+
+                    <li>
+                        <label class="radio inline pb-10"><input type="radio" name="group-2">满件折优惠</label>
+                        <div class="group pb-10">
+                            <h6 class="inline w100 text-right">满：</h6>
+                            <input class="inline w60" type="text"> 件，折 <input class="inline w60" type="text"> %
+                            <a href="javascript:void(0);" class="tips js-del-curr-sale">删除</a>
+                        </div>
+                        <div class="group pb-10">
+                            <a class="btn-small btn-white js-add-new-sale-4">新增一级优惠</a>
+                            <span class="inline text-gray"> *每级优惠不能累计，最多设置三级优惠</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="Wechat-msg-bottom text-center">
+            <a class="btn-middle btn-white">下一步</a>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- eshop / eshop订单管理-->
+<div class="breadcrumb clearfix">
+    <div class="back fl">
+        <a href="javascript:history.go(-1);" class="text-purple"><i class="icon-breadcrumb-back"></i> 返回</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        <a href="javascript:history.go(0);" class="text-purple"><i class="icon-breadcrumb-F5"></i> 刷新</a>
+    </div>
+    <h5 class="breadcrumb-nav fr">
+        <a class="nav-L1 tips" href="javascript:void(0);">eshop</a>&nbsp;&nbsp;/&nbsp;&nbsp;
+        <a class="nav-L2 curr-nav">eshop订单管理</a>&nbsp;&nbsp;/&nbsp;&nbsp;
+    </h5>
+</div>
+<div class="group inline-btn-group mb-10">
+    <a class="btn-small btn-purple">订单管理</a>
+    <a class="btn-small btn-white">运费管理</a>
+</div>
+<div class="group clearfix pb-10">
+    <a class="btn-small btn-purple">订单信息xls导出</a>
+    <a class="btn-small btn-purple js-Order-close">自动关闭订单设置</a>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>筛选条件</h4></div>
+    <div class="mod-body shop-pay">
+        <div class="content">
+            <form action="">
+                <div class="pb-10 clearfix">
+
+                    <div class="child-sum-3 fl">
+                        <div class="group pb-10">
+                            <h6 class="inline w100">订单号：</h6>
+                            <input class="inline w150" type="text" placeholder="">
+                        </div>
+                        <div class="group pb-10">
+                            <h6 class="inline w100">实收金额：</h6>
+                            <input class="inline w60" type="text" placeholder=""> -
+                            <input class="inline w60" type="text" placeholder="">
+                        </div>
+                    </div>
+
+                    <div class="child-sum-3 fl">
+                        <div class="group pb-10">
+                            <h6 class="inline w100">商品名称：</h6>
+                            <input class="inline w150" type="text" placeholder="">
+                        </div>
+                    </div>
+
+                    <div class="child-sum-3 fl">
+                        <div class="group pb-10">
+                            <h6 class="inline w100">买家手机号：</h6>
+                            <input class="inline w150" type="text" placeholder="">
+                        </div>
+                    </div>
+
+                    <div class="group mb-15 laydate-box">
+                        <h6 class="inline w100">收银时间：</h6>
+                        <input class="laydate-input" id="pay-date-1" onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" placeholder="YYYY-MM-DD">
+                        <i class="icon-laydate" onclick="laydate({elem:'#pay-date-1'});"></i>
+                        <span> - </span>
+                        <input class="laydate-input" id="pay-date-2" onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" placeholder="YYYY-MM-DD">
+                        <i class="icon-laydate" onclick="laydate({elem:'#pay-date-2'});"></i>
+                    </div>
+                </div>
+                <div class="group text-center">
+                    <input class="btn-middle btn-purple" type="submit" value="筛选">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input class="btn-middle btn-white" type="reset" value="重置">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>全部</h4></div>
+    <div class="mod-body WeChat-auto-reply-set">
+        <div class="content">
+            <div class="tab-box type-2 js-tab-box mb-15">
+                <div class="hd">
+                    <ul>
+                        <li class="on"><h5>全部</h5></li>
+                        <li class=""><h5>待付款</h5></li>
+                        <li class=""><h5>待发货</h5></li>
+                        <li class=""><h5>已发货</h5></li>
+                        <li class=""><h5>已签收</h5></li>
+                        <li class=""><h5>退货/退款</h5></li>
+                        <li class=""><h5>已关闭</h5></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mb-15">
+                <table class="table type-1 w-auto">
+                    <thead>
+                    <tr>
+                        <th>订单号</th>
+                        <th>商品名称</th>
+                        <th>售价/数量</th>
+                        <th>买家信息</th>
+                        <th>下单时间</th>
+                        <th>订单状态</th>
+                        <th>订单金额</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>E16071822023120001001</td>
+                        <td>
+                            <div class="table-line">
+                                <div class="table-line-img"><img src="./Tpl/User5/default/common/img/user-logo.jpg" alt=""></div>
+                                <div class="table-line-right">
+                                    <p class="commodity-name pb-10">经典USA条纹polo衫</p>
+                                    <p class="commodity-code">蓝色S码</p>
+                                </div>
+                            </div>
+                            <div class="table-line">
+                                <div class="table-line-img"><img src="./Tpl/User5/default/common/img/user-logo.jpg" alt=""></div>
+                                <div class="table-line-right">
+                                    <p class="commodity-name pb-10">经典USA条纹polo衫</p>
+                                    <p class="commodity-code">蓝色S码</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td><div class="table-line-height">188/2</div><div class="table-line-height">188/2</div></td>
+                        <td><p class="table-line-p">RYANN</p><p class="table-line-p">UESRID</p><p class="table-line-p">phonenumber</p></td>
+                        <td>2016-07-30 17:30</td>
+                        <td>待发货</td>
+                        <td><p class="table-line-p">￥376.00</p><p class="table-line-p">积分：0.00</p><p class="table-line-p">总重：0.00kg</p><p class="table-line-p">(含运费0.00）</p></td>
+                        <td>
+                            <a href="javascript:void(0);" class="tips">查看详情</a>
+                            <a href="javascript:void(0);" class="tips js-Order-dlt">删除</a>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+                <h5 class="text-center table-footer-h5">暂无</h5>
+            </div>
+
+
+        </div>
+        <div class="Wechat-msg-bottom clearfix">
+            <div class="group pagination fr">
+                <ul>
+                    <li><a href="javascript:void(0);"><i class="page-prev-icon"></i></a></li>
+                    <li><a href="javascript:void(0);">1</a></li>
+                    <li><span><b>···</b></span></li>
+                    <li><a href="javascript:void(0);">3</a></li>
+                    <li><a href="javascript:void(0);">4</a></li>
+                    <li class="item-active"><a href="javascript:void(0);">5</a></li>
+                    <li><a href="javascript:void(0);">6</a></li>
+                    <li><a href="javascript:void(0);">7</a></li>
+                    <li><span><b>···</b></span></li>
+                    <li><a href="javascript:void(0);">99</a></li>
+                    <li><a href="javascript:void(0);"><i class="page-next-icon"></i></a></li>
+                </ul>
+                <label class="page-go">跳转至 <input class="inline text-center" type="text"> 页 <i class="page-go-icon"></i></label>
+            </div>
+        </div>
+    </div>
+</div>
+<!--自动关闭订单设置弹窗-->
+<div class="popup-wrap wrap-small-1 js-Order-close-popup">
+    <div class="mod small-popup type-1 popup-width400">
+        <div class="mod-header">
+            <h4 class="fl">自动关闭订单设置</h4>
+            <i class="fr icon-close-dark js-icon-close"></i></div>
+        <div class="mod-body">
+            <div class="content">
+                <div class="group pb-30">
+                    <h6 class="inline">买家提交订单后</h6>
+                    <input class="inline w50" type="text" placeholder="">
+                    <h6 class="inline">小时内未付款，自动关闭该订单。</h6>
+                    <h6 class="text-gray">*限填大于0的正整数</h6>
+                </div>
+                <p class="text-center mb-15">
+                    <a class="btn-middle  btn-purple">确 &nbsp;&nbsp; 定</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(".js-Order-close").on("click", function () {
+            $(".js-Order-close-popup").fadeIn(120);
+        });
+    </script>
+</div>
+<!--发货弹窗-->
+<div class="popup-wrap wrap-small-1">
+    <div class="mod small-popup type-1 popup-width400">
+        <div class="mod-header">
+            <h4 class="fl">发货</h4>
+            <i class="fr icon-close-dark js-icon-close"></i></div>
+        <div class="mod-body">
+            <div class="content">
+                <div class="group pb-10">
+                    <h6 class="inline w100">物流公司：</h6>
+                    <select class="inline w150">
+                        <option value="">全部</option>
+                        <option value="1">顺丰速运</option>
+                        <option value="2">韵达货运</option>
+                        <option value="3">圆通速递</option>
+                        <option value="4">申通快递</option>
+                        <option value="5">天天快递</option>
+                        <option value="6">中通速递</option>
+                        <option value="7">汇通快运</option>
+                        <option value="8">全峰快递</option>
+                        <option value="9">EMS</option>
+                        <option value="10">宅急送快运</option>
+                        <option value="11">中国邮政</option>
+                        <option value="12">黑猫宅急便</option>
+                    </select>
+                </div>
+                <div class="group pb-30">
+                    <h6 class="inline w100">运单编号：</h6>
+                    <input class="inline w150" type="text" placeholder="">
+                </div>
+                <p class="text-center pb-10">
+                    <a class="btn-big btn-purple js-ok"> &nbsp; &nbsp; 保存&nbsp; &nbsp;  </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<!--关闭订单弹窗-->
+<div class="popup-wrap wrap-small-1">
+    <div class="mod small-popup type-1">
+        <div class="mod-header">
+            <h4 class="fl">关闭订单</h4>
+            <i class="fr icon-close-dark js-icon-close"></i></div>
+        <div class="mod-body">
+            <div class="content">
+                <h5 class="pb-30">请联系买家后再关闭订单。您确定关闭该订单吗？</h5>
+                <p class="text-center pb-10">
+                    <a class="btn-big btn-purple js-ok"> &nbsp; &nbsp; 确定&nbsp; &nbsp;  </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<!--删除订单弹窗-->
+<div class="popup-wrap wrap-small-1 js-Order-dlt-popup">
+    <div class="mod small-popup type-1">
+        <div class="mod-header">
+            <h4 class="fl">删除订单</h4>
+            <i class="fr icon-close-dark js-icon-close"></i></div>
+        <div class="mod-body">
+            <div class="content">
+                <h5 class="pb-30">您确定删除该订单吗？</h5>
+                <p class="text-center pb-10">
+                    <a class="btn-big btn-purple js-ok"> &nbsp; &nbsp; 确定&nbsp; &nbsp;  </a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(".js-Order-dlt").on("click", function () {
+            $(".js-Order-dlt-popup").fadeIn(120);
+        });
+    </script>
+</div>
+
+
+
+
+
+<!-- eshop / eshop订单管理-->
+<div class="breadcrumb clearfix">
+    <div class="back fl">
+        <a href="javascript:history.go(-1);" class="text-purple"><i class="icon-breadcrumb-back"></i> 返回</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        <a href="javascript:history.go(0);" class="text-purple"><i class="icon-breadcrumb-F5"></i> 刷新</a>
+    </div>
+    <h5 class="breadcrumb-nav fr">
+        <a class="nav-L1 tips" href="javascript:void(0);">eshop</a>&nbsp;&nbsp;/&nbsp;&nbsp;
+        <a class="nav-L2 curr-nav" href="javascript:void(0);">eshop订单管理</a>&nbsp;&nbsp;/&nbsp;&nbsp;
+        <a class="nav-L3 curr-nav">运费管理</a>
+    </h5>
+</div>
+<div class="group inline-btn-group mb-10">
+    <a class="btn-small btn-white">订单管理</a>
+    <a class="btn-small btn-purple">运费管理</a>
+</div>
+<div class="search-group clearfix mb-10">
+    <a class="btn-small btn-purple fl">创建运费模板</a>
+</div>
+<div class="mod mb-15 w600">
+    <table class="table type-1 w-auto">
+        <thead>
+        <tr>
+            <th>运费模板名称</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>通用运费模板</td>
+            <td>
+                <a href="javascript:void(0);" class="tips">编辑</a>
+                <a href="javascript:void(0);" class="tips">复制模板</a>
+                <a href="javascript:void(0);" class="tips">删除</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <h5 class="text-center table-footer-h5">暂无</h5>
+</div>
+
+
+
+
+
+<!--eshop / eshop订单管理 / 创建运费模板-->
+<div class="breadcrumb clearfix">
+    <div class="back fl">
+        <a href="javascript:history.go(-1);" class="text-purple"><i class="icon-breadcrumb-back"></i> 返回</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        <a href="javascript:history.go(0);" class="text-purple"><i class="icon-breadcrumb-F5"></i> 刷新</a>
+    </div>
+    <h5 class="breadcrumb-nav fr">
+        <a class="nav-L1 tips" href="javascript:void(0);">eshop</a>&nbsp;&nbsp;/&nbsp;&nbsp;
+        <a class="nav-L2 curr-nav" href="javascript:void(0);">eshop订单管理</a>&nbsp;&nbsp;/&nbsp;&nbsp;
+        <a class="nav-L3 curr-nav">订单详情</a>
+    </h5>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>会员信息/收货人信息</h4></div>
+    <div class="mod-body">
+        <table class="table type-1 w-auto">
+            <tbody>
+            <tr class="not-hover">
+                <td>会员姓名：   普莱恩</td>
+                <td>会员手机号：   18616250318</td>
+                <td>会员ID：     1607070819010001</td>
+            </tr>
+            <tr class="not-hover">
+                <td>收货人姓名：普莱恩</td>
+                <td>收货人手机号：18616250318</td>
+                <td>收货地址：中国上海市虹口区广灵四路116号智慧桥创意产业园1幢312</td>
+            </tr>
+            <tr class="not-hover">
+                <td colspan="3">发票：           不开发票</td>
+            </tr>
+            <tr class="not-hover">
+                <td colspan="3">留言：这是一条留言这是一条留言这是一条留言这是一条留言这是一条留言这是一条留言这是一条留言这是一条留言这是一条留言这是一条留言这是一条留言这是一条留言这是一条留言这是一条留言这是一条留言这是一条留言</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>物流信息</h4></div>
+    <div class="mod-body">
+        <table class="table type-1 w-auto">
+            <tbody>
+            <tr class="not-hover">
+                <td>物流公司：顺丰速运<a href="javascript:void(0);" class="tips">修改</a></td>
+                <td>运单编号：24141523625<a href="javascript:void(0);" class="tips">修改</a></td>
+                <td>运费：0.00</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>商品信息</h4></div>
+    <div class="mod-body mb-15 WeChat-auto-reply-set">
+        <table class="table type-1 w-auto">
+            <thead>
+            <tr>
+                <th>商品名称</th>
+                <th>售价/折后价</th>
+                <th>数量</th>
+                <th>小计</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <div class="table-line">
+                        <div class="table-line-img"><img src="./Tpl/User5/default/common/img/user-logo.jpg" alt=""></div>
+                        <div class="table-line-right">
+                            <p class="commodity-name pb-10">经典USA条纹polo衫</p>
+                            <p class="commodity-code">蓝色S码</p>
+                        </div>
+                    </div>
+                </td>
+                <td>188/188</td>
+                <td>2</td>
+                <td>￥376.00</td>
+            </tr>
+            <tr>
+                <td colspan="4"><p class="text-right">订单金额：376.00</p><p class="text-right">优惠：-0.00</p></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>商品信息</h4></div>
+    <div class="mod-body mb-15 WeChat-auto-reply-set">
+        <table class="table type-1 w-auto">
+            <thead>
+            <tr>
+                <th>商品名称</th>
+                <th>服务类型</th>
+                <th>退款金额</th>
+                <th>退换货说明</th>
+                <th>凭证图片</th>
+                <th>服务状态</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <div class="table-line">
+                        <div class="table-line-img"><img src="./Tpl/User5/default/common/img/user-logo.jpg" alt=""></div>
+                        <div class="table-line-right">
+                            <p class="commodity-name pb-10">经典USA条纹polo衫</p>
+                            <p class="commodity-code">蓝色S码</p>
+                        </div>
+                    </div>
+                </td>
+                <td>退货</td>
+                <td>376</td>
+                <td class="w250">我是退货说明我是退货说明我是
+                    我是退货说明我是退货说明退货
+                    我是退货说明我是退货说明我是
+                    我是退货说明我是退货说明我是
+                    我是退货说明我是退货说明退货
+                    我是退货说明我是退货说明说明
+                    我是退货说明退货说明说明</td>
+                <td class="clearfix w250"><div class="table-line-img mr-6"><img src="./Tpl/User5/default/common/img/user-logo.jpg" alt=""></div><div class="table-line-img mr-6"><img src="./Tpl/User5/default/common/img/user-logo.jpg" alt=""></div><div class="table-line-img"><img src="./Tpl/User5/default/common/img/user-logo.jpg" alt=""></div></td>
+                <td>已处理</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<!--eshop / eshop订单管理 / 创建运费模板-->
+<div class="breadcrumb clearfix">
+    <div class="back fl">
+        <a href="javascript:history.go(-1);" class="text-purple"><i class="icon-breadcrumb-back"></i> 返回</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        <a href="javascript:history.go(0);" class="text-purple"><i class="icon-breadcrumb-F5"></i> 刷新</a>
+    </div>
+    <h5 class="breadcrumb-nav fr">
+        <a class="nav-L1 tips" href="javascript:void(0);">eshop</a>&nbsp;&nbsp;/&nbsp;&nbsp;
+        <a class="nav-L2 curr-nav" href="javascript:void(0);">eshop订单管理</a>&nbsp;&nbsp;/&nbsp;&nbsp;
+        <a class="nav-L3 curr-nav">创建运费模板</a>
+    </h5>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>创建商品</h4></div>
+    <div class="mod-body">
+        <div class="inner-header"><h5>商品信息设置</h5></div>
+        <div class="content">
+            <div class="group pb-10">
+                <h5 class="inline w150 text-left">*商品名称：</h5>
+                <input class="group inline w350" type="text" value="1iiJMvs2g7QrVPtbaJNhi8KtCuB_iV951PF9SsZCu4Y">
+            </div>
+            <div class="group-line pb-10">
+                <h6 class="w150 fl">*SKU：</h6>
+                <div class="group-right ml-150">
+                    <div class="group mb-15"><a class="btn-small btn-purple mr-6">选择可配送区域</a><h6 class="inline text-gray">*配送区域未设置运费模板时，当用户下单购买时手机端将自动显示文字提示“ 该地区暂时不支持配送”</h6></div>
+                    <table class="table type-1 w-auto mb-15">
+                        <thead>
+                        <tr>
+                            <th>可配送区域</th>
+                            <th>首重费用（1kg内，单位：元）</th>
+                            <th>续重费用（1kg内，单位：元）</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>安庆,蚌埠,亳州,巢湖,池州,滁州,阜阳,......<a href="javascript:void(0);" class="tips">编辑</a></td>
+                            <td><input class="span2" type="text" placeholder=""></td>
+                            <td><input class="span2" type="text" placeholder=""></td>
+                            <td><a href="javascript:void(0);" class="tips">删除</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="Wechat-msg-bottom text-center">
+            <a class="btn-middle btn-white">保存</a>
+        </div>
+    </div>
+</div>
+
+
+<!--eshop / eshop客服-->
+<div class="breadcrumb clearfix">
+    <div class="back fl">
+        <a href="javascript:history.go(-1);" class="text-purple"><i class="icon-breadcrumb-back"></i> 返回</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        <a href="javascript:history.go(0);" class="text-purple"><i class="icon-breadcrumb-F5"></i> 刷新</a>
+    </div>
+    <h5 class="breadcrumb-nav fr">
+        <a class="nav-L1 tips" href="javascript:void(0);">eshop</a>&nbsp;&nbsp;/&nbsp;&nbsp;
+        <a class="nav-L2 curr-nav">eshop客服</a>
+    </h5>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>微信客服</h4></div>
+    <div class="mod-body">
+        <div class="content">
+            <div class="tab-box type-2 Wechat-customer-service js-tab-box">
+                <div class="hd">
+                    <ul>
+                        <li class="on"><h5>最新</h5></li>
+                        <li class=""><h5>未回复(133)</h5></li>
+                        <li class=""><h5>已回复(133)</h5></li>
+                    </ul>
+                </div>
+                <div class="bd">
+                    <ul>
+                        <li>
+                            <div class="msg-box clearfix">
+                                <div class="msg-con fl">
+                                    <h5 class="user-name">我的名字</h5>
+                                    <h5 class="user-msg">内容内容内容内容内容内容内容内容内容</h5>
+                                    <h6 class="user-address text-gray">
+                                        <span>中国</span>
+                                        <span>上海</span>
+                                        <span>浦东新区</span> &nbsp; &nbsp; &nbsp; &nbsp;
+                                        <span>2016-05-19  16:38</span>
+                                    </h6>
+                                </div>
+                                <img class="user-avatar fl" src="./Tpl/User5/default/common/img/demo-user-avatar.png">
+                                <h5 class="msg-reply fl">
+                                    <span class="reply-status text-orange">未回复</span>
+                                    <span class="check-msg js-check-msg"><i class="icon-wechat-msg"></i> 查看对话(<span>10</span>)</span>
+                                </h5>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="msg-box clearfix">
+                                <div class="msg-con fl">
+                                    <h5 class="user-name">我的名字</h5>
+                                    <h5 class="user-msg">内容内容内容内容内容内容内容内容内容</h5>
+                                    <h6 class="user-address text-gray">
+                                        <span>中国</span>
+                                        <span>上海</span>
+                                        <span>浦东新区</span> &nbsp; &nbsp; &nbsp; &nbsp;
+                                        <span>2016-05-19  16:38</span>
+                                    </h6>
+                                </div>
+                                <img class="user-avatar fl" src="./Tpl/User5/default/common/img/demo-user-avatar.png">
+                                <h5 class="msg-reply fl">
+                                    <span class="reply-status text-gray">已回复</span>
+                                    <span class="check-msg js-check-msg"><i class="icon-wechat-msg"></i> 查看对话(<span>10</span>)</span>
+                                </h5>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="msg-box clearfix">
+                                <div class="msg-con fl">
+                                    <h5 class="user-name">我的名字</h5>
+                                    <h5 class="user-msg">内容内容内容内容内容内容内容内容内容</h5>
+                                    <h6 class="user-address text-gray">
+                                        <span>中国</span>
+                                        <span>上海</span>
+                                        <span>浦东新区</span> &nbsp; &nbsp; &nbsp; &nbsp;
+                                        <span>2016-05-19  16:38</span>
+                                    </h6>
+                                </div>
+                                <img class="user-avatar fl" src="./Tpl/User5/default/common/img/demo-user-avatar.png">
+                                <h5 class="msg-reply fl">
+                                    <span class="reply-status text-orange">未回复</span>
+                                    <span class="check-msg js-check-msg"><i class="icon-wechat-msg"></i> 查看对话(<span>10</span>)</span>
+                                </h5>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul style="display: none;">
+                        <li>
+                            <div class="msg-box clearfix">
+                                <div class="msg-con fl">
+                                    <h5 class="user-name">我的名字</h5>
+                                    <h5 class="user-msg">内容内容内容内容内容内容内容内容内容</h5>
+                                    <h6 class="user-address text-gray">
+                                        <span>中国</span>
+                                        <span>上海</span>
+                                        <span>浦东新区</span> &nbsp; &nbsp; &nbsp; &nbsp;
+                                        <span>2016-05-19  16:38</span>
+                                    </h6>
+                                </div>
+                                <img class="user-avatar fl" src="./Tpl/User5/default/common/img/demo-user-avatar.png">
+                                <h5 class="msg-reply fl">
+                                    <span class="reply-status text-orange">未回复</span>
+                                    <span class="check-msg js-check-msg"><i class="icon-wechat-msg"></i> 查看对话(<span>10</span>)</span>
+                                </h5>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="msg-box clearfix">
+                                <div class="msg-con fl">
+                                    <h5 class="user-name">我的名字</h5>
+                                    <h5 class="user-msg">内容内容内容内容内容内容内容内容内容</h5>
+                                    <h6 class="user-address text-gray">
+                                        <span>中国</span>
+                                        <span>上海</span>
+                                        <span>浦东新区</span> &nbsp; &nbsp; &nbsp; &nbsp;
+                                        <span>2016-05-19  16:38</span>
+                                    </h6>
+                                </div>
+                                <img class="user-avatar fl" src="./Tpl/User5/default/common/img/demo-user-avatar.png">
+                                <h5 class="msg-reply fl">
+                                    <span class="reply-status text-orange">未回复</span>
+                                    <span class="check-msg js-check-msg"><i class="icon-wechat-msg"></i> 查看对话(<span>10</span>)</span>
+                                </h5>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul style="display: none;">
+                        <li>
+                            <div class="msg-box clearfix">
+                                <div class="msg-con fl">
+                                    <h5 class="user-name">我的名字</h5>
+                                    <h5 class="user-msg">内容内容内容内容内容内容内容内容内容</h5>
+                                    <h6 class="user-address text-gray">
+                                        <span>中国</span>
+                                        <span>上海</span>
+                                        <span>浦东新区</span> &nbsp; &nbsp; &nbsp; &nbsp;
+                                        <span>2016-05-19  16:38</span>
+                                    </h6>
+                                </div>
+                                <img class="user-avatar fl" src="./Tpl/User5/default/common/img/demo-user-avatar.png">
+                                <h5 class="msg-reply fl">
+                                    <span class="reply-status text-gray">已回复</span>
+                                    <span class="check-msg js-check-msg"><i class="icon-wechat-msg"></i> 查看对话(<span>10</span>)</span>
+                                </h5>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="Wechat-msg-bottom clearfix">
+            <div class="group pagination fr">
+                <ul>
+                    <li><a href="javascript:void(0);"><i class="page-prev-icon"></i></a></li>
+                    <li><a href="javascript:void(0);">1</a></li>
+                    <li><span><b>···</b></span></li>
+                    <li><a href="javascript:void(0);">3</a></li>
+                    <li><a href="javascript:void(0);">4</a></li>
+                    <li class="item-active"><a href="javascript:void(0);">5</a></li>
+                    <li><a href="javascript:void(0);">6</a></li>
+                    <li><a href="javascript:void(0);">7</a></li>
+                    <li><span><b>···</b></span></li>
+                    <li><a href="javascript:void(0);">99</a></li>
+                    <li><a href="javascript:void(0);"><i class="page-next-icon"></i></a></li>
+                </ul>
+                <label class="page-go">跳转至 <input class="inline text-center" type="text"> 页 <i class="page-go-icon"></i></label>
+            </div>
+        </div>
+    </div>
+</div>
+<!--eshop客服弹窗 -->
+<div class="popup-wrap wrap-middle-1 js-Wecaht-msg-popup">
+    <div class="mod middle-popup type-1">
+        <div class="mod-header">
+            <h4 class="fl">查看对话</h4>
+            <i class="fr icon-close-dark js-icon-close"></i>
+        </div>
+        <div class="mod-body">
+            <div class="Wechat-msg-record-scroll-wrap">
+                <ul class="Wechat-msg-record">
+                    <li>
+                        <img class="user-avatar" src="./Tpl/User5/default/common/img/demo-user-avatar.png">
+                        <div class="msg-con">
+                            <h5 class="user-name">我的名字</h5>
+                            <h5 class="user-msg">内容内容内容内容内容内容内容内容内容</h5>
+                            <h6 class="user-address text-gray">
+                                <span>中国</span>
+                                <span>上海</span>
+                                <span>浦东新区</span> &nbsp; &nbsp; &nbsp; &nbsp;
+                                <span>2016-05-19  16:38</span>
+                            </h6>
+                        </div>
+                    </li>
+                    <li>
+                        <img class="user-avatar" src="./Tpl/User5/default/common/img/demo-user-avatar.png">
+                        <div class="msg-con">
+                            <h5 class="user-name">我的名字</h5>
+                            <h5 class="user-msg">内容内容内容内容内容内容内容内容内容</h5>
+                            <h6 class="user-address text-gray">
+                                <span>中国</span>
+                                <span>上海</span>
+                                <span>浦东新区</span> &nbsp; &nbsp; &nbsp; &nbsp;
+                                <span>2016-05-19  16:38</span>
+                            </h6>
+                        </div>
+                    </li>
+                    <li>
+                        <img class="user-avatar" src="./Tpl/User5/default/common/img/demo-user-avatar.png">
+                        <div class="msg-con">
+                            <h5 class="user-name">我的名字</h5>
+                            <h5 class="user-msg">内容内容内容内容内容内容内容内容内容</h5>
+                            <h6 class="user-address text-gray">
+                                <span>中国</span>
+                                <span>上海</span>
+                                <span>浦东新区</span> &nbsp; &nbsp; &nbsp; &nbsp;
+                                <span>2016-05-19  16:38</span>
+                            </h6>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="Wechat-msg-text-wrap js-emoji-into">
+                <textarea class="Wechat-msg-text"></textarea>
+                <div class="Wechat-msg-tools-wrap clearfix">
+                    <!-- emoji表情 -->
+                    <div class="emoji-wrap">
+                        <i class="emoji-change js-emoji-change"></i>
+                        <div class="emoji-box js-emoji-box">
+                            <span class="triangle-down-a"></span>
+                            <span class="triangle-down-b"></span>
+                            <ul>
+                                <li><i class="emoji emoji2600" data-title="☀"></i></li>
+                                <li><i class="emoji emoji1f60d" data-title="😍"></i></li>
+                                <li><i class="emoji emoji1f618" data-title="😘"></i></li>
+                                <li><i class="emoji emoji1f603" data-title="😃"></i></li>
+                                <li><i class="emoji emoji1f31f" data-title="🌟"></i></li>
+                                <li><i class="emoji emoji1f440" data-title="👀"></i></li>
+                                <li><i class="emoji emoji1f4b0" data-title="💰"></i></li>
+                                <li><i class="emoji emoji1f525" data-title="🔥 "></i></li>
+                                <li><i class="emoji emoji1f381" data-title="🎁"></i></li>
+                                <li><i class="emoji emoji1f4aa" data-title="💪"></i></li>
+                                <li><i class="emoji emoji1f44f" data-title="👏"></i></li>
+                                <li><i class="emoji emoji1f44d" data-title="👍"></i></li>
+                                <li><i class="emoji emoji1f464" data-title="👤"></i></li>
+                                <li><i class="emoji emoji1f3e8" data-title="🏨"></i></li>
+                                <li><i class="emoji emoji1f4de" data-title="📞"></i></li>
+                                <li><i class="emoji emoji2708" data-title="✈"></i></li>
+                                <li><i class="emoji emoji1f3c3" data-title="🏃"></i></li>
+                                <li><i class="emoji emoji1f4ac" data-title="💬"></i></li>
+                                <li><i class="emoji emoji2601" data-title="☁"></i></li>
+                                <li><i class="emoji emoji2614" data-title="☔"></i></li>
+                                <li><i class="emoji emoji26c4" data-title="⛄"></i></li>
+                                <li><i class="emoji emoji26a1" data-title="⚡"></i></li>
+                                <li><i class="emoji emoji1f300" data-title="🌀"></i></li>
+                                <li><i class="emoji emoji1f301" data-title="🌁"></i></li>
+                                <li><i class="emoji emoji1f302" data-title="🌂"></i></li>
+                                <li><i class="emoji emoji1f303 " data-title="🌃"></i></li>
+                                <li><i class="emoji emoji1f308" data-title="🌈"></i></li>
+                                <li><i class="emoji emoji2744 " data-title="❄"></i></li>
+                                <li><i class="emoji emoji1f609 " data-title="😉"></i></li>
+                                <li><i class="emoji emoji1f60c " data-title="😌"></i></li>
+                                <li><i class="emoji emoji1f604  " data-title="😄"></i></li>
+                                <li><i class="emoji emoji263a " data-title="☺"></i></li>
+                                <li><i class="emoji emoji1f60a " data-title="😊"></i></li>
+                                <li><i class="emoji emoji1f601 " data-title="😁"></i></li>
+                                <li><i class="emoji emoji1f606 " data-title="😆"></i></li>
+                                <li><i class="emoji emoji1f633 " data-title="😳"></i></li>
+                                <li><i class="emoji emoji1f602 " data-title="😂"></i></li>
+                                <li><i class="emoji emoji1f60b" data-title="😋"></i></li>
+                                <li><i class="emoji emoji1f61d " data-title="😝"></i></li>
+                                <li><i class="emoji emoji1f61c " data-title="😜"></i></li>
+                                <li><i class="emoji emoji1f624 " data-title="😤"></i></li>
+                                <li><i class="emoji emoji1f620 " data-title="😠"></i></li>
+                                <li><i class="emoji emoji1f640 " data-title="🙀"></i></li>
+                                <li><i class="emoji emoji1f647 " data-title="🙇"></i></li>
+                                <li><i class="emoji emoji1f64b " data-title="🙋"></i></li>
+                                <li><i class="emoji emoji1f453 " data-title="👓"></i></li>
+                                <li><i class="emoji emoji1f380 " data-title="🎀"></i></li>
+                                <li><i class="emoji emoji1f382 " data-title="🎂"></i></li>
+                                <li><i class="emoji emoji1f389 " data-title="🎉"></i></li>
+                                <li><i class="emoji emoji1f383 " data-title="🎃"></i></li>
+                                <li><i class="emoji emoji1f4ee " data-title="📮"></i></li>
+                                <li><i class="emoji emoji1f4e2 " data-title="📢"></i></li>
+                                <li><i class="emoji emoji1f3a4 " data-title="🎤"></i></li>
+                                <li><i class="emoji emojia9 " data-title="©"></i></li>
+                                <li><i class="emoji emoji2757 " data-title="❗"></i></li>
+                                <li><i class="emoji emoji2753 " data-title="❓"></i></li>
+                                <li><i class="emoji emoji1f496 " data-title="💖"></i></li>
+                                <li><i class="emoji emoji1f4a4 " data-title="💤"></i></li>
+                                <li><i class="emoji emoji1f4a5 " data-title="💥"></i></li>
+                                <li><i class="emoji emoji1f4af " data-title="💯"></i></li>
+                                <li><i class="emoji emoji270c " data-title="✌"></i></li>
+                                <li><i class="emoji emoji1f44a " data-title="👊"></i></li>
+                                <li><i class="emoji emoji1f44c " data-title="👌"></i></li>
+                                <li><i class="emoji emoji1f445 " data-title="👅"></i></li>
+                                <li><i class="emoji emoji1f46f " data-title="👯"></i></li>
+                                <li><i class="emoji emoji1f47b " data-title="👻"></i></li>
+                                <li><i class="emoji emoji1f47c " data-title="👼"></i></li>
+                                <li><i class="emoji emoji1f47d " data-title="👽"></i></li>
+                                <li><i class="emoji emoji1f384 " data-title="🎄"></i></li>
+                                <li><i class="emoji emoji1f42f " data-title="🐯"></i></li>
+                                <li><i class="emoji emoji1f47f " data-title="👿"></i></li>
+                                <li><i class="emoji emoji1f48b " data-title="💋"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- emoji end -->
+
+                    <h5 class="fr">仅限200个汉字，400个字节</h5>
+                </div>
+            </div>
+            <div class="Wechat-sub-btn-wrap"><a class="btn-big btn-purple js-sub-ok-close">提交</a></div>
+        </div>
+    </div>
+    <script>
+        $(".js-check-msg").on("click", function () {
+            $(".js-Wecaht-msg-popup").fadeIn(120);
+        });
+        $(".js-sub-ok-close").on("click", function () {
+            $(".js-Wecaht-msg-popup").fadeOut(120);
+        })
+    </script>
+</div>
+
+
+
+<!-- 点击 复制URL 的弹窗 -->
+<div class="popup-wrap wrap-small-3 js-copy-URL-popup" style="display: none;">
+    <div class="mod small-popup type-3">
+        <div class="mod-body">
+            <div class="content">
+                <h5 class="tips">复制URL成功</h5>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $(".js-copy-URL").on("click", function () {
+                $(".js-copy-URL-popup").fadeIn(120).delay(600).fadeOut(120);
+            })
+        })
+    </script>
+</div>
+<!--复制商品成功-->
+<div class="popup-wrap wrap-small-3 js-copy-Token-popup" style="display: none;">
+    <div class="mod small-popup type-3">
+        <div class="mod-body">
+            <div class="content">
+                <h5 class="tips">复制商品成功</h5>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $(".js-copy-Token").on("click", function () {
+                $(".js-copy-Token-popup").fadeIn(120).delay(600).fadeOut(120);
+            })
+        })
+    </script>
+</div>
+
+
+<!--发货弹窗-->
+<div class="popup-wrap wrap-small-1" style="display:">
+    <div class="mod small-popup type-1 popup-width500">
+        <div class="mod-header">
+            <h4 class="fl">发货地址</h4>
+            <i class="fr icon-close-dark js-icon-close"></i></div>
+        <div class="mod-body">
+            <div class="content">
+                <div class="select-area-child-big-box">
+                    <div class="district district2">
+                        <span>华东</span>
+                        <ul class="adress">
+
+                            <li class="dropdown">
+                                <input type="checkbox" class="select-arae-child-checkbox" value="10160" name="parentid">
+                                <a class="show-select-area-child-button" href="javascript:void(0);">安徽<p class="caret"></p><label class="show-select-num"></label></a>
+                                <ul class="c adr-xl hide show-select-area-child-box">
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100032">安庆</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100033">蚌埠</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100034">亳州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100035">巢湖</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100036">池州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100037">滁州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100038">阜阳</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100039">合肥</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100040">淮北</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100041">淮南</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100042">黄山</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100043">六安</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100044">马鞍山</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100045">宿州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100046">铜陵</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100047">芜湖</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100048">宣城</li>
+                                    <div class="queding">
+                                        <input type="hidden" value="" name="areaids" class="areaids">
+                                        <button type="submit" name="button" class="btn-primary true-select-area-child-button" checked="checked">确定</button>
+                                    </div>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <input type="checkbox" class="select-arae-child-checkbox" value="10176" name="parentid">
+                                <a class="show-select-area-child-button" href="javascript:void(0);">江苏<p class="caret"></p><label class="show-select-num"></label></a>
+                                <ul class="c adr-xl hide show-select-area-child-box">
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100297">常州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100298">淮安</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100299">连云港</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100300">南京</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100301">南通</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100302">宿迁</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100303">苏州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100304">泰州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100305">无锡</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100306">徐州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100307">盐城</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100308">扬州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100309">镇江</li>
+                                    <div class="queding">
+                                        <input type="hidden" value="" name="areaids" class="areaids">
+                                        <button type="submit" name="button" class="btn-primary true-select-area-child-button" checked="checked">确定</button>
+                                    </div>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <input type="checkbox" class="select-arae-child-checkbox" value="10177" name="parentid">
+                                <a class="show-select-area-child-button" href="javascript:void(0);">江西<p class="caret"></p><label class="show-select-num"></label></a>
+                                <ul class="c adr-xl hide show-select-area-child-box">
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100310">抚州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100311">赣州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100312">吉安</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100313">景德镇</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100314">九江</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100315">南昌</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100316">萍乡</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100317">上饶</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100318">新余</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100319">宜春</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100320">鹰潭</li>
+                                    <div class="queding">
+                                        <input type="hidden" value="" name="areaids" class="areaids">
+                                        <button type="submit" name="button" class="btn-primary true-select-area-child-button" checked="checked">确定</button>
+                                    </div>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <input type="checkbox" class="select-arae-child-checkbox" value="10185" name="parentid">
+                                <a class="show-select-area-child-button" href="javascript:void(0);">上海<p class="caret"></p><label class="show-select-num"></label></a>
+                                <ul class="c adr-xl hide show-select-area-child-box">
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100391">宝山</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100392">长宁</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100393">崇明</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100394">奉贤</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100395">虹口</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100396">黄浦</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100397">嘉定</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100398">静安</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100399">金山</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100400">卢湾</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100401">闵行</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100402">普陀</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100403">浦东新区</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100404">青浦</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100405">松江</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100406">徐汇</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100407">杨浦</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100408">闸北</li>
+                                    <div class="queding">
+                                        <input type="hidden" value="" name="areaids" class="areaids">
+                                        <button type="submit" name="button" class="btn-primary true-select-area-child-button" checked="checked">确定</button>
+                                    </div>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <input type="checkbox" class="select-arae-child-checkbox" value="10193" name="parentid">
+                                <a class="show-select-area-child-button" href="javascript:void(0);">浙江<p class="caret"></p><label class="show-select-num"></label></a>
+                                <ul class="c adr-xl hide show-select-area-child-box">
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100517">杭州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100518">湖州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100519">嘉兴</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100520">金华</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100521">丽水</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100522">宁波</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100523">衢州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100524">绍兴</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100525">台州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100526">温州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100527">舟山</li>
+                                    <div class="queding">
+                                        <input type="hidden" value="" name="areaids" class="areaids">
+                                        <button type="submit" name="button" class="btn-primary true-select-area-child-button" checked="checked">确定</button>
+                                    </div>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="district district2">
+                        <span>华北</span>
+                        <ul class="adress">
+
+                            <li class="dropdown">
+                                <input type="checkbox" class="select-arae-child-checkbox" value="10161" name="parentid">
+                                <a class="show-select-area-child-button" href="javascript:void(0);">北京<p class="caret"></p><label class="show-select-num"></label></a>
+                                <ul class="c adr-xl hide show-select-area-child-box">
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100049">昌平</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100050">朝阳</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100051">大兴</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100052">东城</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100053">房山</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100054">丰台</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100055">海淀</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100056">怀柔</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100057">门头沟</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100058">密云</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100059">平谷</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100060">石景山</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100061">顺义</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100062">通州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100063">西城</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100064">延庆</li>
+                                    <div class="queding">
+                                        <input type="hidden" value="" name="areaids" class="areaids">
+                                        <button type="submit" name="button" class="btn-primary true-select-area-child-button" checked="checked">确定</button>
+                                    </div>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <input type="checkbox" class="select-arae-child-checkbox" value="10169" name="parentid">
+                                <a class="show-select-area-child-button" href="javascript:void(0);">河北<p class="caret"></p><label class="show-select-num"></label></a>
+                                <ul class="c adr-xl hide show-select-area-child-box">
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100194">保定</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100195">沧州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100196">承德</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100197">邯郸</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100198">衡水</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100199">廊坊</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100200">秦皇岛</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100201">石家庄</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100202">唐山</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100203">邢台</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100204">张家口</li>
+                                    <div class="queding">
+                                        <input type="hidden" value="" name="areaids" class="areaids">
+                                        <button type="submit" name="button" class="btn-primary true-select-area-child-button" checked="checked">确定</button>
+                                    </div>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <input type="checkbox" class="select-arae-child-checkbox" value="10175" name="parentid">
+                                <a class="show-select-area-child-button" href="javascript:void(0);">内蒙古<p class="caret"></p><label class="show-select-num"></label></a>
+                                <ul class="c adr-xl hide show-select-area-child-box">
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100285">阿拉善</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100286">包头</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100287">巴彦淖尔</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100288">乌兰察布</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100289">赤峰</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100290">鄂尔多斯</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100291">锡林郭勒</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100292">呼和浩特</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100293">呼伦贝尔</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100294">通辽</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100295">乌海</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100296">兴安</li>
+                                    <div class="queding">
+                                        <input type="hidden" value="" name="areaids" class="areaids">
+                                        <button type="submit" name="button" class="btn-primary true-select-area-child-button" checked="checked">确定</button>
+                                    </div>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <input type="checkbox" class="select-arae-child-checkbox" value="10184" name="parentid">
+                                <a class="show-select-area-child-button" href="javascript:void(0);">山东<p class="caret"></p><label class="show-select-num"></label></a>
+                                <ul class="c adr-xl hide show-select-area-child-box">
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100374">滨州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100375">东营</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100376">菏泽</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100377">济南</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100378">济宁</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100379">莱芜</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100380">聊城</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100381">临沂</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100382">青岛</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100383">日照</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100384">泰安</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100385">德州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100386">潍坊</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100387">威海</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100388">烟台</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100389">枣庄</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100390">淄博</li>
+                                    <div class="queding">
+                                        <input type="hidden" value="" name="areaids" class="areaids">
+                                        <button type="submit" name="button" class="btn-primary true-select-area-child-button" checked="checked">确定</button>
+                                    </div>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <input type="checkbox" class="select-arae-child-checkbox" value="10186" name="parentid">
+                                <a class="show-select-area-child-button" href="javascript:void(0);">山西<p class="caret"></p><label class="show-select-num"></label></a>
+                                <ul class="c adr-xl hide show-select-area-child-box">
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100409">长治</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100410">大同</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100411">晋城</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100412">晋中</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100413">临汾</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100414">吕梁</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100415">朔州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100416">太原</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100417">忻州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100418">阳泉</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100419">运城</li>
+                                    <div class="queding">
+                                        <input type="hidden" value="" name="areaids" class="areaids">
+                                        <button type="submit" name="button" class="btn-primary true-select-area-child-button" checked="checked">确定</button>
+                                    </div>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <input type="checkbox" class="select-arae-child-checkbox" value="10189" name="parentid">
+                                <a class="show-select-area-child-button" href="javascript:void(0);">天津<p class="caret"></p><label class="show-select-num"></label></a>
+                                <ul class="c adr-xl hide show-select-area-child-box">
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100460">宝坻</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100461">滨海新区</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100462">河东</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100463">河北</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100464">静海</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100465">津南</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100466">蓟县</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100467">南开</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100468">宁河</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100469">北辰</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100470">和平</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100471">红桥</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100472">东丽</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100473">河西</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100474">西青</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100475">武清</li>
+                                    <div class="queding">
+                                        <input type="hidden" value="" name="areaids" class="areaids">
+                                        <button type="submit" name="button" class="btn-primary true-select-area-child-button" checked="checked">确定</button>
+                                    </div>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="district district2">
+                        <span>华中</span>
+                        <ul class="adress">
+
+                            <li class="dropdown">
+                                <input type="checkbox" class="select-arae-child-checkbox" value="10171" name="parentid">
+                                <a class="show-select-area-child-button" href="javascript:void(0);">河南<p class="caret"></p><label class="show-select-num"></label></a>
+                                <ul class="c adr-xl hide show-select-area-child-box">
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100218">安阳</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100219">鹤壁</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100220">焦作</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100221">济源</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100222">开封</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100223">漯河</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100224">洛阳</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100225">平顶山</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100226">南阳</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100227">濮阳</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100228">三门峡</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100229">商丘</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100230">新乡</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100231">信阳</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100232">许昌</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100233">郑州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100234">周口</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100235">驻马店</li>
+                                    <div class="queding">
+                                        <input type="hidden" value="" name="areaids" class="areaids">
+                                        <button type="submit" name="button" class="btn-primary true-select-area-child-button" checked="checked">确定</button>
+                                    </div>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <input type="checkbox" class="select-arae-child-checkbox" value="10173" name="parentid">
+                                <a class="show-select-area-child-button" href="javascript:void(0);">湖北<p class="caret"></p><label class="show-select-num"></label></a>
+                                <ul class="c adr-xl hide show-select-area-child-box">
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100254">仙桃</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100255">恩施</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100256">鄂州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100257">黄冈</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100258">荆门</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100259">荆州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100260">潜江</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100261">神农架</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100262">十堰</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100263">随州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100264">天门</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100265">武汉</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100266">咸宁</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100267">孝感</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100268">襄阳</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100269">黄石</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100270">宜昌</li>
+                                    <div class="queding">
+                                        <input type="hidden" value="" name="areaids" class="areaids">
+                                        <button type="submit" name="button" class="btn-primary true-select-area-child-button" checked="checked">确定</button>
+                                    </div>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <input type="checkbox" class="select-arae-child-checkbox" value="10174" name="parentid">
+                                <a class="show-select-area-child-button" href="javascript:void(0);">湖南<p class="caret"></p><label class="show-select-num"></label></a>
+                                <ul class="c adr-xl hide show-select-area-child-box">
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100271">常德</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100272">长沙</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100273">郴州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100274">衡阳</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100275">怀化</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100276">娄底</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100277">邵阳</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100278">湘潭</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100279">湘西</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100280">益阳</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100281">永州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100282">岳阳</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100283">张家界</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100284">株洲</li>
+                                    <div class="queding">
+                                        <input type="hidden" value="" name="areaids" class="areaids">
+                                        <button type="submit" name="button" class="btn-primary true-select-area-child-button" checked="checked">确定</button>
+                                    </div>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="district district2">
+                        <span>华南</span>
+                        <ul class="adress">
+
+                            <li class="dropdown">
+                                <input type="checkbox" class="select-arae-child-checkbox" value="10163" name="parentid">
+                                <a class="show-select-area-child-button" href="javascript:void(0);">福建<p class="caret"></p><label class="show-select-num"></label></a>
+                                <ul class="c adr-xl hide show-select-area-child-box">
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100106">福州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100107">龙岩</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100108">南平</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100109">宁德</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100110">莆田</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100111">泉州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100112">三明</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100113">厦门</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100114">漳州</li>
+                                    <div class="queding">
+                                        <input type="hidden" value="" name="areaids" class="areaids">
+                                        <button type="submit" name="button" class="btn-primary true-select-area-child-button" checked="checked">确定</button>
+                                    </div>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <input type="checkbox" class="select-arae-child-checkbox" value="10165" name="parentid">
+                                <a class="show-select-area-child-button" href="javascript:void(0);">广东<p class="caret"></p><label class="show-select-num"></label></a>
+                                <ul class="c adr-xl hide show-select-area-child-box">
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100129">潮州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100130">东莞</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100131">佛山</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100132">广州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100133">河源</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100134">惠州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100135">江门</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100136">揭阳</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100137">茂名</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100138">梅州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100139">清远</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100140">汕头</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100141">汕尾</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100142">韶关</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100143">深圳</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100144">阳江</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100145">云浮</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100146">湛江</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100147">肇庆</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100148">中山</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100149">珠海</li>
+                                    <div class="queding">
+                                        <input type="hidden" value="" name="areaids" class="areaids">
+                                        <button type="submit" name="button" class="btn-primary true-select-area-child-button" checked="checked">确定</button>
+                                    </div>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <input type="checkbox" class="select-arae-child-checkbox" value="10166" name="parentid">
+                                <a class="show-select-area-child-button" href="javascript:void(0);">广西<p class="caret"></p><label class="show-select-num"></label></a>
+                                <ul class="c adr-xl hide show-select-area-child-box">
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100150">百色</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100151">北海</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100152">崇左</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100153">钦州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100154">防城港</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100155">来宾</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100156">贵港</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100157">桂林</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100158">河池</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100159">贺州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100160">柳州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100161">南宁</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100162">梧州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100163">玉林</li>
+                                    <div class="queding">
+                                        <input type="hidden" value="" name="areaids" class="areaids">
+                                        <button type="submit" name="button" class="btn-primary true-select-area-child-button" checked="checked">确定</button>
+                                    </div>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <input type="checkbox" class="select-arae-child-checkbox" value="10168" name="parentid">
+                                <a class="show-select-area-child-button" href="javascript:void(0);">海南<p class="caret"></p><label class="show-select-num"></label></a>
+                                <ul class="c adr-xl hide show-select-area-child-box">
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100173">保亭</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100174">昌江</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100175">澄迈</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100176">儋州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100177">东方</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100178">五指山</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100179">海口</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100180">定安</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100181">中沙</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100182">陵水</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100183">万宁</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100184">乐东</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100185">南沙</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100186">临高</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100187">琼海</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100188">琼中</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100189">三亚</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100190">屯昌</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100191">文昌</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100192">白沙</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100193">西沙</li>
+                                    <div class="queding">
+                                        <input type="hidden" value="" name="areaids" class="areaids">
+                                        <button type="submit" name="button" class="btn-primary true-select-area-child-button" checked="checked">确定</button>
+                                    </div>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="district district2">
+                        <span>东北</span>
+                        <ul class="adress">
+
+                            <li class="dropdown">
+                                <input type="checkbox" class="select-arae-child-checkbox" value="10170" name="parentid">
+                                <a class="show-select-area-child-button" href="javascript:void(0);">黑龙江<p class="caret"></p><label class="show-select-num"></label></a>
+                                <ul class="c adr-xl hide show-select-area-child-box">
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100205">大庆</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100206">哈尔滨</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100207">鹤岗</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100208">黑河</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100209">佳木斯</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100210">鸡西</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100211">大兴安岭</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100212">牡丹江</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100213">齐齐哈尔</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100214">七台河</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100215">双鸭山</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100216">绥化</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100217">伊春</li>
+                                    <div class="queding">
+                                        <input type="hidden" value="" name="areaids" class="areaids">
+                                        <button type="submit" name="button" class="btn-primary true-select-area-child-button" checked="checked">确定</button>
+                                    </div>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <input type="checkbox" class="select-arae-child-checkbox" value="10178" name="parentid">
+                                <a class="show-select-area-child-button" href="javascript:void(0);">吉林<p class="caret"></p><label class="show-select-num"></label></a>
+                                <ul class="c adr-xl hide show-select-area-child-box">
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100321">长春</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100322">吉林</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100323">辽源</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100324">松原</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100325">四平</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100326">通化</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100327">白城</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100328">白山</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100329">延边</li>
+                                    <div class="queding">
+                                        <input type="hidden" value="" name="areaids" class="areaids">
+                                        <button type="submit" name="button" class="btn-primary true-select-area-child-button" checked="checked">确定</button>
+                                    </div>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <input type="checkbox" class="select-arae-child-checkbox" value="10179" name="parentid">
+                                <a class="show-select-area-child-button" href="javascript:void(0);">辽宁<p class="caret"></p><label class="show-select-num"></label></a>
+                                <ul class="c adr-xl hide show-select-area-child-box">
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100330">鞍山</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100331">本溪</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100332">朝阳</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100333">大连</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100334">丹东</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100335">抚顺</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100336">阜新</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100337">葫芦岛</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100338">锦州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100339">辽阳</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100340">盘锦</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100341">沈阳</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100342">铁岭</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100343">营口</li>
+                                    <div class="queding">
+                                        <input type="hidden" value="" name="areaids" class="areaids">
+                                        <button type="submit" name="button" class="btn-primary true-select-area-child-button" checked="checked">确定</button>
+                                    </div>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="district district2">
+                        <span>西北</span>
+                        <ul class="adress">
+
+                            <li class="dropdown">
+                                <input type="checkbox" class="select-arae-child-checkbox" value="10164" name="parentid">
+                                <a class="show-select-area-child-button" href="javascript:void(0);">甘肃<p class="caret"></p><label class="show-select-num"></label></a>
+                                <ul class="c adr-xl hide show-select-area-child-box">
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100115">定西</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100116">甘南</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100117">嘉峪关</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100118">金昌</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100119">酒泉</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100120">兰州市</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100121">临夏</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100122">陇南</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100123">平凉</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100124">庆阳</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100125">白银</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100126">天水</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100127">武威</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100128">张掖</li>
+                                    <div class="queding">
+                                        <input type="hidden" value="" name="areaids" class="areaids">
+                                        <button type="submit" name="button" class="btn-primary true-select-area-child-button" checked="checked">确定</button>
+                                    </div>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <input type="checkbox" class="select-arae-child-checkbox" value="10181" name="parentid">
+                                <a class="show-select-area-child-button" href="javascript:void(0);">宁夏<p class="caret"></p><label class="show-select-num"></label></a>
+                                <ul class="c adr-xl hide show-select-area-child-box">
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100351">固原</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100352">石嘴山</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100353">吴忠</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100354">银川</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100355">中卫</li>
+                                    <div class="queding">
+                                        <input type="hidden" value="" name="areaids" class="areaids">
+                                        <button type="submit" name="button" class="btn-primary true-select-area-child-button" checked="checked">确定</button>
+                                    </div>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <input type="checkbox" class="select-arae-child-checkbox" value="10182" name="parentid">
+                                <a class="show-select-area-child-button" href="javascript:void(0);">青海<p class="caret"></p><label class="show-select-num"></label></a>
+                                <ul class="c adr-xl hide show-select-area-child-box">
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100356">果洛</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100357">海东</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100358">海南</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100359">海西</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100360">黄南</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100361">海北</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100362">西宁</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100363">玉树</li>
+                                    <div class="queding">
+                                        <input type="hidden" value="" name="areaids" class="areaids">
+                                        <button type="submit" name="button" class="btn-primary true-select-area-child-button" checked="checked">确定</button>
+                                    </div>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <input type="checkbox" class="select-arae-child-checkbox" value="10183" name="parentid">
+                                <a class="show-select-area-child-button" href="javascript:void(0);">陕西<p class="caret"></p><label class="show-select-num"></label></a>
+                                <ul class="c adr-xl hide show-select-area-child-box">
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100364">安康</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100365">宝鸡</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100366">汉中</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100367">商洛</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100368">铜川</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100369">渭南</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100370">西安</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100371">咸阳</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100372">延安</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100373">榆林</li>
+                                    <div class="queding">
+                                        <input type="hidden" value="" name="areaids" class="areaids">
+                                        <button type="submit" name="button" class="btn-primary true-select-area-child-button" checked="checked">确定</button>
+                                    </div>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <input type="checkbox" class="select-arae-child-checkbox" value="10191" name="parentid">
+                                <a class="show-select-area-child-button" href="javascript:void(0);">新疆<p class="caret"></p><label class="show-select-num"></label></a>
+                                <ul class="c adr-xl hide show-select-area-child-box">
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100483">阿克苏</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100484">阿勒泰</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100485">阿拉尔</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100486">巴音郭楞</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100487">博尔塔拉</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100488">昌吉</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100489">图木舒克</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100490">哈密</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100491">和田</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100492">伊犁</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100493">克拉玛依</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100494">喀什</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100495">克孜勒苏</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100496">石河子</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100497">塔城</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100498">吐鲁番</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100499">乌鲁木齐</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100500">五家渠</li>
+                                    <div class="queding">
+                                        <input type="hidden" value="" name="areaids" class="areaids">
+                                        <button type="submit" name="button" class="btn-primary true-select-area-child-button" checked="checked">确定</button>
+                                    </div>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="district district2">
+                        <span>西南</span>
+                        <ul class="adress">
+
+                            <li class="dropdown">
+                                <input type="checkbox" class="select-arae-child-checkbox" value="10162" name="parentid">
+                                <a class="show-select-area-child-button" href="javascript:void(0);">重庆<p class="caret"></p><label class="show-select-num"></label></a>
+                                <ul class="c adr-xl hide show-select-area-child-box">
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100065">合川</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100066">巴南</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100067">北碚</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100068">璧山</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100069">城口</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100070">石柱</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100071">大渡口</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100072">大足</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100073">垫江</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100074">丰都</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100075">奉节</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100076">涪陵</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100077">江北</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100078">江津</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100079">九龙坡</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100080">开县</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100081">梁平</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100082">长寿</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100083">南川</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100084">彭水</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100085">万盛</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100086">黔江</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100087">綦江</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100088">荣昌</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100089">沙坪坝</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100090">双桥</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100091">南岸</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100092">铜梁</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100093">潼南</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100094">两江新区</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100095">万州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100096">武隆</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100097">巫山</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100098">巫溪</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100099">秀山</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100100">永川</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100101">酉阳</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100102">渝北</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100103">云阳</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100104">渝中</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100105">忠县</li>
+                                    <div class="queding">
+                                        <input type="hidden" value="" name="areaids" class="areaids">
+                                        <button type="submit" name="button" class="btn-primary true-select-area-child-button" checked="checked">确定</button>
+                                    </div>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <input type="checkbox" class="select-arae-child-checkbox" value="10167" name="parentid">
+                                <a class="show-select-area-child-button" href="javascript:void(0);">贵州<p class="caret"></p><label class="show-select-num "></label></a>
+                                <ul class="c adr-xl hide show-select-area-child-box">
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100164">安顺</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100165">毕节</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100166">贵阳</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100167">遵义</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100168">六盘水</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100169">黔东南</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100170">黔南</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100171">黔西南</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100172">铜仁</li>
+                                    <div class="queding">
+                                        <input type="hidden" value="" name="areaids" class="areaids">
+                                        <button type="submit" name="button" class="btn-primary true-select-area-child-button" checked="checked">确定</button>
+                                    </div>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <input type="checkbox" class="select-arae-child-checkbox" value="10187" name="parentid">
+                                <a class="show-select-area-child-button" href="javascript:void(0);">四川<p class="caret"></p><label class="show-select-num"></label></a>
+                                <ul class="c adr-xl hide show-select-area-child-box">
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100420">阿坝</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100421">成都</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100422">德阳</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100423">达州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100424">甘孜</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100425">广元</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100426">广安</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100427">乐山</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100428">凉山</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100429">泸州</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100430">眉山</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100431">绵阳</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100432">南充</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100433">内江</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100434">巴中</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100435">攀枝花</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100436">遂宁</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100437">雅安</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100438">宜宾</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100439">自贡</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100440">资阳</li>
+                                    <div class="queding">
+                                        <input type="hidden" value="" name="areaids" class="areaids">
+                                        <button type="submit" name="button" class="btn-primary true-select-area-child-button" checked="checked">确定</button>
+                                    </div>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <input type="checkbox" class="select-arae-child-checkbox" value="10190" name="parentid">
+                                <a class="show-select-area-child-button" href="javascript:void(0);">西藏<p class="caret"></p><label class="show-select-num"></label></a>
+                                <ul class="c adr-xl hide show-select-area-child-box">
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100476">阿里</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100477">拉萨</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100478">那曲</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100479">林芝</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100480">昌都</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100481">山南</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100482">日喀则</li>
+                                    <div class="queding">
+                                        <input type="hidden" value="" name="areaids" class="areaids">
+                                        <button type="submit" name="button" class="btn-primary true-select-area-child-button" checked="checked">确定</button>
+                                    </div>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <input type="checkbox" class="select-arae-child-checkbox" value="10192" name="parentid">
+                                <a class="show-select-area-child-button" href="javascript:void(0);">云南<p class="caret"></p><label class="show-select-num"></label></a>
+                                <ul class="c adr-xl hide show-select-area-child-box">
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100501">保山</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100502">楚雄</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100503">大理</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100504">德宏</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100505">迪庆</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100506">昆明</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100507">丽江</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100508">临沧</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100509">怒江</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100510">普洱</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100511">曲靖</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100512">红河</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100513">文山</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100514">西双版纳</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100515">玉溪</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100516">昭通</li>
+                                    <div class="queding">
+                                        <input type="hidden" value="" name="areaids" class="areaids">
+                                        <button type="submit" name="button" class="btn-primary true-select-area-child-button" checked="checked">确定</button>
+                                    </div>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="district district2">
+                        <span>港澳台</span>
+                        <ul class="adress">
+
+                            <li class="dropdown">
+                                <input type="checkbox" class="select-arae-child-checkbox" value="10172" name="parentid">
+                                <a class="show-select-area-child-button" href="javascript:void(0);">香港<p class="caret"></p><label class="show-select-num"></label></a>
+                                <ul class="c adr-xl hide show-select-area-child-box">
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100236">中西区</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100237">东区</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100238">离岛区</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100239">九龙城区</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100240">葵青区</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100241">观塘区</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100242">北区</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100243">西贡区</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100244">深水埗区</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100245">沙田区</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100246">南区</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100247">大埔区</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100248">荃湾区</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100249">屯门区</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100250">湾仔区</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100251">黄大仙区</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100252">油尖旺区</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100253">元朗区</li>
+                                    <div class="queding">
+                                        <input type="hidden" value="" name="areaids" class="areaids">
+                                        <button type="submit" name="button" class="btn-primary true-select-area-child-button" checked="checked">确定</button>
+                                    </div>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <input type="checkbox" class="select-arae-child-checkbox" value="10180" name="parentid">
+                                <a class="show-select-area-child-button" href="javascript:void(0);">澳门<p class="caret"></p><label class="show-select-num"></label></a>
+                                <ul class="c adr-xl hide show-select-area-child-box">
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100344">大堂区</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100345">路环岛</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100346">花地玛堂区</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100347">圣安多尼堂区</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100348">风顺堂区</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100349">望德堂区</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100350">氹仔</li>
+                                    <div class="queding">
+                                        <input type="hidden" value="" name="areaids" class="areaids">
+                                        <button type="submit" name="button" class="btn-primary true-select-area-child-button" checked="checked">确定</button>
+                                    </div>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <input type="checkbox" class="select-arae-child-checkbox" value="10188" name="parentid">
+                                <a class="show-select-area-child-button" href="javascript:void(0);">台湾<p class="caret"></p><label class="show-select-num"></label></a>
+                                <ul class="c adr-xl hide show-select-area-child-box">
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100441">彰化县</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100442">嘉义市</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100443">嘉义县</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100444">新竹市</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100445">新竹县</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100446">花莲县</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100447">高雄市</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100448">基隆市</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100449">苗栗县</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100450">南投县</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100451">澎湖县</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100452">屏东县</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100453">台中市</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100454">台南市</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100455">台北市</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100456">台东县</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100457">桃园县</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100458">宜兰县</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="100459">云林县</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="101146">新北市</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="101147">金门县</li>
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="101148">连江县</li>
+                                    <div class="queding">
+                                        <input type="hidden" value="" name="areaids" class="areaids">
+                                        <button type="submit" name="button" class="btn-primary true-select-area-child-button" checked="checked">确定</button>
+                                    </div>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="district district2">
+                        <span>海外</span>
+                        <ul class="adress">
+
+                            <li class="dropdown">
+                                <input type="checkbox" class="select-arae-child-checkbox" value="-1" name="parentid">
+                                <a class="show-select-area-child-button" href="javascript:void(0);">海外<p class="caret"></p><label class="show-select-num"></label></a>
+                                <ul class="c adr-xl hide show-select-area-child-box">
+                                    <li><input type="checkbox" name="areaid" class="areaid" value="-11">海外</li>
+                                    <div class="queding">
+                                        <input type="hidden" value="" name="areaids" class="areaids">
+                                        <button type="submit" name="button" class="btn-primary true-select-area-child-button" checked="checked">确定</button>
+                                    </div>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="text-center pb-10">
+                    <a class="btn-big btn-purple js-ok"> &nbsp; &nbsp; 保存&nbsp; &nbsp;  </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- 创建整单优惠活动 -->
+<div class="breadcrumb clearfix">
+    <div class="back fl">
+        <a href="javascript:history.go(-1);" class="text-purple"><i class="icon-breadcrumb-back"></i> 返回</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        <a href="javascript:history.go(0);" class="text-purple"><i class="icon-breadcrumb-F5"></i> 刷新</a>
+    </div>
+    <h5 class="breadcrumb-nav fr">
+        <a class="nav-L2 tips" href="javascript:void(0);">eshop </a>&nbsp;&nbsp;/&nbsp;&nbsp;
+        <a class="nav-L2 tips" href="javascript:void(0);">eshop活动  </a>&nbsp;&nbsp;/&nbsp;&nbsp;
+        <a class="nav-L3 curr-nav">创建整单优惠活动 </a>
+    </h5>
+</div>
+<div class="mod mb-15">
+    <div class="mod-header radius-top"><h4>创建整单优惠活动</h4></div>
+    <div class="mod-body">
+        <div class="content">
+            <div class="group">
+                <h6 class="inline">运单编号：</h6>
+                <label class="radio inline"><input type="radio" name="token-toggle-1">全部商品参与</label> &nbsp; &nbsp;
+                <label class="radio inline"><input type="radio" name="token-toggle-1">禁止商品参与</label> &nbsp; &nbsp;
+                <label class="radio inline"><input type="radio" name="token-toggle-1">仅限商品参与</label>
+            </div>
+        </div>
+        <div class="inner-header clearfix">
+            <h5 class="fl">禁止以下商品参与当前整单优惠活动</h5>
+        </div>
+        <div class="content">
+            <div class="group pb-10">
+                <a class="btn-small btn-white">选择文件</a> &nbsp; &nbsp;
+                <a class="btn-small btn-white">导入csv</a>
+            </div>
+            <div class="group">
+                <form class="bs-docs-example form-inline">
+                    <textarea class="text-width-100" rows="3"></textarea>
+                    <input type="hidden" name="__hash__" value="0ae1dbb9d390795d34c9ced5d0d306a7_3817c0cfb6e09e866d1a454445f38b64"></form>
+            </div>
+        </div>
+        <div class="inner-header clearfix">
+            <h5 class="fl">仅限以下商品参与当前整单优惠活动</h5>
+        </div>
+        <div class="content">
+            <div class="group pb-10">
+                <a class="btn-small btn-white">选择文件</a> &nbsp; &nbsp;
+                <a class="btn-small btn-white">导入csv</a> &nbsp; &nbsp;
+                <h6 class="inline text-gray">共 <span>4</span> 件商品</h6>
+            </div>
+            <div class="group">
+                <form class="bs-docs-example form-inline">
+                    <textarea class="text-width-100" rows="3"></textarea>
+                    <input type="hidden" name="__hash__" value="0ae1dbb9d390795d34c9ced5d0d306a7_3817c0cfb6e09e866d1a454445f38b64"></form>
+            </div>
+        </div>
+        <div class="Wechat-msg-bottom text-center">
+            <a class="btn-middle btn-white">上一步</a> &nbsp; &nbsp; &nbsp;
+            <a class="btn-middle btn-white">保 &nbsp;&nbsp; 存</a>
+        </div>
+    </div>
+</div>
+
+
+<!--禁止提示弹窗-->
+<div class="popup-wrap wrap-small-1" style="display: none;">
+    <div class="mod small-popup type-1">
+        <div class="mod-header">
+            <h4 class="fl">禁止</h4>
+            <i class="fr icon-close-dark js-icon-close"></i></div>
+        <div class="mod-body">
+            <div class="content">
+                <h5 class="pb-30">抱歉，“禁止商品参与”和“仅限商品参与”两种设置只能开启一种，请先关闭其中一种再开启。</h5>
+                <p class="text-center pb-10">
+                    <a class="btn-big btn-purple js-ok"> &nbsp; &nbsp; 确定&nbsp; &nbsp;  </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="Public:footer"/>

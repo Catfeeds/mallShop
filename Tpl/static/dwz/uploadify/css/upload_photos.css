@@ -1,0 +1,156 @@
+@CHARSET "UTF-8";
+.my-uploadify-button {
+	background:none;
+	border: none;
+	text-shadow: none;
+	border-radius:0;
+}
+
+.uploadify:hover .my-uploadify-button {
+	background:none;
+	border: none;
+}
+
+.fileQueue {
+	width: 380px;
+	height: 150px;
+	overflow: auto;
+	border: 1px solid #E5E5E5;
+	margin-bottom: 10px;
+}
+
+.list-box {
+	bottom: 34px;
+	right: 0;
+	top: 144px;
+	left: 245px;
+}
+.list {
+	overflow-x: hidden;
+	overflow-y: auto;
+	background: #fff;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	_position: relative;
+}
+.list-item {
+	overflow: hidden;
+}
+ul, ol {
+	list-style: none;
+}
+.thumb-box {
+	float: left;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 20px;
+	width: 166px;
+	overflow: hidden;
+	position: relative;
+}
+.thumb {
+	width: 160px;
+	height: 164px;
+	text-align: center;
+	vertical-align: middle;
+	display: table-cell;
+	font-size: 0;
+	border: 2px solid #f2f2f2;
+	_display: block;
+	_font-size: 145px;
+	_overflow: hidden;
+	zoom: 1;
+}
+.thumb-box a {
+	color: #338d3a;
+}
+a {
+	text-decoration: none;
+}
+fieldset, img {
+	border: 0;
+	max-height: 164px;
+    max-width: 160px;
+}
+.thumb-name {
+	height: 20px;
+	line-height: 20px;
+	margin-top: 2px;
+	overflow: hidden;
+	text-align: center;
+}
+.copy-box {
+	position: relative;
+	height: 20px;
+	width: 100%;
+}
+b {
+	font-weight: 500;
+}
+.copy-code-box {
+	left: 32px;
+}
+.copy-code-box, .copy-link-box, .copy-image-box {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	overflow: hidden;
+	line-height: 18px;
+	height: 18px;
+}
+.copy-box a {
+	cursor: pointer;
+}
+.copy-btn {
+	display: block;
+}
+.bar1 {
+	left: 62px;
+}
+.bar1, .bar2 {
+	position: absolute;
+	top: 0;
+}
+.bar2 {
+	left: 106px;
+}
+
+.copy-link-box {
+	left: 75px;
+}
+.copy-image-box {
+	left: 120px;
+}
+.checkbox-box {
+	padding-right: 6px;
+	float: left;
+}
+.checkbox {
+	position: relative;
+	top: 2px;
+}
+.checkbox_attached_map {
+	position: relative;
+	top: -3px;
+}
+.edit-box a {
+	cursor: pointer;
+	margin-right: 5px;
+}
+.thumb:hover {
+	border-color: #4ab110;
+}
+a:hover {
+	text-decoration: underline;
+}
+div {
+	display: block;
+}
+li {
+	text-align: -webkit-match-parent;
+}
+ul, ol {
+	list-style: none;
+}

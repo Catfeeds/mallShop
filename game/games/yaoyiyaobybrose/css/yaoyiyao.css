@@ -1,0 +1,47 @@
+@charset "utf-8";html, body{margin:0;font: 14px/1.5 "Microsoft YaHei",Tahoma, Arial, Geneva, HELVETICA;min-height: 100%;height:100%;}
+body, h1, h2, h3, h4, h5, h6, dl, dd, p, ul, ol, input, button, textarea, select, menu{font-weight: normal;margin:0;}
+ul, ol, input, textarea, select, menu{padding: 0;}li{list-style-type: none;}
+em, i{font-style: normal;}
+button,input, textarea, select{background:rgb(255,255,255);outline: none;vertical-align: middle;resize: none;-webkit-tap-highlight-color:rgba(0,0,0,0);font: 14px/1.5 "Microsoft YaHei",Tahoma, Arial, Geneva, HELVETICA;}
+select{-webkit-appearance:none;appearance:none;border-radius:0;}
+textarea{resize: none;}
+a img{border: 0;}
+img{vertical-align:middle;}
+header, nav, menu, article, aside, dialog, footer, section, footer, figure{display: block;}
+form,button[type="button"],button[type="submit"],input[type="submit"], input[type="button"]{cursor: pointer;-webkit-tap-highlight-color:rgba(0,0,0,0);}
+.cf:before, .cf:after{content: "";display: table;}
+input:focus{outline: 0 none;-webkit-user-modify: read-write-plaintext-only;-webkit-tap-highlight-color: rgba(0,0,0,0);}
+.cf:after{clear: both;}
+.cf{zoom: 1;}
+.clear{clear: both;height: 0;line-height: 0;overflow: hidden;visibility: hidden;font-size: 0;}
+.fl, .fr{display: inline;}
+.fl{float: left;}
+.fr{float: right;}
+a, img {-webkit-touch-callout: none;}
+/*html, body {-webkit-user-select: none;user-select: none;}*/
+html, body {width: 100%; min-width: 320px; max-width: 640px; margin: 0 auto}
+.app-content{ width: 100%; height: 100%;background: url("../images/7-27-bj.jpg") no-repeat; background-size:100% 100%;}
+.luck-header{ width: 58%; margin: 0 auto;}
+.luck-header img{ width: 100%}
+.luck-rice{ width: 52%; margin: 0 auto; position: absolute; top: 25%; left: 50%; margin-left: -26%;}
+.luck-rice img{ width: 100%;}
+
+.luck-footer{ width: 65.6%; margin: 0 auto; position: absolute; bottom:5%; left: 50%; margin-left: -32.8%}
+.luck-footer img{ width: 100%}
+#musicBox,.luck-succ,.lxfs,.luck-fail ,.gfwb { display: none}
+.luck-succ{ width: 72%; margin: 0 auto; margin-top:5%; }
+.luck-succ img{ width: 100%}
+.lxfs{ font-size: 14px; font-weight: bold; text-align: center; color: #ffffff; margin-top: 5%;}
+.luck-fail{ width: 72%; margin: 0 auto; margin-top:5%;}
+.luck-fail img{ width: 100%;}
+.gfwb{ font-size: 14px; font-weight: bold; text-align: center; color: #ffffff; height:40px; line-height: 40px;}
+.gfwb a{ color: #ffffff; text-decoration: none}
+.luck-tel{ width: 86%; margin: 0 auto; position:  relative; margin-top: 20px; display: none}
+.luck-tel img{ width: 100%}
+.luck-tel2{ position: absolute; top:70%; width: 220px; left: 50%; margin-left: -110px; }
+.luck-tel2 label{ float: left; font-size: 16px; font-weight:700; width: 20%; text-align: left;}
+.luck-tel2 input{ border: 1px solid #000000; background: none;height: 20px; line-height: 20px; width:79%;}
+.luck-botton{ width: 80px; margin: 0 auto; display: none}
+.luck-botton input{ width: 100%;color: #000000; background: #fff200; border: none; border-radius: 3px; height:30px; line-height:30px; margin-top:40px; font-size: 16px;}
+.luck-fail{ position: relative;}
+#playagain{ position: absolute; width: 100px; bottom:10%; height: 30px; line-height: 30px; text-align: center; background: #fff200; color:#000000; left: 50%; margin-left: -50px; box-shadow:0 3px 3px #a0a0a0; text-decoration: none; }
